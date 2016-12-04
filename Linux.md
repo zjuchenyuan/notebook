@@ -36,3 +36,25 @@ TODO: 补充iodine的笔记
 如果当前仓库是https的，改为git方式：
 
     git remote set-url origin git@github.com:用户名/仓库名称.git
+    
+----
+
+#配置有线静态IP
+```bash
+vim /etc/network/interfaces
+#写入以下内容，请自行替换xx部分
+iface eth0 inet static
+ address 10.xx.xx.13
+ netmask 255.255.255.0
+ network 10.xx.xx.0
+ broadcast 10.xx.xx.255
+ gateway 10.xx.xx.254
+ dns-nameservers 10.10.0.21
+#按Esc, :wq退出保存
+service networking restart
+ifconfig eth0 10.xx.xx.13 netmask 255.255.255.0 up
+route add default eth0
+```
+
+#单网卡获得多个IP
+ifconfig eth0:233 10.xx.xx.233 netmask 255.255.255.0 up
