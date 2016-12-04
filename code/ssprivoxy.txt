@@ -1,3 +1,6 @@
+#本代码将安装shadowsocks和privoxy
+#执行后再运行的apt-get等操作将通过shadowsocks翻墙
+
 #安装shadowsocks，使用豆瓣源
 pip install shadowsocks -i http://pypi.doubanio.com/simple/
 
