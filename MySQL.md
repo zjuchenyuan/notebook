@@ -15,20 +15,29 @@ desc 表名称;
 假设有a,b表，他们的结构完全相同，然后就可以建立一个c表和他们的ddl完全一致
 
 ```sql
-CREATE TABLE a (
-   `id` int(11) NOT NULL,
-  `data` longtext NOT NULL,
-    PRIMARY KEY (`id`)
-) ENGINE= MyISAM DEFAULT CHARSET=utf8;
-CREATE TABLE b (
-   `id` int(11) NOT NULL,
-  `data` longtext NOT NULL,
-    PRIMARY KEY (`id`)
-) ENGINE= MyISAM DEFAULT CHARSET=utf8;
 drop table if exists data;
 CREATE TABLE c (
    `id` int(11) NOT NULL,
   `data` longtext NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE= MRG_MYISAM ,UNION=(a,b);
+```
+
+特点：
+
+这种表不会创建索引，比视图速度更快；
+
+但不能在这种表上建立全文索引
+
+----
+
+#删除表的冗余
+
+两行只有一列(gettime)不同，删除其中一行
+
+```sql
+delete t1 from t as t1, t as t2 where
+    t1.id = t2.id and
+    t1.其他列=t2.其他列 and
+    t1.gettime>t2.gettime;
 ```
