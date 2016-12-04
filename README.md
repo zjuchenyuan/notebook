@@ -1,6 +1,6 @@
 # Notebook
 
-![notebook](https://raw.githubusercontent.com/zjuchenyuan/notebook/master/img/notebook.jpg)
+![notebook](https://raw.githubusercontent.com/zjuchenyuan/notebook/master/download/img/notebook.jpg)
 
 My notebook about technology, for further looking up.
 
@@ -17,3 +17,19 @@ Including Docker, Nginx, CDN, Python, VirtualBox, C++, BAT and more...
 Welcome for issue, star, and pull requests.
 
 欢迎给我提issue和pull，既然来了，何不点个赞呢~
+
+# 目录
+
+[Linux](https://github.com/zjuchenyuan/notebook/blob/master/Linux.md)
+
+[Docker](https://github.com/zjuchenyuan/notebook/blob/master/Docker.md)
+
+[BAT](https://github.com/zjuchenyuan/notebook/blob/master/BAT.md)
+
+#code索引
+
+[让apt-get翻墙](https://github.com/zjuchenyuan/notebook/blob/master/code/ssprivoxy.txt)
+
+#download索引
+
+[Windows内存整理](https://github.com/zjuchenyuan/notebook/blob/master/download/empty.exe)
