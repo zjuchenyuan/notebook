@@ -24,6 +24,8 @@ Welcome for issue, star, and pull requests.
 
 [Docker](https://github.com/zjuchenyuan/notebook/blob/master/Docker.md)
 
+[MySQL](https://github.com/zjuchenyuan/notebook/blob/master/MySQL.md)
+
 [BAT](https://github.com/zjuchenyuan/notebook/blob/master/BAT.md)
 
 #codeË÷Òý
