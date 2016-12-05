@@ -18,6 +18,14 @@ TODO: 补充iodine的笔记
 
 ----
 
+#当前目录文件全文搜索
+
+这里要搜索当前目录下面所有的包含"MultiTeam"的php文件
+
+    find| grep .php| xargs cat|grep MultiTeam -r .
+
+----
+
 #配置有线静态IP
 ```bash
 vim /etc/network/interfaces

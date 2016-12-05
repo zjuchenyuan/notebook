@@ -1,6 +1,6 @@
 #Git的学习笔记咯
 
-> 参考 http://igit.linuxtoy.org/
+> 参考 **沉浸式学 Git** http://igit.linuxtoy.org/
 
 ----
 
@@ -56,15 +56,19 @@ alias gl="git log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short"
 
 要立即生效，可以执行source ~/.bashrc
 
-#git status
+----
+
+#好玩的命令们
+
+##git status
 
 查看状态咯~
 
-#git reset
+##git reset
 
 已经`git add`了，想取消这一步就用`git reset`
 
-#git checkout
+##git checkout
 
 啊。。。代码搞坏了我要回滚到上次commit，用`git checkout -- 文件名`
 
