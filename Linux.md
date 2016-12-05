@@ -58,3 +58,21 @@ route add default eth0
 
 #单网卡获得多个IP
 ifconfig eth0:233 10.xx.xx.233 netmask 255.255.255.0 up
+
+----
+#锐速安装
+
+来自：https://github.com/91yun/serverspeeder
+
+安装之前需要修改内核版本：
+
+    apt-get install linux-image-3.16.0-43-generic
+
+安装命令：#此安装脚本会连接开发者的服务器以root权限执行远程指令，风险自负
+
+    wget -N --no-check-certificate https://raw.githubusercontent.com/91yun/serverspeeder/master/serverspeeder-all.sh && bash serverspeeder-all.sh
+    
+查看状态/关闭服务：
+
+    service serverSpeeder stauts
+    service serverSpeeder stop
