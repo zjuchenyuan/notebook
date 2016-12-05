@@ -54,6 +54,8 @@ alias gp='git push'
 alias gl="git log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short"
 ```
 
+![gl的效果](https://raw.githubusercontent.com/zjuchenyuan/notebook/master/download/img/gl.jpg)
+
 要立即生效，可以执行source ~/.bashrc
 
 ----
@@ -81,3 +83,10 @@ alias gl="git log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short"
 因为有些时候两个文件可能是不相关的修改，应该分别提交两次
 
 > 通过分开暂存和提交，你能够更加容易地调优每一个提交。
+
+* 为啥不改.profile而是改.bashrc呢
+
+因为win10中只要有一个bash窗口没关掉，启动bash就不是登录，而是相当于再开了个`docker exec -i -t bashonwin10 /bin/bash`
+
+此时是不会执行登录脚本.profile的，但是.bashrc还是会执行的
+
