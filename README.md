@@ -16,7 +16,7 @@ Including Docker, Nginx, MySQL, CDN, Python, VirtualBox, C++, BAT and more...
 
 Welcome for issue, star, and pull requests.
 
-欢迎给我提issue和pull，既然来了，何不点个赞呢~
+欢迎给我提issue和pull，既然来了，何不点个赞star呢~
 
 # 目录
 
@@ -25,6 +25,8 @@ Welcome for issue, star, and pull requests.
 [Docker](https://github.com/zjuchenyuan/notebook/blob/master/Docker.md)
 
 [MySQL](https://github.com/zjuchenyuan/notebook/blob/master/MySQL.md)
+
+[C](https://github.com/zjuchenyuan/notebook/blob/master/C.md)
 
 [CDN](https://github.com/zjuchenyuan/notebook/blob/master/CDN.md)
 
