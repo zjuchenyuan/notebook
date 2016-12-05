@@ -1,47 +1,47 @@
-#Git��ѧϰ�ʼǿ�
+#Git的学习笔记咯
 
-> �ο� **����ʽѧ Git** http://igit.linuxtoy.org/
+> 参考 **沉浸式学 Git** http://igit.linuxtoy.org/
 
 ----
 
-#��������
+#基础命令
 
-����ҳ���ȴ�����repo�����ú�.gitignore
+在网页上先创建了repo，设置好.gitignore
 
 ```bash
-git clone  github�ṩ�ĵ�ַ(��ssh��)
-#Ȼ�󶪴����ȥ��
+git clone  github提供的地址(用ssh的)
+#然后丢代码进去咯
 git add .
-git commit -a -m "��θ���Щɶ��"
+git commit -a -m "这次改了些啥？"
 git push
 ```
 
 ----
 
-#git push������
+#git push免密码
 
-����http://blog.csdn.net/chfe007/article/details/43388041
+参照http://blog.csdn.net/chfe007/article/details/43388041
 
-���������Լ���ssh��Կ
+首先生成自己的ssh密钥
 
     ssh-keygen -t rsa -b 4096
 
-Ȼ���id_rsa.pub���������õ�github�У���ҳ�˲���������˳������������֤
+然后把id_rsa.pub的内容设置到github中，网页端操作；建议顺带启用两步验证
 
-����git�Լ���˭��
+告诉git自己是谁：
 
-    git config --global user.email "����"
-    git config --global user.name "�û���"
+    git config --global user.email "邮箱"
+    git config --global user.name "用户名"
 
-�����ǰ�ֿ���https�ģ���Ϊgit��ʽ��
+如果当前仓库是https的，改为git方式：
 
-    git remote set-url origin git@github.com:�û���/�ֿ�����.git
+    git remote set-url origin git@github.com:用户名/仓库名称.git
     
 ----
 
-#�ٴ����
+#少打点字
 
-ͨ���޸�~/.bashrc�����ñ�������
+通过修改~/.bashrc来设置别名咯：
 
 ```
 alias gs='git status '
@@ -54,39 +54,45 @@ alias gp='git push'
 alias gl="git log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short"
 ```
 
-![gl��Ч��](https://raw.githubusercontent.com/zjuchenyuan/notebook/master/download/img/gl.jpg)
+![gl的效果](https://raw.githubusercontent.com/zjuchenyuan/notebook/master/download/img/gl.jpg)
 
-Ҫ������Ч������ִ��source ~/.bashrc
+要立即生效，可以执行`source ~/.bashrc`
 
 ----
 
-#�����������
+#Git也要翻墙
+
+代码参见![code/ssgit.txt](code/ssgit.txt)
+
+----
+
+#好玩的命令们
 
 ##git status
 
-�鿴״̬��~
+查看状态咯~
 
 ##git reset
 
-�Ѿ�`git add`�ˣ���ȡ����һ������`git reset`
+已经`git add`了，想取消这一步就用`git reset`
 
 ##git checkout
 
-������������㻵����Ҫ�ع����ϴ�commit����`git checkout -- �ļ���`
+啊。。。代码搞坏了我要回滚到上次commit，用`git checkout -- 文件名`
 
 ----
 
-#��ѧ
+#哲学
 
-* ΪɶҪ**git add**��?
+* 为啥要**git add**呢?
 
-��Ϊ��Щʱ�������ļ������ǲ���ص��޸ģ�Ӧ�÷ֱ��ύ����
+因为有些时候两个文件可能是不相关的修改，应该分别提交两次
 
-> ͨ���ֿ��ݴ���ύ�����ܹ��������׵ص���ÿһ���ύ��
+> 通过分开暂存和提交，你能够更加容易地调优每一个提交。
 
-* Ϊɶ����.profile���Ǹ�.bashrc��
+* 为啥不改.profile而是改.bashrc呢
 
-��Ϊwin10��ֻҪ��һ��bash����û�ص�������bash�Ͳ��ǵ�¼�������൱���ٿ��˸�`docker exec -i -t bashonwin10 /bin/bash`
+因为win10中只要有一个bash窗口没关掉，启动bash就不是登录，而是相当于再开了个`docker exec -i -t bashonwin10 /bin/bash`
 
-��ʱ�ǲ���ִ�е�¼�ű�.profile�ģ�����.bashrc���ǻ�ִ�е�
+此时是不会执行登录脚本.profile的，但是.bashrc还是会执行的
 

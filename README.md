@@ -36,7 +36,9 @@ Welcome for issue, star, and pull requests.
 
 #codeË÷Òı
 
-[ÈÃapt-get·­Ç½](https://github.com/zjuchenyuan/notebook/blob/master/code/ssprivoxy.txt)
+[ÈÃapt-get·­Ç½](code/ssprivoxy.txt)
+
+[ÈÃgit·­Ç½](code/ssgit.txt)
 
 #downloadË÷Òı
 
