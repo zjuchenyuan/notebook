@@ -39,6 +39,22 @@ git push
     
 ----
 
+#少打点字
+
+通过修改~/.profile来设置别名咯：
+
+```
+alias gs='git status '
+alias ga='git add '
+alias gb='git branch '
+alias gc='git commit'
+alias gd='git diff'
+alias go='git checkout '
+alias gl="git log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short"
+```
+
+要立即生效，可以执行source ~/.profile
+
 #git status
 
 查看状态咯~
@@ -50,3 +66,13 @@ git push
 #git checkout
 
 啊。。。代码搞坏了我要回滚到上次commit，用`git checkout -- 文件名`
+
+----
+
+#哲学
+
+* 为啥要**git add**呢?
+
+因为有些时候两个文件可能是不相关的修改，应该分别提交两次
+
+> 通过分开暂存和提交，你能够更加容易地调优每一个提交。
