@@ -64,9 +64,10 @@ ifconfig eth0:233 10.xx.xx.233 netmask 255.255.255.0 up
 
 来自：https://github.com/91yun/serverspeeder
 
-安装之前需要修改内核版本：
+安装之前需要修改内核版本并重启：
 
     apt-get install linux-image-3.16.0-43-generic
+    reboot
 
 安装命令：#此安装脚本会连接开发者的服务器以root权限执行远程指令，风险自负
 
