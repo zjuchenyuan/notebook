@@ -6,7 +6,7 @@ My notebook about technology, for further looking up.
 
 我的技术笔记本，为了自己后来方便查询多做点记录吧，开源出来也许更有价值~
 
-Including Docker, Nginx, CDN, Python, VirtualBox, C++, BAT and more...
+Including Docker, Nginx, MySQL, CDN, Python, VirtualBox, C++, BAT and more...
 
 预计将包含以上几个方面的笔记。
 
@@ -25,6 +25,8 @@ Welcome for issue, star, and pull requests.
 [Docker](https://github.com/zjuchenyuan/notebook/blob/master/Docker.md)
 
 [MySQL](https://github.com/zjuchenyuan/notebook/blob/master/MySQL.md)
+
+[CDN](https://github.com/zjuchenyuan/notebook/blob/master/CDN.md)
 
 [BAT](https://github.com/zjuchenyuan/notebook/blob/master/BAT.md)
 
