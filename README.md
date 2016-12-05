@@ -26,6 +26,8 @@ Welcome for issue, star, and pull requests.
 
 [MySQL](https://github.com/zjuchenyuan/notebook/blob/master/MySQL.md)
 
+[Python](https://github.com/zjuchenyuan/notebook/blob/master/Python.md)
+
 [C](https://github.com/zjuchenyuan/notebook/blob/master/C.md)
 
 [CDN](https://github.com/zjuchenyuan/notebook/blob/master/CDN.md)
@@ -39,3 +41,5 @@ Welcome for issue, star, and pull requests.
 #download索引
 
 [Windows内存整理](https://github.com/zjuchenyuan/notebook/blob/master/download/empty.exe)
+
+[sleep睡一会](https://github.com/zjuchenyuan/notebook/blob/master/download/sleep.exe)
