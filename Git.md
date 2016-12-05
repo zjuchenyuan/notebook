@@ -41,7 +41,7 @@ git push
 
 #少打点字
 
-通过修改~/.profile来设置别名咯：
+通过修改~/.bashrc来设置别名咯：
 
 ```
 alias gs='git status '
@@ -50,10 +50,11 @@ alias gb='git branch '
 alias gc='git commit'
 alias gd='git diff'
 alias go='git checkout '
+alias gp='git push'
 alias gl="git log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short"
 ```
 
-要立即生效，可以执行source ~/.profile
+要立即生效，可以执行source ~/.bashrc
 
 #git status
 
