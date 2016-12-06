@@ -51,7 +51,7 @@ alias gc='git commit'
 alias gd='git diff'
 alias go='git checkout '
 alias gp='git push'
-alias gl="git log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short"
+alias gl="git log --all --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short"
 ```
 
 ![gl的效果](https://raw.githubusercontent.com/zjuchenyuan/notebook/master/download/img/gl.jpg)
@@ -62,7 +62,7 @@ alias gl="git log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short"
 
 #Git也要翻墙
 
-代码参见![code/ssgit.txt](code/ssgit.txt)
+代码参见[code/ssgit.txt](code/ssgit.txt)
 
 ----
 
