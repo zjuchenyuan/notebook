@@ -64,3 +64,44 @@ ifconfig eth0:233 10.xx.xx.233 netmask 255.255.255.0 up
 
     service serverSpeeder stauts
     service serverSpeeder stop
+    
+----
+#解决apt依赖问题
+
+问题描述：服务器为ubuntu14.04版本，某些不明操作后，无法用`apt-get`安装任何东西
+
+```bash
+> apt-get -f install
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+Correcting dependencies... failed.
+The following packages have unmet dependencies:
+ libatk1.0-0 : Depends: libglib2.0-0 (>= 2.41.1) but 2.40.0-2 is installed
+ libglib2.0-bin : Depends: libglib2.0-0 (= 2.44.0-1ubuntu3) but 2.40.0-2 is installed
+ libglib2.0-dev : Depends: libglib2.0-0 (= 2.44.0-1ubuntu3) but 2.40.0-2 is installed
+ libgtk2.0-0 : Depends: libglib2.0-0 (>= 2.41.1) but 2.40.0-2 is installed
+E: Error, pkgProblemResolver::Resolve generated breaks, this may be caused by held packages.
+E: Unable to correct dependencies
+```
+
+仔细看错误说明，libglib2.0-bin这个软件包要求libglib2.0-0的版本=2.44但是现有的安装版本为2.40
+
+在ubuntu的软件包官网搜索咯：https://launchpad.net/ubuntu/
+
+发现2.44版本的是vivid才提供的，现在系统版本是trusty，自然apt-get装不了
+
+解决方案：
+
+找到报错信息需要的精确匹配的那个deb文件下载咯，例如这里就要下载这个版本的：
+
+https://launchpad.net/ubuntu/vivid/amd64/libglib2.0-0/2.44.0-1ubuntu3
+
+得到deb文件后`dpkg -i 文件名`
+
+## Note
+
+一般apt依赖冲突问题都是由于系统版本与需要的包的版本不一致导致的，检查一下/etc/apt/sources.list看看是否匹配系统版本咯
+
+用apt-get前检查一下sources.list，树莓派是版本8，是jessie不是wheezy!
+
