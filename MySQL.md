@@ -41,3 +41,19 @@ delete t1 from t as t1, t as t2 where
     t1.其他列=t2.其他列 and
     t1.gettime>t2.gettime;
 ```
+
+----
+
+#修改表 alter table
+
+```sql
+ALTER IGNORE TABLE `表名称`
+MODIFY COLUMN `id`  int(11) NOT NULL FIRST,
+MODIFY COLUMN `user` varchar(66) NOT NULL AFTER `id`,
+MODIFY COLUMN `content` longtext NOT NULL AFTER `user`,
+DROP PRIMARY KEY,
+ADD PRIMARY KEY (`id`),
+DROP INDEX `a1`,
+ADD INDEX `a1` (`user`);
+```
+
