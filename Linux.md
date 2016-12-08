@@ -43,7 +43,18 @@ ifconfig eth0 10.xx.xx.13 netmask 255.255.255.0 up
 route add default eth0
 ```
 
-#单网卡获得多个IP
+## 配置apt源
+
+    curl http://mirrors.163.com/.help/sources.list.trusty>/etc/apt/sources.list
+
+如果只能手打，vim复制一行的命令为yy，粘贴为p
+
+```
+deb http://mirrors.163.com/ubuntu/ trusty main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse
+```
+
+## 单网卡获得多个IP
 ifconfig eth0:233 10.xx.xx.233 netmask 255.255.255.0 up
 
 ----
