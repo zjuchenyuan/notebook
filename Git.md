@@ -39,11 +39,17 @@ git push
     
 ----
 
-#少打点字
+#bash别名设置
 
-通过修改~/.bashrc来设置别名咯：
+通过修改~/.bashrc来设置别名，让git的日常使用更简单：
 
 ```
+func_g(){
+  git add .
+  git commit -a -m "$1"
+  git push
+}
+alias g=func_g
 alias gs='git status '
 alias ga='git add '
 alias gb='git branch '
@@ -55,6 +61,8 @@ alias gl="git log --all --pretty=format:'%h %ad | %s%d [%an]' --graph --date=sho
 ```
 
 ![gl的效果](https://raw.githubusercontent.com/zjuchenyuan/notebook/master/download/img/gl.jpg)
+
+完成一次提交，现在只需要`g "提交信息"`
 
 要立即生效，可以执行`source ~/.bashrc`
 
