@@ -116,3 +116,25 @@ https://launchpad.net/ubuntu/vivid/amd64/libglib2.0-0/2.44.0-1ubuntu3
 
 用apt-get前检查一下sources.list，树莓派是版本8，是jessie不是wheezy!
 
+----
+
+# UnixBench
+
+VPS性能测试工具，耗时较长，耐心等待
+
+```bash
+curl https://codeload.github.com/kdlucas/byte-unixbench/zip/v5.1.3>UnixBench.zip
+unzip UnixBench.zip
+cd byte-unixbench-5.1.3/UnixBench
+#apt-get install build-essential
+make
+screen -S ub
+./Run
+```
+
+## 硬盘IO性能测试
+
+```
+dd if=/dev/zero of=test bs=64k count=4k oflag=dsync
+dd if=/dev/zero of=test bs=8k count=256k conv=fdatasync
+```
