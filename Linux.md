@@ -138,3 +138,8 @@ screen -S ub
 dd if=/dev/zero of=test bs=64k count=4k oflag=dsync
 dd if=/dev/zero of=test bs=8k count=256k conv=fdatasync
 ```
+
+## 参考数据，均为最低配置
+
+主机屋1590.5；阿里云1470.4；腾讯云1156.0
+
