@@ -20,19 +20,21 @@ Welcome for issue, star, and pull requests.
 
 # 目录
 
-[Linux](https://github.com/zjuchenyuan/notebook/blob/master/Linux.md)
+[WinSoftware](WindowsSoftware.md)
 
-[Docker](https://github.com/zjuchenyuan/notebook/blob/master/Docker.md)
+[Linux](Linux.md)
 
-[MySQL](https://github.com/zjuchenyuan/notebook/blob/master/MySQL.md)
+[Docker](Docker.md)
 
-[Python](https://github.com/zjuchenyuan/notebook/blob/master/Python.md)
+[MySQL](MySQL.md)
 
-[C](https://github.com/zjuchenyuan/notebook/blob/master/C.md)
+[Python](Python.md)
 
-[CDN](https://github.com/zjuchenyuan/notebook/blob/master/CDN.md)
+[C](C.md)
 
-[BAT](https://github.com/zjuchenyuan/notebook/blob/master/BAT.md)
+[CDN](CDN.md)
+
+[BAT](BAT.md)
 
 #code索引
 
@@ -42,6 +44,8 @@ Welcome for issue, star, and pull requests.
 
 #download索引
 
-[Windows内存整理](https://github.com/zjuchenyuan/notebook/blob/master/download/empty.exe)
+[Windows内存整理](download/empty.exe)
 
-[sleep睡一会](https://github.com/zjuchenyuan/notebook/blob/master/download/sleep.exe)
+[sleep睡一会](download/sleep.exe)
+
+[任务管理器](download/procexp.exe)
