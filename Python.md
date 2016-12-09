@@ -4,6 +4,15 @@
 
 ----
 
+#设置pip源
+
+```
+echo """
+[global]
+index-url = https://pypi.doubanio.com/simple/
+""">~/.pip/pip.conf
+```
+
 #反弹shell
 
 首先自己的服务器上用**nc -l 端口**
