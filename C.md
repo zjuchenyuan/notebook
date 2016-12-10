@@ -55,8 +55,8 @@ int main(){
     stringstream s;
     string result;
     int i = 1000;
-    s <<"haha"<< i; 
-    s >> result; 
+    s <<"haha "<< i; 
+    getline(s,result); // the whole line rather than just the first word
     cout << result << endl; // print "haha1000"
     s.clear();
 } 
