@@ -57,3 +57,8 @@ DROP INDEX `a1`,
 ADD INDEX `a1` (`user`);
 ```
 
+----
+
+#将中文转为拼音 函数
+
+代码在[code/pinyin.sql](code/pinyin.sql)
