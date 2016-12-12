@@ -38,4 +38,4 @@ BEGIN
 END;
 $
 DELIMITER ;
-select to_pinyin('²âÊÔ');
+select to_pinyin('æµ‹è¯•');
