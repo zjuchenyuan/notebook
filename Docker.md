@@ -24,15 +24,7 @@
 
 来自：https://lug.ustc.edu.cn/wiki/mirrors/help/docker
 
-修改 /etc/docker/daemon.json 加入（没有该文件的话，请先建一个）：
-
-    {
-      "registry-mirrors": ["https://docker.mirrors.ustc.edu.cn"]
-    }
-
-##也可以试试使用daocloud提供的dao工具
-
-TODO:研究dao的安装，不需要daomonit
+    echo '{"registry-mirrors": ["https://docker.mirrors.ustc.edu.cn"]}'>/etc/docker/daemon.json
 
 -------
 
