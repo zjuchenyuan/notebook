@@ -57,18 +57,15 @@ REM 在bat中REM命令表示注释行
 REM 简单的get一下
 curl http://ip.cn
 
-REM 保存到文件
-curl -o ip.txt  http://ip.cn
+REM 保存到文件并断点续传（可以不指定文件名-O）
+curl -o iplist.txt -c  http://f.ip.cn/rt/chnroutes.txt
 
 REM POST请求，设置Referer，并使用代理
 curl http://httpbin.org/post --data "something=somedata" -H "Referer: http://github.com/zjuchenyuan/" --proxy socks5://127.0.0.1:1080
 
-REM 断点续传，按原文件名称保存
-curl -c -O http://chenyuan.me/wp-content/themes/nisarg/images/headers/mountains.png
-
-REM 文件上传
+REM 文件上传 @文件名
 REM POST模式下的文件上的文件上传，比如
-REM <form method="POST" enctype="multipar/form-data" action="http://cgi2.tky.3web.ne.jp/~zzh/up_file.cgi">
+REM <form method="POST" enctype="multipart/form-data" action="http://cgi2.tky.3web.ne.jp/~zzh/up_file.cgi">
 REM <input type=file name=upload>
 REM <input type=submit name=nick value="go">
 REM </form>
@@ -84,6 +81,6 @@ curl -D cookie0001.txt http://www.yahoo.com
 REM 使用存储的Cookie
 curl -b cookie0001.txt http://www.yahoo.com
 
-REM dict协议查字典
-curl dict://dict.org/d:computer
+REM dict协议查字典，显示详细的请求信息
+curl dict://www.dict.org/d:computer -v
 ```
