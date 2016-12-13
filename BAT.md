@@ -37,3 +37,53 @@
     sleep 10
     
 ----
+#命令行的爬虫 curl
+
+![cURL](https://curl.haxx.se/logo/curl-logo.svg)
+
+> 大名鼎鼎的cURL，不必多言；只是它的命令行的运行方式与libcurl用起来差异很大（如比较php的curl用法）
+
+> 官方：https://curl.haxx.se/
+
+> 简单入门：http://www.bathome.net/thread-1761-1-1.html
+
+> **将curl转为python requests** http://curl.trillworks.com/
+
+[下载7.51 x64版本](download/curl.exe)
+
+```
+REM 在bat中REM命令表示注释行
+
+REM 简单的get一下
+curl http://ip.cn
+
+REM 保存到文件
+curl -o ip.txt  http://ip.cn
+
+REM POST请求，设置Referer，并使用代理
+curl http://httpbin.org/post --data "something=somedata" -H "Referer: http://github.com/zjuchenyuan/" --proxy socks5://127.0.0.1:1080
+
+REM 断点续传，按原文件名称保存
+curl -c -O http://chenyuan.me/wp-content/themes/nisarg/images/headers/mountains.png
+
+REM 文件上传
+REM POST模式下的文件上的文件上传，比如
+REM <form method="POST" enctype="multipar/form-data" action="http://cgi2.tky.3web.ne.jp/~zzh/up_file.cgi">
+REM <input type=file name=upload>
+REM <input type=submit name=nick value="go">
+REM </form>
+REM 这样一个HTTP表单，我们要用curl进行模拟，就该是这样的语法：
+curl -F upload=@localfile -F nick=go http://cgi2.tky.3web.ne.jp/~zzh/up_file.cgi
+
+REM 登录路由器
+curl http://192.168.1.1 -u admin:admin
+
+REM 存下Set-Cookie
+curl -D cookie0001.txt http://www.yahoo.com
+
+REM 使用存储的Cookie
+curl -b cookie0001.txt http://www.yahoo.com
+
+REM dict协议查字典
+curl dict://dict.org/d:computer
+```
