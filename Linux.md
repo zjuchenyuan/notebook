@@ -143,3 +143,12 @@ dd if=/dev/zero of=test bs=8k count=256k conv=fdatasync
 
 主机屋1590.5；阿里云1470.4；腾讯云1156.0
 
+----
+
+## 清除内存缓存
+
+```
+sync
+echo 3 > /proc/sys/vm/drop_caches
+```
+
