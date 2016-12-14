@@ -20,42 +20,62 @@ Welcome for issue, star, and pull requests.
 
 # 目录
 
-## [BAT](BAT.md)
+## [BAT 批处理](BAT.md)
 >* 循环for
 >* 结束进程taskkill
 >* 内存整理free
 >* 睡一会sleep
 >* [命令行的爬虫 curl](BAT.md#命令行的爬虫-curl)
 
-[C](C.md)
+## [C 语言](C.md)
 >* 关于Dev C++
 >* 输入的问题
 >* [C++用sstream代替sprintf](C.md#c用sstream代替sprintf)
 
-[WinSoftware](WindowsSoftware.md)
->*
->*
+## [CDN](CDN.md)
+>* UPYUN 又拍云
+>* Qiniu 七牛
 
-[Linux](Linux.md)
->*
->*
+## [Docker](Docker.md)
+>* [安装](Docker.md#install-安装)
+>* [加速镜像下载](Docker.md#加速镜像下载)
+>* 旧版本卸载
 
-[Docker](Docker.md)
->*
->*
+## [Git](Git.md)
+>* 基础入门
+>* [git push免密码](Git.md#git-push免密码)
+>* [bash别名设置 少打字](Git.md#bash别名设置)
+>* [Git也要翻墙](code/ssgit.txt)
+>* 好玩的命令们
 
-[MySQL](MySQL.md)
->*
->*
+## [Linux](Linux.md)
+>* [翻墙shadowsocks+privoxy](code/ssprivoxy.txt)
+>* 帮助文本的grep 用2>&1
+>* 当前目录文件全文搜索
+>* 配置有线静态IP
+>* [配置apt源](Linux.md#配置apt源)
+>* 解决apt依赖问题
+>* [UnixBench](Linux.md#UnixBench)
 
-[Python](Python.md)
->*
->*
+## [MySQL](MySQL.md)
+>* 查看表结构 desc
+>* MERGE存储引擎
+>* 删除表的冗余
+>* 修改表 alter table
+>* [将中文转为拼音的函数](code/pinyin.sql)
 
-[CDN](CDN.md)
->*
->*
+## [Python](Python.md)
+>* [设置pip源](Python.md#设置pip源)
+>* 让requests使用多个IP
+>* [Python多线程模板](code/MultiThread_Template.py)
+>* BaseHTTPServer并发性改善
 
+## [WinSoftware](WindowsSoftware.md)
+>* Emeditor
+>* Everything
+>* Sysinternals Utilities
+
+----
 
 #Code Index 代码索引
 
