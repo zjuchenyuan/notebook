@@ -10,3 +10,18 @@ ftp://v0.ftp.upyun.com
 ## UpyunManager
 
 http://micyin.b0.upaiyun.com/manager-for-upyun/manager-for-upyun-0.0.6-win32.exe
+
+
+----
+
+#Qiniu
+
+## 使用qshell上传文件夹
+
+    qshell qupload [<ThreadCount>] <LocalUploadConfig>
+
+需要写一个config文件，具体参见官方文档
+
+http://developer.qiniu.com/code/v6/tool/qshell.html
+
+https://github.com/qiniu/qshell/wiki/qupload
