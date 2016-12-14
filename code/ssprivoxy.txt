@@ -2,7 +2,12 @@
 #执行后再运行的apt-get等操作将通过shadowsocks翻墙
 
 #安装shadowsocks，使用豆瓣源
-pip install shadowsocks -i http://pypi.doubanio.com/simple/
+mkdir -p ~/.pip
+echo """
+[global]
+index-url = http://pypi.doubanio.com/simple/
+""">~/.pip/pip.conf
+pip install shadowsocks
 
 #在screen中运行sslocal
 screen -S ss

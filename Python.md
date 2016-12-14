@@ -9,9 +9,10 @@
 #ÉèÖÃpipÔ´
 
 ```
+mkdir -p ~/.pip
 echo """
 [global]
-index-url = https://pypi.doubanio.com/simple/
+index-url = http://pypi.doubanio.com/simple/
 """>~/.pip/pip.conf
 ```
 
