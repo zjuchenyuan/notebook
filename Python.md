@@ -54,3 +54,28 @@ import requests
 #Python多线程模板
 
 [MultiThread_Template.py](code/MultiThread_Template.py)
+
+## BaseHTTPServer并发性改善
+
+> 参考资料：[利用Python中SocketServer 实现客户端与服务器间非阻塞通信](http://blog.csdn.net/cnmilan/article/details/9664823)
+
+> 直接修改BaseHTTPServer的代码中的一个细节，可以大幅度提高使用BaseHTTPServer能支持的并发性
+
+首先找到BaseHTTPServer在哪：
+
+     python -c "import BaseHTTPServer; print(BaseHTTPServer)"
+
+修改对应的文件，如/usr/lib/python2.7/BaseHTTPServer.py
+
+找到这行：
+
+```
+class HTTPServer(SocketServer.TCPServer):
+```
+
+修改其继承的父类：
+
+```
+class HTTPServer(SocketServer.ThreadingTCPServer):
+```
+
