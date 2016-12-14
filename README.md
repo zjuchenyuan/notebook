@@ -20,32 +20,59 @@ Welcome for issue, star, and pull requests.
 
 # 目录
 
-[WinSoftware](WindowsSoftware.md)
-
-[Linux](Linux.md)
-
-[Docker](Docker.md)
-
-[MySQL](MySQL.md)
-
-[Python](Python.md)
+## [BAT](BAT.md)
+>* 循环for
+>* 结束进程taskkill
+>* 内存整理free
+>* 睡一会sleep
+>* [命令行的爬虫 curl](BAT.md#命令行的爬虫-curl)
 
 [C](C.md)
+>* 关于Dev C++
+>* 输入的问题
+>* [C++用sstream代替sprintf](C.md#c用sstream代替sprintf)
+
+[WinSoftware](WindowsSoftware.md)
+>*
+>*
+
+[Linux](Linux.md)
+>*
+>*
+
+[Docker](Docker.md)
+>*
+>*
+
+[MySQL](MySQL.md)
+>*
+>*
+
+[Python](Python.md)
+>*
+>*
 
 [CDN](CDN.md)
+>*
+>*
 
-[BAT](BAT.md)
 
-#code索引
+#Code Index 代码索引
 
 [让apt-get翻墙](code/ssprivoxy.txt)
 
 [让git翻墙](code/ssgit.txt)
 
-#download索引
+[Python多线程模板](code/MultiThread_Template.py)
+
+[Mysql姓名转拼音](code/pinyin.sql)
+
+#Download Index 下载索引
 
 [Windows内存整理](download/empty.exe)
 
 [sleep睡一会](download/sleep.exe)
 
 [任务管理器](download/procexp.exe)
+
+[cURL](download/curl.exe)
