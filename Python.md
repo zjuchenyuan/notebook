@@ -48,3 +48,9 @@ def set_src_addr(*args):
 socket.create_connection = set_src_addr
 import requests
 ```
+
+----
+
+#Python多线程模板
+
+[MultiThread_Template.py](code/MultiThread_Template.py)
