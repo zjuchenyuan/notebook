@@ -181,3 +181,14 @@ echo 3 > /proc/sys/vm/drop_caches
 只要重写一次。把-I改为-D即可
 
     iptables -D INPUT -s IP地址 -j DROP
+
+----
+
+## 无root权限使用screen
+
+> https://www.gnu.org/software/screen/
+
+复制相同操作系统下的screen二进制文件，运行前指定环境变量
+
+    mkdir -p $HOME/.screen
+    export SCREENDIR=$HOME/.screen
