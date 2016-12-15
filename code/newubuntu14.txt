@@ -7,7 +7,7 @@ curl http://mirrors.163.com/.help/sources.list.trusty>/etc/apt/sources.list
 
 apt-get update
 
-apt-get install -y screen python-pip  privoxy unzip
+apt-get install -y screen python-pip  privoxy unzip  libssl-dev openssl 
 
 mkdir -p ~/.pip
 echo """
