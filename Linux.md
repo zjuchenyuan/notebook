@@ -152,3 +152,32 @@ sync
 echo 3 > /proc/sys/vm/drop_caches
 ```
 
+----
+
+#使用iptables封ip
+
+###屏蔽单个IP
+
+    iptables -I INPUT -s 123.45.6.7 -j DROP
+
+###封C段
+
+    iptables -I INPUT -s 123.45.6.0/24 -j DROP
+
+####封B段
+
+     iptables -I INPUT -s 123.45.0.0/16 -j DROP
+
+###封A段
+
+    iptables -I INPUT -s 123.0.0.0/8 -j DROP
+
+记得**保存**：
+
+    service iptables save
+
+## 删除一条规则
+
+只要重写一次。把-I改为-D即可
+
+    iptables -D INPUT -s IP地址 -j DROP
