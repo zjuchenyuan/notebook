@@ -37,3 +37,9 @@
     rm -rf /var/lib/docker
 
 然后就可以执行安装命令了
+
+--------
+
+## 获得容器的ip
+
+    docker inspect  --format '{{.NetworkSettings.IPAddress}}' 容器名称
