@@ -79,3 +79,23 @@ class HTTPServer(SocketServer.TCPServer):
 class HTTPServer(SocketServer.ThreadingTCPServer):
 ```
 
+----
+
+## 无root权限安装Python
+
+下载最新版python源码后指定prefix编译，假设用户目录为/home/chenyuan
+
+```
+apt-get install libssl-dev openssl 
+curl -O https://www.python.org/ftp/python/3.5.2/Python-3.5.2.tgz
+tar -xzf Python-3.5.2.tgz
+cd Python-3.5.2/
+./configure --prefix=/home/chenyuan/python3
+make
+make install >/dev/null
+pushd /home/chenyuan/python3/bin
+cp python3 python
+cp pip3 pip
+alias python3=`pwd`/python
+alias pip3=`pwd`/pip
+```
