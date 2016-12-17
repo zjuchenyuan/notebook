@@ -192,3 +192,23 @@ echo 3 > /proc/sys/vm/drop_caches
 
     mkdir -p $HOME/.screen
     export SCREENDIR=$HOME/.screen
+    
+----
+
+## screen的用法
+
+列出存在的screen：
+
+    screen -ls
+    
+创建一个名为name的screen：
+
+    screen -S name
+
+从screen脱离：
+
+    按Ctrl+A后按d
+
+重新连上名称为name的screen：
+
+    screen -r name
