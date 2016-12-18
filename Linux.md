@@ -212,3 +212,12 @@ echo 3 > /proc/sys/vm/drop_caches
 重新连上名称为name的screen：
 
     screen -r name
+
+----
+
+# 统计当前文件夹代码行数
+
+find 指定文件后缀名，记住要引号避免bash解析*
+
+    find -name "*.py" -o -name "*.md"|xargs cat|wc
+
