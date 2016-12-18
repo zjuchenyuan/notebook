@@ -62,3 +62,15 @@ ADD INDEX `a1` (`user`);
 #将中文转为拼音 函数
 
 代码在[code/pinyin.sql](code/pinyin.sql)
+
+----
+
+#从路径URL获取文件名称
+
+来源 http://stackoverflow.com/questions/17090237/extracting-filenames-from-a-path-mysql
+
+使用SUBSTRING_INDEX函数，假设url此行的内容为"http://example.com/some/path/to/filename.zip"
+
+    select SUBSTRING_INDEX(url, '/', -1) as filename;
+    
+即可得到一列filename，此行数据为"filename.zip"
