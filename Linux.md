@@ -221,3 +221,39 @@ find 指定文件后缀名，记住要引号避免bash解析*
 
     find -name "*.py" -o -name "*.md"|xargs cat|wc
 
+----
+
+# 双网卡端口转发，暴露内网端口
+
+> 来自： https://yq.aliyun.com/wenzhang/show_25824
+
+有两台机器，其中一台A 有内网和外网，B只有内网。
+
+目标： 在外网访问A机器的2121端口，就相当于连上了B机器的ftp(21)
+
+##环境： 
+
+A机器外网IP为 123.234.12.22(eth1) 内网IP为 192.168.1.20 (eth0)
+
+B机器内网为 192.168.1.21
+
+## 实现方法：
+
+1. 在A机器上打开端口转发功能
+
+    echo 1 > /proc/sys/net/ipv4/ip_forward
+    echo -e "\nnet.ipv4.ip_forward = 1">>/etc/sysctl.conf
+    sysctl -p
+
+2. 在A机器上创建iptables规则
+
+    #把访问外网2121端口的包转发到内网ftp服务器
+    iptables -t nat -I PREROUTING -d 123.234.12.22 -p tcp --dport 2121 -j DNAT --to 192.168.1.21:21 
+    #把到内网ftp服务器的包回源到内网网卡上，不然包只能转到ftp服务器，而返回的包不能到达客户端
+    iptables -t nat -I POSTROUTING -d 192.168.1.21 -p tcp --dport 21 -j SNAT --to 192.168.1.20 
+    #保存一下规则
+    service iptables save
+
+## 取消方法
+
+iptables中把-I改为-D运行就是删除此条规则
