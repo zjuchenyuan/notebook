@@ -247,12 +247,16 @@ B机器内网为 192.168.1.21
 
 2. 在A机器上创建iptables规则
 
-    #把访问外网2121端口的包转发到内网ftp服务器
-    iptables -t nat -I PREROUTING -d 123.234.12.22 -p tcp --dport 2121 -j DNAT --to 192.168.1.21:21 
-    #把到内网ftp服务器的包回源到内网网卡上，不然包只能转到ftp服务器，而返回的包不能到达客户端
-    iptables -t nat -I POSTROUTING -d 192.168.1.21 -p tcp --dport 21 -j SNAT --to 192.168.1.20 
-    #保存一下规则
-    service iptables save
+```
+#把访问外网2121端口的包转发到内网ftp服务器
+iptables -t nat -I PREROUTING -d 123.234.12.22 -p tcp --dport 2121 -j DNAT --to 192.168.1.21:21 
+
+#把到内网ftp服务器的包回源到内网网卡上，不然包只能转到ftp服务器，而返回的包不能到达客户端
+iptables -t nat -I POSTROUTING -d 192.168.1.21 -p tcp --dport 21 -j SNAT --to 192.168.1.20 
+
+#保存一下规则
+service iptables save
+```
 
 ## 取消方法
 
