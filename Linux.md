@@ -241,9 +241,11 @@ B机器内网为 192.168.1.21
 
 1. 在A机器上打开端口转发功能
 
+```
     echo 1 > /proc/sys/net/ipv4/ip_forward
     echo -e "\nnet.ipv4.ip_forward = 1">>/etc/sysctl.conf
     sysctl -p
+```
 
 2. 在A机器上创建iptables规则
 
