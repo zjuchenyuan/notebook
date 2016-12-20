@@ -18,9 +18,9 @@
 
 顺带拒绝掉对php后缀的猜测：
 
-   location = /path/something.php {
-       if ($remote_addr != '服务器自身IP') {
-           return 404;
-       }
-       include fastcgi.conf;
-   }
+    location = /path/something.php {
+        if ($remote_addr != '服务器自身IP') {
+            return 404;
+        }
+        include fastcgi.conf;
+    }
