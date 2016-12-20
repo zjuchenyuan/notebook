@@ -12,6 +12,15 @@
 这里的思路是用反向代理的方式简单实现
 
     location /path/something {
-        proxy_pass http://yourdomain/path/dosomething.php;
+        proxy_pass http://yourdomain/path/something.php;
         proxy_method GET;
     }
+
+顺带拒绝掉对php后缀的猜测：
+
+   location = /path/something.php {
+       if ($remote_addr != '服务器自身IP') {
+           return 404;
+       }
+       include fastcgi.conf;
+   }
