@@ -61,7 +61,9 @@ windows下有没有对文件进行标记关键词、机密等级的explorer的扩展呢。。。
 重要的提醒短信通知自己？阿里大鱼SDK
 
 ----
-#基于浙大云盘做出上传分享API
+#基于浙大云盘做出上传分享API[Finished]
+
+本idea已经实现：https://github.com/zjuchenyuan/EasyLogin/tree/master/examples/fangcloud
 
 每个人2T的存储空间怎么能错过。。。
 
