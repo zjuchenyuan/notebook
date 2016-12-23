@@ -24,3 +24,9 @@
         }
         include fastcgi.conf;
     }
+
+## httpÌø×ªµ½https
+
+    location /{
+        rewrite ^ https://$host$request_uri? permanent;
+    }
