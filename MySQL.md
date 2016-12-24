@@ -74,3 +74,21 @@ ADD INDEX `a1` (`user`);
     select SUBSTRING_INDEX(url, '/', -1) as filename;
     
 即可得到一列filename，此行数据为"filename.zip"
+
+----
+
+# 查询优化
+
+## explain发现出现了using filesort
+
+> 参考 http://www.ccvita.com/169.html
+
+如果使用了order by或者group by，需要建索引以优化这个查询
+
+group by用了两个列，两列要合在一起创建索引
+
+## 内存表索引的选择
+
+> 参考 https://dev.mysql.com/doc/refman/5.5/en/optimizing-memory-tables.html
+
+内存表的索引应该选择BTREE
