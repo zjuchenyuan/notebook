@@ -88,6 +88,12 @@ alias gl="git log --all --pretty=format:'%h %ad | %s%d [%an]' --graph --date=sho
 
 啊。。。代码搞坏了我要回滚到上次commit，用`git checkout -- 文件名`
 
+## git reset --soft <commit_id>
+
+撤销到某次commit，但不删除新增文件
+
+其中commit_id可以从`git log`获得
+
 ----
 
 #哲学
