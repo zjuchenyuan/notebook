@@ -84,3 +84,13 @@ curl -b cookie0001.txt http://www.yahoo.com
 REM dict协议查字典，显示详细的请求信息
 curl dict://www.dict.org/d:computer -v
 ```
+
+----
+
+# BAT的命令们
+
+##判断文件夹存在
+
+```
+if exist DIRNAME\nul echo Yes!
+```
