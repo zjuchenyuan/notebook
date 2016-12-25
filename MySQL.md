@@ -92,3 +92,13 @@ group by用了两个列，两列要合在一起创建索引
 > 参考 https://dev.mysql.com/doc/refman/5.5/en/optimizing-memory-tables.html
 
 内存表的索引应该选择BTREE
+
+----
+
+# 内存表The table is full
+
+修改MySQL的配置文件/etc/mysql/my.cnf，在[mysqld]下添加/修改两行(下面的值仅供参考,请根据实际情况酌情处理)： 
+```
+tmp_table_size = 256M // 临时表大小 
+max_heap_table_size = 256M // 内存表大小 
+```
