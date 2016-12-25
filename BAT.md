@@ -94,3 +94,20 @@ curl dict://www.dict.org/d:computer -v
 ```
 if exist DIRNAME\nul echo Yes!
 ```
+
+## 创建硬链接
+
+Win7及以上：
+```
+mklink /H Link Target
+```
+
+目录还需要/J
+```
+mklink /H /J Link Target
+```
+
+WinXP只能用：
+```
+fsutil hardlink create <new filename> <existing filename>
+```
