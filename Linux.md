@@ -1,35 +1,35 @@
-#ÈçºÎ·­Ç½
+#å¦‚ä½•ç¿»å¢™
 
-##²¿Êğshadowsocks¿Í»§¶Ë£¬²¢²¿ÊğPrivoxyÌá¹©http proxy
+##éƒ¨ç½²shadowsockså®¢æˆ·ç«¯ï¼Œå¹¶éƒ¨ç½²Privoxyæä¾›http proxy
 
-´úÂë²Î¼û[ssprivoxy.txt](code/ssprivoxy.txt)
+ä»£ç å‚è§[ssprivoxy.txt](code/ssprivoxy.txt)
 
-##Ò²ĞíÊ¹ÓÃiodineÒ²ÊÇ¸öÌæ´ú·½°¸
+##ä¹Ÿè®¸ä½¿ç”¨iodineä¹Ÿæ˜¯ä¸ªæ›¿ä»£æ–¹æ¡ˆ
 
-TODO: ²¹³äiodineµÄ±Ê¼Ç
+TODO: è¡¥å……iodineçš„ç¬”è®°
 
 ----
 
-#°ïÖúÎÄ±¾µÄgrep£¬°ÑstderrÖØ¶¨Ïòµ½stdout
+#å¸®åŠ©æ–‡æœ¬çš„grepï¼ŒæŠŠstderré‡å®šå‘åˆ°stdout
 
-¾ÍÊÇÓÃ2>&1ÕâÑùµÄÖØ¶¨Ïò¿©
+å°±æ˜¯ç”¨2>&1è¿™æ ·çš„é‡å®šå‘å’¯
 
     ssh-keygen --help 2>&1|grep bit
 
 ----
 
-#µ±Ç°Ä¿Â¼ÎÄ¼şÈ«ÎÄËÑË÷
+#å½“å‰ç›®å½•æ–‡ä»¶å…¨æ–‡æœç´¢
 
-ÕâÀïÒªËÑË÷µ±Ç°Ä¿Â¼ÏÂÃæËùÓĞµÄ°üº¬"MultiTeam"µÄphpÎÄ¼ş
+è¿™é‡Œè¦æœç´¢å½“å‰ç›®å½•ä¸‹é¢æ‰€æœ‰çš„åŒ…å«"MultiTeam"çš„phpæ–‡ä»¶
 
     find| grep .php| xargs cat|grep MultiTeam -r .
 
 ----
 
-#ÅäÖÃÓĞÏß¾²Ì¬IP
+#é…ç½®æœ‰çº¿é™æ€IP
 ```bash
 vim /etc/network/interfaces
-#Ğ´ÈëÒÔÏÂÄÚÈİ£¬Çë×ÔĞĞÌæ»»xx²¿·Ö
+#å†™å…¥ä»¥ä¸‹å†…å®¹ï¼Œè¯·è‡ªè¡Œæ›¿æ¢xxéƒ¨åˆ†
 iface eth0 inet static
  address 10.xx.xx.13
  netmask 255.255.255.0
@@ -37,49 +37,49 @@ iface eth0 inet static
  broadcast 10.xx.xx.255
  gateway 10.xx.xx.254
  dns-nameservers 10.10.0.21
-#°´Esc, :wqÍË³ö±£´æ
+#æŒ‰Esc, :wqé€€å‡ºä¿å­˜
 service networking restart
 ifconfig eth0 10.xx.xx.13 netmask 255.255.255.0 up
 route add default eth0
 ```
 
-## ÅäÖÃaptÔ´
+## é…ç½®aptæº
 
     curl http://mirrors.163.com/.help/sources.list.trusty>/etc/apt/sources.list
 
-Èç¹ûÖ»ÄÜÊÖ´ò£¬vim¸´ÖÆÒ»ĞĞµÄÃüÁîÎªyy£¬Õ³ÌùÎªp
+å¦‚æœåªèƒ½æ‰‹æ‰“ï¼Œvimå¤åˆ¶ä¸€è¡Œçš„å‘½ä»¤ä¸ºyyï¼Œç²˜è´´ä¸ºp
 
 ```
 deb http://mirrors.163.com/ubuntu/ trusty main restricted universe multiverse
 deb http://mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse
 ```
 
-## µ¥Íø¿¨»ñµÃ¶à¸öIP
+## å•ç½‘å¡è·å¾—å¤šä¸ªIP
 ifconfig eth0:233 10.xx.xx.233 netmask 255.255.255.0 up
 
 ----
-#ÈñËÙ°²×°
+#é”é€Ÿå®‰è£…
 
-À´×Ô£ºhttps://github.com/91yun/serverspeeder
+æ¥è‡ªï¼šhttps://github.com/91yun/serverspeeder
 
-°²×°Ö®Ç°ĞèÒªĞŞ¸ÄÄÚºË°æ±¾²¢ÖØÆô£º
+å®‰è£…ä¹‹å‰éœ€è¦ä¿®æ”¹å†…æ ¸ç‰ˆæœ¬å¹¶é‡å¯ï¼š
 
     apt-get install linux-image-3.16.0-43-generic
     reboot
 
-°²×°ÃüÁî£º#´Ë°²×°½Å±¾»áÁ¬½Ó¿ª·¢ÕßµÄ·şÎñÆ÷ÒÔrootÈ¨ÏŞÖ´ĞĞÔ¶³ÌÖ¸Áî£¬·çÏÕ×Ô¸º
+å®‰è£…å‘½ä»¤ï¼š#æ­¤å®‰è£…è„šæœ¬ä¼šè¿æ¥å¼€å‘è€…çš„æœåŠ¡å™¨ä»¥rootæƒé™æ‰§è¡Œè¿œç¨‹æŒ‡ä»¤ï¼Œé£é™©è‡ªè´Ÿ
 
     wget -N --no-check-certificate https://raw.githubusercontent.com/91yun/serverspeeder/master/serverspeeder-all.sh && bash serverspeeder-all.sh
     
-²é¿´×´Ì¬/¹Ø±Õ·şÎñ£º
+æŸ¥çœ‹çŠ¶æ€/å…³é—­æœåŠ¡ï¼š
 
     service serverSpeeder stauts
     service serverSpeeder stop
     
 ----
-#½â¾öaptÒÀÀµÎÊÌâ
+#è§£å†³aptä¾èµ–é—®é¢˜
 
-ÎÊÌâÃèÊö£º·şÎñÆ÷Îªubuntu14.04°æ±¾£¬Ä³Ğ©²»Ã÷²Ù×÷ºó£¬ÎŞ·¨ÓÃ`apt-get`°²×°ÈÎºÎ¶«Î÷
+é—®é¢˜æè¿°ï¼šæœåŠ¡å™¨ä¸ºubuntu14.04ç‰ˆæœ¬ï¼ŒæŸäº›ä¸æ˜æ“ä½œåï¼Œæ— æ³•ç”¨`apt-get`å®‰è£…ä»»ä½•ä¸œè¥¿
 
 ```bash
 > apt-get -f install
@@ -96,31 +96,31 @@ E: Error, pkgProblemResolver::Resolve generated breaks, this may be caused by he
 E: Unable to correct dependencies
 ```
 
-×ĞÏ¸¿´´íÎóËµÃ÷£¬libglib2.0-binÕâ¸öÈí¼ş°üÒªÇólibglib2.0-0µÄ°æ±¾=2.44µ«ÊÇÏÖÓĞµÄ°²×°°æ±¾Îª2.40
+ä»”ç»†çœ‹é”™è¯¯è¯´æ˜ï¼Œlibglib2.0-binè¿™ä¸ªè½¯ä»¶åŒ…è¦æ±‚libglib2.0-0çš„ç‰ˆæœ¬=2.44ä½†æ˜¯ç°æœ‰çš„å®‰è£…ç‰ˆæœ¬ä¸º2.40
 
-ÔÚubuntuµÄÈí¼ş°ü¹ÙÍøËÑË÷¿©£ºhttps://launchpad.net/ubuntu/
+åœ¨ubuntuçš„è½¯ä»¶åŒ…å®˜ç½‘æœç´¢å’¯ï¼šhttps://launchpad.net/ubuntu/
 
-·¢ÏÖ2.44°æ±¾µÄÊÇvivid²ÅÌá¹©µÄ£¬ÏÖÔÚÏµÍ³°æ±¾ÊÇtrusty£¬×ÔÈ»apt-get×°²»ÁË
+å‘ç°2.44ç‰ˆæœ¬çš„æ˜¯vividæ‰æä¾›çš„ï¼Œç°åœ¨ç³»ç»Ÿç‰ˆæœ¬æ˜¯trustyï¼Œè‡ªç„¶apt-getè£…ä¸äº†
 
-½â¾ö·½°¸£º
+è§£å†³æ–¹æ¡ˆï¼š
 
-ÕÒµ½±¨´íĞÅÏ¢ĞèÒªµÄ¾«È·Æ¥ÅäµÄÄÇ¸ödebÎÄ¼şÏÂÔØ¿©£¬ÀıÈçÕâÀï¾ÍÒªÏÂÔØÕâ¸ö°æ±¾µÄ£º
+æ‰¾åˆ°æŠ¥é”™ä¿¡æ¯éœ€è¦çš„ç²¾ç¡®åŒ¹é…çš„é‚£ä¸ªdebæ–‡ä»¶ä¸‹è½½å’¯ï¼Œä¾‹å¦‚è¿™é‡Œå°±è¦ä¸‹è½½è¿™ä¸ªç‰ˆæœ¬çš„ï¼š
 
 https://launchpad.net/ubuntu/vivid/amd64/libglib2.0-0/2.44.0-1ubuntu3
 
-µÃµ½debÎÄ¼şºó`dpkg -i ÎÄ¼şÃû`
+å¾—åˆ°debæ–‡ä»¶å`dpkg -i æ–‡ä»¶å`
 
 ## Note
 
-Ò»°ãaptÒÀÀµ³åÍ»ÎÊÌâ¶¼ÊÇÓÉÓÚÏµÍ³°æ±¾ÓëĞèÒªµÄ°üµÄ°æ±¾²»Ò»ÖÂµ¼ÖÂµÄ£¬¼ì²éÒ»ÏÂ/etc/apt/sources.list¿´¿´ÊÇ·ñÆ¥ÅäÏµÍ³°æ±¾¿©
+ä¸€èˆ¬aptä¾èµ–å†²çªé—®é¢˜éƒ½æ˜¯ç”±äºç³»ç»Ÿç‰ˆæœ¬ä¸éœ€è¦çš„åŒ…çš„ç‰ˆæœ¬ä¸ä¸€è‡´å¯¼è‡´çš„ï¼Œæ£€æŸ¥ä¸€ä¸‹/etc/apt/sources.listçœ‹çœ‹æ˜¯å¦åŒ¹é…ç³»ç»Ÿç‰ˆæœ¬å’¯
 
-ÓÃapt-getÇ°¼ì²éÒ»ÏÂsources.list£¬Ê÷İ®ÅÉÊÇ°æ±¾8£¬ÊÇjessie²»ÊÇwheezy!
+ç”¨apt-getå‰æ£€æŸ¥ä¸€ä¸‹sources.listï¼Œæ ‘è“æ´¾æ˜¯ç‰ˆæœ¬8ï¼Œæ˜¯jessieä¸æ˜¯wheezy!
 
 ----
 
 # UnixBench
 
-VPSĞÔÄÜ²âÊÔ¹¤¾ß£¬ºÄÊ±½Ï³¤£¬ÄÍĞÄµÈ´ı
+VPSæ€§èƒ½æµ‹è¯•å·¥å…·ï¼Œè€—æ—¶è¾ƒé•¿ï¼Œè€å¿ƒç­‰å¾…
 
 ```bash
 curl https://codeload.github.com/kdlucas/byte-unixbench/zip/v5.1.3>UnixBench.zip
@@ -132,20 +132,20 @@ screen -S ub
 ./Run
 ```
 
-## Ó²ÅÌIOĞÔÄÜ²âÊÔ
+## ç¡¬ç›˜IOæ€§èƒ½æµ‹è¯•
 
 ```
 dd if=/dev/zero of=test bs=64k count=4k oflag=dsync
 dd if=/dev/zero of=test bs=8k count=256k conv=fdatasync
 ```
 
-## ²Î¿¼Êı¾İ£¬¾ùÎª×îµÍÅäÖÃ
+## å‚è€ƒæ•°æ®ï¼Œå‡ä¸ºæœ€ä½é…ç½®
 
-Ö÷»úÎİ1590.5£»°¢ÀïÔÆ1470.4£»ÌÚÑ¶ÔÆ1156.0
+ä¸»æœºå±‹1590.5ï¼›é˜¿é‡Œäº‘1470.4ï¼›è…¾è®¯äº‘1156.0
 
 ----
 
-## Çå³ıÄÚ´æ»º´æ
+## æ¸…é™¤å†…å­˜ç¼“å­˜
 
 ```
 sync
@@ -154,92 +154,92 @@ echo 3 > /proc/sys/vm/drop_caches
 
 ----
 
-#Ê¹ÓÃiptables·âip
+#ä½¿ç”¨iptableså°ip
 
-###ÆÁ±Îµ¥¸öIP
+###å±è”½å•ä¸ªIP
 
     iptables -I INPUT -s 123.45.6.7 -j DROP
 
-###·âC¶Î
+###å°Cæ®µ
 
     iptables -I INPUT -s 123.45.6.0/24 -j DROP
 
-####·âB¶Î
+####å°Bæ®µ
 
      iptables -I INPUT -s 123.45.0.0/16 -j DROP
 
-###·âA¶Î
+###å°Aæ®µ
 
     iptables -I INPUT -s 123.0.0.0/8 -j DROP
 
-¼ÇµÃ**±£´æ**£º
+è®°å¾—**ä¿å­˜**ï¼š
 
     service iptables save
 
-## É¾³ıÒ»Ìõ¹æÔò
+## åˆ é™¤ä¸€æ¡è§„åˆ™
 
-Ö»ÒªÖØĞ´Ò»´Î¡£°Ñ-I¸ÄÎª-D¼´¿É
+åªè¦é‡å†™ä¸€æ¬¡ã€‚æŠŠ-Iæ”¹ä¸º-Då³å¯
 
-    iptables -D INPUT -s IPµØÖ· -j DROP
+    iptables -D INPUT -s IPåœ°å€ -j DROP
 
 ----
 
-## ÎŞrootÈ¨ÏŞÊ¹ÓÃscreen
+## æ— rootæƒé™ä½¿ç”¨screen
 
 > https://www.gnu.org/software/screen/
 
-¸´ÖÆÏàÍ¬²Ù×÷ÏµÍ³ÏÂµÄscreen¶ş½øÖÆÎÄ¼ş£¬ÔËĞĞÇ°Ö¸¶¨»·¾³±äÁ¿
+å¤åˆ¶ç›¸åŒæ“ä½œç³»ç»Ÿä¸‹çš„screenäºŒè¿›åˆ¶æ–‡ä»¶ï¼Œè¿è¡Œå‰æŒ‡å®šç¯å¢ƒå˜é‡
 
     mkdir -p $HOME/.screen
     export SCREENDIR=$HOME/.screen
     
 ----
 
-## screenµÄÓÃ·¨
+## screençš„ç”¨æ³•
 
-ÁĞ³ö´æÔÚµÄscreen£º
+åˆ—å‡ºå­˜åœ¨çš„screenï¼š
 
     screen -ls
     
-´´½¨Ò»¸öÃûÎªnameµÄscreen£º
+åˆ›å»ºä¸€ä¸ªåä¸ºnameçš„screenï¼š
 
     screen -S name
 
-´ÓscreenÍÑÀë£º
+ä»screenè„±ç¦»ï¼š
 
-    °´Ctrl+Aºó°´d
+    æŒ‰Ctrl+AåæŒ‰d
 
-ÖØĞÂÁ¬ÉÏÃû³ÆÎªnameµÄscreen£º
+é‡æ–°è¿ä¸Šåç§°ä¸ºnameçš„screenï¼š
 
     screen -r name
 
 ----
 
-# Í³¼Æµ±Ç°ÎÄ¼ş¼Ğ´úÂëĞĞÊı
+# ç»Ÿè®¡å½“å‰æ–‡ä»¶å¤¹ä»£ç è¡Œæ•°
 
-find Ö¸¶¨ÎÄ¼şºó×ºÃû£¬¼Ç×¡ÒªÒıºÅ±ÜÃâbash½âÎö*
+find æŒ‡å®šæ–‡ä»¶åç¼€åï¼Œè®°ä½è¦å¼•å·é¿å…bashè§£æ*
 
     find -name "*.py" -o -name "*.md"|xargs cat|wc
 
 ----
 
-# Ë«Íø¿¨¶Ë¿Ú×ª·¢£¬±©Â¶ÄÚÍø¶Ë¿Ú
+# åŒç½‘å¡ç«¯å£è½¬å‘ï¼Œæš´éœ²å†…ç½‘ç«¯å£
 
-> À´×Ô£º https://yq.aliyun.com/wenzhang/show_25824
+> æ¥è‡ªï¼š https://yq.aliyun.com/wenzhang/show_25824
 
-ÓĞÁ½Ì¨»úÆ÷£¬ÆäÖĞÒ»Ì¨A ÓĞÄÚÍøºÍÍâÍø£¬BÖ»ÓĞÄÚÍø¡£
+æœ‰ä¸¤å°æœºå™¨ï¼Œå…¶ä¸­ä¸€å°A æœ‰å†…ç½‘å’Œå¤–ç½‘ï¼ŒBåªæœ‰å†…ç½‘ã€‚
 
-Ä¿±ê£º ÔÚÍâÍø·ÃÎÊA»úÆ÷µÄ2121¶Ë¿Ú£¬¾ÍÏàµ±ÓÚÁ¬ÉÏÁËB»úÆ÷µÄftp(21)
+ç›®æ ‡ï¼š åœ¨å¤–ç½‘è®¿é—®Aæœºå™¨çš„2121ç«¯å£ï¼Œå°±ç›¸å½“äºè¿ä¸Šäº†Bæœºå™¨çš„ftp(21)
 
-##»·¾³£º 
+##ç¯å¢ƒï¼š 
 
-A»úÆ÷ÍâÍøIPÎª 1.2.3.4(eth1) ÄÚÍøIPÎª 192.168.1.20 (eth0)
+Aæœºå™¨å¤–ç½‘IPä¸º 1.2.3.4(eth1) å†…ç½‘IPä¸º 192.168.1.20 (eth0)
 
-B»úÆ÷ÄÚÍøÎª 192.168.1.21
+Bæœºå™¨å†…ç½‘ä¸º 192.168.1.21
 
-## ÊµÏÖ·½·¨£º
+## å®ç°æ–¹æ³•ï¼š
 
-Ê×ÏÈÔÚA»úÆ÷ÉÏ´ò¿ª¶Ë¿Ú×ª·¢¹¦ÄÜ
+é¦–å…ˆåœ¨Aæœºå™¨ä¸Šæ‰“å¼€ç«¯å£è½¬å‘åŠŸèƒ½
 
 ```
     echo 1 > /proc/sys/net/ipv4/ip_forward
@@ -247,34 +247,34 @@ B»úÆ÷ÄÚÍøÎª 192.168.1.21
     sysctl -p
 ```
 
-È»ºóÔÚA»úÆ÷ÉÏ´´½¨iptables¹æÔò
+ç„¶ååœ¨Aæœºå™¨ä¸Šåˆ›å»ºiptablesè§„åˆ™
 
 ```
-#°Ñ·ÃÎÊÍâÍø2121¶Ë¿ÚµÄ°ü×ª·¢µ½ÄÚÍøftp·şÎñÆ÷
+#æŠŠè®¿é—®å¤–ç½‘2121ç«¯å£çš„åŒ…è½¬å‘åˆ°å†…ç½‘ftpæœåŠ¡å™¨
 iptables -t nat -I PREROUTING -d 1.2.3.4 -p tcp --dport 2121 -j DNAT --to 192.168.1.21:21 
 
-#°Ñµ½ÄÚÍøftp·şÎñÆ÷µÄ°ü»ØÔ´µ½ÄÚÍøÍø¿¨ÉÏ£¬²»È»°üÖ»ÄÜ×ªµ½ftp·şÎñÆ÷£¬¶ø·µ»ØµÄ°ü²»ÄÜµ½´ï¿Í»§¶Ë
+#æŠŠåˆ°å†…ç½‘ftpæœåŠ¡å™¨çš„åŒ…å›æºåˆ°å†…ç½‘ç½‘å¡ä¸Šï¼Œä¸ç„¶åŒ…åªèƒ½è½¬åˆ°ftpæœåŠ¡å™¨ï¼Œè€Œè¿”å›çš„åŒ…ä¸èƒ½åˆ°è¾¾å®¢æˆ·ç«¯
 iptables -t nat -I POSTROUTING -d 192.168.1.21 -p tcp --dport 21 -j SNAT --to 192.168.1.20 
 
-#±£´æÒ»ÏÂ¹æÔò
+#ä¿å­˜ä¸€ä¸‹è§„åˆ™
 service iptables save
 ```
 
-## È¡Ïû×ª·¢·½·¨
+## å–æ¶ˆè½¬å‘æ–¹æ³•
 
-iptablesÖĞ°Ñ-I¸ÄÎª-DÔËĞĞ¾ÍÊÇÉ¾³ı´ËÌõ¹æÔò
+iptablesä¸­æŠŠ-Iæ”¹ä¸º-Dè¿è¡Œå°±æ˜¯åˆ é™¤æ­¤æ¡è§„åˆ™
 
 ----
 
-## ±£»¤ÖØÒªÏµÍ³ÎÄ¼ş·ÀÖ¹±»É¾
+## ä¿æŠ¤é‡è¦ç³»ç»Ÿæ–‡ä»¶é˜²æ­¢è¢«åˆ 
 
-Ê¹ÓÃ+i±êÖ¾Î»Ê¹µÃrootÓÃ»§Ò²²»ÄÜÉ¾³ı/bin, /sbin, /usr/sbin, /usr/bin, /usr/local/sbin, /usr/local/bin
+ä½¿ç”¨+iæ ‡å¿—ä½ä½¿å¾—rootç”¨æˆ·ä¹Ÿä¸èƒ½åˆ é™¤/bin, /sbin, /usr/sbin, /usr/bin, /usr/local/sbin, /usr/local/bin
 
 ```
 chattr -R +i /bin /sbin /usr/sbin /usr/bin /usr/local/sbin /usr/local/bin
 ```
 
-ÉèÖÃºóÎŞ·¨apt-get°²×°ĞÂÈí¼ş£¬ĞèÒªÏÈÈ¡Ïû±êÖ¾Î»
+è®¾ç½®åæ— æ³•apt-getå®‰è£…æ–°è½¯ä»¶ï¼Œéœ€è¦å…ˆå–æ¶ˆæ ‡å¿—ä½
 
 ```
 chattr -R -i /bin /sbin /usr/sbin /usr/bin /usr/local/sbin /usr/local/bin
