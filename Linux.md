@@ -266,3 +266,16 @@ iptables中把-I改为-D运行就是删除此条规则
 
 ----
 
+## 保护重要系统文件防止被删
+
+使用+i标志位使得root用户也不能删除/bin, /sbin, /usr/sbin, /usr/bin, /usr/local/sbin, /usr/local/bin
+
+```
+chattr -R +i /bin /sbin /usr/sbin /usr/bin /usr/local/sbin /usr/local/bin
+```
+
+设置后无法apt-get安装新软件，需要先取消标志位
+
+```
+chattr -R -i /bin /sbin /usr/sbin /usr/bin /usr/local/sbin /usr/local/bin
+```
