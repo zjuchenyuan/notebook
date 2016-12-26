@@ -114,3 +114,16 @@ export PYTHONIOENCODING=utf8
 import sys
 sys.stdout=open(1, 'w', encoding='utf-8', closefd=False)
 ```
+
+----
+
+# 遵循PEP8检查你的代码
+
+[pycodestyle](https://github.com/PyCQA/pycodestyle)
+
+安装并使用pycodestyle检查代码，忽略E501一行不能长于80个字符的限制：
+
+```
+pip install pycodestyle
+pycodestyle --show-source --ignore=E501 yourcode.py
+```
