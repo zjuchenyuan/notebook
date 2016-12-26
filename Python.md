@@ -99,3 +99,18 @@ cp pip3 pip
 alias python3=`pwd`/python
 alias pip3=`pwd`/pip
 ```
+
+----
+
+# 中文输出乱码问题
+
+方法1：运行py前设置环境变量
+```
+export PYTHONIOENCODING=utf8
+```
+
+方法2：强制修改stdout
+```
+import sys
+sys.stdout=open(1, 'w', encoding='utf-8', closefd=False)
+```
