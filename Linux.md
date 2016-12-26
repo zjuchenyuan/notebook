@@ -2,7 +2,7 @@
 
 ##部署shadowsocks客户端，并部署Privoxy提供http proxy
 
-> * 代码参见code/ssprivoxy.txt
+代码参见[ssprivoxy.txt](code/ssprivoxy.txt)
 
 ##也许使用iodine也是个替代方案
 
@@ -233,13 +233,13 @@ find 指定文件后缀名，记住要引号避免bash解析*
 
 ##环境： 
 
-A机器外网IP为 123.234.12.22(eth1) 内网IP为 192.168.1.20 (eth0)
+A机器外网IP为 1.2.3.4(eth1) 内网IP为 192.168.1.20 (eth0)
 
 B机器内网为 192.168.1.21
 
 ## 实现方法：
 
-1. 在A机器上打开端口转发功能
+首先在A机器上打开端口转发功能
 
 ```
     echo 1 > /proc/sys/net/ipv4/ip_forward
@@ -247,11 +247,11 @@ B机器内网为 192.168.1.21
     sysctl -p
 ```
 
-2. 在A机器上创建iptables规则
+然后在A机器上创建iptables规则
 
 ```
 #把访问外网2121端口的包转发到内网ftp服务器
-iptables -t nat -I PREROUTING -d 123.234.12.22 -p tcp --dport 2121 -j DNAT --to 192.168.1.21:21 
+iptables -t nat -I PREROUTING -d 1.2.3.4 -p tcp --dport 2121 -j DNAT --to 192.168.1.21:21 
 
 #把到内网ftp服务器的包回源到内网网卡上，不然包只能转到ftp服务器，而返回的包不能到达客户端
 iptables -t nat -I POSTROUTING -d 192.168.1.21 -p tcp --dport 21 -j SNAT --to 192.168.1.20 
@@ -260,6 +260,9 @@ iptables -t nat -I POSTROUTING -d 192.168.1.21 -p tcp --dport 21 -j SNAT --to 19
 service iptables save
 ```
 
-## 取消方法
+## 取消转发方法
 
 iptables中把-I改为-D运行就是删除此条规则
+
+----
+
