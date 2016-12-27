@@ -213,6 +213,17 @@ echo 3 > /proc/sys/vm/drop_caches
 
     screen -r name
 
+创建一个screen的自启动，让后台进程获得tty
+
+    #假设写好了一个/root/code.sh
+    vim /etc/rc.local
+    #在最后加入一行，其中NAME替换为自己喜欢的名字
+    screen -dmS NAME /root/code.sh
+
+举个例子--监测外网能否ping通，如果不能重连zjuvpn：
+
+[code/pingtest.sh](code/pingtest.sh)
+
 ----
 
 # 统计当前文件夹代码行数
@@ -279,3 +290,4 @@ chattr -R +i /bin /sbin /usr/sbin /usr/bin /usr/local/sbin /usr/local/bin
 ```
 chattr -R -i /bin /sbin /usr/sbin /usr/bin /usr/local/sbin /usr/local/bin
 ```
+
