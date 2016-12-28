@@ -13,6 +13,8 @@ mkdir -p ~/.pip
 echo """
 [global]
 index-url = http://pypi.doubanio.com/simple/
+[install]
+trusted-host=pypi.doubanio.com
 """>~/.pip/pip.conf
 ```
 
