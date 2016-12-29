@@ -291,3 +291,12 @@ chattr -R +i /bin /sbin /usr/sbin /usr/bin /usr/local/sbin /usr/local/bin
 chattr -R -i /bin /sbin /usr/sbin /usr/bin /usr/local/sbin /usr/local/bin
 ```
 
+----
+
+#查看给定文件列表的文件大小
+
+用xargs -d指定分隔符为\n（默认会按照空格和\n分隔参数）
+
+```
+cat list.txt | xargs -d "\n" ls -alh
+```
