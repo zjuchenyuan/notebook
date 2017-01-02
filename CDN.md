@@ -12,6 +12,12 @@ ftp://v0.ftp.upyun.com
 http://micyin.b0.upaiyun.com/manager-for-upyun/manager-for-upyun-0.0.6-win32.exe
 
 
+## curlftpfs
+
+http://curlftpfs.sourceforge.net/
+
+注意命令中的 ftp://用户名:密码@v0.ftp.upyun.com 其中的用户名的/符号需要改为%2f
+
 ----
 
 #Qiniu
