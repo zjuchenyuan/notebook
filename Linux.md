@@ -323,3 +323,12 @@ ssh -b 0.0.0.0 -L 2222:127.0.0.1:22 user@ip
 ```
 
 注意在运行前需要设置免密码登录以及修改外网服务器的sshd_config，加入GatewayPorts  yes
+
+----
+
+#时区设置
+
+```
+cp /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
+ntpdate cn.pool.ntp.org
+```
