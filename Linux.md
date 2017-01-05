@@ -332,3 +332,13 @@ ssh -b 0.0.0.0 -L 2222:127.0.0.1:22 user@ip
 cp /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
 ntpdate cn.pool.ntp.org
 ```
+
+----
+
+#wget慢慢下载
+
+```
+wget -i list.txt  -nc --wait=60 --random-wait
+```
+
+其中nc表示已经下载到的文件就不要再请求了，wait=60表示两次请求间隔60s，random-wait表示随机等待2~120s
