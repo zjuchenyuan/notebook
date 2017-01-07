@@ -342,3 +342,13 @@ wget -i list.txt  -nc --wait=60 --random-wait
 ```
 
 其中nc表示已经下载到的文件就不要再请求了，wait=60表示两次请求间隔60s，random-wait表示随机等待2~120s
+
+----
+
+#touch修改时间戳
+
+将b.txt的时间戳改为和a.txt一样
+
+```
+touch -r a.txt b.txt
+```
