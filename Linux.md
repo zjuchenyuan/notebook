@@ -352,3 +352,11 @@ wget -i list.txt  -nc --wait=60 --random-wait
 ```
 touch -r a.txt b.txt
 ```
+
+----
+
+#去掉ls的颜色
+
+```
+unalias ls
+```

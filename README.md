@@ -91,7 +91,7 @@ Welcome for issue, star, and pull requests.
 
 [Windows内存整理](download/empty.exe)
 
-[sleep睡一会](download/sleep.exe)
+[SleepX睡一会](download/SleepX.exe)
 
 [任务管理器](download/procexp.exe)
 

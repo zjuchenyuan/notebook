@@ -28,13 +28,16 @@
     empty *
 
 ----
-#睡一会 sleep
+#睡一会 SleepX
 
-> 程序需要等待一定时间再继续运行就可以sleep啦
+> 程序需要等待一定时间再继续运行就可以sleepx啦
 
-> exe在download/sleep.exe，来自GNU coreutils
+> exe在download/SleepX.exe，作者Bill Stewart (bstewart@iname.com)
 
-    sleep 10
+    SleepX 10
+    
+    REM等待5s，如果用户等不及可以按键，此时 not "%errorlevel%" == "0"
+    SleepX -k 5
     
 ----
 #命令行的爬虫 curl
