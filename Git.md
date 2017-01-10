@@ -94,6 +94,20 @@ alias gl="git log --all --pretty=format:'%h %ad | %s%d [%an]' --graph --date=sho
 
 其中commit_id可以从`git log`获得
 
+## 恢复git reset --hard删除的文件
+
+git的历史是不能用命令修改的，丢失的commit用reflog可以找回，除非git已经把它当成垃圾删除（30天）
+
+```
+git stash save
+git reflog #查看丢失的那个commit的id
+git checkout 那个commitid
+git branch recover #创建recover分支
+git checkout master #回到master
+git merge recover #合并recover到master
+git branch -d recover #合并完成后就可以删了
+```
+
 ----
 
 #哲学
