@@ -129,3 +129,19 @@ sys.stdout=open(1, 'w', encoding='utf-8', closefd=False)
 pip install pycodestyle
 pycodestyle --show-source --ignore=E501 yourcode.py
 ```
+
+----
+
+#Éú³ÉËæ»ú×Ö·û´®
+
+```
+from random import Random
+def random_str(randomlength=8):
+    str = ''
+    chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789'
+    length = len(chars) - 1
+    random = Random()
+    for i in range(randomlength):
+        str+=chars[random.randint(0, length)]
+    return str
+````
