@@ -360,3 +360,9 @@ touch -r a.txt b.txt
 ```
 unalias ls
 ```
+
+----
+
+#换行方式修改
+
+vim中输入:set ff=unix
