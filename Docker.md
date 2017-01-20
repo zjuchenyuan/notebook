@@ -53,3 +53,19 @@ modprobe aufs
 ## 获得容器的ip
 
     docker inspect  --format '{{.NetworkSettings.IPAddress}}' 容器名称
+    
+--------
+
+# 导出导入
+
+## Export导出容器
+
+导出容器得到的是tar文件，没有进行压缩，我们需要手动执行压缩
+
+    docker export 容器的名称或ID | gzip >导出文件名.tar.gz
+
+## Import导入容器
+
+虽然上一步我们压缩了，但docker可以直接import，不需要用gunzip
+
+    docker import 文件名
