@@ -1,5 +1,13 @@
+#-----------------------
 #本代码将安装shadowsocks和privoxy
 #执行后再运行的apt-get等操作将通过shadowsocks翻墙
+#
+#适用场景：
+#    购买了ss翻墙服务账号 或 已经自建ss服务器
+#    需要让Linux操作都通过ss翻墙以加速
+#
+#如果您只需要简单在国外服务器开个代理，建议使用tinyproxy
+#-----------------------
 
 #安装shadowsocks，使用豆瓣源
 mkdir -p ~/.pip
