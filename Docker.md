@@ -80,3 +80,19 @@ modprobe aufs
     iptables -t filter -N DOCKER
 
 附：如果需要删除链条，可以用iptables-save导出后手动编辑后iptables-restore
+
+--------
+
+# 迁移Docker文件夹到其他硬盘
+
+当镜像多了起来的时候，/var/lib所在的根分区很可能被占满，这时候要考虑迁移到其他硬盘，此处以迁移到`/home/docker`为例说明
+
+```bash
+#首先记得关闭服务
+service docker stop
+mv /var/lib/docker /home/
+#然后修改服务配置文件/etc/default/docker，此处建议手动vim编辑，加入这个：
+#    --graph='/home/docker'
+echo -e "\nDOCKER_OPTS=\"--graph='/home/docker'\"" >> /etc/default/docker
+```
+
