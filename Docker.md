@@ -69,3 +69,14 @@ modprobe aufs
 虽然上一步我们压缩了，但docker可以直接import，不需要用gunzip
 
     docker import 文件名
+    
+--------
+
+# 解决iptables failed - No chian/target/match by that name
+
+如果docker安装的时候没有自动把需要的规则链加上，可以手动添加
+
+    iptables -t nat -N DOCKER
+    iptables -t filter -N DOCKER
+
+附：如果需要删除链条，可以用iptables-save导出后手动编辑后iptables-restore
