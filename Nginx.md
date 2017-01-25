@@ -50,9 +50,10 @@
 
 记得运行后 `nginx -s reload`
 
-####第二步，创建私钥并提交申请：
+####第二步，运行我的getcert.py（创建私钥并提交申请）：
 
 ````
+wget https://raw.githubusercontent.com/zjuchenyuan/notebook/master/code/getcert.py
 ./getcert.py 文件名称 该证书包含的域名列表
 ````
 
