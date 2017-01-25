@@ -62,6 +62,8 @@ wget https://raw.githubusercontent.com/zjuchenyuan/notebook/master/code/getcert.
 
 具体来说，这个脚本会自动下载需要的acme_tiny.py和Let's Encrypt的中间证书，调用openssl创建账号私钥和站点私钥，最终产生 **名称.crt** **名称.key**。
 
+![https.jpg](download/img/https.jpg)
+
 ####第三步，加上https的配置：
 
 ```
