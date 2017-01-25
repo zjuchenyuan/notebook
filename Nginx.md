@@ -33,7 +33,7 @@
 
 ## 获得Let's encrypt免费https证书
 
-为简化操作，我写了一个更加方便的(getcert.py)[code/getcert.py]
+为简化操作，我写了一个更加方便的[getcert.py](code/getcert.py)
 
 ###使用方法：
 
@@ -56,7 +56,9 @@
 ./getcert.py 文件名称 该证书包含的域名列表
 ````
 
-例如这样就能获得一张涵盖zjusec.com三个子域名的证书：./getcert.py zjusec zjusec.com,www.zjusec.com,web.zjusec.com
+例如这样就能获得一张涵盖zjusec.com三个子域名的证书：`./getcert.py zjusec zjusec.com,www.zjusec.com,web.zjusec.com`
+
+具体来说，这个脚本会自动下载需要的acme_tiny.py和Let's Encrypt的中间证书，调用openssl创建账号私钥和站点私钥，最终产生 **名称.crt** **名称.key**。
 
 ####第三步，加上https的配置：
 
