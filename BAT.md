@@ -116,3 +116,11 @@ fsutil hardlink create <new filename> <existing filename>
 ```
 
 ----
+
+## 端口转发
+
+此命令需要管理员权限
+
+```
+netsh interface portproxy add v4tov4 listenaddress=0.0.0.0 listenport=转发出的端口 connectaddress=转发的源IP地址 connectport=转发的源端口
+```
