@@ -1,39 +1,43 @@
-## Java������(keng)
+## Java的神奇(keng)
 
-��¼һ��Java��C�Ĳ�ͬ�㣬����Thinking in Java
+记录一下Java与C的不同点，感受Thinking in Java
 
-### ��������
+### 变量名称
 
-$���Ǹ���ͨ�ַ�������int $a; //php��ʾmdzz
+$就是个普通字符，可以int $a; //php表示mdzz
 
-### main����
+### main函数
 
-������public static void main(String[] args)
+必须是public static void main(String[] args)
 
-���û��static��������ͨ����û��ִ�н����// ����֤��eclipse�ܾ�����
+如果没有static，编译能通过但没有执行结果？// 待考证，eclipse拒绝运行
 
 ### if
 
-if�еĶ���������boolean���͵�ֵ�����ܰ�int����if��
+if中的东西必须是boolean类型的值，不能把int放入if中
 
-if ( a = true )�Ŀӻ��Ǵ��ڵģ�������ֵ��Ϊif����
+if ( a = true )的坑还是存在的，允许赋值作为if条件
 
-### %ȡ��Ľ��
+### %取余的结果
 
-Ҫ���ǵ������Ľ����~��Cһ��
+要考虑到负数的结果啊~（和C一致）
 
-### ����
+### 数组
 
-�������á���ʼ��֮�������
+声明引用、初始化之后才能用
 
-������int a[5]; ֻ��int[] a = new int [5];
+不允许int a[5]; 只能int[] a = new int [5];
 
-���Ҫ��ʼ�� int[] b = new int[]{1,2}; ���Լ�Ϊ int c[] = {1,2};
+如果要初始化 int[] b = new int[]{1,2}; 可以简化为 int c[] = {1,2};
+
+但不能出现d={1,2}; 不允许大括号这玩意用来赋值，只准用于初始化
 
 ### switch
 
-boolean�ǲ��еģ�String�ǿ��Եģ�
+boolean是不行的；String是可以的！
+
+case是不能重复的（和C一致）
 
 ### ==
 
-һ���ǱȽϵ�ַ�����"haha"�ڴ����г������Σ����ǵĵ�ַ��һ����
+一定是比较地址，如果"haha"在代码中出现两次，他们的地址是一样的
