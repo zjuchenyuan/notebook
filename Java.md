@@ -49,3 +49,9 @@ int long float double
 最高出现哪个全部提升为哪个，都没有就全部提升为int
 
 所以要这么写才能把byte*2：byte b = (byte)(a*2);
+
+### 内部类
+
+加上static后：可以不用实例化外部类就创建对象，不能访问外部类非静态的数据
+
+不加static：需要先实例化外部类new OuterClass().new InnerClass()
