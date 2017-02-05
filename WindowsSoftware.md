@@ -1,6 +1,6 @@
 #Windows Software
 
-×Ô¼ºÈÕ³£ÓÃµ½µÄÒ»Ğ©¹¤¾ß¿©
+è‡ªå·±æ—¥å¸¸ç”¨åˆ°çš„ä¸€äº›å·¥å…·å’¯
 
 ----
 
@@ -8,34 +8,36 @@
 
 https://www.emeditor.com/
 
-ÏÂÔØ£ºhttp://files.emeditor.com/emed64_16.3.1.exe
+ä¸‹è½½ï¼šhttp://files.emeditor.com/emed64_16.3.1.exe
 
-´ò¿ª³¬´óÎÄ¼ş£¬Óï·¨¸ßÁÁ£¬Åú´¦ÀíÌæ»»µÈºÃÓÃµÄ¹¦ÄÜ
+æ‰“å¼€è¶…å¤§æ–‡ä»¶ï¼Œè¯­æ³•é«˜äº®ï¼Œæ‰¹å¤„ç†æ›¿æ¢ç­‰å¥½ç”¨çš„åŠŸèƒ½
 
 
 ## Everything
 
 https://www.voidtools.com/
 
-ÏÂÔØ£ºhttps://www.voidtools.com/Everything-1.4.1.809b.x64.zip
+ä¸‹è½½ï¼šhttps://www.voidtools.com/Everything-1.4.1.809b.x64.zip
 
-¿ìËÙÈ«ÅÌËÑË÷£¬²»ÖªµÀ±Èwindows×Ô´øµÄËÑË÷¿ìµ½ÄÄÀïÈ¥ÁË
+å¿«é€Ÿå…¨ç›˜æœç´¢ï¼Œä¸çŸ¥é“æ¯”windowsè‡ªå¸¦çš„æœç´¢å¿«åˆ°å“ªé‡Œå»äº†
 
 ## **Sysinternals Utilities**
 
 https://technet.microsoft.com/en-us/sysinternals/bb545027
 
-[ÈÎÎñ¹ÜÀíÆ÷](download/procexp.exe) https://download.sysinternals.com/files/ProcessExplorer.zip
+[ä»»åŠ¡ç®¡ç†å™¨](download/procexp.exe) https://download.sysinternals.com/files/ProcessExplorer.zip
 
-## CLOC´úÂëÍ³¼ÆÀûÆ÷
+## CLOCä»£ç ç»Ÿè®¡åˆ©å™¨
 
-ÏÂÔØ£ºhttps://github.com/AlDanial/cloc/releases/download/v1.70/cloc-1.70.exe
+ä¸‹è½½ï¼šhttps://github.com/AlDanial/cloc/releases/download/v1.70/cloc-1.70.exe
 
-ClocÊÇÒ»¿îÊ¹ÓÃPerlÓïÑÔ¿ª·¢µÄ¿ªÔ´´úÂëÍ³¼Æ¹¤¾ß£¬Ö§³Ö¶àÆ½Ì¨Ê¹ÓÃ¡¢¶àÓïÑÔÊ¶±ğ£¬ÄÜ¹»¼ÆËãÖ¸¶¨Ä¿±êÎÄ¼ş»òÎÄ¼ş¼ĞÖĞµÄÎÄ¼şÊı(files)¡¢¿Õ°×ĞĞÊı(blank)¡¢×¢ÊÍĞĞÊı(comment)ºÍ´úÂëĞĞÊı(code)¡£
+Clocæ˜¯ä¸€æ¬¾ä½¿ç”¨Perlè¯­è¨€å¼€å‘çš„å¼€æºä»£ç ç»Ÿè®¡å·¥å…·ï¼Œæ”¯æŒå¤šå¹³å°ä½¿ç”¨ã€å¤šè¯­è¨€è¯†åˆ«ï¼Œèƒ½å¤Ÿè®¡ç®—æŒ‡å®šç›®æ ‡æ–‡ä»¶æˆ–æ–‡ä»¶å¤¹ä¸­çš„æ–‡ä»¶æ•°(files)ã€ç©ºç™½è¡Œæ•°(blank)ã€æ³¨é‡Šè¡Œæ•°(comment)å’Œä»£ç è¡Œæ•°(code)ã€‚
 
-## MenuMgr ÓÒ¼ü²Ëµ¥¹ÜÀí
+## MenuMgr å³é”®èœå•ç®¡ç†
 
-»¹ÓÒ¼ü²Ëµ¥Ò»·İÇå¾»
+è¿˜å³é”®èœå•ä¸€ä»½æ¸…å‡€
 
 [MenuMgr](download/MenuMgr.exe)
 
+
+##Â è½¯åª’uç›˜å¯åŠ¨ç›˜åˆ¶ä½œ
