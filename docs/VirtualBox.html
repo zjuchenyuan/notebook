@@ -3,7 +3,7 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=80b0323c1e306cbb5dd15d883f11e06135504541">
+    <link rel="stylesheet" href="/assets/css/style.css?v=a213e0c9aeeaef6dfdd3ad9db7d670ac5e0dee9d">
     <title>notebook by zjuchenyuan</title>
   </head>
 
@@ -23,7 +23,7 @@
 
     <div class="container">
       <section id="main_content">
-        <p>#VirtualBox</p>
+        <h1 id="virtualbox">VirtualBox</h1>
 
 <blockquote>
   <p>参考 https://www.howtoforge.com/tutorial/running-virtual-machines-with-virtualbox-5.1-on-a-headless-ubuntu-16.04-lts-server/</p>
@@ -65,7 +65,7 @@ sudo VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack-5.1.0-108711
 
 <div class="highlighter-rouge"><pre class="highlight"><code>mkdir -p /home/virtualbox
 VBoxManage createvm --name ubuntu --ostype "Ubuntu_64" --register --basefolder /home/virtualbox/
-VBoxManage createvdi  --filename ubuntu/ubuntu.vdi --size 102400 #100GB
+VBoxManage createvdi  --filename ubuntu/ubuntu.vdi --size 102400 # 100GB
 VBoxManage storagectl ubuntu --name storage_controller_1 --add ide
 VBoxManage storageattach ubuntu --storagectl storage_controller_1 \
     --type hdd --port 0 --device 0  --medium ubuntu/ubuntu.vdi

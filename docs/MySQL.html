@@ -3,7 +3,7 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=80b0323c1e306cbb5dd15d883f11e06135504541">
+    <link rel="stylesheet" href="/assets/css/style.css?v=a213e0c9aeeaef6dfdd3ad9db7d670ac5e0dee9d">
     <title>notebook by zjuchenyuan</title>
   </head>
 
@@ -23,19 +23,19 @@
 
     <div class="container">
       <section id="main_content">
-        <p>#查看表结构</p>
+        <h1 id="section">查看表结构</h1>
 
 <p>desc 表名称;</p>
 
 <hr />
 
-<p>#MERGE存储引擎</p>
+<h1 id="merge">MERGE存储引擎</h1>
 
 <p>官方文档：http://dev.mysql.com/doc/refman/5.7/en/merge-storage-engine.html</p>
 
 <p>查看能用的引擎：<strong>show engines</strong></p>
 
-<p>##创建一个这样的表：</p>
+<h2 id="section-1">创建一个这样的表：</h2>
 
 <p>假设有a,b表，他们的结构完全相同，然后就可以建立一个c表和他们的ddl完全一致</p>
 
@@ -56,7 +56,7 @@
 
 <hr />
 
-<p>#删除表的冗余</p>
+<h1 id="section-2">删除表的冗余</h1>
 
 <p>两行只有一列(gettime)不同，删除其中一行</p>
 
@@ -69,7 +69,7 @@
 
 <hr />
 
-<p>#修改表 alter table</p>
+<h1 id="alter-table">修改表 alter table</h1>
 
 <div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="k">ALTER</span> <span class="k">IGNORE</span> <span class="k">TABLE</span> <span class="nv">`表名称`</span>
 <span class="k">MODIFY</span> <span class="k">COLUMN</span> <span class="nv">`id`</span>  <span class="n">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="k">FIRST</span><span class="p">,</span>
@@ -84,13 +84,13 @@
 
 <hr />
 
-<p>#将中文转为拼音 函数</p>
+<h1 id="section-3">将中文转为拼音 函数</h1>
 
 <p>代码在<a href="code/pinyin.sql">code/pinyin.sql</a></p>
 
 <hr />
 
-<p>#从路径URL获取文件名称</p>
+<h1 id="url">从路径URL获取文件名称</h1>
 
 <p>来源 http://stackoverflow.com/questions/17090237/extracting-filenames-from-a-path-mysql</p>
 
@@ -104,7 +104,7 @@
 
 <hr />
 
-<h1 id="section">查询优化</h1>
+<h1 id="section-4">查询优化</h1>
 
 <h2 id="explainusing-filesort">explain发现出现了using filesort</h2>
 
@@ -116,7 +116,7 @@
 
 <p>group by用了两个列，两列要合在一起创建索引</p>
 
-<h2 id="section-1">内存表索引的选择</h2>
+<h2 id="section-5">内存表索引的选择</h2>
 
 <blockquote>
   <p>参考 https://dev.mysql.com/doc/refman/5.5/en/optimizing-memory-tables.html</p>

@@ -1,16 +1,16 @@
-#查看表结构
+# 查看表结构
 
 desc 表名称;
 
 ----
 
-#MERGE存储引擎
+# MERGE存储引擎
 
 官方文档：http://dev.mysql.com/doc/refman/5.7/en/merge-storage-engine.html
 
 查看能用的引擎：**show engines**
 
-##创建一个这样的表：
+## 创建一个这样的表：
 
 假设有a,b表，他们的结构完全相同，然后就可以建立一个c表和他们的ddl完全一致
 
@@ -31,7 +31,7 @@ CREATE TABLE c (
 
 ----
 
-#删除表的冗余
+# 删除表的冗余
 
 两行只有一列(gettime)不同，删除其中一行
 
@@ -44,7 +44,7 @@ delete t1 from t as t1, t as t2 where
 
 ----
 
-#修改表 alter table
+# 修改表 alter table
 
 ```sql
 ALTER IGNORE TABLE `表名称`
@@ -59,13 +59,13 @@ ADD INDEX `a1` (`user`);
 
 ----
 
-#将中文转为拼音 函数
+# 将中文转为拼音 函数
 
 代码在[code/pinyin.sql](code/pinyin.sql)
 
 ----
 
-#从路径URL获取文件名称
+# 从路径URL获取文件名称
 
 来源 http://stackoverflow.com/questions/17090237/extracting-filenames-from-a-path-mysql
 

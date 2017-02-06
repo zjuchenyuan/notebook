@@ -3,7 +3,7 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=80b0323c1e306cbb5dd15d883f11e06135504541">
+    <link rel="stylesheet" href="/assets/css/style.css?v=a213e0c9aeeaef6dfdd3ad9db7d670ac5e0dee9d">
     <title>notebook by zjuchenyuan</title>
   </head>
 
@@ -23,7 +23,7 @@
 
     <div class="container">
       <section id="main_content">
-        <p>#备份 备份 备份！</p>
+        <h1 id="section">备份 备份 备份！</h1>
 
 <p>一个良好的备份计划至关重要，备份脚本应该导出数据库、压缩日志和动态产生的数据文件，并上传至其他服务器或CDN</p>
 
@@ -33,21 +33,21 @@
 
 <p>下面的例子涉及到date、docker、tar、zip、七牛qshell命令的使用</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="c"># !/bin/bash</span>
 <span class="nb">pushd </span>工作目录
 <span class="nv">d</span><span class="o">=</span><span class="sb">`</span>date +%Y%m%d<span class="sb">`</span>
 mkdir bakup<span class="nv">$d</span>
 <span class="nb">cd </span>bakup<span class="nv">$d</span>
 <span class="o">(</span>docker <span class="nb">exec </span>容器名称 mysqldump -p密码 数据库名称<span class="o">)</span> &gt;database.sql
-tar cvzf log.tar.gz ../log <span class="c">#压缩log目录</span>
+tar cvzf log.tar.gz ../log <span class="c"># 压缩log目录</span>
 <span class="nb">cd</span> ../
-<span class="c">#使用zip加密压缩，压缩后删除原文件</span>
+<span class="c"># 使用zip加密压缩，压缩后删除原文件</span>
 zip -r -P 压缩密码 -m bakup<span class="nv">$d</span>.zip bakup<span class="nv">$d</span>/
-<span class="c">#使用七牛的qshell上传备份文件，运行前需要配置账号qshell account 你的AK 你的SK</span>
-<span class="c">#下面这条命令表示将bakup$d.zip上传，CDN上存储的文件名为$d.zip</span>
+<span class="c"># 使用七牛的qshell上传备份文件，运行前需要配置账号qshell account 你的AK 你的SK</span>
+<span class="c"># 下面这条命令表示将bakup$d.zip上传，CDN上存储的文件名为$d.zip</span>
 ./qshell fput 你的bucket的名称 <span class="nv">$d</span>.zip bakup<span class="nv">$d</span>.zip
-<span class="c">#如果你放心可以本地彻底删掉备份文件：</span>
-<span class="c">#rm -r bakup$d.zip</span>
+<span class="c"># 如果你放心可以本地彻底删掉备份文件：</span>
+<span class="c"># rm -r bakup$d.zip</span>
 
 </code></pre>
 </div>

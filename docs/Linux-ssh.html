@@ -3,7 +3,7 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=80b0323c1e306cbb5dd15d883f11e06135504541">
+    <link rel="stylesheet" href="/assets/css/style.css?v=a213e0c9aeeaef6dfdd3ad9db7d670ac5e0dee9d">
     <title>notebook by zjuchenyuan</title>
   </head>
 
@@ -23,7 +23,7 @@
 
     <div class="container">
       <section id="main_content">
-        <p>#SSH</p>
+        <h1 id="ssh">SSH</h1>
 
 <h2 id="idrsa">不同服务器使用不同的id_rsa</h2>
 
@@ -40,14 +40,14 @@ Host myshortname realname.example.com
     User remoteusername
 ```</p>
 
-<p>##换个端口开启一个临时的sshd：</p>
+<h2 id="sshd">换个端口开启一个临时的sshd：</h2>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>which sshd
 /usr/sbin/sshd -oPort=2333
 </code></pre>
 </div>
 
-<h2 id="ssh">ssh反向代理</h2>
+<h2 id="ssh-1">ssh反向代理</h2>
 
 <p>参见：http://www.tuicool.com/articles/UVRNfi</p>
 

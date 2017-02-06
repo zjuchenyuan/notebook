@@ -3,7 +3,7 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=80b0323c1e306cbb5dd15d883f11e06135504541">
+    <link rel="stylesheet" href="/assets/css/style.css?v=a213e0c9aeeaef6dfdd3ad9db7d670ac5e0dee9d">
     <title>notebook by zjuchenyuan</title>
   </head>
 
@@ -67,9 +67,9 @@
 
 <p>为简化操作，我写了一个更加方便的<a href="code/getcert.py">getcert.py</a></p>
 
-<p>###使用方法：</p>
+<h3 id="section">使用方法：</h3>
 
-<p>####第一步：</p>
+<h4 id="section-1">第一步：</h4>
 
 <p>配置相应网站的nginx conf中的server里面，加入这个：</p>
 
@@ -82,7 +82,7 @@
 
 <p>记得运行后 <code class="highlighter-rouge">nginx -s reload</code></p>
 
-<p>####第二步，运行我的getcert.py（创建私钥并提交申请）：</p>
+<h4 id="getcertpy">第二步，运行我的getcert.py（创建私钥并提交申请）：</h4>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>pushd 上述保存密钥的目录
 wget https://raw.githubusercontent.com/zjuchenyuan/notebook/master/code/getcert.py
@@ -96,7 +96,7 @@ wget https://raw.githubusercontent.com/zjuchenyuan/notebook/master/code/getcert.
 
 <p><img src="download/img/https.jpg" alt="https.jpg" /></p>
 
-<p>####第三步，加上https的配置：</p>
+<h4 id="https">第三步，加上https的配置：</h4>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>server {
     listen 443;

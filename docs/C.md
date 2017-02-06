@@ -1,4 +1,4 @@
-#写在前面
+# 写在前面
 一点关于C的建议咯，也包含C++
 
 ----
@@ -22,8 +22,8 @@
 以下代码演示这种输入方法，对输入的n个数调用qsort排序；输入格式：第一行 N表示数的个数，第二行 N个需要排序的数(N<1000)
 
 ```C
-#include <stdio.h>
-#include <stdlib.h>
+# include <stdio.h>
+# include <stdlib.h>
 char buf[9999];
 int data[1005]; //不要在局部变量定义大数组，会炸栈
 int cmp(const void* a,const void* b){
@@ -47,9 +47,9 @@ int main(){
 ## C++用sstream代替sprintf
 
 ```cpp
-#include <string>
-#include <sstream>
-#include <iostream> 
+# include <string>
+# include <sstream>
+# include <iostream> 
 using namespace std;
 int main(){
     stringstream s;

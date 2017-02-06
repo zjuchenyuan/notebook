@@ -35,9 +35,9 @@
 
 为简化操作，我写了一个更加方便的[getcert.py](code/getcert.py)
 
-###使用方法：
+### 使用方法：
 
-####第一步：
+#### 第一步：
 
 配置相应网站的nginx conf中的server里面，加入这个：
 
@@ -50,7 +50,7 @@
 
 记得运行后 `nginx -s reload`
 
-####第二步，运行我的getcert.py（创建私钥并提交申请）：
+#### 第二步，运行我的getcert.py（创建私钥并提交申请）：
 
 ````
 pushd 上述保存密钥的目录
@@ -64,7 +64,7 @@ wget https://raw.githubusercontent.com/zjuchenyuan/notebook/master/code/getcert.
 
 ![https.jpg](download/img/https.jpg)
 
-####第三步，加上https的配置：
+#### 第三步，加上https的配置：
 
 ```
 server {

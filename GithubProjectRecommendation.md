@@ -1,4 +1,4 @@
-#you-get
+# you-get
 
 https://github.com/soimort/you-get
 
@@ -8,7 +8,7 @@ pip安装后直接下载b站超清视频
 
 ----
 
-#Anki
+# Anki
 
 https://github.com/dae/anki
 
@@ -22,7 +22,7 @@ https://zhuanlan.zhihu.com/-anki
 
 ----
 
-#OnlineJudge
+# OnlineJudge
 
 https://github.com/QingdaoU/OnlineJudge
 
@@ -35,11 +35,11 @@ https://github.com/QingdaoU/OnlineJudge/wiki/%E6%AD%A3%E5%BC%8F%E9%83%A8%E7%BD%B
 安装后的默认版本是不支持Python作为提交语言的，需要进行如下操作：
 
 ```
-#首先关掉容器
+# 首先关掉容器
 docker-compose stop
-#在master分支把那个分支merge过来
+# 在master分支把那个分支merge过来
 git merge origin/python-support
 python tools/release_static.py
-#然后启动容器，注意要-d否则会占据前台
+# 然后启动容器，注意要-d否则会占据前台
 docker-compose up -d
 ```

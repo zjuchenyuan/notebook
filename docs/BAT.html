@@ -3,7 +3,7 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=80b0323c1e306cbb5dd15d883f11e06135504541">
+    <link rel="stylesheet" href="/assets/css/style.css?v=a213e0c9aeeaef6dfdd3ad9db7d670ac5e0dee9d">
     <title>notebook by zjuchenyuan</title>
   </head>
 
@@ -23,7 +23,7 @@
 
     <div class="container">
       <section id="main_content">
-        <p>#写在前面</p>
+        <h1 id="section">写在前面</h1>
 
 <p>在没有接触到C和Python之前，我也常用BAT和一堆第三方的exe做事情</p>
 
@@ -46,7 +46,7 @@
 </table>
 
 <hr />
-<p>#来一个死循环吧 for</p>
+<p># 来一个死循环吧 for</p>
 
 <blockquote>
   <p>用于结束进程，或者DNS查询（买了个域名tmd咋解析还没好</p>
@@ -57,7 +57,7 @@
 </div>
 
 <hr />
-<p>#结束进程 taskkill</p>
+<p># 结束进程 taskkill</p>
 
 <blockquote>
   <p>woc，咋我开了这么多cmd，一个个结束太烦了，不如taskkill一波</p>
@@ -68,7 +68,7 @@
 </div>
 
 <hr />
-<p>#内存整理 free</p>
+<p># 内存整理 free</p>
 
 <blockquote>
   <p>微软自己出的一个内存整理工具，需要管理员权限；原理我没搞懂</p>
@@ -83,7 +83,7 @@
 </div>
 
 <hr />
-<p>#睡一会 SleepX</p>
+<p># 睡一会 SleepX</p>
 
 <blockquote>
   <p>程序需要等待一定时间再继续运行就可以sleepx啦</p>
@@ -101,7 +101,7 @@ SleepX -k 5
 </div>
 
 <hr />
-<p>#命令行的爬虫 curl</p>
+<p># 命令行的爬虫 curl</p>
 
 <p><img src="https://curl.haxx.se/logo/curl-logo.svg" alt="cURL" /></p>
 
@@ -161,13 +161,13 @@ curl dict://www.dict.org/d:computer -v
 
 <h1 id="bat">BAT的命令们</h1>
 
-<p>##判断文件夹存在</p>
+<h2 id="section-1">判断文件夹存在</h2>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>if exist DIRNAME\nul echo Yes!
 </code></pre>
 </div>
 
-<h2 id="section">创建硬链接</h2>
+<h2 id="section-2">创建硬链接</h2>
 
 <p>Win7及以上：
 <code class="highlighter-rouge">
@@ -186,7 +186,7 @@ fsutil hardlink create &lt;new filename&gt; &lt;existing filename&gt;
 
 <hr />
 
-<h2 id="section-1">端口转发</h2>
+<h2 id="section-3">端口转发</h2>
 
 <p>此命令需要管理员权限</p>
 

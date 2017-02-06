@@ -3,7 +3,7 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=80b0323c1e306cbb5dd15d883f11e06135504541">
+    <link rel="stylesheet" href="/assets/css/style.css?v=a213e0c9aeeaef6dfdd3ad9db7d670ac5e0dee9d">
     <title>notebook by zjuchenyuan</title>
   </head>
 
@@ -23,8 +23,8 @@
 
     <div class="container">
       <section id="main_content">
-        <p>#写在前面
-一点关于C的建议咯，也包含C++</p>
+        <h1 id="section">写在前面</h1>
+<p>一点关于C的建议咯，也包含C++</p>
 
 <hr />
 
@@ -44,7 +44,7 @@
 
 <hr />
 
-<h2 id="section">输入的问题</h2>
+<h2 id="section-1">输入的问题</h2>
 
 <p>我建议所有的输入全部使用gets完成，然后再用sscanf读取到变量</p>
 
@@ -52,8 +52,8 @@
 
 <p>以下代码演示这种输入方法，对输入的n个数调用qsort排序；输入格式：第一行 N表示数的个数，第二行 N个需要排序的数(N&lt;1000)</p>
 
-<pre><code class="language-C">#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
+<pre><code class="language-C"># include &lt;stdio.h&gt;
+# include &lt;stdlib.h&gt;
 char buf[9999];
 int data[1005]; //不要在局部变量定义大数组，会炸栈
 int cmp(const void* a,const void* b){
@@ -76,9 +76,9 @@ int main(){
 <hr />
 <p>## C++用sstream代替sprintf</p>
 
-<div class="language-cpp highlighter-rouge"><pre class="highlight"><code><span class="cp">#include &lt;string&gt;
-#include &lt;sstream&gt;
-#include &lt;iostream&gt; 
+<div class="language-cpp highlighter-rouge"><pre class="highlight"><code><span class="cp"># include &lt;string&gt;
+# include &lt;sstream&gt;
+# include &lt;iostream&gt; 
 </span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
     <span class="n">stringstream</span> <span class="n">s</span><span class="p">;</span>

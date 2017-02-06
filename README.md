@@ -25,26 +25,26 @@ Welcome for issue, star, and pull requests.
 >* 结束进程taskkill
 >* 内存整理free
 >* 睡一会sleep
->* [命令行的爬虫 curl](BAT.md#命令行的爬虫-curl)
+>* [命令行的爬虫 curl](BAT.md# 命令行的爬虫-curl)
 
 ## [C 语言](C.md)
 >* 关于Dev C++
 >* 输入的问题
->* [C++用sstream代替sprintf](C.md#c用sstream代替sprintf)
+>* [C++用sstream代替sprintf](C.md# c用sstream代替sprintf)
 
 ## [CDN](CDN.md)
 >* UPYUN 又拍云
 >* Qiniu 七牛
 
 ## [Docker](Docker.md)
->* [安装](Docker.md#install-安装)
->* [加速镜像下载](Docker.md#加速镜像下载)
+>* [安装](Docker.md# install-安装)
+>* [加速镜像下载](Docker.md# 加速镜像下载)
 >* 旧版本卸载
 
 ## [Git](Git.md)
 >* 基础入门
->* [git push免密码](Git.md#git-push免密码)
->* [bash别名设置 少打字](Git.md#bash别名设置)
+>* [git push免密码](Git.md# git-push免密码)
+>* [bash别名设置 少打字](Git.md# bash别名设置)
 >* [Git也要翻墙](code/ssgit.txt)
 >* 好玩的命令们
 
@@ -53,9 +53,9 @@ Welcome for issue, star, and pull requests.
 >* 帮助文本的grep 用2>&1
 >* 当前目录文件全文搜索
 >* 配置有线静态IP
->* [配置apt源](Linux.md#配置apt源)
+>* [配置apt源](Linux.md# 配置apt源)
 >* 解决apt依赖问题
->* [UnixBench](Linux.md#UnixBench)
+>* [UnixBench](Linux.md# UnixBench)
 
 ## [MySQL](MySQL.md)
 >* 查看表结构 desc
@@ -65,7 +65,7 @@ Welcome for issue, star, and pull requests.
 >* [将中文转为拼音的函数](code/pinyin.sql)
 
 ## [Python](Python.md)
->* [设置pip源](Python.md#设置pip源)
+>* [设置pip源](Python.md# 设置pip源)
 >* 让requests使用多个IP
 >* [Python多线程模板](code/MultiThread_Template.py)
 >* BaseHTTPServer并发性改善
@@ -77,7 +77,7 @@ Welcome for issue, star, and pull requests.
 
 ----
 
-#Code Index 代码索引
+# Code Index 代码索引
 
 [让apt-get翻墙](code/ssprivoxy.txt)
 
@@ -87,7 +87,7 @@ Welcome for issue, star, and pull requests.
 
 [Mysql姓名转拼音](code/pinyin.sql)
 
-#Download Index 下载索引
+# Download Index 下载索引
 
 [Windows内存整理](download/empty.exe)
 

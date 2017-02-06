@@ -3,7 +3,7 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=80b0323c1e306cbb5dd15d883f11e06135504541">
+    <link rel="stylesheet" href="/assets/css/style.css?v=a213e0c9aeeaef6dfdd3ad9db7d670ac5e0dee9d">
     <title>notebook by zjuchenyuan</title>
   </head>
 
@@ -23,7 +23,7 @@
 
     <div class="container">
       <section id="main_content">
-        <p>#写在前面</p>
+        <h1 id="section">写在前面</h1>
 
 <p>嗯哼，Python很好玩呢…记录一点黑科技咯</p>
 
@@ -31,7 +31,7 @@
 
 <hr />
 
-<p>#设置pip源</p>
+<h1 id="pip">设置pip源</h1>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>mkdir -p ~/.pip
 echo """
@@ -43,7 +43,7 @@ trusted-host=pypi.doubanio.com
 </code></pre>
 </div>
 
-<p>#反弹shell</p>
+<h1 id="shell">反弹shell</h1>
 
 <p>首先自己的服务器上用<strong>nc -l 端口</strong></p>
 
@@ -57,7 +57,7 @@ trusted-host=pypi.doubanio.com
 </code></pre>
 </div>
 
-<p>##获得一个tty</p>
+<h2 id="tty">获得一个tty</h2>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>python -c 'import pty; pty.spawn("/bin/sh")'
 </code></pre>
@@ -65,7 +65,7 @@ trusted-host=pypi.doubanio.com
 
 <hr />
 
-<p>#让requests使用多个IP</p>
+<h1 id="requestsip">让requests使用多个IP</h1>
 
 <div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">socket</span>
 <span class="n">real_create_conn</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">create_connection</span>
@@ -80,7 +80,7 @@ trusted-host=pypi.doubanio.com
 
 <hr />
 
-<p>#Python多线程模板</p>
+<h1 id="python">Python多线程模板</h1>
 
 <p><a href="code/MultiThread_Template.py">MultiThread_Template.py</a></p>
 
@@ -137,7 +137,7 @@ alias pip3=`pwd`/pip
 
 <hr />
 
-<h1 id="section">中文输出乱码问题</h1>
+<h1 id="section-1">中文输出乱码问题</h1>
 
 <p>方法1：运行py前设置环境变量
 <code class="highlighter-rouge">
@@ -165,7 +165,7 @@ pycodestyle --show-source --ignore=E501 yourcode.py
 
 <hr />
 
-<p>#生成随机字符串</p>
+<h1 id="section-2">生成随机字符串</h1>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>from random import Random
 def random_str(randomlength=8):

@@ -1,16 +1,16 @@
-#Git的学习笔记咯
+# Git的学习笔记咯
 
 > 参考 **沉浸式学 Git** http://igit.linuxtoy.org/
 
 ----
 
-#基础命令
+# 基础命令
 
 在网页上先创建了repo，设置好.gitignore
 
 ```bash
 git clone  github提供的地址(用ssh的)
-#然后丢代码进去咯
+# 然后丢代码进去咯
 git add .
 git commit -a -m "这次改了些啥？"
 git push
@@ -18,7 +18,7 @@ git push
 
 ----
 
-#git push免密码
+# git push免密码
 
 参照http://blog.csdn.net/chfe007/article/details/43388041
 
@@ -39,7 +39,7 @@ git push
     
 ----
 
-#bash别名设置
+# bash别名设置
 
 通过修改~/.bashrc来设置别名，让git的日常使用更简单：
 
@@ -68,23 +68,23 @@ alias gl="git log --all --pretty=format:'%h %ad | %s%d [%an]' --graph --date=sho
 
 ----
 
-#Git也要翻墙
+# Git也要翻墙
 
 代码参见[code/ssgit.txt](code/ssgit.txt)
 
 ----
 
-#好玩的命令们
+# 好玩的命令们
 
-##git status
+## git status
 
 查看状态咯~
 
-##git reset
+## git reset
 
 已经`git add`了，想取消这一步就用`git reset`
 
-##git checkout
+## git checkout
 
 啊。。。代码搞坏了我要回滚到上次commit，用`git checkout -- 文件名`
 
@@ -100,17 +100,17 @@ git的历史是不能用命令修改的，丢失的commit用reflog可以找回�
 
 ```
 git stash save
-git reflog #查看丢失的那个commit的id
+git reflog # 查看丢失的那个commit的id
 git checkout 那个commitid
-git branch recover #创建recover分支
-git checkout master #回到master
-git merge recover #合并recover到master
-git branch -d recover #合并完成后就可以删了
+git branch recover # 创建recover分支
+git checkout master # 回到master
+git merge recover # 合并recover到master
+git branch -d recover # 合并完成后就可以删了
 ```
 
 ----
 
-#哲学
+# 哲学
 
 * 为啥要**git add**呢?
 

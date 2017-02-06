@@ -3,7 +3,7 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=80b0323c1e306cbb5dd15d883f11e06135504541">
+    <link rel="stylesheet" href="/assets/css/style.css?v=a213e0c9aeeaef6dfdd3ad9db7d670ac5e0dee9d">
     <title>notebook by zjuchenyuan</title>
   </head>
 
@@ -29,7 +29,7 @@
 
 <p>安装之前，建议修改apt源</p>
 
-<p>安装之前，或许要对内核升级，如果执行安装脚本发出了对aufs的警告，请看<a href="#解决aufs的问题">这里</a></p>
+<p>安装之前，或许要对内核升级，如果执行安装脚本发出了对aufs的警告，请看<a href="# 解决aufs的问题">这里</a></p>
 
 <p>安装命令：</p>
 
@@ -41,7 +41,7 @@
 
 <p>安装后执行docker version，没有报错即可</p>
 
-<p>##解决aufs的问题</p>
+<h2 id="aufs">解决aufs的问题</h2>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>apt-get install lxc wget bsdtar curl
 apt-get install linux-image-extra-$(uname -r)
@@ -61,7 +61,7 @@ modprobe aufs
   <p>如果你的docker版本为1.6.2,请参考卸载docker</p>
 </blockquote>
 
-<p>##建议使用USTC的源：</p>
+<h2 id="ustc">建议使用USTC的源：</h2>
 
 <p>来自：https://lug.ustc.edu.cn/wiki/mirrors/help/docker</p>
 
@@ -71,7 +71,7 @@ modprobe aufs
 
 <hr />
 
-<p>#Docker旧版本卸载</p>
+<h1 id="docker">Docker旧版本卸载</h1>
 
 <p>如果你的docker是使用apt-get install docker.io安装的，请先执行以下命令卸载：</p>
 
@@ -126,14 +126,14 @@ iptables -t filter -N DOCKER
 
 <hr />
 
-<h1 id="docker">迁移Docker文件夹到其他硬盘</h1>
+<h1 id="docker-1">迁移Docker文件夹到其他硬盘</h1>
 
 <p>当镜像多了起来的时候，/var/lib所在的根分区很可能被占满，这时候要考虑迁移到其他硬盘，此处以迁移到<code class="highlighter-rouge">/home/docker</code>为例说明</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="c">#首先记得关闭服务</span>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="c"># 首先记得关闭服务</span>
 service docker stop
 mv /var/lib/docker /home/
-<span class="c">#然后修改服务配置文件/etc/default/docker，此处建议手动vim编辑，加入这个：</span>
+<span class="c"># 然后修改服务配置文件/etc/default/docker，此处建议手动vim编辑，加入这个：</span>
 <span class="c">#    --graph='/home/docker'</span>
 <span class="nb">echo</span> -e <span class="s2">"</span><span class="se">\n</span><span class="s2">DOCKER_OPTS=</span><span class="se">\"</span><span class="s2">--graph='/home/docker'</span><span class="se">\"</span><span class="s2">"</span> &gt;&gt; /etc/default/docker
 </code></pre>

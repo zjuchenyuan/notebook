@@ -1,16 +1,16 @@
-#如何翻墙
+# 如何翻墙
 
-##部署shadowsocks客户端，并部署Privoxy提供http proxy
+## 部署shadowsocks客户端，并部署Privoxy提供http proxy
 
 代码参见[ssprivoxy.txt](code/ssprivoxy.txt)
 
-##也许使用iodine也是个替代方案
+## 也许使用iodine也是个替代方案
 
 TODO: 补充iodine的笔记
 
 ----
 
-#帮助文本的grep，把stderr重定向到stdout
+# 帮助文本的grep，把stderr重定向到stdout
 
 就是用2>&1这样的重定向咯
 
@@ -18,7 +18,7 @@ TODO: 补充iodine的笔记
 
 ----
 
-#当前目录文件全文搜索
+# 当前目录文件全文搜索
 
 这里要搜索当前目录下面所有的包含"MultiTeam"的php文件
 
@@ -26,10 +26,10 @@ TODO: 补充iodine的笔记
 
 ----
 
-#配置有线静态IP
+# 配置有线静态IP
 ```bash
 vim /etc/network/interfaces
-#写入以下内容，请自行替换xx部分
+# 写入以下内容，请自行替换xx部分
 iface eth0 inet static
  address 10.xx.xx.13
  netmask 255.255.255.0
@@ -37,7 +37,7 @@ iface eth0 inet static
  broadcast 10.xx.xx.255
  gateway 10.xx.xx.254
  dns-nameservers 10.10.0.21
-#按Esc, :wq退出保存
+# 按Esc, :wq退出保存
 service networking restart
 ifconfig eth0 10.xx.xx.13 netmask 255.255.255.0 up
 route add default eth0
@@ -58,7 +58,7 @@ deb http://mirrors.163.com/ubuntu/ trusty-security main restricted universe mult
 ifconfig eth0:233 10.xx.xx.233 netmask 255.255.255.0 up
 
 ----
-#锐速安装
+# 锐速安装
 
 来自：https://github.com/91yun/serverspeeder
 
@@ -67,7 +67,7 @@ ifconfig eth0:233 10.xx.xx.233 netmask 255.255.255.0 up
     apt-get install linux-image-3.16.0-43-generic
     reboot
 
-安装命令：#此安装脚本会连接开发者的服务器以root权限执行远程指令，风险自负
+安装命令：# 此安装脚本会连接开发者的服务器以root权限执行远程指令，风险自负
 
     wget -N --no-check-certificate https://raw.githubusercontent.com/91yun/serverspeeder/master/serverspeeder-all.sh && bash serverspeeder-all.sh
     
@@ -77,7 +77,7 @@ ifconfig eth0:233 10.xx.xx.233 netmask 255.255.255.0 up
     service serverSpeeder stop
     
 ----
-#解决apt依赖问题
+# 解决apt依赖问题
 
 问题描述：服务器为ubuntu14.04版本，某些不明操作后，无法用`apt-get`安装任何东西
 
@@ -126,7 +126,7 @@ VPS性能测试工具，耗时较长，耐心等待
 curl https://codeload.github.com/kdlucas/byte-unixbench/zip/v5.1.3>UnixBench.zip
 unzip UnixBench.zip
 cd byte-unixbench-5.1.3/UnixBench
-#apt-get install build-essential
+# apt-get install build-essential
 make
 screen -S ub
 ./Run
@@ -154,21 +154,21 @@ echo 3 > /proc/sys/vm/drop_caches
 
 ----
 
-#使用iptables封ip
+# 使用iptables封ip
 
-###屏蔽单个IP
+### 屏蔽单个IP
 
     iptables -I INPUT -s 123.45.6.7 -j DROP
 
-###封C段
+### 封C段
 
     iptables -I INPUT -s 123.45.6.0/24 -j DROP
 
-####封B段
+#### 封B段
 
      iptables -I INPUT -s 123.45.0.0/16 -j DROP
 
-###封A段
+### 封A段
 
     iptables -I INPUT -s 123.0.0.0/8 -j DROP
 
@@ -215,9 +215,9 @@ echo 3 > /proc/sys/vm/drop_caches
 
 创建一个screen的自启动，让后台进程获得tty
 
-    #假设写好了一个/root/code.sh
+    # 假设写好了一个/root/code.sh
     vim /etc/rc.local
-    #在最后加入一行，其中NAME替换为自己喜欢的名字
+    # 在最后加入一行，其中NAME替换为自己喜欢的名字
     screen -dmS NAME /root/code.sh
 
 举个例子--监测外网能否ping通，如果不能重连zjuvpn：
@@ -242,7 +242,7 @@ find 指定文件后缀名，记住要引号避免bash解析*
 
 目标： 在外网访问A机器的2121端口，就相当于连上了B机器的ftp(21)
 
-##环境： 
+## 环境： 
 
 A机器外网IP为 1.2.3.4(eth1) 内网IP为 192.168.1.20 (eth0)
 
@@ -261,13 +261,13 @@ B机器内网为 192.168.1.21
 然后在A机器上创建iptables规则
 
 ```
-#把访问外网2121端口的包转发到内网ftp服务器
+# 把访问外网2121端口的包转发到内网ftp服务器
 iptables -t nat -I PREROUTING -d 1.2.3.4 -p tcp --dport 2121 -j DNAT --to 192.168.1.21:21 
 
-#把到内网ftp服务器的包回源到内网网卡上，不然包只能转到ftp服务器，而返回的包不能到达客户端
+# 把到内网ftp服务器的包回源到内网网卡上，不然包只能转到ftp服务器，而返回的包不能到达客户端
 iptables -t nat -I POSTROUTING -d 192.168.1.21 -p tcp --dport 21 -j SNAT --to 192.168.1.20 
 
-#保存一下规则
+# 保存一下规则
 service iptables save
 ```
 
@@ -293,7 +293,7 @@ chattr -R -i /bin /sbin /usr/sbin /usr/bin /usr/local/sbin /usr/local/bin
 
 ----
 
-#查看给定文件列表的文件大小
+# 查看给定文件列表的文件大小
 
 用xargs -d指定分隔符为\n（默认会按照空格和\n分隔参数）
 
@@ -303,7 +303,7 @@ cat list.txt | xargs -d "\n" ls -alh
 
 ----
 
-#时区设置
+# 时区设置
 
 ```
 cp /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
@@ -312,7 +312,7 @@ ntpdate cn.pool.ntp.org
 
 ----
 
-#wget慢慢下载
+# wget慢慢下载
 
 ```
 wget -i list.txt  -nc --wait=60 --random-wait
@@ -322,7 +322,7 @@ wget -i list.txt  -nc --wait=60 --random-wait
 
 ----
 
-#touch修改时间戳
+# touch修改时间戳
 
 将b.txt的时间戳改为和a.txt一样
 
@@ -332,7 +332,7 @@ touch -r a.txt b.txt
 
 ----
 
-#去掉ls的颜色
+# 去掉ls的颜色
 
 ```
 unalias ls
@@ -340,6 +340,6 @@ unalias ls
 
 ----
 
-#换行方式修改
+# 换行方式修改
 
 vim中输入:set ff=unix

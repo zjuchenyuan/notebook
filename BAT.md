@@ -1,4 +1,4 @@
-#写在前面
+# 写在前面
 
 在没有接触到C和Python之前，我也常用BAT和一堆第三方的exe做事情
 
@@ -14,21 +14,21 @@
 前者错误才执行 ||
 
 ----
-#来一个死循环吧 for
+# 来一个死循环吧 for
 
 > 用于结束进程，或者DNS查询（买了个域名tmd咋解析还没好
 
     for /l %i in (1,1,9999999) do ...
 
 ----
-#结束进程 taskkill
+# 结束进程 taskkill
 
 > woc，咋我开了这么多cmd，一个个结束太烦了，不如taskkill一波
 
     taskkill /f /im cmd.exe
     
 ----
-#内存整理 free
+# 内存整理 free
 
 > 微软自己出的一个内存整理工具，需要管理员权限；原理我没搞懂
 
@@ -37,7 +37,7 @@
     empty *
 
 ----
-#睡一会 SleepX
+# 睡一会 SleepX
 
 > 程序需要等待一定时间再继续运行就可以sleepx啦
 
@@ -49,7 +49,7 @@
     SleepX -k 5
     
 ----
-#命令行的爬虫 curl
+# 命令行的爬虫 curl
 
 ![cURL](https://curl.haxx.se/logo/curl-logo.svg)
 
@@ -101,7 +101,7 @@ curl dict://www.dict.org/d:computer -v
 
 # BAT的命令们
 
-##判断文件夹存在
+## 判断文件夹存在
 
 ```
 if exist DIRNAME\nul echo Yes!

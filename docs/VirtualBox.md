@@ -1,4 +1,4 @@
-#VirtualBox
+# VirtualBox
 
 > 参考 https://www.howtoforge.com/tutorial/running-virtual-machines-with-virtualbox-5.1-on-a-headless-ubuntu-16.04-lts-server/
 
@@ -31,7 +31,7 @@ sudo VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack-5.1.0-108711
 ```
 mkdir -p /home/virtualbox
 VBoxManage createvm --name ubuntu --ostype "Ubuntu_64" --register --basefolder /home/virtualbox/
-VBoxManage createvdi  --filename ubuntu/ubuntu.vdi --size 102400 #100GB
+VBoxManage createvdi  --filename ubuntu/ubuntu.vdi --size 102400 # 100GB
 VBoxManage storagectl ubuntu --name storage_controller_1 --add ide
 VBoxManage storageattach ubuntu --storagectl storage_controller_1 \
     --type hdd --port 0 --device 0  --medium ubuntu/ubuntu.vdi

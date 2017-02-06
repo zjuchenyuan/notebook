@@ -3,7 +3,7 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=80b0323c1e306cbb5dd15d883f11e06135504541">
+    <link rel="stylesheet" href="/assets/css/style.css?v=a213e0c9aeeaef6dfdd3ad9db7d670ac5e0dee9d">
     <title>notebook by zjuchenyuan</title>
   </head>
 
@@ -23,7 +23,7 @@
 
     <div class="container">
       <section id="main_content">
-        <p>#you-get</p>
+        <h1 id="you-get">you-get</h1>
 
 <p>https://github.com/soimort/you-get</p>
 
@@ -33,7 +33,7 @@
 
 <hr />
 
-<p>#Anki</p>
+<h1 id="anki">Anki</h1>
 
 <p>https://github.com/dae/anki</p>
 
@@ -47,7 +47,7 @@
 
 <hr />
 
-<p>#OnlineJudge</p>
+<h1 id="onlinejudge">OnlineJudge</h1>
 
 <p>https://github.com/QingdaoU/OnlineJudge</p>
 
@@ -59,12 +59,12 @@
 
 <p>安装后的默认版本是不支持Python作为提交语言的，需要进行如下操作：</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>#首先关掉容器
+<div class="highlighter-rouge"><pre class="highlight"><code># 首先关掉容器
 docker-compose stop
-#在master分支把那个分支merge过来
+# 在master分支把那个分支merge过来
 git merge origin/python-support
 python tools/release_static.py
-#然后启动容器，注意要-d否则会占据前台
+# 然后启动容器，注意要-d否则会占据前台
 docker-compose up -d
 </code></pre>
 </div>

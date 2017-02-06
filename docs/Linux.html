@@ -3,7 +3,7 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=80b0323c1e306cbb5dd15d883f11e06135504541">
+    <link rel="stylesheet" href="/assets/css/style.css?v=a213e0c9aeeaef6dfdd3ad9db7d670ac5e0dee9d">
     <title>notebook by zjuchenyuan</title>
   </head>
 
@@ -23,19 +23,19 @@
 
     <div class="container">
       <section id="main_content">
-        <p>#如何翻墙</p>
+        <h1 id="section">如何翻墙</h1>
 
-<p>##部署shadowsocks客户端，并部署Privoxy提供http proxy</p>
+<h2 id="shadowsocksprivoxyhttp-proxy">部署shadowsocks客户端，并部署Privoxy提供http proxy</h2>
 
 <p>代码参见<a href="code/ssprivoxy.txt">ssprivoxy.txt</a></p>
 
-<p>##也许使用iodine也是个替代方案</p>
+<h2 id="iodine">也许使用iodine也是个替代方案</h2>
 
 <p>TODO: 补充iodine的笔记</p>
 
 <hr />
 
-<p>#帮助文本的grep，把stderr重定向到stdout</p>
+<h1 id="grepstderrstdout">帮助文本的grep，把stderr重定向到stdout</h1>
 
 <p>就是用2&gt;&amp;1这样的重定向咯</p>
 
@@ -45,7 +45,7 @@
 
 <hr />
 
-<p>#当前目录文件全文搜索</p>
+<h1 id="section-1">当前目录文件全文搜索</h1>
 
 <p>这里要搜索当前目录下面所有的包含”MultiTeam”的php文件</p>
 
@@ -55,10 +55,9 @@
 
 <hr />
 
-<p>#配置有线静态IP
-<code class="highlighter-rouge">bash
-vim /etc/network/interfaces
-#写入以下内容，请自行替换xx部分
+<h1 id="ip">配置有线静态IP</h1>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>vim /etc/network/interfaces
+<span class="c"># 写入以下内容，请自行替换xx部分</span>
 iface eth0 inet static
  address 10.xx.xx.13
  netmask 255.255.255.0
@@ -66,11 +65,12 @@ iface eth0 inet static
  broadcast 10.xx.xx.255
  gateway 10.xx.xx.254
  dns-nameservers 10.10.0.21
-#按Esc, :wq退出保存
+<span class="c"># 按Esc, :wq退出保存</span>
 service networking restart
 ifconfig eth0 10.xx.xx.13 netmask 255.255.255.0 up
 route add default eth0
-</code></p>
+</code></pre>
+</div>
 
 <h2 id="apt">配置apt源</h2>
 
@@ -85,11 +85,11 @@ deb http://mirrors.163.com/ubuntu/ trusty-security main restricted universe mult
 </code></pre>
 </div>
 
-<h2 id="ip">单网卡获得多个IP</h2>
+<h2 id="ip-1">单网卡获得多个IP</h2>
 <p>ifconfig eth0:233 10.xx.xx.233 netmask 255.255.255.0 up</p>
 
 <hr />
-<p>#锐速安装</p>
+<p># 锐速安装</p>
 
 <p>来自：https://github.com/91yun/serverspeeder</p>
 
@@ -100,7 +100,7 @@ reboot
 </code></pre>
 </div>
 
-<p>安装命令：#此安装脚本会连接开发者的服务器以root权限执行远程指令，风险自负</p>
+<p>安装命令：# 此安装脚本会连接开发者的服务器以root权限执行远程指令，风险自负</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>wget -N --no-check-certificate https://raw.githubusercontent.com/91yun/serverspeeder/master/serverspeeder-all.sh &amp;&amp; bash serverspeeder-all.sh
 </code></pre>
@@ -114,7 +114,7 @@ service serverSpeeder stop
 </div>
 
 <hr />
-<p>#解决apt依赖问题</p>
+<p># 解决apt依赖问题</p>
 
 <p>问题描述：服务器为ubuntu14.04版本，某些不明操作后，无法用<code class="highlighter-rouge">apt-get</code>安装任何东西</p>
 
@@ -162,7 +162,7 @@ E: Unable to correct dependencies
 <div class="language-bash highlighter-rouge"><pre class="highlight"><code>curl https://codeload.github.com/kdlucas/byte-unixbench/zip/v5.1.3&gt;UnixBench.zip
 unzip UnixBench.zip
 <span class="nb">cd </span>byte-unixbench-5.1.3/UnixBench
-<span class="c">#apt-get install build-essential</span>
+<span class="c"># apt-get install build-essential</span>
 make
 screen -S ub
 ./Run
@@ -176,13 +176,13 @@ dd if=/dev/zero of=test bs=8k count=256k conv=fdatasync
 </code></pre>
 </div>
 
-<h2 id="section">参考数据，均为最低配置</h2>
+<h2 id="section-2">参考数据，均为最低配置</h2>
 
 <p>主机屋1590.5；阿里云1470.4；腾讯云1156.0</p>
 
 <hr />
 
-<h2 id="section-1">清除内存缓存</h2>
+<h2 id="section-3">清除内存缓存</h2>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>sync
 echo 3 &gt; /proc/sys/vm/drop_caches
@@ -191,27 +191,27 @@ echo 3 &gt; /proc/sys/vm/drop_caches
 
 <hr />
 
-<p>#使用iptables封ip</p>
+<h1 id="iptablesip">使用iptables封ip</h1>
 
-<p>###屏蔽单个IP</p>
+<h3 id="ip-2">屏蔽单个IP</h3>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>iptables -I INPUT -s 123.45.6.7 -j DROP
 </code></pre>
 </div>
 
-<p>###封C段</p>
+<h3 id="c">封C段</h3>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>iptables -I INPUT -s 123.45.6.0/24 -j DROP
 </code></pre>
 </div>
 
-<p>####封B段</p>
+<h4 id="b">封B段</h4>
 
 <div class="highlighter-rouge"><pre class="highlight"><code> iptables -I INPUT -s 123.45.0.0/16 -j DROP
 </code></pre>
 </div>
 
-<p>###封A段</p>
+<h3 id="a">封A段</h3>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>iptables -I INPUT -s 123.0.0.0/8 -j DROP
 </code></pre>
@@ -223,7 +223,7 @@ echo 3 &gt; /proc/sys/vm/drop_caches
 </code></pre>
 </div>
 
-<h2 id="section-2">删除一条规则</h2>
+<h2 id="section-4">删除一条规则</h2>
 
 <p>只要重写一次。把-I改为-D即可</p>
 
@@ -276,9 +276,9 @@ export SCREENDIR=$HOME/.screen
 
 <p>创建一个screen的自启动，让后台进程获得tty</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>#假设写好了一个/root/code.sh
+<div class="highlighter-rouge"><pre class="highlight"><code># 假设写好了一个/root/code.sh
 vim /etc/rc.local
-#在最后加入一行，其中NAME替换为自己喜欢的名字
+# 在最后加入一行，其中NAME替换为自己喜欢的名字
 screen -dmS NAME /root/code.sh
 </code></pre>
 </div>
@@ -289,7 +289,7 @@ screen -dmS NAME /root/code.sh
 
 <hr />
 
-<h1 id="section-3">统计当前文件夹代码行数</h1>
+<h1 id="section-5">统计当前文件夹代码行数</h1>
 
 <p>find 指定文件后缀名，记住要引号避免bash解析*</p>
 
@@ -299,7 +299,7 @@ screen -dmS NAME /root/code.sh
 
 <hr />
 
-<h1 id="section-4">双网卡端口转发，暴露内网端口</h1>
+<h1 id="section-6">双网卡端口转发，暴露内网端口</h1>
 
 <blockquote>
   <p>来自： https://yq.aliyun.com/wenzhang/show_25824</p>
@@ -309,13 +309,13 @@ screen -dmS NAME /root/code.sh
 
 <p>目标： 在外网访问A机器的2121端口，就相当于连上了B机器的ftp(21)</p>
 
-<p>##环境：</p>
+<h2 id="section-7">环境：</h2>
 
 <p>A机器外网IP为 1.2.3.4(eth1) 内网IP为 192.168.1.20 (eth0)</p>
 
 <p>B机器内网为 192.168.1.21</p>
 
-<h2 id="section-5">实现方法：</h2>
+<h2 id="section-8">实现方法：</h2>
 
 <p>首先在A机器上打开端口转发功能</p>
 
@@ -327,24 +327,24 @@ screen -dmS NAME /root/code.sh
 
 <p>然后在A机器上创建iptables规则</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>#把访问外网2121端口的包转发到内网ftp服务器
+<div class="highlighter-rouge"><pre class="highlight"><code># 把访问外网2121端口的包转发到内网ftp服务器
 iptables -t nat -I PREROUTING -d 1.2.3.4 -p tcp --dport 2121 -j DNAT --to 192.168.1.21:21 
 
-#把到内网ftp服务器的包回源到内网网卡上，不然包只能转到ftp服务器，而返回的包不能到达客户端
+# 把到内网ftp服务器的包回源到内网网卡上，不然包只能转到ftp服务器，而返回的包不能到达客户端
 iptables -t nat -I POSTROUTING -d 192.168.1.21 -p tcp --dport 21 -j SNAT --to 192.168.1.20 
 
-#保存一下规则
+# 保存一下规则
 service iptables save
 </code></pre>
 </div>
 
-<h2 id="section-6">取消转发方法</h2>
+<h2 id="section-9">取消转发方法</h2>
 
 <p>iptables中把-I改为-D运行就是删除此条规则</p>
 
 <hr />
 
-<h2 id="section-7">保护重要系统文件防止被删</h2>
+<h2 id="section-10">保护重要系统文件防止被删</h2>
 
 <p>使用+i标志位使得root用户也不能删除/bin, /sbin, /usr/sbin, /usr/bin, /usr/local/sbin, /usr/local/bin</p>
 
@@ -360,7 +360,7 @@ service iptables save
 
 <hr />
 
-<p>#查看给定文件列表的文件大小</p>
+<h1 id="section-11">查看给定文件列表的文件大小</h1>
 
 <p>用xargs -d指定分隔符为\n（默认会按照空格和\n分隔参数）</p>
 
@@ -370,7 +370,7 @@ service iptables save
 
 <hr />
 
-<p>#时区设置</p>
+<h1 id="section-12">时区设置</h1>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>cp /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
 ntpdate cn.pool.ntp.org
@@ -379,7 +379,7 @@ ntpdate cn.pool.ntp.org
 
 <hr />
 
-<p>#wget慢慢下载</p>
+<h1 id="wget">wget慢慢下载</h1>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>wget -i list.txt  -nc --wait=60 --random-wait
 </code></pre>
@@ -389,7 +389,7 @@ ntpdate cn.pool.ntp.org
 
 <hr />
 
-<p>#touch修改时间戳</p>
+<h1 id="touch">touch修改时间戳</h1>
 
 <p>将b.txt的时间戳改为和a.txt一样</p>
 
@@ -399,7 +399,7 @@ ntpdate cn.pool.ntp.org
 
 <hr />
 
-<p>#去掉ls的颜色</p>
+<h1 id="ls">去掉ls的颜色</h1>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>unalias ls
 </code></pre>
@@ -407,7 +407,7 @@ ntpdate cn.pool.ntp.org
 
 <hr />
 
-<p>#换行方式修改</p>
+<h1 id="section-13">换行方式修改</h1>
 
 <p>vim中输入:set ff=unix</p>
 

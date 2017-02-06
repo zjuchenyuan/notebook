@@ -3,7 +3,7 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=80b0323c1e306cbb5dd15d883f11e06135504541">
+    <link rel="stylesheet" href="/assets/css/style.css?v=a213e0c9aeeaef6dfdd3ad9db7d670ac5e0dee9d">
     <title>notebook by zjuchenyuan</title>
   </head>
 
@@ -23,7 +23,7 @@
 
     <div class="container">
       <section id="main_content">
-        <p>#Git的学习笔记咯</p>
+        <h1 id="git">Git的学习笔记咯</h1>
 
 <blockquote>
   <p>参考 <strong>沉浸式学 Git</strong> http://igit.linuxtoy.org/</p>
@@ -31,12 +31,12 @@
 
 <hr />
 
-<p>#基础命令</p>
+<h1 id="section">基础命令</h1>
 
 <p>在网页上先创建了repo，设置好.gitignore</p>
 
 <div class="language-bash highlighter-rouge"><pre class="highlight"><code>git clone  github提供的地址<span class="o">(</span>用ssh的<span class="o">)</span>
-<span class="c">#然后丢代码进去咯</span>
+<span class="c"># 然后丢代码进去咯</span>
 git add .
 git commit -a -m <span class="s2">"这次改了些啥？"</span>
 git push
@@ -45,7 +45,7 @@ git push
 
 <hr />
 
-<p>#git push免密码</p>
+<h1 id="git-push">git push免密码</h1>
 
 <p>参照http://blog.csdn.net/chfe007/article/details/43388041</p>
 
@@ -72,7 +72,7 @@ git config --global user.name "用户名"
 
 <hr />
 
-<p>#bash别名设置</p>
+<h1 id="bash">bash别名设置</h1>
 
 <p>通过修改~/.bashrc来设置别名，让git的日常使用更简单：</p>
 
@@ -101,23 +101,23 @@ alias gl="git log --all --pretty=format:'%h %ad | %s%d [%an]' --graph --date=sho
 
 <hr />
 
-<p>#Git也要翻墙</p>
+<h1 id="git-1">Git也要翻墙</h1>
 
 <p>代码参见<a href="code/ssgit.txt">code/ssgit.txt</a></p>
 
 <hr />
 
-<p>#好玩的命令们</p>
+<h1 id="section-1">好玩的命令们</h1>
 
-<p>##git status</p>
+<h2 id="git-status">git status</h2>
 
 <p>查看状态咯~</p>
 
-<p>##git reset</p>
+<h2 id="git-reset">git reset</h2>
 
 <p>已经<code class="highlighter-rouge">git add</code>了，想取消这一步就用<code class="highlighter-rouge">git reset</code></p>
 
-<p>##git checkout</p>
+<h2 id="git-checkout">git checkout</h2>
 
 <p>啊。。。代码搞坏了我要回滚到上次commit，用<code class="highlighter-rouge">git checkout -- 文件名</code></p>
 
@@ -132,18 +132,18 @@ alias gl="git log --all --pretty=format:'%h %ad | %s%d [%an]' --graph --date=sho
 <p>git的历史是不能用命令修改的，丢失的commit用reflog可以找回，除非git已经把它当成垃圾删除（30天）</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>git stash save
-git reflog #查看丢失的那个commit的id
+git reflog # 查看丢失的那个commit的id
 git checkout 那个commitid
-git branch recover #创建recover分支
-git checkout master #回到master
-git merge recover #合并recover到master
-git branch -d recover #合并完成后就可以删了
+git branch recover # 创建recover分支
+git checkout master # 回到master
+git merge recover # 合并recover到master
+git branch -d recover # 合并完成后就可以删了
 </code></pre>
 </div>
 
 <hr />
 
-<p>#哲学</p>
+<h1 id="section-2">哲学</h1>
 
 <ul>
   <li>为啥要<strong>git add</strong>呢?</li>
