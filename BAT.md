@@ -14,25 +14,31 @@
 前者错误才执行 ||
 
 ----
-# 来一个死循环吧 for
+## 来一个死循环吧 for
 
 > 用于结束进程，或者DNS查询（买了个域名tmd咋解析还没好
 
     for /l %i in (1,1,9999999) do ...
 
+类似的Linux命令为：
+
+    for ((i=0; i<10; ++i))  do ...  done  
+
 ----
-# 结束进程 taskkill
+## 结束进程 taskkill
 
 > woc，咋我开了这么多cmd，一个个结束太烦了，不如taskkill一波
 
     taskkill /f /im cmd.exe
     
+类似的Linux命令为`killall bash`
+    
 ----
-# 内存整理 free
+## 内存整理 free
 
 > 微软自己出的一个内存整理工具，需要管理员权限；原理我没搞懂
 
-> exe在download/empty.exe
+> exe在[download/empty.exe](download/empty.exe)
 
     empty *
 
@@ -41,7 +47,7 @@
 
 > 程序需要等待一定时间再继续运行就可以sleepx啦
 
-> exe在download/SleepX.exe，作者Bill Stewart (bstewart@iname.com)
+> exe在[download/SleepX.exe](download/SleepX.exe)，作者Bill Stewart (bstewart@iname.com)
 
     SleepX 10
     
