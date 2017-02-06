@@ -4,7 +4,12 @@
 
 包含Docker, Nginx, MySQL, CDN, Python, VirtualBox, C++, BAT等方面的笔记
 
-本网站编译命令为：`bundle exec jekyll serve -d docs --no-watch -I`
+本网站编译命令为：
+
+```
+bundle exec jekyll serve -d docs --no-watch -I
+echo -e "py3.io\nnote.py3.io">docs/CNAME
+```
 
 # 目录
 
