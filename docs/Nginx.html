@@ -3,7 +3,7 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=43aac1c3e192a9b9694a221aed108bd4e26fd49c">
+    <link rel="stylesheet" href="/assets/css/style.css?v=2beb4fe60705d375395ce5f7282ba39fac5716ec">
     <title>notebook by zjuchenyuan</title>
   </head>
 
@@ -114,9 +114,9 @@ apt install nginx
 </code></pre>
 </div>
 
-<p>创建/etc/nginx/https.conf：
-<code class="highlighter-rouge">
-listen 443 ssl http2;
+<p>创建/etc/nginx/https.conf：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>listen 443 ssl http2;
 add_header Strict-Transport-Security "max-age=31536000" always;
 ssl_dhparam /etc/ssl/dhparams.pem;
 ssl_stapling on;
@@ -137,11 +137,12 @@ location ~* (?:\.(?:bak|conf|dist|fla|in[ci]|log|psd|sh|sql|sw[op])|~)$ {
     deny all;
 }
 include mime.types;
-</code></p>
+</code></pre>
+</div>
 
-<p>为需要启用https的站点，在/etc/nginx/sites-enabled/中写入conf文件
-<code class="highlighter-rouge">
-server {
+<p>为需要启用https的站点，在/etc/nginx/sites-enabled/中写入conf文件</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>server {
     listen 443;
     server_name 域名1 域名2;
     access_log /tmp/access.log;
@@ -151,7 +152,8 @@ server {
     include https.conf
     其他配置。。。
 }
-</code></p>
+</code></pre>
+</div>
 
       </section>
     </div>

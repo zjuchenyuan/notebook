@@ -84,6 +84,7 @@ openssl dhparam -out /etc/ssl/dhparams.pem 2048
 ```
 
 创建/etc/nginx/https.conf：
+
 ```
 listen 443 ssl http2;
 add_header Strict-Transport-Security "max-age=31536000" always;
@@ -109,6 +110,7 @@ include mime.types;
 ```
 
 为需要启用https的站点，在/etc/nginx/sites-enabled/中写入conf文件
+
 ```
 server {
     listen 443;
