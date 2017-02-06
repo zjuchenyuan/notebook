@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link rel="stylesheet" href="/assets/css/style.css?v=80b0323c1e306cbb5dd15d883f11e06135504541">
+    <title>notebook by zjuchenyuan</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>notebook</h1>
+        <h2>My notebook about technology. 我的技术笔记本~</h2>
+
+        <section id="downloads">
+          
+          <a href="http://github.com/zjuchenyuan/notebook" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h2 id="javakeng">Java的神奇(keng)</h2>
+
+<p>记录一下Java与C的不同点，感受Thinking in Java</p>
+
+<h3 id="section">变量名称</h3>
+
+<p>$就是个普通字符，可以int $a; //php表示mdzz</p>
+
+<h3 id="main">main函数</h3>
+
+<p>必须是public static void main(String[] args)</p>
+
+<p>如果没有static，编译能通过但没有执行结果？// 待考证，eclipse拒绝运行</p>
+
+<h3 id="if">if</h3>
+
+<p>if中的东西必须是boolean类型的值，不能把int放入if中</p>
+
+<p>if ( a = true )的坑还是存在的，允许赋值作为if条件</p>
+
+<h3 id="section-1">%取余的结果</h3>
+
+<p>要考虑到负数的结果啊~（和C一致）</p>
+
+<h3 id="section-2">数组</h3>
+
+<p>声明引用、初始化之后才能用</p>
+
+<p>不允许int a[5]; 只能int[] a = new int [5];</p>
+
+<p>如果要初始化 int[] b = new int[]{1,2}; 可以简化为 int c[] = {1,2};</p>
+
+<p>但不能出现d={1,2}; 不允许大括号这玩意用来赋值，只准用于初始化</p>
+
+<h3 id="switch">switch</h3>
+
+<p>boolean是不行的；String是可以的！</p>
+
+<p>case是不能重复的（和C一致）</p>
+
+<h3 id="section-3">==</h3>
+
+<p>一定是比较地址，如果”haha”在代码中出现两次，他们的地址是一样的</p>
+
+<h3 id="section-4">类型自动提升</h3>
+
+<p>int long float double</p>
+
+<p>最高出现哪个全部提升为哪个，都没有就全部提升为int</p>
+
+<p>所以要这么写才能把byte<em>2：byte b = (byte)(a</em>2);</p>
+
+<h3 id="section-5">内部类</h3>
+
+<p>加上static后：可以不用实例化外部类就创建对象，不能访问外部类非静态的数据</p>
+
+<p>不加static：需要先实例化外部类new OuterClass().new InnerClass()</p>
+
+      </section>
+    </div>
+
+    
+  </body>
+</html>

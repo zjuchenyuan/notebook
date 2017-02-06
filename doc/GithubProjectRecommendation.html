@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link rel="stylesheet" href="/assets/css/style.css?v=80b0323c1e306cbb5dd15d883f11e06135504541">
+    <title>notebook by zjuchenyuan</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>notebook</h1>
+        <h2>My notebook about technology. 我的技术笔记本~</h2>
+
+        <section id="downloads">
+          
+          <a href="http://github.com/zjuchenyuan/notebook" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <p>#you-get</p>
+
+<p>https://github.com/soimort/you-get</p>
+
+<p>pip安装后直接下载b站超清视频</p>
+
+<p>本想自己用PhantomJS写bilibili的下载的，没想到人家拿到了签名的私钥，直接免浏览器实现了666</p>
+
+<hr />
+
+<p>#Anki</p>
+
+<p>https://github.com/dae/anki</p>
+
+<p>Anki是一个辅助记忆软件，它可以在相对合适的时间来告诉你复习什么比较好。</p>
+
+<p>Learn More:</p>
+
+<p>https://zhuanlan.zhihu.com/p/21338255?refer=-anki</p>
+
+<p>https://zhuanlan.zhihu.com/-anki</p>
+
+<hr />
+
+<p>#OnlineJudge</p>
+
+<p>https://github.com/QingdaoU/OnlineJudge</p>
+
+<p>青岛大学的OnlineJudge，人家的毕业设计呢，界面好看，基于Docker，C和Java的沙箱设计挺完善的</p>
+
+<p>https://github.com/QingdaoU/OnlineJudge/wiki/%E6%AD%A3%E5%BC%8F%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3</p>
+
+<p>这是安装文档，需要安装Docker和docker-compose，注意其中python tools/release_static.py这一步是必须执行的</p>
+
+<p>安装后的默认版本是不支持Python作为提交语言的，需要进行如下操作：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>#首先关掉容器
+docker-compose stop
+#在master分支把那个分支merge过来
+git merge origin/python-support
+python tools/release_static.py
+#然后启动容器，注意要-d否则会占据前台
+docker-compose up -d
+</code></pre>
+</div>
+
+      </section>
+    </div>
+
+    
+  </body>
+</html>

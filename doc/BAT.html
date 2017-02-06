@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link rel="stylesheet" href="/assets/css/style.css?v=80b0323c1e306cbb5dd15d883f11e06135504541">
+    <title>notebook by zjuchenyuan</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>notebook</h1>
+        <h2>My notebook about technology. 我的技术笔记本~</h2>
+
+        <section id="downloads">
+          
+          <a href="http://github.com/zjuchenyuan/notebook" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <p>#写在前面</p>
+
+<p>在没有接触到C和Python之前，我也常用BAT和一堆第三方的exe做事情</p>
+
+<p>年少无知的岁月呀~</p>
+
+<hr />
+<p>##  并列语句语法</p>
+
+<p>顺序执行 &amp;</p>
+
+<p>前者正确才执行 &amp;&amp;</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>前者错误才执行</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+<p>#来一个死循环吧 for</p>
+
+<blockquote>
+  <p>用于结束进程，或者DNS查询（买了个域名tmd咋解析还没好</p>
+</blockquote>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>for /l %i in (1,1,9999999) do ...
+</code></pre>
+</div>
+
+<hr />
+<p>#结束进程 taskkill</p>
+
+<blockquote>
+  <p>woc，咋我开了这么多cmd，一个个结束太烦了，不如taskkill一波</p>
+</blockquote>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>taskkill /f /im cmd.exe
+</code></pre>
+</div>
+
+<hr />
+<p>#内存整理 free</p>
+
+<blockquote>
+  <p>微软自己出的一个内存整理工具，需要管理员权限；原理我没搞懂</p>
+</blockquote>
+
+<blockquote>
+  <p>exe在download/empty.exe</p>
+</blockquote>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>empty *
+</code></pre>
+</div>
+
+<hr />
+<p>#睡一会 SleepX</p>
+
+<blockquote>
+  <p>程序需要等待一定时间再继续运行就可以sleepx啦</p>
+</blockquote>
+
+<blockquote>
+  <p>exe在download/SleepX.exe，作者Bill Stewart (bstewart@iname.com)</p>
+</blockquote>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>SleepX 10
+
+REM等待5s，如果用户等不及可以按键，此时 not "%errorlevel%" == "0"
+SleepX -k 5
+</code></pre>
+</div>
+
+<hr />
+<p>#命令行的爬虫 curl</p>
+
+<p><img src="https://curl.haxx.se/logo/curl-logo.svg" alt="cURL" /></p>
+
+<blockquote>
+  <p>大名鼎鼎的cURL，不必多言；只是它的命令行的运行方式与libcurl用起来差异很大（如比较php的curl用法）</p>
+</blockquote>
+
+<blockquote>
+  <p>官方：https://curl.haxx.se/</p>
+</blockquote>
+
+<blockquote>
+  <p>简单入门：http://www.bathome.net/thread-1761-1-1.html</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>将curl转为python requests</strong> http://curl.trillworks.com/</p>
+</blockquote>
+
+<p><a href="download/curl.exe">下载7.51 x64版本</a></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>REM 在bat中REM命令表示注释行
+
+REM 简单的get一下
+curl http://ip.cn
+
+REM 保存到文件并断点续传（可以不指定文件名-O）
+curl -o iplist.txt -c  http://f.ip.cn/rt/chnroutes.txt
+
+REM POST请求，设置Referer，并使用代理
+curl http://httpbin.org/post --data "something=somedata" -H "Referer: http://github.com/zjuchenyuan/" --proxy socks5://127.0.0.1:1080
+
+REM 文件上传 @文件名
+REM POST模式下的文件上的文件上传，比如
+REM &lt;form method="POST" enctype="multipart/form-data" action="http://cgi2.tky.3web.ne.jp/~zzh/up_file.cgi"&gt;
+REM &lt;input type=file name=upload&gt;
+REM &lt;input type=submit name=nick value="go"&gt;
+REM &lt;/form&gt;
+REM 这样一个HTTP表单，我们要用curl进行模拟，就该是这样的语法：
+curl -F upload=@localfile -F nick=go http://cgi2.tky.3web.ne.jp/~zzh/up_file.cgi
+
+REM 登录路由器
+curl http://192.168.1.1 -u admin:admin
+
+REM 存下Set-Cookie
+curl -D cookie0001.txt http://www.yahoo.com
+
+REM 使用存储的Cookie
+curl -b cookie0001.txt http://www.yahoo.com
+
+REM dict协议查字典，显示详细的请求信息
+curl dict://www.dict.org/d:computer -v
+</code></pre>
+</div>
+
+<hr />
+
+<h1 id="bat">BAT的命令们</h1>
+
+<p>##判断文件夹存在</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>if exist DIRNAME\nul echo Yes!
+</code></pre>
+</div>
+
+<h2 id="section">创建硬链接</h2>
+
+<p>Win7及以上：
+<code class="highlighter-rouge">
+mklink /H Link Target
+</code></p>
+
+<p>目录还需要/J
+<code class="highlighter-rouge">
+mklink /H /J Link Target
+</code></p>
+
+<p>WinXP只能用：
+<code class="highlighter-rouge">
+fsutil hardlink create &lt;new filename&gt; &lt;existing filename&gt;
+</code></p>
+
+<hr />
+
+<h2 id="section-1">端口转发</h2>
+
+<p>此命令需要管理员权限</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>netsh interface portproxy add v4tov4 listenaddress=0.0.0.0 listenport=转发出的端口 connectaddress=转发的源IP地址 connectport=转发的源端口
+</code></pre>
+</div>
+
+      </section>
+    </div>
+
+    
+  </body>
+</html>

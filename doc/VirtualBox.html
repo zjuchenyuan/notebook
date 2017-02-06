@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link rel="stylesheet" href="/assets/css/style.css?v=80b0323c1e306cbb5dd15d883f11e06135504541">
+    <title>notebook by zjuchenyuan</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>notebook</h1>
+        <h2>My notebook about technology. 我的技术笔记本~</h2>
+
+        <section id="downloads">
+          
+          <a href="http://github.com/zjuchenyuan/notebook" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <p>#VirtualBox</p>
+
+<blockquote>
+  <p>参考 https://www.howtoforge.com/tutorial/running-virtual-machines-with-virtualbox-5.1-on-a-headless-ubuntu-16.04-lts-server/</p>
+</blockquote>
+
+<p>在linux终端下使用VBoxManage和VBoxHeadless创建、启动、控制一个Ubuntu14.04 64Bit的虚拟机</p>
+
+<h2 id="section">下载</h2>
+
+<p>http://www.virtualbox.org/wiki/Downloads</p>
+
+<p>从官网找到对应的rpm或deb下载即可</p>
+
+<blockquote>
+  <p>rpm文件的安装：</p>
+</blockquote>
+
+<blockquote>
+  <p>rpm -ivh something.rpm</p>
+</blockquote>
+
+<blockquote>
+  <p>deb文件的安装</p>
+</blockquote>
+
+<blockquote>
+  <p>dpkg -i something.rpm</p>
+</blockquote>
+
+<h2 id="section-1">一定要安装额外包</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>cd /tmp
+wget http://download.virtualbox.org/virtualbox/5.1.0/Oracle_VM_VirtualBox_Extension_Pack-5.1.0-108711.vbox-extpack
+sudo VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack-5.1.0-108711.vbox-extpack
+</code></pre>
+</div>
+
+<h2 id="section-2">创建虚拟机，设置虚拟机选项</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>mkdir -p /home/virtualbox
+VBoxManage createvm --name ubuntu --ostype "Ubuntu_64" --register --basefolder /home/virtualbox/
+VBoxManage createvdi  --filename ubuntu/ubuntu.vdi --size 102400 #100GB
+VBoxManage storagectl ubuntu --name storage_controller_1 --add ide
+VBoxManage storageattach ubuntu --storagectl storage_controller_1 \
+    --type hdd --port 0 --device 0  --medium ubuntu/ubuntu.vdi
+VBoxManage storageattach ubuntu --storagectl storage_controller_1 \
+    --type dvddrive --port 1 --device 0 --medium ubuntu-14.04.4-server-amd64.iso
+VBoxManage modifyvm ubuntu --cpus 4 --memory 2048 --acpi on --boot1 dvd --nic1 nat --cableconnected1 on --vrde on --vrdeport 3389
+</code></pre>
+</div>
+
+<h2 id="section-3">启动虚拟机</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>nohup VBoxHeadless -startvm ubuntu --vrde on -e  TCP/Ports=63389 &amp;
+</code></pre>
+</div>
+
+<h2 id="section-4">控制虚拟机</h2>
+
+<p>Windows下使用<code class="highlighter-rouge">mstsc</code>远程连接即可获得一个图形界面的终端完成系统安装</p>
+
+      </section>
+    </div>
+
+    
+  </body>
+</html>

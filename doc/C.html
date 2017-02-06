@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link rel="stylesheet" href="/assets/css/style.css?v=80b0323c1e306cbb5dd15d883f11e06135504541">
+    <title>notebook by zjuchenyuan</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>notebook</h1>
+        <h2>My notebook about technology. 我的技术笔记本~</h2>
+
+        <section id="downloads">
+          
+          <a href="http://github.com/zjuchenyuan/notebook" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <p>#写在前面
+一点关于C的建议咯，也包含C++</p>
+
+<hr />
+
+<h2 id="dev-c">关于Dev C++</h2>
+
+<ul>
+  <li>
+    <p>有时候会发生改了代码但运行起来是旧版本的情况，需要检查是否关闭了正在运行的exe，如果是工程需要按F12全部重新编译清空缓存</p>
+  </li>
+  <li>
+    <p>编译工程错误定位在Makefile说明有函数声明了但没有定义</p>
+  </li>
+  <li>
+    <p>如果单纯只需要编译C，为追求编译速度可以考虑使用tcc (Tiny C Compile)编译器，参见https://qs1401.com/?post=18</p>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="section">输入的问题</h2>
+
+<p>我建议所有的输入全部使用gets完成，然后再用sscanf读取到变量</p>
+
+<p>当然更安全的是fgets(buf,9999,stdin);</p>
+
+<p>以下代码演示这种输入方法，对输入的n个数调用qsort排序；输入格式：第一行 N表示数的个数，第二行 N个需要排序的数(N&lt;1000)</p>
+
+<pre><code class="language-C">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+char buf[9999];
+int data[1005]; //不要在局部变量定义大数组，会炸栈
+int cmp(const void* a,const void* b){
+    return *(int*)a-*(int*)b;
+}
+int main(){
+    int N,i;
+    gets(buf);
+    sscanf(buf,"%d",&amp;N);
+    gets(buf);
+    for(i=0;i&lt;N;i++) {
+        sscanf(buf,"%d %[^\n]",&amp;data[i],buf);
+    }
+    qsort(data,N,sizeof(int),cmp);
+    for(i=0;i&lt;N-1;i++) printf("%d ",data[i]);
+    printf("%d",data[i]);
+}
+</code></pre>
+
+<hr />
+<p>## C++用sstream代替sprintf</p>
+
+<div class="language-cpp highlighter-rouge"><pre class="highlight"><code><span class="cp">#include &lt;string&gt;
+#include &lt;sstream&gt;
+#include &lt;iostream&gt; 
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+    <span class="n">stringstream</span> <span class="n">s</span><span class="p">;</span>
+    <span class="n">string</span> <span class="n">result</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">&lt;&lt;</span><span class="s">"haha "</span><span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span> 
+    <span class="n">getline</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">result</span><span class="p">);</span> <span class="c1">// the whole line rather than just the first word
+</span>    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">result</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">// print "haha1000"
+</span>    <span class="n">s</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+<span class="p">}</span> 
+</code></pre>
+</div>
+
+      </section>
+    </div>
+
+    
+  </body>
+</html>

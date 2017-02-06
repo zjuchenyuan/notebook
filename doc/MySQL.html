@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link rel="stylesheet" href="/assets/css/style.css?v=80b0323c1e306cbb5dd15d883f11e06135504541">
+    <title>notebook by zjuchenyuan</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>notebook</h1>
+        <h2>My notebook about technology. 我的技术笔记本~</h2>
+
+        <section id="downloads">
+          
+          <a href="http://github.com/zjuchenyuan/notebook" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <p>#查看表结构</p>
+
+<p>desc 表名称;</p>
+
+<hr />
+
+<p>#MERGE存储引擎</p>
+
+<p>官方文档：http://dev.mysql.com/doc/refman/5.7/en/merge-storage-engine.html</p>
+
+<p>查看能用的引擎：<strong>show engines</strong></p>
+
+<p>##创建一个这样的表：</p>
+
+<p>假设有a,b表，他们的结构完全相同，然后就可以建立一个c表和他们的ddl完全一致</p>
+
+<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="k">drop</span> <span class="k">table</span> <span class="n">if</span> <span class="k">exists</span> <span class="k">data</span><span class="p">;</span>
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="k">c</span> <span class="p">(</span>
+   <span class="nv">`id`</span> <span class="n">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="nv">`data`</span> <span class="n">longtext</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="nv">`id`</span><span class="p">)</span>
+<span class="p">)</span> <span class="n">ENGINE</span><span class="o">=</span> <span class="n">MRG_MYISAM</span> <span class="p">,</span><span class="k">UNION</span><span class="o">=</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<p>特点：</p>
+
+<p>这种表不会创建索引，比视图速度更快；</p>
+
+<p>但不能在这种表上建立全文索引</p>
+
+<hr />
+
+<p>#删除表的冗余</p>
+
+<p>两行只有一列(gettime)不同，删除其中一行</p>
+
+<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="k">delete</span> <span class="n">t1</span> <span class="k">from</span> <span class="n">t</span> <span class="k">as</span> <span class="n">t1</span><span class="p">,</span> <span class="n">t</span> <span class="k">as</span> <span class="n">t2</span> <span class="k">where</span>
+    <span class="n">t1</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">t2</span><span class="p">.</span><span class="n">id</span> <span class="k">and</span>
+    <span class="n">t1</span><span class="p">.</span><span class="err">其他列</span><span class="o">=</span><span class="n">t2</span><span class="p">.</span><span class="err">其他列</span> <span class="k">and</span>
+    <span class="n">t1</span><span class="p">.</span><span class="n">gettime</span><span class="o">&gt;</span><span class="n">t2</span><span class="p">.</span><span class="n">gettime</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<hr />
+
+<p>#修改表 alter table</p>
+
+<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="k">ALTER</span> <span class="k">IGNORE</span> <span class="k">TABLE</span> <span class="nv">`表名称`</span>
+<span class="k">MODIFY</span> <span class="k">COLUMN</span> <span class="nv">`id`</span>  <span class="n">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="k">FIRST</span><span class="p">,</span>
+<span class="k">MODIFY</span> <span class="k">COLUMN</span> <span class="nv">`user`</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">66</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="k">AFTER</span> <span class="nv">`id`</span><span class="p">,</span>
+<span class="k">MODIFY</span> <span class="k">COLUMN</span> <span class="nv">`content`</span> <span class="n">longtext</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="k">AFTER</span> <span class="nv">`user`</span><span class="p">,</span>
+<span class="k">DROP</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
+<span class="k">ADD</span> <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="nv">`id`</span><span class="p">),</span>
+<span class="k">DROP</span> <span class="k">INDEX</span> <span class="nv">`a1`</span><span class="p">,</span>
+<span class="k">ADD</span> <span class="k">INDEX</span> <span class="nv">`a1`</span> <span class="p">(</span><span class="nv">`user`</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<hr />
+
+<p>#将中文转为拼音 函数</p>
+
+<p>代码在<a href="code/pinyin.sql">code/pinyin.sql</a></p>
+
+<hr />
+
+<p>#从路径URL获取文件名称</p>
+
+<p>来源 http://stackoverflow.com/questions/17090237/extracting-filenames-from-a-path-mysql</p>
+
+<p>使用SUBSTRING_INDEX函数，假设url此行的内容为”http://example.com/some/path/to/filename.zip”</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>select SUBSTRING_INDEX(url, '/', -1) as filename;
+</code></pre>
+</div>
+
+<p>即可得到一列filename，此行数据为”filename.zip”</p>
+
+<hr />
+
+<h1 id="section">查询优化</h1>
+
+<h2 id="explainusing-filesort">explain发现出现了using filesort</h2>
+
+<blockquote>
+  <p>参考 http://www.ccvita.com/169.html</p>
+</blockquote>
+
+<p>如果使用了order by或者group by，需要建索引以优化这个查询</p>
+
+<p>group by用了两个列，两列要合在一起创建索引</p>
+
+<h2 id="section-1">内存表索引的选择</h2>
+
+<blockquote>
+  <p>参考 https://dev.mysql.com/doc/refman/5.5/en/optimizing-memory-tables.html</p>
+</blockquote>
+
+<p>内存表的索引应该选择BTREE</p>
+
+<hr />
+
+<h1 id="the-table-is-full">内存表The table is full</h1>
+
+<p>修改MySQL的配置文件/etc/mysql/my.cnf，在[mysqld]下添加/修改两行(下面的值仅供参考,请根据实际情况酌情处理)： 
+<code class="highlighter-rouge">
+tmp_table_size = 256M // 临时表大小 
+max_heap_table_size = 256M // 内存表大小 
+</code></p>
+
+      </section>
+    </div>
+
+    
+  </body>
+</html>

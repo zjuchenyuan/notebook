@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link rel="stylesheet" href="/assets/css/style.css?v=80b0323c1e306cbb5dd15d883f11e06135504541">
+    <title>notebook by zjuchenyuan</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>notebook</h1>
+        <h2>My notebook about technology. 我的技术笔记本~</h2>
+
+        <section id="downloads">
+          
+          <a href="http://github.com/zjuchenyuan/notebook" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1 id="install-">Install 安装</h1>
+
+<p>建议参见<a href="https://github.com/zjuchenyuan/notebook/blob/master/code/ssprivoxy.txt">如何翻墙</a>，部署http proxy</p>
+
+<p>安装之前，建议修改apt源</p>
+
+<p>安装之前，或许要对内核升级，如果执行安装脚本发出了对aufs的警告，请看<a href="#解决aufs的问题">这里</a></p>
+
+<p>安装命令：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>curl -sSL https://get.docker.com/ | sh
+</code></pre>
+</div>
+
+<p>其中最后一步的apt-get install docker-engine耗时较长，看起来很像卡死，需要耐心等待</p>
+
+<p>安装后执行docker version，没有报错即可</p>
+
+<p>##解决aufs的问题</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>apt-get install lxc wget bsdtar curl
+apt-get install linux-image-extra-$(uname -r)
+modprobe aufs
+</code></pre>
+</div>
+
+<hr />
+
+<h1 id="section">加速镜像下载</h1>
+
+<blockquote>
+  <p>在执行以下操作之前，请检查docker的版本：<code class="highlighter-rouge">docker -v</code></p>
+</blockquote>
+
+<blockquote>
+  <p>如果你的docker版本为1.6.2,请参考卸载docker</p>
+</blockquote>
+
+<p>##建议使用USTC的源：</p>
+
+<p>来自：https://lug.ustc.edu.cn/wiki/mirrors/help/docker</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>echo '{"registry-mirrors": ["https://docker.mirrors.ustc.edu.cn"]}'&gt;/etc/docker/daemon.json
+</code></pre>
+</div>
+
+<hr />
+
+<p>#Docker旧版本卸载</p>
+
+<p>如果你的docker是使用apt-get install docker.io安装的，请先执行以下命令卸载：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>apt-get remove docker.io
+apt-get autoremove
+rm -rf /var/lib/docker
+</code></pre>
+</div>
+
+<p>然后就可以执行安装命令了</p>
+
+<hr />
+
+<h2 id="ip">获得容器的ip</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>docker inspect  --format '' 容器名称
+</code></pre>
+</div>
+
+<hr />
+
+<h1 id="section-1">导出导入</h1>
+
+<h2 id="export">Export导出容器</h2>
+
+<p>导出容器得到的是tar文件，没有进行压缩，我们需要手动执行压缩</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>docker export 容器的名称或ID | gzip &gt;导出文件名.tar.gz
+</code></pre>
+</div>
+
+<h2 id="import">Import导入容器</h2>
+
+<p>虽然上一步我们压缩了，但docker可以直接import，不需要用gunzip</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>docker import 文件名
+</code></pre>
+</div>
+
+<hr />
+
+<h1 id="iptables-failed---no-chiantargetmatch-by-that-name">解决iptables failed - No chian/target/match by that name</h1>
+
+<p>如果docker安装的时候没有自动把需要的规则链加上，可以手动添加</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>iptables -t nat -N DOCKER
+iptables -t filter -N DOCKER
+</code></pre>
+</div>
+
+<p>附：如果需要删除链条，可以用iptables-save导出后手动编辑后iptables-restore</p>
+
+<hr />
+
+<h1 id="docker">迁移Docker文件夹到其他硬盘</h1>
+
+<p>当镜像多了起来的时候，/var/lib所在的根分区很可能被占满，这时候要考虑迁移到其他硬盘，此处以迁移到<code class="highlighter-rouge">/home/docker</code>为例说明</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="c">#首先记得关闭服务</span>
+service docker stop
+mv /var/lib/docker /home/
+<span class="c">#然后修改服务配置文件/etc/default/docker，此处建议手动vim编辑，加入这个：</span>
+<span class="c">#    --graph='/home/docker'</span>
+<span class="nb">echo</span> -e <span class="s2">"</span><span class="se">\n</span><span class="s2">DOCKER_OPTS=</span><span class="se">\"</span><span class="s2">--graph='/home/docker'</span><span class="se">\"</span><span class="s2">"</span> &gt;&gt; /etc/default/docker
+</code></pre>
+</div>
+
+
+      </section>
+    </div>
+
+    
+  </body>
+</html>

