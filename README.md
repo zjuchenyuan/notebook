@@ -4,9 +4,7 @@
 
 包含Docker, Nginx, MySQL, CDN, Python, VirtualBox, C++, BAT等方面的笔记
 
-> * 如无特别说明，代码均为**ubuntu**下**root**权限
-
-> * 为了便于复制粘贴和美观，大段的代码在文件夹code下
+本网站编译命令为：`bundle exec jekyll serve -d docs --no-watch -I`
 
 # 目录
 
