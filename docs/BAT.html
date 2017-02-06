@@ -3,7 +3,7 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=9d7defb9cfe852bf736d55d75f19c198f2c6c886">
+    <link rel="stylesheet" href="/assets/css/style.css?v=a5f4b58d945c0bfe4c7d1c3339a712d51fad2e3c">
     <title>notebook by zjuchenyuan</title>
   </head>
 
@@ -30,7 +30,8 @@
 <p>年少无知的岁月呀~</p>
 
 <hr />
-<p>##  并列语句语法</p>
+
+<h2 id="section-1">并列语句语法</h2>
 
 <p>顺序执行 &amp;</p>
 
@@ -46,7 +47,8 @@
 </table>
 
 <hr />
-<p>## 来一个死循环吧 for</p>
+
+<h2 id="for">来一个死循环吧 for</h2>
 
 <blockquote>
   <p>用于结束进程，或者DNS查询（买了个域名tmd咋解析还没好</p>
@@ -63,7 +65,8 @@
 </div>
 
 <hr />
-<p>## 结束进程 taskkill</p>
+
+<h2 id="taskkill">结束进程 taskkill</h2>
 
 <blockquote>
   <p>woc，咋我开了这么多cmd，一个个结束太烦了，不如taskkill一波</p>
@@ -76,7 +79,8 @@
 <p>类似的Linux命令为<code class="highlighter-rouge">killall bash</code></p>
 
 <hr />
-<p>## 内存整理 free</p>
+
+<h2 id="free">内存整理 free</h2>
 
 <blockquote>
   <p>微软自己出的一个内存整理工具，需要管理员权限；原理我没搞懂</p>
@@ -91,7 +95,8 @@
 </div>
 
 <hr />
-<p># 睡一会 SleepX</p>
+
+<h1 id="sleepx">睡一会 SleepX</h1>
 
 <blockquote>
   <p>程序需要等待一定时间再继续运行就可以sleepx啦</p>
@@ -109,7 +114,8 @@ SleepX -k 5
 </div>
 
 <hr />
-<p># 命令行的爬虫 curl</p>
+
+<h1 id="curl">命令行的爬虫 curl</h1>
 
 <p><img src="https://curl.haxx.se/logo/curl-logo.svg" alt="cURL" /></p>
 
@@ -131,51 +137,19 @@ SleepX -k 5
 
 <p><a href="download/curl.exe">下载7.51 x64版本</a></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>REM 在bat中REM命令表示注释行
-
-REM 简单的get一下
-curl http://ip.cn
-
-REM 保存到文件并断点续传（可以不指定文件名-O）
-curl -o iplist.txt -c  http://f.ip.cn/rt/chnroutes.txt
-
-REM POST请求，设置Referer，并使用代理
-curl http://httpbin.org/post --data "something=somedata" -H "Referer: http://github.com/zjuchenyuan/" --proxy socks5://127.0.0.1:1080
-
-REM 文件上传 @文件名
-REM POST模式下的文件上的文件上传，比如
-REM &lt;form method="POST" enctype="multipart/form-data" action="http://cgi2.tky.3web.ne.jp/~zzh/up_file.cgi"&gt;
-REM &lt;input type=file name=upload&gt;
-REM &lt;input type=submit name=nick value="go"&gt;
-REM &lt;/form&gt;
-REM 这样一个HTTP表单，我们要用curl进行模拟，就该是这样的语法：
-curl -F upload=@localfile -F nick=go http://cgi2.tky.3web.ne.jp/~zzh/up_file.cgi
-
-REM 登录路由器
-curl http://192.168.1.1 -u admin:admin
-
-REM 存下Set-Cookie
-curl -D cookie0001.txt http://www.yahoo.com
-
-REM 使用存储的Cookie
-curl -b cookie0001.txt http://www.yahoo.com
-
-REM dict协议查字典，显示详细的请求信息
-curl dict://www.dict.org/d:computer -v
-</code></pre>
-</div>
+<p>具体请见单独文档cURL.md</p>
 
 <hr />
 
 <h1 id="bat">BAT的命令们</h1>
 
-<h2 id="section-1">判断文件夹存在</h2>
+<h2 id="section-2">判断文件夹存在</h2>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>if exist DIRNAME\nul echo Yes!
 </code></pre>
 </div>
 
-<h2 id="section-2">创建硬链接</h2>
+<h2 id="section-3">创建硬链接</h2>
 
 <p>Win7及以上：
 <code class="highlighter-rouge">
@@ -194,7 +168,7 @@ fsutil hardlink create &lt;new filename&gt; &lt;existing filename&gt;
 
 <hr />
 
-<h2 id="section-3">端口转发</h2>
+<h2 id="section-4">端口转发</h2>
 
 <p>此命令需要管理员权限</p>
 

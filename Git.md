@@ -4,13 +4,14 @@
 
 ----
 
-# 基础命令
+# 立即使用
 
-在网页上先创建了repo，设置好.gitignore
+在网页上先创建了仓库，设置好.gitignore
 
 ```bash
 git clone  github提供的地址(用ssh的)
-# 然后丢代码进去咯
+# 现在创建了你的仓库文件夹，将需要上传的文件放进去
+cd 你的仓库名称
 git add .
 git commit -a -m "这次改了些啥？"
 git push
@@ -26,12 +27,12 @@ git push
 
     ssh-keygen -t rsa -b 4096
 
-然后把id_rsa.pub的内容设置到github中，网页端操作；建议顺带启用两步验证
+然后把id_rsa.pub的内容设置到github中，**网页端操作**；建议顺带启用**两步验证**
 
-告诉git自己是谁：
+新手还告诉git自己是谁：
 
-    git config --global user.email "邮箱"
-    git config --global user.name "用户名"
+    git config --global user.email "你的邮箱"
+    git config --global user.name "你的用户名"
 
 如果当前仓库是https的，改为git方式：
 

@@ -5,6 +5,7 @@
 年少无知的岁月呀~
 
 ----
+
 ##  并列语句语法
 
 顺序执行 &
@@ -14,6 +15,7 @@
 前者错误才执行 ||
 
 ----
+
 ## 来一个死循环吧 for
 
 > 用于结束进程，或者DNS查询（买了个域名tmd咋解析还没好
@@ -25,6 +27,7 @@
     for ((i=0; i<10; ++i))  do ...  done  
 
 ----
+
 ## 结束进程 taskkill
 
 > woc，咋我开了这么多cmd，一个个结束太烦了，不如taskkill一波
@@ -34,6 +37,7 @@
 类似的Linux命令为`killall bash`
     
 ----
+
 ## 内存整理 free
 
 > 微软自己出的一个内存整理工具，需要管理员权限；原理我没搞懂
@@ -43,6 +47,7 @@
     empty *
 
 ----
+
 # 睡一会 SleepX
 
 > 程序需要等待一定时间再继续运行就可以sleepx啦
@@ -55,6 +60,7 @@
     SleepX -k 5
     
 ----
+
 # 命令行的爬虫 curl
 
 ![cURL](https://curl.haxx.se/logo/curl-logo.svg)
@@ -69,39 +75,7 @@
 
 [下载7.51 x64版本](download/curl.exe)
 
-```
-REM 在bat中REM命令表示注释行
-
-REM 简单的get一下
-curl http://ip.cn
-
-REM 保存到文件并断点续传（可以不指定文件名-O）
-curl -o iplist.txt -c  http://f.ip.cn/rt/chnroutes.txt
-
-REM POST请求，设置Referer，并使用代理
-curl http://httpbin.org/post --data "something=somedata" -H "Referer: http://github.com/zjuchenyuan/" --proxy socks5://127.0.0.1:1080
-
-REM 文件上传 @文件名
-REM POST模式下的文件上的文件上传，比如
-REM <form method="POST" enctype="multipart/form-data" action="http://cgi2.tky.3web.ne.jp/~zzh/up_file.cgi">
-REM <input type=file name=upload>
-REM <input type=submit name=nick value="go">
-REM </form>
-REM 这样一个HTTP表单，我们要用curl进行模拟，就该是这样的语法：
-curl -F upload=@localfile -F nick=go http://cgi2.tky.3web.ne.jp/~zzh/up_file.cgi
-
-REM 登录路由器
-curl http://192.168.1.1 -u admin:admin
-
-REM 存下Set-Cookie
-curl -D cookie0001.txt http://www.yahoo.com
-
-REM 使用存储的Cookie
-curl -b cookie0001.txt http://www.yahoo.com
-
-REM dict协议查字典，显示详细的请求信息
-curl dict://www.dict.org/d:computer -v
-```
+具体请见单独文档cURL.md
 
 ----
 

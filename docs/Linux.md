@@ -20,9 +20,9 @@ TODO: 补充iodine的笔记
 
 # 当前目录文件全文搜索
 
-这里要搜索当前目录下面所有的包含"MultiTeam"的php文件
+这里要搜索当前目录下面所有的包含"MultiTeam"文件
 
-    find| grep .php| xargs cat|grep MultiTeam -r .
+    grep MultiTeam -r .
 
 ----
 
@@ -47,17 +47,20 @@ route add default eth0
 
     curl http://mirrors.163.com/.help/sources.list.trusty>/etc/apt/sources.list
 
-如果只能手打，vim复制一行的命令为yy，粘贴为p
+如果还未安装curl，先手动写入这两行：
 
 ```
 deb http://mirrors.163.com/ubuntu/ trusty main restricted universe multiverse
 deb http://mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse
 ```
 
+> 注：vim复制一行的命令为yy，粘贴为p
+
 ## 单网卡获得多个IP
 ifconfig eth0:233 10.xx.xx.233 netmask 255.255.255.0 up
 
 ----
+
 # 锐速安装
 
 来自：https://github.com/91yun/serverspeeder
@@ -77,6 +80,7 @@ ifconfig eth0:233 10.xx.xx.233 netmask 255.255.255.0 up
     service serverSpeeder stop
     
 ----
+
 # 解决apt依赖问题
 
 问题描述：服务器为ubuntu14.04版本，某些不明操作后，无法用`apt-get`安装任何东西
@@ -332,7 +336,7 @@ touch -r a.txt b.txt
 
 ----
 
-# 去掉ls的颜色
+# 去掉Ubuntu默认情况下ls的颜色
 
 ```
 unalias ls
@@ -342,4 +346,6 @@ unalias ls
 
 # 换行方式修改
 
-vim中输入:set ff=unix
+如果一个文件来自于Windows，可能需要先修改换行方式才能用，去掉文件中的\r
+
+vim中输入 `:set ff=unix`

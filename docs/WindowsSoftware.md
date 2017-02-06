@@ -39,5 +39,15 @@ Cloc是一款使用Perl语言开发的开源代码统计工具，支持多平台
 
 [MenuMgr](download/MenuMgr.exe)
 
+## 软媒U盘启动盘制作
 
-##  软媒u盘启动盘制作
+[usbbooter.exe](download/usbbooter.exe)
+
+## WinRAR
+
+压缩解压缩，我只用WinRAR和7zip
+
+[winrar.exe](download/winrar.exe)
+
+[rarreg.key](download/rarreg.key)
+

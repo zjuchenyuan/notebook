@@ -1,6 +1,6 @@
 # SSH
 
-## 不同服务器使用不同的id_rsa
+## 客户端不同服务器使用不同的id_rsa
 
 修改`.ssh/config`:
 ```
@@ -15,7 +15,7 @@ Host myother realname2.example.org
     User remoteusername
 ```
 
-## 换个端口开启一个临时的sshd：
+## 换个端口开启一个临时的sshd
 
 ```
 which sshd

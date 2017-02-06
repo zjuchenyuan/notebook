@@ -3,7 +3,7 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=9d7defb9cfe852bf736d55d75f19c198f2c6c886">
+    <link rel="stylesheet" href="/assets/css/style.css?v=a5f4b58d945c0bfe4c7d1c3339a712d51fad2e3c">
     <title>notebook by zjuchenyuan</title>
   </head>
 
@@ -47,9 +47,9 @@
 
 <h1 id="section-1">当前目录文件全文搜索</h1>
 
-<p>这里要搜索当前目录下面所有的包含”MultiTeam”的php文件</p>
+<p>这里要搜索当前目录下面所有的包含”MultiTeam”文件</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>find| grep .php| xargs cat|grep MultiTeam -r .
+<div class="highlighter-rouge"><pre class="highlight"><code>grep MultiTeam -r .
 </code></pre>
 </div>
 
@@ -78,18 +78,23 @@ route add default eth0
 </code></pre>
 </div>
 
-<p>如果只能手打，vim复制一行的命令为yy，粘贴为p</p>
+<p>如果还未安装curl，先手动写入这两行：</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>deb http://mirrors.163.com/ubuntu/ trusty main restricted universe multiverse
 deb http://mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse
 </code></pre>
 </div>
 
+<blockquote>
+  <p>注：vim复制一行的命令为yy，粘贴为p</p>
+</blockquote>
+
 <h2 id="ip-1">单网卡获得多个IP</h2>
 <p>ifconfig eth0:233 10.xx.xx.233 netmask 255.255.255.0 up</p>
 
 <hr />
-<p># 锐速安装</p>
+
+<h1 id="section-2">锐速安装</h1>
 
 <p>来自：https://github.com/91yun/serverspeeder</p>
 
@@ -114,7 +119,8 @@ service serverSpeeder stop
 </div>
 
 <hr />
-<p># 解决apt依赖问题</p>
+
+<h1 id="apt-1">解决apt依赖问题</h1>
 
 <p>问题描述：服务器为ubuntu14.04版本，某些不明操作后，无法用<code class="highlighter-rouge">apt-get</code>安装任何东西</p>
 
@@ -176,13 +182,13 @@ dd if=/dev/zero of=test bs=8k count=256k conv=fdatasync
 </code></pre>
 </div>
 
-<h2 id="section-2">参考数据，均为最低配置</h2>
+<h2 id="section-3">参考数据，均为最低配置</h2>
 
 <p>主机屋1590.5；阿里云1470.4；腾讯云1156.0</p>
 
 <hr />
 
-<h2 id="section-3">清除内存缓存</h2>
+<h2 id="section-4">清除内存缓存</h2>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>sync
 echo 3 &gt; /proc/sys/vm/drop_caches
@@ -223,7 +229,7 @@ echo 3 &gt; /proc/sys/vm/drop_caches
 </code></pre>
 </div>
 
-<h2 id="section-4">删除一条规则</h2>
+<h2 id="section-5">删除一条规则</h2>
 
 <p>只要重写一次。把-I改为-D即可</p>
 
@@ -289,7 +295,7 @@ screen -dmS NAME /root/code.sh
 
 <hr />
 
-<h1 id="section-5">统计当前文件夹代码行数</h1>
+<h1 id="section-6">统计当前文件夹代码行数</h1>
 
 <p>find 指定文件后缀名，记住要引号避免bash解析*</p>
 
@@ -299,7 +305,7 @@ screen -dmS NAME /root/code.sh
 
 <hr />
 
-<h1 id="section-6">双网卡端口转发，暴露内网端口</h1>
+<h1 id="section-7">双网卡端口转发，暴露内网端口</h1>
 
 <blockquote>
   <p>来自： https://yq.aliyun.com/wenzhang/show_25824</p>
@@ -309,13 +315,13 @@ screen -dmS NAME /root/code.sh
 
 <p>目标： 在外网访问A机器的2121端口，就相当于连上了B机器的ftp(21)</p>
 
-<h2 id="section-7">环境：</h2>
+<h2 id="section-8">环境：</h2>
 
 <p>A机器外网IP为 1.2.3.4(eth1) 内网IP为 192.168.1.20 (eth0)</p>
 
 <p>B机器内网为 192.168.1.21</p>
 
-<h2 id="section-8">实现方法：</h2>
+<h2 id="section-9">实现方法：</h2>
 
 <p>首先在A机器上打开端口转发功能</p>
 
@@ -338,13 +344,13 @@ service iptables save
 </code></pre>
 </div>
 
-<h2 id="section-9">取消转发方法</h2>
+<h2 id="section-10">取消转发方法</h2>
 
 <p>iptables中把-I改为-D运行就是删除此条规则</p>
 
 <hr />
 
-<h2 id="section-10">保护重要系统文件防止被删</h2>
+<h2 id="section-11">保护重要系统文件防止被删</h2>
 
 <p>使用+i标志位使得root用户也不能删除/bin, /sbin, /usr/sbin, /usr/bin, /usr/local/sbin, /usr/local/bin</p>
 
@@ -360,7 +366,7 @@ service iptables save
 
 <hr />
 
-<h1 id="section-11">查看给定文件列表的文件大小</h1>
+<h1 id="section-12">查看给定文件列表的文件大小</h1>
 
 <p>用xargs -d指定分隔符为\n（默认会按照空格和\n分隔参数）</p>
 
@@ -370,7 +376,7 @@ service iptables save
 
 <hr />
 
-<h1 id="section-12">时区设置</h1>
+<h1 id="section-13">时区设置</h1>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>cp /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
 ntpdate cn.pool.ntp.org
@@ -399,7 +405,7 @@ ntpdate cn.pool.ntp.org
 
 <hr />
 
-<h1 id="ls">去掉ls的颜色</h1>
+<h1 id="ubuntuls">去掉Ubuntu默认情况下ls的颜色</h1>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>unalias ls
 </code></pre>
@@ -407,9 +413,11 @@ ntpdate cn.pool.ntp.org
 
 <hr />
 
-<h1 id="section-13">换行方式修改</h1>
+<h1 id="section-14">换行方式修改</h1>
 
-<p>vim中输入:set ff=unix</p>
+<p>如果一个文件来自于Windows，可能需要先修改换行方式才能用，去掉文件中的\r</p>
+
+<p>vim中输入 <code class="highlighter-rouge">:set ff=unix</code></p>
 
       </section>
     </div>

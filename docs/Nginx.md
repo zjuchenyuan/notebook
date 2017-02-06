@@ -64,22 +64,60 @@ wget https://raw.githubusercontent.com/zjuchenyuan/notebook/master/code/getcert.
 
 ![https.jpg](download/img/https.jpg)
 
-#### 第三步，加上https的配置：
 
+## 配置安全的https
+
+此处参考[https://z.codes/ssl-lab-a-plus-configuration-for-nginx/](https://z.codes/ssl-lab-a-plus-configuration-for-nginx/)
+
+首先从PPA安装nginx, 这样可以保证最新版
+
+```
+add-apt-repository ppa:nginx/stable
+apt update
+apt install nginx
+```
+
+创建DH随机质数：
+
+```
+openssl dhparam -out /etc/ssl/dhparams.pem 2048
+```
+
+创建/etc/nginx/https.conf：
+```
+listen 443 ssl http2;
+add_header Strict-Transport-Security "max-age=31536000" always;
+ssl_dhparam /etc/ssl/dhparams.pem;
+ssl_stapling on;
+ssl_stapling_verify on;
+resolver 8.8.8.8 8.8.4.4 114.114.114.114 valid=60s;
+resolver_timeout 2s;
+ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+ssl_ciphers 'ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:AES:CAMELLIA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA';
+ssl_session_cache shared:SSL:10m;
+ssl_session_timeout 24h;
+ssl_buffer_size 1400;
+ssl_prefer_server_ciphers  on;
+keepalive_timeout 600s;
+location ~* /\.(?!well-known\/) {
+    deny all;
+}
+location ~* (?:\.(?:bak|conf|dist|fla|in[ci]|log|psd|sh|sql|sw[op])|~)$ {
+    deny all;
+}
+include mime.types;
+```
+
+为需要启用https的站点，在/etc/nginx/sites-enabled/中写入conf文件
 ```
 server {
     listen 443;
     server_name 域名1 域名2;
     access_log /tmp/access.log;
     error_log /tmp/error.log;
-    ssl on;
     ssl_certificate 密钥目录/名称.crt;
     ssl_certificate_key 密钥目录/名称.key;
-    ssl_session_cache    shared:SSL:1m;
-    ssl_session_timeout  5m;
-    ssl_ciphers 'AES128+EECDH:AES128+EDH';
-    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-    ssl_prefer_server_ciphers  on;
+    include https.conf
     其他配置。。。
 }
 ```

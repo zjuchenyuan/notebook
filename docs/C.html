@@ -3,7 +3,7 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=9d7defb9cfe852bf736d55d75f19c198f2c6c886">
+    <link rel="stylesheet" href="/assets/css/style.css?v=a5f4b58d945c0bfe4c7d1c3339a712d51fad2e3c">
     <title>notebook by zjuchenyuan</title>
   </head>
 
@@ -24,6 +24,7 @@
     <div class="container">
       <section id="main_content">
         <h1 id="section">写在前面</h1>
+
 <p>一点关于C的建议咯，也包含C++</p>
 
 <hr />
@@ -38,7 +39,7 @@
     <p>编译工程错误定位在Makefile说明有函数声明了但没有定义</p>
   </li>
   <li>
-    <p>如果单纯只需要编译C，为追求编译速度可以考虑使用tcc (Tiny C Compile)编译器，参见https://qs1401.com/?post=18</p>
+    <p>如果单纯只需要编译C，为追求编译速度可以考虑使用tcc (Tiny C Compile)编译器，参见<a href="https://qs1401.com/?post=18">https://qs1401.com/?post=18</a></p>
   </li>
 </ul>
 
@@ -48,12 +49,12 @@
 
 <p>我建议所有的输入全部使用gets完成，然后再用sscanf读取到变量</p>
 
-<p>当然更安全的是fgets(buf,9999,stdin);</p>
+<p>当然更安全的是 <code class="highlighter-rouge">fgets(buf,9999,stdin);</code> 但这种方法会得到\n字符</p>
 
 <p>以下代码演示这种输入方法，对输入的n个数调用qsort排序；输入格式：第一行 N表示数的个数，第二行 N个需要排序的数(N&lt;1000)</p>
 
-<pre><code class="language-C"># include &lt;stdio.h&gt;
-# include &lt;stdlib.h&gt;
+<pre><code class="language-C">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
 char buf[9999];
 int data[1005]; //不要在局部变量定义大数组，会炸栈
 int cmp(const void* a,const void* b){
@@ -74,11 +75,12 @@ int main(){
 </code></pre>
 
 <hr />
-<p>## C++用sstream代替sprintf</p>
 
-<div class="language-cpp highlighter-rouge"><pre class="highlight"><code><span class="cp"># include &lt;string&gt;
-# include &lt;sstream&gt;
-# include &lt;iostream&gt; 
+<h2 id="csstreamsprintf">C++用sstream代替sprintf</h2>
+
+<div class="language-cpp highlighter-rouge"><pre class="highlight"><code><span class="cp">#include &lt;string&gt;
+#include &lt;sstream&gt;
+#include &lt;iostream&gt; 
 </span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 <span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
     <span class="n">stringstream</span> <span class="n">s</span><span class="p">;</span>

@@ -3,7 +3,7 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=9d7defb9cfe852bf736d55d75f19c198f2c6c886">
+    <link rel="stylesheet" href="/assets/css/style.css?v=a5f4b58d945c0bfe4c7d1c3339a712d51fad2e3c">
     <title>notebook by zjuchenyuan</title>
   </head>
 
@@ -31,12 +31,13 @@
 
 <hr />
 
-<h1 id="section">基础命令</h1>
+<h1 id="section">立即使用</h1>
 
-<p>在网页上先创建了repo，设置好.gitignore</p>
+<p>在网页上先创建了仓库，设置好.gitignore</p>
 
 <div class="language-bash highlighter-rouge"><pre class="highlight"><code>git clone  github提供的地址<span class="o">(</span>用ssh的<span class="o">)</span>
-<span class="c"># 然后丢代码进去咯</span>
+<span class="c"># 现在创建了你的仓库文件夹，将需要上传的文件放进去</span>
+<span class="nb">cd </span>你的仓库名称
 git add .
 git commit -a -m <span class="s2">"这次改了些啥？"</span>
 git push
@@ -55,12 +56,12 @@ git push
 </code></pre>
 </div>
 
-<p>然后把id_rsa.pub的内容设置到github中，网页端操作；建议顺带启用两步验证</p>
+<p>然后把id_rsa.pub的内容设置到github中，<strong>网页端操作</strong>；建议顺带启用<strong>两步验证</strong></p>
 
-<p>告诉git自己是谁：</p>
+<p>新手还告诉git自己是谁：</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>git config --global user.email "邮箱"
-git config --global user.name "用户名"
+<div class="highlighter-rouge"><pre class="highlight"><code>git config --global user.email "你的邮箱"
+git config --global user.name "你的用户名"
 </code></pre>
 </div>
 

@@ -3,7 +3,7 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=9d7defb9cfe852bf736d55d75f19c198f2c6c886">
+    <link rel="stylesheet" href="/assets/css/style.css?v=a5f4b58d945c0bfe4c7d1c3339a712d51fad2e3c">
     <title>notebook by zjuchenyuan</title>
   </head>
 
@@ -46,12 +46,21 @@
 <h2 id="bat-bathtml"><a href="/BAT.html">BAT 批处理</a></h2>
 <blockquote>
   <ul>
-    <li>并列语句语法</li>
+    <li>
+      <table>
+        <tbody>
+          <tr>
+            <td>并列语句语法&amp;&amp;</td>
+            <td> </td>
+            <td>&amp;</td>
+          </tr>
+        </tbody>
+      </table>
+    </li>
     <li>循环for</li>
     <li>结束进程taskkill</li>
     <li>内存整理free</li>
     <li>睡一会sleep</li>
-    <li><a href="http://py3.io/BAT.html#命令行的爬虫-curl">命令行的爬虫 curl</a></li>
     <li>判断文件夹存在</li>
     <li>创建硬链接mklink</li>
     <li>端口转发</li>
@@ -62,8 +71,8 @@
 <blockquote>
   <ul>
     <li>关于Dev C++</li>
-    <li>输入的问题</li>
-    <li><a href="C.md# c用sstream代替sprintf">C++用sstream代替sprintf</a></li>
+    <li>输入的问题，建议用gets和sscanf</li>
+    <li>C++用sstream代替sprintf</li>
   </ul>
 </blockquote>
 
@@ -75,11 +84,20 @@
   </ul>
 </blockquote>
 
+<h2 id="curlcurlhtml"><a href="/cURL.html">cURL</a></h2>
+<blockquote>
+  <ul>
+    <li>模拟浏览器请求</li>
+    <li>基本教程</li>
+    <li>还可以循环哟</li>
+  </ul>
+</blockquote>
+
 <h2 id="dockerdockerhtml"><a href="/Docker.html">Docker</a></h2>
 <blockquote>
   <ul>
-    <li><a href="Docker.md# install-安装">安装</a></li>
-    <li><a href="Docker.md# 加速镜像下载">加速镜像下载</a></li>
+    <li>安装</li>
+    <li>加速镜像下载</li>
     <li>旧版本卸载</li>
   </ul>
 </blockquote>
@@ -87,11 +105,34 @@
 <h2 id="gitgithtml"><a href="/Git.html">Git</a></h2>
 <blockquote>
   <ul>
-    <li>基础入门</li>
-    <li><a href="Git.md# git-push免密码">git push免密码</a></li>
-    <li><a href="Git.md# bash别名设置">bash别名设置 少打字</a></li>
+    <li>立即使用</li>
+    <li>git push免密码</li>
+    <li>bash别名设置，少打字多好</li>
     <li><a href="code/ssgit.txt">Git也要翻墙</a></li>
     <li>好玩的命令们</li>
+  </ul>
+</blockquote>
+
+<h2 id="github-project-recommendationgithubprojectrecommendationhtml"><a href="/GithubProjectRecommendation.html">Github Project Recommendation</a></h2>
+<blockquote>
+  <ul>
+    <li>视频下载you-get</li>
+    <li>记忆手段Anki</li>
+    <li>在线评测OnlineJudge</li>
+  </ul>
+</blockquote>
+
+<h2 id="javajavahtml"><a href="/Java.html">Java</a></h2>
+<blockquote>
+  <ul>
+    <li>一些Java与C++的不同之处</li>
+  </ul>
+</blockquote>
+
+<h2 id="javascriptjavascripthtml"><a href="/JavaScript.html">JavaScript</a></h2>
+<blockquote>
+  <ul>
+    <li>使用本地存储localStorage</li>
   </ul>
 </blockquote>
 
@@ -102,9 +143,28 @@
     <li>帮助文本的grep 用2&gt;&amp;1</li>
     <li>当前目录文件全文搜索</li>
     <li>配置有线静态IP</li>
-    <li><a href="Linux.md# 配置apt源">配置apt源</a></li>
+    <li>配置apt源</li>
+    <li>锐速安装</li>
     <li>解决apt依赖问题</li>
-    <li><a href="Linux.md# UnixBench">UnixBench</a></li>
+    <li>UnixBench性能评测</li>
+    <li>清除内存缓存</li>
+    <li>使用iptables封ip</li>
+    <li>无root权限使用screen</li>
+    <li>screen的用法</li>
+    <li>统计当前文件夹代码行数</li>
+    <li>两条iptables实现端口转发</li>
+    <li>保护重要系统文件防止被删chattr +i</li>
+    <li>时区设置</li>
+    <li>wget慢慢下载</li>
+    <li>touch修改时间戳</li>
+    <li>去掉Ubuntu默认情况下ls的颜色</li>
+  </ul>
+</blockquote>
+
+<h2 id="linux-bakcuplinux-bakuphtml"><a href="/Linux-bakup.html">Linux-bakcup</a></h2>
+<blockquote>
+  <ul>
+    <li>一个良好安全的备份计划至关重要</li>
   </ul>
 </blockquote>
 
@@ -116,16 +176,53 @@
     <li>删除表的冗余</li>
     <li>修改表 alter table</li>
     <li><a href="code/pinyin.sql">将中文转为拼音的函数</a></li>
+    <li>从路径URL获取文件名称</li>
+    <li>查询优化–explain发现出现了using filesort；内存表索引的选择</li>
+    <li>内存表The table is full的解决</li>
+  </ul>
+</blockquote>
+
+<h2 id="nginxnginxhtml"><a href="/Nginx.html">Nginx</a></h2>
+<blockquote>
+  <ul>
+    <li>普通资源允许POST</li>
+    <li>不带后缀的文件当成php执行</li>
+    <li>获得Let’s encrypt免费https证书</li>
+    <li>配置安全的https</li>
   </ul>
 </blockquote>
 
 <h2 id="pythonpythonhtml"><a href="/Python.html">Python</a></h2>
 <blockquote>
   <ul>
-    <li><a href="Python.md# 设置pip源">设置pip源</a></li>
+    <li>设置pip源</li>
+    <li>反弹shell 获得tty</li>
     <li>让requests使用多个IP</li>
     <li><a href="code/MultiThread_Template.py">Python多线程模板</a></li>
     <li>BaseHTTPServer并发性改善</li>
+    <li>无root权限安装Python</li>
+    <li>中文输出乱码问题解决</li>
+    <li>pycodestyle检查代码风格</li>
+    <li>生成随机字符串</li>
+  </ul>
+</blockquote>
+
+<h2 id="sshsshhtml"><a href="/SSH.html">SSH</a></h2>
+<blockquote>
+  <ul>
+    <li>客户端不同服务器使用不同的id_rsa</li>
+    <li>换个端口开启一个临时的sshd</li>
+    <li>ssh反向代理</li>
+  </ul>
+</blockquote>
+
+<h2 id="virtualboxvirtualboxhtml"><a href="/VirtualBox.html">VirtualBox</a></h2>
+<blockquote>
+  <ul>
+    <li>下载安装，一定记得安装额外包</li>
+    <li>创建虚拟机，设置虚拟机选项</li>
+    <li>启动虚拟机</li>
+    <li>远程控制虚拟机</li>
   </ul>
 </blockquote>
 
@@ -135,30 +232,11 @@
     <li>Emeditor</li>
     <li>Everything</li>
     <li>Sysinternals Utilities</li>
+    <li>CLOC代码统计利器</li>
+    <li>U盘安装原版系统盘</li>
+    <li>WinRAR</li>
   </ul>
 </blockquote>
-
-<hr />
-
-<h1 id="code-index-">Code Index 代码索引</h1>
-
-<p><a href="code/ssprivoxy.txt">让apt-get翻墙</a></p>
-
-<p><a href="code/ssgit.txt">让git翻墙</a></p>
-
-<p><a href="code/MultiThread_Template.py">Python多线程模板</a></p>
-
-<p><a href="code/pinyin.sql">Mysql姓名转拼音</a></p>
-
-<h1 id="download-index-">Download Index 下载索引</h1>
-
-<p><a href="download/empty.exe">Windows内存整理</a></p>
-
-<p><a href="download/SleepX.exe">SleepX睡一会</a></p>
-
-<p><a href="download/procexp.exe">任务管理器</a></p>
-
-<p><a href="download/curl.exe">cURL</a></p>
 
       </section>
     </div>
