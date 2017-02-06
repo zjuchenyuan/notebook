@@ -1,18 +1,18 @@
-#²é¿´±í½á¹¹
+#æŸ¥çœ‹è¡¨ç»“æ„
 
-desc ±íÃû³Æ;
+desc è¡¨åç§°;
 
 ----
 
-#MERGE´æ´¢ÒıÇæ
+#MERGEå­˜å‚¨å¼•æ“
 
-¹Ù·½ÎÄµµ£ºhttp://dev.mysql.com/doc/refman/5.7/en/merge-storage-engine.html
+å®˜æ–¹æ–‡æ¡£ï¼šhttp://dev.mysql.com/doc/refman/5.7/en/merge-storage-engine.html
 
-²é¿´ÄÜÓÃµÄÒıÇæ£º**show engines**
+æŸ¥çœ‹èƒ½ç”¨çš„å¼•æ“ï¼š**show engines**
 
-##´´½¨Ò»¸öÕâÑùµÄ±í£º
+##åˆ›å»ºä¸€ä¸ªè¿™æ ·çš„è¡¨ï¼š
 
-¼ÙÉèÓĞa,b±í£¬ËûÃÇµÄ½á¹¹ÍêÈ«ÏàÍ¬£¬È»ºó¾Í¿ÉÒÔ½¨Á¢Ò»¸öc±íºÍËûÃÇµÄddlÍêÈ«Ò»ÖÂ
+å‡è®¾æœ‰a,bè¡¨ï¼Œä»–ä»¬çš„ç»“æ„å®Œå…¨ç›¸åŒï¼Œç„¶åå°±å¯ä»¥å»ºç«‹ä¸€ä¸ªcè¡¨å’Œä»–ä»¬çš„ddlå®Œå…¨ä¸€è‡´
 
 ```sql
 drop table if exists data;
@@ -23,31 +23,31 @@ CREATE TABLE c (
 ) ENGINE= MRG_MYISAM ,UNION=(a,b);
 ```
 
-ÌØµã£º
+ç‰¹ç‚¹ï¼š
 
-ÕâÖÖ±í²»»á´´½¨Ë÷Òı£¬±ÈÊÓÍ¼ËÙ¶È¸ü¿ì£»
+è¿™ç§è¡¨ä¸ä¼šåˆ›å»ºç´¢å¼•ï¼Œæ¯”è§†å›¾é€Ÿåº¦æ›´å¿«ï¼›
 
-µ«²»ÄÜÔÚÕâÖÖ±íÉÏ½¨Á¢È«ÎÄË÷Òı
+ä½†ä¸èƒ½åœ¨è¿™ç§è¡¨ä¸Šå»ºç«‹å…¨æ–‡ç´¢å¼•
 
 ----
 
-#É¾³ı±íµÄÈßÓà
+#åˆ é™¤è¡¨çš„å†—ä½™
 
-Á½ĞĞÖ»ÓĞÒ»ÁĞ(gettime)²»Í¬£¬É¾³ıÆäÖĞÒ»ĞĞ
+ä¸¤è¡Œåªæœ‰ä¸€åˆ—(gettime)ä¸åŒï¼Œåˆ é™¤å…¶ä¸­ä¸€è¡Œ
 
 ```sql
 delete t1 from t as t1, t as t2 where
     t1.id = t2.id and
-    t1.ÆäËûÁĞ=t2.ÆäËûÁĞ and
+    t1.å…¶ä»–åˆ—=t2.å…¶ä»–åˆ— and
     t1.gettime>t2.gettime;
 ```
 
 ----
 
-#ĞŞ¸Ä±í alter table
+#ä¿®æ”¹è¡¨ alter table
 
 ```sql
-ALTER IGNORE TABLE `±íÃû³Æ`
+ALTER IGNORE TABLE `è¡¨åç§°`
 MODIFY COLUMN `id`  int(11) NOT NULL FIRST,
 MODIFY COLUMN `user` varchar(66) NOT NULL AFTER `id`,
 MODIFY COLUMN `content` longtext NOT NULL AFTER `user`,
@@ -59,46 +59,46 @@ ADD INDEX `a1` (`user`);
 
 ----
 
-#½«ÖĞÎÄ×ªÎªÆ´Òô º¯Êı
+#å°†ä¸­æ–‡è½¬ä¸ºæ‹¼éŸ³ å‡½æ•°
 
-´úÂëÔÚ[code/pinyin.sql](code/pinyin.sql)
+ä»£ç åœ¨[code/pinyin.sql](code/pinyin.sql)
 
 ----
 
-#´ÓÂ·¾¶URL»ñÈ¡ÎÄ¼şÃû³Æ
+#ä»è·¯å¾„URLè·å–æ–‡ä»¶åç§°
 
-À´Ô´ http://stackoverflow.com/questions/17090237/extracting-filenames-from-a-path-mysql
+æ¥æº http://stackoverflow.com/questions/17090237/extracting-filenames-from-a-path-mysql
 
-Ê¹ÓÃSUBSTRING_INDEXº¯Êı£¬¼ÙÉèurl´ËĞĞµÄÄÚÈİÎª"http://example.com/some/path/to/filename.zip"
+ä½¿ç”¨SUBSTRING_INDEXå‡½æ•°ï¼Œå‡è®¾urlæ­¤è¡Œçš„å†…å®¹ä¸º"http://example.com/some/path/to/filename.zip"
 
     select SUBSTRING_INDEX(url, '/', -1) as filename;
     
-¼´¿ÉµÃµ½Ò»ÁĞfilename£¬´ËĞĞÊı¾İÎª"filename.zip"
+å³å¯å¾—åˆ°ä¸€åˆ—filenameï¼Œæ­¤è¡Œæ•°æ®ä¸º"filename.zip"
 
 ----
 
-# ²éÑ¯ÓÅ»¯
+# æŸ¥è¯¢ä¼˜åŒ–
 
-## explain·¢ÏÖ³öÏÖÁËusing filesort
+## explainå‘ç°å‡ºç°äº†using filesort
 
-> ²Î¿¼ http://www.ccvita.com/169.html
+> å‚è€ƒ http://www.ccvita.com/169.html
 
-Èç¹ûÊ¹ÓÃÁËorder by»òÕßgroup by£¬ĞèÒª½¨Ë÷ÒıÒÔÓÅ»¯Õâ¸ö²éÑ¯
+å¦‚æœä½¿ç”¨äº†order byæˆ–è€…group byï¼Œéœ€è¦å»ºç´¢å¼•ä»¥ä¼˜åŒ–è¿™ä¸ªæŸ¥è¯¢
 
-group byÓÃÁËÁ½¸öÁĞ£¬Á½ÁĞÒªºÏÔÚÒ»Æğ´´½¨Ë÷Òı
+group byç”¨äº†ä¸¤ä¸ªåˆ—ï¼Œä¸¤åˆ—è¦åˆåœ¨ä¸€èµ·åˆ›å»ºç´¢å¼•
 
-## ÄÚ´æ±íË÷ÒıµÄÑ¡Ôñ
+## å†…å­˜è¡¨ç´¢å¼•çš„é€‰æ‹©
 
-> ²Î¿¼ https://dev.mysql.com/doc/refman/5.5/en/optimizing-memory-tables.html
+> å‚è€ƒ https://dev.mysql.com/doc/refman/5.5/en/optimizing-memory-tables.html
 
-ÄÚ´æ±íµÄË÷ÒıÓ¦¸ÃÑ¡ÔñBTREE
+å†…å­˜è¡¨çš„ç´¢å¼•åº”è¯¥é€‰æ‹©BTREE
 
 ----
 
-# ÄÚ´æ±íThe table is full
+# å†…å­˜è¡¨The table is full
 
-ĞŞ¸ÄMySQLµÄÅäÖÃÎÄ¼ş/etc/mysql/my.cnf£¬ÔÚ[mysqld]ÏÂÌí¼Ó/ĞŞ¸ÄÁ½ĞĞ(ÏÂÃæµÄÖµ½ö¹©²Î¿¼,Çë¸ù¾İÊµ¼ÊÇé¿ö×ÃÇé´¦Àí)£º 
+ä¿®æ”¹MySQLçš„é…ç½®æ–‡ä»¶/etc/mysql/my.cnfï¼Œåœ¨[mysqld]ä¸‹æ·»åŠ /ä¿®æ”¹ä¸¤è¡Œ(ä¸‹é¢çš„å€¼ä»…ä¾›å‚è€ƒ,è¯·æ ¹æ®å®é™…æƒ…å†µé…Œæƒ…å¤„ç†)ï¼š 
 ```
-tmp_table_size = 256M // ÁÙÊ±±í´óĞ¡ 
-max_heap_table_size = 256M // ÄÚ´æ±í´óĞ¡ 
+tmp_table_size = 256M // ä¸´æ—¶è¡¨å¤§å° 
+max_heap_table_size = 256M // å†…å­˜è¡¨å¤§å° 
 ```

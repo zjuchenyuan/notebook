@@ -4,71 +4,71 @@
 
 My notebook about technology, for further looking up.
 
-ÎÒµÄ¼¼Êõ±Ê¼Ç±¾£¬ÎªÁË×Ô¼ººóÀ´·½±ã²éÑ¯¶à×öµã¼ÇÂ¼°É£¬¿ªÔ´³öÀ´Ò²Ğí¸üÓĞ¼ÛÖµ~
+æˆ‘çš„æŠ€æœ¯ç¬”è®°æœ¬ï¼Œä¸ºäº†è‡ªå·±åæ¥æ–¹ä¾¿æŸ¥è¯¢å¤šåšç‚¹è®°å½•å§ï¼Œå¼€æºå‡ºæ¥ä¹Ÿè®¸æ›´æœ‰ä»·å€¼~
 
 Including Docker, Nginx, MySQL, CDN, Python, VirtualBox, C++, BAT and more...
 
-Ô¤¼Æ½«°üº¬ÒÔÉÏ¼¸¸ö·½ÃæµÄ±Ê¼Ç¡£
+é¢„è®¡å°†åŒ…å«ä»¥ä¸Šå‡ ä¸ªæ–¹é¢çš„ç¬”è®°ã€‚
 
-> * ÈçÎŞÌØ±ğËµÃ÷£¬´úÂë¾ùÎª**ubuntu**ÏÂ**root**È¨ÏŞ
+> * å¦‚æ— ç‰¹åˆ«è¯´æ˜ï¼Œä»£ç å‡ä¸º**ubuntu**ä¸‹**root**æƒé™
 
-> * ÎªÁË±ãÓÚ¸´ÖÆÕ³ÌùºÍÃÀ¹Û£¬´ó¶ÎµÄ´úÂëÔÚÎÄ¼ş¼ĞcodeÏÂ
+> * ä¸ºäº†ä¾¿äºå¤åˆ¶ç²˜è´´å’Œç¾è§‚ï¼Œå¤§æ®µçš„ä»£ç åœ¨æ–‡ä»¶å¤¹codeä¸‹
 
 Welcome for issue, star, and pull requests.
 
-»¶Ó­¸øÎÒÌáissueºÍpull£¬¼ÈÈ»À´ÁË£¬ºÎ²»µã¸öÔŞstarÄØ~
+æ¬¢è¿ç»™æˆ‘æissueå’Œpullï¼Œæ—¢ç„¶æ¥äº†ï¼Œä½•ä¸ç‚¹ä¸ªèµstarå‘¢~
 
-# Ä¿Â¼
+# ç›®å½•
 
-## [BAT Åú´¦Àí](BAT.md)
->* Ñ­»·for
->* ½áÊø½ø³Ìtaskkill
->* ÄÚ´æÕûÀífree
->* Ë¯Ò»»ásleep
->* [ÃüÁîĞĞµÄÅÀ³æ curl](BAT.md#ÃüÁîĞĞµÄÅÀ³æ-curl)
+## [BAT æ‰¹å¤„ç†](BAT.md)
+>* å¾ªç¯for
+>* ç»“æŸè¿›ç¨‹taskkill
+>* å†…å­˜æ•´ç†free
+>* ç¡ä¸€ä¼šsleep
+>* [å‘½ä»¤è¡Œçš„çˆ¬è™« curl](BAT.md#å‘½ä»¤è¡Œçš„çˆ¬è™«-curl)
 
-## [C ÓïÑÔ](C.md)
->* ¹ØÓÚDev C++
->* ÊäÈëµÄÎÊÌâ
->* [C++ÓÃsstream´úÌæsprintf](C.md#cÓÃsstream´úÌæsprintf)
+## [C è¯­è¨€](C.md)
+>* å…³äºDev C++
+>* è¾“å…¥çš„é—®é¢˜
+>* [C++ç”¨sstreamä»£æ›¿sprintf](C.md#cç”¨sstreamä»£æ›¿sprintf)
 
 ## [CDN](CDN.md)
->* UPYUN ÓÖÅÄÔÆ
->* Qiniu ÆßÅ£
+>* UPYUN åˆæ‹äº‘
+>* Qiniu ä¸ƒç‰›
 
 ## [Docker](Docker.md)
->* [°²×°](Docker.md#install-°²×°)
->* [¼ÓËÙ¾µÏñÏÂÔØ](Docker.md#¼ÓËÙ¾µÏñÏÂÔØ)
->* ¾É°æ±¾Ğ¶ÔØ
+>* [å®‰è£…](Docker.md#install-å®‰è£…)
+>* [åŠ é€Ÿé•œåƒä¸‹è½½](Docker.md#åŠ é€Ÿé•œåƒä¸‹è½½)
+>* æ—§ç‰ˆæœ¬å¸è½½
 
 ## [Git](Git.md)
->* »ù´¡ÈëÃÅ
->* [git pushÃâÃÜÂë](Git.md#git-pushÃâÃÜÂë)
->* [bash±ğÃûÉèÖÃ ÉÙ´ò×Ö](Git.md#bash±ğÃûÉèÖÃ)
->* [GitÒ²Òª·­Ç½](code/ssgit.txt)
->* ºÃÍæµÄÃüÁîÃÇ
+>* åŸºç¡€å…¥é—¨
+>* [git pushå…å¯†ç ](Git.md#git-pushå…å¯†ç )
+>* [bashåˆ«åè®¾ç½® å°‘æ‰“å­—](Git.md#bashåˆ«åè®¾ç½®)
+>* [Gitä¹Ÿè¦ç¿»å¢™](code/ssgit.txt)
+>* å¥½ç©çš„å‘½ä»¤ä»¬
 
 ## [Linux](Linux.md)
->* [·­Ç½shadowsocks+privoxy](code/ssprivoxy.txt)
->* °ïÖúÎÄ±¾µÄgrep ÓÃ2>&1
->* µ±Ç°Ä¿Â¼ÎÄ¼şÈ«ÎÄËÑË÷
->* ÅäÖÃÓĞÏß¾²Ì¬IP
->* [ÅäÖÃaptÔ´](Linux.md#ÅäÖÃaptÔ´)
->* ½â¾öaptÒÀÀµÎÊÌâ
+>* [ç¿»å¢™shadowsocks+privoxy](code/ssprivoxy.txt)
+>* å¸®åŠ©æ–‡æœ¬çš„grep ç”¨2>&1
+>* å½“å‰ç›®å½•æ–‡ä»¶å…¨æ–‡æœç´¢
+>* é…ç½®æœ‰çº¿é™æ€IP
+>* [é…ç½®aptæº](Linux.md#é…ç½®aptæº)
+>* è§£å†³aptä¾èµ–é—®é¢˜
 >* [UnixBench](Linux.md#UnixBench)
 
 ## [MySQL](MySQL.md)
->* ²é¿´±í½á¹¹ desc
->* MERGE´æ´¢ÒıÇæ
->* É¾³ı±íµÄÈßÓà
->* ĞŞ¸Ä±í alter table
->* [½«ÖĞÎÄ×ªÎªÆ´ÒôµÄº¯Êı](code/pinyin.sql)
+>* æŸ¥çœ‹è¡¨ç»“æ„ desc
+>* MERGEå­˜å‚¨å¼•æ“
+>* åˆ é™¤è¡¨çš„å†—ä½™
+>* ä¿®æ”¹è¡¨ alter table
+>* [å°†ä¸­æ–‡è½¬ä¸ºæ‹¼éŸ³çš„å‡½æ•°](code/pinyin.sql)
 
 ## [Python](Python.md)
->* [ÉèÖÃpipÔ´](Python.md#ÉèÖÃpipÔ´)
->* ÈÃrequestsÊ¹ÓÃ¶à¸öIP
->* [Python¶àÏß³ÌÄ£°å](code/MultiThread_Template.py)
->* BaseHTTPServer²¢·¢ĞÔ¸ÄÉÆ
+>* [è®¾ç½®pipæº](Python.md#è®¾ç½®pipæº)
+>* è®©requestsä½¿ç”¨å¤šä¸ªIP
+>* [Pythonå¤šçº¿ç¨‹æ¨¡æ¿](code/MultiThread_Template.py)
+>* BaseHTTPServerå¹¶å‘æ€§æ”¹å–„
 
 ## [WinSoftware](WindowsSoftware.md)
 >* Emeditor
@@ -77,22 +77,22 @@ Welcome for issue, star, and pull requests.
 
 ----
 
-#Code Index ´úÂëË÷Òı
+#Code Index ä»£ç ç´¢å¼•
 
-[ÈÃapt-get·­Ç½](code/ssprivoxy.txt)
+[è®©apt-getç¿»å¢™](code/ssprivoxy.txt)
 
-[ÈÃgit·­Ç½](code/ssgit.txt)
+[è®©gitç¿»å¢™](code/ssgit.txt)
 
-[Python¶àÏß³ÌÄ£°å](code/MultiThread_Template.py)
+[Pythonå¤šçº¿ç¨‹æ¨¡æ¿](code/MultiThread_Template.py)
 
-[MysqlĞÕÃû×ªÆ´Òô](code/pinyin.sql)
+[Mysqlå§“åè½¬æ‹¼éŸ³](code/pinyin.sql)
 
-#Download Index ÏÂÔØË÷Òı
+#Download Index ä¸‹è½½ç´¢å¼•
 
-[WindowsÄÚ´æÕûÀí](download/empty.exe)
+[Windowså†…å­˜æ•´ç†](download/empty.exe)
 
-[SleepXË¯Ò»»á](download/SleepX.exe)
+[SleepXç¡ä¸€ä¼š](download/SleepX.exe)
 
-[ÈÎÎñ¹ÜÀíÆ÷](download/procexp.exe)
+[ä»»åŠ¡ç®¡ç†å™¨](download/procexp.exe)
 
 [cURL](download/curl.exe)

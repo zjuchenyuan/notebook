@@ -1,8 +1,8 @@
 #SSH
 
-## ²»Í¬·şÎñÆ÷Ê¹ÓÃ²»Í¬µÄid_rsa
+## ä¸åŒæœåŠ¡å™¨ä½¿ç”¨ä¸åŒçš„id_rsa
 
-ĞŞ¸Ä`.ssh/config`:
+ä¿®æ”¹`.ssh/config`:
 ```
 Host myshortname realname.example.com
     HostName realname.example.com
@@ -15,23 +15,23 @@ Host myother realname2.example.org
     User remoteusername
 ```
 
-##»»¸ö¶Ë¿Ú¿ªÆôÒ»¸öÁÙÊ±µÄsshd£º
+##æ¢ä¸ªç«¯å£å¼€å¯ä¸€ä¸ªä¸´æ—¶çš„sshdï¼š
 
 ```
 which sshd
 /usr/sbin/sshd -oPort=2333
 ```
 
-## ssh·´Ïò´úÀí
+## sshåå‘ä»£ç†
 
-²Î¼û£ºhttp://www.tuicool.com/articles/UVRNfi
+å‚è§ï¼šhttp://www.tuicool.com/articles/UVRNfi
 
-½«±¾»úµÄ22¶Ë¿Ú×ª·¢ÖÁÍâÍø·şÎñÆ÷µÄ2222¶Ë¿Ú£º
+å°†æœ¬æœºçš„22ç«¯å£è½¬å‘è‡³å¤–ç½‘æœåŠ¡å™¨çš„2222ç«¯å£ï¼š
 
 ```
 ssh -b 0.0.0.0 -L 2222:127.0.0.1:22 user@ip
 ```
 
-×¢ÒâÔÚÔËĞĞÇ°ĞèÒªÉèÖÃÃâÃÜÂëµÇÂ¼ÒÔ¼°ĞŞ¸ÄÍâÍø·şÎñÆ÷µÄsshd_config£¬¼ÓÈëGatewayPorts  yes
+æ³¨æ„åœ¨è¿è¡Œå‰éœ€è¦è®¾ç½®å…å¯†ç ç™»å½•ä»¥åŠä¿®æ”¹å¤–ç½‘æœåŠ¡å™¨çš„sshd_configï¼ŒåŠ å…¥GatewayPorts  yes
 
 ----

@@ -1,5 +1,5 @@
-//ÓÖµ½ÁËÆÀ¼ÛÀÏÊ¦ºÍÖú½ÌµÄÊ±ºòÁË£¬²»ÆÀ½Ì¾Í²»ÄÜ¿´¿Î±í£¬ºÃ·³ÄØ~
-//ÔÚä¯ÀÀÆ÷¿ª·¢ÈËÔ±¹¤¾ß(°´F12µ÷³ö)µÄConsoleÖĞ¸´ÖÆÕ³ÌùÒÔÏÂ´úÂë¼´¿ÉÈ«²¿Ñ¡ÉÏ·Ç³£ÂúÒâ£¬×Ô¶¯ÇĞ»»µ½ÏÂÒ»Î»ÀÏÊ¦
+//åˆåˆ°äº†è¯„ä»·è€å¸ˆå’ŒåŠ©æ•™çš„æ—¶å€™äº†ï¼Œä¸è¯„æ•™å°±ä¸èƒ½çœ‹è¯¾è¡¨ï¼Œå¥½çƒ¦å‘¢~
+//åœ¨æµè§ˆå™¨å¼€å‘äººå‘˜å·¥å…·(æŒ‰F12è°ƒå‡º)çš„Consoleä¸­å¤åˆ¶ç²˜è´´ä»¥ä¸‹ä»£ç å³å¯å…¨éƒ¨é€‰ä¸Šéå¸¸æ»¡æ„ï¼Œè‡ªåŠ¨åˆ‡æ¢åˆ°ä¸‹ä¸€ä½è€å¸ˆ
 
 if (typeof(RadioButtonList1_0) != 'undefined') RadioButtonList1_0.checked=true;
 if (typeof(RadioButtonList2_0) != 'undefined') RadioButtonList2_0.checked=true;
@@ -20,4 +20,4 @@ if (typeof(DataGrid1__ctl14_RadioButtonList3_0) != 'undefined') DataGrid1__ctl14
 if (typeof(DataGrid1__ctl15_RadioButtonList3_0) != 'undefined') DataGrid1__ctl15_RadioButtonList3_0.checked=true;
 if (typeof(RadioButtonList4_0) != 'undefined') RadioButtonList4_0.checked=true;
 Button1.click();
-//É¾³ı×îºóÒ»ĞĞ¿ÉÒÔ²»×Ô¶¯µã»÷"Button1"£¬¾ÍÊÇ²»×Ô¶¯´¥·¢¡°±£´æ¡±°´Å¥ÊÂ¼ş£»¸ÄÎªButton2¾ÍÊÇ¡±Ìá½»"
+//åˆ é™¤æœ€åä¸€è¡Œå¯ä»¥ä¸è‡ªåŠ¨ç‚¹å‡»"Button1"ï¼Œå°±æ˜¯ä¸è‡ªåŠ¨è§¦å‘â€œä¿å­˜â€æŒ‰é’®äº‹ä»¶ï¼›æ”¹ä¸ºButton2å°±æ˜¯â€æäº¤"

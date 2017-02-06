@@ -1,20 +1,20 @@
-# Install °²×°
+# Install å®‰è£…
 
-½¨Òé²Î¼û[ÈçºÎ·­Ç½](https://github.com/zjuchenyuan/notebook/blob/master/code/ssprivoxy.txt)£¬²¿Êğhttp proxy
+å»ºè®®å‚è§[å¦‚ä½•ç¿»å¢™](https://github.com/zjuchenyuan/notebook/blob/master/code/ssprivoxy.txt)ï¼Œéƒ¨ç½²http proxy
 
-°²×°Ö®Ç°£¬½¨ÒéĞŞ¸ÄaptÔ´
+å®‰è£…ä¹‹å‰ï¼Œå»ºè®®ä¿®æ”¹aptæº
 
-°²×°Ö®Ç°£¬»òĞíÒª¶ÔÄÚºËÉı¼¶£¬Èç¹ûÖ´ĞĞ°²×°½Å±¾·¢³öÁË¶ÔaufsµÄ¾¯¸æ£¬Çë¿´[ÕâÀï](#½â¾öaufsµÄÎÊÌâ)
+å®‰è£…ä¹‹å‰ï¼Œæˆ–è®¸è¦å¯¹å†…æ ¸å‡çº§ï¼Œå¦‚æœæ‰§è¡Œå®‰è£…è„šæœ¬å‘å‡ºäº†å¯¹aufsçš„è­¦å‘Šï¼Œè¯·çœ‹[è¿™é‡Œ](#è§£å†³aufsçš„é—®é¢˜)
 
-°²×°ÃüÁî£º 
+å®‰è£…å‘½ä»¤ï¼š 
 
     curl -sSL https://get.docker.com/ | sh
     
-ÆäÖĞ×îºóÒ»²½µÄapt-get install docker-engineºÄÊ±½Ï³¤£¬¿´ÆğÀ´ºÜÏñ¿¨ËÀ£¬ĞèÒªÄÍĞÄµÈ´ı
+å…¶ä¸­æœ€åä¸€æ­¥çš„apt-get install docker-engineè€—æ—¶è¾ƒé•¿ï¼Œçœ‹èµ·æ¥å¾ˆåƒå¡æ­»ï¼Œéœ€è¦è€å¿ƒç­‰å¾…
 
-°²×°ºóÖ´ĞĞdocker version£¬Ã»ÓĞ±¨´í¼´¿É
+å®‰è£…åæ‰§è¡Œdocker versionï¼Œæ²¡æœ‰æŠ¥é”™å³å¯
 
-##½â¾öaufsµÄÎÊÌâ
+##è§£å†³aufsçš„é—®é¢˜
 
 ```
 apt-get install lxc wget bsdtar curl
@@ -24,74 +24,74 @@ modprobe aufs
 
 --------
 
-# ¼ÓËÙ¾µÏñÏÂÔØ
+# åŠ é€Ÿé•œåƒä¸‹è½½
 
-> ÔÚÖ´ĞĞÒÔÏÂ²Ù×÷Ö®Ç°£¬Çë¼ì²édockerµÄ°æ±¾£º`docker -v`
+> åœ¨æ‰§è¡Œä»¥ä¸‹æ“ä½œä¹‹å‰ï¼Œè¯·æ£€æŸ¥dockerçš„ç‰ˆæœ¬ï¼š`docker -v`
 
-> Èç¹ûÄãµÄdocker°æ±¾Îª1.6.2,Çë²Î¿¼Ğ¶ÔØdocker
+> å¦‚æœä½ çš„dockerç‰ˆæœ¬ä¸º1.6.2,è¯·å‚è€ƒå¸è½½docker
 
-##½¨ÒéÊ¹ÓÃUSTCµÄÔ´£º
+##å»ºè®®ä½¿ç”¨USTCçš„æºï¼š
 
-À´×Ô£ºhttps://lug.ustc.edu.cn/wiki/mirrors/help/docker
+æ¥è‡ªï¼šhttps://lug.ustc.edu.cn/wiki/mirrors/help/docker
 
     echo '{"registry-mirrors": ["https://docker.mirrors.ustc.edu.cn"]}'>/etc/docker/daemon.json
 
 -------
 
-#Docker¾É°æ±¾Ğ¶ÔØ
+#Dockeræ—§ç‰ˆæœ¬å¸è½½
 
-Èç¹ûÄãµÄdockerÊÇÊ¹ÓÃapt-get install docker.io°²×°µÄ£¬ÇëÏÈÖ´ĞĞÒÔÏÂÃüÁîĞ¶ÔØ£º
+å¦‚æœä½ çš„dockeræ˜¯ä½¿ç”¨apt-get install docker.ioå®‰è£…çš„ï¼Œè¯·å…ˆæ‰§è¡Œä»¥ä¸‹å‘½ä»¤å¸è½½ï¼š
 
     apt-get remove docker.io
     apt-get autoremove
     rm -rf /var/lib/docker
 
-È»ºó¾Í¿ÉÒÔÖ´ĞĞ°²×°ÃüÁîÁË
+ç„¶åå°±å¯ä»¥æ‰§è¡Œå®‰è£…å‘½ä»¤äº†
 
 --------
 
-## »ñµÃÈİÆ÷µÄip
+## è·å¾—å®¹å™¨çš„ip
 
-    docker inspect  --format '{{.NetworkSettings.IPAddress}}' ÈİÆ÷Ãû³Æ
+    docker inspect  --format '{{.NetworkSettings.IPAddress}}' å®¹å™¨åç§°
     
 --------
 
-# µ¼³öµ¼Èë
+# å¯¼å‡ºå¯¼å…¥
 
-## Exportµ¼³öÈİÆ÷
+## Exportå¯¼å‡ºå®¹å™¨
 
-µ¼³öÈİÆ÷µÃµ½µÄÊÇtarÎÄ¼ş£¬Ã»ÓĞ½øĞĞÑ¹Ëõ£¬ÎÒÃÇĞèÒªÊÖ¶¯Ö´ĞĞÑ¹Ëõ
+å¯¼å‡ºå®¹å™¨å¾—åˆ°çš„æ˜¯taræ–‡ä»¶ï¼Œæ²¡æœ‰è¿›è¡Œå‹ç¼©ï¼Œæˆ‘ä»¬éœ€è¦æ‰‹åŠ¨æ‰§è¡Œå‹ç¼©
 
-    docker export ÈİÆ÷µÄÃû³Æ»òID | gzip >µ¼³öÎÄ¼şÃû.tar.gz
+    docker export å®¹å™¨çš„åç§°æˆ–ID | gzip >å¯¼å‡ºæ–‡ä»¶å.tar.gz
 
-## Importµ¼ÈëÈİÆ÷
+## Importå¯¼å…¥å®¹å™¨
 
-ËäÈ»ÉÏÒ»²½ÎÒÃÇÑ¹ËõÁË£¬µ«docker¿ÉÒÔÖ±½Óimport£¬²»ĞèÒªÓÃgunzip
+è™½ç„¶ä¸Šä¸€æ­¥æˆ‘ä»¬å‹ç¼©äº†ï¼Œä½†dockerå¯ä»¥ç›´æ¥importï¼Œä¸éœ€è¦ç”¨gunzip
 
-    docker import ÎÄ¼şÃû
+    docker import æ–‡ä»¶å
     
 --------
 
-# ½â¾öiptables failed - No chian/target/match by that name
+# è§£å†³iptables failed - No chian/target/match by that name
 
-Èç¹ûdocker°²×°µÄÊ±ºòÃ»ÓĞ×Ô¶¯°ÑĞèÒªµÄ¹æÔòÁ´¼ÓÉÏ£¬¿ÉÒÔÊÖ¶¯Ìí¼Ó
+å¦‚æœdockerå®‰è£…çš„æ—¶å€™æ²¡æœ‰è‡ªåŠ¨æŠŠéœ€è¦çš„è§„åˆ™é“¾åŠ ä¸Šï¼Œå¯ä»¥æ‰‹åŠ¨æ·»åŠ 
 
     iptables -t nat -N DOCKER
     iptables -t filter -N DOCKER
 
-¸½£ºÈç¹ûĞèÒªÉ¾³ıÁ´Ìõ£¬¿ÉÒÔÓÃiptables-saveµ¼³öºóÊÖ¶¯±à¼­ºóiptables-restore
+é™„ï¼šå¦‚æœéœ€è¦åˆ é™¤é“¾æ¡ï¼Œå¯ä»¥ç”¨iptables-saveå¯¼å‡ºåæ‰‹åŠ¨ç¼–è¾‘åiptables-restore
 
 --------
 
-# Ç¨ÒÆDockerÎÄ¼ş¼Ğµ½ÆäËûÓ²ÅÌ
+# è¿ç§»Dockeræ–‡ä»¶å¤¹åˆ°å…¶ä»–ç¡¬ç›˜
 
-µ±¾µÏñ¶àÁËÆğÀ´µÄÊ±ºò£¬/var/libËùÔÚµÄ¸ù·ÖÇøºÜ¿ÉÄÜ±»Õ¼Âú£¬ÕâÊ±ºòÒª¿¼ÂÇÇ¨ÒÆµ½ÆäËûÓ²ÅÌ£¬´Ë´¦ÒÔÇ¨ÒÆµ½`/home/docker`ÎªÀıËµÃ÷
+å½“é•œåƒå¤šäº†èµ·æ¥çš„æ—¶å€™ï¼Œ/var/libæ‰€åœ¨çš„æ ¹åˆ†åŒºå¾ˆå¯èƒ½è¢«å æ»¡ï¼Œè¿™æ—¶å€™è¦è€ƒè™‘è¿ç§»åˆ°å…¶ä»–ç¡¬ç›˜ï¼Œæ­¤å¤„ä»¥è¿ç§»åˆ°`/home/docker`ä¸ºä¾‹è¯´æ˜
 
 ```bash
-#Ê×ÏÈ¼ÇµÃ¹Ø±Õ·şÎñ
+#é¦–å…ˆè®°å¾—å…³é—­æœåŠ¡
 service docker stop
 mv /var/lib/docker /home/
-#È»ºóĞŞ¸Ä·şÎñÅäÖÃÎÄ¼ş/etc/default/docker£¬´Ë´¦½¨ÒéÊÖ¶¯vim±à¼­£¬¼ÓÈëÕâ¸ö£º
+#ç„¶åä¿®æ”¹æœåŠ¡é…ç½®æ–‡ä»¶/etc/default/dockerï¼Œæ­¤å¤„å»ºè®®æ‰‹åŠ¨vimç¼–è¾‘ï¼ŒåŠ å…¥è¿™ä¸ªï¼š
 #    --graph='/home/docker'
 echo -e "\nDOCKER_OPTS=\"--graph='/home/docker'\"" >> /etc/default/docker
 ```

@@ -1,24 +1,24 @@
 #VirtualBox
 
-> ²Î¿¼ https://www.howtoforge.com/tutorial/running-virtual-machines-with-virtualbox-5.1-on-a-headless-ubuntu-16.04-lts-server/
+> å‚è€ƒ https://www.howtoforge.com/tutorial/running-virtual-machines-with-virtualbox-5.1-on-a-headless-ubuntu-16.04-lts-server/
 
-ÔÚlinuxÖÕ¶ËÏÂÊ¹ÓÃVBoxManageºÍVBoxHeadless´´½¨¡¢Æô¶¯¡¢¿ØÖÆÒ»¸öUbuntu14.04 64BitµÄĞéÄâ»ú
+åœ¨linuxç»ˆç«¯ä¸‹ä½¿ç”¨VBoxManageå’ŒVBoxHeadlessåˆ›å»ºã€å¯åŠ¨ã€æ§åˆ¶ä¸€ä¸ªUbuntu14.04 64Bitçš„è™šæ‹Ÿæœº
 
-## ÏÂÔØ
+## ä¸‹è½½
 
 http://www.virtualbox.org/wiki/Downloads
 
-´Ó¹ÙÍøÕÒµ½¶ÔÓ¦µÄrpm»òdebÏÂÔØ¼´¿É
+ä»å®˜ç½‘æ‰¾åˆ°å¯¹åº”çš„rpmæˆ–debä¸‹è½½å³å¯
 
-> rpmÎÄ¼şµÄ°²×°£º
+> rpmæ–‡ä»¶çš„å®‰è£…ï¼š
 
 >    rpm -ivh something.rpm
 
-> debÎÄ¼şµÄ°²×°
+> debæ–‡ä»¶çš„å®‰è£…
 
 >    dpkg -i something.rpm
 
-## Ò»¶¨Òª°²×°¶îÍâ°ü
+## ä¸€å®šè¦å®‰è£…é¢å¤–åŒ…
 
 ```
 cd /tmp
@@ -26,7 +26,7 @@ wget http://download.virtualbox.org/virtualbox/5.1.0/Oracle_VM_VirtualBox_Extens
 sudo VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack-5.1.0-108711.vbox-extpack
 ```
 
-## ´´½¨ĞéÄâ»ú£¬ÉèÖÃĞéÄâ»úÑ¡Ïî
+## åˆ›å»ºè™šæ‹Ÿæœºï¼Œè®¾ç½®è™šæ‹Ÿæœºé€‰é¡¹
 
 ```
 mkdir -p /home/virtualbox
@@ -40,12 +40,12 @@ VBoxManage storageattach ubuntu --storagectl storage_controller_1 \
 VBoxManage modifyvm ubuntu --cpus 4 --memory 2048 --acpi on --boot1 dvd --nic1 nat --cableconnected1 on --vrde on --vrdeport 3389
 ```
 
-## Æô¶¯ĞéÄâ»ú
+## å¯åŠ¨è™šæ‹Ÿæœº
 
 ```
 nohup VBoxHeadless -startvm ubuntu --vrde on -e  TCP/Ports=63389 &
 ```
 
-## ¿ØÖÆĞéÄâ»ú
+## æ§åˆ¶è™šæ‹Ÿæœº
 
-WindowsÏÂÊ¹ÓÃ`mstsc`Ô¶³ÌÁ¬½Ó¼´¿É»ñµÃÒ»¸öÍ¼ĞÎ½çÃæµÄÖÕ¶ËÍê³ÉÏµÍ³°²×°
+Windowsä¸‹ä½¿ç”¨`mstsc`è¿œç¨‹è¿æ¥å³å¯è·å¾—ä¸€ä¸ªå›¾å½¢ç•Œé¢çš„ç»ˆç«¯å®Œæˆç³»ç»Ÿå®‰è£…

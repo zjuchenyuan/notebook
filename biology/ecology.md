@@ -1,110 +1,110 @@
-#ÉúÌ¬Êı¾İ´¦Àí£¬Ê¹ÓÃQIIME
+#ç”Ÿæ€æ•°æ®å¤„ç†ï¼Œä½¿ç”¨QIIME
 
-# ×÷ÒµÒªÇó
+# ä½œä¸šè¦æ±‚
 
-1. De-novo OTU pickingÒÔ¼°OTU tableµÄÖÆ×÷
-2. alpha¶àÑùĞÔ·ÖÎö£ºÓÅÊÆÖÖ(>5%/10%)µÄRelative Abundance·Ö²¼Í¼£»Rarefaction Curve( Shannon, Simpson, Observed species)
-3. beta¶àÑùĞÔ·ÖÎö£º Unweighted/Weighted Unifrac PCoA·ÖÎö
-4. ÈºÌåĞÔ·ÖÎö£ºNMDS·ÖÎö--R
-   ²îÒì·ÖÎö£¨Adonis£¬ANOSIM£¬MRPP£©--R
+1. De-novo OTU pickingä»¥åŠOTU tableçš„åˆ¶ä½œ
+2. alphaå¤šæ ·æ€§åˆ†æï¼šä¼˜åŠ¿ç§(>5%/10%)çš„Relative Abundanceåˆ†å¸ƒå›¾ï¼›Rarefaction Curve( Shannon, Simpson, Observed species)
+3. betaå¤šæ ·æ€§åˆ†æï¼š Unweighted/Weighted Unifrac PCoAåˆ†æ
+4. ç¾¤ä½“æ€§åˆ†æï¼šNMDSåˆ†æ--R
+   å·®å¼‚åˆ†æï¼ˆAdonisï¼ŒANOSIMï¼ŒMRPPï¼‰--R
 
 ----
 
-# »ñµÃÊı¾İ Obtaining the data
+# è·å¾—æ•°æ® Obtaining the data
 
-´ÓÈº¹²ÏíÏÂÔØµ½Èı¸öÎÄ¼ş£¬¼ò½é£º
+ä»ç¾¤å…±äº«ä¸‹è½½åˆ°ä¸‰ä¸ªæ–‡ä»¶ï¼Œç®€ä»‹ï¼š
 
 ## BF_Map.txt 5.10KB
 
-ÕâÊÇ¶ÔÔ­Ê¼²âĞòfnaÎÄ¼şµÄÃèÊö£¬ÊÇÔ­Ê¼Êı¾İ
+è¿™æ˜¯å¯¹åŸå§‹æµ‹åºfnaæ–‡ä»¶çš„æè¿°ï¼Œæ˜¯åŸå§‹æ•°æ®
 
 |SampleID|BarcodeSequence|LinkerPrimerSequence|Treatment|Plate|Description|
 | --------   | -----:  | :----:  |
-|Ñù±¾ID|ÓÃÓÚÇø·ÖÑù±¾µÄĞòÁĞ|²âĞòÊ±¼ÓÉÏµÄĞòÁĞ|Ñù±¾µÄ´¦Àí£¬ControlÓëWarming||ÃèÊö£¬ÓĞTagA,TagB,TagC|
+|æ ·æœ¬ID|ç”¨äºåŒºåˆ†æ ·æœ¬çš„åºåˆ—|æµ‹åºæ—¶åŠ ä¸Šçš„åºåˆ—|æ ·æœ¬çš„å¤„ç†ï¼ŒControlä¸Warming||æè¿°ï¼Œæœ‰TagA,TagB,TagC|
 
 ## otu_table_F.txt 23.9MB
 
-OTUÊÇÔÚÊıÁ¿·ÖÀàÑ§·½Ãæ×÷Îª¶ÔÏóµÄ·ÖÀàµ¥Î»
+OTUæ˜¯åœ¨æ•°é‡åˆ†ç±»å­¦æ–¹é¢ä½œä¸ºå¯¹è±¡çš„åˆ†ç±»å•ä½
 
-¼ÆËãµÃ³öµÄOTU Table
+è®¡ç®—å¾—å‡ºçš„OTU Table
 
-Ã¿ĞĞÒ»¸öOTU£¬Èç¹ûÆ¥Åäµ½Êı¾İ¿âÉÏÓĞÎ¢ÉúÎïµÄÎïÖÖ·ÖÀàÊı¾İ£¬ÒÔ¼°Ã¿¸öÑù±¾ÊÇ·ñ°üº¬Õâ¸öOTU--°üº¬Îª1£¬²»°üº¬Îª0
+æ¯è¡Œä¸€ä¸ªOTUï¼Œå¦‚æœåŒ¹é…åˆ°æ•°æ®åº“ä¸Šæœ‰å¾®ç”Ÿç‰©çš„ç‰©ç§åˆ†ç±»æ•°æ®ï¼Œä»¥åŠæ¯ä¸ªæ ·æœ¬æ˜¯å¦åŒ…å«è¿™ä¸ªOTU--åŒ…å«ä¸º1ï¼Œä¸åŒ…å«ä¸º0
 
 ## otus_BF.rar 36.7MB
 
-ÄÚº¬otus_BFÎÄ¼ş¼Ğ£¬Îª**De novo OTU picking**²½ÖèµÄÉú³É½á¹û
+å†…å«otus_BFæ–‡ä»¶å¤¹ï¼Œä¸º**De novo OTU picking**æ­¥éª¤çš„ç”Ÿæˆç»“æœ
 
-# ´ÓÍ·¿ªÊ¼µÄOTU×é×° De novo OTU picking
+# ä»å¤´å¼€å§‹çš„OTUç»„è£… De novo OTU picking
 
-ÓÉÓÚÈ±ÉÙÔ­Ê¼ÎÄ¼ş£¬±¾²½ÖèÎŞ·¨¸´ÏÖ£¬ÔËËã½á¹ûÎª¸ø³öµÄotus_BF.rar
+ç”±äºç¼ºå°‘åŸå§‹æ–‡ä»¶ï¼Œæœ¬æ­¥éª¤æ— æ³•å¤ç°ï¼Œè¿ç®—ç»“æœä¸ºç»™å‡ºçš„otus_BF.rar
 
-´Ë²½ÖèÉú³ÉÁË**rep_set.tre**£¬Ê¹ÓÃ**FigTree**Èí¼ş½øĞĞ²é¿´£º
+æ­¤æ­¥éª¤ç”Ÿæˆäº†**rep_set.tre**ï¼Œä½¿ç”¨**FigTree**è½¯ä»¶è¿›è¡ŒæŸ¥çœ‹ï¼š
 
 ![](http://api.chenyuan.me/fangcloud/4cf9ea4acb452aa8e0df0fe0fd)
 
-## ²é¿´²úÉúµÄOTU Table
+## æŸ¥çœ‹äº§ç”Ÿçš„OTU Table
 
 [summarize.txt](http://api.chenyuan.me/fangcloud/9c76ee31266efbf411e51c8388)
 
-Ò»¹²ÓĞ50¸öÑù±¾£¬²ÎÕÕ¸ø³öµÄÔ­Ê¼BF_Map.txt£¨72¸öÑù±¾£©£¬
-·¢ÏÖÆäÖĞµÄF.TagA.3C.12ºÍF.TagA.3C.13µÄCountÊıÌ«Ğ¡¿ÉÒÔºöÂÔ£¬±È½ÏÁ½¸öÎÄ¼ş·¢ÏÖ**IDÎªTagAµÄ¶¼Ã»ÓĞ³öÏÖÔÚ¸ø³öµÄOTU TableÖĞ**
+ä¸€å…±æœ‰50ä¸ªæ ·æœ¬ï¼Œå‚ç…§ç»™å‡ºçš„åŸå§‹BF_Map.txtï¼ˆ72ä¸ªæ ·æœ¬ï¼‰ï¼Œ
+å‘ç°å…¶ä¸­çš„F.TagA.3C.12å’ŒF.TagA.3C.13çš„Countæ•°å¤ªå°å¯ä»¥å¿½ç•¥ï¼Œæ¯”è¾ƒä¸¤ä¸ªæ–‡ä»¶å‘ç°**IDä¸ºTagAçš„éƒ½æ²¡æœ‰å‡ºç°åœ¨ç»™å‡ºçš„OTU Tableä¸­**
 
-¼¼ÊõPoint:ÓÃExcel±È½ÏÁ½ÁĞÏàÍ¬ÔªËØhttp://jingyan.baidu.com/article/c843ea0b7a2a7477921e4a47.html
+æŠ€æœ¯Point:ç”¨Excelæ¯”è¾ƒä¸¤åˆ—ç›¸åŒå…ƒç´ http://jingyan.baidu.com/article/c843ea0b7a2a7477921e4a47.html
 
 ## Make an OTU network
 
-ÈË¼ÒËµÒªÓÃCytoscape£¬ÓĞ´ıÑĞ¾¿
+äººå®¶è¯´è¦ç”¨Cytoscapeï¼Œæœ‰å¾…ç ”ç©¶
 
-Éú³ÉµÄotu_networkÎÄ¼ş¼Ğ[´ÁÕâÀïÏÂÔØ](http://api.chenyuan.me/fangcloud/a8c63020d9a7d1426cf05a7a77)
+ç”Ÿæˆçš„otu_networkæ–‡ä»¶å¤¹[æˆ³è¿™é‡Œä¸‹è½½](http://api.chenyuan.me/fangcloud/a8c63020d9a7d1426cf05a7a77)
 
 
-# ÎïÖÖ·ÖÀàÍ³¼Æ Summarize communities by taxonomic composition
+# ç‰©ç§åˆ†ç±»ç»Ÿè®¡ Summarize communities by taxonomic composition
 
-[Éú³ÉµÄtaxa_summaryÎÄ¼ş¼Ğ,´ÁÎÒÏÂÔØ](http://api.chenyuan.me/fangcloud/cff3d489af54eaea157838719c)
+[ç”Ÿæˆçš„taxa_summaryæ–‡ä»¶å¤¹,æˆ³æˆ‘ä¸‹è½½](http://api.chenyuan.me/fangcloud/cff3d489af54eaea157838719c)
 
-> ÕâÀïÊÇÖØµã
+> è¿™é‡Œæ˜¯é‡ç‚¹
 
-´ò¿ªtaxa_summary/taxa_summary_plotsÎÄ¼ş¼Ğ£¬ÀïÃæÓĞÁ½¸öÍøÒ³£¬
+æ‰“å¼€taxa_summary/taxa_summary_plotsæ–‡ä»¶å¤¹ï¼Œé‡Œé¢æœ‰ä¸¤ä¸ªç½‘é¡µï¼Œ
 
-ÍøÒ³´ò¿ªºó5ÕÅÍ¼£¬Ã¿ÕÅÍ¼µÄºá×ø±ê¶¼ÊÇ50¸öÑù±¾£¬´ÓÉÏµ½ÏÂ·ÖÀà½×ÔªÔ½À´Ô½Ï¸
+ç½‘é¡µæ‰“å¼€å5å¼ å›¾ï¼Œæ¯å¼ å›¾çš„æ¨ªåæ ‡éƒ½æ˜¯50ä¸ªæ ·æœ¬ï¼Œä»ä¸Šåˆ°ä¸‹åˆ†ç±»é˜¶å…ƒè¶Šæ¥è¶Šç»†
 
-Ñ¡Ôñ×î¸ß²ã´ÎµÄÕâÕÅbarÍ¼°É£º
+é€‰æ‹©æœ€é«˜å±‚æ¬¡çš„è¿™å¼ barå›¾å§ï¼š
 
 ![](http://api.chenyuan.me/fangcloud/312423426ec71e733de254fbfe)
 
-½âÑ¹Ñ¹Ëõ°üºó´ò¿ªÍøÒ³£¬ÓÃÊó±ê¸§ÃşÕâÕÅÍ¼¿ÉÒÔ¿´µ½·ÖÀàĞÅÏ¢
+è§£å‹å‹ç¼©åŒ…åæ‰“å¼€ç½‘é¡µï¼Œç”¨é¼ æ ‡æŠšæ‘¸è¿™å¼ å›¾å¯ä»¥çœ‹åˆ°åˆ†ç±»ä¿¡æ¯
 
-µ×ÏÂºìÉ«ÊÇ×î¶àµÄ£¬ÊÇOther
+åº•ä¸‹çº¢è‰²æ˜¯æœ€å¤šçš„ï¼Œæ˜¯Other
 
-Æä´Î×î¶àµÄ¿´ÆğÀ´ÊÇÉÏ±ßµÄºìÉ«µÄ£¬Proteobacteria
+å…¶æ¬¡æœ€å¤šçš„çœ‹èµ·æ¥æ˜¯ä¸Šè¾¹çš„çº¢è‰²çš„ï¼ŒProteobacteria
 
-## ²úÉúÈÈÍ¼Make a taxonomy heatmap
+## äº§ç”Ÿçƒ­å›¾Make a taxonomy heatmap
 
 ![](http://api.chenyuan.me/fangcloud/c8d28241ed373bd3901a2d848a)
 
 ----
 
-#¼ÆËãalpha¶àÑùĞÔ
+#è®¡ç®—alphaå¤šæ ·æ€§
 
-[Éú³ÉµÄarareÎÄ¼ş¼Ğ´ÁÎÒÏÂÔØ](http://api.chenyuan.me/fangcloud/c07dc497e5679ca505967eb9a5)
+[ç”Ÿæˆçš„arareæ–‡ä»¶å¤¹æˆ³æˆ‘ä¸‹è½½](http://api.chenyuan.me/fangcloud/c07dc497e5679ca505967eb9a5)
 
-alpha¶àÑùĞÔµÄ¼ÆËã½á¹ûÔÚarare/alpha_div_collatedÖĞ£¬ÀïÃæÓĞ
+alphaå¤šæ ·æ€§çš„è®¡ç®—ç»“æœåœ¨arare/alpha_div_collatedä¸­ï¼Œé‡Œé¢æœ‰
 
 * shannon.txt
 * simpson.txt
-* observed_otus.txt Õâ¾ÍÊÇPPTÒªÇóµÄObserved species
+* observed_otus.txt è¿™å°±æ˜¯PPTè¦æ±‚çš„Observed species
 
-Ã¿Ò»ÁĞÊÇÒ»¸öÑù±¾
+æ¯ä¸€åˆ—æ˜¯ä¸€ä¸ªæ ·æœ¬
 
-Ã¿Ò»ĞĞĞĞÊÇÈ¡Ñù´óĞ¡+µü´ú´ÎÊı£º
+æ¯ä¸€è¡Œè¡Œæ˜¯å–æ ·å¤§å°+è¿­ä»£æ¬¡æ•°ï¼š
 
 > rarefaction_##_#.txt: the first set of numbers represents the number of sequences sampled, and the last number represents the iteration number
 
-ÓÃ²»Í¬µÄ²ÉÑù´óĞ¡¿ÉÒÔµÃµ½²»Í¬µÄÊıÖµ£¬¾Í¿ÉÒÔ»­³öÏÂÃæÕâĞ©Í¼
+ç”¨ä¸åŒçš„é‡‡æ ·å¤§å°å¯ä»¥å¾—åˆ°ä¸åŒçš„æ•°å€¼ï¼Œå°±å¯ä»¥ç”»å‡ºä¸‹é¢è¿™äº›å›¾
 
-## ¿´alphaÏ¡ÊèÍ¼
+## çœ‹alphaç¨€ç–å›¾
 
-Ê×ÏÈÁË½âÕâÊÇ¸öÊ²Ã´¶«Î÷ [Wikipedia](https://en.wikipedia.org/wiki/Rarefaction_(ecology))
+é¦–å…ˆäº†è§£è¿™æ˜¯ä¸ªä»€ä¹ˆä¸œè¥¿ [Wikipedia](https://en.wikipedia.org/wiki/Rarefaction_(ecology))
 
 ![shannon.png](http://api.chenyuan.me/fangcloud/f4be696682a9f7941f7f0afd64)
 
@@ -113,40 +113,40 @@ alpha¶àÑùĞÔµÄ¼ÆËã½á¹ûÔÚarare/alpha_div_collatedÖĞ£¬ÀïÃæÓĞ
 ![observed_otus.png](http://api.chenyuan.me/fangcloud/30bad21c580339cc18fb44a299)
 
 
-ÎÊÌâ£ºÈç¹ûÊ¹ÓÃCategory:Treatment, Êı¾İÉÏºÜ¶àNaN£¬¿´²»³ö²»Í¬´¦ÀíµÄÏÔÖøĞÔ²îÒì
+é—®é¢˜ï¼šå¦‚æœä½¿ç”¨Category:Treatment, æ•°æ®ä¸Šå¾ˆå¤šNaNï¼Œçœ‹ä¸å‡ºä¸åŒå¤„ç†çš„æ˜¾è‘—æ€§å·®å¼‚
 
 ----
 
-# ¼ÆËãbeta¶àÑùĞÔ Compute beta diversity and generate ordination plots
+# è®¡ç®—betaå¤šæ ·æ€§ Compute beta diversity and generate ordination plots
 
-[bdiv_even146.zip´ÁÎÒÏÂÔØ](http://api.chenyuan.me/fangcloud/ba56a4a459ee7238a8af6c3d3b)
+[bdiv_even146.zipæˆ³æˆ‘ä¸‹è½½](http://api.chenyuan.me/fangcloud/ba56a4a459ee7238a8af6c3d3b)
 
 ## Unweighted
 
-> ºìÉ«Control
-> À¶É«Warming
+> çº¢è‰²Control
+> è“è‰²Warming
 
 ![unweighted1.jpg](http://api.chenyuan.me/fangcloud/8c4f7c22f6db3f0a54151c01e4)
 
 ![unweighted2.jpg](http://api.chenyuan.me/fangcloud/95708ac65084d85de8a76e517c)
 
-TreatmentÉÏÃ»ÓĞÏÔÖøĞÔÇø±ğ
+Treatmentä¸Šæ²¡æœ‰æ˜¾è‘—æ€§åŒºåˆ«
 
-ÄÇÊ²Ã´¾ßÓĞÏÔÖøĞÔÇø±ğÄØ£¿
+é‚£ä»€ä¹ˆå…·æœ‰æ˜¾è‘—æ€§åŒºåˆ«å‘¢ï¼Ÿ
 
-ÊÖ¹¤±êÉÏÑÕÉ«£º
+æ‰‹å·¥æ ‡ä¸Šé¢œè‰²ï¼š
 
-»ÆÉ« TagC_13
-ÂÌÉ« TagB_13
-À¶É« TagC_12
-ºìÉ« TagB_12
+é»„è‰² TagC_13
+ç»¿è‰² TagB_13
+è“è‰² TagC_12
+çº¢è‰² TagB_12
 
 ![unweighted_my.jpg](http://api.chenyuan.me/fangcloud/6ff9f674acdb65c53e1cf08021)
 
-·¢ÏÖ**Ñù±¾×îºóµÄ±êºÅ12Óë13²ÅÊÇ×îÏÔÖøµÄÇø±ğÀ´Ô´**£¡
+å‘ç°**æ ·æœ¬æœ€åçš„æ ‡å·12ä¸13æ‰æ˜¯æœ€æ˜¾è‘—çš„åŒºåˆ«æ¥æº**ï¼
 
 ## Weighted
 
 ![weighted.jpg](http://api.chenyuan.me/fangcloud/06dcc48950634f7915733ed093)
 
-Í¬ÑùÔÚTreatmentÉÏÃ»ÓĞÏÔÖøĞÔ²îÒì
+åŒæ ·åœ¨Treatmentä¸Šæ²¡æœ‰æ˜¾è‘—æ€§å·®å¼‚

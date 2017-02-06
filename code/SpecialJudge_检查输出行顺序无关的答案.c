@@ -1,6 +1,6 @@
 /*
- * ±¾´úÂëÊÇÆÀÅĞÊä³öĞĞÎŞ¹ØµÄSpecial Judge´úÂë£¬ÓÃÓÚOnlineJudge
- * Ô­ÀíÎª°Ñ±ê×¼´ğ°¸Ğ´Èë´úÂëÖĞ£¬ÏÈ°Ñ±ê×¼´ğ°¸ºÍÓÃ»§´ğ°¸¶¼qsortÅÅĞòºóÔÙÖğĞĞ±È½Ï
+ * æœ¬ä»£ç æ˜¯è¯„åˆ¤è¾“å‡ºè¡Œæ— å…³çš„Special Judgeä»£ç ï¼Œç”¨äºOnlineJudge
+ * åŸç†ä¸ºæŠŠæ ‡å‡†ç­”æ¡ˆå†™å…¥ä»£ç ä¸­ï¼Œå…ˆæŠŠæ ‡å‡†ç­”æ¡ˆå’Œç”¨æˆ·ç­”æ¡ˆéƒ½qsortæ’åºåå†é€è¡Œæ¯”è¾ƒ
 */
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,9 +9,9 @@
 #define WA 1
 #define ERROR -1
 
-#define LINES 100 //´ğ°¸Ò»¹²ÓĞ100ĞĞ
-#define LINELEN 15 //½¨ÒéÕâ¸öÊıÖµÂÔ´óÓÚÃ¿ĞĞ×î³¤³¤¶È
-char truelines[][LINELEN]={/*ÕâÀïÊÇ±ê×¼´ğ°¸£¬Ë³ĞòÎŞ¹Ø£¬Ò»¹²LINESĞĞ£¬Ã¿ĞĞ×î³¤LINELEN-1¸ö×Ö·û*/}
+#define LINES 100 //ç­”æ¡ˆä¸€å…±æœ‰100è¡Œ
+#define LINELEN 15 //å»ºè®®è¿™ä¸ªæ•°å€¼ç•¥å¤§äºæ¯è¡Œæœ€é•¿é•¿åº¦
+char truelines[][LINELEN]={/*è¿™é‡Œæ˜¯æ ‡å‡†ç­”æ¡ˆï¼Œé¡ºåºæ— å…³ï¼Œä¸€å…±LINESè¡Œï¼Œæ¯è¡Œæœ€é•¿LINELEN-1ä¸ªå­—ç¬¦*/}
 
 int compare(const void* a,const void* b){
 	return strcmp((const char*)a,(const char*)b);
@@ -47,11 +47,11 @@ int main(int argc, char *args[]){
     return result;
 }
 int spj(FILE *input, FILE *user_output){
-    /*Èç¹ûÓÃ»§´ğ°¸´íÎó£¬·µ»ØWA£»·ñÔò·µ»ØAC*/
+    /*å¦‚æœç”¨æˆ·ç­”æ¡ˆé”™è¯¯ï¼Œè¿”å›WAï¼›å¦åˆ™è¿”å›AC*/
 	int i;char *tmp,userlines[LINES][LINELEN];
 	for(i=0;i<LINES;i++){
 		tmp=fgets(userlines[i],LINELEN,user_output);
-		userlines[i][strlen(userlines[i])-1]=0;//fgets»áµÃµ½\n£¬ĞèÒªÉ¾µô
+		userlines[i][strlen(userlines[i])-1]=0;//fgetsä¼šå¾—åˆ°\nï¼Œéœ€è¦åˆ æ‰
 	}
 	qsort(truelines,LINES,LINELEN,compare);
 	qsort(userlines,LINES,LINELEN,compare);

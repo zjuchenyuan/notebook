@@ -1,9 +1,9 @@
-# 使用localStorage
+# 浣跨敤localStorage
 
 ```
-//写入
+//鍐欏叆
 var storage=window.localStorage;
 storage["a"]=1;
-//清空
+//娓呯┖
 window.localStorage.clear();
 ```

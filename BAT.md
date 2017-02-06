@@ -1,135 +1,135 @@
-#Ğ´ÔÚÇ°Ãæ
+#å†™åœ¨å‰é¢
 
-ÔÚÃ»ÓĞ½Ó´¥µ½CºÍPythonÖ®Ç°£¬ÎÒÒ²³£ÓÃBATºÍÒ»¶ÑµÚÈı·½µÄexe×öÊÂÇé
+åœ¨æ²¡æœ‰æ¥è§¦åˆ°Cå’ŒPythonä¹‹å‰ï¼Œæˆ‘ä¹Ÿå¸¸ç”¨BATå’Œä¸€å †ç¬¬ä¸‰æ–¹çš„exeåšäº‹æƒ…
 
-ÄêÉÙÎŞÖªµÄËêÔÂÑ½~
-
-----
-##  ²¢ÁĞÓï¾äÓï·¨
-
-Ë³ĞòÖ´ĞĞ &
-
-Ç°ÕßÕıÈ·²ÅÖ´ĞĞ &&
-
-Ç°Õß´íÎó²ÅÖ´ĞĞ ||
+å¹´å°‘æ— çŸ¥çš„å²æœˆå‘€~
 
 ----
-#À´Ò»¸öËÀÑ­»·°É for
+##  å¹¶åˆ—è¯­å¥è¯­æ³•
 
-> ÓÃÓÚ½áÊø½ø³Ì£¬»òÕßDNS²éÑ¯£¨ÂòÁË¸öÓòÃûtmdÕ¦½âÎö»¹Ã»ºÃ
+é¡ºåºæ‰§è¡Œ &
+
+å‰è€…æ­£ç¡®æ‰æ‰§è¡Œ &&
+
+å‰è€…é”™è¯¯æ‰æ‰§è¡Œ ||
+
+----
+#æ¥ä¸€ä¸ªæ­»å¾ªç¯å§ for
+
+> ç”¨äºç»“æŸè¿›ç¨‹ï¼Œæˆ–è€…DNSæŸ¥è¯¢ï¼ˆä¹°äº†ä¸ªåŸŸåtmdå’‹è§£æè¿˜æ²¡å¥½
 
     for /l %i in (1,1,9999999) do ...
 
 ----
-#½áÊø½ø³Ì taskkill
+#ç»“æŸè¿›ç¨‹ taskkill
 
-> woc£¬Õ¦ÎÒ¿ªÁËÕâÃ´¶àcmd£¬Ò»¸ö¸ö½áÊøÌ«·³ÁË£¬²»ÈçtaskkillÒ»²¨
+> wocï¼Œå’‹æˆ‘å¼€äº†è¿™ä¹ˆå¤šcmdï¼Œä¸€ä¸ªä¸ªç»“æŸå¤ªçƒ¦äº†ï¼Œä¸å¦‚taskkillä¸€æ³¢
 
     taskkill /f /im cmd.exe
     
 ----
-#ÄÚ´æÕûÀí free
+#å†…å­˜æ•´ç† free
 
-> Î¢Èí×Ô¼º³öµÄÒ»¸öÄÚ´æÕûÀí¹¤¾ß£¬ĞèÒª¹ÜÀíÔ±È¨ÏŞ£»Ô­ÀíÎÒÃ»¸ã¶®
+> å¾®è½¯è‡ªå·±å‡ºçš„ä¸€ä¸ªå†…å­˜æ•´ç†å·¥å…·ï¼Œéœ€è¦ç®¡ç†å‘˜æƒé™ï¼›åŸç†æˆ‘æ²¡ææ‡‚
 
-> exeÔÚdownload/empty.exe
+> exeåœ¨download/empty.exe
 
     empty *
 
 ----
-#Ë¯Ò»»á SleepX
+#ç¡ä¸€ä¼š SleepX
 
-> ³ÌĞòĞèÒªµÈ´ıÒ»¶¨Ê±¼äÔÙ¼ÌĞøÔËĞĞ¾Í¿ÉÒÔsleepxÀ²
+> ç¨‹åºéœ€è¦ç­‰å¾…ä¸€å®šæ—¶é—´å†ç»§ç»­è¿è¡Œå°±å¯ä»¥sleepxå•¦
 
-> exeÔÚdownload/SleepX.exe£¬×÷ÕßBill Stewart (bstewart@iname.com)
+> exeåœ¨download/SleepX.exeï¼Œä½œè€…Bill Stewart (bstewart@iname.com)
 
     SleepX 10
     
-    REMµÈ´ı5s£¬Èç¹ûÓÃ»§µÈ²»¼°¿ÉÒÔ°´¼ü£¬´ËÊ± not "%errorlevel%" == "0"
+    REMç­‰å¾…5sï¼Œå¦‚æœç”¨æˆ·ç­‰ä¸åŠå¯ä»¥æŒ‰é”®ï¼Œæ­¤æ—¶ not "%errorlevel%" == "0"
     SleepX -k 5
     
 ----
-#ÃüÁîĞĞµÄÅÀ³æ curl
+#å‘½ä»¤è¡Œçš„çˆ¬è™« curl
 
 ![cURL](https://curl.haxx.se/logo/curl-logo.svg)
 
-> ´óÃû¶¦¶¦µÄcURL£¬²»±Ø¶àÑÔ£»Ö»ÊÇËüµÄÃüÁîĞĞµÄÔËĞĞ·½Ê½ÓëlibcurlÓÃÆğÀ´²îÒìºÜ´ó£¨Èç±È½ÏphpµÄcurlÓÃ·¨£©
+> å¤§åé¼é¼çš„cURLï¼Œä¸å¿…å¤šè¨€ï¼›åªæ˜¯å®ƒçš„å‘½ä»¤è¡Œçš„è¿è¡Œæ–¹å¼ä¸libcurlç”¨èµ·æ¥å·®å¼‚å¾ˆå¤§ï¼ˆå¦‚æ¯”è¾ƒphpçš„curlç”¨æ³•ï¼‰
 
-> ¹Ù·½£ºhttps://curl.haxx.se/
+> å®˜æ–¹ï¼šhttps://curl.haxx.se/
 
-> ¼òµ¥ÈëÃÅ£ºhttp://www.bathome.net/thread-1761-1-1.html
+> ç®€å•å…¥é—¨ï¼šhttp://www.bathome.net/thread-1761-1-1.html
 
-> **½«curl×ªÎªpython requests** http://curl.trillworks.com/
+> **å°†curlè½¬ä¸ºpython requests** http://curl.trillworks.com/
 
-[ÏÂÔØ7.51 x64°æ±¾](download/curl.exe)
+[ä¸‹è½½7.51 x64ç‰ˆæœ¬](download/curl.exe)
 
 ```
-REM ÔÚbatÖĞREMÃüÁî±íÊ¾×¢ÊÍĞĞ
+REM åœ¨batä¸­REMå‘½ä»¤è¡¨ç¤ºæ³¨é‡Šè¡Œ
 
-REM ¼òµ¥µÄgetÒ»ÏÂ
+REM ç®€å•çš„getä¸€ä¸‹
 curl http://ip.cn
 
-REM ±£´æµ½ÎÄ¼ş²¢¶ÏµãĞø´«£¨¿ÉÒÔ²»Ö¸¶¨ÎÄ¼şÃû-O£©
+REM ä¿å­˜åˆ°æ–‡ä»¶å¹¶æ–­ç‚¹ç»­ä¼ ï¼ˆå¯ä»¥ä¸æŒ‡å®šæ–‡ä»¶å-Oï¼‰
 curl -o iplist.txt -c  http://f.ip.cn/rt/chnroutes.txt
 
-REM POSTÇëÇó£¬ÉèÖÃReferer£¬²¢Ê¹ÓÃ´úÀí
+REM POSTè¯·æ±‚ï¼Œè®¾ç½®Refererï¼Œå¹¶ä½¿ç”¨ä»£ç†
 curl http://httpbin.org/post --data "something=somedata" -H "Referer: http://github.com/zjuchenyuan/" --proxy socks5://127.0.0.1:1080
 
-REM ÎÄ¼şÉÏ´« @ÎÄ¼şÃû
-REM POSTÄ£Ê½ÏÂµÄÎÄ¼şÉÏµÄÎÄ¼şÉÏ´«£¬±ÈÈç
+REM æ–‡ä»¶ä¸Šä¼  @æ–‡ä»¶å
+REM POSTæ¨¡å¼ä¸‹çš„æ–‡ä»¶ä¸Šçš„æ–‡ä»¶ä¸Šä¼ ï¼Œæ¯”å¦‚
 REM <form method="POST" enctype="multipart/form-data" action="http://cgi2.tky.3web.ne.jp/~zzh/up_file.cgi">
 REM <input type=file name=upload>
 REM <input type=submit name=nick value="go">
 REM </form>
-REM ÕâÑùÒ»¸öHTTP±íµ¥£¬ÎÒÃÇÒªÓÃcurl½øĞĞÄ£Äâ£¬¾Í¸ÃÊÇÕâÑùµÄÓï·¨£º
+REM è¿™æ ·ä¸€ä¸ªHTTPè¡¨å•ï¼Œæˆ‘ä»¬è¦ç”¨curlè¿›è¡Œæ¨¡æ‹Ÿï¼Œå°±è¯¥æ˜¯è¿™æ ·çš„è¯­æ³•ï¼š
 curl -F upload=@localfile -F nick=go http://cgi2.tky.3web.ne.jp/~zzh/up_file.cgi
 
-REM µÇÂ¼Â·ÓÉÆ÷
+REM ç™»å½•è·¯ç”±å™¨
 curl http://192.168.1.1 -u admin:admin
 
-REM ´æÏÂSet-Cookie
+REM å­˜ä¸‹Set-Cookie
 curl -D cookie0001.txt http://www.yahoo.com
 
-REM Ê¹ÓÃ´æ´¢µÄCookie
+REM ä½¿ç”¨å­˜å‚¨çš„Cookie
 curl -b cookie0001.txt http://www.yahoo.com
 
-REM dictĞ­Òé²é×Öµä£¬ÏÔÊ¾ÏêÏ¸µÄÇëÇóĞÅÏ¢
+REM dictåè®®æŸ¥å­—å…¸ï¼Œæ˜¾ç¤ºè¯¦ç»†çš„è¯·æ±‚ä¿¡æ¯
 curl dict://www.dict.org/d:computer -v
 ```
 
 ----
 
-# BATµÄÃüÁîÃÇ
+# BATçš„å‘½ä»¤ä»¬
 
-##ÅĞ¶ÏÎÄ¼ş¼Ğ´æÔÚ
+##åˆ¤æ–­æ–‡ä»¶å¤¹å­˜åœ¨
 
 ```
 if exist DIRNAME\nul echo Yes!
 ```
 
-## ´´½¨Ó²Á´½Ó
+## åˆ›å»ºç¡¬é“¾æ¥
 
-Win7¼°ÒÔÉÏ£º
+Win7åŠä»¥ä¸Šï¼š
 ```
 mklink /H Link Target
 ```
 
-Ä¿Â¼»¹ĞèÒª/J
+ç›®å½•è¿˜éœ€è¦/J
 ```
 mklink /H /J Link Target
 ```
 
-WinXPÖ»ÄÜÓÃ£º
+WinXPåªèƒ½ç”¨ï¼š
 ```
 fsutil hardlink create <new filename> <existing filename>
 ```
 
 ----
 
-## ¶Ë¿Ú×ª·¢
+## ç«¯å£è½¬å‘
 
-´ËÃüÁîĞèÒª¹ÜÀíÔ±È¨ÏŞ
+æ­¤å‘½ä»¤éœ€è¦ç®¡ç†å‘˜æƒé™
 
 ```
-netsh interface portproxy add v4tov4 listenaddress=0.0.0.0 listenport=×ª·¢³öµÄ¶Ë¿Ú connectaddress=×ª·¢µÄÔ´IPµØÖ· connectport=×ª·¢µÄÔ´¶Ë¿Ú
+netsh interface portproxy add v4tov4 listenaddress=0.0.0.0 listenport=è½¬å‘å‡ºçš„ç«¯å£ connectaddress=è½¬å‘çš„æºIPåœ°å€ connectport=è½¬å‘çš„æºç«¯å£
 ```

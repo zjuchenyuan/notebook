@@ -1,85 +1,85 @@
 # Nginx
 
-¼ÇÂ¼ÓÃµ½µÄÅäÖÃ£¬Ëµ²»¶¨ÄãÒ²ÄÜÓöµ½ÕâĞ©ÌØÊâĞèÇóÄØ~
+è®°å½•ç”¨åˆ°çš„é…ç½®ï¼Œè¯´ä¸å®šä½ ä¹Ÿèƒ½é‡åˆ°è¿™äº›ç‰¹æ®Šéœ€æ±‚å‘¢~
 
-## ÆÕÍ¨×ÊÔ´ÔÊĞíPOST
+## æ™®é€šèµ„æºå…è®¸POST
 
     error_page 405 =200 @405;
 
 
-## ²»´øºó×ºµÄÎÄ¼şµ±³ÉphpÖ´ĞĞ
+## ä¸å¸¦åç¼€çš„æ–‡ä»¶å½“æˆphpæ‰§è¡Œ
 
-ÕâÀïµÄË¼Â·ÊÇÓÃ·´Ïò´úÀíµÄ·½Ê½¼òµ¥ÊµÏÖ
+è¿™é‡Œçš„æ€è·¯æ˜¯ç”¨åå‘ä»£ç†çš„æ–¹å¼ç®€å•å®ç°
 
     location /path/something {
         proxy_pass http://yourdomain/path/something.php;
         proxy_method GET;
     }
 
-Ë³´ø¾Ü¾øµô¶Ôphpºó×ºµÄ²Â²â£º
+é¡ºå¸¦æ‹’ç»æ‰å¯¹phpåç¼€çš„çŒœæµ‹ï¼š
 
     location = /path/something.php {
-        if ($remote_addr != '·şÎñÆ÷×ÔÉíIP') {
+        if ($remote_addr != 'æœåŠ¡å™¨è‡ªèº«IP') {
             return 404;
         }
         include fastcgi.conf;
     }
 
-## httpÌø×ªµ½https
+## httpè·³è½¬åˆ°https
 
     location /{
         rewrite ^ https://$host$request_uri? permanent;
     }
 
-## »ñµÃLet's encryptÃâ·ÑhttpsÖ¤Êé
+## è·å¾—Let's encryptå…è´¹httpsè¯ä¹¦
 
-Îª¼ò»¯²Ù×÷£¬ÎÒĞ´ÁËÒ»¸ö¸ü¼Ó·½±ãµÄ[getcert.py](code/getcert.py)
+ä¸ºç®€åŒ–æ“ä½œï¼Œæˆ‘å†™äº†ä¸€ä¸ªæ›´åŠ æ–¹ä¾¿çš„[getcert.py](code/getcert.py)
 
-###Ê¹ÓÃ·½·¨£º
+###ä½¿ç”¨æ–¹æ³•ï¼š
 
-####µÚÒ»²½£º
+####ç¬¬ä¸€æ­¥ï¼š
 
-ÅäÖÃÏàÓ¦ÍøÕ¾µÄnginx confÖĞµÄserverÀïÃæ£¬¼ÓÈëÕâ¸ö£º
+é…ç½®ç›¸åº”ç½‘ç«™çš„nginx confä¸­çš„serveré‡Œé¢ï¼ŒåŠ å…¥è¿™ä¸ªï¼š
 
 ```
     location /.well-known/acme-challenge {
-        alias ±£´æÃÜÔ¿µÄÄ¿Â¼;
+        alias ä¿å­˜å¯†é’¥çš„ç›®å½•;
         try_files $uri =404;
     }
 ```
 
-¼ÇµÃÔËĞĞºó `nginx -s reload`
+è®°å¾—è¿è¡Œå `nginx -s reload`
 
-####µÚ¶ş²½£¬ÔËĞĞÎÒµÄgetcert.py£¨´´½¨Ë½Ô¿²¢Ìá½»ÉêÇë£©£º
+####ç¬¬äºŒæ­¥ï¼Œè¿è¡Œæˆ‘çš„getcert.pyï¼ˆåˆ›å»ºç§é’¥å¹¶æäº¤ç”³è¯·ï¼‰ï¼š
 
 ````
-pushd ÉÏÊö±£´æÃÜÔ¿µÄÄ¿Â¼
+pushd ä¸Šè¿°ä¿å­˜å¯†é’¥çš„ç›®å½•
 wget https://raw.githubusercontent.com/zjuchenyuan/notebook/master/code/getcert.py
-./getcert.py ÎÄ¼şÃû³Æ ¸ÃÖ¤Êé°üº¬µÄÓòÃûÁĞ±í
+./getcert.py æ–‡ä»¶åç§° è¯¥è¯ä¹¦åŒ…å«çš„åŸŸååˆ—è¡¨
 ````
 
-ÀıÈçÕâÑù¾ÍÄÜ»ñµÃÒ»ÕÅº­¸Çzjusec.comÈı¸ö×ÓÓòÃûµÄÖ¤Êé£º`./getcert.py zjusec zjusec.com,www.zjusec.com,web.zjusec.com`
+ä¾‹å¦‚è¿™æ ·å°±èƒ½è·å¾—ä¸€å¼ æ¶µç›–zjusec.comä¸‰ä¸ªå­åŸŸåçš„è¯ä¹¦ï¼š`./getcert.py zjusec zjusec.com,www.zjusec.com,web.zjusec.com`
 
-¾ßÌåÀ´Ëµ£¬Õâ¸ö½Å±¾»á×Ô¶¯ÏÂÔØĞèÒªµÄacme_tiny.pyºÍLet's EncryptµÄÖĞ¼äÖ¤Êé£¬µ÷ÓÃopenssl´´½¨ÕËºÅË½Ô¿ºÍÕ¾µãË½Ô¿£¬×îÖÕ²úÉú **Ãû³Æ.crt** **Ãû³Æ.key**¡£
+å…·ä½“æ¥è¯´ï¼Œè¿™ä¸ªè„šæœ¬ä¼šè‡ªåŠ¨ä¸‹è½½éœ€è¦çš„acme_tiny.pyå’ŒLet's Encryptçš„ä¸­é—´è¯ä¹¦ï¼Œè°ƒç”¨opensslåˆ›å»ºè´¦å·ç§é’¥å’Œç«™ç‚¹ç§é’¥ï¼Œæœ€ç»ˆäº§ç”Ÿ **åç§°.crt** **åç§°.key**ã€‚
 
 ![https.jpg](download/img/https.jpg)
 
-####µÚÈı²½£¬¼ÓÉÏhttpsµÄÅäÖÃ£º
+####ç¬¬ä¸‰æ­¥ï¼ŒåŠ ä¸Šhttpsçš„é…ç½®ï¼š
 
 ```
 server {
     listen 443;
-    server_name ÓòÃû1 ÓòÃû2;
+    server_name åŸŸå1 åŸŸå2;
     access_log /tmp/access.log;
     error_log /tmp/error.log;
     ssl on;
-    ssl_certificate ÃÜÔ¿Ä¿Â¼/Ãû³Æ.crt;
-    ssl_certificate_key ÃÜÔ¿Ä¿Â¼/Ãû³Æ.key;
+    ssl_certificate å¯†é’¥ç›®å½•/åç§°.crt;
+    ssl_certificate_key å¯†é’¥ç›®å½•/åç§°.key;
     ssl_session_cache    shared:SSL:1m;
     ssl_session_timeout  5m;
     ssl_ciphers 'AES128+EECDH:AES128+EDH';
     ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
     ssl_prefer_server_ciphers  on;
-    ÆäËûÅäÖÃ¡£¡£¡£
+    å…¶ä»–é…ç½®ã€‚ã€‚ã€‚
 }
 ```

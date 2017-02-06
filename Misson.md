@@ -1,72 +1,72 @@
-#˵��
-����ļ����ҵ�Idea���ڸ��Ӵ���
+#说明
+这个文件是我的Idea，挖个坑待填
 
-����Ȥ����һ��ɻ��֪���еļ�������������issue�����ʼ���github@zju.email���ڴ�����ָ��~
+有兴趣和我一起干或告知现有的技术，请马上提issue或发送邮件：github@zju.email，期待您的指导~
 ----
 #Deny404
 
-360��������������е���ҳ���չ��ܣ��ܲ�����Chrome��չʵ��
+360极速浏览器曾经有的网页快照功能，能不能用Chrome扩展实现
 
-Ҫ���ڲ������κ��ⲿ��Դ�������չʾ����ԭ��ҳ������ͬ��Ч��
+要求在不引用任何外部资源的情况下展示出和原网页基本相同的效果
 
-�����ļ������٣���push��github
+生成文件尽量少，能push到github
 
-����Ҳ��Ҫȫ�ļ���
+另外也需要全文检索
 
-���֣����Ǹ�����ҳ�ı�+cutycapt����ͼƬ
+入手：考虑复制网页文本+cutycapt保存图片
 
 ----
 #EasyCrawler
 
-������������ҳurl���Զ�diff������ҳ�������ڵ�tag���ó���url�����ݵ��㷨
+给出两三个网页url，自动diff分析网页内容所在的tag，得出从url→内容的算法
 
-����������վ����ֱ����ȡȫվ����ȡ���ݵ����ݿ��Ա�ѹ���洢
+甚至给出网站域名直接爬取全站并提取内容到数据库以便压缩存储
 
-���֣�Ҳ����Ҫ�˽�lxml
+入手：也许需要了解lxml
 
 ----
-#��ҵ�ʸ�����
+#毕业资格自审
 
-�ޣ�����ɶ���޿�ѡ�޿ε�Ҫ��û���㣿
+噢？还有啥必修课选修课的要求没满足？
 
-��������Ҫpdfתtxt�����ݽṹզ��ƣ�Ҫ��Ҫ��SQL
+技术：需要pdf转txt；数据结构咋设计？要不要用SQL
 
-�����Ѿ�����һ��[�Ұ���õİ汾]https://qs1401.com/graduate
+现在已经做了一个[我班可用的版本]https://qs1401.com/graduate
 
 ----
 #WAF
 
-�ƺ�û�п�Դ��WAF? ��estate������������վҲ�൱�����ص����ã��������Կ���WAF��ֹ����
+似乎没有开源的WAF? 而estate这个反向代理网站也相当于网关的作用，可以试试开发WAF防止攻击
 
 ----
-#�ļ�����
+#文件整理
 
-����Everything���ļ�������һ��
+有了Everything找文件方便了一点
 
-windows����û�ж��ļ����б�ǹؼ��ʡ����ܵȼ���explorer����չ�ء�����
+windows下有没有对文件进行标记关键词、机密等级的explorer的扩展呢。。。
 
-�����ļ�Ҫ�Զ����ܣ���Ҫgoogle authenticator������֤����
+机密文件要自动加密，需要google authenticator两步验证解密
 
-��Ҫ�ļ���Ҫ�Զ���ر��ݣ�������ʹ���ƶ�Ӳ�����߱���+����Ӳ�̺��Զ�������Ҫ���ݵĶ���
-
-----
-#һվʽ��ȡ������Ӧ��֪������Ϣ
-
-Ҳ������������͵������ɡ�����win10��û������С�����ء�����
-
-��û��һ����Ļֱ����ʾ�������������з�������״̬�ĳ����ء�����
-
-Ҳ��Ҫ������һ��Ժ��
-
-��Ҫ�����Ѷ���֪ͨ�Լ����������SDK
+重要文件需要自动异地备份，并提醒使用移动硬盘离线备份+插入硬盘后自动备份需要备份的东西
 
 ----
-#����������������ϴ�����API[Finished]
+#一站式获取所有我应该知道的信息
 
-��idea�Ѿ�ʵ�֣�https://github.com/zjuchenyuan/EasyLogin/tree/master/examples/fangcloud
+也许就是如何推送到日历吧。。。win10有没有桌面小部件呢。。。
 
-ÿ����2T�Ĵ洢�ռ���ô�ܴ���������
+有没有一个屏幕直接显示我所管理的所有服务器的状态的程序呢。。。
 
-�����ڷ��ƻ�û�и�������̸�ͻ��ˣ��ϴ��е㷳
+也需要爬虫爬一下院网
 
-�о�һ����δ�team.zju.edu.cn��ʼ��¼�ϴ���������һ������APIʵ��
+重要的提醒短信通知自己？阿里大鱼SDK
+
+----
+#基于浙大云盘做出上传分享API[Finished]
+
+本idea已经实现：https://github.com/zjuchenyuan/EasyLogin/tree/master/examples/fangcloud
+
+每个人2T的存储空间怎么能错过。。。
+
+不过亿方云还没有给浙大云盘搞客户端，上传有点烦
+
+研究一下如何从team.zju.edu.cn开始登录上传分享下载一条龙的API实现

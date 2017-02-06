@@ -1,31 +1,31 @@
-#Ð´ÔÚÇ°Ãæ
-Ò»µã¹ØÓÚCµÄ½¨Òé¿©£¬Ò²°üº¬C++
+#å†™åœ¨å‰é¢
+ä¸€ç‚¹å…³äºŽCçš„å»ºè®®å’¯ï¼Œä¹ŸåŒ…å«C++
 
 ----
 
-## ¹ØÓÚDev C++
+## å…³äºŽDev C++
 
-* ÓÐÊ±ºò»á·¢Éú¸ÄÁË´úÂëµ«ÔËÐÐÆðÀ´ÊÇ¾É°æ±¾µÄÇé¿ö£¬ÐèÒª¼ì²éÊÇ·ñ¹Ø±ÕÁËÕýÔÚÔËÐÐµÄexe£¬Èç¹ûÊÇ¹¤³ÌÐèÒª°´F12È«²¿ÖØÐÂ±àÒëÇå¿Õ»º´æ
+* æœ‰æ—¶å€™ä¼šå‘ç”Ÿæ”¹äº†ä»£ç ä½†è¿è¡Œèµ·æ¥æ˜¯æ—§ç‰ˆæœ¬çš„æƒ…å†µï¼Œéœ€è¦æ£€æŸ¥æ˜¯å¦å…³é—­äº†æ­£åœ¨è¿è¡Œçš„exeï¼Œå¦‚æžœæ˜¯å·¥ç¨‹éœ€è¦æŒ‰F12å…¨éƒ¨é‡æ–°ç¼–è¯‘æ¸…ç©ºç¼“å­˜
 
-* ±àÒë¹¤³Ì´íÎó¶¨Î»ÔÚMakefileËµÃ÷ÓÐº¯ÊýÉùÃ÷ÁËµ«Ã»ÓÐ¶¨Òå
+* ç¼–è¯‘å·¥ç¨‹é”™è¯¯å®šä½åœ¨Makefileè¯´æ˜Žæœ‰å‡½æ•°å£°æ˜Žäº†ä½†æ²¡æœ‰å®šä¹‰
 
-* Èç¹ûµ¥´¿Ö»ÐèÒª±àÒëC£¬Îª×·Çó±àÒëËÙ¶È¿ÉÒÔ¿¼ÂÇÊ¹ÓÃtcc (Tiny C Compile)±àÒëÆ÷£¬²Î¼ûhttps://qs1401.com/?post=18
+* å¦‚æžœå•çº¯åªéœ€è¦ç¼–è¯‘Cï¼Œä¸ºè¿½æ±‚ç¼–è¯‘é€Ÿåº¦å¯ä»¥è€ƒè™‘ä½¿ç”¨tcc (Tiny C Compile)ç¼–è¯‘å™¨ï¼Œå‚è§https://qs1401.com/?post=18
 
 ----
 
-## ÊäÈëµÄÎÊÌâ
+## è¾“å…¥çš„é—®é¢˜
 
-ÎÒ½¨ÒéËùÓÐµÄÊäÈëÈ«²¿Ê¹ÓÃgetsÍê³É£¬È»ºóÔÙÓÃsscanf¶ÁÈ¡µ½±äÁ¿
+æˆ‘å»ºè®®æ‰€æœ‰çš„è¾“å…¥å…¨éƒ¨ä½¿ç”¨getså®Œæˆï¼Œç„¶åŽå†ç”¨sscanfè¯»å–åˆ°å˜é‡
 
-µ±È»¸ü°²È«µÄÊÇfgets(buf,9999,stdin);
+å½“ç„¶æ›´å®‰å…¨çš„æ˜¯fgets(buf,9999,stdin);
 
-ÒÔÏÂ´úÂëÑÝÊ¾ÕâÖÖÊäÈë·½·¨£¬¶ÔÊäÈëµÄn¸öÊýµ÷ÓÃqsortÅÅÐò£»ÊäÈë¸ñÊ½£ºµÚÒ»ÐÐ N±íÊ¾ÊýµÄ¸öÊý£¬µÚ¶þÐÐ N¸öÐèÒªÅÅÐòµÄÊý(N<1000)
+ä»¥ä¸‹ä»£ç æ¼”ç¤ºè¿™ç§è¾“å…¥æ–¹æ³•ï¼Œå¯¹è¾“å…¥çš„nä¸ªæ•°è°ƒç”¨qsortæŽ’åºï¼›è¾“å…¥æ ¼å¼ï¼šç¬¬ä¸€è¡Œ Nè¡¨ç¤ºæ•°çš„ä¸ªæ•°ï¼Œç¬¬äºŒè¡Œ Nä¸ªéœ€è¦æŽ’åºçš„æ•°(N<1000)
 
 ```C
 #include <stdio.h>
 #include <stdlib.h>
 char buf[9999];
-int data[1005]; //²»ÒªÔÚ¾Ö²¿±äÁ¿¶¨Òå´óÊý×é£¬»áÕ¨Õ»
+int data[1005]; //ä¸è¦åœ¨å±€éƒ¨å˜é‡å®šä¹‰å¤§æ•°ç»„ï¼Œä¼šç‚¸æ ˆ
 int cmp(const void* a,const void* b){
     return *(int*)a-*(int*)b;
 }
@@ -44,7 +44,7 @@ int main(){
 ```
 
 ----
-## C++ÓÃsstream´úÌæsprintf
+## C++ç”¨sstreamä»£æ›¿sprintf
 
 ```cpp
 #include <string>

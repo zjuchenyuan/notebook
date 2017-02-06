@@ -1,11 +1,11 @@
 # UPYUN
 
 ## FTP
-ÈË¼ÒÖ§³ÖÓÃftp´«ÊäÎÄ¼ş£¬¶øÇÒÓÃftpËÆºõ²»¶ÔÁ÷Á¿¼Æ·Ñ
+äººå®¶æ”¯æŒç”¨ftpä¼ è¾“æ–‡ä»¶ï¼Œè€Œä¸”ç”¨ftpä¼¼ä¹ä¸å¯¹æµé‡è®¡è´¹
 
 ftp://v0.ftp.upyun.com 
 
-ÓÃ»§ÃûÊÇ"²Ù×÷Ô±Ãû/·şÎñÃû",ÃÜÂëÎª"²Ù×÷Ô±ÃÜÂë"
+ç”¨æˆ·åæ˜¯"æ“ä½œå‘˜å/æœåŠ¡å",å¯†ç ä¸º"æ“ä½œå‘˜å¯†ç "
 
 ## UpyunManager
 
@@ -16,17 +16,17 @@ http://micyin.b0.upaiyun.com/manager-for-upyun/manager-for-upyun-0.0.6-win32.exe
 
 http://curlftpfs.sourceforge.net/
 
-×¢ÒâÃüÁîÖĞµÄ ftp://ÓÃ»§Ãû:ÃÜÂë@v0.ftp.upyun.com ÆäÖĞµÄÓÃ»§ÃûµÄ/·ûºÅĞèÒª¸ÄÎª%2f
+æ³¨æ„å‘½ä»¤ä¸­çš„ ftp://ç”¨æˆ·å:å¯†ç @v0.ftp.upyun.com å…¶ä¸­çš„ç”¨æˆ·åçš„/ç¬¦å·éœ€è¦æ”¹ä¸º%2f
 
 ----
 
 #Qiniu
 
-## Ê¹ÓÃqshellÉÏ´«ÎÄ¼ş¼Ğ
+## ä½¿ç”¨qshellä¸Šä¼ æ–‡ä»¶å¤¹
 
     qshell qupload [<ThreadCount>] <LocalUploadConfig>
 
-ĞèÒªĞ´Ò»¸öconfigÎÄ¼ş£¬¾ßÌå²Î¼û¹Ù·½ÎÄµµ
+éœ€è¦å†™ä¸€ä¸ªconfigæ–‡ä»¶ï¼Œå…·ä½“å‚è§å®˜æ–¹æ–‡æ¡£
 
 http://developer.qiniu.com/code/v6/tool/qshell.html
 
