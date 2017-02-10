@@ -3,7 +3,7 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=27a29088d9c0247b42467162c85b68147e8c237e">
+    <link rel="stylesheet" href="/assets/css/style.css?v=82b3a04a6472ee6336191d74605640e3a635bf4a">
     <title>notebook by zjuchenyuan</title>
   </head>
 
@@ -176,6 +176,28 @@ def random_str(randomlength=8):
     for i in range(randomlength):
         str+=chars[random.randint(0, length)]
     return str
+</code></pre>
+</div>
+
+<hr />
+
+<h1 id="python-1">Python解方程</h1>
+
+<p>需要 <code class="highlighter-rouge">pip install sympy</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>from sympy import *
+# 解一元方程：
+#   2x^2-18=0
+x=Symbol('x')
+print(solve(2*x**2-18,x))
+# 得到[-3,3]
+
+# 解方程组
+#   y=1-x
+#   3x+2y-5
+x,y=symbols('x y')
+print(solve([ y-1+x, 3*x+2*y-5 ], [ x , y ]))
+# 得到{x: 3, y: -2}
 </code></pre>
 </div>
 

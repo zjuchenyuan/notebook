@@ -43,3 +43,13 @@ python tools/release_static.py
 # 然后启动容器，注意要-d否则会占据前台
 docker-compose up -d
 ```
+
+-----
+
+# sympy
+
+https://github.com/sympy/sympy
+
+http://docs.sympy.org/latest/tutorial/solvers.html
+
+Python也能用来解方程！求极限！求积分！

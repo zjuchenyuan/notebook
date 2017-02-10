@@ -145,3 +145,25 @@ def random_str(randomlength=8):
         str+=chars[random.randint(0, length)]
     return str
 ````
+
+----
+
+# Python解方程
+
+需要 `pip install sympy`
+
+```
+from sympy import *
+# 解一元方程：
+#   2x^2-18=0
+x=Symbol('x')
+print(solve(2*x**2-18,x))
+# 得到[-3,3]
+
+# 解方程组
+#   y=1-x
+#   3x+2y-5
+x,y=symbols('x y')
+print(solve([ y-1+x, 3*x+2*y-5 ], [ x , y ]))
+# 得到{x: 3, y: -2}
+```
