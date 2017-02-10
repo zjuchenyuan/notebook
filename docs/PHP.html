@@ -23,31 +23,17 @@
 
     <div class="container">
       <section id="main_content">
-        <h1 id="how-to-keep-safe">How to keep safe?</h1>
+        <h1 id="php">PHP</h1>
 
-<ul>
-  <li>
-    <p>The Big Brother Is Watching You</p>
-  </li>
-  <li>
-    <p>闷声发大财才是最吼滴</p>
-  </li>
-  <li>
-    <p>任何服务器、服务提供商上绝对不能明文存储涉密文件、服务器密钥、密码笔记</p>
-  </li>
-  <li>
-    <p>备份文件、历史邮件的安全性更应重视，及时清空历史文件</p>
-  </li>
-  <li>
-    <p>启用一切能启用的两步验证，不要使用浏览器的保存密码功能</p>
-  </li>
-  <li>
-    <p>让攻击者迷失在一大群无用文件中或许是一种好方法</p>
-  </li>
-  <li>
-    <p>对技术、法律心存敬畏，对待安全不能偷懒！</p>
-  </li>
-</ul>
+<h2 id="section">显示错误信息</h2>
+
+<p>PHP返回500，不知道发生了啥，就在php文件开头显示所有错误：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;?php
+    ini_set('display_errors', true);
+    error_reporting(E_ALL);
+</code></pre>
+</div>
 
       </section>
     </div>

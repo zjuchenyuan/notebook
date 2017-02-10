@@ -3,7 +3,7 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=1c40ce16c7f897bad163cb37616eebb770b5eb6b">
+    <link rel="stylesheet" href="/assets/css/style.css?v=27a29088d9c0247b42467162c85b68147e8c237e">
     <title>notebook by zjuchenyuan</title>
   </head>
 
@@ -47,9 +47,7 @@
 
 <p>要考虑到负数的结果啊~（和C一致）</p>
 
-<h3 id="section-2">数组</h3>
-
-<p>声明引用、初始化之后才能用</p>
+<h3 id="section-2">数组声明引用、初始化之后才能用</h3>
 
 <p>不允许int a[5]; 只能int[] a = new int [5];</p>
 
@@ -80,6 +78,12 @@
 <p>加上static后：可以不用实例化外部类就创建对象，不能访问外部类非静态的数据</p>
 
 <p>不加static：需要先实例化外部类new OuterClass().new InnerClass()</p>
+
+<h3 id="new">数组的new不创建对象</h3>
+
+<p>对象数组的new是不会创建对象的</p>
+
+<p>例如 <code class="highlighter-rouge">A[] a=new A[5];</code> 并不会创建5个A类型的对象，只是5个空引用</p>
 
       </section>
     </div>
