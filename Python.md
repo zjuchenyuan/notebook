@@ -167,3 +167,9 @@ x,y=symbols('x y')
 print(solve([ y-1+x, 3*x+2*y-5 ], [ x , y ]))
 # 得到{x: 3, y: -2}
 ```
+
+----
+
+# 大数据判断in
+
+一定要用set，因为set的in操作是O(1)的，用list是O(n)速度太慢
