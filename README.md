@@ -42,6 +42,11 @@ echo "<hr><small>Last updated: `date`</small>" >> docs/index.html
 >* 安装
 >* 加速镜像下载
 >* 旧版本卸载
+>* 获得容器的ip
+>* 导入导出容器
+>* 解决iptables failed问题
+>* 迁移Docker文件夹到其他硬盘
+>* 解决debian等容器没有ifconfig的问题
 
 ## [Git](Git.md)
 >* 立即使用
@@ -81,6 +86,8 @@ echo "<hr><small>Last updated: `date`</small>" >> docs/index.html
 >* wget慢慢下载
 >* touch修改时间戳
 >* 去掉Ubuntu默认情况下ls的颜色
+>* 换行方式修改
+>* 查看CPU核心个数
 
 ## [Linux-bakcup](Linux-bakup.md)
 >* 一个良好安全的备份计划至关重要

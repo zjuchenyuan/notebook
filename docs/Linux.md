@@ -349,3 +349,22 @@ unalias ls
 如果一个文件来自于Windows，可能需要先修改换行方式才能用，去掉文件中的\r
 
 vim中输入 `:set ff=unix`
+
+----
+
+# 查看CPU核心个数
+
+一般我会用 `top` 命令，按 `1` 就能看到每个CPU占用情况
+
+但当CPU太多的时候还是需要执行命令的：
+
+```
+# 查看物理CPU个数
+cat /proc/cpuinfo| grep "physical id"| sort| uniq| wc -l
+
+# 查看每个物理CPU中core的个数(即核数)
+cat /proc/cpuinfo| grep "cpu cores"| uniq
+
+# 查看逻辑CPU的个数
+cat /proc/cpuinfo| grep "processor"| wc -l
+```

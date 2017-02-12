@@ -3,7 +3,7 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=67d01e6ec39ca51d3543d6d0c45fbbb377f9c03f">
+    <link rel="stylesheet" href="/assets/css/style.css?v=95665c413d76f1523e80616400249b67d058eac8">
     <title>notebook by zjuchenyuan</title>
   </head>
 
@@ -418,6 +418,25 @@ ntpdate cn.pool.ntp.org
 <p>如果一个文件来自于Windows，可能需要先修改换行方式才能用，去掉文件中的\r</p>
 
 <p>vim中输入 <code class="highlighter-rouge">:set ff=unix</code></p>
+
+<hr />
+
+<h1 id="cpu">查看CPU核心个数</h1>
+
+<p>一般我会用 <code class="highlighter-rouge">top</code> 命令，按 <code class="highlighter-rouge">1</code> 就能看到每个CPU占用情况</p>
+
+<p>但当CPU太多的时候还是需要执行命令的：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># 查看物理CPU个数
+cat /proc/cpuinfo| grep "physical id"| sort| uniq| wc -l
+
+# 查看每个物理CPU中core的个数(即核数)
+cat /proc/cpuinfo| grep "cpu cores"| uniq
+
+# 查看逻辑CPU的个数
+cat /proc/cpuinfo| grep "processor"| wc -l
+</code></pre>
+</div>
 
       </section>
     </div>
