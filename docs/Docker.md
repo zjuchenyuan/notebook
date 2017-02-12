@@ -52,8 +52,10 @@ modprobe aufs
 
 ## 获得容器的ip
 
-    docker inspect  --format '{{.NetworkSettings.IPAddress}}' 容器名称
-    
+```
+docker inspect  --format '{{.NetworkSettings.IPAddress}}' 容器名称
+```
+
 --------
 
 # 导出导入
@@ -96,3 +98,10 @@ mv /var/lib/docker /home/
 echo -e "\nDOCKER_OPTS=\"--graph='/home/docker'\"" >> /etc/default/docker
 ```
 
+----
+
+# 解决debian等容器没有ifconfig的问题
+
+```
+apt-get install net-tools
+```
