@@ -9,6 +9,7 @@
 ```
 bundle exec jekyll serve -d docs --no-watch -I
 echo -e "py3.io\nnote.py3.io">docs/CNAME
+echo "<hr><small>Last updated: `date`</small>" >> docs/index.html
 ```
 
 # 目录
@@ -110,6 +111,7 @@ echo -e "py3.io\nnote.py3.io">docs/CNAME
 >* 中文输出乱码问题解决
 >* pycodestyle检查代码风格
 >* 生成随机字符串
+>* 大数据判断in
 
 ## [SSH](SSH.md)
 >* 客户端不同服务器使用不同的id_rsa
