@@ -100,8 +100,8 @@ echo -e "\nDOCKER_OPTS=\"--graph='/home/docker'\"" >> /etc/default/docker
 
 ----
 
-# 解决debian等容器没有ifconfig的问题
+# 解决debian等容器没有ifconfig,killall的问题
 
 ```
-apt-get install net-tools
+apt-get install net-tools psmisc
 ```
