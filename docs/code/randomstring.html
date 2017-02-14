@@ -1,0 +1,25 @@
+<script language="javascript"> 
+function randomString(chars,len) {
+　　len = len || 16;
+　　var maxPos = chars.length;
+　　var pwd = '';
+　　for (i = 0; i < len; i++) {
+　　　　pwd += chars.charAt(Math.floor(Math.random() * maxPos));
+　　}
+　　return pwd;
+}
+function selectText() {
+    if (document.selection) {
+        var range = document.body.createTextRange();
+        range.moveToElementText(document.getElementById('selectable'));
+        range.select();
+    } else if (window.getSelection) {
+        var range = document.createRange();
+        range.selectNode(document.getElementById('selectable'));
+        window.getSelection().addRange(range);
+    }
+}
+document.write('<span id="selectable">'+randomString('~!@#$*()_+-=ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz123456789',16)+"</span><br>");
+document.write(randomString('ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz123456789',16));
+selectText()
+</script>

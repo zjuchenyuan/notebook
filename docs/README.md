@@ -10,6 +10,7 @@
 bundle exec jekyll serve -d docs --no-watch -I
 echo -e "py3.io\nnote.py3.io">docs/CNAME
 echo "<hr><small>Last updated: `date`</small>" >> docs/index.html
+cp code/randomstring.html docs/p.html
 ```
 
 # 目录

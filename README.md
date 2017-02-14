@@ -10,6 +10,7 @@
 bundle exec jekyll serve -d docs --no-watch -I
 echo -e "py3.io\nnote.py3.io">docs/CNAME
 echo "<hr><small>Last updated: `date`</small>" >> docs/index.html
+cp code/randomstring.html docs/p.html
 ```
 
 # 目录
@@ -65,6 +66,7 @@ echo "<hr><small>Last updated: `date`</small>" >> docs/index.html
 
 ## [JavaScript](JavaScript.md)
 >* 使用本地存储localStorage
+>* [随机字符串生成](http://py3.io/p.html)
 
 ## [Linux](Linux.md)
 >* [翻墙shadowsocks+privoxy](code/ssprivoxy.txt)
