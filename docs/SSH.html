@@ -28,6 +28,8 @@
 <h2 id="idrsa">客户端不同服务器使用不同的id_rsa</h2>
 
 <p>修改<code class="highlighter-rouge">.ssh/config</code>:
+
+<code>
 ```
 Host myshortname realname.example.com
     HostName realname.example.com
@@ -39,6 +41,7 @@ Host myshortname realname.example.com
     IdentityFile ~/.ssh/realname2_rsa
     User remoteusername
 ```</p>
+</code>
 
 <h2 id="sshd">换个端口开启一个临时的sshd</h2>
 
