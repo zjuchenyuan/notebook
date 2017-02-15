@@ -3,7 +3,7 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=53dd102d95bc962865ec57ca3acd6e0ad3cd9e63">
+    <link rel="stylesheet" href="/assets/css/style.css?v=04b5c233d2ceeec4ce6bdf9b211440a1501a8970">
     <title>notebook by zjuchenyuan</title>
   </head>
 
@@ -60,6 +60,54 @@ Host myshortname realname.example.com
 <p>注意在运行前需要设置免密码登录以及修改外网服务器的sshd_config，加入GatewayPorts  yes</p>
 
 <hr />
+
+<h2 id="ssh-2">启用SSH密钥登录后两步验证</h2>
+
+<p>效果：不允许密码登录，使用密钥登录后，需要输入手机Google Authenticator显示的动态验证码</p>
+
+<p>注意在确定两步登录能成功之前，保持一个SSH连接以免配置出错无法再控制服务器</p>
+
+<p>第零步，确保自己知道root密码还能物理登录服务器</p>
+
+<p>第一步，安装Google Authenticator这个包</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>apt-get install -y libpam-google-authenticator
+</code></pre>
+</div>
+
+<p>第二步，修改/etc/pam.d/sshd</p>
+
+<p>在顶部（在@include common-auth之前）添加这一行：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>auth sufficient pam_google_authenticator.so
+</code></pre>
+</div>
+
+<p>第三步，修改/etc/ssh/sshd_config</p>
+
+<p>不存在则添加，存在但不同就修改，顺序无关</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>PubkeyAuthentication yes
+AuthenticationMethods publickey,keyboard-interactive
+ChallengeResponseAuthentication yes
+PasswordAuthentication no
+UsePAM yes
+</code></pre>
+</div>
+
+<p>第四步，创建一个密钥</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>google-authenticator
+</code></pre>
+</div>
+
+<p>对问题均回答y或者自行决定咯~</p>
+
+<p>第五步，重启服务以生效</p>
+
+<p>service ssh restart</p>
+
+<p>注意它的提问，Verification code问的才是验证码，Password问的是账号密码</p>
 
       </section>
     </div>

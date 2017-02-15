@@ -66,6 +66,7 @@ cp code/randomstring.html docs/p.html
 
 ## [JavaScript](JavaScript.md)
 >* 使用本地存储localStorage
+>* [随机字符串生成](http://py3.io/p.html)
 
 ## [Linux](Linux.md)
 >* [翻墙shadowsocks+privoxy](code/ssprivoxy.txt)
