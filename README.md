@@ -121,11 +121,13 @@ cp code/randomstring.html docs/p.html
 >* pycodestyle检查代码风格
 >* 生成随机字符串
 >* 大数据判断in
+>* 解决Python.h: No such file or directory
 
 ## [SSH](SSH.md)
 >* 客户端不同服务器使用不同的id_rsa
 >* 换个端口开启一个临时的sshd
 >* ssh反向代理
+>* 启用SSH密钥登录后两步验证
 
 ## [VirtualBox](VirtualBox.md)
 >* 下载安装，一定记得安装额外包
