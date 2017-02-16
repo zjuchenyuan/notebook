@@ -15,6 +15,20 @@ cp code/randomstring.html docs/p.html
 
 # 目录
 
+## [Python](Python.md)
+>* [语言勾勒QuickStart](quickstart.html)
+>* 设置pip源
+>* 反弹shell 获得tty
+>* 让requests使用多个IP
+>* [Python多线程模板](code/MultiThread_Template.py)
+>* BaseHTTPServer并发性改善
+>* 无root权限安装Python
+>* 中文输出乱码问题解决
+>* pycodestyle检查代码风格
+>* 生成随机字符串
+>* 大数据判断in
+>* 解决Python.h: No such file or directory
+
 ## [BAT 批处理](BAT.md)
 >* 并列语句语法
 >* 循环for
@@ -109,19 +123,6 @@ cp code/randomstring.html docs/p.html
 >* 不带后缀的文件当成php执行
 >* 获得Let's encrypt免费https证书
 >* 配置安全的https
-
-## [Python](Python.md)
->* 设置pip源
->* 反弹shell 获得tty
->* 让requests使用多个IP
->* [Python多线程模板](code/MultiThread_Template.py)
->* BaseHTTPServer并发性改善
->* 无root权限安装Python
->* 中文输出乱码问题解决
->* pycodestyle检查代码风格
->* 生成随机字符串
->* 大数据判断in
->* 解决Python.h: No such file or directory
 
 ## [SSH](SSH.md)
 >* 客户端不同服务器使用不同的id_rsa
