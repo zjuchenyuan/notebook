@@ -3,7 +3,7 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=17525b9b107036da369964aad7d99df535bb23af">
+    <link rel="stylesheet" href="/assets/css/style.css?v=919f37e5a7881af21d0bfe8c3b2a823ad4bd5c54">
     <title>notebook by zjuchenyuan</title>
   </head>
 
@@ -31,10 +31,12 @@
 
 <p>本网站编译命令为：</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>bundle exec jekyll serve -d docs --no-watch -I
-echo -e "py3.io\nnote.py3.io"&gt;docs/CNAME
-echo "&lt;hr&gt;&lt;small&gt;Last updated: `date`&lt;/small&gt;" &gt;&gt; docs/index.html
-cp code/randomstring.html docs/p.html
+<div class="highlighter-rouge"><pre class="highlight"><code>rm *.html
+bundle exec jekyll serve -d docs --no-watch -I
+cp docs/*.html ./
+echo "&lt;hr&gt;&lt;small&gt;Last updated: `date`&lt;/small&gt;" &gt;&gt; index.html
+cp code/randomstring.html ./p.html
+cp doc/python/quickstart.html ./
 </code></pre>
 </div>
 
@@ -244,4 +246,4 @@ cp code/randomstring.html docs/p.html
     
   </body>
 </html>
-<hr><small>Last updated: Fri Feb 17 15:31:01 DST 2017</small>
+<hr><small>Last updated: Fri Feb 17 22:38:54 DST 2017</small>

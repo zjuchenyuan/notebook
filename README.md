@@ -7,10 +7,12 @@
 本网站编译命令为：
 
 ```
+rm *.html
 bundle exec jekyll serve -d docs --no-watch -I
-echo -e "py3.io\nnote.py3.io">docs/CNAME
-echo "<hr><small>Last updated: `date`</small>" >> docs/index.html
-cp code/randomstring.html docs/p.html
+cp docs/*.html ./
+echo "<hr><small>Last updated: `date`</small>" >> index.html
+cp code/randomstring.html ./p.html
+cp doc/python/quickstart.html ./
 ```
 
 # 目录

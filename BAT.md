@@ -6,6 +6,14 @@
 
 ----
 
+## 快速打开cmd
+
+还在用Win+R cmd再用pushd命令？
+
+在资源管理器的地址栏输入cmd回车就能直接进入当前目录
+
+----
+
 ##  并列语句语法
 
 顺序执行 &
@@ -30,7 +38,7 @@
 
 ## 结束进程 taskkill
 
-> woc，咋我开了这么多cmd，一个个结束太烦了，不如taskkill一波
+> 当启动cmd窗口过多的时候，使用taskkill清理一下
 
     taskkill /f /im cmd.exe
     
