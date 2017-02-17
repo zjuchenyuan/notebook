@@ -68,7 +68,7 @@ cp doc/python/quickstart.html ./
 ## [Git](Git.md)
 >* 立即使用
 >* git push免密码
->* bash别名设置，少打字多好
+>* bash工作环境(别名,自动完成,dirty提示)设置
 >* [Git也要翻墙](code/ssgit.txt)
 >* 好玩的命令们
 
@@ -83,6 +83,7 @@ cp doc/python/quickstart.html ./
 ## [JavaScript](JavaScript.md)
 >* 使用本地存储localStorage
 >* [随机字符串生成](http://py3.io/p.html)
+>* 异常
 
 ## [Linux](Linux.md)
 >* [翻墙shadowsocks+privoxy](code/ssprivoxy.txt)
