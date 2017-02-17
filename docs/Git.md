@@ -67,6 +67,34 @@ alias gl="git log --all --pretty=format:'%h %ad | %s%d [%an]' --graph --date=sho
 
 要立即生效，可以执行`source ~/.bashrc`
 
+# 设置bash中的自动完成与dirty提示
+
+此部分内容来自Udacity 如何使用 Git 和 GitHub 课程
+
+下载需要的文件
+
+```
+curl -O https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
+curl -O https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
+```
+
+在`~/.bashrc`末尾添加：
+
+```
+source ~/git-completion.bash
+green="\[\033[0;32m\]"
+blue="\[\033[0;34m\]"
+purple="\[\033[0;35m\]"
+reset="\[\033[0m\]"
+source ~/git-prompt.sh
+export GIT_PS1_SHOWDIRTYSTATE=1
+export PS1="$purple\u$green\$(__git_ps1) \w\a $ $reset"
+```
+
+效果如图，如果出现了未提交的修改，会自动显示出*表示dirty：
+
+![setgit.jpg](download/img/setgit.jpg)
+
 ----
 
 # Git也要翻墙

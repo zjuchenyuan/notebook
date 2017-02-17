@@ -3,7 +3,7 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=6af4edf29eac7e47d95abae8873ccf635f5aa0c7">
+    <link rel="stylesheet" href="/assets/css/style.css?v=17525b9b107036da369964aad7d99df535bb23af">
     <title>notebook by zjuchenyuan</title>
   </head>
 
@@ -99,6 +99,34 @@ alias gl="git log --all --pretty=format:'%h %ad | %s%d [%an]' --graph --date=sho
 <p>完成一次提交，现在只需要<code class="highlighter-rouge">g "提交信息"</code></p>
 
 <p>要立即生效，可以执行<code class="highlighter-rouge">source ~/.bashrc</code></p>
+
+<h1 id="bashdirty">设置bash中的自动完成与dirty提示</h1>
+
+<p>此部分内容来自Udacity 如何使用 Git 和 GitHub 课程</p>
+
+<p>下载需要的文件</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>curl -O https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
+curl -O https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
+</code></pre>
+</div>
+
+<p>在<code class="highlighter-rouge">~/.bashrc</code>末尾添加：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>source ~/git-completion.bash
+green="\[\033[0;32m\]"
+blue="\[\033[0;34m\]"
+purple="\[\033[0;35m\]"
+reset="\[\033[0m\]"
+source ~/git-prompt.sh
+export GIT_PS1_SHOWDIRTYSTATE=1
+export PS1="$purple\u$green\$(__git_ps1) \w\a $ $reset"
+</code></pre>
+</div>
+
+<p>效果如图，如果出现了未提交的修改，会自动显示出*表示dirty：</p>
+
+<p><img src="download/img/setgit.jpg" alt="setgit.jpg" /></p>
 
 <hr />
 
