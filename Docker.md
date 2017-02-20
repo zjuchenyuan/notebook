@@ -105,3 +105,19 @@ echo -e "\nDOCKER_OPTS=\"--graph='/home/docker'\"" >> /etc/default/docker
 ```
 apt-get install net-tools psmisc
 ```
+
+----
+
+# 设置容器低权限用户运行
+
+在Dockerfile中加入
+
+```
+User nobody
+```
+
+容器运行后exec进去默认是nobody用户，并不能su啥的，这时候需要带参数-u的exec：
+
+```
+docker exec -i -t -u root 容器名称 /bin/bash
+```
