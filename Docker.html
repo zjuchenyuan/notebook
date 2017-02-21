@@ -3,7 +3,7 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=919f37e5a7881af21d0bfe8c3b2a823ad4bd5c54">
+    <link rel="stylesheet" href="/assets/css/style.css?v=742ea123527b0cb5910c56db4aa41d0ff8cb2ae8">
     <title>notebook by zjuchenyuan</title>
   </head>
 
@@ -144,6 +144,22 @@ mv /var/lib/docker /home/
 <h1 id="debianifconfigkillall">解决debian等容器没有ifconfig,killall的问题</h1>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>apt-get install net-tools psmisc
+</code></pre>
+</div>
+
+<hr />
+
+<h1 id="section-2">设置容器低权限用户运行</h1>
+
+<p>在Dockerfile中加入</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>User nobody
+</code></pre>
+</div>
+
+<p>容器运行后exec进去默认是nobody用户，并不能su啥的，这时候需要带参数-u的exec：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>docker exec -i -t -u root 容器名称 /bin/bash
 </code></pre>
 </div>
 
