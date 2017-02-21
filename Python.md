@@ -107,11 +107,13 @@ alias pip3=`pwd`/pip
 # 中文输出乱码问题
 
 方法1：运行py前设置环境变量
+
 ```
 export PYTHONIOENCODING=utf8
 ```
 
 方法2：强制修改stdout
+
 ```
 import sys
 sys.stdout=open(1, 'w', encoding='utf-8', closefd=False)
@@ -186,4 +188,26 @@ apt-get install -y python-dev python3-dev
 
 ```
 yum install python-devel
+```
+
+----
+
+# 二进制字符串转普通字符串
+
+方法一：将字符串每8个分成一组，用int转10进制，再用chr转为ascii字符
+
+```
+s="0110001101111001"
+ans=""
+for i in range(0,len(s)//8):
+    x = s[i*8:i*8+8]
+    ans+=chr(int(x,2))
+```
+
+方法二：利用binascii，先用int转为10进制，然后转为16进制字符串，调用unhexlify执行翻译
+
+```
+import binascii
+s="0110001101111001"
+ans=binascii.unhexlify('%x'%int(s,2))
 ```
