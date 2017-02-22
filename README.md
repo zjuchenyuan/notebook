@@ -21,6 +21,7 @@
 >* 生成随机字符串
 >* 大数据判断in
 >* 解决Python.h: No such file or directory
+>* 二进制字符串转普通字符串
 
 ## [BAT 批处理](BAT.md)
 >* 并列语句语法
@@ -55,6 +56,7 @@
 >* 解决iptables failed问题
 >* 迁移Docker文件夹到其他硬盘
 >* 解决debian等容器没有ifconfig的问题
+>* 设置容器低权限用户运行
 
 ## [Git](Git.md)
 >* 立即使用
