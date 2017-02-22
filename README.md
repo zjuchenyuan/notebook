@@ -106,7 +106,7 @@
 >* 去掉Ubuntu默认情况下ls的颜色
 >* 换行方式修改
 
-## [Linux-bakcup](Linux-bakup.md)
+## [Linux-backup](Linux-backup.md)
 >* 一个良好安全的备份计划至关重要
 
 ## [MySQL](MySQL.md)
