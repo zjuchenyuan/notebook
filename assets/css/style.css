@@ -133,3 +133,5 @@ a { color: #63c0f5; text-shadow: 0 0 5px rgba(104, 182, 255, 0.5); }
 .cf:after { clear: both; }
 
 .cf { zoom: 1; }
+
+.btn-back .icon { opacity: 0.6; background: url("../images/back.png") 0 0 no-repeat; }

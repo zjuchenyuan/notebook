@@ -4,16 +4,7 @@
 
 包含Docker, Nginx, MySQL, CDN, Python, VirtualBox, C++, BAT等方面的笔记
 
-本网站编译命令为：
-
-```
-rm *.html
-bundle exec jekyll serve -d docs --no-watch -I
-cp docs/*.html ./
-echo "<hr><small>Last updated: `date`</small>" >> index.html
-cp code/randomstring.html ./p.html
-cp doc/python/quickstart.html ./
-```
+本网站编译命令参见[compile.sh](compile.sh)
 
 # 目录
 
