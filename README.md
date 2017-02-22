@@ -65,6 +65,7 @@
 >* bash工作环境(别名,自动完成,dirty提示)设置
 >* [Git也要翻墙](code/ssgit.txt)
 >* 好玩的命令们
+>* 使用情景：gitignore负向选择；补上commit漏掉的文件；密码泄露查作者
 
 ## [Github Project Recommendation](GithubProjectRecommendation.md)
 >* 视频下载you-get
@@ -111,6 +112,7 @@
 >* touch修改时间戳
 >* 去掉Ubuntu默认情况下ls的颜色
 >* 换行方式修改
+>* iodine--使用DNS传输数据
 
 ## [Linux-backup](Linux-backup.md)
 >* 一个良好安全的备份计划至关重要
