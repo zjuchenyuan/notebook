@@ -2,11 +2,11 @@
 
 本文档为Linux服务器的配置方面的笔记，Linux相关笔记还有：
 
-[SSH.md](SSH远程登录)
+[Linux命令行操作技巧](Linux-cli.md)
 
-[Linux-bakup.md](Linux备份)
+[SSH远程登录](SSH.md)
 
-[Linux-cli.md](Linux命令行操作技巧)
+[Linux备份](Linux-backup.md)
 
 ----
 

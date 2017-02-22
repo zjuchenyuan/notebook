@@ -2,11 +2,11 @@
 
 本文档不涉及root权限，Linux相关笔记还有：
 
-[Linux-setup.md](Linux系统配置)
+[Linux系统配置](Linux-setup.md)
 
-[SSH.md](SSH远程登录)
+[SSH远程登录](SSH.md)
 
-[Linux-bakup.md](Linux备份)
+[Linux备份](Linux-backup.md)
 
 ----
 
