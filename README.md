@@ -96,6 +96,12 @@
 >* 时区设置
 >* 查看CPU核心个数
 
+## [Linux-SSH](Linux-SSH.md)
+>* 客户端不同服务器使用不同的id_rsa
+>* 换个端口开启一个临时的sshd
+>* ssh反向代理
+>* 启用SSH密钥登录后两步验证
+
 ## [Linux-cli](Linux-cli.md)
 >* 帮助文本的grep 用2>&1
 >* 当前目录文件全文搜索
@@ -125,13 +131,7 @@
 >* 获得Let's encrypt免费https证书
 >* 配置安全的https
 
-## [SSH](SSH.md)
->* 客户端不同服务器使用不同的id_rsa
->* 换个端口开启一个临时的sshd
->* ssh反向代理
->* 启用SSH密钥登录后两步验证
-
-## [VirtualBox](VirtualBox.md)
+## [VirtualBox](Linux-VirtualBox.md)
 >* 下载安装，一定记得安装额外包
 >* 创建虚拟机，设置虚拟机选项
 >* 启动虚拟机

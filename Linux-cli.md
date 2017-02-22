@@ -4,7 +4,7 @@
 
 [Linux系统配置](Linux-setup.md)
 
-[SSH远程登录](SSH.md)
+[SSH远程登录](Linux-SSH.md)
 
 [Linux备份](Linux-backup.md)
 
