@@ -55,7 +55,7 @@
 body { margin: 0; padding: 0; background: #151515 url("../images/bkg.png") 0 0; color: #eaeaea; font-size: 16px; line-height: 1.5; font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace; }
 
 /* General & 'Reset' Stuff */
-.container { width: 90%; max-width: 600px; margin: 0 auto; }
+.container { width: 90%; max-width: 900px; margin: 0 auto; }
 
 section { display: block; margin: 0 0 20px 0; }
 
