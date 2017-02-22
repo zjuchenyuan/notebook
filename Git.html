@@ -192,6 +192,39 @@ git branch -d recover # 合并完成后就可以删了
 
 <p>此时是不会执行登录脚本.profile的，但是.bashrc还是会执行的</p>
 
+<hr />
+
+<h1 id="git-2">Git各种情景</h1>
+
+<p>Learned from <a href="https://github.com/Gazler/githug">githug</a></p>
+
+<h2 id="aliba">忽略*.a文件但不想忽略lib.a</h2>
+
+<p>文档查看：<code class="highlighter-rouge">git gitignore --help</code></p>
+
+<p>!表示负向选择，在.gitignore中添加：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>*.a
+!lib.a
+</code></pre>
+</div>
+
+<h2 id="commit">commit补上忘掉的文件</h2>
+
+<p>如果发现上次commit漏了文件，不应该新加commit而是应该用amend，否则可能上CI就挂</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git add forgotten.txt
+git commit --amend
+</code></pre>
+</div>
+
+<h2 id="section-3">查出此行代码的最后修改者</h2>
+
+<p>github提供的blame功能更好看，显示每行代码的作者和来源于哪次commit</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git blame filename
+</code></pre>
+</div>
 
       </section>
     </div>
