@@ -57,6 +57,7 @@
 >* 迁移Docker文件夹到其他硬盘
 >* 解决debian等容器没有ifconfig的问题
 >* 设置容器低权限用户运行
+>* 设置容器/etc/resolv.conf和/etc/hosts
 
 ## [Git](Git.md)
 >* 立即使用

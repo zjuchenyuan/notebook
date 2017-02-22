@@ -121,3 +121,15 @@ User nobody
 ```
 docker exec -i -t -u root 容器名称 /bin/bash
 ```
+
+----
+
+# 设置容器/etc/resolv.conf和/etc/hosts
+
+在容器中这两个文件是以mount形式挂载的，不能unmount；即使进行修改，容器重启后修改就丢失了
+
+其实这两个文件应该在容器创建的时候指定参数`--dns`和`--add-host`来加以控制：
+
+```
+docker run -d --dns 114.114.114.114 --add-host example.com:1.2.3.4 容器名称
+```

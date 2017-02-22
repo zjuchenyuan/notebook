@@ -163,6 +163,18 @@ mv /var/lib/docker /home/
 </code></pre>
 </div>
 
+<hr />
+
+<h1 id="etcresolvconfetchosts">设置容器/etc/resolv.conf和/etc/hosts</h1>
+
+<p>在容器中这两个文件是以mount形式挂载的，不能unmount；即使进行修改，容器重启后修改就丢失了</p>
+
+<p>其实这两个文件应该在容器创建的时候指定参数<code class="highlighter-rouge">--dns</code>和<code class="highlighter-rouge">--add-host</code>来加以控制：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>docker run -d --dns 114.114.114.114 --add-host example.com:1.2.3.4 容器名称
+</code></pre>
+</div>
+
       </section>
     </div>
 
