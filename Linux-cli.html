@@ -111,6 +111,51 @@
 
 <hr />
 
+<h1 id="iodine--dns">iodine–使用DNS传输数据</h1>
+
+<blockquote>
+  <ul>
+    <li>http://code.kryo.se/iodine/</li>
+  </ul>
+</blockquote>
+
+<p>注意： 本方案网速极低，使用时要有足够的耐心，不能保证复杂情况下是否可行（尤其是Windows）</p>
+
+<p>前期准备：一个域名（假设为example.com）及一台服务器（假设为1.2.3.4），建议客户端在Linux上运行</p>
+
+<h3 id="section-4">1. 设置域名解析</h3>
+
+<p>dns.example.com添加一条A记录，解析至1.2.3.4</p>
+
+<p>t.example.com添加一条NS记录，值为dns.example.com</p>
+
+<h3 id="section-5">2. 服务器端</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>./iodined -f -c -P secretpassword 192.168.99.1 t.example.com
+</code></pre>
+</div>
+
+<p>-f表示持续占用前台，-c表示不限制请求源，-P指定密码，最后是<code class="highlighter-rouge">内网IP</code>和使用的域名</p>
+
+<p>内网IP可以随意指定，只要当前服务器没有占用即可，例如可以改为172.16.0.1</p>
+
+<h3 id="section-6">3.检查服务端是否正常</h3>
+
+<p>http://code.kryo.se/iodine/check-it/</p>
+
+<p>作者提供了在线检查工具，输入t.example.com即可检查</p>
+
+<h3 id="section-7">4.客户端</h3>
+
+<p>建议在ubuntu等完整的Linux操作系统上运行，下载源码后make即可</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code> ./iodine -f -P secretpassword t.example.com
+</code></pre>
+</div>
+
+<p>效果图：</p>
+
+<p><img src="download/img/iodine-finish.jpg" alt="" /></p>
 
       </section>
     </div>

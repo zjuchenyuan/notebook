@@ -80,3 +80,40 @@ vim中输入 `:set ff=unix`
 
 ----
 
+# iodine--使用DNS传输数据
+
+>* http://code.kryo.se/iodine/
+
+注意： 本方案网速极低，使用时要有足够的耐心，不能保证复杂情况下是否可行（尤其是Windows）
+
+前期准备：一个域名（假设为example.com）及一台服务器（假设为1.2.3.4），建议客户端在Linux上运行
+
+### 1. 设置域名解析
+
+dns.example.com添加一条A记录，解析至1.2.3.4
+
+t.example.com添加一条NS记录，值为dns.example.com
+
+### 2. 服务器端
+
+    ./iodined -f -c -P secretpassword 192.168.99.1 t.example.com
+
+-f表示持续占用前台，-c表示不限制请求源，-P指定密码，最后是`内网IP`和使用的域名
+
+内网IP可以随意指定，只要当前服务器没有占用即可，例如可以改为172.16.0.1
+
+### 3.检查服务端是否正常
+
+http://code.kryo.se/iodine/check-it/
+
+作者提供了在线检查工具，输入t.example.com即可检查
+
+### 4.客户端
+
+建议在ubuntu等完整的Linux操作系统上运行，下载源码后make即可
+
+     ./iodine -f -P secretpassword t.example.com
+
+效果图：
+
+![](download/img/iodine-finish.jpg)

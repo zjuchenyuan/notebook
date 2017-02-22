@@ -16,10 +16,6 @@
 
 代码参见[ssprivoxy.txt](code/ssprivoxy.txt)
 
-## 也许使用iodine也是个替代方案
-
-TODO: 补充iodine的笔记
-
 ----
 
 # 配置有线静态IP
