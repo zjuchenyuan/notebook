@@ -79,12 +79,11 @@
 >* [随机字符串生成](http://py3.io/p.html)
 >* 异常
 
-## [Linux](Linux.md)
+## [Linux-setup](Linux-setup.md)
 >* [翻墙shadowsocks+privoxy](code/ssprivoxy.txt)
->* 帮助文本的grep 用2>&1
->* 当前目录文件全文搜索
 >* 配置有线静态IP
->* 配置apt源
+>* 配置apt源以加速国内环境下apt速度
+>* 单网卡获得多个IP
 >* 锐速安装
 >* 解决apt依赖问题
 >* UnixBench性能评测
@@ -92,15 +91,20 @@
 >* 使用iptables封ip
 >* 无root权限使用screen
 >* screen的用法
->* 统计当前文件夹代码行数
->* 两条iptables实现端口转发
+>* 两条iptables实现端口转发，暴露内网端口
 >* 保护重要系统文件防止被删chattr +i
 >* 时区设置
+>* 查看CPU核心个数
+
+## [Linux-cli](Linux-cli.md)
+>* 帮助文本的grep 用2>&1
+>* 当前目录文件全文搜索
+>* 统计当前文件夹代码行数
+>* 查看给定文件列表的文件大小
 >* wget慢慢下载
 >* touch修改时间戳
 >* 去掉Ubuntu默认情况下ls的颜色
 >* 换行方式修改
->* 查看CPU核心个数
 
 ## [Linux-bakcup](Linux-bakup.md)
 >* 一个良好安全的备份计划至关重要

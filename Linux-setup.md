@@ -1,3 +1,15 @@
+# Linux系统配置
+
+本文档为Linux服务器的配置方面的笔记，Linux相关笔记还有：
+
+[SSH.md](SSH远程登录)
+
+[Linux-bakup.md](Linux备份)
+
+[Linux-cli.md](Linux命令行操作技巧)
+
+----
+
 # 如何翻墙
 
 ## 部署shadowsocks客户端，并部署Privoxy提供http proxy
@@ -7,22 +19,6 @@
 ## 也许使用iodine也是个替代方案
 
 TODO: 补充iodine的笔记
-
-----
-
-# 帮助文本的grep，把stderr重定向到stdout
-
-就是用2>&1这样的重定向咯
-
-    ssh-keygen --help 2>&1|grep bit
-
-----
-
-# 当前目录文件全文搜索
-
-这里要搜索当前目录下面所有的包含"MultiTeam"文件
-
-    grep MultiTeam -r .
 
 ----
 
@@ -43,7 +39,7 @@ ifconfig eth0 10.xx.xx.13 netmask 255.255.255.0 up
 route add default eth0
 ```
 
-## 配置apt源
+## 配置apt源以加速国内环境下apt速度
 
     curl http://mirrors.163.com/.help/sources.list.trusty>/etc/apt/sources.list
 
@@ -151,6 +147,8 @@ dd if=/dev/zero of=test bs=8k count=256k conv=fdatasync
 
 ## 清除内存缓存
 
+使用`free -h`查看可用内存前可以执行这个命令，查看除去buffer后的可用内存
+
 ```
 sync
 echo 3 > /proc/sys/vm/drop_caches
@@ -230,14 +228,6 @@ echo 3 > /proc/sys/vm/drop_caches
 
 ----
 
-# 统计当前文件夹代码行数
-
-find 指定文件后缀名，记住要引号避免bash解析*
-
-    find -name "*.py" -o -name "*.md"|xargs cat|wc
-
-----
-
 # 双网卡端口转发，暴露内网端口
 
 > 来自： https://yq.aliyun.com/wenzhang/show_25824
@@ -297,58 +287,12 @@ chattr -R -i /bin /sbin /usr/sbin /usr/bin /usr/local/sbin /usr/local/bin
 
 ----
 
-# 查看给定文件列表的文件大小
-
-用xargs -d指定分隔符为\n（默认会按照空格和\n分隔参数）
-
-```
-cat list.txt | xargs -d "\n" ls -alh
-```
-
-----
-
 # 时区设置
 
 ```
 cp /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
 ntpdate cn.pool.ntp.org
 ```
-
-----
-
-# wget慢慢下载
-
-```
-wget -i list.txt  -nc --wait=60 --random-wait
-```
-
-其中nc表示已经下载到的文件就不要再请求了，wait=60表示两次请求间隔60s，random-wait表示随机等待2~120s
-
-----
-
-# touch修改时间戳
-
-将b.txt的时间戳改为和a.txt一样
-
-```
-touch -r a.txt b.txt
-```
-
-----
-
-# 去掉Ubuntu默认情况下ls的颜色
-
-```
-unalias ls
-```
-
-----
-
-# 换行方式修改
-
-如果一个文件来自于Windows，可能需要先修改换行方式才能用，去掉文件中的\r
-
-vim中输入 `:set ff=unix`
 
 ----
 

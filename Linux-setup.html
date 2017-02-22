@@ -23,7 +23,19 @@
 
     <div class="container">
       <section id="main_content">
-        <h1 id="section">如何翻墙</h1>
+        <h1 id="linux">Linux系统配置</h1>
+
+<p>本文档为Linux服务器的配置方面的笔记，Linux相关笔记还有：</p>
+
+<p><a href="SSH远程登录">SSH.md</a></p>
+
+<p><a href="Linux备份">Linux-bakup.md</a></p>
+
+<p><a href="Linux命令行操作技巧">Linux-cli.md</a></p>
+
+<hr />
+
+<h1 id="section">如何翻墙</h1>
 
 <h2 id="shadowsocksprivoxyhttp-proxy">部署shadowsocks客户端，并部署Privoxy提供http proxy</h2>
 
@@ -32,26 +44,6 @@
 <h2 id="iodine">也许使用iodine也是个替代方案</h2>
 
 <p>TODO: 补充iodine的笔记</p>
-
-<hr />
-
-<h1 id="grepstderrstdout">帮助文本的grep，把stderr重定向到stdout</h1>
-
-<p>就是用2&gt;&amp;1这样的重定向咯</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>ssh-keygen --help 2&gt;&amp;1|grep bit
-</code></pre>
-</div>
-
-<hr />
-
-<h1 id="section-1">当前目录文件全文搜索</h1>
-
-<p>这里要搜索当前目录下面所有的包含”MultiTeam”文件</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>grep MultiTeam -r .
-</code></pre>
-</div>
 
 <hr />
 
@@ -72,7 +64,7 @@ route add default eth0
 </code></pre>
 </div>
 
-<h2 id="apt">配置apt源</h2>
+<h2 id="aptapt">配置apt源以加速国内环境下apt速度</h2>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>curl http://mirrors.163.com/.help/sources.list.trusty&gt;/etc/apt/sources.list
 </code></pre>
@@ -94,7 +86,7 @@ deb http://mirrors.163.com/ubuntu/ trusty-security main restricted universe mult
 
 <hr />
 
-<h1 id="section-2">锐速安装</h1>
+<h1 id="section-1">锐速安装</h1>
 
 <p>来自：https://github.com/91yun/serverspeeder</p>
 
@@ -120,7 +112,7 @@ service serverSpeeder stop
 
 <hr />
 
-<h1 id="apt-1">解决apt依赖问题</h1>
+<h1 id="apt">解决apt依赖问题</h1>
 
 <p>问题描述：服务器为ubuntu14.04版本，某些不明操作后，无法用<code class="highlighter-rouge">apt-get</code>安装任何东西</p>
 
@@ -182,13 +174,15 @@ dd if=/dev/zero of=test bs=8k count=256k conv=fdatasync
 </code></pre>
 </div>
 
-<h2 id="section-3">参考数据，均为最低配置</h2>
+<h2 id="section-2">参考数据，均为最低配置</h2>
 
 <p>主机屋1590.5；阿里云1470.4；腾讯云1156.0</p>
 
 <hr />
 
-<h2 id="section-4">清除内存缓存</h2>
+<h2 id="section-3">清除内存缓存</h2>
+
+<p>使用<code class="highlighter-rouge">free -h</code>查看可用内存前可以执行这个命令，查看除去buffer后的可用内存</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>sync
 echo 3 &gt; /proc/sys/vm/drop_caches
@@ -229,7 +223,7 @@ echo 3 &gt; /proc/sys/vm/drop_caches
 </code></pre>
 </div>
 
-<h2 id="section-5">删除一条规则</h2>
+<h2 id="section-4">删除一条规则</h2>
 
 <p>只要重写一次。把-I改为-D即可</p>
 
@@ -295,17 +289,7 @@ screen -dmS NAME /root/code.sh
 
 <hr />
 
-<h1 id="section-6">统计当前文件夹代码行数</h1>
-
-<p>find 指定文件后缀名，记住要引号避免bash解析*</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>find -name "*.py" -o -name "*.md"|xargs cat|wc
-</code></pre>
-</div>
-
-<hr />
-
-<h1 id="section-7">双网卡端口转发，暴露内网端口</h1>
+<h1 id="section-5">双网卡端口转发，暴露内网端口</h1>
 
 <blockquote>
   <p>来自： https://yq.aliyun.com/wenzhang/show_25824</p>
@@ -315,13 +299,13 @@ screen -dmS NAME /root/code.sh
 
 <p>目标： 在外网访问A机器的2121端口，就相当于连上了B机器的ftp(21)</p>
 
-<h2 id="section-8">环境：</h2>
+<h2 id="section-6">环境：</h2>
 
 <p>A机器外网IP为 1.2.3.4(eth1) 内网IP为 192.168.1.20 (eth0)</p>
 
 <p>B机器内网为 192.168.1.21</p>
 
-<h2 id="section-9">实现方法：</h2>
+<h2 id="section-7">实现方法：</h2>
 
 <p>首先在A机器上打开端口转发功能</p>
 
@@ -344,13 +328,13 @@ service iptables save
 </code></pre>
 </div>
 
-<h2 id="section-10">取消转发方法</h2>
+<h2 id="section-8">取消转发方法</h2>
 
 <p>iptables中把-I改为-D运行就是删除此条规则</p>
 
 <hr />
 
-<h2 id="section-11">保护重要系统文件防止被删</h2>
+<h2 id="section-9">保护重要系统文件防止被删</h2>
 
 <p>使用+i标志位使得root用户也不能删除/bin, /sbin, /usr/sbin, /usr/bin, /usr/local/sbin, /usr/local/bin</p>
 
@@ -366,58 +350,12 @@ service iptables save
 
 <hr />
 
-<h1 id="section-12">查看给定文件列表的文件大小</h1>
-
-<p>用xargs -d指定分隔符为\n（默认会按照空格和\n分隔参数）</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>cat list.txt | xargs -d "\n" ls -alh
-</code></pre>
-</div>
-
-<hr />
-
-<h1 id="section-13">时区设置</h1>
+<h1 id="section-10">时区设置</h1>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>cp /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
 ntpdate cn.pool.ntp.org
 </code></pre>
 </div>
-
-<hr />
-
-<h1 id="wget">wget慢慢下载</h1>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>wget -i list.txt  -nc --wait=60 --random-wait
-</code></pre>
-</div>
-
-<p>其中nc表示已经下载到的文件就不要再请求了，wait=60表示两次请求间隔60s，random-wait表示随机等待2~120s</p>
-
-<hr />
-
-<h1 id="touch">touch修改时间戳</h1>
-
-<p>将b.txt的时间戳改为和a.txt一样</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>touch -r a.txt b.txt
-</code></pre>
-</div>
-
-<hr />
-
-<h1 id="ubuntuls">去掉Ubuntu默认情况下ls的颜色</h1>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>unalias ls
-</code></pre>
-</div>
-
-<hr />
-
-<h1 id="section-14">换行方式修改</h1>
-
-<p>如果一个文件来自于Windows，可能需要先修改换行方式才能用，去掉文件中的\r</p>
-
-<p>vim中输入 <code class="highlighter-rouge">:set ff=unix</code></p>
 
 <hr />
 
