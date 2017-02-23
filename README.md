@@ -132,6 +132,7 @@
 >* 不带后缀的文件当成php执行
 >* 获得Let's encrypt免费https证书
 >* 配置安全的https
+>* 反向代理之替换网页、JS中的文本
 
 ## [VirtualBox](Linux-VirtualBox.md)
 >* 下载安装，一定记得安装额外包

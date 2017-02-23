@@ -123,3 +123,17 @@ server {
     其他配置。。。
 }
 ```
+
+## 反向代理之替换网页、JS中的文本
+
+使用模块ngx_http_substitutions_filter_module，见Github: https://github.com/yaoweibin/ngx_http_substitutions_filter_module
+
+需要重新编译nginx，Tip: `nginx -V`命令可以显示当前版本的nginx的编译参数
+
+编译后就可以用啦，举个例子：微信的公众号文章页面为了节省用户流量，图片是把页面滚动至所在位置才加载的，代码上的差异就是img标签本应是src的改成了data-src，这里我们要做一个微信的反向代理网站，把data-src替换成src，则可以直接加载所有图片（唔。。。其实还不够，还需要考虑防盗链的问题）；并且设置MIME类型包含Javascript
+
+```
+        subs_filter 需要替换掉的内容 替换后的文本;
+        subs_filter data-src src;
+        subs_filter_types application/x-javascript text/javascript appliation/x-javascript;
+```
