@@ -117,3 +117,22 @@ http://code.kryo.se/iodine/check-it/
 效果图：
 
 ![](download/img/iodine-finish.jpg)
+
+----
+
+# 远程控制Windows
+
+Windows下有自带的mstsc，Linux如树莓派用啥呢？就用[rdesktop](http://www.rdesktop.org/)啦
+
+手册查询用`man rdesktop`
+
+快速使用：
+
+```
+sudo apt-get install -y rdesktop
+rdesktop -f -u 用户名 -p 密码 服务器地址:端口
+```
+
+其中-f表示全屏
+
+注意上述在命令行中使用明文密码并不安全，可能被其他用户用ps等工具看到，建议仅仅在完全自己控制的Linux上系统上这样操作

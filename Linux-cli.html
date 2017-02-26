@@ -12,7 +12,7 @@
     <header>
       <div class="container">
         <h1>notebook</h1>
-        <h2>My notebook about technology. 我的技术笔记本~</h2>
+        <h2>我的技术笔记本~</h2>
 
         <section id="downloads">
           
@@ -156,6 +156,25 @@
 <p>效果图：</p>
 
 <p><img src="download/img/iodine-finish.jpg" alt="" /></p>
+
+<hr />
+
+<h1 id="windows">远程控制Windows</h1>
+
+<p>Windows下有自带的mstsc，Linux如树莓派用啥呢？就用<a href="http://www.rdesktop.org/">rdesktop</a>啦</p>
+
+<p>手册查询用<code class="highlighter-rouge">man rdesktop</code></p>
+
+<p>快速使用：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo apt-get install -y rdesktop
+rdesktop -f -u 用户名 -p 密码 服务器地址:端口
+</code></pre>
+</div>
+
+<p>其中-f表示全屏</p>
+
+<p>注意上述在命令行中使用明文密码并不安全，可能被其他用户用ps等工具看到，建议仅仅在完全自己控制的Linux上系统上这样操作</p>
 
       </section>
     </div>
