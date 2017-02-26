@@ -59,6 +59,9 @@
 >* 设置容器低权限用户运行
 >* 设置容器/etc/resolv.conf和/etc/hosts
 
+## [Favorites](Favorites.md)
+>* Intel i386 手册 及 勘误
+
 ## [Git](Git.md)
 >* 立即使用
 >* git push免密码
