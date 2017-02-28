@@ -161,3 +161,11 @@ echo -n hello | hexdump -C
 
 ----
 
+# 子目录大小排序
+
+sort的-h表示按人类理解的大小格式排序，-r表示逆序
+
+```
+du -sh * | sort -hr
+```
+

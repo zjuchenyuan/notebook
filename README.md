@@ -119,6 +119,7 @@
 >* 远程控制Windows
 >* 统计以特定字符串开头的文件数目
 >* hexdump查看字符内部编码
+>* 子目录大小排序
 
 ## [Linux-backup](Linux-backup.md)
 >* 一个良好安全的备份计划至关重要

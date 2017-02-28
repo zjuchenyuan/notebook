@@ -176,6 +176,39 @@ rdesktop -f -u 用户名 -p 密码 服务器地址:端口
 
 <p>注意上述在命令行中使用明文密码并不安全，可能被其他用户用ps等工具看到，建议仅仅在完全自己控制的Linux上系统上这样操作</p>
 
+<hr />
+
+<h1 id="section-8">统计以特定字符串开头的文件数目</h1>
+
+<p>awk是个很好用的工具呢，支持substr函数，用法为substr(源字符串，开始，长度)，其中开始从1计数</p>
+
+<p><code class="highlighter-rouge">ls -l</code> 长列表显示的话，按空格分就是$9</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>ls -l|awk '{if(substr($9,1,字符串长度)=="你要的那个字符串") print $9}'|sort|uniq|wc -l
+</code></pre>
+</div>
+
+<hr />
+
+<h1 id="hexdump">hexdump查看字符内部编码</h1>
+
+<p>echo的-n参数表示不要末尾加\n</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>echo -n hello | hexdump -C
+</code></pre>
+</div>
+
+<hr />
+
+<h1 id="section-9">子目录大小排序</h1>
+
+<p>sort的-h表示按人类理解的大小格式排序，-r表示逆序</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>du -sh * | sort -hr
+</code></pre>
+</div>
+
+
       </section>
     </div>
 
