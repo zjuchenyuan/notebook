@@ -117,6 +117,8 @@
 >* 换行方式修改
 >* iodine--使用DNS传输数据
 >* 远程控制Windows
+>* 统计以特定字符串开头的文件数目
+>* hexdump查看字符内部编码
 
 ## [Linux-backup](Linux-backup.md)
 >* 一个良好安全的备份计划至关重要
