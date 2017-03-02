@@ -58,6 +58,7 @@
 >* 解决debian等容器没有ifconfig的问题
 >* 设置容器低权限用户运行
 >* 设置容器/etc/resolv.conf和/etc/hosts
+>* 容器限制参数设置
 
 ## [Favorites](Favorites.md)
 >* Intel i386 手册 及 勘误

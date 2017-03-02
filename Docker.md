@@ -133,3 +133,27 @@ docker exec -i -t -u root 容器名称 /bin/bash
 ```
 docker run -d --dns 114.114.114.114 --add-host example.com:1.2.3.4 容器名称
 ```
+
+----
+
+# 容器限制参数设置
+
+当容器是开放给不可信域的时候(如部署一个CTF的pwn题目)，虽然容器逃逸0-day我也没办法，但限制一下容器资源占用防止搅屎也是很有必要的
+
+```
+--cpu-shares 512 --cpu-period=100000 --cpu-quota=50000 --memory 104857600 --ulimit=nofile=65536 --pids-limit=200 --blkio-weight=512 --restart="always"
+```
+
+效果简介：如上配置最多占用 50% 单个 CPU ，最多占用100MB物理内存，容器内进程数目最多200个
+
+`--cpu-shares`表示相对利用占比，不设置的默认值为1024，单个CPU是1024，只有当容器试图占用100%的CPU时才会体现作用，举个例子：
+
+> From: http://blog.opskumu.com/docker-cpu-limit.html
+> 假如一个 1core 的主机运行 3 个 container，其中一个 cpu-shares 设置为 1024，而其它 cpu-shares 被设置成 512。当 3 个容器中的进程尝试使用 100% CPU 的时候「尝试使用 100% CPU 很重要，此时才可以体现设置值」，则设置 1024 的容器会占用 50% 的 CPU 时间，其他两个容器则只能分别占用到 25% 的 CPU 时间。
+> 如果主机是 3core，运行 3 个容器，两个 cpu-shares 设置为 512，一个设置为 1024，则此时每个 container 都能占用其中一个 CPU 为 100%。
+
+`--cpu-period`表示按多少秒分片，例如设置为100000就是按100ms分割，同时设置`--cpu-quota`为50000就是50ms，效果是同时只能使用0.5个CPU
+
+`--memory`限制容器使用的物理内存，当容器超出时，其中的进程会被kill，详细请参考http://blog.opskumu.com/docker-memory-limit.html
+
+`--blkio-weight`表示IO相对权重，详细请参考http://blog.opskumu.com/docker-io-limit.html
