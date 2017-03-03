@@ -22,7 +22,7 @@
 
 以下代码演示这种输入方法，对输入的n个数调用qsort排序；输入格式：第一行 N表示数的个数，第二行 N个需要排序的数(N<1000)
 
-```C
+```cpp
 #include <stdio.h>
 #include <stdlib.h>
 char buf[9999];

@@ -53,26 +53,27 @@
 
 <p>以下代码演示这种输入方法，对输入的n个数调用qsort排序；输入格式：第一行 N表示数的个数，第二行 N个需要排序的数(N&lt;1000)</p>
 
-<pre><code class="language-C">#include &lt;stdio.h&gt;
+<div class="language-cpp highlighter-rouge"><pre class="highlight"><code><span class="cp">#include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
-char buf[9999];
-int data[1005]; //不要在局部变量定义大数组，会炸栈
-int cmp(const void* a,const void* b){
-    return *(int*)a-*(int*)b;
-}
-int main(){
-    int N,i;
-    gets(buf);
-    sscanf(buf,"%d",&amp;N);
-    gets(buf);
-    for(i=0;i&lt;N;i++) {
-        sscanf(buf,"%d %[^\n]",&amp;data[i],buf);
-    }
-    qsort(data,N,sizeof(int),cmp);
-    for(i=0;i&lt;N-1;i++) printf("%d ",data[i]);
-    printf("%d",data[i]);
-}
+</span><span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">9999</span><span class="p">];</span>
+<span class="kt">int</span> <span class="n">data</span><span class="p">[</span><span class="mi">1005</span><span class="p">];</span> <span class="c1">//不要在局部变量定义大数组，会炸栈
+</span><span class="kt">int</span> <span class="n">cmp</span><span class="p">(</span><span class="k">const</span> <span class="kt">void</span><span class="o">*</span> <span class="n">a</span><span class="p">,</span><span class="k">const</span> <span class="kt">void</span><span class="o">*</span> <span class="n">b</span><span class="p">){</span>
+    <span class="k">return</span> <span class="o">*</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">a</span><span class="o">-*</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+    <span class="kt">int</span> <span class="n">N</span><span class="p">,</span><span class="n">i</span><span class="p">;</span>
+    <span class="n">gets</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span>
+    <span class="n">sscanf</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span><span class="s">"%d"</span><span class="p">,</span><span class="o">&amp;</span><span class="n">N</span><span class="p">);</span>
+    <span class="n">gets</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">N</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">sscanf</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span><span class="s">"%d %[^</span><span class="se">\n</span><span class="s">]"</span><span class="p">,</span><span class="o">&amp;</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">buf</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">qsort</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">),</span><span class="n">cmp</span><span class="p">);</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="n">printf</span><span class="p">(</span><span class="s">"%d "</span><span class="p">,</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="p">}</span>
 </code></pre>
+</div>
 
 <hr />
 
