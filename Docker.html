@@ -87,7 +87,9 @@ rm -rf /var/lib/docker
 
 <h2 id="ip">获得容器的ip</h2>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>docker inspect  --format '{{.NetworkSettings.IPAddress}}' 容器名称
+<div class="highlighter-rouge"><pre class="highlight"><code>
+docker inspect  --format '{{.NetworkSettings.IPAddress}}' 容器名称
+
 </code></pre>
 </div>
 

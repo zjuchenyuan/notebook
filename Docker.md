@@ -53,7 +53,9 @@ modprobe aufs
 ## 获得容器的ip
 
 ```
+{% raw %}
 docker inspect  --format '{{.NetworkSettings.IPAddress}}' 容器名称
+{% endraw %}
 ```
 
 --------
