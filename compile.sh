@@ -2,7 +2,7 @@
 rm *.html
 bundle exec jekyll build -d docs --no-watch -I
 cp docs/*.html ./
-echo "<hr><small>Last updated: `date --iso-8601=seconds`</small>" >> index.html
+echo "<hr><small>Last updated: `date --iso-8601=seconds`</small>&nbsp;&nbsp;&nbsp;<a href="http://www.miitbeian.gov.cn/">浙ICP备15043819号-2</a>" >> index.html
 cp code/randomstring.html ./p.html
 cp doc/python/quickstart.html ./
 python3 << PYTHON

@@ -67,7 +67,7 @@
 >* 立即使用
 >* git push免密码
 >* bash工作环境(别名,自动完成,dirty提示)设置
->* [Git也要翻墙](code/ssgit.txt)
+>* [Git也要加速](code/ssgit.txt)
 >* 好玩的命令们
 >* 使用情景：gitignore负向选择；补上commit漏掉的文件；密码泄露查作者
 
@@ -85,7 +85,7 @@
 >* 异常
 
 ## [Linux-setup](Linux-setup.md)
->* [翻墙shadowsocks+privoxy](code/ssprivoxy.txt)
+>* [网络加速privoxy](code/ssprivoxy.txt)
 >* 配置有线静态IP
 >* 配置apt源以加速国内环境下apt速度
 >* 单网卡获得多个IP
