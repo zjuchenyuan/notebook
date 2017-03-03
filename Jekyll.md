@@ -35,3 +35,19 @@ public class HelloWorld {
     }
 }
 {% endhighlight %}
+
+## 解决Github Metadata Warning
+
+>* 参见http://mycyberuniverse.com/web/fixing-jekyll-github-metadata-warning.html
+
+在执行build或serve时，会给出这样的Warning:
+
+```
+GitHub Metadata: No GitHub API authentication could be found. Some fields may be missing or have incorrect data.
+```
+
+解决方法详细版请见上述链接，简要版：在Github的设置中得到一个能访问公开repo的token，用以下命令配置环境变量，其中abc123改为自己的token
+
+```bash
+export JEKYLL_GITHUB_TOKEN='abc123'
+```
