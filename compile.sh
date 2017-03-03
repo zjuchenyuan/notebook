@@ -21,5 +21,6 @@ for filename in os.listdir("."):
             data = data.replace('<span class="err">','<span class="s">')
         elif filename == "Docker.html":
             data = data.replace("--format '' 容器名称","--format '{{.NetworkSettings.IPAddress}}' 容器名称")
+        data = data.replace("</html>","""<script src="https://py3.io/assets/instantclick.min.js"></script><script data-no-instant>InstantClick.init();</script></html>""")
         open(filename,"w",encoding='utf-8').write(data)
 PYTHON

@@ -75,6 +75,8 @@
 >* 视频下载you-get
 >* 记忆手段Anki
 >* 在线评测OnlineJudge
+>* Python也能用来解方程sympy
+>* 让网站链接秒开InstantClick
 
 ## [Java](Java.md)
 >* 一些Java与C++的不同之处
