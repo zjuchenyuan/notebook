@@ -8,7 +8,7 @@
 
 # 设置pip源
 
-```
+```bash
 mkdir -p ~/.pip
 echo """
 [global]
@@ -71,13 +71,13 @@ import requests
 
 找到这行：
 
-```
+```python
 class HTTPServer(SocketServer.TCPServer):
 ```
 
 修改其继承的父类：
 
-```
+```python
 class HTTPServer(SocketServer.ThreadingTCPServer):
 ```
 
@@ -108,7 +108,7 @@ alias pip3=`pwd`/pip
 
 方法1：运行py前设置环境变量
 
-```
+```bash
 export PYTHONIOENCODING=utf8
 ```
 

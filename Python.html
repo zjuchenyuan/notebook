@@ -33,13 +33,13 @@
 
 <h1 id="pip">设置pip源</h1>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>mkdir -p ~/.pip
-echo """
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>mkdir -p ~/.pip
+<span class="nb">echo</span> <span class="s2">"""
 [global]
 index-url = http://pypi.doubanio.com/simple/
 [install]
 trusted-host=pypi.doubanio.com
-"""&gt;~/.pip/pip.conf
+"""</span>&gt;~/.pip/pip.conf
 </code></pre>
 </div>
 
@@ -104,13 +104,13 @@ trusted-host=pypi.doubanio.com
 
 <p>找到这行：</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class HTTPServer(SocketServer.TCPServer):
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">class</span> <span class="nc">HTTPServer</span><span class="p">(</span><span class="n">SocketServer</span><span class="o">.</span><span class="n">TCPServer</span><span class="p">):</span>
 </code></pre>
 </div>
 
 <p>修改其继承的父类：</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class HTTPServer(SocketServer.ThreadingTCPServer):
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">class</span> <span class="nc">HTTPServer</span><span class="p">(</span><span class="n">SocketServer</span><span class="o">.</span><span class="n">ThreadingTCPServer</span><span class="p">):</span>
 </code></pre>
 </div>
 
@@ -141,7 +141,7 @@ alias pip3=`pwd`/pip
 
 <p>方法1：运行py前设置环境变量</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>export PYTHONIOENCODING=utf8
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">export </span><span class="nv">PYTHONIOENCODING</span><span class="o">=</span>utf8
 </code></pre>
 </div>
 
