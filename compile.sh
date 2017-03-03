@@ -16,7 +16,7 @@ for filename in os.listdir("."):
         data = open(filename,encoding='utf-8').read()
         data = replace_css.sub('assets/css/style.css"',data)
         if filename != "index.html":
-            data = data.replace("View on GitHub</a>","""View on GitHub</a>&nbsp;<a href="http://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>""")
+            data = data.replace("View on GitHub</a>","""View on GitHub</a>&nbsp;<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>""")
         if filename == "Python.html":
             data = data.replace('<span class="err">','<span class="s">')
         elif filename == "Docker.html":
