@@ -86,6 +86,10 @@
 >* [随机字符串生成](http://py3.io/p.html)
 >* 异常
 
+## [Jekyll](Jekyll.md)
+>* 碰到过的坑
+>* 配置代码高亮并显示行号
+
 ## [Linux-setup](Linux-setup.md)
 >* [网络加速privoxy](code/ssprivoxy.txt)
 >* 配置有线静态IP

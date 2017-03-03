@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>notebook by zjuchenyuan</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>notebook</h1>
+        <h2>我的技术笔记本~</h2>
+
+        <section id="downloads">
+          
+          <a href="http://github.com/zjuchenyuan/notebook" class="btn btn-github"><span class="icon"></span>View on GitHub</a>&nbsp;<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1 id="jekyll">Jekyll</h1>
+
+<p>目前本站使用 <code class="highlighter-rouge">Github Pages</code>，采用<code class="highlighter-rouge">Jekyll</code>转换md为html，所以有必要记录一下折腾Jekyll的过程咯</p>
+
+<h2 id="section">碰到过的坑</h2>
+
+<ol>
+  <li>
+    <p>jekyll 不认 gbk 编码，在转换前需要先将 md 文件编码改为UTF-8</p>
+  </li>
+  <li>
+    <p>本地编译通过了，但Github就是不认，于是干脆把编译好的html作为Github Pages</p>
+  </li>
+  <li>
+    <p>转换的时候遇到两个大括号之间的东西会自动用Liquid渲染，导致有一条Docker的笔记就丢了东西并抛出了Warning，之前本着不折腾的原则(就是懒)，直接写了个<a href="compile.sh">compile.sh</a>在jekyll编译过后用py替换了一下(真不优雅23333)；现在发现了解决方案，参见<a href="/Jekyll.html">本页md文件</a></p>
+  </li>
+</ol>
+
+<h2 id="section-1">配置代码高亮并显示行号</h2>
+
+<p>代码：</p>
+
+<div class="language-liquid highlighter-rouge"><pre class="highlight"><code>
+<span class="p">{%</span><span class="w"> </span><span class="nt">highlight</span><span class="w"> </span>java<span class="w"> </span>linenos<span class="w"> </span><span class="p">%}</span>
+public class HelloWorld {
+    public static void main(String args[]) {
+      System.out.println("Hello World!");
+    }
+}
+<span class="p">{%</span><span class="w"> </span><span class="nt">endhighlight</span><span class="w"> </span><span class="p">%}</span>
+
+</code></pre>
+</div>
+
+<p>效果如下：</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5</pre></td><td class="code"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloWorld</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span> <span class="n">args</span><span class="o">[])</span> <span class="o">{</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Hello World!"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
+
+
+      </section>
+    </div>
+
+    
+  </body>
+<script src="https://py3.io/assets/instantclick.min.js"></script><script data-no-instant>InstantClick.init();</script></html>
