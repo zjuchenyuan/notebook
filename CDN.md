@@ -15,9 +15,17 @@ http://micyin.b0.upaiyun.com/manager-for-upyun/manager-for-upyun-0.0.6-win32.exe
 
 ## curlftpfs
 
+在这种情境下可靠性不高，不建议使用
+
 http://curlftpfs.sourceforge.net/
 
 注意命令中的 ftp://用户名:密码@v0.ftp.upyun.com 其中的用户名的/符号需要改为%2f
+
+## python规则刷新
+
+本代码作为EasyLogin项目的一个例子
+
+[https://github.com/zjuchenyuan/EasyLogin/tree/master/examples/upyun](https://github.com/zjuchenyuan/EasyLogin/tree/master/examples/upyun)
 
 ----
 

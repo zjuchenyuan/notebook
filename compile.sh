@@ -22,3 +22,7 @@ for filename in os.listdir("."):
         data = data.replace("</html>","""<script src="https://py3.io/assets/instantclick.min.js"></script><script data-no-instant>InstantClick.init();</script></html>""")
         open(filename,"w",encoding='utf-8').write(data)
 PYTHON
+#刷新又拍云缓存，代码在https://github.com/zjuchenyuan/EasyLogin/tree/master/examples/upyun
+pushd /mnt/d/Seafile/Developer/EasyLogin/examples/upyun/
+python3 /mnt/d/Seafile/Developer/EasyLogin/examples/upyun/upyun.py https://py3.io/*.html 
+popd
