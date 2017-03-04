@@ -14,7 +14,7 @@
 >* 反弹shell 获得tty
 >* 让requests使用多个IP
 >* [Python多线程模板](code/MultiThread_Template.py)
->* BaseHTTPServer并发性改善
+>* http.server（BaseHTTPServer）并发性改善
 >* 无root权限安装Python
 >* 中文输出乱码问题解决
 >* pycodestyle检查代码风格
@@ -22,6 +22,7 @@
 >* 大数据判断in
 >* 解决Python.h: No such file or directory
 >* 二进制字符串转普通字符串
+>* 用Python3写PAT心得
 
 ## [BAT 批处理](BAT.md)
 >* 并列语句语法

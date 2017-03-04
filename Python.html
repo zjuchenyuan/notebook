@@ -25,13 +25,15 @@
       <section id="main_content">
         <h1 id="section">写在前面</h1>
 
-<p>嗯哼，Python很好玩呢…记录一点黑科技咯</p>
+<p>嗯哼，Python很好玩呢…有人说Python是能运行的伪代码，就写代码的速度而言是显著优于C的，也有很多好用的类库呢，反正强烈推荐这门语言啦~</p>
 
 <p>当你尝试一个包的时候，注意自己的py文件名称不能与包名重名，例如不要出现flask.py</p>
 
 <hr />
 
 <h1 id="pip">设置pip源</h1>
+
+<p>在Linux服务器上安装python的包时，执行这段代码可以将pip源改为国内的豆瓣源，能显著提高包的下载速度</p>
 
 <div class="language-bash highlighter-rouge"><pre class="highlight"><code>mkdir -p ~/.pip
 <span class="nb">echo</span> <span class="s2">"""
@@ -40,6 +42,15 @@ index-url = http://pypi.doubanio.com/simple/
 [install]
 trusted-host=pypi.doubanio.com
 """</span>&gt;~/.pip/pip.conf
+</code></pre>
+</div>
+
+<p>至于Windows用户，在用户目录下创建一个pip目录，如：C:\Users\chenyuan\pip，新建文件pip.ini，内容如下：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[global]
+index-url = http://pypi.doubanio.com/simple/
+[install]
+trusted-host=pypi.doubanio.com
 </code></pre>
 </div>
 
@@ -67,6 +78,8 @@ trusted-host=pypi.doubanio.com
 
 <h1 id="requestsip">让requests使用多个IP</h1>
 
+<p>这里用覆盖socket.create_connection函数的方法实现，注意<code class="highlighter-rouge">import requests</code>一定要写在后面，否则requests自己已经载入完了socket包再去改就没有效果</p>
+
 <div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">socket</span>
 <span class="n">real_create_conn</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">create_connection</span>
 <span class="k">def</span> <span class="nf">set_src_addr</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
@@ -82,17 +95,39 @@ trusted-host=pypi.doubanio.com
 
 <h1 id="python">Python多线程模板</h1>
 
+<p>使用threading模块进行开发</p>
+
 <p><a href="code/MultiThread_Template.py">MultiThread_Template.py</a></p>
 
-<h2 id="basehttpserver">BaseHTTPServer并发性改善</h2>
+<h2 id="httpserverbasehttpserver">http.server（BaseHTTPServer）并发性改善</h2>
 
 <blockquote>
   <p>参考资料：<a href="http://blog.csdn.net/cnmilan/article/details/9664823">利用Python中SocketServer 实现客户端与服务器间非阻塞通信</a></p>
 </blockquote>
 
 <blockquote>
-  <p>直接修改BaseHTTPServer的代码中的一个细节，可以大幅度提高使用BaseHTTPServer能支持的并发性</p>
+  <p>直接修改BaseHTTPServer的代码中的一个细节，将BaseHTTPServer类继承的原先只能支持单个请求的SocketServer.TCPServer改为每个连接一个线程的SocketServer.ThreadingTCPServer，使BaseHTTPServer能支持并发而不是一次只能处理单个请求</p>
 </blockquote>
+
+<p>Python3的方法：</p>
+
+<p>在Python3中BaseHTTPServer改名为http.server了，首先找到http.server所在的py文件：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>python3 -c "import http.server; print(http.server)"
+</code></pre>
+</div>
+
+<p>修改其提示的文件，例如我这里是<code class="highlighter-rouge">/usr/lib/python3.4/http/server.py</code></p>
+
+<p>搜索<code class="highlighter-rouge">class HTTPServer</code>，如果是用vim可以用<code class="highlighter-rouge">/class HTTPServer</code></p>
+
+<p>修改找到的这一行，改为：</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">class</span> <span class="nc">HTTPServer</span><span class="p">(</span><span class="n">socketserver</span><span class="o">.</span><span class="n">ThreadingTCPServer</span><span class="p">):</span>
+</code></pre>
+</div>
+
+<p>Python2的方法：</p>
 
 <p>首先找到BaseHTTPServer在哪：</p>
 
@@ -100,9 +135,9 @@ trusted-host=pypi.doubanio.com
 </code></pre>
 </div>
 
-<p>修改对应的文件，如/usr/lib/python2.7/BaseHTTPServer.py</p>
+<p>修改对应的文件，如/usr/lib/python2.7/BaseHTTPServer.py，注意不要打开他直接提示的pyc文件而是要对应的同名py文件</p>
 
-<p>找到这行：</p>
+<p>找到这行（vim中可以输入<code class="highlighter-rouge">/class HTTPServer</code>进行搜索）：</p>
 
 <div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">class</span> <span class="nc">HTTPServer</span><span class="p">(</span><span class="n">SocketServer</span><span class="o">.</span><span class="n">TCPServer</span><span class="p">):</span>
 </code></pre>
@@ -244,6 +279,8 @@ s="0110001101111001"
 ans=binascii.unhexlify('%x'%int(s,2))
 </code></pre>
 </div>
+
+<p>补充：相应的如果要把十进制转为二进制，可以用bin(123)[2:]</p>
 
 <hr />
 
