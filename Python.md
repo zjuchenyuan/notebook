@@ -211,3 +211,11 @@ import binascii
 s="0110001101111001"
 ans=binascii.unhexlify('%x'%int(s,2))
 ```
+
+----
+
+# 用Python3写PAT心得
+
+* 如果发生格式错误，检查输出的最后一行的print，加上end=""表示不要换行
+
+* 如果数据规模大导致超时，代码中的in操作前先把list转为set，能大幅度提速
