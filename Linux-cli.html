@@ -35,9 +35,19 @@
 
 <hr />
 
+<h1 id="grep">grep搜索帮助文档</h1>
+
+<p>用–作为grep的第一个参数表示不要把其后面的-参数当成grep的参数</p>
+
+<p>例如我想知道tar命令中的-z是什么意思：</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>man tar|grep -- -z
+</code></pre>
+</div>
+
 <h1 id="grepstderrstdout">帮助文本的grep，把stderr重定向到stdout</h1>
 
-<p>就是用2&gt;&amp;1这样的重定向咯</p>
+<p>某些时候帮助文本是输出到标准错误输出的，需要用2&gt;&amp;1这样的重定向咯</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>ssh-keygen --help 2&gt;&amp;1|grep bit
 </code></pre>
@@ -45,7 +55,27 @@
 
 <hr />
 
-<h1 id="section">当前目录文件全文搜索</h1>
+<h1 id="section">各种解压命令</h1>
+
+<ul>
+  <li>
+    <p>tar.gz： <code class="highlighter-rouge">tar -zxvf xx.tar.gz</code></p>
+  </li>
+  <li>
+    <p>tar.bz2： <code class="highlighter-rouge">tar -jxvf xx.tar.bz2</code></p>
+  </li>
+  <li>
+    <p>zip：<code class="highlighter-rouge">unzip xx.zip</code></p>
+  </li>
+</ul>
+
+<p>参数含义：</p>
+
+<p>-x解压，-v详细显示解压出来的东西（如果是一个复杂的压缩包建议不要用以加快解压速度），-f后接压缩文件的文件名</p>
+
+<hr />
+
+<h1 id="section-1">当前目录文件全文搜索</h1>
 
 <p>这里要搜索当前目录下面所有的包含”MultiTeam”文件</p>
 
@@ -55,7 +85,7 @@
 
 <hr />
 
-<h1 id="section-1">统计当前文件夹代码行数</h1>
+<h1 id="section-2">统计当前文件夹代码行数</h1>
 
 <p>find 指定文件后缀名，记住要引号避免bash解析*</p>
 
@@ -65,7 +95,7 @@
 
 <hr />
 
-<h1 id="section-2">查看给定文件列表的文件大小</h1>
+<h1 id="section-3">查看给定文件列表的文件大小</h1>
 
 <p>用xargs -d指定分隔符为\n（默认会按照空格和\n分隔参数）</p>
 
@@ -103,7 +133,7 @@
 
 <hr />
 
-<h1 id="section-3">换行方式修改</h1>
+<h1 id="section-4">换行方式修改</h1>
 
 <p>如果一个文件来自于Windows，可能需要先修改换行方式才能用，去掉文件中的\r</p>
 
@@ -123,13 +153,13 @@
 
 <p>前期准备：一个域名（假设为example.com）及一台服务器（假设为1.2.3.4），建议客户端在Linux上运行</p>
 
-<h3 id="section-4">1. 设置域名解析</h3>
+<h3 id="section-5">1. 设置域名解析</h3>
 
 <p>dns.example.com添加一条A记录，解析至1.2.3.4</p>
 
 <p>t.example.com添加一条NS记录，值为dns.example.com</p>
 
-<h3 id="section-5">2. 服务器端</h3>
+<h3 id="section-6">2. 服务器端</h3>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>./iodined -f -c -P secretpassword 192.168.99.1 t.example.com
 </code></pre>
@@ -139,13 +169,13 @@
 
 <p>内网IP可以随意指定，只要当前服务器没有占用即可，例如可以改为172.16.0.1</p>
 
-<h3 id="section-6">3.检查服务端是否正常</h3>
+<h3 id="section-7">3.检查服务端是否正常</h3>
 
 <p>http://code.kryo.se/iodine/check-it/</p>
 
 <p>作者提供了在线检查工具，输入t.example.com即可检查</p>
 
-<h3 id="section-7">4.客户端</h3>
+<h3 id="section-8">4.客户端</h3>
 
 <p>建议在ubuntu等完整的Linux操作系统上运行，下载源码后make即可</p>
 
@@ -178,7 +208,7 @@ rdesktop -f -u 用户名 -p 密码 服务器地址:端口
 
 <hr />
 
-<h1 id="section-8">统计以特定字符串开头的文件数目</h1>
+<h1 id="section-9">统计以特定字符串开头的文件数目</h1>
 
 <p>awk是个很好用的工具呢，支持substr函数，用法为substr(源字符串，开始，长度)，其中开始从1计数</p>
 
@@ -200,7 +230,7 @@ rdesktop -f -u 用户名 -p 密码 服务器地址:端口
 
 <hr />
 
-<h1 id="section-9">子目录大小排序</h1>
+<h1 id="section-10">子目录大小排序</h1>
 
 <p>sort的-h表示按人类理解的大小格式排序，-r表示逆序</p>
 

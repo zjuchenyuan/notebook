@@ -8,6 +8,23 @@
 
 [Linux备份](Linux-backup.md)
 
+----
+
+# grep搜索帮助文档
+
+用--作为grep的第一个参数表示不要把其后面的-参数当成grep的参数
+
+例如我想知道tar命令中的-z是什么意思：
+
+```bash
+man tar|grep -- -z
+```
+
+# 帮助文本的grep，把stderr重定向到stdout
+
+某些时候帮助文本是输出到标准错误输出的，需要用2>&1这样的重定向咯
+
+    ssh-keygen --help 2>&1|grep bit
 
 ----
 
@@ -22,14 +39,6 @@
 参数含义：
 
 -x解压，-v详细显示解压出来的东西（如果是一个复杂的压缩包建议不要用以加快解压速度），-f后接压缩文件的文件名
-
-----
-
-# 帮助文本的grep，把stderr重定向到stdout
-
-就是用2>&1这样的重定向咯
-
-    ssh-keygen --help 2>&1|grep bit
 
 ----
 
