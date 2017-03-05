@@ -41,7 +41,10 @@
 
 ## [CDN](CDN.md)
 >* UPYUN 又拍云
+>*    管理文件可以用FTP，UpyunManager，Upx
+>*    python规则刷新，python调用官方API进行URL刷新
 >* Qiniu 七牛
+>*    使用qshell上传文件夹
 
 ## [cURL](cURL.md)
 >* 模拟浏览器请求

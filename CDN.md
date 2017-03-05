@@ -27,6 +27,14 @@ http://curlftpfs.sourceforge.net/
 
 [https://github.com/zjuchenyuan/EasyLogin/tree/master/examples/upyun](https://github.com/zjuchenyuan/EasyLogin/tree/master/examples/upyun)
 
+## python调用API进行URL刷新
+
+官方文档：http://docs.upyun.com/api/purge/
+
+[我的代码upyun_purge.py](code/upyun_purge.py)
+
+注意操作员要被授权，调用API正常的返回值就是`{'invalid_domain_of_url': {}}`，不要看到invalid就以为出错了hhh
+
 ----
 
 # Qiniu
