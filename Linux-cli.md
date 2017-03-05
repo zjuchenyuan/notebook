@@ -8,6 +8,21 @@
 
 [Linux备份](Linux-backup.md)
 
+
+----
+
+# 各种解压命令
+
+* tar.gz： `tar -zxvf xx.tar.gz`
+
+* tar.bz2： `tar -jxvf xx.tar.bz2`
+
+* zip：`unzip xx.zip`
+
+参数含义：
+
+-x解压，-v详细显示解压出来的东西（如果是一个复杂的压缩包建议不要用以加快解压速度），-f后接压缩文件的文件名
+
 ----
 
 # 帮助文本的grep，把stderr重定向到stdout
