@@ -12,7 +12,7 @@
 
 # grep搜索帮助文档
 
-用--作为grep的第一个参数表示不要把其后面的-参数当成grep的参数
+用两个横线`--`作为grep的第一个参数表示不要把其后面的形如`-z`的参数当成grep的参数
 
 例如我想知道tar命令中的-z是什么意思：
 
@@ -30,11 +30,11 @@ man tar|grep -- -z
 
 # 各种解压命令
 
-* tar.gz： `tar -zxvf xx.tar.gz`
+tar.gz： `tar -zxvf xx.tar.gz`
 
-* tar.bz2： `tar -jxvf xx.tar.bz2`
+tar.bz2： `tar -jxvf xx.tar.bz2`
 
-* zip：`unzip xx.zip`
+zip：`unzip xx.zip`
 
 参数含义：
 
