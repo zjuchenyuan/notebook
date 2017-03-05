@@ -63,6 +63,7 @@
 
 ## [Favorites](Favorites.md)
 >* Intel i386 手册 及 勘误
+>* ASCII字符图案生成
 
 ## [Git](Git.md)
 >* 立即使用

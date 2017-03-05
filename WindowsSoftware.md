@@ -25,7 +25,7 @@ https://www.voidtools.com/
 
 https://technet.microsoft.com/en-us/sysinternals/bb545027
 
-[任务管理器](download/procexp.exe) https://download.sysinternals.com/files/ProcessExplorer.zip
+[任务管理器](https://d.py3.io/procexp.exe) https://download.sysinternals.com/files/ProcessExplorer.zip
 
 ## CLOC代码统计利器
 
@@ -37,24 +37,26 @@ Cloc是一款使用Perl语言开发的开源代码统计工具，支持多平台
 
 还右键菜单一份清净
 
-[MenuMgr](download/MenuMgr.exe)
+[MenuMgr](https://d.py3.io/MenuMgr.exe)
 
 ## 软媒U盘启动盘制作
 
-[usbbooter.exe](download/usbbooter.exe)
+[usbbooter.exe](https://d.py3.io/usbbooter.exe)
 
 ## WinRAR
 
 压缩解压缩，我只用WinRAR和7zip
 
-[winrar.exe](download/winrar.exe)
+[winrar.exe](https://d.py3.io/winrar.exe)
 
-[rarreg.key](download/rarreg.key)
+[winrar32bit.exe](https://d.py3.io/winrar32bit.exe)
+
+[rarreg.key](https://d.py3.io/rarreg.key)
 
 ## BurpSuite
 
 发现app的漏洞啥的，还是挺有用的~
 
-[burpsuite v1.7.11.zip](download/burpsuite v1.7.11.zip)
+[burpsuite v1.7.11.zip](https://d.py3.io/burpsuite v1.7.11.zip)
 
 使用方法：安装Java，启动后设置监听在所有网卡，导出证书CA.crt发送到手机，手机导入证书，手机忘记Wifi后连接wifi时设置代理，手机启动APP，查看流量咯~
