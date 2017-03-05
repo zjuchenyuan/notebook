@@ -169,3 +169,15 @@ sort的-h表示按人类理解的大小格式排序，-r表示逆序
 du -sh * | sort -hr
 ```
 
+----
+
+# 安装ffmpeg
+
+在ubuntu14下是没有ffmpeg的官方包支持的，需要添加mc3man的ppa
+
+```
+sudo add-apt-repository ppa:mc3man/trusty-media
+#按回车继续
+sudo apt-get update
+sudo apt-get install -y ffmpeg
+```
