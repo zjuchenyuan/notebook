@@ -70,9 +70,10 @@
 
 ## [Git](Git.md)
 >* 立即使用
+>* git clone加速 --depth 1
+>* [git push加速](code/ssgit.txt)
 >* git push免密码
 >* bash工作环境(别名,自动完成,dirty提示)设置
->* [Git也要加速](code/ssgit.txt)
 >* 好玩的命令们
 >* 使用情景：gitignore负向选择；补上commit漏掉的文件；密码泄露查作者
 

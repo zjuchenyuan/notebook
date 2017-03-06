@@ -46,7 +46,26 @@ git push
 
 <hr />
 
-<h1 id="git-push">git push免密码</h1>
+<h1 id="git-clone">加速git clone</h1>
+
+<p>方法1：配置一个代理(如privoxy)，并使用https地址</p>
+
+<p>方法2：使用<code class="highlighter-rouge">--depth 1</code>参数表示不要复制历史</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>export https_proxy="http://127.0.0.1:8118"
+git clone --depth 1 https://github.com/zjuchenyuan/notebook
+</code></pre>
+</div>
+
+<hr />
+
+<h1 id="git-push">git push加速</h1>
+
+<p>代码参见<a href="code/ssgit.txt">code/ssgit.txt</a></p>
+
+<hr />
+
+<h1 id="git-push-1">git push免密码</h1>
 
 <p>参照http://blog.csdn.net/chfe007/article/details/43388041</p>
 
@@ -128,14 +147,6 @@ export PS1="$purple\u$green\$(__git_ps1) \w\a $ $reset"
 
 <p><img src="download/img/setgit.jpg" alt="setgit.jpg" /></p>
 
-<hr />
-
-<h1 id="git-1">Git也要翻墙</h1>
-
-<p>代码参见<a href="code/ssgit.txt">code/ssgit.txt</a></p>
-
-<hr />
-
 <h1 id="section-1">好玩的命令们</h1>
 
 <h2 id="git-status">git status</h2>
@@ -194,7 +205,7 @@ git branch -d recover # 合并完成后就可以删了
 
 <hr />
 
-<h1 id="git-2">Git各种情景</h1>
+<h1 id="git-1">Git各种情景</h1>
 
 <p>Learned from <a href="https://github.com/Gazler/githug">githug</a></p>
 

@@ -19,6 +19,25 @@ git push
 
 ----
 
+# 加速git clone
+
+方法1：配置一个代理(如privoxy)，并使用https地址
+
+方法2：使用`--depth 1`参数表示不要复制历史
+
+```
+export https_proxy="http://127.0.0.1:8118"
+git clone --depth 1 https://github.com/zjuchenyuan/notebook
+```
+
+----
+
+# git push加速
+
+代码参见[code/ssgit.txt](code/ssgit.txt)
+
+----
+
 # git push免密码
 
 参照http://blog.csdn.net/chfe007/article/details/43388041
@@ -94,14 +113,6 @@ export PS1="$purple\u$green\$(__git_ps1) \w\a $ $reset"
 效果如图，如果出现了未提交的修改，会自动显示出*表示dirty：
 
 ![setgit.jpg](download/img/setgit.jpg)
-
-----
-
-# Git也要翻墙
-
-代码参见[code/ssgit.txt](code/ssgit.txt)
-
-----
 
 # 好玩的命令们
 
