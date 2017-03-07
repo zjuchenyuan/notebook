@@ -172,3 +172,5 @@
 >* U盘安装原版系统盘
 >* WinRAR
 >* BurpSuite
+
+## [修复Struts2的S2-045漏洞](S2-045.md)
