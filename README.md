@@ -174,3 +174,6 @@
 >* BurpSuite
 
 ## [修复Struts2的S2-045漏洞](S2-045.md)
+>* 漏洞说明与exp
+>* 通过升级jar包修复
+>* 通过增加Filter修复

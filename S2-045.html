@@ -31,6 +31,8 @@
 
 <p>目前，Struts 2软件作为网站开发的底层模板使用，特别是互动性较强的用于报名、注册、查询、留言的信息系统，我国内超过300万家政府网站及其子站使用了Struts框架。鉴于Struts 2应用广泛、黑客关注度较高、漏洞危害较大、攻击方式简单，一旦被别有用心人员利用，可能对我网络安全造成较大的危害和影响，建议各重要行业部门及时督促核查本部门、本行业、本辖区网站安全情况，及时堵塞漏洞，消除安全隐患，提高安全防范能力，并及时上报核查及整改情况。</p>
 
+<hr />
+
 <h2 id="exp">exp</h2>
 
 <p>首先丢个exp，用于检验漏洞存在性：<a href="code/exp.S2-045.py">exp.S2-045.py</a></p>
@@ -57,6 +59,8 @@
 
 <hr />
 
+<h1 id="jar">通过升级jar包修复</h1>
+
 <h2 id="x">2.3.x版本修复方法</h2>
 
 <p>下载2.3.32版本的jar文件</p>
@@ -82,6 +86,92 @@
 <p>假设服务器上用的是2.5.10版本，则<code class="highlighter-rouge">tomcat所在目录/webapps/应用名称/WEB-INF/lib</code>里面有一个<code class="highlighter-rouge">struts2-core-2.5.10.jar</code></p>
 
 <p>修复方法同上</p>
+
+<hr />
+
+<h1 id="filter">通过增加Filter修复</h1>
+
+<p>① 将以下SecurityFilter.java文件编译成SecurityFilter.class，注意编译之前设置项目的兼容性级别，选择服务器版本的jdk，复制到应用的WEB-INF/classes目录下。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.Filter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.FilterChain</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.FilterConfig</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.ServletException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.ServletRequest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.ServletResponse</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServlet</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletRequest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletResponse</span><span class="o">;</span>
+
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SecurityFilter</span> <span class="kd">extends</span> <span class="n">HttpServlet</span> <span class="kd">implements</span> <span class="n">Filter</span> <span class="o">{</span>
+
+	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="mi">1L</span><span class="o">;</span>
+	
+	
+	<span class="kd">public</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">www_url_encode</span><span class="o">=</span> <span class="s">"application/x-www-form-urlencoded"</span><span class="o">;</span>
+	<span class="kd">public</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">mul_data</span><span class="o">=</span> <span class="s">"multipart/form-data"</span><span class="o">;</span>
+	<span class="kd">public</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">txt_pla</span><span class="o">=</span> <span class="s">"text/plain"</span><span class="o">;</span>
+
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">doFilter</span><span class="o">(</span><span class="n">ServletRequest</span> <span class="n">arg0</span><span class="o">,</span> <span class="n">ServletResponse</span> <span class="n">arg1</span><span class="o">,</span>
+			<span class="n">FilterChain</span> <span class="n">arg2</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ServletException</span> <span class="o">{</span>
+
+		<span class="n">HttpServletRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpServletRequest</span><span class="o">)</span> <span class="n">arg0</span><span class="o">;</span>
+		<span class="n">HttpServletResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpServletResponse</span><span class="o">)</span> <span class="n">arg1</span><span class="o">;</span>
+		
+		<span class="n">String</span> <span class="n">contentType</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="na">getHeader</span><span class="o">(</span><span class="s">"Content-Type"</span><span class="o">);</span>
+		
+		<span class="k">if</span><span class="o">(</span><span class="n">contentType</span><span class="o">!=</span><span class="kc">null</span><span class="o">&amp;&amp;!</span><span class="n">contentType</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">""</span><span class="o">)&amp;&amp;!</span><span class="n">contentType</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="n">www_url_encode</span><span class="o">)&amp;&amp;!</span><span class="n">contentType</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="n">mul_data</span><span class="o">)&amp;&amp;!</span><span class="n">contentType</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="n">txt_pla</span><span class="o">)){</span>
+			<span class="n">response</span><span class="o">.</span><span class="na">setContentType</span><span class="o">(</span><span class="s">"text/html;charset=UTF-8"</span><span class="o">);</span>
+			<span class="n">response</span><span class="o">.</span><span class="na">getWriter</span><span class="o">().</span><span class="na">write</span><span class="o">(</span><span class="s">"非法请求Content-Type！"</span><span class="o">);</span>
+			<span class="k">return</span><span class="o">;</span>
+		<span class="o">}</span>
+		<span class="n">arg2</span><span class="o">.</span><span class="na">doFilter</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">);</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">(</span><span class="n">FilterConfig</span> <span class="n">arg0</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span> <span class="o">{</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>假设服务器上的<code class="highlighter-rouge">java -version</code>告诉我们java的版本是1.7的，手里又没有当前网站的项目文件，需要这样进行编译：</p>
+
+<p>eclipse新建一个工程，新建类复制以上代码，项目属性的<code class="highlighter-rouge">Java Build Path</code>中的<code class="highlighter-rouge">Libraries</code>添加tomcat中的<code class="highlighter-rouge">servlet-api.jar</code>，<code class="highlighter-rouge">Java Complier</code>页面中选择Complier compliance level为1.7</p>
+
+<p>eclipse自动通过编译后，即可将此SecurityFilter.class文件传至服务器上的应用的WEB-INF/classes目录下。</p>
+
+<p>这里有我已经编译好的class文件：<a href="https://d.py3.io/SecurityFilter_jdk1.6.class">1.6</a>  <a href="https://d.py3.io/SecurityFilter_jdk1.7.class">1.7</a>  <a href="https://d.py3.io/SecurityFilter_jdk1.8.class">1.8</a></p>
+
+<p>② 将下面的代码加入WEB-INF/web.xml文件的第一个filter之前。</p>
+
+<p>操作之前请记得备份</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;filter&gt;
+    &lt;filter-name&gt;SecurityFilter&lt;/filter-name&gt;
+    &lt;filter-class&gt;SecurityFilter&lt;/filter-class&gt;
+&lt;/filter&gt;
+&lt;filter-mapping&gt;
+    &lt;filter-name&gt;SecurityFilter&lt;/filter-name&gt;
+    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+&lt;/filter-mapping&gt;
+</code></pre>
+</div>
+
+<p>如图所示</p>
+
+<p><img src="assets/img/S2-045_filter.jpg" alt="S2-045_filter.jpg" /></p>
+
+<p>③ 重启应用即可</p>
+
+<p>重启可以在tomcat的manager页面Reload应用，或者直接重启整个tomcat</p>
+
+<p>如果应用无法启动，在tomcat下有logs目录可以看到为啥出错</p>
+
+<h3 id="section-2">测试效果</h3>
+
+<p><img src="assets/img/S2-045_filterresult.jpg" alt="" /></p>
 
 <hr />
 
