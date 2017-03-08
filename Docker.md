@@ -4,7 +4,7 @@
 
 安装之前，建议修改apt源
 
-安装之前，或许要对内核升级，如果执行安装脚本发出了对aufs的警告，请看[这里](# 解决aufs的问题)
+安装之前，或许要对内核升级，如果执行安装脚本发出了对aufs的警告，请先看下面的 _解决aufs的问题_
 
 安装命令： 
 
@@ -28,7 +28,7 @@ modprobe aufs
 
 > 在执行以下操作之前，请检查docker的版本：`docker -v`
 
-> 如果你的docker版本为1.6.2,请参考卸载docker
+> 如果你的docker版本为1.6.2,请参考下方 卸载docker
 
 ## 建议使用USTC的源：
 
@@ -89,13 +89,13 @@ docker inspect  --format '{{.NetworkSettings.IPAddress}}' 容器名称
 
 # 迁移Docker文件夹到其他硬盘
 
-当镜像多了起来的时候，/var/lib所在的根分区很可能被占满，这时候要考虑迁移到其他硬盘，此处以迁移到`/home/docker`为例说明
+当镜像多了起来的时候，/var/lib所在的磁盘分区很可能被占满，这时候要考虑迁移到其他硬盘，此处以迁移到`/home/docker`为例说明
 
 ```bash
 # 首先记得关闭服务
 service docker stop
 mv /var/lib/docker /home/
-# 然后修改服务配置文件/etc/default/docker，此处建议手动vim编辑，加入这个：
+# 然后修改服务配置文件/etc/default/docker，此处建议手动vim编辑，在启动参数中加入这个：
 #    --graph='/home/docker'
 echo -e "\nDOCKER_OPTS=\"--graph='/home/docker'\"" >> /etc/default/docker
 ```
@@ -118,7 +118,7 @@ apt-get install net-tools psmisc
 User nobody
 ```
 
-容器运行后exec进去默认是nobody用户，并不能su啥的，这时候需要带参数-u的exec：
+容器运行后exec进去默认是nobody用户，并不能su啥的，这时候exec需要带参数-u表示用指定用户身份进入容器：
 
 ```
 docker exec -i -t -u root 容器名称 /bin/bash
@@ -158,4 +158,4 @@ docker run -d --dns 114.114.114.114 --add-host example.com:1.2.3.4 容器名称
 
 `--memory`限制容器使用的物理内存，当容器超出时，其中的进程会被kill，详细请参考http://blog.opskumu.com/docker-memory-limit.html
 
-`--blkio-weight`表示IO相对权重，详细请参考http://blog.opskumu.com/docker-io-limit.html
+`--blkio-weight`表示IO相对权重，详细请参考[http://blog.opskumu.com/docker-io-limit.html](http://blog.opskumu.com/docker-io-limit.html)

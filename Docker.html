@@ -29,7 +29,7 @@
 
 <p>安装之前，建议修改apt源</p>
 
-<p>安装之前，或许要对内核升级，如果执行安装脚本发出了对aufs的警告，请看<a href="# 解决aufs的问题">这里</a></p>
+<p>安装之前，或许要对内核升级，如果执行安装脚本发出了对aufs的警告，请先看下面的 <em>解决aufs的问题</em></p>
 
 <p>安装命令：</p>
 
@@ -58,7 +58,7 @@ modprobe aufs
 </blockquote>
 
 <blockquote>
-  <p>如果你的docker版本为1.6.2,请参考卸载docker</p>
+  <p>如果你的docker版本为1.6.2,请参考下方 卸载docker</p>
 </blockquote>
 
 <h2 id="ustc">建议使用USTC的源：</h2>
@@ -130,12 +130,12 @@ iptables -t filter -N DOCKER
 
 <h1 id="docker-1">迁移Docker文件夹到其他硬盘</h1>
 
-<p>当镜像多了起来的时候，/var/lib所在的根分区很可能被占满，这时候要考虑迁移到其他硬盘，此处以迁移到<code class="highlighter-rouge">/home/docker</code>为例说明</p>
+<p>当镜像多了起来的时候，/var/lib所在的磁盘分区很可能被占满，这时候要考虑迁移到其他硬盘，此处以迁移到<code class="highlighter-rouge">/home/docker</code>为例说明</p>
 
 <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="c"># 首先记得关闭服务</span>
 service docker stop
 mv /var/lib/docker /home/
-<span class="c"># 然后修改服务配置文件/etc/default/docker，此处建议手动vim编辑，加入这个：</span>
+<span class="c"># 然后修改服务配置文件/etc/default/docker，此处建议手动vim编辑，在启动参数中加入这个：</span>
 <span class="c">#    --graph='/home/docker'</span>
 <span class="nb">echo</span> -e <span class="s2">"</span><span class="se">\n</span><span class="s2">DOCKER_OPTS=</span><span class="se">\"</span><span class="s2">--graph='/home/docker'</span><span class="se">\"</span><span class="s2">"</span> &gt;&gt; /etc/default/docker
 </code></pre>
@@ -159,7 +159,7 @@ mv /var/lib/docker /home/
 </code></pre>
 </div>
 
-<p>容器运行后exec进去默认是nobody用户，并不能su啥的，这时候需要带参数-u的exec：</p>
+<p>容器运行后exec进去默认是nobody用户，并不能su啥的，这时候exec需要带参数-u表示用指定用户身份进入容器：</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>docker exec -i -t -u root 容器名称 /bin/bash
 </code></pre>
@@ -201,7 +201,7 @@ mv /var/lib/docker /home/
 
 <p><code class="highlighter-rouge">--memory</code>限制容器使用的物理内存，当容器超出时，其中的进程会被kill，详细请参考http://blog.opskumu.com/docker-memory-limit.html</p>
 
-<p><code class="highlighter-rouge">--blkio-weight</code>表示IO相对权重，详细请参考http://blog.opskumu.com/docker-io-limit.html</p>
+<p><code class="highlighter-rouge">--blkio-weight</code>表示IO相对权重，详细请参考<a href="http://blog.opskumu.com/docker-io-limit.html">http://blog.opskumu.com/docker-io-limit.html</a></p>
 
       </section>
     </div>
