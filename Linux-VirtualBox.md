@@ -87,3 +87,11 @@ rm centos/disk.vdi
 # 最后一个参数的格式：规则名称,tcp还是udp,主机的IP(不填就好),主机暴露出来的端口,虚拟机的IP(不填就好),需要映射的虚拟机端口
 VBoxManage controlvm 虚拟机名称 natpf1 ssh,tcp,,10022,,22
 ```
+
+## 运行条件下关闭远程控制
+
+系统安装好了，SSH开了，SSH的端口映射可以连上去了，就可以关掉远程控制了
+
+```
+VBoxManage controlvm 虚拟机名称 vrde off
+```
