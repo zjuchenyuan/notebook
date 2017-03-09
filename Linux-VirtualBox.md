@@ -69,3 +69,21 @@ nohup VBoxHeadless -startvm ubuntu --vrde on -e  TCP/Ports=63389 &
 ## 控制虚拟机
 
 Windows下使用`mstsc`远程连接即可获得一个图形界面的终端完成系统安装
+
+## 删除硬盘
+
+```
+VBoxManage storageattach centos --storagectl storage_controller_1 --type hdd --port 0 --device 0  --medium none
+VBoxManage closemedium centos/disk.vdi
+rm centos/disk.vdi
+```
+## 运行条件下修改端口映射
+
+```
+# 首先通过mstsc物理接触虚拟机，确认ifconfig已经得到ip
+# 否则需要在虚拟机中执行 ifconfig -a 查看网卡，执行 dhclient eth0 获得ip
+
+# 例如我们需要将虚拟机的22端口映射出10022端口
+# 最后一个参数的格式：规则名称,tcp还是udp,主机的IP(不填就好),主机暴露出来的端口,虚拟机的IP(不填就好),需要映射的虚拟机端口
+VBoxManage controlvm 虚拟机名称 natpf1 ssh,tcp,,10022,,22
+```
