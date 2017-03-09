@@ -42,6 +42,24 @@ VBoxManage storageattach ubuntu --storagectl storage_controller_1 \
 VBoxManage modifyvm ubuntu --cpus 4 --memory 2048 --acpi on --boot1 dvd --nic1 nat --cableconnected1 on --vrde on --vrdeport 3389
 ```
 
+以下是我安装CentOS 6.8 32bit minimal的过程
+
+```
+pushd /root
+curl -O http://mirrors.zju.edu.cn/centos/6.8/isos/i386/CentOS-6.8-i386-minimal.iso
+mkdir /home/virtualbox
+#看看ostype支持哪一些，结果发现有RedHat，就选它咯
+VBoxManage list ostypes
+VBoxManage createvm --name centos --ostype "RedHat" --register --basefolder /home/virtualbox/
+pushd /home/virtualbox
+VBoxManage createvdi  --filename centos/disk.vdi --size 2048 # 2GB
+VBoxManage storagectl centos --name storage_controller_1 --add ide
+VBoxManage storageattach centos --storagectl storage_controller_1 --type hdd --port 0 --device 0  --medium centos/disk.vdi
+VBoxManage storageattach centos --storagectl storage_controller_1 --type dvddrive --port 1 --device 0 --medium /root/CentOS-6.8-i386-minimal.iso
+#允许多个客户端连接
+VBoxManage modifyvm centos --cpus 1 --memory 512 --acpi on --boot1 dvd --nic1 nat --cableconnected1 on --vrde on --vrdeport 13389 --vrdemulticon on
+```
+
 ## 启动虚拟机
 
 ```
