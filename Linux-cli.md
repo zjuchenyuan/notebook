@@ -205,3 +205,11 @@ sudo add-apt-repository ppa:mc3man/trusty-media
 sudo apt-get update
 sudo apt-get install -y ffmpeg
 ```
+
+----
+
+# 保证脚本安全执行set -ex
+
+`set`命令挺有用的呢，-e表示如果后面的语句返回不为0立刻结束shell，-x表示显示出每条命令及参数
+
+从[人家的Dockerfile](https://github.com/Medicean/VulApps/blob/master/s/struts2/s2-032/Dockerfile)中学习得来
