@@ -76,7 +76,11 @@
 >* git push免密码
 >* bash工作环境(别名,自动完成,dirty提示)设置
 >* 好玩的命令们
->* 使用情景：gitignore负向选择；补上commit漏掉的文件；密码泄露查作者
+>* gitignore负向选择
+>* 补上commit漏掉的文件 --amend
+>* 密码泄露查作者 blame
+>* 文件一次性改太多了，拆成多次提交 add -p
+
 
 ## [Github Project Recommendation](GithubProjectRecommendation.md)
 >* 视频下载you-get

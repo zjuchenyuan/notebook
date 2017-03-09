@@ -197,3 +197,15 @@ github提供的blame功能更好看，显示每行代码的作者和来源于哪
 ```
 git blame filename
 ```
+
+## 文件一次性改太多了，拆成多次commit
+
+让每次commit保持在比较小的改动，不要在一个commit中出现两个不那么相关的修改
+
+本知识学习自：[10 个迅速提升你 Git 水平的提示](http://www.oschina.net/translate/10-tips-git-next-level)
+
+方法是在add的时候给出参数-p
+
+然后git会在每一个修改的block询问是否加入这次的commit，回答y表示加入，n表示不加入，s表示进一步拆分这个block
+
+完成好选择后，使用`git diff --staged`命令来查询暂存的修改，没有问题就可以继续`git commit`啦
