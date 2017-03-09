@@ -53,11 +53,13 @@
   <p>dpkg -i something.rpm</p>
 </blockquote>
 
+<p>执行<code class="highlighter-rouge">dpkg -i</code>后需要执行<code class="highlighter-rouge">apt-get -f install</code>以安装缺失的依赖包</p>
+
 <h2 id="section-1">一定要安装额外包</h2>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>cd /tmp
-wget http://download.virtualbox.org/virtualbox/5.1.0/Oracle_VM_VirtualBox_Extension_Pack-5.1.0-108711.vbox-extpack
-sudo VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack-5.1.0-108711.vbox-extpack
+wget http://download.virtualbox.org/virtualbox/5.1.16/Oracle_VM_VirtualBox_Extension_Pack-5.1.16-113841.vbox-extpack
+sudo VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack-5.1.16-113841.vbox-extpack
 </code></pre>
 </div>
 
@@ -75,6 +77,24 @@ VBoxManage modifyvm ubuntu --cpus 4 --memory 2048 --acpi on --boot1 dvd --nic1 n
 </code></pre>
 </div>
 
+<p>以下是我安装CentOS 6.8 32bit minimal的过程</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>pushd /root
+curl -O http://mirrors.zju.edu.cn/centos/6.8/isos/i386/CentOS-6.8-i386-minimal.iso
+mkdir /home/virtualbox
+#看看ostype支持哪一些，结果发现有RedHat，就选它咯
+VBoxManage list ostypes
+VBoxManage createvm --name centos --ostype "RedHat" --register --basefolder /home/virtualbox/
+pushd /home/virtualbox
+VBoxManage createvdi  --filename centos/disk.vdi --size 2048 # 2GB
+VBoxManage storagectl centos --name storage_controller_1 --add ide
+VBoxManage storageattach centos --storagectl storage_controller_1 --type hdd --port 0 --device 0  --medium centos/disk.vdi
+VBoxManage storageattach centos --storagectl storage_controller_1 --type dvddrive --port 1 --device 0 --medium /root/CentOS-6.8-i386-minimal.iso
+#允许多个客户端连接
+VBoxManage modifyvm centos --cpus 1 --memory 512 --acpi on --boot1 dvd --nic1 nat --cableconnected1 on --vrde on --vrdeport 13389 --vrdemulticon on
+</code></pre>
+</div>
+
 <h2 id="section-3">启动虚拟机</h2>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>nohup VBoxHeadless -startvm ubuntu --vrde on -e  TCP/Ports=63389 &amp;
@@ -84,6 +104,24 @@ VBoxManage modifyvm ubuntu --cpus 4 --memory 2048 --acpi on --boot1 dvd --nic1 n
 <h2 id="section-4">控制虚拟机</h2>
 
 <p>Windows下使用<code class="highlighter-rouge">mstsc</code>远程连接即可获得一个图形界面的终端完成系统安装</p>
+
+<h2 id="section-5">删除硬盘</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>VBoxManage storageattach centos --storagectl storage_controller_1 --type hdd --port 0 --device 0  --medium none
+VBoxManage closemedium centos/disk.vdi
+rm centos/disk.vdi
+</code></pre>
+</div>
+<p>## 运行条件下修改端口映射</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># 首先通过mstsc物理接触虚拟机，确认ifconfig已经得到ip
+# 否则需要在虚拟机中执行 ifconfig -a 查看网卡，执行 dhclient eth0 获得ip
+
+# 例如我们需要将虚拟机的22端口映射出10022端口
+# 最后一个参数的格式：规则名称,tcp还是udp,主机的IP(不填就好),主机暴露出来的端口,虚拟机的IP(不填就好),需要映射的虚拟机端口
+VBoxManage controlvm 虚拟机名称 natpf1 ssh,tcp,,10022,,22
+</code></pre>
+</div>
 
       </section>
     </div>

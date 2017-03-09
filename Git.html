@@ -237,6 +237,18 @@ git commit --amend
 </code></pre>
 </div>
 
+<h2 id="commit-1">文件一次性改太多了，拆成多次commit</h2>
+
+<p>让每次commit保持在比较小的改动，不要在一个commit中出现两个不那么相关的修改</p>
+
+<p>本知识学习自：<a href="http://www.oschina.net/translate/10-tips-git-next-level">10 个迅速提升你 Git 水平的提示</a></p>
+
+<p>方法是在add的时候给出参数-p</p>
+
+<p>然后git会在每一个修改的block询问是否加入这次的commit，回答y表示加入，n表示不加入，s表示进一步拆分这个block</p>
+
+<p>完成好选择后，使用<code class="highlighter-rouge">git diff --staged</code>命令来查询暂存的修改，没有问题就可以继续<code class="highlighter-rouge">git commit</code>啦</p>
+
       </section>
     </div>
 
