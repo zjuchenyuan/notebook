@@ -18,12 +18,14 @@ http://www.virtualbox.org/wiki/Downloads
 
 >    dpkg -i something.rpm
 
+执行`dpkg -i`后需要执行`apt-get -f install`以安装缺失的依赖包
+
 ## 一定要安装额外包
 
 ```
 cd /tmp
-wget http://download.virtualbox.org/virtualbox/5.1.0/Oracle_VM_VirtualBox_Extension_Pack-5.1.0-108711.vbox-extpack
-sudo VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack-5.1.0-108711.vbox-extpack
+wget http://download.virtualbox.org/virtualbox/5.1.16/Oracle_VM_VirtualBox_Extension_Pack-5.1.16-113841.vbox-extpack
+sudo VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack-5.1.16-113841.vbox-extpack
 ```
 
 ## 创建虚拟机，设置虚拟机选项
