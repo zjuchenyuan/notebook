@@ -35,6 +35,12 @@ http://curlftpfs.sourceforge.net/
 
 注意操作员要被授权，调用API正常的返回值就是`{'invalid_domain_of_url': {}}`，不要看到invalid就以为出错了hhh
 
+## 使用upyun提供的webp功能节省流量
+
+无需任何代码，只需要在原图后面加上`!/format/webp`即可，假设已经在使用自定义图片格式，例如`!compress`则变为`!compress/format/webp`可以进一步节省流量
+
+官方说明：https://www.upyun.com/webp.html
+
 ----
 
 # Qiniu
