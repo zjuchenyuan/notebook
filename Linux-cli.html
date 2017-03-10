@@ -35,6 +35,25 @@
 
 <hr />
 
+<h1 id="section">查看内置命令的帮助</h1>
+
+<p>将以下内容加入<code class="highlighter-rouge">~/.bashrc</code>中即可，判断如果在内置命令就调用help -m，不是则绕开bash函数来运行man进程</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code>man <span class="o">()</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="s2">"</span><span class="k">$(</span><span class="nb">type</span> -t -- <span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span><span class="k">)</span><span class="s2">"</span> <span class="k">in
+    </span><span class="nb">builtin</span><span class="p">|</span>keyword<span class="p">)</span>
+        <span class="nb">help</span> -m <span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span> | sensible-pager
+        <span class="p">;;</span>
+    <span class="k">*</span><span class="p">)</span>
+        <span class="nb">command </span>man <span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span>
+        <span class="p">;;</span>
+    <span class="k">esac</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<hr />
+
 <h1 id="grep">grep搜索帮助文档</h1>
 
 <p>用两个横线<code class="highlighter-rouge">--</code>作为grep的第一个参数表示不要把其后面的形如<code class="highlighter-rouge">-z</code>的参数当成grep的参数</p>
@@ -55,7 +74,7 @@
 
 <hr />
 
-<h1 id="section">各种解压命令</h1>
+<h1 id="section-1">各种解压命令</h1>
 
 <p>tar.gz： <code class="highlighter-rouge">tar -zxvf xx.tar.gz</code></p>
 
@@ -69,7 +88,7 @@
 
 <hr />
 
-<h1 id="section-1">当前目录文件全文搜索</h1>
+<h1 id="section-2">当前目录文件全文搜索</h1>
 
 <p>这里要搜索当前目录下面所有的包含”MultiTeam”文件</p>
 
@@ -79,7 +98,7 @@
 
 <hr />
 
-<h1 id="section-2">统计当前文件夹代码行数</h1>
+<h1 id="section-3">统计当前文件夹代码行数</h1>
 
 <p>find 指定文件后缀名，记住要引号避免bash解析*</p>
 
@@ -89,7 +108,7 @@
 
 <hr />
 
-<h1 id="section-3">查看给定文件列表的文件大小</h1>
+<h1 id="section-4">查看给定文件列表的文件大小</h1>
 
 <p>用xargs -d指定分隔符为\n（默认会按照空格和\n分隔参数）</p>
 
@@ -127,7 +146,7 @@
 
 <hr />
 
-<h1 id="section-4">换行方式修改</h1>
+<h1 id="section-5">换行方式修改</h1>
 
 <p>如果一个文件来自于Windows，可能需要先修改换行方式才能用，去掉文件中的\r</p>
 
@@ -147,13 +166,13 @@
 
 <p>前期准备：一个域名（假设为example.com）及一台服务器（假设为1.2.3.4），建议客户端在Linux上运行</p>
 
-<h3 id="section-5">1. 设置域名解析</h3>
+<h3 id="section-6">1. 设置域名解析</h3>
 
 <p>dns.example.com添加一条A记录，解析至1.2.3.4</p>
 
 <p>t.example.com添加一条NS记录，值为dns.example.com</p>
 
-<h3 id="section-6">2. 服务器端</h3>
+<h3 id="section-7">2. 服务器端</h3>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>./iodined -f -c -P secretpassword 192.168.99.1 t.example.com
 </code></pre>
@@ -163,13 +182,13 @@
 
 <p>内网IP可以随意指定，只要当前服务器没有占用即可，例如可以改为172.16.0.1</p>
 
-<h3 id="section-7">3.检查服务端是否正常</h3>
+<h3 id="section-8">3.检查服务端是否正常</h3>
 
 <p>http://code.kryo.se/iodine/check-it/</p>
 
 <p>作者提供了在线检查工具，输入t.example.com即可检查</p>
 
-<h3 id="section-8">4.客户端</h3>
+<h3 id="section-9">4.客户端</h3>
 
 <p>建议在ubuntu等完整的Linux操作系统上运行，下载源码后make即可</p>
 
@@ -202,7 +221,7 @@ rdesktop -f -u 用户名 -p 密码 服务器地址:端口
 
 <hr />
 
-<h1 id="section-9">统计以特定字符串开头的文件数目</h1>
+<h1 id="section-10">统计以特定字符串开头的文件数目</h1>
 
 <p>awk是个很好用的工具呢，支持substr函数，用法为substr(源字符串，开始，长度)，其中开始从1计数</p>
 
@@ -224,7 +243,7 @@ rdesktop -f -u 用户名 -p 密码 服务器地址:端口
 
 <hr />
 
-<h1 id="section-10">子目录大小排序</h1>
+<h1 id="section-11">子目录大小排序</h1>
 
 <p>sort的-h表示按人类理解的大小格式排序，-r表示逆序</p>
 
@@ -244,6 +263,14 @@ sudo apt-get update
 sudo apt-get install -y ffmpeg
 </code></pre>
 </div>
+
+<hr />
+
+<h1 id="set--ex">保证脚本安全执行set -ex</h1>
+
+<p><code class="highlighter-rouge">set</code>命令挺有用的呢，-e表示如果后面的语句返回不为0立刻结束shell，-x表示显示出每条命令及参数</p>
+
+<p>从<a href="https://github.com/Medicean/VulApps/blob/master/s/struts2/s2-032/Dockerfile">人家的Dockerfile</a>中学习得来</p>
 
       </section>
     </div>

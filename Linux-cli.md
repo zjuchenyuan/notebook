@@ -10,6 +10,25 @@
 
 ----
 
+# 查看内置命令的帮助
+
+将以下内容加入`~/.bashrc`中即可，判断如果在内置命令就调用help -m，不是则绕开bash函数来运行man进程
+
+```sh
+man () {
+    case "$(type -t -- "$1")" in
+    builtin|keyword)
+        help -m "$1" | sensible-pager
+        ;;
+    *)
+        command man "$@"
+        ;;
+    esac
+}
+```
+
+----
+
 # grep搜索帮助文档
 
 用两个横线`--`作为grep的第一个参数表示不要把其后面的形如`-z`的参数当成grep的参数
@@ -205,3 +224,11 @@ sudo add-apt-repository ppa:mc3man/trusty-media
 sudo apt-get update
 sudo apt-get install -y ffmpeg
 ```
+
+----
+
+# 保证脚本安全执行set -ex
+
+`set`命令挺有用的呢，-e表示如果后面的语句返回不为0立刻结束shell，-x表示显示出每条命令及参数
+
+从[人家的Dockerfile](https://github.com/Medicean/VulApps/blob/master/s/struts2/s2-032/Dockerfile)中学习得来
