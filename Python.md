@@ -254,3 +254,21 @@ ans=binascii.unhexlify('%x'%int(s,2))
 * 如果发生格式错误，检查输出的最后一行的print，加上end=""表示不要换行
 
 * 如果数据规模大导致超时，代码中的in操作前先把list转为set，能大幅度提速
+
+----
+
+# 用requests进行post
+
+需要注意加上这两个参数：
+
+```
+,allow_redirects=False,headers={"Content-Type": "application/x-www-form-urlencoded"}
+```
+
+登录请求的时候是要根据返回的headers里面Location有没有对不对来判断登录是否成功的，而requests默认会跟随301/302跳转，导致无法获取到跳转请求的headers，所以加上`allow_redirects=False`
+
+另外就是post数据的时候必须给出正确的Content-Type，否则服务器不认这个post的
+
+再者就是可能对方有反爬虫措施，加上Referer和User-Agent就好咯
+
+如果要做爬虫，欢迎使用我的[EasyLogin](https://github.com/zjuchenyuan/EasyLogin)，无需再操心这些细节，专注于核心爬虫代码

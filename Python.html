@@ -295,6 +295,24 @@ ans=binascii.unhexlify('%x'%int(s,2))
   </li>
 </ul>
 
+<hr />
+
+<h1 id="requestspost">用requests进行post</h1>
+
+<p>需要注意加上这两个参数：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>,allow_redirects=False,headers={"Content-Type": "application/x-www-form-urlencoded"}
+</code></pre>
+</div>
+
+<p>登录请求的时候是要根据返回的headers里面Location有没有对不对来判断登录是否成功的，而requests默认会跟随301/302跳转，导致无法获取到跳转请求的headers，所以加上<code class="highlighter-rouge">allow_redirects=False</code></p>
+
+<p>另外就是post数据的时候必须给出正确的Content-Type，否则服务器不认这个post的</p>
+
+<p>再者就是可能对方有反爬虫措施，加上Referer和User-Agent就好咯</p>
+
+<p>如果要做爬虫，欢迎使用我的<a href="https://github.com/zjuchenyuan/EasyLogin">EasyLogin</a>，无需再操心这些细节，专注于核心爬虫代码</p>
+
       </section>
     </div>
 

@@ -23,6 +23,7 @@
 >* 解决Python.h: No such file or directory
 >* 二进制字符串转普通字符串
 >* 用Python3写PAT心得
+>* 用requests进行post
 
 ## [BAT 批处理](BAT.md)
 >* 并列语句语法
@@ -143,6 +144,7 @@
 >* hexdump查看字符内部编码
 >* 子目录大小排序
 >* 安装ffmpeg
+>* 修改readonly的变量
 
 ## [Linux-backup](Linux-backup.md)
 >* 一个良好安全的备份计划至关重要
