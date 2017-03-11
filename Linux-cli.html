@@ -272,6 +272,26 @@ sudo apt-get install -y ffmpeg
 
 <p>从<a href="https://github.com/Medicean/VulApps/blob/master/s/struts2/s2-032/Dockerfile">人家的Dockerfile</a>中学习得来</p>
 
+<hr />
+
+<h1 id="change-readonly-bash-variable">change readonly bash variable</h1>
+
+<p>bash is a weird thing…</p>
+
+<p>declaring a variable as reference by using <code class="highlighter-rouge">declare -n</code>, we can change it!</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ a=1
+$ readonly a
+$ a=2
+bash: a: readonly variable
+#Look here!
+$ declare -n a
+$ a=2
+$ echo $a
+2
+</code></pre>
+</div>
+
       </section>
     </div>
 

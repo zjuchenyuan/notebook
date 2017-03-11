@@ -232,3 +232,23 @@ sudo apt-get install -y ffmpeg
 `set`命令挺有用的呢，-e表示如果后面的语句返回不为0立刻结束shell，-x表示显示出每条命令及参数
 
 从[人家的Dockerfile](https://github.com/Medicean/VulApps/blob/master/s/struts2/s2-032/Dockerfile)中学习得来
+
+----
+
+# change readonly bash variable
+
+bash is a weird thing...
+
+declaring a variable as reference by using `declare -n`, we can change it!
+
+```
+$ a=1
+$ readonly a
+$ a=2
+bash: a: readonly variable
+#Look here!
+$ declare -n a
+$ a=2
+$ echo $a
+2
+```
