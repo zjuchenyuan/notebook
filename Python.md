@@ -272,3 +272,26 @@ ans=binascii.unhexlify('%x'%int(s,2))
 再者就是可能对方有反爬虫措施，加上Referer和User-Agent就好咯
 
 如果要做爬虫，欢迎使用我的[EasyLogin](https://github.com/zjuchenyuan/EasyLogin)，无需再操心这些细节，专注于核心爬虫代码
+
+----
+
+# 通过tkinter获取、修改剪贴板
+
+支持py2和py3，Learned from https://www.daniweb.com/programming/software-development/code/487653/access-the-clipboard-via-tkinter
+
+```
+try:
+    from tkinter import Tk
+except ImportError:
+    from Tkinter import Tk
+root = Tk()
+root.withdraw() #隐藏Tk的窗口
+text = "Donnerwetter"
+# 清空剪贴板 clear clipboard
+root.clipboard_clear()
+# 写入剪贴板 write text to clipboard
+root.clipboard_append(text)
+# 读取剪贴板 text from clipboard
+clip_text = root.clipboard_get()
+print(clip_text)  # --> Donnerwetter
+```

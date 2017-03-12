@@ -313,6 +313,29 @@ ans=binascii.unhexlify('%x'%int(s,2))
 
 <p>如果要做爬虫，欢迎使用我的<a href="https://github.com/zjuchenyuan/EasyLogin">EasyLogin</a>，无需再操心这些细节，专注于核心爬虫代码</p>
 
+<hr />
+
+<h1 id="tkinter">通过tkinter获取、修改剪贴板</h1>
+
+<p>支持py2和py3，Learned from https://www.daniweb.com/programming/software-development/code/487653/access-the-clipboard-via-tkinter</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>try:
+    from tkinter import Tk
+except ImportError:
+    from Tkinter import Tk
+root = Tk()
+root.withdraw() #隐藏Tk的窗口
+text = "Donnerwetter"
+# 清空剪贴板 clear clipboard
+root.clipboard_clear()
+# 写入剪贴板 write text to clipboard
+root.clipboard_append(text)
+# 读取剪贴板 text from clipboard
+clip_text = root.clipboard_get()
+print(clip_text)  # --&gt; Donnerwetter
+</code></pre>
+</div>
+
       </section>
     </div>
 
