@@ -88,6 +88,8 @@ openssl dhparam -out /etc/ssl/dhparams.pem 2048
 ```
 listen 443 ssl http2;
 add_header Strict-Transport-Security "max-age=31536000" always;
+add_header Upgrade-Insecure-Requests "1";
+add_header Content-Security-Policy "upgrade-insecure-requests";
 ssl_dhparam /etc/ssl/dhparams.pem;
 ssl_stapling on;
 ssl_stapling_verify on;
