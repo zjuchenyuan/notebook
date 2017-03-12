@@ -24,6 +24,7 @@
 >* 二进制字符串转普通字符串
 >* 用Python3写PAT心得
 >* 用requests进行post
+>* 通过tkinter获取/修改剪贴板
 
 ## [BAT 批处理](BAT.md)
 >* 并列语句语法
@@ -34,6 +35,7 @@
 >* 判断文件夹存在
 >* 创建硬链接mklink
 >* 端口转发
+>* [保持RVPN不断开](code/RVPNKeepAlive.bat)
 
 ## [C 语言](C.md)
 >* 关于Dev C++
