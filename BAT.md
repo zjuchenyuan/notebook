@@ -121,3 +121,19 @@ fsutil hardlink create <new filename> <existing filename>
 ```
 netsh interface portproxy add v4tov4 listenaddress=0.0.0.0 listenport=转发出的端口 connectaddress=转发的源IP地址 connectport=转发的源端口
 ```
+
+----
+
+## 保持RVPN不断开
+
+rvpn会自动断开，所以写了个脚本判断并自动重连
+
+[RVPNKeepAlive.bat](code/RVPNKeepAlive.bat)
+
+其中的知识点：
+
+1. 判断命令是否成功用if "%errorlevel%"=="0"，errorlevel这个变量是上一条命令的返回结果（C程序的int main的返回值），一般规定返回0表示没有发生错误
+
+2. 用ping www.baidu.com和ping -n 2 ip.cn做粗糙的等待延时，其中-n表示ping的次数，默认是4，改小一点就是更短的延时咯
+
+3. 启动一个GUI的exe，需要用start "" example.exe

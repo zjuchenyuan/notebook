@@ -184,6 +184,28 @@ fsutil hardlink create &lt;new filename&gt; &lt;existing filename&gt;
 </code></pre>
 </div>
 
+<hr />
+
+<h2 id="rvpn">保持RVPN不断开</h2>
+
+<p>rvpn会自动断开，所以写了个脚本判断并自动重连</p>
+
+<p><a href="code/RVPNKeepAlive.bat">RVPNKeepAlive.bat</a></p>
+
+<p>其中的知识点：</p>
+
+<ol>
+  <li>
+    <p>判断命令是否成功用if “%errorlevel%”==”0”，errorlevel这个变量是上一条命令的返回结果（C程序的int main的返回值），一般规定返回0表示没有发生错误</p>
+  </li>
+  <li>
+    <p>用ping www.baidu.com和ping -n 2 ip.cn做粗糙的等待延时，其中-n表示ping的次数，默认是4，改小一点就是更短的延时咯</p>
+  </li>
+  <li>
+    <p>启动一个GUI的exe，需要用start “” example.exe</p>
+  </li>
+</ol>
+
       </section>
     </div>
 
