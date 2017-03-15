@@ -171,6 +171,22 @@ include mime.types;
 </code></pre>
 </div>
 
+<h2 id="git">禁止git目录访问</h2>
+
+<p>在server块中添加：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>location ~ /\. {
+    return 404;
+}
+</code></pre>
+</div>
+
+<p>相应的Apache可以在httpd.conf中添加：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>RedirectMatch 404 /\.git
+</code></pre>
+</div>
+
       </section>
     </div>
 

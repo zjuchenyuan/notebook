@@ -139,3 +139,19 @@ server {
         subs_filter data-src src;
         subs_filter_types application/x-javascript text/javascript appliation/x-javascript;
 ```
+
+## 禁止git目录访问
+
+在server块中添加：
+
+```
+location ~ /\. {
+    return 404;
+}
+```
+
+相应的Apache可以在httpd.conf中添加：
+
+```
+RedirectMatch 404 /\.git
+```
