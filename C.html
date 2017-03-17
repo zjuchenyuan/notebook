@@ -100,6 +100,19 @@
 </code></pre>
 </div>
 
+<hr />
+
+<h2 id="g">解决g++省略拷贝构造函数的问题</h2>
+
+<p>g++为了防止在函数返回值是对象的时候，拷贝构造被调用多次，即使拷贝构造函数有副作用，也会被优化掉（直接就不调用拷贝构造函数了）</p>
+
+<p>为了解决这个问题，从而证明教材上的正确性/语言的特性，需要在编译（不是链接）的时候加入以下开关：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>-fno-elide-constructors
+</code></pre>
+</div>
+
+
       </section>
     </div>
 

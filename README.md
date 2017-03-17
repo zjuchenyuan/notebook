@@ -41,6 +41,7 @@
 >* 关于Dev C++
 >* 输入的问题，建议用gets和sscanf
 >* C++用sstream代替sprintf
+>* 解决g++省略拷贝构造函数的问题
 
 ## [CDN](CDN.md)
 >* ·UPYUN 又拍云
