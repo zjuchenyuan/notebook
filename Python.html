@@ -366,17 +366,33 @@ ctypes.c_uint64(-1407272023381507347).value
 
 <div class="highlighter-rouge"><pre class="highlight"><code>def clock(timeout=5):
     import signal
-    def handler(signum,data):
+    def signal_handler(signum,data):
         if signum == signal.SIGALRM:
             print("Time is up!")
             exit()
-    signal.signal(signal.SIGALRM, handler)
+    signal.signal(signal.SIGALRM, signal_handler)
     signal.alarm(int(timeout))
 </code></pre>
 </div>
 
 <hr />
 
+<h1 id="ctrlc">捕捉用户的Ctrl+C</h1>
+
+<p>特殊情况下我们想屏蔽掉Ctrl+C，这时候写个自己的函数处理SIGALRM信号就好啦</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>import signal
+
+def signal_handler(signum,data):
+    if signum == signal.SIGINT:
+        print("Ctrl+C is pressed!")
+        #raise KeyboardInterrupt
+
+if __name__ == '__main__':
+    signal.signal(signal.SIGINT, signal_handler)
+    sleep(666)
+</code></pre>
+</div>
 
       </section>
     </div>
