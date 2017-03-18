@@ -26,6 +26,7 @@
 >* 用requests进行post
 >* 通过tkinter获取/修改剪贴板
 >* 符号数与无符号数转换
+>* 使用signal.SIGALRM在限定时间后退出进程 (only Linux)
 
 ## [BAT 批处理](BAT.md)
 >* 并列语句语法

@@ -317,3 +317,21 @@ ctypes.c_uint64(-1407272023381507347).value
 ```
 
 上述将得到17039472050328044269
+
+----
+
+# 使用signal.SIGALRM在限定时间后退出进程 (only Linux)
+
+在设计CTF的题目的时候，有必要限制用户的连接时间，这时候简单方案就是用SIGALRM信号咯
+
+```
+def clock(timeout=5):
+    import signal
+    def handler(signum,data):
+        if signum == signal.SIGALRM:
+            print("Time is up!")
+            exit()
+    signal.signal(signal.SIGALRM, handler)
+    signal.alarm(int(timeout))
+```
+
