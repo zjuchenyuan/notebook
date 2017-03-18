@@ -25,6 +25,7 @@
 >* 用Python3写PAT心得
 >* 用requests进行post
 >* 通过tkinter获取/修改剪贴板
+>* 符号数与无符号数转换
 
 ## [BAT 批处理](BAT.md)
 >* 并列语句语法

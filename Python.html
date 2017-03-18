@@ -336,6 +336,28 @@ print(clip_text)  # --&gt; Donnerwetter
 </code></pre>
 </div>
 
+<hr />
+
+<h1 id="section-4">符号数与无符号数转换</h1>
+
+<h2 id="section-5">无符号→有符号，为了加上负号：</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>import ctypes
+ctypes.c_int64(17039472050328044269).value
+</code></pre>
+</div>
+
+<p>上述将得到-1407272023381507347</p>
+
+<h2 id="section-6">有符号→无符号，为了去掉负号：</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>import ctypes
+ctypes.c_uint64(-1407272023381507347).value
+</code></pre>
+</div>
+
+<p>上述将得到17039472050328044269</p>
+
       </section>
     </div>
 

@@ -295,3 +295,25 @@ root.clipboard_append(text)
 clip_text = root.clipboard_get()
 print(clip_text)  # --> Donnerwetter
 ```
+
+----
+
+# 符号数与无符号数转换
+
+## 无符号→有符号，为了加上负号：
+
+```
+import ctypes
+ctypes.c_int64(17039472050328044269).value
+```
+
+上述将得到-1407272023381507347
+
+## 有符号→无符号，为了去掉负号：
+
+```
+import ctypes
+ctypes.c_uint64(-1407272023381507347).value
+```
+
+上述将得到17039472050328044269
