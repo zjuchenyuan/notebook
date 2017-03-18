@@ -148,6 +148,7 @@
 >* 子目录大小排序
 >* 安装ffmpeg
 >* 修改readonly的变量
+>* 永久等待 sleep infinity
 
 ## [Linux-backup](Linux-backup.md)
 >* 一个良好安全的备份计划至关重要

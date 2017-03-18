@@ -252,3 +252,13 @@ $ a=2
 $ echo $a
 2
 ```
+
+----
+
+# 永久等待 sleep infinity
+
+有时写了一个sh文件后需要保持这个sh的运行，就用sleep永久等待好咯
+
+```
+sleep infinity
+```
