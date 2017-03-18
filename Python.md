@@ -353,3 +353,28 @@ if __name__ == '__main__':
     signal.signal(signal.SIGINT, signal_handler)
     sleep(666)
 ````
+
+----
+
+# 使用signal.SIGALRM实现定时器 (only Linux)
+
+实现一个类似Javascript的setInterval功能
+
+```
+import signal
+from time import sleep
+INTERVAL=1
+COUNT=0
+def signal_handler(signum,data):
+    global COUNT
+    if signum == signal.SIGALRM:
+        # 你的定时器代码写在这里 Your function here
+        print("Count! {}".format(COUNT))
+        COUNT+=1
+        signal.alarm(int(INTERVAL)) #再设置一个clock就能循环往复咯
+
+if __name__ == '__main__':
+    signal.signal(signal.SIGALRM, signal_handler)
+    signal.alarm(int(INTERVAL))
+    sleep(23333)
+```

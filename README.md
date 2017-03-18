@@ -28,6 +28,7 @@
 >* 符号数与无符号数转换
 >* 使用signal.SIGALRM在限定时间后退出进程 (only Linux)
 >* 捕捉用户的Ctrl+C
+>* 使用signal.SIGALRM实现定时器 (only Linux)
 
 ## [BAT 批处理](BAT.md)
 >* 并列语句语法
