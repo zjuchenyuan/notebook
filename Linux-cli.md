@@ -280,3 +280,18 @@ zmap 192.168.0.0/16 -B1000M -i eth0 -g -T 4  -p 23 -o 23.txt
 
 如果拨号了vpn，需要用-G指定网关的MAC地址，可以通过`arp 网关的IP`得到
 
+
+----
+
+# 对ip列表批量测试redis未授权漏洞
+
+```
+for i in `cat iplist.txt`; do (if [ `echo PING|redis-cli -h $i` == "PONG" ] ;then echo $i;fi);done 2>/dev/null
+```
+
+利用了bash支持的for语句，注意for之后的分号和最后的done
+
+还有用了if字符串相等，记得要用fi结束if
+
+redis-cli连接上服务器后发送PING，如果存在未授权访问漏洞则会返回PONG，否则会要求Auth或者其他报错信息
+
