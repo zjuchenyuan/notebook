@@ -25,7 +25,7 @@
       <section id="main_content">
         <h1 id="linux">Linux命令行操作技巧</h1>
 
-<p>本文档不涉及root权限，Linux相关笔记还有：</p>
+<p>本文档一般不涉及root权限，Linux相关笔记还有：</p>
 
 <p><a href="/Linux-setup.html">Linux系统配置</a></p>
 
@@ -301,6 +301,24 @@ $ echo $a
 <div class="highlighter-rouge"><pre class="highlight"><code>sleep infinity
 </code></pre>
 </div>
+
+<hr />
+
+<h1 id="zmap">zmap扫描整个网段特定开放端口</h1>
+
+<p>zmap的运行需要root权限，用<code class="highlighter-rouge">apt-get install zmap</code>即可安装</p>
+
+<p>更详细的帮助去看看<code class="highlighter-rouge">zmap --help</code>咯</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>#需要先编辑黑名单 vi /etc/zmap/blacklist.conf 取消掉注释
+zmap 192.168.0.0/16 -B1000M -i eth0 -g -T 4  -p 23 -o 23.txt
+</code></pre>
+</div>
+
+<p>其中<code class="highlighter-rouge">-g</code>表示扫描结束后显示总结，<code class="highlighter-rouge">-T 4</code>表示启动4个扫描线程，<code class="highlighter-rouge">-p 23</code>表示扫描23端口，-o保存文件的名称</p>
+
+<p>如果拨号了vpn，需要用-G指定网关的MAC地址，可以通过<code class="highlighter-rouge">arp 网关的IP</code>得到</p>
+
 
       </section>
     </div>

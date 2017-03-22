@@ -1,6 +1,6 @@
 # Linux命令行操作技巧
 
-本文档不涉及root权限，Linux相关笔记还有：
+本文档一般不涉及root权限，Linux相关笔记还有：
 
 [Linux系统配置](Linux-setup.md)
 
@@ -262,3 +262,21 @@ $ echo $a
 ```
 sleep infinity
 ```
+
+----
+
+# zmap扫描整个网段特定开放端口
+
+zmap的运行需要root权限，用`apt-get install zmap`即可安装
+
+更详细的帮助去看看`zmap --help`咯
+
+```
+#需要先编辑黑名单 vi /etc/zmap/blacklist.conf 取消掉注释
+zmap 192.168.0.0/16 -B1000M -i eth0 -g -T 4  -p 23 -o 23.txt
+```
+
+其中`-g`表示扫描结束后显示总结，`-T 4`表示启动4个扫描线程，`-p 23`表示扫描23端口，-o保存文件的名称
+
+如果拨号了vpn，需要用-G指定网关的MAC地址，可以通过`arp 网关的IP`得到
+

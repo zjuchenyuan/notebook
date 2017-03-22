@@ -153,6 +153,7 @@
 >* 安装ffmpeg
 >* 修改readonly的变量
 >* 永久等待 sleep infinity
+>* zmap扫描整个网段特定开放端口
 
 ## [Linux-backup](Linux-backup.md)
 >* 一个良好安全的备份计划至关重要
