@@ -333,6 +333,29 @@ zmap 192.168.0.0/16 -B1000M -i eth0 -g -T 4  -p 23 -o 23.txt
 
 <p>redis-cli连接上服务器后发送PING，如果存在未授权访问漏洞则会返回PONG，否则会要求Auth或者其他报错信息</p>
 
+<hr />
+
+<h1 id="imagemagick">使用ImageMagick对图像进行裁剪</h1>
+
+<p>安装命令：<code class="highlighter-rouge">sudo apt-get install -y imagemagick</code></p>
+
+<p>处理一张图片in.png，裁剪成300x280大小，从(30,0)作为裁剪的左上角点，得到out.png：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>convert in.png -crop 300x280+30+0 out.png
+</code></pre>
+</div>
+
+<p>其实这四个参数是我反复尝试二分法得到的，或许可以用专业软件快速得到吧</p>
+
+<p>关键是可以批量处理呀，这里下载friends的头像图片进行处理：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>for i in {1..79}; do curl -o $i.png http://kemono-friends.jp/wp-content/uploads/2016/11/no`printf "%03d" $i`.png --proxy socks5://127.0.0.1:1080; done
+for i in {1..79}; do convert $i.png -crop 300x280+30+0 $i.png; done
+</code></pre>
+</div>
+
+<p>其中使用了printf命令，可以使得1变成人家url需要的001</p>
+
 
       </section>
     </div>

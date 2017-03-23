@@ -155,6 +155,7 @@
 >* 永久等待 sleep infinity
 >* zmap扫描整个网段特定开放端口
 >* 对ip列表批量测试redis未授权漏洞
+>* 使用ImageMagick对图像进行裁剪
 
 ## [Linux-backup](Linux-backup.md)
 >* 一个良好安全的备份计划至关重要

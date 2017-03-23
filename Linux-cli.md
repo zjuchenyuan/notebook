@@ -295,3 +295,26 @@ for i in `cat iplist.txt`; do (if [ `echo PING|redis-cli -h $i` == "PONG" ] ;the
 
 redis-cli连接上服务器后发送PING，如果存在未授权访问漏洞则会返回PONG，否则会要求Auth或者其他报错信息
 
+----
+
+# 使用ImageMagick对图像进行裁剪
+
+安装命令：`sudo apt-get install -y imagemagick`
+
+处理一张图片in.png，裁剪成300x280大小，从(30,0)作为裁剪的左上角点，得到out.png：
+
+```
+convert in.png -crop 300x280+30+0 out.png
+```
+
+其实这四个参数是我反复尝试二分法得到的，或许可以用专业软件快速得到吧
+
+关键是可以批量处理呀，这里下载friends的头像图片进行处理：
+
+```
+for i in {1..79}; do curl -o $i.png http://kemono-friends.jp/wp-content/uploads/2016/11/no`printf "%03d" $i`.png --proxy socks5://127.0.0.1:1080; done
+for i in {1..79}; do convert $i.png -crop 300x280+30+0 $i.png; done
+```
+
+其中使用了printf命令，可以使得1变成人家url需要的001
+
