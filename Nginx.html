@@ -187,6 +187,41 @@ include mime.types;
 </code></pre>
 </div>
 
+<h2 id="rootalias">root与alias的区别</h2>
+
+<p>From: http://stackoverflow.com/questions/10631933/nginx-static-file-serving-confusion-with-root-alias</p>
+
+<p>一句话概括，root对应的目录会加上location部分去找文件，而alias则不会</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>        location /static/ {
+                root /var/www/app/static/;
+                autoindex off;
+        }
+</code></pre>
+</div>
+
+<p>如果我们这么写，那么访问static目录下的a.jpg就会去找/var/www/app/static/static目录下的a.jpg，如果没有这个static/static就会404</p>
+
+<p>解决方法有两种：</p>
+
+<p>如果location中的static就是真实目录，root中就不要写static了</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>        location /static/ {
+                root /var/www/app/;
+                autoindex off;
+        }
+</code></pre>
+</div>
+
+<p>或者用alias就不会再加上location的部分：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>        location /static/ {
+                alias /var/www/app/static/;
+                autoindex off;
+        }
+</code></pre>
+</div>
+
       </section>
     </div>
 

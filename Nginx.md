@@ -155,3 +155,38 @@ location ~ /\. {
 ```
 RedirectMatch 404 /\.git
 ```
+
+## root与alias的区别
+
+From: http://stackoverflow.com/questions/10631933/nginx-static-file-serving-confusion-with-root-alias
+
+一句话概括，root对应的目录会加上location部分去找文件，而alias则不会
+
+```
+        location /static/ {
+                root /var/www/app/static/;
+                autoindex off;
+        }
+```
+
+如果我们这么写，那么访问static目录下的a.jpg就会去找/var/www/app/static/static目录下的a.jpg，如果没有这个static/static就会404
+
+解决方法有两种：
+
+如果location中的static就是真实目录，root中就不要写static了
+
+```
+        location /static/ {
+                root /var/www/app/;
+                autoindex off;
+        }
+```
+
+或者用alias就不会再加上location的部分：
+
+```
+        location /static/ {
+                alias /var/www/app/static/;
+                autoindex off;
+        }
+```
