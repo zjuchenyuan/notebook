@@ -209,3 +209,17 @@ git blame filename
 然后git会在每一个修改的block询问是否加入这次的commit，回答y表示加入，n表示不加入，s表示进一步拆分这个block
 
 完成好选择后，使用`git diff --staged`命令来查询暂存的修改，没有问题就可以继续`git commit`啦
+
+## 本地忽略一些个人的修改
+
+原文： http://stackoverflow.com/questions/1753070/git-ignore-files-only-locally
+
+有时候我们不想让git追踪一些个人相关的文件，例如config中修改Debug=True，此时如果去修改.gitignore造成的影响是全局的，并且需要从git中删除这个文件；手动避开add config很烦，有没有更好的方法，让git忽略掉config文件的修改呢？
+
+方法是修改`.git/info/exclude`文件，这个文件的语法规则与.gitignore一样
+
+如果已经造成了修改，还需要执行以下命令：
+
+```
+git update-index --assume-unchanged [<file>...]
+```

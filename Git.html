@@ -249,6 +249,20 @@ git commit --amend
 
 <p>完成好选择后，使用<code class="highlighter-rouge">git diff --staged</code>命令来查询暂存的修改，没有问题就可以继续<code class="highlighter-rouge">git commit</code>啦</p>
 
+<h2 id="section-4">本地忽略一些个人的修改</h2>
+
+<p>原文： http://stackoverflow.com/questions/1753070/git-ignore-files-only-locally</p>
+
+<p>有时候我们不想让git追踪一些个人相关的文件，例如config中修改Debug=True，此时如果去修改.gitignore造成的影响是全局的，并且需要从git中删除这个文件；手动避开add config很烦，有没有更好的方法，让git忽略掉config文件的修改呢？</p>
+
+<p>方法是修改<code class="highlighter-rouge">.git/info/exclude</code>文件，这个文件的语法规则与.gitignore一样</p>
+
+<p>如果已经造成了修改，还需要执行以下命令：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git update-index --assume-unchanged [&lt;file&gt;...]
+</code></pre>
+</div>
+
       </section>
     </div>
 

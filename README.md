@@ -88,7 +88,7 @@
 >* 补上commit漏掉的文件 --amend
 >* 密码泄露查作者 blame
 >* 文件一次性改太多了，拆成多次提交 add -p
-
+>* 本地忽略一些个人的修改
 
 ## [Github Project Recommendation](GithubProjectRecommendation.md)
 >* 视频下载you-get
