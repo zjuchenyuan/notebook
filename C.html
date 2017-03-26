@@ -112,6 +112,78 @@
 </code></pre>
 </div>
 
+<hr />
+
+<h2 id="section-2">[数据结构]树的遍历</h2>
+
+<p>允许不确定个元素的子节点个数，要求给出所有从根节点开始到叶节点的路径</p>
+
+<p>我是这么写的遍历循环（伪代码），其中p1和p2是指向节点的指针：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>路径=[根节点]
+while(循环条件):
+    while (p2=p1的下一个没有遍历过的子节点)不为空:
+        把p2加入路径
+        p1=p2
+    if p1为叶节点:
+        得到了一条从根节点到一个叶节点的路径
+    路径pop，换言之，删掉最后加入的节点
+    p1=p1的父节点（就是回溯）
+</code></pre>
+</div>
+
+<p>其中关键的<strong>p1的下一个没有遍历过的子节点</strong>的实现是这样子的：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>if 当前孩子的下标&gt;=孩子总数:
+    return NULL
+else return 子节点数组[当前下标++]
+</code></pre>
+</div>
+
+<p>卖个关子。。。请思考一下循环条件应该写啥？</p>
+
+<h3 id="section-3">遍历的循环条件</h3>
+
+<p>一开始我写的是：“根节点还有未遍历过的子节点”，但是这么写在这里就出了问题，由于标记已经遍历的子节点发生在真正遍历完子节点之前（我用的return 数组[下标++]），在循环根节点的最后一个子节点的时候会提前结束循环，导致没能遍历所有节点！</p>
+
+<p>正确的写法是：<strong>路径的元素个数&gt;=1</strong></p>
+
+<p>路径可以用vector实现，元素个数就是vector的size()，只有遍历完成了整个树之后，根节点才会被pop出来，结束循环。</p>
+
+<h3 id="section-4">使用面向对象的思想</h3>
+
+<p>这个题目我使用了C++来写，果然比C好多了。。。只要想好接口就能很方便地实现需要的功能啦（不过还是Python内置的list好多了，C++的vector各种const的坑</p>
+
+<p>这里分享一下我设计的接口：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>class Node{
+	public:
+		Node();
+		void setChildNum(int num); //为子节点的指针的数组分配空间
+		void addOneChild(Node* child);
+		void setData(int data);
+		int getData();
+		void setParent(Node* parent);
+		Node* getParent();
+		Node* getCurrentChild(); //获得当前还没走过的子节点，并且把返回的子节点标记为走过了
+		bool hasChildToGo(); //这个节点是不是所有的子节点都完成了
+		bool isLeafNode(); //这个节点是不是叶节点
+	private:
+		//...省略咯...
+};
+class Nodes{ //存储路径的Nodes
+	public:
+		void append(Node* x); //把节点加入路径
+		void pop(); //删掉最后加入的那个节点
+		int getSumData(); //路径上所有节点的data的和
+		int length(); //路径当前的长度
+		friend bool cmp(const Nodes&amp; a,const Nodes&amp;b); //用于对路径进行排序
+		friend ostream&amp; operator&lt;&lt;(ostream&amp; out,Nodes&amp; x); 
+	private:
+		vector&lt;Node*&gt; data;
+};
+</code></pre>
+</div>
 
       </section>
     </div>
