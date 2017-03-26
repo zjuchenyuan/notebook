@@ -284,6 +284,16 @@ ans=binascii.unhexlify('%x'%int(s,2))
 
 <hr />
 
+<h1 id="bytes">十六进制字符串转bytes字符串</h1>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>from base64 import b16encode,b16decode
+print( b16encode(b'py3.io').decode() ) #output: 7079332E696F
+print( b16decode("7079332E696F") ) #output: b'py3.io'
+</code></pre>
+</div>
+
+<hr />
+
 <h1 id="python3pat">用Python3写PAT心得</h1>
 
 <ul>

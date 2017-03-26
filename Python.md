@@ -249,6 +249,16 @@ ans=binascii.unhexlify('%x'%int(s,2))
 
 ----
 
+# 十六进制字符串转bytes字符串
+
+```
+from base64 import b16encode,b16decode
+print( b16encode(b'py3.io').decode() ) #output: 7079332E696F
+print( b16decode("7079332E696F") ) #output: b'py3.io'
+```
+
+----
+
 # 用Python3写PAT心得
 
 * 如果发生格式错误，检查输出的最后一行的print，加上end=""表示不要换行

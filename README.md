@@ -22,6 +22,7 @@
 >* 大数据判断in
 >* 解决Python.h: No such file or directory
 >* 二进制字符串转普通字符串
+>* 十六进制字符串转bytes字符串
 >* 用Python3写PAT心得
 >* 用requests进行post
 >* 通过tkinter获取/修改剪贴板
