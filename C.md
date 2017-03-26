@@ -152,3 +152,9 @@ class Nodes{ //存储路径的Nodes
 		vector<Node*> data;
 };
 ```
+
+## 对一个const的vector使用迭代器要用const_iterator
+
+有时候函数参数就规定了必须是const的，如sort的比较函数，而比较的对象又是vector
+
+方法就是用`vector<你的类型>::const_iterator`

@@ -185,6 +185,12 @@ class Nodes{ //存储路径的Nodes
 </code></pre>
 </div>
 
+<h2 id="constvectorconstiterator">对一个const的vector使用迭代器要用const_iterator</h2>
+
+<p>有时候函数参数就规定了必须是const的，如sort的比较函数，而比较的对象又是vector</p>
+
+<p>方法就是用<code class="highlighter-rouge">vector&lt;你的类型&gt;::const_iterator</code></p>
+
       </section>
     </div>
 
