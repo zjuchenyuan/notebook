@@ -388,3 +388,21 @@ if __name__ == '__main__':
     signal.alarm(int(INTERVAL))
     sleep(23333)
 ```
+
+----
+
+# 使用pdb进行调试
+
+在需要调试的文件头部加入
+
+```
+import pdb
+```
+
+需要停下来的地方加入
+
+```
+pdb.set_trace()
+```
+
+Tutorial: [https://github.com/spiside/pdb-tutorial](https://github.com/spiside/pdb-tutorial)

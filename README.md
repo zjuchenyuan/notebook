@@ -30,6 +30,7 @@
 >* 使用signal.SIGALRM在限定时间后退出进程 (only Linux)
 >* 捕捉用户的Ctrl+C
 >* 使用signal.SIGALRM实现定时器 (only Linux)
+>* 使用pdb进行调试
 
 ## [BAT 批处理](BAT.md)
 >* 快速打开cmd
