@@ -32,13 +32,14 @@
 >* 使用signal.SIGALRM实现定时器 (only Linux)
 
 ## [BAT 批处理](BAT.md)
+>* 快速打开cmd
 >* 并列语句语法
 >* 循环for
 >* 结束进程taskkill
 >* 内存整理free
->* 睡一会sleep
+>* 睡一会SleepX
 >* 判断文件夹存在
->* 创建硬链接mklink
+>* 创建硬链接mklink或者fsutil hardlink create
 >* 端口转发
 >* [保持RVPN不断开](code/RVPNKeepAlive.bat)
 

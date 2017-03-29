@@ -26,7 +26,7 @@
 
 ## 来一个死循环吧 for
 
-> 用于结束进程，或者DNS查询（买了个域名tmd咋解析还没好
+> 用于结束进程，或者DNS查询看看解析是否生效
 
     for /l %i in (1,1,9999999) do ...
 
@@ -38,7 +38,7 @@
 
 ## 结束进程 taskkill
 
-> 当启动cmd窗口过多的时候，使用taskkill清理一下
+> 当启动cmd窗口过多的时候，使用taskkill清理一下（一个个关掉也是很烦的呢）
 
     taskkill /f /im cmd.exe
     
@@ -48,7 +48,7 @@
 
 ## 内存整理 free
 
-> 微软自己出的一个内存整理工具，需要管理员权限；原理我没搞懂
+> 微软自己出的一个内存整理工具，需要管理员权限
 
 > exe在[download/empty.exe](download/empty.exe)
 
@@ -56,7 +56,7 @@
 
 ----
 
-# 睡一会 SleepX
+## 睡一会 SleepX
 
 > 程序需要等待一定时间再继续运行就可以sleepx啦
 
@@ -69,7 +69,7 @@
     
 ----
 
-# 命令行的爬虫 curl
+## 命令行的浏览器 curl
 
 ![cURL](https://curl.haxx.se/logo/curl-logo.svg)
 
@@ -83,11 +83,9 @@
 
 [下载7.51 x64版本](download/curl.exe)
 
-具体请见单独文档cURL.md
+具体请见单独文档[cURL.md](cURL.md)
 
 ----
-
-# BAT的命令们
 
 ## 判断文件夹存在
 
@@ -95,7 +93,9 @@
 if exist DIRNAME\nul echo Yes!
 ```
 
-## 创建硬链接
+----
+
+## 创建硬链接mklink或者fsutil hardlink create
 
 Win7及以上：
 ```
