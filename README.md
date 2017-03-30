@@ -104,6 +104,7 @@
 
 ## [Java](Java.md)
 >* 一些Java与C++的不同之处
+>* 异常处理中的资源释放问题
 
 ## [JavaScript](JavaScript.md)
 >* 使用本地存储localStorage

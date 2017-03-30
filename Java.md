@@ -59,3 +59,42 @@ int long float double
 对象数组的new是不会创建对象的
 
 例如 `A[] a=new A[5];` 并不会创建5个A类型的对象，只是5个空引用
+
+## 异常处理中的资源释放问题
+
+From: http://stackoverflow.com/questions/8080649/do-i-have-to-close-fileoutputstream-which-is-wrapped-by-printstream
+
+在Java7中引入了ARM(自动资源管理)，并不需要手动释放资源
+
+以下这种把变量声明放到try后的括号里面，不对资源手动释放的写法是可以的，没有任何错误
+
+```
+public static void main(String args[]) throws IOException { 
+    try (PrintStream ps = new PrintStream(new FileOutputStream("myfile.txt"))) {
+        ps.println("This data is written to a file:");
+        System.out.println("Write successfully");
+    } catch (IOException e) {
+        System.err.println("Error in writing to file");
+        throw e;
+    }
+}
+```
+
+普通的try-catch是不够的，需要在finally中释放资源：
+
+```
+public static void main(String args[]) throws IOException { 
+    PrintStream ps = null;
+
+    try {
+        ps = new PrintStream(new FileOutputStream("myfile.txt"));
+        ps.println("This data is written to a file:");
+        System.out.println("Write successfully");
+    } catch (IOException e) {
+        System.err.println("Error in writing to file");
+        throw e;
+    } finally {
+        if (ps != null) ps.close();
+    }
+}
+```
