@@ -98,3 +98,31 @@ public static void main(String args[]) throws IOException {
     }
 }
 ```
+
+----
+
+## JVM启动时的内存参数
+
+From: http://blog.chinaunix.net/uid-26863299-id-3559878.html
+
+常见参数种类：配置堆区的（-Xms 、-Xmx、-XX:newSize、-XX:MaxnewSize、-Xmn）、配置非堆区（-XX:PermSize、-XX:MaxPermSize）。
+
+堆区的：
+
+1、-Xms ：表示java虚拟机堆区内存初始内存分配的大小
+
+2、-Xmx： 表示java虚拟机堆区内存可被分配的最大上限，通常会将 -Xms 与 -Xmx两个参数的配置相同的值，其目的是为了能够在java垃圾回收机制清理完堆区后不需要重新分隔计算堆区的大小而浪费资源。
+
+3、-XX:newSize：表示新生代初始内存的大小，应该小于 -Xms的值；
+
+4、-XX:MaxnewSize：表示新生代可被分配的内存的最大上限；当然这个值应该小于 -Xmx的值；
+
+5、-Xmn：对 -XX:newSize、-XX:MaxnewSize两个参数的同时配置
+
+非堆区的：
+
+1、-XX:PermSize：表示非堆区初始内存分配大小，名字来源于permanent size
+
+2、-XX:MaxPermSize：表示对非堆区分配的内存的最大上限。
+
+最大堆内存与最大非堆内存的和不能够超出操作系统的可用内存。
