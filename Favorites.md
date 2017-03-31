@@ -16,3 +16,5 @@
  _/    _/  _/    _/  _/    _/  
 _/    _/  _/    _/  _/    _/   
 
+[解释Shell命令每个参数](http://www.explainshell.com/)
+

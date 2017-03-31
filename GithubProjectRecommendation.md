@@ -61,3 +61,11 @@ Python也能用来解方程！求极限！求积分！
 https://github.com/dieulot/instantclick
 
 在鼠标悬停时即刻开始加载网页，显著提高网页加载速度，非常适合静态blog类型网页使用
+
+----
+
+# explainshell 
+
+https://github.com/idank/explainshell
+
+查询shell命令各个参数的含义
