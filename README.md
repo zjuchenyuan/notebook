@@ -106,6 +106,7 @@
 >* 一些Java与C++的不同之处
 >* 异常处理中的资源释放问题
 >* JVM启动时的内存参数
+>* [修复Struts2的S2-045漏洞](S2-045.md)
 
 ## [JavaScript](JavaScript.md)
 >* 使用本地存储localStorage
@@ -201,7 +202,5 @@
 >* WinRAR
 >* BurpSuite
 
-## [修复Struts2的S2-045漏洞](S2-045.md)
->* 漏洞说明与exp
->* 通过升级jar包修复
->* 通过增加Filter修复
+## [Developer](Developer.md)
+>* 保持技术精进
