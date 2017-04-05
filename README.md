@@ -178,6 +178,7 @@
 >* 从路径URL获取文件名称
 >* 查询优化--explain发现出现了using filesort；内存表索引的选择
 >* 内存表The table is full的解决
+>* replace函数替换文本
 
 ## [Nginx](Nginx.md)
 >* 普通资源允许POST

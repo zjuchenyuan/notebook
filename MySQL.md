@@ -104,3 +104,13 @@ tmp_table_size = 256M // 临时表大小
 max_heap_table_size = 256M // 内存表大小 
 ```
 
+----
+
+# replace函数替换文本
+
+```
+update `content` set value=replace(value,"original content","replaced content");
+```
+
+注意replace不要反引号
+
