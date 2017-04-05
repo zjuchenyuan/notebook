@@ -69,3 +69,12 @@ https://github.com/dieulot/instantclick
 https://github.com/idank/explainshell
 
 查询shell命令各个参数的含义
+
+----
+
+# Python Learn Notes
+
+https://github.com/AnyISalIn/Python_Learn_Notes
+
+一些不错的Python笔记
+
