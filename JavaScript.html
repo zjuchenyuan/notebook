@@ -75,6 +75,64 @@ window.localStorage.clear();
   </li>
 </ol>
 
+<hr />
+
+<h1 id="jquery">jQuery绑定”变为可见”事件</h1>
+
+<p>我的需求：用户登录的div需要点击Login后显示(toggle)，此时浏览器已经自动帮用户填上了用户名和密码，用户需要手动点击登录按钮才会触发登录请求；现在我想加入快速登录功能，在显示登录div后自动提交登录请求，如果为空或密码错误再交给用户输入</p>
+
+<p>我的解决方案：加入下述扩展jQuery的代码后，对#login绑定beforeShow事件，处理函数先根据全局变量是否存在来判断是否执行过（防止死循环），如果没有执行过则执行登录函数clicklogin并设置全局变量</p>
+
+<p>效果：如果浏览器自动填入了正确的用户名密码，则用户点击Login后快速闪过登录输入框即完成登录；如果浏览器没有自动填入用户名密码，clicklogin函数直接return，用户没有感知；如果浏览器填入的密码是错的，用户会看到密码错误提示，1s后再次toggle登录的div要求用户输入</p>
+
+<p>From: http://stackoverflow.com/questions/1225102/jquery-event-to-trigger-action-when-a-div-is-made-visible</p>
+
+<p>引入jQuery后，修改jQuery自身的show函数以扩展bind：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>jQuery(function($) {
+
+  var _oldShow = $.fn.show;
+
+  $.fn.show = function(speed, oldCallback) {
+    return $(this).each(function() {
+      var obj  = $(this),
+          newCallback = function() {
+            if ($.isFunction(oldCallback)) {
+              oldCallback.apply(obj);
+            }
+            obj.trigger('afterShow');
+          };
+
+      // you can trigger a before show if you want
+      obj.trigger('beforeShow');
+
+      // now use the old function to show the element passing the new callback
+      _oldShow.apply(obj, [speed, newCallback]);
+    });
+  }
+});
+</code></pre>
+</div>
+
+<p>然后就可以使用bind注册<code class="highlighter-rouge">beforeShow</code>，<code class="highlighter-rouge">afterShow</code>咯：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>jQuery(function($) {
+  $('#test')
+    .bind('beforeShow', function() {
+      alert('beforeShow');
+    }) 
+    .bind('afterShow', function() {
+      alert('afterShow');
+    })
+    .show(1000, function() {
+      alert('in show callback');
+    })
+    .show();
+});
+</code></pre>
+</div>
+
+
       </section>
     </div>
 

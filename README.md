@@ -113,6 +113,7 @@
 >* [随机字符串生成](http://py3.io/p.html)
 >* 异常
 >* 使用phantomjs爬取网页
+>* jQuery绑定"变为可见"事件
 
 ## [Jekyll](Jekyll.md)
 >* 碰到过的坑
