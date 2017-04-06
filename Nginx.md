@@ -190,3 +190,19 @@ From: http://stackoverflow.com/questions/10631933/nginx-static-file-serving-conf
                 autoindex off;
         }
 ```
+
+----
+
+## 在bash on win10上使用Nginx
+
+与Linux中安装类似，只要`apt-get install nginx`即可，但可能会发现nginx并不正常工作，日志中是这样的：
+
+```
+[alert] 79#0: ioctl(FIOASYNC) failed while spawning "worker process" (22: Invalid argument)
+```
+
+解决方案：在/etc/nginx/nginx.conf中添加一行：
+
+```
+master_process off;
+```

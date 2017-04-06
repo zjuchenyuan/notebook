@@ -222,6 +222,22 @@ include mime.types;
 </code></pre>
 </div>
 
+<hr />
+
+<h2 id="bash-on-win10nginx">在bash on win10上使用Nginx</h2>
+
+<p>与Linux中安装类似，只要<code class="highlighter-rouge">apt-get install nginx</code>即可，但可能会发现nginx并不正常工作，日志中是这样的：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[alert] 79#0: ioctl(FIOASYNC) failed while spawning "worker process" (22: Invalid argument)
+</code></pre>
+</div>
+
+<p>解决方案：在/etc/nginx/nginx.conf中添加一行：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>master_process off;
+</code></pre>
+</div>
+
       </section>
     </div>
 

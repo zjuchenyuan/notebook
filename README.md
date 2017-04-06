@@ -188,6 +188,7 @@
 >* 配置安全的https
 >* 反向代理之替换网页、JS中的文本
 >* root与alias的区别
+>* 在bash on win10上使用Nginx
 
 ## [VirtualBox](Linux-VirtualBox.md)
 >* 下载安装，一定记得安装额外包
