@@ -223,3 +223,19 @@ git blame filename
 ```
 git update-index --assume-unchanged [<file>...]
 ```
+
+## 本地创建branch后push操作git push -u
+
+From: http://stackoverflow.com/questions/2765421/how-do-i-push-a-new-local-branch-to-a-remote-git-repository-and-track-it-too
+
+执行了一些修改引入新功能，但还不能工作，决定建立一个dev分支：
+
+```
+git checkout -b dev
+```
+
+现在再执行`git add`，`git commit`后，需要把新的分支push给远程服务器：
+
+```
+git push -u origin dev
+```

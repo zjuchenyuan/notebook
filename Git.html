@@ -263,6 +263,22 @@ git commit --amend
 </code></pre>
 </div>
 
+<h2 id="branchpushgit-push--u">本地创建branch后push操作git push -u</h2>
+
+<p>From: http://stackoverflow.com/questions/2765421/how-do-i-push-a-new-local-branch-to-a-remote-git-repository-and-track-it-too</p>
+
+<p>执行了一些修改引入新功能，但还不能工作，决定建立一个dev分支：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git checkout -b dev
+</code></pre>
+</div>
+
+<p>现在再执行<code class="highlighter-rouge">git add</code>，<code class="highlighter-rouge">git commit</code>后，需要把新的分支push给远程服务器：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git push -u origin dev
+</code></pre>
+</div>
+
       </section>
     </div>
 
