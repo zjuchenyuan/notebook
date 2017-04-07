@@ -115,6 +115,7 @@
 >* 异常
 >* 使用phantomjs爬取网页
 >* jQuery绑定"变为可见"事件
+>* 读取GET参数
 
 ## [Jekyll](Jekyll.md)
 >* 碰到过的坑
