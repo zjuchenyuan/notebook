@@ -159,3 +159,20 @@ docker run -d --dns 114.114.114.114 --add-host example.com:1.2.3.4 容器名称
 `--memory`限制容器使用的物理内存，当容器超出时，其中的进程会被kill，详细请参考http://blog.opskumu.com/docker-memory-limit.html
 
 `--blkio-weight`表示IO相对权重，详细请参考[http://blog.opskumu.com/docker-io-limit.html](http://blog.opskumu.com/docker-io-limit.html)
+
+----
+
+## 快速部署ftp
+
+vsftpd的配置真是让人头疼，不如`docker search ftp`一番，然后google一下找到对应的Docker Hub页面
+
+https://hub.docker.com/r/stilliard/pure-ftpd/
+
+使用步骤：
+
+```
+docker run -d --name ftpd_server -p 21:21 -p 30000-30009:30000-30009 -e "PUBLICHOST=localhost" -v /path/to/the_ftp_directory:/data stilliard/pure-ftpd:hardened
+docker exec -it ftpd_server /bin/bash
+#进入容器后创建用户
+pure-pw useradd bob -f /etc/pure-ftpd/passwd/pureftpd.passwd -m -u ftpuser -d /data
+```

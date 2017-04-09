@@ -203,6 +203,23 @@ mv /var/lib/docker /home/
 
 <p><code class="highlighter-rouge">--blkio-weight</code>表示IO相对权重，详细请参考<a href="http://blog.opskumu.com/docker-io-limit.html">http://blog.opskumu.com/docker-io-limit.html</a></p>
 
+<hr />
+
+<h2 id="ftp">快速部署ftp</h2>
+
+<p>vsftpd的配置真是让人头疼，不如<code class="highlighter-rouge">docker search ftp</code>一番，然后google一下找到对应的Docker Hub页面</p>
+
+<p>https://hub.docker.com/r/stilliard/pure-ftpd/</p>
+
+<p>使用步骤：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>docker run -d --name ftpd_server -p 21:21 -p 30000-30009:30000-30009 -e "PUBLICHOST=localhost" -v /path/to/the_ftp_directory:/data stilliard/pure-ftpd:hardened
+docker exec -it ftpd_server /bin/bash
+#进入容器后创建用户
+pure-pw useradd bob -f /etc/pure-ftpd/passwd/pureftpd.passwd -m -u ftpuser -d /data
+</code></pre>
+</div>
+
       </section>
     </div>
 
