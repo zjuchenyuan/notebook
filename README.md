@@ -51,6 +51,7 @@
 >* 解决g++省略拷贝构造函数的问题
 >* [数据结构]树的遍历
 >* 对一个const的vector使用迭代器要用const_iterator
+>* 小心未初始化的变量
 
 ## [CDN](CDN.md)
 >* ·UPYUN 又拍云
