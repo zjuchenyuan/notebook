@@ -97,9 +97,7 @@ h1, h2, h3, h4, h5, h6 { font-weight: normal; font-family: Monaco, "Bitstream Ve
 
 dt { font-style: italic; font-weight: bold; }
 
-ul li { list-style: none; }
-
-ul li:before { content: ">>"; font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace; font-size: 13px; color: #b5e853; margin-left: -37px; margin-right: 21px; line-height: 16px; }
+strong { color: red; }
 
 blockquote { color: #aaa; padding-left: 10px; border-left: 1px dotted #666; }
 
