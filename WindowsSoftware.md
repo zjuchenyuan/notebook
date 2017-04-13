@@ -60,3 +60,9 @@ Cloc是一款使用Perl语言开发的开源代码统计工具，支持多平台
 [burpsuite v1.7.11.zip](https://d.py3.io/burpsuite v1.7.11.zip)
 
 使用方法：安装Java，启动后设置监听在所有网卡，导出证书CA.crt发送到手机，手机导入证书，手机忘记Wifi后连接wifi时设置代理，手机启动APP，查看流量咯~
+
+## BEncode Editor
+
+创建/编辑种子信息，做一个勤奋的搬运工...
+
+[BEncode Editor.exe](https://d.py3.io/BEncode%20Editor.exe)
