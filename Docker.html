@@ -113,6 +113,18 @@ docker inspect  --format '{{.NetworkSettings.IPAddress}}' 容器名称
 </code></pre>
 </div>
 
+<h2 id="save">搬运镜像–save导出镜像</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>docker save 镜像名称 | gzip &gt;导出文件名.tar.gz
+</code></pre>
+</div>
+
+<h2 id="load">搬运镜像–load载入镜像</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>docker load 文件名
+</code></pre>
+</div>
+
 <hr />
 
 <h1 id="iptables-failed---no-chiantargetmatch-by-that-name">解决iptables failed - No chian/target/match by that name</h1>

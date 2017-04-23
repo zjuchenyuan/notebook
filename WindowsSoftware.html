@@ -91,6 +91,18 @@
 
 <p><a href="https://d.py3.io/BEncode%20Editor.exe">BEncode Editor.exe</a></p>
 
+<h2 id="win10-windows">Win10 Windows照片查看器</h2>
+
+<p>From: http://www.xitongcheng.com/jiaocheng/win10_article_12240.html</p>
+
+<p>Win+R打开regedit，找到HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Photo Viewer\Capabilities\FileAssociations</p>
+
+<p>右键，新建字符串值，命名为.jpg，值为PhotoViewer.FileAssoc.Tiff</p>
+
+<p>我的情况是原先有.tif和.tiff的，还需要新建这些后缀名.jpeg .bmp .png .gif</p>
+
+<p>创建后再看打开方式就有了Windows照片查看器</p>
+
       </section>
     </div>
 

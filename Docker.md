@@ -73,7 +73,15 @@ docker inspect  --format '{{.NetworkSettings.IPAddress}}' 容器名称
 虽然上一步我们压缩了，但docker可以直接import，不需要用gunzip
 
     docker import 文件名
-    
+
+## 搬运镜像--save导出镜像
+
+    docker save 镜像名称 | gzip >导出文件名.tar.gz
+
+## 搬运镜像--load载入镜像
+
+    docker load 文件名
+
 --------
 
 # 解决iptables failed - No chian/target/match by that name

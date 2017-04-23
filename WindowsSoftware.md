@@ -66,3 +66,15 @@ Cloc是一款使用Perl语言开发的开源代码统计工具，支持多平台
 创建/编辑种子信息，做一个勤奋的搬运工...
 
 [BEncode Editor.exe](https://d.py3.io/BEncode%20Editor.exe)
+
+## Win10 Windows照片查看器
+
+From: http://www.xitongcheng.com/jiaocheng/win10_article_12240.html
+
+Win+R打开regedit，找到HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Photo Viewer\Capabilities\FileAssociations
+
+右键，新建字符串值，命名为.jpg，值为PhotoViewer.FileAssoc.Tiff
+
+我的情况是原先有.tif和.tiff的，还需要新建这些后缀名.jpeg .bmp .png .gif
+
+创建后再看打开方式就有了Windows照片查看器
