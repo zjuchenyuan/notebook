@@ -372,6 +372,17 @@ cat /proc/cpuinfo| grep "processor"| wc -l
 </code></pre>
 </div>
 
+<hr />
+
+<h1 id="section-11">非交互式添加用户</h1>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>useradd username -m
+echo username:password|chpasswd
+</code></pre>
+</div>
+
+<p>添加一个用户名为username的用户并创建home目录，并设置密码为password</p>
+
       </section>
     </div>
 

@@ -308,3 +308,14 @@ cat /proc/cpuinfo| grep "cpu cores"| uniq
 # 查看逻辑CPU的个数
 cat /proc/cpuinfo| grep "processor"| wc -l
 ```
+
+----
+
+# 非交互式添加用户
+
+```
+useradd username -m
+echo username:password|chpasswd
+```
+
+添加一个用户名为username的用户并创建home目录，并设置密码为password
