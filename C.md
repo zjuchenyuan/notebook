@@ -165,3 +165,23 @@ class Nodes{ //存储路径的Nodes
 
 写代码的时候最好声明的时候就立刻初始化，未初始化的变量是未定义行为，可能出现加了个printf就好了，去掉printf就炸了的情况。
 
+----
+
+## 获取文件大小
+
+Learned from: http://blog.csdn.net/chenglibin1988/article/details/8750480
+
+```
+long int get_file_size(char* filename){
+    /*
+     * 使用fseek和ftell获取文件大小，失败时返回-1 
+     */
+    int filesize;
+    FILE* fp = fopen(filename,"rb");
+    if( NULL == fp ) return -1;
+    fseek(fp,0,SEEK_END);
+    filesize = ftell(fp);
+    fclose(fp);
+    return filesize;
+}
+```
