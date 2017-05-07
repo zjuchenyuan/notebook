@@ -16,11 +16,17 @@
 
 ##  并列语句语法
 
+```
 顺序执行 &
+echo a & echo b 
 
 前者正确才执行 &&
+>nul 2>nul ping -n 1 qq.com && echo network ok
 
 前者错误才执行 ||
+>nul 2>nul ping -n 1 qq.com || echo network failure
+
+```
 
 ----
 
@@ -50,7 +56,7 @@
 
 > 微软自己出的一个内存整理工具，需要管理员权限
 
-> exe在[download/empty.exe](download/empty.exe)
+> 下载：[empty.exe](https://d.py3.io/empty.exe)
 
     empty *
 
@@ -58,9 +64,9 @@
 
 ## 睡一会 SleepX
 
-> 程序需要等待一定时间再继续运行就可以sleepx啦
+> 程序需要等待一定时间再继续运行就可以sleepx啦，作者Bill Stewart (bstewart@iname.com)
 
-> exe在[download/SleepX.exe](download/SleepX.exe)，作者Bill Stewart (bstewart@iname.com)
+> 下载：[SleepX.exe](https://d.py3.io/SleepX.exe)
 
     SleepX 10
     
@@ -81,13 +87,15 @@
 
 > **将curl转为python requests** http://curl.trillworks.com/
 
-[下载7.51 x64版本](download/curl.exe)
+[下载7.51 x64版本](https://d.py3.io/curl.exe)
 
 具体请见单独文档[cURL.md](cURL.md)
 
 ----
 
 ## 判断文件夹存在
+
+通过判断nul这个特殊文件的存在性（用户并不能创建文件名形如nul的特殊文件）
 
 ```
 if exist DIRNAME\nul echo Yes!
