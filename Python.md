@@ -78,7 +78,7 @@ import requests
 
 > 直接修改BaseHTTPServer的代码中的一个细节，将BaseHTTPServer类继承的原先只能支持单个请求的SocketServer.TCPServer改为每个连接一个线程的SocketServer.ThreadingTCPServer，使BaseHTTPServer能支持并发而不是一次只能处理单个请求
 
-Python3的方法：
+**Python3的方法：**
 
 在Python3中BaseHTTPServer改名为http.server了，首先找到http.server所在的py文件：
 
@@ -94,7 +94,7 @@ Python3的方法：
 class HTTPServer(socketserver.ThreadingTCPServer):
 ```
 
-Python2的方法：
+**Python2的方法：**
 
 首先找到BaseHTTPServer在哪：
 
@@ -280,6 +280,8 @@ print( b16decode("7079332E696F") ) #output: b'py3.io'
 另外就是post数据的时候必须给出正确的Content-Type，否则服务器不认这个post的
 
 再者就是可能对方有反爬虫措施，加上Referer和User-Agent就好咯
+
+如果需要提交的是json的数据，记得post的data的单双引号要正确，应该用json.dumps的结果去post
 
 如果要做爬虫，欢迎使用我的[EasyLogin](https://github.com/zjuchenyuan/EasyLogin)，无需再操心这些细节，专注于核心爬虫代码
 
