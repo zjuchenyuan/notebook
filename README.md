@@ -81,6 +81,7 @@
 >* 设置容器/etc/resolv.conf和/etc/hosts
 >* 容器限制参数设置
 >* 快速部署ftp
+>* 快速部署wordpress
 
 ## [Favorites](Favorites.md)
 >* Intel i386 手册 及 勘误

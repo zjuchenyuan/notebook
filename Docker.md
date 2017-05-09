@@ -184,3 +184,104 @@ docker exec -it ftpd_server /bin/bash
 #进入容器后创建用户
 pure-pw useradd bob -f /etc/pure-ftpd/passwd/pureftpd.passwd -m -u ftpuser -d /data
 ```
+
+----
+
+## 快速部署wordpress
+
+想搭建一个自己的blog，选择玩一玩wordpress咯，这里记录一下完整的流程和遇到的问题及解决方案(Google在手 天下我有)
+
+技术相关： Docker Nginx HTTPS 
+
+目标： 快速搭建一个全站https的wordpress站点，域名为example.com
+
+### 完整流程：
+
+1. 前期准备:域名+vps
+
+注册域名 如果面向国内访问，还需要备案咯； 别忘了配置DNS解析；
+
+买个vps服务器，建议选择香港vps
+
+{:start="2"}
+2. 安装Docker和Nginx，都是一条命令的事情
+
+```
+curl -sSL https://get.docker.com/ | sh
+apt-get install nginx
+```
+
+{:start="3"}
+3. 启动一个mysql的镜像：
+
+```
+# Google搜索关键词 "docker mysql"
+docker run --name mysql -e MYSQL_ROOT_PASSWORD=这里改成你想设置的密码 -d mysql
+# Google搜索关键词 "docker wordpress"
+docker run --name wp --link mysql:mysql -p 6666:80 -d wordpress
+```
+
+{:start="4"}
+4. 域名https证书获取以及启用https访问，此部分具体见[Nginx.md](Nginx.md)中`获得Let's encrypt免费https证书`和`配置安全的https`部分
+
+5. 配置Nginx，完整配置如下：
+
+```
+server{
+    server_name *.example.com example.com;
+    location /.well-known/acme-challenge { #这是let's encrypt申请证书的时候用到的目录
+        alias /tmp/acme/;
+        try_files $uri =404;
+    }
+    location /{
+        rewrite ^ https://$host$request_uri? permanent;
+    }
+}
+server{
+    server_name *.example.com example.com;
+    include https.conf;
+    access_log /var/log/nginx/example_access.log;
+    error_log /var/log/nginx/example_error.log;
+    ssl_certificate /home/keys/example.crt;
+    ssl_certificate_key /home/keys/example.key;
+    location / {
+        proxy_pass http://127.0.0.1:6666;
+        proxy_set_header Host $host;
+        proxy_set_header Accept-Encoding ""; #禁止后端返回gzip内容，保证能够替换
+        sub_filter_once off; #多次替换 不只是替换一次
+        sub_filter "http://www.example.com" "https://www.example.com";
+    }
+}
+```
+
+### 遇到的坑
+
+1. docker run的时候忘记-p参数
+
+建议还是把端口映射出来，在容器重启后容器的内网IP是会发生变化的，不适合将172.17.0.*这种IP写入nginx配置
+
+此时我选择了`docker rm -f 容器ID`强制删掉容器，再用加上了-p参数启动了一个
+
+{:start="2"}
+2. 全站https
+
+虽然我的https.conf中定义了HSTS，浏览器也确实会把所有的请求都自动用https协议访问，但是还是由于form的action为http协议而警告不安全(在Chrome开发人员工具的Console看到)，也没有小绿锁显示。所以要保证服务器输出给浏览器的内容就是https的链接
+
+一开始选择了官方wordpress的方法(Google关键词"wordpress https")，结果导致了下文第三点的折腾
+
+最终选择的方案是在nginx反向代理的时候替换文本内容，使用sub_filter这个模块进行文本内容替换
+
+遇到了问题，这个sub_filter不起作用，(Google关键词 "sub_filter not working")原因是容器返回的内容启用了gzip，无法替换，方法是加入一行配置禁止容器的Apache使用gzip: proxy_set_header Accept-Encoding "";
+
+参考：
+
+http://stackoverflow.com/questions/31893211/http-sub-module-sub-filter-of-nginx-and-reverse-proxy-not-working
+
+{:start="3"}
+3. 由于在后台修改了Wordpress Address和Site Address改为https的链接，导致后台无法打开，重定向死循环
+
+解决方案是进入mysql容器手动修改，把进行的修改改回去
+
+问题在于我也并不知道改了啥，在终端mysql`select * from wp_options;`有些行太长导致关键内容刷屏而过，不方便查看表
+
+我的方法是先`mysqldump -p密码 wordpress >test.sql`，再用nano打开test.sql，用Ctrl+W搜索https（Google关键词"nano search"），把对应的地方找到改回http，保存后用`mysql -p密码 wordpress < test.sql`导入数据库 完事~
