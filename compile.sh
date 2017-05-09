@@ -8,15 +8,17 @@ cp doc/python/quickstart.html ./
 python3 << PYTHON
 import os
 import re
+import requests
+star_count = requests.get("https://api.github.com/repos/zjuchenyuan/notebook").json()["stargazers_count"]
 replace_css=re.compile(r'/assets/css/style.css\?v=.*"')
 for filename in os.listdir("."):
     if filename.endswith(".html"):
         if filename in ("p.html","quickstart.html"):
             continue
         data = open(filename,encoding='utf-8').read()
-        data = replace_css.sub('assets/css/style.css"',data)
-        if filename != "index.html":
-            data = data.replace("View on GitHub</a>","""View on GitHub</a>&nbsp;<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>""")
+        data = replace_css.sub('assets/css/style.css?20170509"',data)
+        data = data.replace("http://github.com","https://github.com")
+        data = data.replace("View on GitHub</a>","""Star me on GitHub ({star_count})</a>&nbsp;{back_html}""".format(star_count=star_count,back_html="""<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>""" if filename != "index.html" else ""))
         if filename == "Python.html":
             data = data.replace('<span class="err">','<span class="s">')
         data = data.replace("</html>","""<script src="https://py3.io/assets/instantclick.min.js"></script><script data-no-instant>InstantClick.init();</script></html>""")
