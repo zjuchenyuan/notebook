@@ -51,3 +51,13 @@ GitHub Metadata: No GitHub API authentication could be found. Some fields may be
 ```bash
 export JEKYLL_GITHUB_TOKEN='abc123'
 ```
+
+## 解决Markdown有序列表被文字间隔的问题
+
+参考： http://stackoverflow.com/questions/18088955/markdown-continue-numbered-list
+
+在写3. 之前加入相应的编号控制：
+
+```
+{:start="3"}
+```
