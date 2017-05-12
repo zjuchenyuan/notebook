@@ -16,7 +16,7 @@
 
         <section id="downloads">
           
-          <a href="https://github.com/zjuchenyuan/notebook" class="btn btn-github"><span class="icon"></span>Star me on GitHub (26)</a>&nbsp;<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>
+          <a href="https://github.com/zjuchenyuan/notebook/blob/master/Linux-VirtualBox.md" class="btn btn-github"><span class="icon"></span>Star me on GitHub (26)</a>&nbsp;<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>
         </section>
       </div>
     </header>
@@ -90,7 +90,7 @@ VBoxManage createvdi  --filename centos/disk.vdi --size 2048 # 2GB
 VBoxManage storagectl centos --name storage_controller_1 --add ide
 VBoxManage storageattach centos --storagectl storage_controller_1 --type hdd --port 0 --device 0  --medium centos/disk.vdi
 VBoxManage storageattach centos --storagectl storage_controller_1 --type dvddrive --port 1 --device 0 --medium /root/CentOS-6.8-i386-minimal.iso
-#允许多个客户端连接
+#配置CPU和内存限制，光驱启动，允许多个客户端连接
 VBoxManage modifyvm centos --cpus 1 --memory 512 --acpi on --boot1 dvd --nic1 nat --cableconnected1 on --vrde on --vrdeport 13389 --vrdemulticon on
 </code></pre>
 </div>
@@ -112,7 +112,8 @@ VBoxManage closemedium centos/disk.vdi
 rm centos/disk.vdi
 </code></pre>
 </div>
-<p>## 运行条件下修改端口映射</p>
+
+<h2 id="section-6">运行条件下修改端口映射</h2>
 
 <div class="highlighter-rouge"><pre class="highlight"><code># 首先通过mstsc物理接触虚拟机，确认ifconfig已经得到ip
 # 否则需要在虚拟机中执行 ifconfig -a 查看网卡，执行 dhclient eth0 获得ip
@@ -123,7 +124,7 @@ VBoxManage controlvm 虚拟机名称 natpf1 ssh,tcp,,10022,,22
 </code></pre>
 </div>
 
-<h2 id="section-6">运行条件下关闭远程控制</h2>
+<h2 id="section-7">运行条件下关闭远程控制</h2>
 
 <p>系统安装好了，SSH开了，SSH的端口映射可以连上去了，就可以关掉远程控制了</p>
 

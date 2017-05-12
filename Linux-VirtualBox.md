@@ -56,7 +56,7 @@ VBoxManage createvdi  --filename centos/disk.vdi --size 2048 # 2GB
 VBoxManage storagectl centos --name storage_controller_1 --add ide
 VBoxManage storageattach centos --storagectl storage_controller_1 --type hdd --port 0 --device 0  --medium centos/disk.vdi
 VBoxManage storageattach centos --storagectl storage_controller_1 --type dvddrive --port 1 --device 0 --medium /root/CentOS-6.8-i386-minimal.iso
-#允许多个客户端连接
+#配置CPU和内存限制，光驱启动，允许多个客户端连接
 VBoxManage modifyvm centos --cpus 1 --memory 512 --acpi on --boot1 dvd --nic1 nat --cableconnected1 on --vrde on --vrdeport 13389 --vrdemulticon on
 ```
 
@@ -77,6 +77,7 @@ VBoxManage storageattach centos --storagectl storage_controller_1 --type hdd --p
 VBoxManage closemedium centos/disk.vdi
 rm centos/disk.vdi
 ```
+
 ## 运行条件下修改端口映射
 
 ```

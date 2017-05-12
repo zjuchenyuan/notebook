@@ -1,10 +1,6 @@
 # zjuchenyuan's Notebook
 
-我的技术笔记本，为了自己后来方便查询多做点记录吧，开源出来也许更有价值~
-
-包含Docker, Nginx, MySQL, CDN, Python, VirtualBox, C++, BAT等方面的笔记
-
-本网站编译命令参见[compile.sh](compile.sh)
+My notebook about technology, for lookup and share
 
 # 目录
 
@@ -12,14 +8,14 @@
 >* [语言勾勒QuickStart](quickstart.html)
 >* 设置pip源
 >* 反弹shell 获得tty
->* 让requests使用多个IP
+>* requests使用多IP请求
 >* [Python多线程模板](code/MultiThread_Template.py)
 >* http.server（BaseHTTPServer）并发性改善
 >* 无root权限安装Python
 >* 中文输出乱码问题解决
 >* pycodestyle检查代码风格
 >* 生成随机字符串
->* 大数据判断in
+>* 别对大的list循环使用in，应该改用set
 >* 解决Python.h: No such file or directory
 >* 二进制字符串转普通字符串
 >* 十六进制字符串转bytes字符串
@@ -27,9 +23,9 @@
 >* 用requests进行post
 >* 通过tkinter获取/修改剪贴板
 >* 符号数与无符号数转换
->* 使用signal.SIGALRM在限定时间后退出进程 (only Linux)
+>* 使用signal.SIGALRM在限定时间后退出进程
 >* 捕捉用户的Ctrl+C
->* 使用signal.SIGALRM实现定时器 (only Linux)
+>* 使用signal.SIGALRM实现定时器
 >* 使用pdb进行调试
 >* [机器学习-决策树](code/decisiontree.py)
 
@@ -49,7 +45,7 @@
 >* 关于Dev C++
 >* 输入的问题，建议用gets和sscanf
 >* C++用sstream代替sprintf
->* 解决g++省略拷贝构造函数的问题
+>* g++省略拷贝构造函数的问题
 >* [数据结构]树的遍历
 >* 对一个const的vector使用迭代器要用const_iterator
 >* 小心未初始化的变量
@@ -190,6 +186,7 @@
 >* replace函数替换文本
 
 ## [Nginx](Nginx.md)
+>* Nginx思考题
 >* 普通资源允许POST
 >* 不带后缀的文件当成php执行
 >* 获得Let's encrypt免费https证书
