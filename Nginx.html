@@ -16,7 +16,7 @@
 
         <section id="downloads">
           
-          <a href="https://github.com/zjuchenyuan/notebook" class="btn btn-github"><span class="icon"></span>Star me on GitHub (25)</a>&nbsp;<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>
+          <a href="https://github.com/zjuchenyuan/notebook" class="btn btn-github"><span class="icon"></span>Star me on GitHub (26)</a>&nbsp;<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>
         </section>
       </div>
     </header>
@@ -26,6 +26,53 @@
         <h1 id="nginx">Nginx</h1>
 
 <p>记录用到的配置，说不定你也能遇到这些特殊需求呢~</p>
+
+<h2 id="nginx-1">Nginx配置快速入门</h2>
+
+<p>请以批判的眼光阅读以下链接或者自行google，回答以下问题：</p>
+
+<p>http://www.nginx.cn/591.html</p>
+
+<ol>
+  <li>
+    <p>nginx.conf在你Linux的什么目录下？用什么命令知道的？修改配置后通过什么命令重新载入配置？</p>
+  </li>
+  <li>
+    <p>nginx.conf分为几个部分？我们需要关注的是哪个？</p>
+  </li>
+  <li>
+    <p>nginx.conf中怎么表示注释行？是否留意到include的行载入了额外的配置文件？</p>
+  </li>
+  <li>
+    <p>如何增加一个虚拟主机，根据域名来区分访问不同的网站？访问者直接访问IP或者错误的域名会匹配到默认网站，怎么配置默认网站？</p>
+  </li>
+  <li>
+    <p>静态内容：root与alias有何区别？访问403了怎么办？</p>
+  </li>
+  <li>
+    <p>动态内容/反向代理：如何做负载均衡、文本替换？</p>
+  </li>
+  <li>
+    <p>全站https和HTTP/2.0怎么配置？</p>
+  </li>
+</ol>
+
+<p>另外还可以思考更为进阶/发散的问题：</p>
+
+<ol>
+  <li>
+    <p>Nginx是否有必要作为一个Docker容器运行？CentOS下Nginx镜像很大，怎么<a href="https://www.v2ex.com/t/360759">减小镜像大小</a>？</p>
+  </li>
+  <li>
+    <p>Nginx的worker进程一般不是root权限的，那是怎么监听到80端口的？</p>
+  </li>
+  <li>
+    <p>Nginx在处理高并发的时候参数如何调优？</p>
+  </li>
+  <li>
+    <p>如何在Nginx层面拦截sql注入、密码爆破等安全风险？<a href="https://github.com/alexazhou/VeryNginx">VeryNginx</a></p>
+  </li>
+</ol>
 
 <h2 id="post">普通资源允许POST</h2>
 
