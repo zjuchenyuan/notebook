@@ -212,6 +212,10 @@ My notebook about technology, for lookup and share
 >* BEncode Editor
 >* Win10 Windows照片查看器
 
+## [PHP](PHP.md)
+>* 显示错误信息
+>* 全页面iframe
+
 ## [Developer](Developer.md)
 >* 保持技术精进
 >* 如何明智地向程序员提问
