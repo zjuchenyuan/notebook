@@ -114,3 +114,29 @@ update `content` set value=replace(value,"original content","replaced content");
 
 注意replace不要反引号
 
+----
+
+# 简单的split功能，文本转数字
+
+表的设计违背了一列只存放一种数据的原则，搞出了这样一个Text类型的列(假设为info)，格式为"用户名: 数值"
+
+现在需要将数值从这一列中提取出来，并转为int类型
+
+```
+convert (
+	substr(
+		`info`,
+		locate(':', `info`) + 2
+	),
+	unsigned integer
+)
+```
+
+Google关键词：`mysql split string`,`mysql string to int`
+
+参考：
+
+https://stackoverflow.com/questions/14950466/how-to-split-the-name-string-in-mysql
+
+https://stackoverflow.com/questions/5960620/convert-text-into-number-in-mysql-query
+

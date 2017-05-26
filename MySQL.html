@@ -145,6 +145,32 @@ max_heap_table_size = 256M // 内存表大小
 
 <p>注意replace不要反引号</p>
 
+<hr />
+
+<h1 id="split">简单的split功能，文本转数字</h1>
+
+<p>表的设计违背了一列只存放一种数据的原则，搞出了这样一个Text类型的列(假设为info)，格式为”用户名: 数值”</p>
+
+<p>现在需要将数值从这一列中提取出来，并转为int类型</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>convert (
+	substr(
+		`info`,
+		locate(':', `info`) + 2
+	),
+	unsigned integer
+)
+</code></pre>
+</div>
+
+<p>Google关键词：<code class="highlighter-rouge">mysql split string</code>,<code class="highlighter-rouge">mysql string to int</code></p>
+
+<p>参考：</p>
+
+<p>https://stackoverflow.com/questions/14950466/how-to-split-the-name-string-in-mysql</p>
+
+<p>https://stackoverflow.com/questions/5960620/convert-text-into-number-in-mysql-query</p>
+
 
       </section>
     </div>
