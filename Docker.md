@@ -80,7 +80,7 @@ docker inspect  --format '{{.NetworkSettings.IPAddress}}' 容器名称
 
 ## 搬运镜像--load载入镜像
 
-    docker load 文件名
+    docker load < 文件名
 
 --------
 
