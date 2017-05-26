@@ -319,3 +319,73 @@ echo username:password|chpasswd
 ```
 
 添加一个用户名为username的用户并创建home目录，并设置密码为password
+
+----
+
+# 简单OpenVPN配置
+
+一个最最简单的场景：只有一个服务器 一个客户端，在容器中用来给用户直接访问的一个内网IP
+
+参考：https://openvpn.net/index.php/open-source/documentation/miscellaneous/78-static-key-mini-howto.html
+
+## 安装openvpn:
+
+Linux:
+
+```
+apt-get install openvpn
+```
+
+Windows:
+
+[openvpn.exe](https://d.py3.io/openvpn.exe)
+
+## 生成密钥
+
+```
+openvpn --genkey --secret static.key
+```
+
+用另外建立的安全通道(SSH)将static.key发给客户端
+
+## 服务端配置
+
+```
+ifconfig 10.8.0.1 10.8.0.2
+secret /static.key
+keepalive 10 60
+persist-key
+persist-tun
+proto udp
+port 1194
+dev tun0
+status /tmp/openvpn-status.log
+
+user nobody
+group nogroup
+```
+
+## 客户端配置
+
+```
+
+remote 这里是你的服务器IP 这里是你的服务器端口 udp
+dev tun
+ifconfig 10.8.0.2 10.8.0.1
+secret static.key
+```
+
+## 在Docker中使用服务端
+
+参考：https://raw.githubusercontent.com/kylemanna/docker-openvpn/master/bin/ovpn_run
+
+运行容器的时候一定要给参数`--cap-add=NET_ADMIN`
+
+另外还需要在容器中执行：
+
+```
+mkdir -p /dev/net
+if [ ! -c /dev/net/tun ]; then
+    mknod /dev/net/tun c 10 200
+fi
+```
