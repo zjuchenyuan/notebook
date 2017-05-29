@@ -82,6 +82,7 @@ My notebook about technology, for lookup and share
 ## [Favorites](Favorites.md)
 >* Intel i386 手册 及 勘误
 >* ASCII字符图案生成
+>* [More Links](Links.md)
 
 ## [Git](Git.md)
 >* 立即使用
