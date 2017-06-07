@@ -16,7 +16,7 @@
 
         <section id="downloads">
           
-          <a href="https://github.com/zjuchenyuan/notebook/blob/master/Python.md" class="btn btn-github"><span class="icon"></span>Star me on GitHub (27)</a>&nbsp;<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>
+          <a href="https://github.com/zjuchenyuan/notebook/blob/master/Python.md" class="btn btn-github"><span class="icon"></span>Star me on GitHub (29)</a>&nbsp;<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>
         </section>
       </div>
     </header>
@@ -288,7 +288,14 @@ ans=binascii.unhexlify('%x'%int(s,2))
 
 <div class="highlighter-rouge"><pre class="highlight"><code>from base64 import b16encode,b16decode
 print( b16encode(b'py3.io').decode() ) #output: 7079332E696F
-print( b16decode("7079332E696F") ) #output: b'py3.io'
+print( b16decode("7079332E696F".upper()) ) #output: b'py3.io', 这里使用upper转大写
+</code></pre>
+</div>
+
+<p>相应的，拿到一个十进制数，转字符串：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>key = 5287002131074331513
+print( b16decode( hex(key)[2:].upper() ) )#output: b'I_4m-k3y'
 </code></pre>
 </div>
 

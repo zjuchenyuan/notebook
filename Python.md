@@ -254,7 +254,14 @@ ans=binascii.unhexlify('%x'%int(s,2))
 ```
 from base64 import b16encode,b16decode
 print( b16encode(b'py3.io').decode() ) #output: 7079332E696F
-print( b16decode("7079332E696F") ) #output: b'py3.io'
+print( b16decode("7079332E696F".upper()) ) #output: b'py3.io', 这里使用upper转大写
+```
+
+相应的，拿到一个十进制数，转字符串：
+
+```
+key = 5287002131074331513
+print( b16decode( hex(key)[2:].upper() ) )#output: b'I_4m-k3y'
 ```
 
 ----

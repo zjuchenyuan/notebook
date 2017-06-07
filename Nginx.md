@@ -238,3 +238,13 @@ From: http://stackoverflow.com/questions/10631933/nginx-static-file-serving-conf
 ```
 master_process off;
 ```
+
+----
+
+## 使上一级服务知道用户IP
+
+```
+proxy_set_header realip $remote_addr;
+```
+
+这样设置后，Nginx反向代理上一级服务会加上realip这个头，从而传递用户真实的IP（如果是代理则是代理的IP）

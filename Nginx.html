@@ -16,7 +16,7 @@
 
         <section id="downloads">
           
-          <a href="https://github.com/zjuchenyuan/notebook/blob/master/Nginx.md" class="btn btn-github"><span class="icon"></span>Star me on GitHub (27)</a>&nbsp;<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>
+          <a href="https://github.com/zjuchenyuan/notebook/blob/master/Nginx.md" class="btn btn-github"><span class="icon"></span>Star me on GitHub (29)</a>&nbsp;<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>
         </section>
       </div>
     </header>
@@ -284,6 +284,16 @@ include mime.types;
 <div class="highlighter-rouge"><pre class="highlight"><code>master_process off;
 </code></pre>
 </div>
+
+<hr />
+
+<h2 id="ip">使上一级服务知道用户IP</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>proxy_set_header realip $remote_addr;
+</code></pre>
+</div>
+
+<p>这样设置后，Nginx反向代理上一级服务会加上realip这个头，从而传递用户真实的IP（如果是代理则是代理的IP）</p>
 
       </section>
     </div>
