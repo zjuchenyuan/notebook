@@ -365,6 +365,20 @@ user nobody
 group nogroup
 ```
 
+在 Ubuntu 中，如果要配置成系统服务的形式，将其保存到/etc/openvpn/myvpn.conf
+
+然后这样启动它：
+
+```
+service openvpn@myvpn start
+```
+
+这样设置开机自启
+
+```
+systemctl enable openvpn@myvpn.service
+```
+
 ## 客户端配置
 
 ```

@@ -428,6 +428,20 @@ group nogroup
 </code></pre>
 </div>
 
+<p>在 Ubuntu 中，如果要配置成系统服务的形式，将其保存到/etc/openvpn/myvpn.conf</p>
+
+<p>然后这样启动它：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>service openvpn@myvpn start
+</code></pre>
+</div>
+
+<p>这样设置开机自启</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>systemctl enable openvpn@myvpn.service
+</code></pre>
+</div>
+
 <h2 id="section-14">客户端配置</h2>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>
