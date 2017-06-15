@@ -285,3 +285,13 @@ http://stackoverflow.com/questions/31893211/http-sub-module-sub-filter-of-nginx-
 问题在于我也并不知道改了啥，在终端mysql`select * from wp_options;`有些行太长导致关键内容刷屏而过，不方便查看表
 
 我的方法是先`mysqldump -p密码 wordpress >test.sql`，再用nano打开test.sql，用Ctrl+W搜索https（Google关键词"nano search"），把对应的地方找到改回http，保存后用`mysql -p密码 wordpress < test.sql`导入数据库 完事~
+
+----
+
+## Dockerfile 中的 apt-get
+
+为了让 apt-get 顺利静默执行，需要配置环境变量防止交互：
+
+```
+DEBIAN_FRONTEND=noninteractive apt-get install -y ...
+```

@@ -345,6 +345,16 @@ server{
 
 <p>我的方法是先<code class="highlighter-rouge">mysqldump -p密码 wordpress &gt;test.sql</code>，再用nano打开test.sql，用Ctrl+W搜索https（Google关键词”nano search”），把对应的地方找到改回http，保存后用<code class="highlighter-rouge">mysql -p密码 wordpress &lt; test.sql</code>导入数据库 完事~</p>
 
+<hr />
+
+<h2 id="dockerfile--apt-get">Dockerfile 中的 apt-get</h2>
+
+<p>为了让 apt-get 顺利静默执行，需要配置环境变量防止交互：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>DEBIAN_FRONTEND=noninteractive apt-get install -y ...
+</code></pre>
+</div>
+
       </section>
     </div>
 
