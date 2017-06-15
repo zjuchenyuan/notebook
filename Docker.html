@@ -115,13 +115,29 @@ docker inspect  --format '{{.NetworkSettings.IPAddress}}' 容器名称
 
 <h2 id="save">搬运镜像–save导出镜像</h2>
 
+<p>由于网络带宽(流量)往往是瓶颈资源，所以产生更小的压缩文件很有必要，这里我们可以生成 tar.7z 文件：<code class="highlighter-rouge">apt-get install -y p7zip-full</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>docker save 镜像名称 | 7z a -si 导出文件名.tar.7z
+</code></pre>
+</div>
+
+<p>这是生成tar.gz文件：</p>
+
 <div class="highlighter-rouge"><pre class="highlight"><code>docker save 镜像名称 | gzip &gt;导出文件名.tar.gz
 </code></pre>
 </div>
 
 <h2 id="load">搬运镜像–load载入镜像</h2>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>docker load &lt; 文件名
+<p>如果是 tar.7z 文件，需要调用 7z 命令解压：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>7z x -so 文件名.tar.7z | docker load
+</code></pre>
+</div>
+
+<p>如果是 tar.gz 文件，可以直接载入：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>docker load &lt; 文件名.tar.gz
 </code></pre>
 </div>
 
