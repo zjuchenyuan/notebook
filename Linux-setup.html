@@ -467,6 +467,24 @@ fi
 </code></pre>
 </div>
 
+<hr />
+
+<h1 id="section-15">时区时间设置</h1>
+
+<p>参考：http://liumissyou.blog.51cto.com/4828343/1302050</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>cp /etc/localtime /etc/localtime.bak
+ln -svf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+echo "TZ='Asia/Shanghai'"&gt;&gt;~/.bashrc
+</code></pre>
+</div>
+
+<p>修改时间可以用：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>date -s "2017-06-18 16:40:00"
+</code></pre>
+</div>
+
       </section>
     </div>
 

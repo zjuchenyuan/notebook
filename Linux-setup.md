@@ -403,3 +403,21 @@ if [ ! -c /dev/net/tun ]; then
     mknod /dev/net/tun c 10 200
 fi
 ```
+
+----
+
+# 时区时间设置
+
+参考：http://liumissyou.blog.51cto.com/4828343/1302050
+
+```
+cp /etc/localtime /etc/localtime.bak
+ln -svf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+echo "TZ='Asia/Shanghai'">>~/.bashrc
+```
+
+修改时间可以用：
+
+```
+date -s "2017-06-18 16:40:00"
+```
