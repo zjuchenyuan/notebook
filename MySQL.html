@@ -35,9 +35,9 @@
 
 <p>查看能用的引擎：<strong>show engines</strong></p>
 
-<h2 id="section-1">创建一个这样的表：</h2>
+<h2 id="merge-1">创建一个MERGE表：</h2>
 
-<p>假设有a,b表，他们的结构完全相同，然后就可以建立一个c表和他们的ddl完全一致</p>
+<p>假设有a,b表，他们的结构完全相同，然后就可以建立一个c表，注意这个表的定义要与a和b表完全一致</p>
 
 <div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="k">drop</span> <span class="k">table</span> <span class="n">if</span> <span class="k">exists</span> <span class="k">data</span><span class="p">;</span>
 <span class="k">CREATE</span> <span class="k">TABLE</span> <span class="k">c</span> <span class="p">(</span>
@@ -50,15 +50,15 @@
 
 <p>特点：</p>
 
-<p>这种表不会创建索引，比视图速度更快；</p>
+<p>这种表不会创建额外的索引，但查询起来比视图速度更快；</p>
 
-<p>但不能在这种表上建立全文索引</p>
+<p>不能在这种表上建立全文索引</p>
 
 <hr />
 
-<h1 id="section-2">删除表的冗余</h1>
+<h1 id="section-1">删除表的冗余</h1>
 
-<p>两行只有一列(gettime)不同，删除其中一行</p>
+<p>两行只有一列(这里假设为 gettime )不同，删除其中一行</p>
 
 <div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="k">delete</span> <span class="n">t1</span> <span class="k">from</span> <span class="n">t</span> <span class="k">as</span> <span class="n">t1</span><span class="p">,</span> <span class="n">t</span> <span class="k">as</span> <span class="n">t2</span> <span class="k">where</span>
     <span class="n">t1</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">t2</span><span class="p">.</span><span class="n">id</span> <span class="k">and</span>
@@ -84,7 +84,7 @@
 
 <hr />
 
-<h1 id="section-3">将中文转为拼音 函数</h1>
+<h1 id="section-2">将中文转为拼音 函数</h1>
 
 <p>代码在<a href="code/pinyin.sql">code/pinyin.sql</a></p>
 
@@ -104,7 +104,7 @@
 
 <hr />
 
-<h1 id="section-4">查询优化</h1>
+<h1 id="section-3">查询优化</h1>
 
 <h2 id="explainusing-filesort">explain发现出现了using filesort</h2>
 
@@ -116,7 +116,7 @@
 
 <p>group by用了两个列，两列要合在一起创建索引</p>
 
-<h2 id="section-5">内存表索引的选择</h2>
+<h2 id="section-4">内存表索引的选择</h2>
 
 <blockquote>
   <p>参考 https://dev.mysql.com/doc/refman/5.5/en/optimizing-memory-tables.html</p>
