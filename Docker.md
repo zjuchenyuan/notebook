@@ -54,7 +54,8 @@ modprobe aufs
 
 ```
 {% raw %}
-docker inspect  --format '{{.NetworkSettings.IPAddress}}' 容器名称
+alias getip="docker inspect  --format '{{.NetworkSettings.IPAddress}}' "
+getip 容器名称
 {% endraw %}
 ```
 
