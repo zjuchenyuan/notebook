@@ -318,3 +318,12 @@ for i in {1..79}; do convert $i.png -crop 300x280+30+0 $i.png; done
 
 其中使用了printf命令，可以使得1变成人家url需要的001
 
+----
+
+# 查找0字节的文件并删除
+
+```
+find . -size 0 -delete
+```
+
+查找大于100M的文件：`find . -size +100M`

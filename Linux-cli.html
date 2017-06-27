@@ -356,6 +356,15 @@ for i in {1..79}; do convert $i.png -crop 300x280+30+0 $i.png; done
 
 <p>其中使用了printf命令，可以使得1变成人家url需要的001</p>
 
+<hr />
+
+<h1 id="section-12">查找0字节的文件并删除</h1>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>find . -size 0 -delete
+</code></pre>
+</div>
+
+<p>查找大于100M的文件：<code class="highlighter-rouge">find . -size +100M</code></p>
 
       </section>
     </div>
