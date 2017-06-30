@@ -2,6 +2,8 @@
 
 一点关于C的建议咯，也包含C++
 
+顺带附上几个题目和我写的解答
+
 ----
 
 ## 关于Dev C++
@@ -187,3 +189,79 @@ long int get_file_size(char* filename){
     return filesize;
 }
 ```
+
+
+----
+
+## C程习题解答
+
+学习一下各种坑爹的题目也是很不错的嘛（其实我就是为了把我的解析发上来。。。
+
+### 1.结构指针
+
+#### 题目
+
+```
+对于以下结构定义，p->str++中的++加在____。
+struct {int len; char *str}*p;
+A.指针str上     B.指针p上    C.str指向的内容上   D.语法错误
+```
+
+#### 答案
+
+D
+
+#### 一句话解释
+
+你再仔细看看？是不是少了个分号？
+
+#### 详细解释
+
+这个题目这么写编译存在语法问题的，而且运行也会炸
+
+你试试复制到Dev C++编译看看？
+
+```
+[Error] expected ';' at end of member declaration
+```
+
+这个错误很显然的嘛，缺少了分号，正确写法：
+
+```
+struct {int len; char *str;} *p;
+```
+
+#### 这就够了吗？
+
+p是一个指针，对指针使用->运算符之前必须要给指针一个空间(正确的值)，否则就会导致*null而炸掉23333
+
+另外 这个struct没有名字，也就意味着无法给他赋值，不能被赋值的指针有什么用呢？
+
+正确的写法如下：
+
+```
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+int main(){
+    char string[666]="abcd"; //准备一个字符串
+    struct name {int len; char *str;} s;//首先要给struct取一个名字name，顺带用这个名字创建一个实例s
+    s.str = string; //对这个实例的str赋值为string的地址
+    struct name *p = &s; //然后是用struct name来创建一个指向结构的指针p
+    p->str++;//相当于s的str++了，str原来指向"abcd"字符串的'a'，现在指向'b'
+    puts(p->str);//输出bcd
+}
+```
+
+#### 回顾一下
+
+1. struct必须要有一个名字
+
+2. struct大括号中的每一项都必须**以分号结尾**
+
+3. 使用指针取值 如`*p` , `p->something`之前指针的值必须设置好
+
+4. 遇到不会的题目，为啥不自己问问编译器呢？
+
+
+

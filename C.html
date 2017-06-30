@@ -27,6 +27,8 @@
 
 <p>一点关于C的建议咯，也包含C++</p>
 
+<p>顺带附上几个题目和我写的解答</p>
+
 <hr />
 
 <h2 id="dev-c">关于Dev C++</h2>
@@ -220,6 +222,86 @@ class Nodes{ //存储路径的Nodes
 }
 </code></pre>
 </div>
+
+<hr />
+
+<h2 id="c">C程习题解答</h2>
+
+<p>学习一下各种坑爹的题目也是很不错的嘛（其实我就是为了把我的解析发上来。。。</p>
+
+<h3 id="section-7">1.结构指针</h3>
+
+<h4 id="section-8">题目</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>对于以下结构定义，p-&gt;str++中的++加在____。
+struct {int len; char *str}*p;
+A.指针str上     B.指针p上    C.str指向的内容上   D.语法错误
+</code></pre>
+</div>
+
+<h4 id="section-9">答案</h4>
+
+<p>D</p>
+
+<h4 id="section-10">一句话解释</h4>
+
+<p>你再仔细看看？是不是少了个分号？</p>
+
+<h4 id="section-11">详细解释</h4>
+
+<p>这个题目这么写编译存在语法问题的，而且运行也会炸</p>
+
+<p>你试试复制到Dev C++编译看看？</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[Error] expected ';' at end of member declaration
+</code></pre>
+</div>
+
+<p>这个错误很显然的嘛，缺少了分号，正确写法：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>struct {int len; char *str;} *p;
+</code></pre>
+</div>
+
+<h4 id="section-12">这就够了吗？</h4>
+
+<p>p是一个指针，对指针使用-&gt;运算符之前必须要给指针一个空间(正确的值)，否则就会导致*null而炸掉23333</p>
+
+<p>另外 这个struct没有名字，也就意味着无法给他赋值，不能被赋值的指针有什么用呢？</p>
+
+<p>正确的写法如下：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+int main(){
+    char string[666]="abcd"; //准备一个字符串
+    struct name {int len; char *str;} s;//首先要给struct取一个名字name，顺带用这个名字创建一个实例s
+    s.str = string; //对这个实例的str赋值为string的地址
+    struct name *p = &amp;s; //然后是用struct name来创建一个指向结构的指针p
+    p-&gt;str++;//相当于s的str++了，str原来指向"abcd"字符串的'a'，现在指向'b'
+    puts(p-&gt;str);//输出bcd
+}
+</code></pre>
+</div>
+
+<h4 id="section-13">回顾一下</h4>
+
+<ol>
+  <li>
+    <p>struct必须要有一个名字</p>
+  </li>
+  <li>
+    <p>struct大括号中的每一项都必须<strong>以分号结尾</strong></p>
+  </li>
+  <li>
+    <p>使用指针取值 如<code class="highlighter-rouge">*p</code> , <code class="highlighter-rouge">p-&gt;something</code>之前指针的值必须设置好</p>
+  </li>
+  <li>
+    <p>遇到不会的题目，为啥不自己问问编译器呢？</p>
+  </li>
+</ol>
+
 
       </section>
     </div>
