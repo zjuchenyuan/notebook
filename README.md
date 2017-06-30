@@ -50,6 +50,7 @@ My notebook about technology, for lookup and share
 >* 对一个const的vector使用迭代器要用const_iterator
 >* 小心未初始化的变量
 >* 获取文件大小
+>* 题目解析 (结构指针、结构数组...)
 
 ## [CDN](CDN.md)
 >* ·UPYUN 又拍云

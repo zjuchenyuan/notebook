@@ -302,6 +302,78 @@ int main(){
   </li>
 </ol>
 
+<hr />
+
+<h3 id="section-14">2.结构数组</h3>
+
+<h4 id="section-15">题目</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>对于以下的变量定义，表达式____是正确的。
+struct node {
+    char s[10];
+    int k;
+} p[4];
+A. p-&gt;k=2
+B. p[0].s="abc";
+C. p[0]-&gt;k=2;
+D. p-&gt;s='a';
+</code></pre>
+</div>
+
+<h4 id="section-16">答案</h4>
+
+<p>A</p>
+
+<h4 id="section-17">解析</h4>
+
+<p><code class="highlighter-rouge">p[0].num</code> 与 <code class="highlighter-rouge">(*(p+0)).num</code> 等价, 所以 <code class="highlighter-rouge">p[0].num</code> 与 <code class="highlighter-rouge">(p+0)-&gt;num</code> 等价</p>
+
+<p>编译一下确实A是可以的</p>
+
+<p>B选项错在结构体里面的s是一个有内存空间的char数组，<strong>不能把有内存空间的数组名称放到赋值的等号左边</strong> (编译器把数组名称当成常量，编译器这么设计的原因也许是：不然这个内存空间不就弄丢了嘛)</p>
+
+<p>字符串正确的”赋值”操作是：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>strcpy(p[0].s,"abc");
+</code></pre>
+</div>
+
+<p>C选项 p[0]是结构，而不是指针，直接写<code class="highlighter-rouge">p[0].k=2</code></p>
+
+<p>D选项 还是相同的道理 <strong>不能把有内存空间的数组名称放到赋值的等号左边</strong></p>
+
+<p>正确的写法 <code class="highlighter-rouge">p-&gt;s[0]='a'</code>, 也可以写 <code class="highlighter-rouge">p[0].s[0]='a'</code></p>
+
+<h4 id="section-18">指针，数组各种玩法</h4>
+
+<p>如果要写<code class="highlighter-rouge">p[1].s[2]='a'</code>, 等价的写法有：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>(p+1)-&gt;s[2]='a';
+*((p+1)-&gt;s + 2)='a';
+*((char*)p+1*sizeof(struct node)+2)='a';
+</code></pre>
+</div>
+
+<p>此代码供你测试：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>#include &lt;stdio.h&gt;
+int main(){
+	struct node{
+		char s[10];
+		int k;
+	} p[4];
+	p[1].s[2]='a';
+	printf("%c\n",p[1].s[2]);
+	(p+1)-&gt;s[2]='b';
+	printf("%c\n",p[1].s[2]);
+	*((p+1)-&gt;s + 2)='c';
+	printf("%c\n",p[1].s[2]);
+	*((char*)p+1*sizeof(struct node)+2)='d';
+	printf("%c",p[1].s[2]);
+	return 0;
+}
+</code></pre>
+</div>
 
       </section>
     </div>
