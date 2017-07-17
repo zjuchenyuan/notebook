@@ -21,3 +21,6 @@ _/    _/  _/    _/  _/    _/
 
 [解释Shell命令每个参数](http://www.explainshell.com/)
 
+[安全会议的排名](http://faculty.cs.tamu.edu/guofei/sec_conf_stat.htm)
+
+[建议读的论文](https://d.py3.io/Recommend%2Bpapers.docx)
