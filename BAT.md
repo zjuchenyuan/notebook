@@ -145,3 +145,11 @@ rvpn会自动断开，所以写了个脚本判断并自动重连
 2. 用ping www.baidu.com和ping -n 2 ip.cn做粗糙的等待延时，其中-n表示ping的次数，默认是4，改小一点就是更短的延时咯
 
 3. 启动一个GUI的exe，需要用start "" example.exe
+
+----
+
+## 浙江大学有线vpn静态路由配置脚本
+
+Author: shuishui
+
+[静态路由设置.bat](code/静态路由设置.bat)
