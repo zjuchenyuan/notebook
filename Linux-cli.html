@@ -366,6 +366,16 @@ for i in {1..79}; do convert $i.png -crop 300x280+30+0 $i.png; done
 
 <p>查找大于100M的文件：<code class="highlighter-rouge">find . -size +100M</code></p>
 
+<hr />
+
+<h1 id="section-13">批量修改文件后缀名</h1>
+
+<p>将当前目录下(包含子目录)所有的txt文件改为.newext后缀：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>find . -name "*.txt" -exec rename 's/.txt$/.newext/' {} \;
+</code></pre>
+</div>
+
       </section>
     </div>
 

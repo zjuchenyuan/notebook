@@ -327,3 +327,13 @@ find . -size 0 -delete
 ```
 
 查找大于100M的文件：`find . -size +100M`
+
+----
+
+# 批量修改文件后缀名
+
+将当前目录下(包含子目录)所有的txt文件改为.newext后缀：
+
+```
+find . -name "*.txt" -exec rename 's/.txt$/.newext/' {} \;
+```
