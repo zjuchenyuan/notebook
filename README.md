@@ -28,6 +28,7 @@ My notebook about technology, for lookup and share
 >* 使用signal.SIGALRM实现定时器
 >* 使用pdb进行调试
 >* [机器学习-决策树](code/decisiontree.py)
+>* 使用Python开发阿里云函数计算后端服务
 
 ## [BAT 批处理](BAT.md)
 >* 快速打开cmd

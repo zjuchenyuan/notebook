@@ -456,6 +456,78 @@ if __name__ == '__main__':
 
 <p>Tutorial: <a href="https://github.com/spiside/pdb-tutorial">https://github.com/spiside/pdb-tutorial</a></p>
 
+<hr />
+
+<h1 id="pythonserverlessfunction-as-service">使用Python开发Serverless(Function as Service)后端服务</h1>
+
+<p><a href="https://github.com/zjuchenyuan/zju-jwb-to-icalendar">项目地址 &amp; 部署过程</a></p>
+
+<p>如果您只是需要部署一个Example，↑↑↑(顺手求个Star)；如果您对这个代码是如何写出来的和踩坑过程感兴趣，继续看吧：</p>
+
+<h2 id="section-7">踩过的坑与解决过程(论阿里云是怎么把人气死的)</h2>
+
+<h3 id="api">1.API网关与函数计算的对接</h3>
+
+<p>按照<a href="https://help.aliyun.com/document_detail/54788.html">教程</a>，当时不够耐心，拿着hello world的程序（不要信教程中的2.1部分的截图）就在使用API网关，结果总是返回503</p>
+
+<p>耐心下来看文档把程序改为后面的撞墙式程序就好了，人家其实说了函数计算应该返回的数据结构，不按照这个结构来就会503：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"isBase64Encoded"</span><span class="p">:</span><span class="w"> </span><span class="s">True或者False</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w"> </span><span class="s">#可以为302来实现跳转</span><span class="w">
+    </span><span class="nt">"headers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s">...</span><span class="p">}</span><span class="w"> </span><span class="s">#返回的response</span><span class="w"> </span><span class="s">headers，但其中的Content-Type没有作用</span><span class="w">
+    </span><span class="s2">"body"</span><span class="s">:</span><span class="w"> </span><span class="s2">"..."</span><span class="w"> </span><span class="s">#返回的网页正文内容</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<h3 id="api-1">2.修改API网关参数定义后要再次发布</h3>
+
+<p>无论有没有改Mock设置，只要改动了设置都需要重新发布，发布线上版本即可</p>
+
+<h3 id="windowsfclifcliexe">3.不能使用Windows版本的fcli工具(fcli.exe)</h3>
+
+<p>这个bug简直了，整个流程如下：</p>
+
+<p>按照文档说明一路部署上传都没有问题，调用函数的时候却说<code class="highlighter-rouge">Unable to import module 'index'</code></p>
+
+<p>然后我就在Linux服务器上<code class="highlighter-rouge">docker pull python:2.7</code>然后<code class="highlighter-rouge">docker run -it --rm -v /root/ical:/code</code> python:2.7 /bin/bash<code class="highlighter-rouge">，进入bash后</code>cd /code; python<code class="highlighter-rouge">，进入python后</code>import index`</p>
+
+<p>啊哈，发现是<code class="highlighter-rouge">ImportError: No module named 'bs4'</code>，自己的锅，用<code class="highlighter-rouge">pip install bs4 -t .</code>一个个解决依赖包后，在docker容器中总算是能够跑起来了，且能正常返回了</p>
+
+<p>然后用<code class="highlighter-rouge">fcli.exe shell</code>的<code class="highlighter-rouge">mkf</code>再上传一次，调用函数还是老样子<code class="highlighter-rouge">Unable to import module 'index'</code>，令人很抓狂。。。</p>
+
+<p>突然想到不能被import应该是全局的import失败了，多次折腾后，把<code class="highlighter-rouge">from grabber import grabber</code>移动到index函数中，总算得到了明确的报错：还是<code class="highlighter-rouge">ImportError: No module named 'bs4'</code>；哈？这是什么鬼，明明我都把bs4文件夹放到代码目录下了，为啥还是报错？</p>
+
+<p>既然他说import失败，会不会是Python搜索包的PATH的问题，于是Google到了把当前文件所在的目录加入搜索的方法：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+</code></pre>
+</div>
+
+<p>Orz, 还是没有用。。。</p>
+
+<p>想到既然部署后代码文件夹<code class="highlighter-rouge">/code</code>没有我需要的依赖包，那<code class="highlighter-rouge">/code</code>文件夹里面到底有啥呢？果断fuck一下，在index函数开头写上:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>def index():
+    return {"fuck": list(os.listdir("/code"))}
+    import bs4 #会出错的import
+    ...#正常代码
+</code></pre>
+</div>
+
+<p>总算调用成功了，然后一看输出结果，woc! (内心中骂了多次mdzz阿里云</p>
+
+<p>给张截图：</p>
+
+<p><img src="assets/img/fuckaliyun.jpg" alt="" /></p>
+
+<p>os.listdir应该返回的是当前这个文件夹下含有的文件名称和文件夹名称，而现在我们看到的是含有’\‘很像路径名的东西，说明这个fcli.exe把windows的’\‘路径名当成了文件名的一部分，部署后在/code文件夹下也就对应创建了名称为”bs4\<strong>init</strong>.py”这样的文件(根本没有bs4子文件夹)，Python当然会找不到bs4这个包啊！摔！</p>
+
+<p>改用人家fcli的Linux 64bit版本，问题解决。。。</p>
+
+<p>总结一下，万万想不到Windows版本的工具(针对0.5版本)会把路径分隔符\当成文件名一部分来看待，真是大开眼界</p>
+
       </section>
     </div>
 

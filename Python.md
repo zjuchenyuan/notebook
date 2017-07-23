@@ -415,3 +415,75 @@ pdb.set_trace()
 ```
 
 Tutorial: [https://github.com/spiside/pdb-tutorial](https://github.com/spiside/pdb-tutorial)
+
+----
+
+# 使用Python开发Serverless(Function as Service)后端服务
+
+[项目地址 & 部署过程](https://github.com/zjuchenyuan/zju-jwb-to-icalendar)
+
+如果您只是需要部署一个Example，↑↑↑(顺手求个Star)；如果您对这个代码是如何写出来的和踩坑过程感兴趣，继续看吧：
+
+## 踩过的坑与解决过程(论阿里云是怎么把人气死的)
+
+### 1.API网关与函数计算的对接
+
+按照[教程](https://help.aliyun.com/document_detail/54788.html)，当时不够耐心，拿着hello world的程序（不要信教程中的2.1部分的截图）就在使用API网关，结果总是返回503
+
+耐心下来看文档把程序改为后面的撞墙式程序就好了，人家其实说了函数计算应该返回的数据结构，不按照这个结构来就会503：
+
+```
+{
+    "isBase64Encoded": True或者False,
+    "statusCode": 200, #可以为302来实现跳转
+    "headers": {...} #返回的response headers，但其中的Content-Type没有作用
+    "body": "..." #返回的网页正文内容
+}
+```
+
+### 2.修改API网关参数定义后要再次发布
+
+无论有没有改Mock设置，只要改动了设置都需要重新发布，发布线上版本即可
+
+### 3.不能使用Windows版本的fcli工具(fcli.exe)
+
+这个bug简直了，整个流程如下：
+
+按照文档说明一路部署上传都没有问题，调用函数的时候却说`Unable to import module 'index'`
+
+然后我就在Linux服务器上`docker pull python:2.7`然后`docker run -it --rm -v /root/ical:/code` python:2.7 /bin/bash`，进入bash后`cd /code; python`，进入python后`import index`
+
+啊哈，发现是`ImportError: No module named 'bs4'`，自己的锅，用`pip install bs4 -t .`一个个解决依赖包后，在docker容器中总算是能够跑起来了，且能正常返回了
+
+然后用`fcli.exe shell`的`mkf`再上传一次，调用函数还是老样子`Unable to import module 'index'`，令人很抓狂。。。
+
+突然想到不能被import应该是全局的import失败了，多次折腾后，把`from grabber import grabber`移动到index函数中，总算得到了明确的报错：还是`ImportError: No module named 'bs4'`；哈？这是什么鬼，明明我都把bs4文件夹放到代码目录下了，为啥还是报错？
+
+既然他说import失败，会不会是Python搜索包的PATH的问题，于是Google到了把当前文件所在的目录加入搜索的方法：
+
+```
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+```
+
+Orz, 还是没有用。。。
+
+想到既然部署后代码文件夹`/code`没有我需要的依赖包，那`/code`文件夹里面到底有啥呢？果断fuck一下，在index函数开头写上:
+
+```
+def index():
+    return {"fuck": list(os.listdir("/code"))}
+    import bs4 #会出错的import
+    ...#正常代码
+```
+
+总算调用成功了，然后一看输出结果，woc! (内心中骂了多次mdzz阿里云
+
+给张截图：
+
+![](assets/img/fuckaliyun.jpg)
+
+os.listdir应该返回的是当前这个文件夹下含有的文件名称和文件夹名称，而现在我们看到的是含有'\\'很像路径名的东西，说明这个fcli.exe把windows的'\\'路径名当成了文件名的一部分，部署后在/code文件夹下也就对应创建了名称为"bs4\\__init__.py"这样的文件(根本没有bs4子文件夹)，Python当然会找不到bs4这个包啊！摔！
+
+改用人家fcli的Linux 64bit版本，问题解决。。。
+
+总结一下，万万想不到Windows版本的工具(针对0.5版本)会把路径分隔符\\当成文件名一部分来看待，真是大开眼界
