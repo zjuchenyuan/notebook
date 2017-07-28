@@ -199,6 +199,7 @@ My notebook about technology, for lookup and share
 >* 反向代理之替换网页、JS中的文本
 >* root与alias的区别
 >* 在bash on win10上使用Nginx
+>* Nginx允许列目录
 
 ## [VirtualBox](Linux-VirtualBox.md)
 >* 下载安装，一定记得安装额外包

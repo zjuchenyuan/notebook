@@ -295,6 +295,20 @@ include mime.types;
 
 <p>这样设置后，Nginx反向代理上一级服务会加上realip这个头，从而传递用户真实的IP（如果是代理则是代理的IP）</p>
 
+<hr />
+
+<h2 id="nginx-2">Nginx允许列目录</h2>
+
+<p>加上<code class="highlighter-rouge">autoindex on</code>即可</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>location / {
+    autoindex on;
+    autoindex_localtime on; #显示服务器时间而不是GMT时间
+    autoindex_exact_size off; #以kB,MB,GB为单位显示大小而不是确切的字节数
+}
+</code></pre>
+</div>
+
       </section>
     </div>
 
