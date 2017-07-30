@@ -153,3 +153,13 @@ rvpn会自动断开，所以写了个脚本判断并自动重连
 Author: shuishui
 
 [静态路由设置.bat](code/静态路由设置.bat)
+
+----
+
+## 进入休眠
+
+Win10似乎没有从鼠标进入休眠而不是睡眠的方法，但调用rundll32进入休眠模式还是可以的：
+
+```
+rundll32.exe powrProf.dll,SetSuspendState
+```

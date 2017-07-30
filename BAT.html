@@ -215,6 +215,16 @@ fsutil hardlink create &lt;new filename&gt; &lt;existing filename&gt;
 
 <p><a href="code/静态路由设置.bat">静态路由设置.bat</a></p>
 
+<hr />
+
+<h2 id="section-4">进入休眠</h2>
+
+<p>Win10似乎没有从鼠标进入休眠而不是睡眠的方法，但调用rundll32进入休眠模式还是可以的：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>rundll32.exe powrProf.dll,SetSuspendState
+</code></pre>
+</div>
+
       </section>
     </div>
 

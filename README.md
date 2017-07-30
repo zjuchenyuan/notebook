@@ -41,6 +41,8 @@ My notebook about technology, for lookup and share
 >* 创建硬链接mklink或者fsutil hardlink create
 >* 端口转发
 >* [保持RVPN不断开](code/RVPNKeepAlive.bat)
+>* vpn静态路由配置
+>* 进入休眠
 
 ## [C 语言](C.md)
 >* 关于Dev C++
