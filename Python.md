@@ -487,3 +487,14 @@ os.listdir应该返回的是当前这个文件夹下含有的文件名称和文�
 改用人家fcli的Linux 64bit版本，问题解决。。。
 
 总结一下，万万想不到Windows版本的工具(针对0.5版本)会把路径分隔符`\\`当成文件名一部分来看待，真是大开眼界
+
+----
+
+## 修复Linux下gbk编码的文件名
+
+代码见[code/fixgbknames.py](code/fixgbknames.py)
+
+在特殊情况下，Linux中可能会有gbk编码的文件名，这种文件用`ls`查看都是乱码，难以操作
+
+如何修复这些`错误`的文件名呢？用到`python3`提供的os.walk(b".")就能得到bytes类型的文件名，然后`os.system`调用bytes类型的`mv`命令行就好啦~
+

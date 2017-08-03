@@ -528,6 +528,17 @@ if __name__ == '__main__':
 
 <p>总结一下，万万想不到Windows版本的工具(针对0.5版本)会把路径分隔符<code class="highlighter-rouge">\\</code>当成文件名一部分来看待，真是大开眼界</p>
 
+<hr />
+
+<h2 id="linuxgbk">修复Linux下gbk编码的文件名</h2>
+
+<p>代码见<a href="code/fixgbknames.py">code/fixgbknames.py</a></p>
+
+<p>在特殊情况下，Linux中可能会有gbk编码的文件名，这种文件用<code class="highlighter-rouge">ls</code>查看都是乱码，难以操作</p>
+
+<p>如何修复这些<code class="highlighter-rouge">错误</code>的文件名呢？用到<code class="highlighter-rouge">python3</code>提供的os.walk(b”.”)就能得到bytes类型的文件名，然后<code class="highlighter-rouge">os.system</code>调用bytes类型的<code class="highlighter-rouge">mv</code>命令行就好啦~</p>
+
+
       </section>
     </div>
 
