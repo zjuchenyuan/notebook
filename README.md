@@ -177,6 +177,7 @@ My notebook about technology, for lookup and share
 >* 对ip列表批量测试redis未授权漏洞
 >* 使用ImageMagick对图像进行裁剪
 >* 查找0字节的文件并删除
+>* 用vim去除\r换行符 :set ff=unix
 
 ## [Linux-backup](Linux-backup.md)
 >* 一个良好安全的备份计划至关重要

@@ -376,6 +376,17 @@ for i in {1..79}; do convert $i.png -crop 300x280+30+0 $i.png; done
 </code></pre>
 </div>
 
+<hr />
+
+<h1 id="vimr">用vim去除\r换行符</h1>
+
+<p>用vim打开文件后，输入以下内容，冒号也是需要按的</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>:set ff=unix
+:wq
+</code></pre>
+</div>
+
       </section>
     </div>
 

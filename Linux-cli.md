@@ -337,3 +337,14 @@ find . -size 0 -delete
 ```
 find . -name "*.txt" -exec rename 's/.txt$/.newext/' {} \;
 ```
+
+----
+
+# 用vim去除\r换行符 
+
+用vim打开文件后，输入以下内容，冒号也是需要按的
+
+```
+:set ff=unix
+:wq
+```
