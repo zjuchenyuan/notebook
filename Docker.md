@@ -8,8 +8,9 @@
 
 安装命令： 
 
-    curl -sSL https://get.docker.com/ | sh
-    
+    curl -fsSL get.docker.com -o get-docker.sh
+    sh get-docker.sh --mirror Aliyun
+
 其中最后一步的apt-get install docker-engine耗时较长，看起来很像卡死，需要耐心等待
 
 安装后执行docker version，没有报错即可
