@@ -348,3 +348,12 @@ find . -name "*.txt" -exec rename 's/.txt$/.newext/' {} \;
 :set ff=unix
 :wq
 ```
+----
+
+# 不用free查看内存占用
+
+在docker容器内部一般是不能通过`free -h`来查看真实占用的内存的，这时候可以采用`ps aux`累加RSS字段来估计：
+
+```
+ps aux | awk '{sum+=$6} END {print sum / 1024}'
+```

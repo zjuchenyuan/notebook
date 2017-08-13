@@ -16,7 +16,7 @@
 
         <section id="downloads">
           
-          <a href="https://github.com/zjuchenyuan/notebook/blob/master/Linux-cli.md" class="btn btn-github"><span class="icon"></span>Star me on GitHub (31)</a>&nbsp;<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>
+          <a href="https://github.com/zjuchenyuan/notebook/blob/master/Linux-cli.md" class="btn btn-github"><span class="icon"></span>Star me on GitHub (32)</a>&nbsp;<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>
         </section>
       </div>
     </header>
@@ -384,6 +384,15 @@ for i in {1..79}; do convert $i.png -crop 300x280+30+0 $i.png; done
 
 <div class="highlighter-rouge"><pre class="highlight"><code>:set ff=unix
 :wq
+</code></pre>
+</div>
+<hr />
+
+<h1 id="free">不用free查看内存占用</h1>
+
+<p>在docker容器内部一般是不能通过<code class="highlighter-rouge">free -h</code>来查看真实占用的内存的，这时候可以采用<code class="highlighter-rouge">ps aux</code>累加RSS字段来估计：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>ps aux | awk '{sum+=$6} END {print sum / 1024}'
 </code></pre>
 </div>
 
