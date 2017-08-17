@@ -42,11 +42,11 @@ git clone --depth 1 https://github.com/zjuchenyuan/notebook
 
 参照http://blog.csdn.net/chfe007/article/details/43388041
 
-首先生成自己的ssh密钥
+首先生成自己的ssh密钥，不要修改生成的文件位置
 
     ssh-keygen -t rsa -b 4096
 
-然后把id_rsa.pub的内容设置到github中，**网页端操作**；建议顺带启用**两步验证**
+然后把`~/.ssh/id_rsa.pub`的内容设置到github中，[网页端操作](https://github.com/settings/keys)；建议顺带启用两步验证
 
 新手还告诉git自己是谁：
 
