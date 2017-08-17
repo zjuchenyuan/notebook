@@ -128,6 +128,7 @@ My notebook about technology, for lookup and share
 >* 碰到过的坑
 >* 配置代码高亮并显示行号
 >* 解决Github Metadata Warning
+>* 安装Jekyll
 
 ## [Linux-setup](Linux-setup.md)
 >* [网络加速privoxy](code/ssprivoxy.txt)

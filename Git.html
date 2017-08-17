@@ -69,13 +69,13 @@ git clone --depth 1 https://github.com/zjuchenyuan/notebook
 
 <p>参照http://blog.csdn.net/chfe007/article/details/43388041</p>
 
-<p>首先生成自己的ssh密钥</p>
+<p>首先生成自己的ssh密钥，不要修改生成的文件位置</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>ssh-keygen -t rsa -b 4096
 </code></pre>
 </div>
 
-<p>然后把id_rsa.pub的内容设置到github中，<strong>网页端操作</strong>；建议顺带启用<strong>两步验证</strong></p>
+<p>然后把<code class="highlighter-rouge">~/.ssh/id_rsa.pub</code>的内容设置到github中，<a href="https://github.com/settings/keys">网页端操作</a>；建议顺带启用两步验证</p>
 
 <p>新手还告诉git自己是谁：</p>
 

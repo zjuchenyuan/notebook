@@ -100,6 +100,28 @@ public class HelloWorld {
 </span></code></pre>
 </div>
 
+<hr />
+
+<h1 id="jekyll-1">安装Jekyll</h1>
+
+<p>搜索jekyll发现官网<a href="https://jekyllrb.com/">https://jekyllrb.com/</a></p>
+
+<p>安装过程一点都不简单， 我的系统环境：ubuntu16.04 on win10</p>
+
+<p>安装命令参考官网及<a href="https://gems.ruby-china.org/">国内镜像 Ruby China</a>，还踩了<a href="https://stackoverflow.com/questions/4304438/gem-install-failed-to-build-gem-native-extension-cant-find-header-files">坑1</a>, <a href="https://github.com/flapjack/omnibus-flapjack/issues/72">坑2</a></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>apt install -y ruby ruby-dev zlib1g-dev nodejs # 其中zlib是安装依赖nokogiri（这个依赖编译特别慢）所必须的，其中nodejs是需要的javascript运行环境
+gem update --system # 这里请翻墙一下
+gem sources --add https://gems.ruby-china.org/ --remove https://rubygems.org/
+gem install jekyll bundler
+
+# 配置github-pages所需的Gemfile，也使用国内镜像源
+echo """source 'https://gems.ruby-china.org'
+gem 'github-pages', group: :jekyll_plugins"""&gt;Gemfile
+bundle install # 耐心等待编译
+</code></pre>
+</div>
+
       </section>
     </div>
 

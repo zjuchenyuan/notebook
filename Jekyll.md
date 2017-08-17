@@ -61,3 +61,25 @@ export JEKYLL_GITHUB_TOKEN='abc123'
 ```
 {:start="3"}
 ```
+
+----
+
+# 安装Jekyll
+
+搜索jekyll发现官网[https://jekyllrb.com/](https://jekyllrb.com/)
+
+安装过程一点都不简单， 我的系统环境：ubuntu16.04 on win10
+
+安装命令参考官网及[国内镜像 Ruby China](https://gems.ruby-china.org/)，还踩了[坑1](https://stackoverflow.com/questions/4304438/gem-install-failed-to-build-gem-native-extension-cant-find-header-files), [坑2](https://github.com/flapjack/omnibus-flapjack/issues/72)
+
+```
+apt install -y ruby ruby-dev zlib1g-dev nodejs # 其中zlib是安装依赖nokogiri（这个依赖编译特别慢）所必须的，其中nodejs是需要的javascript运行环境
+gem update --system # 这里请翻墙一下
+gem sources --add https://gems.ruby-china.org/ --remove https://rubygems.org/
+gem install jekyll bundler
+
+# 配置github-pages所需的Gemfile，也使用国内镜像源
+echo """source 'https://gems.ruby-china.org'
+gem 'github-pages', group: :jekyll_plugins""">Gemfile
+bundle install # 耐心等待编译
+```
