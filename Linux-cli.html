@@ -396,6 +396,30 @@ for i in {1..79}; do convert $i.png -crop 300x280+30+0 $i.png; done
 </code></pre>
 </div>
 
+<hr />
+
+<h1 id="watch">watch持续观察命令输出</h1>
+
+<p>例如我想持续查看output.txt文件大小：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>watch -n 1 ls -l output.txt
+</code></pre>
+</div>
+
+<p>其中<code class="highlighter-rouge">-n 1</code>表示每隔1s刷新一次</p>
+
+<p>这个命令等价于自己写个bash脚本：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c">#! /bin/bash</span>
+<span class="k">while</span> <span class="o">[</span> 1 <span class="o">]</span>
+<span class="k">do</span>
+ <span class="c"># do your work here...</span>
+ sleep 1
+ clear
+<span class="k">done</span>
+</code></pre>
+</div>
+
       </section>
     </div>
 

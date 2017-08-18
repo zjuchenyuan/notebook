@@ -357,3 +357,27 @@ find . -name "*.txt" -exec rename 's/.txt$/.newext/' {} \;
 ```
 ps aux | awk '{sum+=$6} END {print sum / 1024}'
 ```
+
+----
+
+# watch持续观察命令输出
+
+例如我想持续查看output.txt文件大小：
+
+```
+watch -n 1 ls -l output.txt
+```
+
+其中`-n 1`表示每隔1s刷新一次
+
+这个命令等价于自己写个bash脚本：
+
+```
+#! /bin/bash
+while [ 1 ]
+do
+ # do your work here...
+ sleep 1
+ clear
+done
+```
