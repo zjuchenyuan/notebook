@@ -420,6 +420,40 @@ for i in {1..79}; do convert $i.png -crop 300x280+30+0 $i.png; done
 </code></pre>
 </div>
 
+<hr />
+
+<h2 id="truecrypt-71a">树莓派2上编译Truecrypt 7.1a</h2>
+
+<p>参照<a href="http://davidstutz.de/installing-truecrypt-raspbian/">http://davidstutz.de/installing-truecrypt-raspbian/</a>，一步步来就行啦</p>
+
+<p>具体步骤如下，其中make使用参数<code class="highlighter-rouge">-j5 -l4</code>表示同时执行5个编译但限制系统负载&lt;4（因为编译过程很慢，直接make只会使用1个CPU，这样设置后可以充分利用树莓派4核心CPU）：</p>
+
+<p>涉及的压缩包<a href="https://d.py3.io/truecrypt-targz.zip">truecrypt-targz.zip</a>，<a href="https://d.py3.io/wxWidgets-2.8.11.zip">wxWidgets-2.8.11.zip</a>，<a href="https://d.py3.io/pkcs.zip">pkcs.zip</a></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>apt-get install -y unzip build-essentials pkg-config gtk2.0-dev libfuse-dev
+#用unzip解压压缩包，都解压到/root下，目录结构：
+# /root
+#  | - truecrypt-targz
+#  | - wxWidgets-2.8.11
+#  | - pkcs
+
+cd wxWidgets-2.8.11
+./configure
+make -j5 -l4 #特别慢，耐心等待
+make -j5 -l4 install
+
+cd ../truecrypt-targz
+export PKCS11_INC=/root/pkcs/
+make -j5 -l4 NOGUI=1 WX_ROOT=/root/wxWidgets-2.8.11 wxbuild
+make -j5 -l4 NOGUI=1 WXSTATIC=1
+
+Main/truecrypt --version #输出TrueCrypt 7.1a
+cp Main/truecrypt /usr/local/bin/
+</code></pre>
+</div>
+
+<p>你也可以下载我已经编译好的版本<a href="https://d.py3.io/truecrypt-armv71">truecrypt-armv71</a></p>
+
       </section>
     </div>
 
