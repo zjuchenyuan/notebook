@@ -60,6 +60,20 @@ route add default eth0
 </code></pre>
 </div>
 
+<h1 id="dhcpiprtnetlink-answers-file-exists">配置为dhcp自动获取ip，解决RTNETLINK answers: File exists问题</h1>
+
+<p>之前已经配置过静态ip，现在要改为自动获取</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>dhclient eth0
+</code></pre>
+</div>
+
+<p>出现报错RTNETLINK answers: File exists，解决方案：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>ip addr flush dev eth0
+</code></pre>
+</div>
+
 <h2 id="aptapt">配置apt源以加速国内环境下apt速度</h2>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>curl http://mirrors.163.com/.help/sources.list.trusty&gt;/etc/apt/sources.list

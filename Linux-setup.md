@@ -35,6 +35,20 @@ ifconfig eth0 10.xx.xx.13 netmask 255.255.255.0 up
 route add default eth0
 ```
 
+# 配置为dhcp自动获取ip，解决RTNETLINK answers: File exists问题
+
+之前已经配置过静态ip，现在要改为自动获取
+
+```
+dhclient eth0
+```
+
+出现报错RTNETLINK answers: File exists，解决方案：
+
+```
+ip addr flush dev eth0
+```
+
 ## 配置apt源以加速国内环境下apt速度
 
     curl http://mirrors.163.com/.help/sources.list.trusty>/etc/apt/sources.list
