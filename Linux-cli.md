@@ -384,7 +384,7 @@ done
 
 ----
 
-## 树莓派2上编译Truecrypt 7.1a
+## 树莓派2上编译Truecrypt 7.1a，使用make -j5 -l4加速编译
 
 参照[http://davidstutz.de/installing-truecrypt-raspbian/](http://davidstutz.de/installing-truecrypt-raspbian/)，一步步来就行啦
 
