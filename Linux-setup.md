@@ -62,6 +62,13 @@ deb http://mirrors.163.com/ubuntu/ trusty-security main restricted universe mult
 
 > 注：vim复制一行的命令为yy，粘贴为p
 
+或者通过sed替换：
+
+```
+sed -i 's/security.ubuntu.com/mirrors.zju.edu.cn/g' /etc/apt/sources.list
+sed -i 's/archive.ubuntu.com/mirrors.zju.edu.cn/g' /etc/apt/sources.list
+```
+
 ## 单网卡获得多个IP
 ifconfig eth0:233 10.xx.xx.233 netmask 255.255.255.0 up
 
