@@ -87,6 +87,8 @@ My notebook about technology, for lookup and share
 ## [Favorites](Favorites.md)
 >* Intel i386 手册 及 勘误
 >* ASCII字符图案生成
+>* 解释Shell命令每个参数
+>* 安全会议的排名 建议读的论文
 >* [More Links](Links.md)
 
 ## [Git](Git.md)
@@ -181,6 +183,7 @@ My notebook about technology, for lookup and share
 >* 用vim去除\r换行符 :set ff=unix
 >* watch持续观察命令输出
 >* 树莓派2上编译Truecrypt 7.1a，使用make -j5 -l4加速编译
+>* scp目录断点续传
 
 ## [Linux-backup](Linux-backup.md)
 >* 一个良好安全的备份计划至关重要

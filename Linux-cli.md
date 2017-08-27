@@ -414,4 +414,24 @@ Main/truecrypt --version #输出TrueCrypt 7.1a
 cp Main/truecrypt /usr/local/bin/
 ```
 
-你也可以下载我已经编译好的版本[truecrypt-armv71](https://d.py3.io/truecrypt-armv71)
+你也可以下载我已经编译好的版本[truecrypt-armv7l](https://d.py3.io/truecrypt-armv7l)
+
+----
+
+## scp目录断点续传
+
+正在拷贝目录的时候被中断了（例如mount.ntfs卡死），而scp不能跳过已经存在的文件、只会覆盖；如果用rsync完全断点续传似乎会校验文件，太慢
+
+方法是：删掉中断时正在拷贝的不完整文件，使用下述命令来跳过已经存在的文件：
+
+假设要把远程目录/path/这个文件夹整个拷贝到/mnt/下（也就是内容拷贝到/mnt/path/下）
+
+```
+rsync --progress -v -au username@host:"'/path'" /mnt/
+```
+
+注意源路径/path后面不能有/，否则rsync不会创建/mnt/path这个文件夹；/path被两层引号包围是为了支持含有空格的文件夹名称，一层是本地命令，远程目录也要一层
+
+rsync的`--progress -v`参数表示显示当前进度和更多内容，`-a`表示archive递归并尽可能原样保留所有信息，`-u`表示跳过已经存在的文件
+
+[查看man文档 explainshell.com](https://www.explainshell.com/explain?cmd=rsync+--progress+-v+-au+username%40host%3A%22%27%2Fpath%27%22+%2Fmnt%2F)
