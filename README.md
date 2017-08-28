@@ -90,6 +90,7 @@ My notebook about technology, for lookup and share
 >* 解释Shell命令每个参数
 >* 安全会议的排名 建议读的论文
 >* [More Links](Links.md)
+>* Git Emoji
 
 ## [Git](Git.md)
 >* 立即使用
