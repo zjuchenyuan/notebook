@@ -140,3 +140,19 @@ https://stackoverflow.com/questions/14950466/how-to-split-the-name-string-in-mys
 
 https://stackoverflow.com/questions/5960620/convert-text-into-number-in-mysql-query
 
+----
+
+## mysqld配置参数调优
+
+> 参考：[https://www.linode.com/docs/databases/mysql/how-to-optimize-mysql-performance-using-mysqltuner](https://www.linode.com/docs/databases/mysql/how-to-optimize-mysql-performance-using-mysqltuner)
+
+使用MySQLTuner这个工具得到一些建议：
+
+```
+curl -L http://mysqltuner.pl/ | perl
+```
+
+对于其最后给出的参数建议照做即可。
+
+`key_buffer`参数是最关键的参数，决定了mysql占用的内存大小
+

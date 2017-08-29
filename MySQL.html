@@ -171,6 +171,24 @@ max_heap_table_size = 256M // 内存表大小
 
 <p>https://stackoverflow.com/questions/5960620/convert-text-into-number-in-mysql-query</p>
 
+<hr />
+
+<h2 id="mysqld">mysqld配置参数调优</h2>
+
+<blockquote>
+  <p>参考：<a href="https://www.linode.com/docs/databases/mysql/how-to-optimize-mysql-performance-using-mysqltuner">https://www.linode.com/docs/databases/mysql/how-to-optimize-mysql-performance-using-mysqltuner</a></p>
+</blockquote>
+
+<p>使用MySQLTuner这个工具得到一些建议：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>curl -L http://mysqltuner.pl/ | perl
+</code></pre>
+</div>
+
+<p>对于其最后给出的参数建议照做即可。</p>
+
+<p><code class="highlighter-rouge">key_buffer</code>参数是最关键的参数，决定了mysql占用的内存大小</p>
+
 
       </section>
     </div>
