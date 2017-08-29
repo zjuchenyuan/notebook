@@ -185,6 +185,7 @@ My notebook about technology, for lookup and share
 >* watch持续观察命令输出
 >* 树莓派2上编译Truecrypt 7.1a，使用make -j5 -l4加速编译
 >* scp目录断点续传
+>* 使用wget代替scp传输文件夹 避免无谓的加密性能损失（适用于树莓派）
 
 ## [Linux-backup](Linux-backup.md)
 >* 一个良好安全的备份计划至关重要

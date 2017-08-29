@@ -435,3 +435,39 @@ rsync --progress -v -au username@host:"'/path'" /mnt/
 rsync的`--progress -v`参数表示显示当前进度和更多内容，`-a`表示archive递归并尽可能原样保留所有信息，`-u`表示跳过已经存在的文件
 
 [查看man文档 explainshell.com](https://www.explainshell.com/explain?cmd=rsync+--progress+-v+-au+username%40host%3A%22%27%2Fpath%27%22+%2Fmnt%2F)
+
+----
+
+## 使用wget代替scp传输文件夹 避免无谓的加密性能损失（适用于树莓派）
+
+在内网传输非敏感数据时，没有必要使用scp（基于ssh）的安全传输，尤其是树莓派这种计算性能有限的情形。使用HTTP能有效加速传输过程，且部署简单，相比配置复杂的vsftpd可以说是很简单了
+
+#### 服务端（数据传出端）
+
+使用nginx配置允许列目录即可，在/etc/nginx/sites-enabled/下添加一个文件：
+
+```
+server{
+    listen 8080;
+    root /path/to/your/dir;
+    autoindex on;
+    autoindex_exact_size off;
+    autoindex_localtime on;
+}
+```
+
+如果你不具有root权限，可以复制一份nginx.conf，修改其中出现的所有你没有权限修改的文件路径，例如access_log，然后使用`nginx -c /home/yourname/nginx.conf`（注意必须绝对路径）启动你的nginx，没有出现EMRG错误即为启动成功（可以使用netstat -pant观察是否成功监听端口）
+
+#### 客户端（数据传入端），使用wget：
+
+```
+alias myget='wget -r -np -nH -R index.html --restrict-file-names=nocontrol'
+cd /mnt #下载到哪
+myget http://server_IP:8080/yourdir #相当于将yourdir复制到当前文件夹
+```
+
+参数说明：
+
+-r 递归下载，-np不要进入父目录，-nH不要创建host文件夹，-R index.html不要保存文件列表的index.html，--restrict-file-names=nocontrol不要乱改中文文件名
+
+[查看man文档](https://www.explainshell.com/explain?cmd=wget%20-r%20-np%20-nH%20-R%20index.html%20--restrict-file-names=nocontrol%20http://yourserver:8080/yourdir)
