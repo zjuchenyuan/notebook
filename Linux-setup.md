@@ -442,3 +442,19 @@ echo "TZ='Asia/Shanghai'">>~/.bashrc
 ```
 date -s "2017-06-18 16:40:00"
 ```
+
+----
+
+## 快速地格式化大分区ext4
+
+Linux系统建议使用ext4分区格式，但直接mkfs.ext4 /dev/sda1就有很大的坑：会默认lazyinit在很长一段时间内占用IO
+
+> 参考：[http://fibrevillage.com/storage/474-ext4-lazy-init](http://fibrevillage.com/storage/474-ext4-lazy-init)
+
+正确格式化大硬盘的方法如下，这样不会跳过初始化磁盘的过程而且初始化过程很快：
+
+```
+mkfs.ext4 /dev/sdXX -E lazy_itable_init=0,lazy_journal_init=0 -O sparse_super,large_file -m 0 -T largefile4
+```
+
+对应的[man文档](http://manpages.ubuntu.com/manpages/precise/en/man8/mkfs.ext4.8.html)

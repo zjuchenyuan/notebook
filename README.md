@@ -150,6 +150,9 @@ My notebook about technology, for lookup and share
 >* 时区设置
 >* 查看CPU核心个数
 >* 非交互式添加用户
+>* 简单OpenVPN配置
+>* 时区时间设置
+>* 快速地格式化大分区ext4
 
 ## [Linux-SSH](Linux-SSH.md)
 >* 客户端不同服务器使用不同的id_rsa
