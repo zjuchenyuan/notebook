@@ -78,3 +78,10 @@ https://github.com/AnyISalIn/Python_Learn_Notes
 
 一些不错的Python笔记
 
+----
+
+# websocketd
+
+https://github.com/joewalnes/websocketd/
+
+把linux程序的输出输出重定向到websocket，就可以实现网页上实时显示程序执行动态，官网：[http://websocketd.com/](http://websocketd.com/)
