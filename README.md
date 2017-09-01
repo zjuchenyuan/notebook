@@ -44,6 +44,7 @@ My notebook about technology, for lookup and share
 >* [保持RVPN不断开](code/RVPNKeepAlive.bat)
 >* vpn静态路由配置
 >* 进入休眠
+>* 快速进入系统代理设置，不用打开IE
 
 ## [C 语言](C.md)
 >* 关于Dev C++

@@ -163,3 +163,15 @@ Win10似乎没有从鼠标进入休眠而不是睡眠的方法，但调用rundll
 ```
 rundll32.exe powrProf.dll,SetSuspendState
 ```
+
+----
+
+## 快速进入系统代理设置
+
+From: https://stackoverflow.com/questions/3648366/is-it-possible-to-launch-ies-proxy-settings-dialog-from-the-command-line
+
+不用启动`c:\Program Files\Internet Explorer\iexplore.exe`，直接Win+R输入这个就能打开IE的连接设置，方便修改代理：
+
+```
+inetcpl.cpl ,4
+```
