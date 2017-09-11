@@ -18,7 +18,7 @@ for filename in os.listdir("."):
         data = open(filename,encoding='utf-8').read()
         data = replace_css.sub('assets/css/style.css?20170509"',data)
         data = data.replace("http://github.com","https://github.com")
-        data = data.replace('href="https://github.com/zjuchenyuan/notebook"','href="https://github.com/zjuchenyuan/notebook/blob/master/{name}.md"'.format(name=filename.rstrip(".html")) if filename!="index.html" else 'href="https://github.com/zjuchenyuan/notebook"')
+        data = data.replace('href="https://github.com/zjuchenyuan/notebook"','href="https://github.com/zjuchenyuan/notebook/blob/master/{name}.md"'.format(name=filename.replace(".html","")) if filename!="index.html" else 'href="https://github.com/zjuchenyuan/notebook"')
         data = data.replace("View on GitHub</a>","""Star me on GitHub ({star_count})</a>&nbsp;{back_html}""".format(star_count=star_count,back_html="""<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>""" if filename != "index.html" else ""))
         if filename == "Python.html":
             data = data.replace('<span class="err">','<span class="s">')
