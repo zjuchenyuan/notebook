@@ -70,6 +70,10 @@ My notebook about technology, for lookup and share
 >* 基本教程
 >* 还可以循环哟
 
+## [Developer](Developer.md)
+>* 保持技术精进
+>* 如何明智地向程序员提问
+
 ## [Docker](Docker.md)
 >* 安装
 >* 加速镜像下载
@@ -218,6 +222,13 @@ My notebook about technology, for lookup and share
 >* 在bash on win10上使用Nginx
 >* Nginx允许列目录
 
+## [PHP](PHP.md)
+>* 显示错误信息
+>* 全页面iframe
+
+## [Ubuntu桌面版](Ubuntu.md)
+>* 安装Google拼音后用上云候选功能
+
 ## [VirtualBox](Linux-VirtualBox.md)
 >* 下载安装，一定记得安装额外包
 >* 创建虚拟机，设置虚拟机选项
@@ -234,12 +245,4 @@ My notebook about technology, for lookup and share
 >* BurpSuite
 >* BEncode Editor
 >* Win10 Windows照片查看器
-
-## [PHP](PHP.md)
->* 显示错误信息
->* 全页面iframe
-
-## [Developer](Developer.md)
->* 保持技术精进
->* 如何明智地向程序员提问
 
