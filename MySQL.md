@@ -156,3 +156,31 @@ curl -L http://mysqltuner.pl/ | perl
 
 `key_buffer`参数是最关键的参数，决定了mysql占用的内存大小
 
+----
+
+## 支持emoji，从utf8升级到utf8mb4
+
+为了让mysql存储[emoji表情](http://getemoji.com/)，需要进行表的变更操作 以及 连接代码的修改
+
+参考[https://stackoverflow.com/questions/26532722/how-to-encode-utf8mb4-in-python](https://stackoverflow.com/questions/26532722/how-to-encode-utf8mb4-in-python)
+
+#### 表的变更 表的每一个`CHAR`，`VARCHAR`和`TEXT`类型的列都要改为使用utf8mb4
+
+举个例子，表名称{tablename}，修改其`user`列和`content`列，以及表的默认字符集：
+
+```sql
+ALTER TABLE `{tablename}`
+MODIFY COLUMN `user`  varchar(66) CHARACTER SET utf8mb4 NOT NULL AFTER `edittime`,
+MODIFY COLUMN `content`  longtext CHARACTER SET utf8mb4 NOT NULL AFTER `user`,
+DEFAULT CHARACTER SET=utf8mb4;
+```
+
+#### 连接代码的改动
+
+在执行 insert 的 sql语句之前，先执行这三条sql:
+
+```
+SET NAMES utf8mb4;
+SET CHARACTER SET utf8mb4; 
+SET character_set_connection=utf8mb4;
+```

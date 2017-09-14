@@ -189,6 +189,34 @@ max_heap_table_size = 256M // 内存表大小
 
 <p><code class="highlighter-rouge">key_buffer</code>参数是最关键的参数，决定了mysql占用的内存大小</p>
 
+<hr />
+
+<h2 id="emojiutf8utf8mb4">支持emoji，从utf8升级到utf8mb4</h2>
+
+<p>为了让mysql存储<a href="http://getemoji.com/">emoji表情</a>，需要进行表的变更操作 以及 连接代码的修改</p>
+
+<p>参考<a href="https://stackoverflow.com/questions/26532722/how-to-encode-utf8mb4-in-python">https://stackoverflow.com/questions/26532722/how-to-encode-utf8mb4-in-python</a></p>
+
+<h4 id="charvarchartextutf8mb4">表的变更 表的每一个<code class="highlighter-rouge">CHAR</code>，<code class="highlighter-rouge">VARCHAR</code>和<code class="highlighter-rouge">TEXT</code>类型的列都要改为使用utf8mb4</h4>
+
+<p>举个例子，表名称{tablename}，修改其<code class="highlighter-rouge">user</code>列和<code class="highlighter-rouge">content</code>列，以及表的默认字符集：</p>
+
+<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="nv">`{tablename}`</span>
+<span class="k">MODIFY</span> <span class="k">COLUMN</span> <span class="nv">`user`</span>  <span class="n">varchar</span><span class="p">(</span><span class="mi">66</span><span class="p">)</span> <span class="n">CHARACTER</span> <span class="k">SET</span> <span class="n">utf8mb4</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="k">AFTER</span> <span class="nv">`edittime`</span><span class="p">,</span>
+<span class="k">MODIFY</span> <span class="k">COLUMN</span> <span class="nv">`content`</span>  <span class="n">longtext</span> <span class="n">CHARACTER</span> <span class="k">SET</span> <span class="n">utf8mb4</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="k">AFTER</span> <span class="nv">`user`</span><span class="p">,</span>
+<span class="k">DEFAULT</span> <span class="n">CHARACTER</span> <span class="k">SET</span><span class="o">=</span><span class="n">utf8mb4</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<h4 id="section-5">连接代码的改动</h4>
+
+<p>在执行 insert 的 sql语句之前，先执行这三条sql:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>SET NAMES utf8mb4;
+SET CHARACTER SET utf8mb4; 
+SET character_set_connection=utf8mb4;
+</code></pre>
+</div>
 
       </section>
     </div>
