@@ -51,18 +51,46 @@ p=subprocess.call(["/bin/sh","-i"])
 
 # 让requests使用多个IP
 
-这里用覆盖socket.create_connection函数的方法实现，注意`import requests`一定要写在后面，否则requests自己已经载入完了socket包再去改就没有效果
+requests包并没有使用socket.create_connection函数，所以替换socket.create_connection并不够
 
 ```python
+def function_hook_parameter(oldfunc, parameter_index, parameter_name, parameter_value):
+    """
+    创造一个wrapper函数，劫持oldfunc传入的第parameter_index名为parameter_name的函数，固定其值为parameter_value; 不影响调用该函数时传入的任何其他参数
+    用法： 原函数 = function_hook_parameter(原函数, 从1开始计数的参数所处的位置, 这个参数的名称, 需要替换成的参数值)
+
+    例子： 需要劫持socket.create_connection这个函数，其函数原型如下： 
+               create_connection(address, timeout=_GLOBAL_DEFAULT_TIMEOUT, source_address=None)
+           需要对其第3个参数source_address固定为value，劫持方法如下
+               socket.create_connection = function_hook_parameter(socket.create_connection, 3, "source_address", value)
+    """
+    real_func = oldfunc
+    def newfunc(*args, **kwargs):  # args是参数列表list，kwargs是带有名称keyword的参数dict
+        newargs = list(args)
+        if len(args) >= parameter_index:  # 如果这个参数被直接传入，那么肯定其前面的参数都是无名称的参数，args的长度肯定长于其所在的位置
+            newargs[parameter_index - 1] = parameter_value  # 第3个参数在list的下表是2
+        else:  # 如果不是直接传入，那么就在kwargs中 或者可选参数不存在这个参数，强制更新掉kwargs即可
+            kwargs[parameter_name] = parameter_value
+        return real_func(*newargs, **kwargs)
+    return newfunc
+
+
+myip = "x.x.x.x" #你需要使用的IP，需要操作系统已经取得这个IP
 import socket
-real_create_conn = socket.create_connection
-def set_src_addr(*args):
-    address, timeout = args[0], args[1]
-    source_address = ( 需要使用的IP , 0)
-    return real_create_conn(address, timeout, source_address)
-socket.create_connection = set_src_addr
+socket.create_connection = function_hook_parameter(socket.create_connection, 3, "source_address", (myip, 0))
 import requests
+bakup_create_connection = requests.packages.urllib3.util.connection.create_connection #备份一份以备后续继续替换
+requests.packages.urllib3.util.connection.create_connection = function_hook_parameter(requests.packages.urllib3.util.connection.create_connection, 3, "source_address", (myip, 0))
+
+# 验证是否成功修改源IP
+print(requests.get("http://ip.cn").text) #访问网站查看当前使用的公网IP，如果内网你可以自行搭建服务器查看访问日志从而确定IP
+
+# 如果后续还要进行替换，则应该传入bakup_create_connection
+mynewip = "x.x.x.y" #另外一个当前操作系统已经取得的IP
+requests.packages.urllib3.util.connection.create_connection = function_hook_parameter(bakup_create_connection, 3, "source_address", (mynewip, 0))
 ```
+
+
 
 ----
 

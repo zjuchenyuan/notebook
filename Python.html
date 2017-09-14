@@ -78,16 +78,42 @@ trusted-host=pypi.doubanio.com
 
 <h1 id="requestsip">让requests使用多个IP</h1>
 
-<p>这里用覆盖socket.create_connection函数的方法实现，注意<code class="highlighter-rouge">import requests</code>一定要写在后面，否则requests自己已经载入完了socket包再去改就没有效果</p>
+<p>requests包并没有使用socket.create_connection函数，所以替换socket.create_connection并不够</p>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">socket</span>
-<span class="n">real_create_conn</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">create_connection</span>
-<span class="k">def</span> <span class="nf">set_src_addr</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
-    <span class="n">address</span><span class="p">,</span> <span class="n">timeout</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">source_address</span> <span class="o">=</span> <span class="p">(</span> <span class="s">需要使用的</span><span class="n">IP</span> <span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">real_create_conn</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">source_address</span><span class="p">)</span>
-<span class="n">socket</span><span class="o">.</span><span class="n">create_connection</span> <span class="o">=</span> <span class="n">set_src_addr</span>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">function_hook_parameter</span><span class="p">(</span><span class="n">oldfunc</span><span class="p">,</span> <span class="n">parameter_index</span><span class="p">,</span> <span class="n">parameter_name</span><span class="p">,</span> <span class="n">parameter_value</span><span class="p">):</span>
+    <span class="s">"""
+    创造一个wrapper函数，劫持oldfunc传入的第parameter_index名为parameter_name的函数，固定其值为parameter_value; 不影响调用该函数时传入的任何其他参数
+    用法： 原函数 = function_hook_parameter(原函数, 从1开始计数的参数所处的位置, 这个参数的名称, 需要替换成的参数值)
+
+    例子： 需要劫持socket.create_connection这个函数，其函数原型如下： 
+               create_connection(address, timeout=_GLOBAL_DEFAULT_TIMEOUT, source_address=None)
+           需要对其第3个参数source_address固定为value，劫持方法如下
+               socket.create_connection = function_hook_parameter(socket.create_connection, 3, "source_address", value)
+    """</span>
+    <span class="n">real_func</span> <span class="o">=</span> <span class="n">oldfunc</span>
+    <span class="k">def</span> <span class="nf">newfunc</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  <span class="c"># args是参数列表list，kwargs是带有名称keyword的参数dict</span>
+        <span class="n">newargs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">parameter_index</span><span class="p">:</span>  <span class="c"># 如果这个参数被直接传入，那么肯定其前面的参数都是无名称的参数，args的长度肯定长于其所在的位置</span>
+            <span class="n">newargs</span><span class="p">[</span><span class="n">parameter_index</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameter_value</span>  <span class="c"># 第3个参数在list的下表是2</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c"># 如果不是直接传入，那么就在kwargs中 或者可选参数不存在这个参数，强制更新掉kwargs即可</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="n">parameter_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameter_value</span>
+        <span class="k">return</span> <span class="n">real_func</span><span class="p">(</span><span class="o">*</span><span class="n">newargs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">newfunc</span>
+
+
+<span class="n">myip</span> <span class="o">=</span> <span class="s">"x.x.x.x"</span> <span class="c">#你需要使用的IP，需要操作系统已经取得这个IP</span>
+<span class="kn">import</span> <span class="nn">socket</span>
+<span class="n">socket</span><span class="o">.</span><span class="n">create_connection</span> <span class="o">=</span> <span class="n">function_hook_parameter</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">create_connection</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s">"source_address"</span><span class="p">,</span> <span class="p">(</span><span class="n">myip</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 <span class="kn">import</span> <span class="nn">requests</span>
+<span class="n">bakup_create_connection</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">packages</span><span class="o">.</span><span class="n">urllib3</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">create_connection</span> <span class="c">#备份一份以备后续继续替换</span>
+<span class="n">requests</span><span class="o">.</span><span class="n">packages</span><span class="o">.</span><span class="n">urllib3</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">create_connection</span> <span class="o">=</span> <span class="n">function_hook_parameter</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">packages</span><span class="o">.</span><span class="n">urllib3</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">create_connection</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s">"source_address"</span><span class="p">,</span> <span class="p">(</span><span class="n">myip</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+<span class="c"># 验证是否成功修改源IP</span>
+<span class="k">print</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"http://ip.cn"</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">)</span> <span class="c">#访问网站查看当前使用的公网IP，如果内网你可以自行搭建服务器查看访问日志从而确定IP</span>
+
+<span class="c"># 如果后续还要进行替换，则应该传入bakup_create_connection</span>
+<span class="n">mynewip</span> <span class="o">=</span> <span class="s">"x.x.x.y"</span> <span class="c">#另外一个当前操作系统已经取得的IP</span>
+<span class="n">requests</span><span class="o">.</span><span class="n">packages</span><span class="o">.</span><span class="n">urllib3</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">create_connection</span> <span class="o">=</span> <span class="n">function_hook_parameter</span><span class="p">(</span><span class="n">bakup_create_connection</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s">"source_address"</span><span class="p">,</span> <span class="p">(</span><span class="n">mynewip</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 </code></pre>
 </div>
 
