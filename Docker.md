@@ -31,11 +31,20 @@ modprobe aufs
 
 > 如果你的docker版本为1.6.2,请参考下方 卸载docker
 
-## 建议使用USTC的源：
+## 建议使用阿里云的镜像源
 
-来自：https://lug.ustc.edu.cn/wiki/mirrors/help/docker
+```
+sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json <<-'EOF'
+{
+  "registry-mirrors": ["https://h0kyslzs.mirror.aliyuncs.com"]
+}
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+```
 
-    echo '{"registry-mirrors": ["https://docker.mirrors.ustc.edu.cn"]}'>/etc/docker/daemon.json
+另外你也可以使用USTC的镜像源：参考 https://lug.ustc.edu.cn/wiki/mirrors/help/docker
 
 -------
 

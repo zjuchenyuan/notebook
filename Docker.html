@@ -16,7 +16,7 @@
 
         <section id="downloads">
           
-          <a href="https://github.com/zjuchenyuan/notebook/blob/master/Docker.md" class="btn btn-github"><span class="icon"></span>Star me on GitHub (33)</a>&nbsp;<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>
+          <a href="https://github.com/zjuchenyuan/notebook/blob/master/Docker.md" class="btn btn-github"><span class="icon"></span>Star me on GitHub (32)</a>&nbsp;<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>
         </section>
       </div>
     </header>
@@ -62,13 +62,20 @@ modprobe aufs
   <p>如果你的docker版本为1.6.2,请参考下方 卸载docker</p>
 </blockquote>
 
-<h2 id="ustc">建议使用USTC的源：</h2>
+<h2 id="section-1">建议使用阿里云的镜像源</h2>
 
-<p>来自：https://lug.ustc.edu.cn/wiki/mirrors/help/docker</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>echo '{"registry-mirrors": ["https://docker.mirrors.ustc.edu.cn"]}'&gt;/etc/docker/daemon.json
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json &lt;&lt;-'EOF'
+{
+  "registry-mirrors": ["https://h0kyslzs.mirror.aliyuncs.com"]
+}
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart docker
 </code></pre>
 </div>
+
+<p>另外你也可以使用USTC的镜像源：参考 https://lug.ustc.edu.cn/wiki/mirrors/help/docker</p>
 
 <hr />
 
@@ -97,7 +104,7 @@ getip 容器名称
 
 <hr />
 
-<h1 id="section-1">导出导入</h1>
+<h1 id="section-2">导出导入</h1>
 
 <h2 id="export">Export导出容器</h2>
 
@@ -181,7 +188,7 @@ mv /var/lib/docker /home/
 
 <hr />
 
-<h1 id="section-2">设置容器低权限用户运行</h1>
+<h1 id="section-3">设置容器低权限用户运行</h1>
 
 <p>在Dockerfile中加入</p>
 
@@ -209,7 +216,7 @@ mv /var/lib/docker /home/
 
 <hr />
 
-<h1 id="section-3">容器限制参数设置</h1>
+<h1 id="section-4">容器限制参数设置</h1>
 
 <p>当容器是开放给不可信域的时候(如部署一个CTF的pwn题目)，虽然容器逃逸0-day我也没办法，但限制一下容器资源占用防止搅屎也是很有必要的</p>
 
@@ -260,7 +267,7 @@ pure-pw useradd bob -f /etc/pure-ftpd/passwd/pureftpd.passwd -m -u ftpuser -d /d
 
 <p>目标： 快速搭建一个全站https的wordpress站点，域名为example.com</p>
 
-<h3 id="section-4">完整流程：</h3>
+<h3 id="section-5">完整流程：</h3>
 
 <ol>
   <li>前期准备:域名+vps</li>
@@ -327,7 +334,7 @@ server{
 </code></pre>
 </div>
 
-<h3 id="section-5">遇到的坑</h3>
+<h3 id="section-6">遇到的坑</h3>
 
 <ol>
   <li>docker run的时候忘记-p参数</li>
