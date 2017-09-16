@@ -141,6 +141,7 @@ My notebook about technology, for lookup and share
 ## [Linux-setup](Linux-setup.md)
 >* [网络加速privoxy](code/ssprivoxy.txt)
 >* 配置有线静态IP
+>* 使用ifconfig修改ip后记得要重新配route
 >* 配置apt源以加速国内环境下apt速度
 >* 单网卡获得多个IP
 >* 锐速安装

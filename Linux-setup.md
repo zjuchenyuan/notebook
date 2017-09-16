@@ -36,6 +36,8 @@ route add default eth0 #路由配置也很重要，错误的路由将导致不�
 route add default gw 10.xx.xx.254 dev eth0 #这里设置为你的网关
 ```
 
+注意使用ifconfig进行ip的修改后，会丢失路由信息、额外的ip设置，需要重新配置route（执行上述两条route命令即可）
+
 # 配置为dhcp自动获取ip，解决RTNETLINK answers: File exists问题
 
 之前已经配置过静态ip，现在要改为自动获取

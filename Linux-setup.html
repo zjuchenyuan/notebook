@@ -16,7 +16,7 @@
 
         <section id="downloads">
           
-          <a href="https://github.com/zjuchenyuan/notebook/blob/master/Linux-setup.md" class="btn btn-github"><span class="icon"></span>Star me on GitHub (34)</a>&nbsp;<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>
+          <a href="https://github.com/zjuchenyuan/notebook/blob/master/Linux-setup.md" class="btn btn-github"><span class="icon"></span>Star me on GitHub (35)</a>&nbsp;<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>
         </section>
       </div>
     </header>
@@ -60,6 +60,8 @@ route add default eth0 <span class="c">#路由配置也很重要，错误的路�
 route add default gw 10.xx.xx.254 dev eth0 <span class="c">#这里设置为你的网关</span>
 </code></pre>
 </div>
+
+<p>注意使用ifconfig进行ip的修改后，会丢失路由信息、额外的ip设置，需要重新配置route（执行上述两条route命令即可）</p>
 
 <h1 id="dhcpiprtnetlink-answers-file-exists">配置为dhcp自动获取ip，解决RTNETLINK answers: File exists问题</h1>
 
