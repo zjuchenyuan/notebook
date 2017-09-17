@@ -149,6 +149,7 @@ My notebook about technology, for lookup and share
 >* UnixBench性能评测
 >* 清除内存缓存
 >* 使用iptables封ip
+>* iptables只允许特定IP访问某端口
 >* 无root权限使用screen
 >* screen的用法
 >* 两条iptables实现端口转发，暴露内网端口

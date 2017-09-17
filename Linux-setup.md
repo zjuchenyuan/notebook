@@ -200,9 +200,33 @@ echo 3 > /proc/sys/vm/drop_caches
 
 ## 删除一条规则
 
-只要重写一次。把-I改为-D即可
+只要把上述的插入规则重写一次，将其中的-I改为-D即可
 
     iptables -D INPUT -s IP地址 -j DROP
+
+如果懒得重写 你也可以先列举出规则所在的id，根据id删除：
+
+```
+iptables -L --line-numbers
+```
+
+假设你想删除INPUT链的第3条规则：
+
+```
+iptables -D INPUT 3
+```
+
+## 只允许特定IP访问某端口
+
+iptables的插入次序很重要，先加入的会先匹配，所以拒绝策略应该最后加入
+
+以8888端口为例，只允许10.77.88.99这个IP 和 10.22.33.0/24 这个C段访问，其他来源的访问拒绝 返回connection refused
+
+```
+iptables -A INPUT -s 10.77.88.99 -p tcp --dport 8888 -j ACCEPT
+iptables -A INPUT -s 10.22.33.0/24 -p tcp --dport 8888 -j ACCEPT
+iptables -A INPUT -p tcp --dport 8888 -j REJECT
+```
 
 ----
 

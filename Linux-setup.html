@@ -16,7 +16,7 @@
 
         <section id="downloads">
           
-          <a href="https://github.com/zjuchenyuan/notebook/blob/master/Linux-setup.md" class="btn btn-github"><span class="icon"></span>Star me on GitHub (35)</a>&nbsp;<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>
+          <a href="https://github.com/zjuchenyuan/notebook/blob/master/Linux-setup.md" class="btn btn-github"><span class="icon"></span>Star me on GitHub (38)</a>&nbsp;<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>
         </section>
       </div>
     </header>
@@ -245,9 +245,33 @@ echo 3 &gt; /proc/sys/vm/drop_caches
 
 <h2 id="section-4">删除一条规则</h2>
 
-<p>只要重写一次。把-I改为-D即可</p>
+<p>只要把上述的插入规则重写一次，将其中的-I改为-D即可</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>iptables -D INPUT -s IP地址 -j DROP
+</code></pre>
+</div>
+
+<p>如果懒得重写 你也可以先列举出规则所在的id，根据id删除：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>iptables -L --line-numbers
+</code></pre>
+</div>
+
+<p>假设你想删除INPUT链的第3条规则：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>iptables -D INPUT 3
+</code></pre>
+</div>
+
+<h2 id="ip-3">只允许特定IP访问某端口</h2>
+
+<p>iptables的插入次序很重要，先加入的会先匹配，所以拒绝策略应该最后加入</p>
+
+<p>以8888端口为例，只允许10.77.88.99这个IP 和 10.22.33.0/24 这个C段访问，其他来源的访问拒绝 返回connection refused</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>iptables -A INPUT -s 10.77.88.99 -p tcp --dport 8888 -j ACCEPT
+iptables -A INPUT -s 10.22.33.0/24 -p tcp --dport 8888 -j ACCEPT
+iptables -A INPUT -p tcp --dport 8888 -j REJECT
 </code></pre>
 </div>
 
