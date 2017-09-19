@@ -88,6 +88,8 @@ My notebook about technology, for lookup and share
 >* 容器限制参数设置
 >* 快速部署ftp
 >* 快速部署wordpress
+>* Dockerfile 中的 apt-get 静默执行
+>* 让Docker容器得到内网IP
 
 ## [Favorites](Favorites.md)
 >* Intel i386 手册 及 勘误

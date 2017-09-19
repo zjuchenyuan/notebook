@@ -318,3 +318,37 @@ http://stackoverflow.com/questions/31893211/http-sub-module-sub-filter-of-nginx-
 ```
 DEBIAN_FRONTEND=noninteractive apt-get install -y ...
 ```
+
+----
+
+## 让Docker容器得到内网IP
+
+这里的内网不是只有主机可以访问的容器Docker内网，而是主机接入的企业内网这种；如果你能直接通过设置IP获得公网IP，当然按照这个方法也能给容器分配公网IP
+
+注意：此方法Docker容器虽然获得了和主机地位相同的IP，但容器无法使用主机的IP与主机通讯，这是Linux内核为了隔离性和安全性做出的限制
+
+参考： 
+
+> [不用端口转发给容器分配公网IP地址 ASSIGN PUBLIC IP ADDRESS TO DOCKER CONTAINER WITHOUT PORT BINDING.](https://micropyramid.com/blog/assign-public-ip-address-to-docker-container-without-port-binding/)
+> [Macvlan and IPvlan basics](https://sreeninet.wordpress.com/2016/05/29/macvlan-and-ipvlan/)
+> [Docker Networking Tip – Macvlan driver](https://sreeninet.wordpress.com/2017/08/05/docker-networking-tip-macvlan-driver/)
+> [PPT Docker Networking - Common Issues and Troubleshooting Techniques](https://www.slideshare.net/SreenivasMakam/docker-networking-common-issues-and-troubleshooting-techniques)
+
+做法也很简单，首先创建一个Macvlan类型的docker网络，然后在创建容器的时候加入这个网络并指定IP/不指定则自动分配
+
+例子：主机（网卡eth0）的IP为10.1.1.2，网关为10.1.1.1，主机所处的IP段是10.1.1.1/24，在该网段内主机可以任意获得IP，我们希望容器分配在10.1.1.65~10.1.1.126之间 （即 10.1.1.64/26）
+
+附： [这是一个输入Network 10.1.1.64/26转换为HostMin 10.1.1.65~ HostMax 10.1.1.126的计算器](http://jodies.de/ipcalc?host=10.1.1.64&mask1=26&mask2=)
+
+"""
+docker network create -d macvlan -o macvlan_mode=bridge -o parent=eth0 --subnet=10.1.1.0/24 --ip-range=10.1.1.64/26 --gateway=10.1.1.1 macvlan_network
+
+docker run --net=macvlan_network --ip=10.1.1.100 -d nginx
+"""
+
+现在你可以访问http://10.1.1.100来看到nginx的欢迎页面了
+
+启动容器时可以不指定ip让docker自动分配，警告：如果没有配置ip-range参数，有可能被分配的恰好是主机本身的IP，这种情况将导致主机丢失IP无法联网！
+
+万一发生这种虚拟机把主机的IP抢占的情况，在没有物理控制方法下不可轻易使用ifconfig修改主机IP，因为一旦使用ifconfig主机的route将被清空、当前主机的其他IP也会丢失，你就丢失远程访问的可能了（也许你可以写一个脚本自动恢复route稳妥一点）；但神奇的是即使主机route已经丢失，按照上述macvlan开出来的Docker容器仍然在线（也可以理解——容器的route并没有受到影响，类似于Virtualbox的桥接网卡方式）
+
