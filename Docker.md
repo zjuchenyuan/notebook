@@ -330,8 +330,11 @@ DEBIAN_FRONTEND=noninteractive apt-get install -y ...
 参考： 
 
 > [不用端口转发给容器分配公网IP地址 ASSIGN PUBLIC IP ADDRESS TO DOCKER CONTAINER WITHOUT PORT BINDING.](https://micropyramid.com/blog/assign-public-ip-address-to-docker-container-without-port-binding/)
+
 > [Macvlan and IPvlan basics](https://sreeninet.wordpress.com/2016/05/29/macvlan-and-ipvlan/)
+
 > [Docker Networking Tip – Macvlan driver](https://sreeninet.wordpress.com/2017/08/05/docker-networking-tip-macvlan-driver/)
+
 > [PPT Docker Networking - Common Issues and Troubleshooting Techniques](https://www.slideshare.net/SreenivasMakam/docker-networking-common-issues-and-troubleshooting-techniques)
 
 做法也很简单，首先创建一个Macvlan类型的docker网络，然后在创建容器的时候加入这个网络并指定IP/不指定则自动分配
@@ -339,6 +342,7 @@ DEBIAN_FRONTEND=noninteractive apt-get install -y ...
 例子：主机（网卡eth0）的IP为10.1.1.2，网关为10.1.1.1，主机所处的IP段是10.1.1.1/24，在该网段内主机可以任意获得IP，我们希望容器分配在10.1.1.65~10.1.1.126之间 （即 10.1.1.64/26）
 
 附： [这是一个输入Network 10.1.1.64/26转换为HostMin 10.1.1.65~ HostMax 10.1.1.126的计算器](http://jodies.de/ipcalc?host=10.1.1.64&mask1=26&mask2=)
+
 
 """
 docker network create -d macvlan -o macvlan_mode=bridge -o parent=eth0 --subnet=10.1.1.0/24 --ip-range=10.1.1.64/26 --gateway=10.1.1.1 macvlan_network
