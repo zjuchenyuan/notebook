@@ -218,6 +218,60 @@ SET character_set_connection=utf8mb4;
 </code></pre>
 </div>
 
+<hr />
+
+<h2 id="too-many-open-files-">解决 Too many open files 错误</h2>
+
+<blockquote>
+  <p>参考：https://duntuk.com/how-raise-ulimit-open-files-and-mysql-openfileslimit</p>
+</blockquote>
+
+<blockquote>
+  <p>https://stackoverflow.com/questions/22495124/cannot-set-limit-of-mysql-open-files-limit-from-1024-to-65535/35515570</p>
+</blockquote>
+
+<p>系统环境： ubuntu16.04，用apt install mysql-server安装的mysql</p>
+
+<p>这个问题的原因是mysql默认的open_files_limit是1024，在mysql打开1024个文件后就无法再打开新文件，需要修改这个limit，如改为1024000</p>
+
+<p>修改<code class="highlighter-rouge">/etc/mysql/mysql.conf.d/mysqld.cnf</code>，在[mysqld_safe]和[mysqld]都加入一行：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>open_files_limit = 1024000
+</code></pre>
+</div>
+
+<p>在<code class="highlighter-rouge">/etc/security/limits.conf</code>中加入：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>* soft nofile 1024000
+* hard nofile 1024000
+* soft nproc 10240
+* hard nproc 10240
+</code></pre>
+</div>
+
+<p>上述还不够，由于mysql服务被systemd管理，还要修改<code class="highlighter-rouge">/lib/systemd/system/mysql.service</code>，在最后加入</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>LimitNOFILE = infinity
+LimitMEMLOCK = infinity
+</code></pre>
+</div>
+
+<p>然后重启mysql：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>systemctl daemon-reload
+service mysql restart
+</code></pre>
+</div>
+
+<p>使用这两种方法都能看到修改是否生效：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>cat /proc/$(pgrep mysqld$)/limits | grep files
+
+mysql -u root -p
+show global variables like "%open_files_limit%";
+</code></pre>
+</div>
+
       </section>
     </div>
 

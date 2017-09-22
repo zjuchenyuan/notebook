@@ -184,3 +184,53 @@ SET NAMES utf8mb4;
 SET CHARACTER SET utf8mb4; 
 SET character_set_connection=utf8mb4;
 ```
+
+----
+
+## 解决 Too many open files 错误
+
+>参考：https://duntuk.com/how-raise-ulimit-open-files-and-mysql-openfileslimit
+
+> https://stackoverflow.com/questions/22495124/cannot-set-limit-of-mysql-open-files-limit-from-1024-to-65535/35515570
+
+系统环境： ubuntu16.04，用apt install mysql-server安装的mysql
+
+这个问题的原因是mysql默认的open_files_limit是1024，在mysql打开1024个文件后就无法再打开新文件，需要修改这个limit，如改为1024000
+
+修改`/etc/mysql/mysql.conf.d/mysqld.cnf`，在[mysqld_safe]和[mysqld]都加入一行：
+
+```
+open_files_limit = 1024000
+```
+
+在`/etc/security/limits.conf`中加入：
+
+```
+* soft nofile 1024000
+* hard nofile 1024000
+* soft nproc 10240
+* hard nproc 10240
+```
+
+上述还不够，由于mysql服务被systemd管理，还要修改`/lib/systemd/system/mysql.service`，在最后加入
+
+```
+LimitNOFILE = infinity
+LimitMEMLOCK = infinity
+```
+
+然后重启mysql：
+
+```
+systemctl daemon-reload
+service mysql restart
+````
+
+使用这两种方法都能看到修改是否生效：
+
+```
+cat /proc/$(pgrep mysqld$)/limits | grep files
+
+mysql -u root -p
+show global variables like "%open_files_limit%";
+```
