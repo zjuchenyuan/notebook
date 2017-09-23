@@ -56,7 +56,7 @@
     <li>使用pdb进行调试</li>
     <li><a href="code/decisiontree.py">机器学习-决策树</a></li>
     <li>使用Python开发阿里云函数计算后端服务</li>
-    <li>修复Linux下gbk编码的文件名</li>
+    <li>修复gbk编码的文件名</li>
   </ul>
 </blockquote>
 
@@ -204,6 +204,7 @@
     <li>使用phantomjs爬取网页</li>
     <li>jQuery绑定”变为可见”事件</li>
     <li>读取GET参数</li>
+    <li>使用 Github Issue 作为博客评论区</li>
   </ul>
 </blockquote>
 
@@ -370,9 +371,42 @@
 
 
       </section>
+<br><hr><h1 id="comment">评论区</h1><div id="comment-thread"></div><div id="loading-spin"></div>
     </div>
 
-    
   </body>
-<script src="https://py3.io/assets/instantclick.min.js"></script><script data-no-instant>InstantClick.init();</script></html>
-<hr><small>Last updated: 2017-09-22T23:02:41+08:00&nbsp;&nbsp;&nbsp;<a href=http://www.miitbeian.gov.cn/>浙ICP备15043819号-2</a>&nbsp;&nbsp;<a target=_blank href=http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33010602007826><img src=beian.png height=14px>浙公网安备 33010602007826号</p></a></small>
+<script src="assets/js/instantclick.min.js"></script>
+<link rel="stylesheet" href="assets/css/comment.css">
+<script src="assets/js/comment.js"></script>
+<script type="text/javascript" data-no-instant>
+  InstantClick.init();
+  marked.setOptions({
+  highlight: function (code, lang) {
+     return hljs.highlightAuto(code).value;
+  }
+  });
+  function Highlighting(){
+    var markdowns = document.getElementsByClassName('markdown');
+    for(var i=0;i<markdowns.length;i++){
+       if(markdowns[i].innerHTML) markdowns[i].innerHTML =marked(markdowns[i].innerHTML);
+    }
+  }
+  window.addEventListener('DOMContentLoaded', Highlighting, false);
+  window.addEventListener('load', Highlighting, false);
+   var opt = {
+       type: "github",
+       user: "zjuchenyuan",
+       repo: "notebook",
+       no_comment: "No comments yet. Press the button and go to comment now!",
+       go_to_comment: "Go to comment",
+       issue_id: "1",
+       btn_class: "btn",
+       comments_target: "#comment-thread",
+       loading_target: "#loading-spin",
+       client_id: "8f7a792630aa459d0812",
+       client_secret: "084b314f30dd9b10201011e265c4cb5d78c2b2e9"
+   };
+   getComments(opt);
+</script>
+</html>
+<hr><small>Last updated: 2017-09-23T17:37:49+08:00&nbsp;&nbsp;&nbsp;<a href=http://www.miitbeian.gov.cn/>浙ICP备15043819号-2</a>&nbsp;&nbsp;<a target=_blank href=http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33010602007826><img src=beian.png height=14px>浙公网安备 33010602007826号</p></a></small>

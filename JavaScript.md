@@ -139,3 +139,13 @@ if (typeof(QueryString.parameter)!="undefined") {
     alert(QueryString.parameter);//do something with the parameter
 }
 ```
+
+----
+
+# 使用 Github Issue 作为博客评论区
+
+人家大佬的项目：[http://github.com/wzpan/comment.js](http://github.com/wzpan/comment.js)，[中文文档](http://www.hahack.com/codes/comment-js/)
+
+如果觉得cloudflare加载速度不佳，可以把所有js打包成一个文件
+
+效果如本博客页面底部评论区所示，为了偷懒就没有为每个md文件单独开issue了，整个blog共用一个issue

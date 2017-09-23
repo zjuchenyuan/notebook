@@ -22,7 +22,48 @@ for filename in os.listdir("."):
         data = data.replace("View on GitHub</a>","""Star me on GitHub ({star_count})</a>&nbsp;{back_html}""".format(star_count=star_count,back_html="""<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>""" if filename != "index.html" else ""))
         if filename == "Python.html":
             data = data.replace('<span class="err">','<span class="s">')
-        data = data.replace("</html>","""<script src="https://py3.io/assets/instantclick.min.js"></script><script data-no-instant>InstantClick.init();</script></html>""")
+        data = data.replace("""    </div>
+
+    
+  </body>
+</html>""","""<br><hr><h1 id="comment">评论区</h1><div id="comment-thread"></div><div id="loading-spin"></div>
+    </div>
+
+  </body>
+<script src="assets/js/instantclick.min.js"></script>
+<link rel="stylesheet" href="assets/css/comment.css">
+<script src="assets/js/comment.js"></script>
+<script type="text/javascript" data-no-instant>
+  InstantClick.init();
+  marked.setOptions({
+  highlight: function (code, lang) {
+     return hljs.highlightAuto(code).value;
+  }
+  });
+  function Highlighting(){
+    var markdowns = document.getElementsByClassName('markdown');
+    for(var i=0;i<markdowns.length;i++){
+       if(markdowns[i].innerHTML) markdowns[i].innerHTML =marked(markdowns[i].innerHTML);
+    }
+  }
+  window.addEventListener('DOMContentLoaded', Highlighting, false);
+  window.addEventListener('load', Highlighting, false);
+   var opt = {
+       type: "github",
+       user: "zjuchenyuan",
+       repo: "notebook",
+       no_comment: "No comments yet. Press the button and go to comment now!",
+       go_to_comment: "Go to comment",
+       issue_id: "1",
+       btn_class: "btn",
+       comments_target: "#comment-thread",
+       loading_target: "#loading-spin",
+       client_id: "8f7a792630aa459d0812",
+       client_secret: "084b314f30dd9b10201011e265c4cb5d78c2b2e9"
+   };
+   getComments(opt);
+</script>
+</html>""")
         open(filename,"w",encoding='utf-8').write(data)
 PYTHON
 #刷新又拍云缓存，代码在https://github.com/zjuchenyuan/EasyLogin/tree/master/examples/upyun

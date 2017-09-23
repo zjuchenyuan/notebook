@@ -29,7 +29,7 @@ My notebook about technology, for lookup and share
 >* 使用pdb进行调试
 >* [机器学习-决策树](code/decisiontree.py)
 >* 使用Python开发阿里云函数计算后端服务
->* 修复Linux下gbk编码的文件名
+>* 修复gbk编码的文件名
 
 ## [BAT 批处理](BAT.md)
 >* 快速打开cmd
@@ -133,6 +133,7 @@ My notebook about technology, for lookup and share
 >* 使用phantomjs爬取网页
 >* jQuery绑定"变为可见"事件
 >* 读取GET参数
+>* 使用 Github Issue 作为博客评论区
 
 ## [Jekyll](Jekyll.md)
 >* 碰到过的坑
