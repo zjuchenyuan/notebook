@@ -30,11 +30,10 @@ for filename in os.listdir("."):
     </div>
 
   </body>
-<script src="assets/js/instantclick.min.js"></script>
+<script src="assets/js/instantclick.min.js" data-no-instant></script>
 <link rel="stylesheet" href="assets/css/comment.css">
-<script src="assets/js/comment.js"></script>
-<script type="text/javascript" data-no-instant>
-  InstantClick.init();
+<script src="assets/js/comment.js" data-no-instant></script>
+<script>
   marked.setOptions({
   highlight: function (code, lang) {
      return hljs.highlightAuto(code).value;
@@ -62,6 +61,9 @@ for filename in os.listdir("."):
        client_secret: "084b314f30dd9b10201011e265c4cb5d78c2b2e9"
    };
    getComments(opt);
+</script>
+<script data-no-instant>
+  InstantClick.init();
 </script>
 </html>""")
         open(filename,"w",encoding='utf-8').write(data)

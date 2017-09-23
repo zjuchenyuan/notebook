@@ -375,11 +375,10 @@
     </div>
 
   </body>
-<script src="assets/js/instantclick.min.js"></script>
+<script src="assets/js/instantclick.min.js" data-no-instant></script>
 <link rel="stylesheet" href="assets/css/comment.css">
-<script src="assets/js/comment.js"></script>
-<script type="text/javascript" data-no-instant>
-  InstantClick.init();
+<script src="assets/js/comment.js" data-no-instant></script>
+<script>
   marked.setOptions({
   highlight: function (code, lang) {
      return hljs.highlightAuto(code).value;
@@ -408,5 +407,8 @@
    };
    getComments(opt);
 </script>
+<script data-no-instant>
+  InstantClick.init();
+</script>
 </html>
-<hr><small>Last updated: 2017-09-23T17:37:49+08:00&nbsp;&nbsp;&nbsp;<a href=http://www.miitbeian.gov.cn/>浙ICP备15043819号-2</a>&nbsp;&nbsp;<a target=_blank href=http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33010602007826><img src=beian.png height=14px>浙公网安备 33010602007826号</p></a></small>
+<hr><small>Last updated: 2017-09-23T17:45:11+08:00&nbsp;&nbsp;&nbsp;<a href=http://www.miitbeian.gov.cn/>浙ICP备15043819号-2</a>&nbsp;&nbsp;<a target=_blank href=http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33010602007826><img src=beian.png height=14px>浙公网安备 33010602007826号</p></a></small>
