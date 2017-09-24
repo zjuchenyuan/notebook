@@ -325,7 +325,7 @@ DEBIAN_FRONTEND=noninteractive apt-get install -y ...
 
 这里的内网不是只有主机可以访问的容器Docker内网，而是主机接入的企业内网这种；如果你能直接通过设置IP获得公网IP，当然按照这个方法也能给容器分配公网IP
 
-注意：此方法Docker容器虽然获得了和主机地位相同的IP，但容器无法使用主机的IP与主机通讯，这是Linux内核为了隔离性和安全性做出的限制
+注意：此方法Docker容器虽然获得了和主机地位相同的IP，但容器无法使用主机的IP与主机通讯，主机好像也不能访问容器的IP，这是Linux内核为了隔离性和安全性做出的限制
 
 参考： 
 
@@ -344,15 +344,35 @@ DEBIAN_FRONTEND=noninteractive apt-get install -y ...
 附： [这是一个输入Network 10.1.1.64/26转换为HostMin 10.1.1.65~ HostMax 10.1.1.126的计算器](http://jodies.de/ipcalc?host=10.1.1.64&mask1=26&mask2=)
 
 
-"""
+```
 docker network create -d macvlan -o macvlan_mode=bridge -o parent=eth0 --subnet=10.1.1.0/24 --ip-range=10.1.1.64/26 --gateway=10.1.1.1 macvlan_network
 
 docker run --net=macvlan_network --ip=10.1.1.100 -d nginx
-"""
+```
 
-现在你可以访问http://10.1.1.100来看到nginx的欢迎页面了
+现在你可以访问 `http://10.1.1.100` 来看到nginx的欢迎页面了，你需要在内网另一台机器上访问（我的发现是主机和这样分配的容器是不互通的）
+
+### 一点额外的警告
 
 启动容器时可以不指定ip让docker自动分配，警告：如果没有配置ip-range参数，有可能被分配的恰好是主机本身的IP，这种情况将导致主机丢失IP无法联网！
 
 万一发生这种虚拟机把主机的IP抢占的情况，在没有物理控制方法下不可轻易使用ifconfig修改主机IP，因为一旦使用ifconfig主机的route将被清空、当前主机的其他IP也会丢失，你就丢失远程访问的可能了（也许你可以写一个脚本自动恢复route稳妥一点）；但神奇的是即使主机route已经丢失，按照上述macvlan开出来的Docker容器仍然在线（也可以理解——容器的route并没有受到影响，类似于Virtualbox的桥接网卡方式）
 
+----
+
+## 对容器网络流量tcpdump
+
+Learned from: https://www.slideshare.net/SreenivasMakam/docker-networking-common-issues-and-troubleshooting-techniques
+
+
+```
+docker run -ti --net container:<containerid> nicolaka/netshoot tcpdump -i eth0 -n port 80
+```
+
+举个例子，上述启动了nginx容器并分配了内网ip 10.1.1.100，我们来收集80端口的流量，并保存到/tmp/pcapfiles/nginx.pcap文件：
+
+```
+docker run -ti --net container:f5fc -v /tmp/pcapfiles:/data nicolaka/netshoot tcpdump -i eth0 -n -s0 -w /data/nginx.pcap port 80
+```
+
+[查看对应的tcpdump文档](http://explainshell.com/explain?cmd=tcpdump%20-i%20eth0%20-n%20-s0%20-w%20/data/nginx.pcap%20port%2080)
