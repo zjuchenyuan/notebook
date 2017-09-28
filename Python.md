@@ -526,3 +526,353 @@ os.listdir应该返回的是当前这个文件夹下含有的文件名称和文�
 
 如何修复这些`错误`的文件名呢？用到`python3`提供的os.walk(b".")就能得到bytes类型的文件名，然后`os.system`调用bytes类型的`mv`命令行就好啦~
 
+----
+
+# Crack RSA!
+
+## 题目信息
+
+题目来源：[清华蓝莲花战队纳新表（需自备梯子）](https://docs.google.com/forms/d/e/1FAIpQLSfOI5AgEvlqa6-nRLAZI8Dvs6_XmZDHSog2pKteS5rvp3AU0Q/viewform)
+
+密码学 (Cryptography)
+
+RSA算法的原理以及破解，请下载[这个文件](https://d.py3.io/rsa.zip)，解密其中的flag.enc文件。
+
+## RSA是啥
+
+略...(连这个都不知道还不去google，你适不适合CTF心里一点B数都没有吗)
+
+符号约定： n一个大数， p和q是它的质因子，d私钥，m信息明文，c信息密文
+
+## 破解的数学原理
+
+参考：https://stackoverflow.com/questions/4078902/cracking-short-rsa-keys
+
+Google搜索关键词 crack rsa key
+
+给定公钥n和e，假定我们成功分解n = p * q，那么求出d
+
+```
+d = e^-1 mod phi(n)
+  = e^-1 mod (p-1)*(q-1)
+```
+
+现在我们有了私钥d，可以对密文c解密得到明文m：
+
+```
+m = c^d (mod n)
+```
+
+## 实现它
+
+### 题目给的公钥是啥格式，怎么读取出N和e?
+
+题目给的公钥是这样的：
+
+```
+-----BEGIN PUBLIC KEY-----
+MDwwDQYJKoZIhvcNAQEBBQADKwAwKAIhAMgVHv67DCP6oRAiQJxaEuSluWmE5iZb
+e+fuqvuwBPUfAgMBAAE=
+-----END PUBLIC KEY-----
+```
+
+看起来很短，估计是可以分解的比较小的N
+
+google搜索关键词：openssl get n from public key
+
+参考：https://stackoverflow.com/questions/3116907/rsa-get-exponent-and-modulus-given-a-public-key
+
+人家给出了这样的做法：(环境Linux，已经安装openssl)
+
+```
+# 丢弃头尾的---行，提取公钥内容并合并一行（这是base64编码的字符串）
+PUBKEY=`grep -v -- ----- public.pem | tr -d '\n'`
+# 编码格式是asn1，查看这种编码的格式
+echo $PUBKEY | base64 -d | openssl asn1parse -inform DER -i
+```
+
+将输出：
+
+```
+    0:d=0  hl=2 l=  60 cons: SEQUENCE
+    2:d=1  hl=2 l=  13 cons:  SEQUENCE
+    4:d=2  hl=2 l=   9 prim:   OBJECT            :rsaEncryption
+   15:d=2  hl=2 l=   0 prim:   NULL
+   17:d=1  hl=2 l=  43 prim:  BIT STRING
+```
+
+最后一行BIT STRING就是数据所在的位置，偏移为17
+
+提取出来：
+
+```
+echo $PUBKEY | base64 -d | openssl asn1parse -inform DER -i -strparse 17
+```
+
+得到：
+
+```
+    0:d=0  hl=2 l=  40 cons: SEQUENCE
+    2:d=1  hl=2 l=  33 prim:  INTEGER           :C8151EFEBB0C23FAA11022409C5A12E4A5B96984E6265B7BE7EEAAFBB004F51F
+   37:d=1  hl=2 l=   3 prim:  INTEGER           :010001
+```
+
+嗯~这样就看到十六进制的n和e啦，转为十进制的话python里面直接输入:
+
+```
+n = 0xC8151EFEBB0C23FAA11022409C5A12E4A5B96984E6265B7BE7EEAAFBB004F51F
+print(n) 
+```
+
+上述python执行后将输出
+
+90499887424928873790510606439768063703452393541528122252967476339871041516831
+
+同理我们得知e=65537，一般RSA加密都会把公钥的e选为65537
+
+## 怎么分解n 得到p和q？
+
+你可以自己写代码，然而我懒，直接查数据库：
+
+打开factordb.com这个神奇的网站，输入n的值就能查到分解结果啦：
+
+http://factordb.com/index.php?query=90499887424928873790510606439768063703452393541528122252967476339871041516831
+
+分解结果：
+
+```
+9049988742...31<77> = 283194537446483890135816972554288437117<39> · 319567913424286672035093410391626922443<39>
+```
+
+好了，我们就知道 p q了，具体哪个是p哪个是q并不重要
+
+p=283194537446483890135816972554288437117, q=319567913424286672035093410391626922443
+
+## 怎么计算私钥d
+
+根据RSA原理， d = e^-1 mod (p-1)\*(q-1)， 现在我们有了p和q，mod后面的(p-1)\*(q-1)自然是可以求出来的
+
+但e^-1是个啥玩意？倒数？ 倒数还能求模？
+
+emmm 其实是求逆元啦 然而不会写代码怎么办，当时是继续google啊
+
+google关键词： python calculate inverse mod
+
+参考：https://stackoverflow.com/questions/4798654/modular-multiplicative-inverse-function-in-python
+
+得到代码：
+
+```
+def egcd(a, b):
+    if a == 0:
+        return (b, 0, 1)
+    else:
+        g, y, x = egcd(b % a, a)
+        return (g, x - (b // a) * y, y)
+
+def modinv(a, m):
+    g, x, y = egcd(a, m)
+    if g != 1:
+        raise Exception('modular inverse does not exist')
+    else:
+        return x % m
+```
+
+看不懂这代码在干啥？我也看不懂，但没关系，直接用就行 这么多人点赞肯定是对的
+
+那现在就着手把这代码搬运到我们的py中咯：
+
+```
+N = 0xC8151EFEBB0C23FAA11022409C5A12E4A5B96984E6265B7BE7EEAAFBB004F51F
+e = 0x10001
+
+p = 283194537446483890135816972554288437117
+q = 319567913424286672035093410391626922443
+
+def egcd(a, b):
+    if a == 0:
+        return (b, 0, 1)
+    else:
+        g, y, x = egcd(b % a, a)
+        return (g, x - (b // a) * y, y)
+
+def modinv(a, m):
+    g, x, y = egcd(a, m)
+    if g != 1:
+        raise Exception('modular inverse does not exist')
+    else:
+        return x % m
+
+d = modinv(e, (p-1)*(q-1))
+print(d)
+```
+
+上述python将输出34458919248694250828820386546500026880096887166581679876896066449320377773297， 真是一个好大的d啊。。。
+
+## 怎么把flag.enc当成一个int读入？
+
+试图用记事本打开flag.enc，乱码了；那用二进制形式打开flag.inc文件看看：
+![](https://d.py3.io/img/15365186860.png)
+
+emmm一共32字节长的密文，直接读文件将得到bytes strig，怎么把它转为一个很大的整数呢？
+
+google关键词： python byte string to int
+
+参考：https://stackoverflow.com/questions/444591/convert-a-string-of-bytes-into-an-int-python
+
+人家给出了python3.2以后可以用int.from_bytes的方式，继续写我们的py咯：
+
+```
+encrypteddata = open('flag.enc','rb').read()
+c = int.from_bytes(encrypteddata, 'big')
+print(c)
+```
+
+这里的'big'表示大端存放的方式，就是最重要的那一位是靠左边的
+
+插一句：通过询问其他大佬，我也折腾出了一种naive的方法——使用binascii模块先转为hex编码，然后hex按16字节转int:
+
+```
+encrypteddata = open('flag.enc','rb').read()
+import binascii
+c = int(binascii.b2a_hex(encrypteddata).decode(),16)
+print(c)
+```
+
+## 计算明文
+
+公式（密码学肯定要考的，所以再记一次咯）
+
+```
+m = c^d (mod n)
+```
+
+问题来了，d是个那么大的数，如果直接写一个：
+
+```
+# 在python里**表示乘方
+m = (c**d)%n
+```
+果然运行这个py就卡死了，实际上并没有必要算出精确的c\*\*d，我们需要调用快速的mod乘方的方法
+
+google关键词： python mod pow
+
+参考：https://stackoverflow.com/questions/32738637/calculate-mod-using-pow-function-python
+
+人家说pow函数就可以提供第3个参数，例如pow(6, 8, 5)就是 6^8 mod 5
+
+那就写代码咯(瞎写，C语言的pow需要#include <math.h> 那我就也从math导入吧)：
+
+```
+from math import pow
+m = pow(c,d,n)
+```
+
+然而命途多舛，果然报错：
+
+```
+Traceback (most recent call last):
+  File "run.py", line 35, in <module>
+    m = pow(c,d,n)
+TypeError: pow expected 2 arguments, got 3
+```
+
+emmm... 奇了怪了，这是什么鬼嘛，说好的支持第三个参数呢，翻回去仔细看人家给的[文档链接](https://docs.python.org/3/library/functions.html#pow)
+
+嗯？这文档的标题就是Built-in Functions，我懂了！ 支持第三个参数的pow函数是内置的那个，而不是math库提供的，删掉`from math import pow`这一句就好了
+
+我们的py又加上了两行：
+
+```
+m = pow(c,d,n)
+print(m)
+```
+得到输出 4114174865819530012247735243997890458185276719507135882385278623252053258
+
+## 明文这么一个大数 我要的flag呢？
+
+cy打开了他的笔记本 [https://py3.io/Python.html#bytes](https://py3.io/Python.html#bytes)
+
+查到了 十六进制字符串转bytes字符串 和 拿到一个int转字符串 的方法：
+
+```
+from base64 import b16decode
+print( b16decode( hex(m)[2:].upper() ) )
+```
+
+果然 又tm出错了：
+
+```
+Traceback (most recent call last):
+  File "run.py", line 37, in <module>
+    print( b16decode( hex(m)[2:].upper() ) )
+  File "/usr/lib/python3.5/base64.py", line 276, in b16decode
+    return binascii.unhexlify(s)
+binascii.Error: Odd-length string
+```
+
+odd-length啥意思？奇数长度？对噢 十六进制字符串肯定要偶数长度才行（两个一组表示一个字节嘛） 那么就前面补个0咯
+
+py代码如下：（其实你也可以试试int.to_bytes方法）
+
+```
+plaindata = hex(m)[2:].upper()
+if len(plaindata)%2 :
+    plaindata = "0"+plaindata
+print(b16decode(plaindata))
+```
+
+输出：
+
+```
+b'\x02T\x1b:(\x02\xb9\x8c8\xbb\x00CTF{256i3_n0t_SAfe}\n'
+```
+
+啊哈！ 总算能搞定啦，flag到手！
+
+## 完整的代码
+
+```
+# parse public key: https://stackoverflow.com/questions/3116907/rsa-get-exponent-and-modulus-given-a-public-key
+# PUBKEY=`grep -v -- ----- public.pem | tr -d '\n'`
+# echo $PUBKEY | base64 -d | openssl asn1parse -inform DER -i
+# echo $PUBKEY | base64 -d | openssl asn1parse -inform DER -i -strparse 17
+
+
+n = 0xC8151EFEBB0C23FAA11022409C5A12E4A5B96984E6265B7BE7EEAAFBB004F51F
+e = 0x10001
+print(n)
+# visit http://factordb.com/index.php?query=90499887424928873790510606439768063703452393541528122252967476339871041516831
+p = 283194537446483890135816972554288437117
+q = 319567913424286672035093410391626922443
+
+def egcd(a, b):
+    if a == 0:
+        return (b, 0, 1)
+    else:
+        g, y, x = egcd(b % a, a)
+        return (g, x - (b // a) * y, y)
+
+def modinv(a, m):
+    g, x, y = egcd(a, m)
+    if g != 1:
+        raise Exception('modular inverse does not exist')
+    else:
+        return x % m
+d = modinv(e, (p-1)*(q-1))
+print(d)
+encrypteddata = open('flag.enc','rb').read()
+import binascii
+c = int(binascii.b2a_hex(encrypteddata).decode(),16)
+print(c)
+c = int.from_bytes(encrypteddata, 'big')
+print(c)
+m = pow(c,d,n)
+print(m)
+from base64 import b16decode
+plaindata = hex(m)[2:].upper()
+if len(plaindata)%2 :
+    plaindata = "0"+plaindata
+
+print(b16decode(plaindata))
+```
