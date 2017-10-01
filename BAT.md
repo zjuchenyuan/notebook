@@ -175,3 +175,40 @@ From: https://stackoverflow.com/questions/3648366/is-it-possible-to-launch-ies-p
 ```
 inetcpl.cpl ,4
 ```
+
+----
+
+## 在普通权限cmd中获得更高权限
+
+比如下文的修改ip等操作就需要管理员权限。你可以先启动任务管理器，再运行一个管理员权限的cmd；现在有了更加直接的操作
+
+### 方案1：[elevate](http://code.kliu.org/misc/elevate/)
+
+下载地址：[http://code.kliu.org/misc/elevate/elevate-1.3.0-redist.7z](http://code.kliu.org/misc/elevate/elevate-1.3.0-redist.7z)
+
+特点：有UAC弹窗，会启动一个新窗口
+
+例子：
+
+```
+REM 启动一个特权的cmd
+elevate -k
+REM 执行dir并等待结束
+elevate -c -w dir
+```
+
+### 方案2：Sudo for Windows – Luke Sampson
+
+参考：https://helpdeskgeek.com/free-tools-review/5-windows-alternatives-linux-sudo-command/
+
+在powershell中输入以下命令完成安装：
+
+```
+iex (new-object net.webclient).downloadstring(‘https://get.scoop.sh’)
+
+set-executionpolicy unrestricted -s cu -f
+
+scoop install sudo
+```
+
+特点：比较慢，仍然有UAC弹窗，不会启动一个新窗口
