@@ -212,3 +212,27 @@ scoop install sudo
 ```
 
 特点：比较慢，仍然有UAC弹窗，不会启动一个新窗口
+
+----
+
+## 命令行配置IP
+
+需要管理员权限，参见上方`在普通权限cmd中获得更高权限`
+
+参考：https://helpdeskgeek.com/networking/change-ip-address-and-dns-servers-using-the-command-prompt/
+
+首先使用`netsh interface ip show config`查看适配器的名称，假设需要配置的是`以太网`
+
+### 配置静态IP和DNS
+
+```
+netsh interface ip set address name="以太网" static 192.168.1.101 255.255.255.0 192.168.1.1
+netsh interface ip set dns "以太网" static 192.168.1.1
+```
+
+### 配置DHCP
+
+```
+netsh interface ip set address name="以太网" dhcp
+netsh interface ip set dns "以太网" dhcp
+```
