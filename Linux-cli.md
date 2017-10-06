@@ -471,3 +471,23 @@ myget http://server_IP:8080/yourdir #相当于将yourdir复制到当前文件夹
 -r 递归下载，-np不要进入父目录，-nH不要创建host文件夹，-R index.html不要保存文件列表的index.html，--restrict-file-names=nocontrol不要乱改中文文件名
 
 [查看man文档](https://www.explainshell.com/explain?cmd=wget%20-r%20-np%20-nH%20-R%20index.html%20--restrict-file-names=nocontrol%20http://yourserver:8080/yourdir)
+
+----
+
+## 清除已经断开的sshd进程
+
+如果你发现ps aux或netstat -pant输出了大量sshd的信息，说明之前ssh连接断开后sshd并没有退出而是一直占用内存
+
+我们可以清除掉这些进程来释放内存
+
+首先通过`pstree -p`来查看当前你的ssh会话的sshd进程PID，例如输出了这样一行：
+
+```
+├─sshd(32275)───bash(32413)───pstree(6543)
+```
+
+则说明当前sshd的pid为32275，然后执行下面这条命令来kill -9其他所有的sshd进程：
+
+```
+ps -ef | grep sshd | grep -v 32275 | grep -v grep | awk '{print "kill -9", $2}' |sh
+```
