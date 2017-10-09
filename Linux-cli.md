@@ -491,3 +491,19 @@ myget http://server_IP:8080/yourdir #相当于将yourdir复制到当前文件夹
 ```
 ps -ef | grep sshd | grep -v 32275 | grep -v grep | awk '{print "kill -9", $2}' |sh
 ```
+
+Hint: 如果当前主机还运行着Docker容器，如果容器的守护进程是sshd，上一条命令可能使容器退出；所以你还需要`docker top`来确定容器的sshd在主机上的pid号
+
+----
+
+## 批量替换文本
+
+例如批量递归替换当前文件夹及子文件夹所有php文件，将其中的"aha/666"改为"ovo/999"
+
+命令如下：
+
+```
+find . -type f -name "*.php" -exec sed -i 's~aha/666~ovo/999~g' {} +
+```
+
+其中sed -i原位替换用的分隔符由于替换前后字符串中出现了/，所以不能用经典的/，而改用~
