@@ -33,6 +33,16 @@
 </code></pre>
 </div>
 
+<h2 id="section">判断命令行参数是否为空</h2>
+
+<p>在python里可以用len(sys.argv)判断参数个数</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>if [ -z "$1" ] &amp;&amp; [ -z "$2" ]; then
+    echo "Usage: $0 &lt;parameter1&gt; &lt;parameter2&gt;"
+fi
+</code></pre>
+</div>
+
       </section>
 <br><hr><h1 id="comment">评论区</h1><div id="comment-thread"></div><div id="loading-spin"></div>
     </div>

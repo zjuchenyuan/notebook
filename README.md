@@ -34,7 +34,7 @@ My notebook about technology, for lookup and share
 
 ## [BASH](BASH.md)
 >* 在bash脚本中使用alias
-
+>* 判断命令行参数是否为空
 
 ## [BAT 批处理](BAT.md)
 >* 快速打开cmd
