@@ -32,6 +32,10 @@ My notebook about technology, for lookup and share
 >* 修复gbk编码的文件名
 >* Crack RSA! 破解短长度密钥的RSA加密
 
+## [BASH](BASH.md)
+>* 在bash脚本中使用alias
+
+
 ## [BAT 批处理](BAT.md)
 >* 快速打开cmd
 >* 并列语句语法
