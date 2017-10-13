@@ -65,3 +65,17 @@ curl dict://www.dict.org/d:computer -v
 # 还可以循环哟
 
 curl -OJ http://example.com/[1-100].jpg
+
+----
+
+## wget在0b/s时自动重连
+
+From: https://askubuntu.com/questions/72663/how-to-make-wget-retry-download-if-speed-goes-below-certain-threshold
+
+用法：
+
+```
+wget -c --tries=0 --read-timeout=20 [URL]
+```
+
+其中-c表示断点续传，--tries=0表示无限次重试，--read-timeout指定20s无网络活动就认为出错(默认是15分钟)

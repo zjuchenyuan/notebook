@@ -16,7 +16,7 @@
 
         <section id="downloads">
           
-          <a href="https://github.com/zjuchenyuan/notebook/blob/master/cURL.md" class="btn btn-github"><span class="icon"></span>Star me on GitHub (49)</a>&nbsp;<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>
+          <a href="https://github.com/zjuchenyuan/notebook/blob/master/cURL.md" class="btn btn-github"><span class="icon"></span>Star me on GitHub (51)</a>&nbsp;<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>
         </section>
       </div>
     </header>
@@ -98,6 +98,20 @@ curl dict://www.dict.org/d:computer -v
 <h1 id="section-2">还可以循环哟</h1>
 
 <p>curl -OJ http://example.com/[1-100].jpg</p>
+
+<hr />
+
+<h2 id="wget0bs">wget在0b/s时自动重连</h2>
+
+<p>From: https://askubuntu.com/questions/72663/how-to-make-wget-retry-download-if-speed-goes-below-certain-threshold</p>
+
+<p>用法：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>wget -c --tries=0 --read-timeout=20 [URL]
+</code></pre>
+</div>
+
+<p>其中-c表示断点续传，–tries=0表示无限次重试，–read-timeout指定20s无网络活动就认为出错(默认是15分钟)</p>
 
       </section>
 <br><hr><h1 id="comment">评论区</h1><div id="comment-thread"></div><div id="loading-spin"></div>

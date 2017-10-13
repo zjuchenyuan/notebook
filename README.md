@@ -74,6 +74,7 @@ My notebook about technology, for lookup and share
 >* 模拟浏览器请求
 >* 基本教程
 >* 还可以循环哟
+>* wget在0b/s时自动重连
 
 ## [Developer](Developer.md)
 >* 保持技术精进
