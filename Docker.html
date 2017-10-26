@@ -16,7 +16,7 @@
 
         <section id="downloads">
           
-          <a href="https://github.com/zjuchenyuan/notebook/blob/master/Docker.md" class="btn btn-github"><span class="icon"></span>Star me on GitHub (51)</a>&nbsp;<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>
+          <a href="https://github.com/zjuchenyuan/notebook/blob/master/Docker.md" class="btn btn-github"><span class="icon"></span>Star me on GitHub (52)</a>&nbsp;<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>
         </section>
       </div>
     </header>
@@ -443,6 +443,22 @@ docker run --net=macvlan_network --ip=10.1.1.100 -d nginx
 </div>
 
 <p><a href="http://explainshell.com/explain?cmd=tcpdump%20-i%20eth0%20-n%20-s0%20-w%20/data/nginx.pcap%20port%2080">查看对应的tcpdump文档</a></p>
+
+<hr />
+
+<h2 id="section-8">修改正在运行的容器的重启策略</h2>
+
+<p>docker run的时候忘了指定restart=always，除了commit后再正确地run一遍之外有没有更加优雅的修改容器参数的方法呢？</p>
+
+<p>参考： https://stackoverflow.com/questions/26852321/docker-add-a-restart-policy-to-a-container-that-was-already-created</p>
+
+<p>在1.11版本后有了<code class="highlighter-rouge">docker update</code>这个命令，可以修改正在运行的容器的参数，如CPU限制、内存限制 和 重启策略</p>
+
+<p>使目前运行的所有容器都设置为自动重启：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>docker update --restart=always `docker ps -q`
+</code></pre>
+</div>
 
       </section>
 <br><hr><h1 id="comment">评论区</h1><div id="comment-thread"></div><div id="loading-spin"></div>

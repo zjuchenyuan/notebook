@@ -376,3 +376,19 @@ docker run -ti --net container:f5fc -v /tmp/pcapfiles:/data nicolaka/netshoot tc
 ```
 
 [查看对应的tcpdump文档](http://explainshell.com/explain?cmd=tcpdump%20-i%20eth0%20-n%20-s0%20-w%20/data/nginx.pcap%20port%2080)
+
+----
+
+## 修改正在运行的容器的重启策略
+
+docker run的时候忘了指定restart=always，除了commit后再正确地run一遍之外有没有更加优雅的修改容器参数的方法呢？
+
+参考： https://stackoverflow.com/questions/26852321/docker-add-a-restart-policy-to-a-container-that-was-already-created
+
+在1.11版本后有了`docker update`这个命令，可以修改正在运行的容器的参数，如CPU限制、内存限制 和 重启策略
+
+使目前运行的所有容器都设置为自动重启：
+
+```
+docker update --restart=always `docker ps -q`
+```
