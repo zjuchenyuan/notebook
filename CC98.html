@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link rel="stylesheet" href="assets/css/style.css?20170509">
+    <title>notebook by zjuchenyuan</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>notebook</h1>
+        <h2>我的技术笔记本~</h2>
+
+        <section id="downloads">
+          
+          <a href="https://github.com/zjuchenyuan/notebook/blob/master/CC98.md" class="btn btn-github"><span class="icon"></span>Star me on GitHub (52)</a>&nbsp;<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1 id="cc98-oauth2-">如何接入CC98 OAuth2 进行用户验证</h1>
+
+<p>本文以第三方网站开发者的角度尝试接入cc98.org的OAuth登录，然后你就可以进一步做用户绑定、自定义事件处理（比如做出某个题目自动解锁该用户cc98上某个writeup帖子的访问权限</p>
+
+<h2 id="section">要求</h2>
+
+<ul>
+  <li>你目前的网络应该能访问login.cc98.org和api.cc98.org</li>
+  <li>你应该对<a href="/cURL.html">curl</a>的用法有了解，至少POST请求用–data要知道</li>
+  <li>你应该了解OAuth2.0 授权码模式的基本流程，可以参考<a href="http://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html">这篇文章</a>和<a href="http://www.cftea.com/c/2016/11/6703.asp">这篇文章</a></li>
+</ul>
+
+<h2 id="section-1">一些坑</h2>
+
+<ul>
+  <li>官方给出的<a href="https://login.cc98.org/OAuth/Help">用法说明</a>有拼写错误 <code class="highlighter-rouge">authroization_code</code> 应该是<code class="highlighter-rouge">authorization_code</code> 否则<code class="highlighter-rouge"><span class="p">{</span><span class="nt">"error"</span><span class="p">:</span><span class="s2">"unsupported_grant_type"</span><span class="p">}</span></code></li>
+  <li>访问token接口无论是否成功，使用的code都一律失效 需要重新浏览器获取</li>
+  <li>访问token接口必须给出相同的redirect_uri，否则{“error”:”invalid_grant”}</li>
+</ul>
+
+<h2 id="section-2">详细过程</h2>
+
+<h3 id="api-key">申请 API Key</h3>
+
+<p>使用你的cc98账号登录<a href="https://login.cc98.org/ApiKey">https://login.cc98.org/ApiKey</a></p>
+
+<p>填写信息 后 提交App Key 申请，重定向地址可以留空</p>
+
+<p><img src="assets/img/cc981.png" alt="" /></p>
+
+<p>然后就可以查看到App ID和App Secret</p>
+
+<p>假设得到的信息如下：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>App ID: 5e5bd5a8-ea36-442e-8c95-8f952a34fdd7
+App Secret: 017cd47e-39ce-43e1-af3a-e620e725bf59
+指定的重定向地址: https://zjusec.com/cc98_oauth
+</code></pre>
+</div>
+
+<h3 id="cc98">我们要求用户cc98登录，使用户跳转到这个页面</h3>
+
+<p>首先生成一个随机的state，<a href="http://blog.sina.com.cn/s/blog_56b798f801018jyb.html">如果不这么做的后果</a>。 假设state随机生成为123456</p>
+
+<p>然后让用户访问这个网址：</p>
+
+<p>https://login.cc98.org/OAuth/Authorize?client_id=5e5bd5a8-ea36-442e-8c95-8f952a34fdd7&amp;scope=&amp;response_type=code&amp;redirect_uri=https://zjusec.com/cc98_oauth&amp;state=123456</p>
+
+<p>其中:</p>
+
+<p>client_id、redirect_uri、state 就分别是上述得到的App ID、重定向地址、随机生成的state；</p>
+
+<p>scope为<a href="https://login.cc98.org/OAuth/Scopes">申请的授权</a>，由于我们只要绑定用户，无需申请任何授权，所以留空；</p>
+
+<h3 id="cc98-1">用户确认授权 会被cc98跳转到这个页面</h3>
+
+<p><img src="assets/img/cc982.png" alt="" /></p>
+
+<p>跳转到了：</p>
+
+<p>https://zjusec.com/cc98_oauth?scope=&amp;code=5e5bd5a8ea36442e8c958f952a34fdd70a28d1d95f30496182cd594f72ec35fc&amp;state=123456</p>
+
+<h3 id="code">后端如何使用这个code？</h3>
+
+<p>首先验证一下state是不是与之前随机生成的匹配，如果不一致，报错结束</p>
+
+<p>拿到code后向这个地址发起请求，这一步是你的服务端程序完成，用你的网页编程语言实现；curl命令为：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>curl https://login.cc98.org/OAuth/Token -d "grant_type=authorization_code&amp;client_id=5e5bd5a8-ea36-442e-8c95-8f952a34fdd7&amp;client_secret=017cd47e-39ce-43e1-af3a-e620e725bf59&amp;code=5e5bd5a8ea36442e8c958f952a34fdd7968fc82cb93f43ad81929c9184f002c0&amp;redirect_uri=https%3A%2F%2Fzjusec.com%2Fcc98_oauth"
+</code></pre>
+</div>
+
+<p>强调一下：authorization_code不要拼错(就是不要从官方帮助复制)，无论上述请求返回了啥，所使用的code都会无效，需要重新回到上一步浏览器确认授权跳转得到新的code</p>
+
+<p>如果成功，将会得到这样的：</p>
+
+<p><img src="assets/img/cc983.png" alt="" /></p>
+
+<p>看到其中有access_token信息，复制出来挺长的：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>izmHwQT0ign4iBPAii4VEebKBdBhzv4BYyP_WrjqNMU7P2cBLMQQpn4ag5uYart3Ef5Uf7fez_zhdBdprcJ48GFiP77IXmfEesDHv9-S8geGdmxTvN_GawT8VZokNvR2L5123rYmQxZqPtvMMZ7bMMuNHqaNwhm1jkJlbb9yCsAky1Y2_-cYGe2DbkL8lcUN8kpmq7JahThppwM2xPbgNGsKIWIEaxv634vZSfgQ0IF0HVckQzt3J2hDP_2Kus9GwM5bVpm5yPJD1RQ18LFllc9caWB2CqI8yXUl-B614HS26t7j_nitMg5bWiLg2PJwUH2Ar0ZRQBmgLdp1Ujz83dk7RwUkTeQeXcGPxskzxyqGaJ15KF2nW81pR2WPaI9jTKuMwktNdqLv3A6aG21X2aTK36aTGDfzF0ENeE5IRz1G9EVSShZTApNNMlTCK7jQvGEC8zOunMnSCUajOIbRnmHKuHeeXtspCs9KMOHkXWv0tZmJn4ewSvFcg8OYF-YyfiRRdfuK8ljRfgskOG-3J5TA39iX2b8kIqaB26YHRQEXlEePctgQUzulFEh38Zu01qVm1GZUXZI4p9Kz9EHMyrQIk-zJFRrPRVe7CWAMovk
+</code></pre>
+</div>
+
+<h4 id="accesstoken">当然还没完，还要使用这个access_token得到用户信息</h4>
+
+<p>由于scope为空，就是啥都没授权，只能访问这个接口获取用户名和用户头像：<a href="http://api.cc98.org/Help/Api/GET-Me-Basic">帮助文档</a></p>
+
+<p>那就访问咯，带上Authorization头部的curl命令：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>curl https://api.cc98.org/Me/Basic -H "Authorization: Bearer izmHw..."
+</code></pre>
+</div>
+
+<p><img src="assets/img/cc984.png" alt="" /></p>
+
+<p>可以看到返回的name和portraitUrl就是我们要的啦</p>
+
+<p>于是我们就实现了—— 当你单击“确认授权”按钮后，你就可以使用当前的 CC98 账户登录这个应用程序。这个程序只能知道你登录的用户名，不能获得你的密码和你在 CC98 上的其他信息（如你的发言和短消息）。</p>
+
+<p>后续就是写数据库咯，加油~</p>
+
+      </section>
+<br><hr><h1 id="comment">评论区</h1><div id="comment-thread"></div><div id="loading-spin"></div>
+    </div>
+
+  </body>
+<script src="assets/js/instantclick.min.js" data-no-instant></script>
+<link rel="stylesheet" href="assets/css/comment.css">
+<script src="assets/js/comment.js" data-no-instant></script>
+<script>
+  marked.setOptions({
+  highlight: function (code, lang) {
+     return hljs.highlightAuto(code).value;
+  }
+  });
+  function Highlighting(){
+    var markdowns = document.getElementsByClassName('markdown');
+    for(var i=0;i<markdowns.length;i++){
+       if(markdowns[i].innerHTML) markdowns[i].innerHTML =marked(markdowns[i].innerHTML);
+    }
+  }
+  window.addEventListener('DOMContentLoaded', Highlighting, false);
+  window.addEventListener('load', Highlighting, false);
+   var opt = {
+       type: "github",
+       user: "zjuchenyuan",
+       repo: "notebook",
+       no_comment: "No comments yet. Press the button and go to comment now!",
+       go_to_comment: "Go to comment",
+       issue_id: "1",
+       btn_class: "btn",
+       comments_target: "#comment-thread",
+       loading_target: "#loading-spin",
+       client_id: "8f7a792630aa459d0812",
+       client_secret: "084b314f30dd9b10201011e265c4cb5d78c2b2e9"
+   };
+   getComments(opt);
+</script>
+<script data-no-instant>
+  InstantClick.init();
+</script>
+</html>
