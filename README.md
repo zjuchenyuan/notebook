@@ -62,6 +62,9 @@ My notebook about technology, for lookup and share
 >* 获取文件大小
 >* 题目解析 (结构指针、结构数组...)
 
+## [如何接入CC98 OAuth2 进行用户验证](CC98.md)
+>* 给出了详细过程哟~
+
 ## [CDN](CDN.md)
 >* ·UPYUN 又拍云
 >*    管理文件可以用FTP，UpyunManager，Upx
