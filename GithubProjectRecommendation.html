@@ -146,7 +146,7 @@ docker-compose up -d
        client_id: "8f7a792630aa459d0812",
        client_secret: "084b314f30dd9b10201011e265c4cb5d78c2b2e9"
    };
-   getComments(opt);
+   if (jQuery('.discussion-timeline').length == 0) getComments(opt);
 </script>
 <script data-no-instant>
   InstantClick.init();
