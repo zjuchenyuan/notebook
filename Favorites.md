@@ -26,3 +26,5 @@ _/    _/  _/    _/  _/    _/
 [建议读的论文](https://d.py3.io/Recommend%2Bpapers.docx)
 
 [Git Emoji](https://www.webpagefx.com/tools/emoji-cheat-sheet/)
+
+[Math 识别手写公式 画函数图像](https://webdemo.myscript.com/views/math.html)
