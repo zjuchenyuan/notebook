@@ -461,7 +461,7 @@ server{
 #### 客户端（数据传入端），使用wget：
 
 ```
-alias myget='wget -r -np -nH -R index.html --restrict-file-names=nocontrol  -p -N -l0 -e robots=off'
+alias myget='wget -r -np -nH -R index.html --restrict-file-names=nocontrol  -p -N -l0 -e robots=off --read-timeout=20 --tries=0'
 cd /mnt #下载到哪
 myget http://server_IP:8080/yourdir #相当于将yourdir复制到当前文件夹
 ```
@@ -471,6 +471,8 @@ myget http://server_IP:8080/yourdir #相当于将yourdir复制到当前文件夹
 -r 递归下载，-np不要进入父目录，-nH不要创建host文件夹，-R index.html不要保存文件列表的index.html，--restrict-file-names=nocontrol不要乱改中文文件名
 
 -p 要下载图片，-N 使用浏览器304的方式避免重复下载，-l0递归层数不限制，-e robots=off不检查robots.txt
+
+--read-timeout=20 如果20s之内没有数据传输则认为失败进行重试，--tries=0无限次重试
 
 [查看man文档](https://www.explainshell.com/explain?cmd=wget%20-r%20-np%20-nH%20-R%20index.html%20--restrict-file-names=nocontrol%20http://yourserver:8080/yourdir)
 
