@@ -525,3 +525,32 @@ find . -type f -name "*.php" -exec sed -i 's~aha/666~ovo/999~g' {} +
 ```
 find . -type f -printf '%TY-%Tm-%Td %TT %p\n' | sort -r|less
 ```
+
+----
+
+## 使用cryptsetup挂载truecrypt分区
+
+在ubuntu 16.04中编译truecrypt 7.1a运行时出现错误：`error: Invalid characters encountered.`
+
+在这个链接上找到了答案（感谢在其他论坛找到答案后主动提供解决方案的Jakub Urbanowicz）
+
+https://bugs.archlinux.org/task/47325
+原贴地址（搜索cryptsetup）：https://forums.gentoo.org/viewtopic-p-7809512.html
+
+方法是：
+
+```
+sudo su #以下命令都要root权限，如果在Docker容器中尝试 启动容器时需要--privileged
+# 先安装cryptsetup
+apt install -y cryptsetup-bin
+
+# 挂载，注意type前面是两个横线，文件路径可以是/dev/sdb1，名称随便填
+cryptsetup open --type tcrypt truecrypt文件路径 名称
+
+# 然后mount挂载
+mount /dev/mapper/名称 挂载点
+
+# 卸载的时候记得close，都还是要root权限
+umount 挂载点
+cryptsetup close 名称
+```

@@ -564,6 +564,35 @@ myget http://server_IP:8080/yourdir #相当于将yourdir复制到当前文件夹
 </code></pre>
 </div>
 
+<hr />
+
+<h2 id="cryptsetuptruecrypt">使用cryptsetup挂载truecrypt分区</h2>
+
+<p>在ubuntu 16.04中编译truecrypt 7.1a运行时出现错误：<code class="highlighter-rouge">error: Invalid characters encountered.</code></p>
+
+<p>在这个链接上找到了答案（感谢在其他论坛找到答案后主动提供解决方案的Jakub Urbanowicz）</p>
+
+<p>https://bugs.archlinux.org/task/47325
+原贴地址（搜索cryptsetup）：https://forums.gentoo.org/viewtopic-p-7809512.html</p>
+
+<p>方法是：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo su #以下命令都要root权限，如果在Docker容器中尝试 启动容器时需要--privileged
+# 先安装cryptsetup
+apt install -y cryptsetup-bin
+
+# 挂载，注意type前面是两个横线，文件路径可以是/dev/sdb1，名称随便填
+cryptsetup open --type tcrypt truecrypt文件路径 名称
+
+# 然后mount挂载
+mount /dev/mapper/名称 挂载点
+
+# 卸载的时候记得close，都还是要root权限
+umount 挂载点
+cryptsetup close 名称
+</code></pre>
+</div>
+
       </section>
 <br><hr><h1 id="comment">评论区</h1><div id="comment-thread"></div><div id="loading-spin"></div>
     </div>

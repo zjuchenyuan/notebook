@@ -210,6 +210,7 @@ My notebook about technology, for lookup and share
 >* 使用wget代替scp传输文件夹 避免无谓的加密性能损失（适用于树莓派）
 >* 清除已经断开的sshd进程
 >* 批量替换文本
+>* 使用cryptsetup挂载truecrypt分区
 
 ## [Linux-backup](Linux-backup.md)
 >* 一个良好安全的备份计划至关重要
