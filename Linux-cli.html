@@ -550,6 +550,20 @@ myget http://server_IP:8080/yourdir #相当于将yourdir复制到当前文件夹
 
 <p>其中sed -i原位替换用的分隔符由于替换前后字符串中出现了/，所以不能用经典的/，而改用~</p>
 
+<hr />
+
+<h2 id="section-16">找到最近修改的文件</h2>
+
+<p>例如wget递归下载，中途被中断了，恢复的时候与其每个文件都请求一次不如直接跳过已经存在的文件</p>
+
+<p>那就需要找到中断的时候正在写入哪个文件，删掉这个文件继续</p>
+
+<p>这个命令可以以时间顺序显示当前文件夹及子文件夹文件，新文件显示在最前面</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>find . -type f -printf '%TY-%Tm-%Td %TT %p\n' | sort -r|less
+</code></pre>
+</div>
+
       </section>
 <br><hr><h1 id="comment">评论区</h1><div id="comment-thread"></div><div id="loading-spin"></div>
     </div>
