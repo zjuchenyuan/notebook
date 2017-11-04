@@ -219,17 +219,29 @@ LimitNOFILE = infinity
 LimitMEMLOCK = infinity
 ```
 
+在ubuntu16.04上，这些还不够，还要继续改systemd:
+（参考：https://serverfault.com/questions/791729/ubuntu-16-04-server-mysql-open-file-limit-wont-go-higher-than-65536）
+
+```
+mkdir /etc/systemd/system/mysql.service.d
+tee /etc/systemd/system/mysql.service.d/override.conf <<-'EOF'
+[Service]
+LimitNOFILE=1024000
+EOF
+```
+
 然后重启mysql：
 
 ```
 systemctl daemon-reload
-service mysql restart
+systemctl restart mysql.service
 ````
 
 使用这两种方法都能看到修改是否生效：
 
 ```
-cat /proc/$(pgrep mysqld$)/limits | grep files
+ps aux|grep mysqld #找到mysqld的进程ID
+cat /proc/上述找到的进程ID/limits | grep files
 
 mysql -u root -p
 show global variables like "%open_files_limit%";
