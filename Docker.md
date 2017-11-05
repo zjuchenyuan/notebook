@@ -358,6 +358,14 @@ docker run --net=macvlan_network --ip=10.1.1.100 -d nginx
 
 万一发生这种虚拟机把主机的IP抢占的情况，在没有物理控制方法下不可轻易使用ifconfig修改主机IP，因为一旦使用ifconfig主机的route将被清空、当前主机的其他IP也会丢失，你就丢失远程访问的可能了（也许你可以写一个脚本自动恢复route稳妥一点）；但神奇的是即使主机route已经丢失，按照上述macvlan开出来的Docker容器仍然在线（也可以理解——容器的route并没有受到影响，类似于Virtualbox的桥接网卡方式）
 
+### macvlan查看已经分配的IP
+
+由于主机和容器不能互通，所以主机如何得知目前已经分配的IP列表呢？用docker network inspect咯，然后用python处理一下输出格式
+
+```
+docker network inspect macvlan_bridge --format "{{range .Containers}}{{.IPv4Address}},{{end}}" | python3 -c 'print(input().replace("/24,","\n"),end="")'|sort
+```
+
 ----
 
 ## 对容器网络流量tcpdump
