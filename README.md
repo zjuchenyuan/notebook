@@ -10,7 +10,7 @@ My notebook about technology, for lookup and share
 >* 反弹shell 获得tty
 >* requests使用多IP请求
 >* [Python多线程模板](code/MultiThread_Template.py)
->* http.server（BaseHTTPServer）并发性改善
+>* http.server（BaseHTTPServer）并发性改善 不必修改库文件
 >* 无root权限安装Python
 >* 中文输出乱码问题解决
 >* pycodestyle检查代码风格

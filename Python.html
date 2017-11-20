@@ -133,6 +133,26 @@ trusted-host=pypi.doubanio.com
 
 <h2 id="httpserverbasehttpserver">http.server（BaseHTTPServer）并发性改善</h2>
 
+<h3 id="new-version-">New version 不必修改库代码</h3>
+
+<p>在使用BaseHTTPServer.HTTPServer的时候，对其使用的父类修改创造自己的类，参考<a href="https://stackoverflow.com/questions/9539052/how-to-dynamically-change-base-class-of-instances-at-runtime">How to dynamically change base class of instances at runtime?</a></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>import BaseHTTPServer # 如果py3，需要import http.server as BaseHTTPServer
+import socketserver
+MyHTTPServer = type('MyHTTPServer', (socketserver.ThreadingTCPServer,), dict(BaseHTTPServer.HTTPServer.__dict__))
+
+def MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
+    pass # 省略handler的代码，一些do_GET，do_POST的函数
+
+httpd = MyHTTPServer( ('0.0.0.0', 80), MyHandler)
+httpd.serve_forever()
+</code></pre>
+</div>
+
+<p>怎么知道MyHTTPServer的父类确实被修改了呢？ 可以查看其__mro__属性（Method Resolution Order attribute）</p>
+
+<h3 id="old-version-">Old version 修改库代码</h3>
+
 <blockquote>
   <p>参考资料：<a href="http://blog.csdn.net/cnmilan/article/details/9664823">利用Python中SocketServer 实现客户端与服务器间非阻塞通信</a></p>
 </blockquote>
@@ -141,7 +161,7 @@ trusted-host=pypi.doubanio.com
   <p>直接修改BaseHTTPServer的代码中的一个细节，将BaseHTTPServer类继承的原先只能支持单个请求的SocketServer.TCPServer改为每个连接一个线程的SocketServer.ThreadingTCPServer，使BaseHTTPServer能支持并发而不是一次只能处理单个请求</p>
 </blockquote>
 
-<p><strong>Python3的方法：</strong></p>
+<h4 id="python3">Python3的方法：</h4>
 
 <p>在Python3中BaseHTTPServer改名为http.server了，首先找到http.server所在的py文件：</p>
 
@@ -159,7 +179,7 @@ trusted-host=pypi.doubanio.com
 </code></pre>
 </div>
 
-<p><strong>Python2的方法：</strong></p>
+<h4 id="python2">Python2的方法：</h4>
 
 <p>首先找到BaseHTTPServer在哪：</p>
 

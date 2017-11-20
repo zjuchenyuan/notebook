@@ -108,11 +108,31 @@ requests.packages.urllib3.util.connection.create_connection = function_hook_para
 
 ## http.server（BaseHTTPServer）并发性改善
 
+### New version 不必修改库代码
+
+在使用BaseHTTPServer.HTTPServer的时候，对其使用的父类修改创造自己的类，参考[How to dynamically change base class of instances at runtime?](https://stackoverflow.com/questions/9539052/how-to-dynamically-change-base-class-of-instances-at-runtime)
+
+```
+import BaseHTTPServer # 如果py3，需要import http.server as BaseHTTPServer
+import socketserver
+MyHTTPServer = type('MyHTTPServer', (socketserver.ThreadingTCPServer,), dict(BaseHTTPServer.HTTPServer.__dict__))
+
+def MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
+    pass # 省略handler的代码，一些do_GET，do_POST的函数
+
+httpd = MyHTTPServer( ('0.0.0.0', 80), MyHandler)
+httpd.serve_forever()
+```
+
+怎么知道MyHTTPServer的父类确实被修改了呢？ 可以查看其__mro__属性（Method Resolution Order attribute）
+
+### Old version 修改库代码
+
 > 参考资料：[利用Python中SocketServer 实现客户端与服务器间非阻塞通信](http://blog.csdn.net/cnmilan/article/details/9664823)
 
 > 直接修改BaseHTTPServer的代码中的一个细节，将BaseHTTPServer类继承的原先只能支持单个请求的SocketServer.TCPServer改为每个连接一个线程的SocketServer.ThreadingTCPServer，使BaseHTTPServer能支持并发而不是一次只能处理单个请求
 
-**Python3的方法：**
+#### Python3的方法：
 
 在Python3中BaseHTTPServer改名为http.server了，首先找到http.server所在的py文件：
 
@@ -128,7 +148,7 @@ requests.packages.urllib3.util.connection.create_connection = function_hook_para
 class HTTPServer(socketserver.ThreadingTCPServer):
 ```
 
-**Python2的方法：**
+#### Python2的方法：
 
 首先找到BaseHTTPServer在哪：
 
