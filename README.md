@@ -211,6 +211,7 @@ My notebook about technology, for lookup and share
 >* 清除已经断开的sshd进程
 >* 批量替换文本
 >* 使用cryptsetup挂载truecrypt分区
+>* 从二进制文件中提取片段
 
 ## [Linux-backup](Linux-backup.md)
 >* 一个良好安全的备份计划至关重要

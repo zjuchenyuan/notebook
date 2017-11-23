@@ -593,6 +593,28 @@ cryptsetup close 名称
 </code></pre>
 </div>
 
+<hr />
+
+<h2 id="section-17">从二进制文件中提取片段</h2>
+
+<p>用binwalk发现需要的片段的起始位点，以及计算出长度</p>
+
+<p>binwalk直接-e有时候就能满足需求，但如果是exe文件 exe本身可能被拆成多个文件 如一堆证书，这时候可以</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>binwalk -D 'exe' 文件名
+</code></pre>
+</div>
+
+<p>或者用dd，注意别用bs=1 太慢：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>dd if=input.binary of=output.binary skip=$offset count=$bytes iflag=skip_bytes,count_bytes
+</code></pre>
+</div>
+
+<p>From: https://stackoverflow.com/questions/1423346/how-do-i-extract-a-single-chunk-of-bytes-from-within-a-file</p>
+
+<p>如果省略掉count就是一直到末尾</p>
+
       </section>
 <br><hr><h1 id="comment">评论区</h1><div id="comment-thread"></div><div id="loading-spin"></div>
     </div>

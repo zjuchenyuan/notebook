@@ -554,3 +554,25 @@ mount /dev/mapper/名称 挂载点
 umount 挂载点
 cryptsetup close 名称
 ```
+
+----
+
+## 从二进制文件中提取片段
+
+用binwalk发现需要的片段的起始位点，以及计算出长度
+
+binwalk直接-e有时候就能满足需求，但如果是exe文件 exe本身可能被拆成多个文件 如一堆证书，这时候可以
+
+```
+binwalk -D 'exe' 文件名
+```
+
+或者用dd，注意别用bs=1 太慢：
+
+```
+dd if=input.binary of=output.binary skip=$offset count=$bytes iflag=skip_bytes,count_bytes
+```
+
+From: https://stackoverflow.com/questions/1423346/how-do-i-extract-a-single-chunk-of-bytes-from-within-a-file
+
+如果省略掉count就是一直到末尾
