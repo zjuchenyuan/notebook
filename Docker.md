@@ -363,7 +363,9 @@ docker run --net=macvlan_network --ip=10.1.1.100 -d nginx
 由于主机和容器不能互通，所以主机如何得知目前已经分配的IP列表呢？用docker network inspect咯，然后用python处理一下输出格式
 
 ```
+{% raw %}
 docker network inspect macvlan_bridge --format "{{range .Containers}}{{.IPv4Address}},{{end}}" | python3 -c 'print(input().replace("/24,","\n"),end="")'|sort
+{% endraw %}
 ```
 
 ----
