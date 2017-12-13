@@ -8,6 +8,8 @@
 
 # 设置pip源
 
+如果只需要一次性安装个包（如Dockerfile）： pip install -i https://pypi.doubanio.com/simple/ --trusted-host pypi.doubanio.com
+
 在Linux服务器上安装python的包时，执行这段代码可以将pip源改为国内的豆瓣源，能显著提高包的下载速度
 
 ```bash
