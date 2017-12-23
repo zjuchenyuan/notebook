@@ -16,7 +16,7 @@
 
         <section id="downloads">
           
-          <a href="https://github.com/zjuchenyuan/notebook/blob/master/Python.md" class="btn btn-github"><span class="icon"></span>Star me on GitHub (54)</a>&nbsp;<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>
+          <a href="https://github.com/zjuchenyuan/notebook/blob/master/Python.md" class="btn btn-github"><span class="icon"></span>Star me on GitHub (58)</a>&nbsp;<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>
         </section>
       </div>
     </header>
@@ -942,6 +942,20 @@ if len(plaindata)%2 :
 print(b16decode(plaindata))
 </code></pre>
 </div>
+
+<hr />
+
+<h2 id="section-13">时间戳与字符串相互转换</h2>
+
+<p>import time</p>
+
+<p>得到当前时间戳： int(time.time())</p>
+
+<p>得到当前时间字符串：time.strftime(“%Y-%m-%d %H:%M:%S”)</p>
+
+<p>时间戳1381419600转字符串：time.strftime(“%Y-%m-%d %H:%M:%S”, time.localtime(1381419600))</p>
+
+<p>字符串”2013-10-10 23:40:00”转时间戳：int(time.mktime(time.strptime(“2013-10-10 23:40:00”,”%Y-%m-%d %H:%M:%S”)))</p>
 
       </section>
 <br><hr><h1 id="comment">评论区</h1><div id="comment-thread"></div><div id="loading-spin"></div>

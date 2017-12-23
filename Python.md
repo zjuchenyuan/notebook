@@ -904,3 +904,17 @@ if len(plaindata)%2 :
 
 print(b16decode(plaindata))
 ```
+
+----
+
+## 时间戳与字符串相互转换
+
+import time
+
+得到当前时间戳： int(time.time())
+
+得到当前时间字符串：time.strftime("%Y-%m-%d %H:%M:%S")
+
+时间戳1381419600转字符串：time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(1381419600))
+
+字符串"2013-10-10 23:40:00"转时间戳：int(time.mktime(time.strptime("2013-10-10 23:40:00","%Y-%m-%d %H:%M:%S")))
