@@ -402,3 +402,19 @@ docker run的时候忘了指定restart=always，除了commit后再正确地run�
 ```
 docker update --restart=always `docker ps -q`
 ```
+
+----
+
+## 快速部署samba
+
+镜像地址：[dperson/samba](https://hub.docker.com/r/dperson/samba/)
+
+快速分享一个目录/data，用户名user密码badpassword：
+
+```
+docker run -d -p 139:139 -p 445:445 --name samba -v /data:/data dperson/samba -u "user;badpassword" -s "data;/data;yes;no;no;all"
+```
+
+其中-u指定用户名密码；-s参数的格式为：
+
+给访问者看的分享名称;物理位置;是否列出;未登录可否访问;允许访问的用户(all表示所有用户)

@@ -470,6 +470,22 @@ docker network inspect macvlan_bridge --format "{{range .Containers}}{{.IPv4Addr
 </code></pre>
 </div>
 
+<hr />
+
+<h2 id="samba">快速部署samba</h2>
+
+<p>镜像地址：<a href="https://hub.docker.com/r/dperson/samba/">dperson/samba</a></p>
+
+<p>快速分享一个目录/data，用户名user密码badpassword：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>docker run -d -p 139:139 -p 445:445 --name samba -v /data:/data dperson/samba -u "user;badpassword" -s "data;/data;yes;no;no;all"
+</code></pre>
+</div>
+
+<p>其中-u指定用户名密码；-s参数的格式为：</p>
+
+<p>给访问者看的分享名称;物理位置;是否列出;未登录可否访问;允许访问的用户(all表示所有用户)</p>
+
       </section>
 <br><hr><h1 id="comment">评论区</h1><div id="comment-thread"></div><div id="loading-spin"></div>
     </div>
