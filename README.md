@@ -100,6 +100,7 @@ My notebook about technology, for lookup and share
 >* 快速部署wordpress
 >* Dockerfile 中的 apt-get 静默执行
 >* 让Docker容器得到内网IP
+>* 快速部署samba
 
 ## [Favorites](Favorites.md)
 >* Intel i386 手册 及 勘误
@@ -216,6 +217,7 @@ My notebook about technology, for lookup and share
 
 ## [Linux-backup](Linux-backup.md)
 >* 一个良好安全的备份计划至关重要
+>* 用rsync代替scp
 
 ## [MySQL](MySQL.md)
 >* 查看表结构 desc
