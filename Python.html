@@ -29,6 +29,76 @@
 
 <p>当你尝试一个包的时候，注意自己的py文件名称不能与包名重名，例如不要出现flask.py</p>
 
+<ul id="markdown-toc">
+  <li><a href="#section" id="markdown-toc-section">写在前面</a></li>
+  <li><a href="#pip" id="markdown-toc-pip">设置pip源</a></li>
+  <li><a href="#shell" id="markdown-toc-shell">反弹shell</a>    <ul>
+      <li><a href="#tty" id="markdown-toc-tty">获得一个tty</a></li>
+    </ul>
+  </li>
+  <li><a href="#requestsip" id="markdown-toc-requestsip">让requests使用多个IP</a></li>
+  <li><a href="#python" id="markdown-toc-python">Python多线程模板</a>    <ul>
+      <li><a href="#httpserverbasehttpserver" id="markdown-toc-httpserverbasehttpserver">http.server（BaseHTTPServer）并发性改善</a>        <ul>
+          <li><a href="#new-version-" id="markdown-toc-new-version-">New version 不必修改库代码</a></li>
+          <li><a href="#old-version-" id="markdown-toc-old-version-">Old version 修改库代码</a>            <ul>
+              <li><a href="#python3" id="markdown-toc-python3">Python3的方法：</a></li>
+              <li><a href="#python2" id="markdown-toc-python2">Python2的方法：</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="#rootpython" id="markdown-toc-rootpython">无root权限安装Python</a></li>
+    </ul>
+  </li>
+  <li><a href="#section-1" id="markdown-toc-section-1">中文输出乱码问题</a></li>
+  <li><a href="#pep8" id="markdown-toc-pep8">遵循PEP8检查你的代码</a></li>
+  <li><a href="#section-2" id="markdown-toc-section-2">生成随机字符串</a></li>
+  <li><a href="#python-1" id="markdown-toc-python-1">Python解方程</a></li>
+  <li><a href="#in" id="markdown-toc-in">大数据判断in</a></li>
+  <li><a href="#pythonh-no-such-file-or-directory" id="markdown-toc-pythonh-no-such-file-or-directory">解决Python.h: No such file or directory</a></li>
+  <li><a href="#section-3" id="markdown-toc-section-3">二进制字符串转普通字符串</a></li>
+  <li><a href="#bytes" id="markdown-toc-bytes">十六进制字符串转bytes字符串</a></li>
+  <li><a href="#python3pat" id="markdown-toc-python3pat">用Python3写PAT心得</a></li>
+  <li><a href="#requestspost" id="markdown-toc-requestspost">用requests进行post</a></li>
+  <li><a href="#tkinter" id="markdown-toc-tkinter">通过tkinter获取、修改剪贴板</a></li>
+  <li><a href="#section-4" id="markdown-toc-section-4">符号数与无符号数转换</a>    <ul>
+      <li><a href="#section-5" id="markdown-toc-section-5">无符号→有符号，为了加上负号：</a></li>
+      <li><a href="#section-6" id="markdown-toc-section-6">有符号→无符号，为了去掉负号：</a></li>
+    </ul>
+  </li>
+  <li><a href="#signalsigalrm-only-linux" id="markdown-toc-signalsigalrm-only-linux">使用signal.SIGALRM在限定时间后退出进程 (only Linux)</a></li>
+  <li><a href="#ctrlc" id="markdown-toc-ctrlc">捕捉用户的Ctrl+C</a></li>
+  <li><a href="#signalsigalrm-only-linux-1" id="markdown-toc-signalsigalrm-only-linux-1">使用signal.SIGALRM实现定时器 (only Linux)</a></li>
+  <li><a href="#pdb" id="markdown-toc-pdb">使用pdb进行调试</a></li>
+  <li><a href="#pythonserverlessfunction-as-service" id="markdown-toc-pythonserverlessfunction-as-service">使用Python开发Serverless(Function as Service)后端服务</a>    <ul>
+      <li><a href="#section-7" id="markdown-toc-section-7">踩过的坑与解决过程(论阿里云是怎么把人气死的)</a>        <ul>
+          <li><a href="#api" id="markdown-toc-api">1.API网关与函数计算的对接</a></li>
+          <li><a href="#api-1" id="markdown-toc-api-1">2.修改API网关参数定义后要再次发布</a></li>
+          <li><a href="#windowsfclifcliexe" id="markdown-toc-windowsfclifcliexe">3.不能使用Windows版本的fcli工具(fcli.exe)</a></li>
+        </ul>
+      </li>
+      <li><a href="#linuxgbk" id="markdown-toc-linuxgbk">修复Linux下gbk编码的文件名</a></li>
+    </ul>
+  </li>
+  <li><a href="#crack-rsa" id="markdown-toc-crack-rsa">Crack RSA!</a>    <ul>
+      <li><a href="#section-8" id="markdown-toc-section-8">题目信息</a></li>
+      <li><a href="#rsa" id="markdown-toc-rsa">RSA是啥</a></li>
+      <li><a href="#section-9" id="markdown-toc-section-9">破解的数学原理</a></li>
+      <li><a href="#section-10" id="markdown-toc-section-10">实现它</a>        <ul>
+          <li><a href="#ne" id="markdown-toc-ne">题目给的公钥是啥格式，怎么读取出N和e?</a></li>
+        </ul>
+      </li>
+      <li><a href="#n-pq" id="markdown-toc-n-pq">怎么分解n 得到p和q？</a></li>
+      <li><a href="#d" id="markdown-toc-d">怎么计算私钥d</a></li>
+      <li><a href="#flagencint" id="markdown-toc-flagencint">怎么把flag.enc当成一个int读入？</a></li>
+      <li><a href="#section-11" id="markdown-toc-section-11">计算明文</a></li>
+      <li><a href="#flag" id="markdown-toc-flag">明文这么一个大数 我要的flag呢？</a></li>
+      <li><a href="#section-12" id="markdown-toc-section-12">完整的代码</a></li>
+      <li><a href="#section-13" id="markdown-toc-section-13">时间戳与字符串相互转换</a></li>
+    </ul>
+  </li>
+</ul>
+
 <hr />
 
 <h1 id="pip">设置pip源</h1>

@@ -1,3 +1,7 @@
+
+* TOC
+{:toc}
+
 # 使用localStorage
 
 Cookie存数据影响访问速度(每次请求都需要带上Cookie)，使用localStorage存储有更大容量，还不易丢失

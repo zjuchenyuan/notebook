@@ -33,6 +33,66 @@
 
 <p><a href="/Linux-backup.html">Linux备份</a></p>
 
+<ul id="markdown-toc">
+  <li><a href="#linux" id="markdown-toc-linux">Linux系统配置</a></li>
+  <li><a href="#section" id="markdown-toc-section">如何翻墙</a>    <ul>
+      <li><a href="#shadowsocksprivoxyhttp-proxy" id="markdown-toc-shadowsocksprivoxyhttp-proxy">部署shadowsocks客户端，并部署Privoxy提供http proxy</a></li>
+    </ul>
+  </li>
+  <li><a href="#ip" id="markdown-toc-ip">配置有线静态IP</a></li>
+  <li><a href="#dhcpiprtnetlink-answers-file-exists" id="markdown-toc-dhcpiprtnetlink-answers-file-exists">配置为dhcp自动获取ip，解决RTNETLINK answers: File exists问题</a>    <ul>
+      <li><a href="#aptapt" id="markdown-toc-aptapt">配置apt源以加速国内环境下apt速度</a></li>
+      <li><a href="#ip-1" id="markdown-toc-ip-1">单网卡获得多个IP</a></li>
+    </ul>
+  </li>
+  <li><a href="#section-1" id="markdown-toc-section-1">锐速安装</a></li>
+  <li><a href="#apt" id="markdown-toc-apt">解决apt依赖问题</a>    <ul>
+      <li><a href="#note" id="markdown-toc-note">Note</a></li>
+    </ul>
+  </li>
+  <li><a href="#unixbench" id="markdown-toc-unixbench">UnixBench</a>    <ul>
+      <li><a href="#io" id="markdown-toc-io">硬盘IO性能测试</a></li>
+      <li><a href="#section-2" id="markdown-toc-section-2">参考数据，均为最低配置</a></li>
+      <li><a href="#section-3" id="markdown-toc-section-3">清除内存缓存</a></li>
+    </ul>
+  </li>
+  <li><a href="#iptablesip" id="markdown-toc-iptablesip">使用iptables封ip</a>    <ul>
+      <li><a href="#ip-2" id="markdown-toc-ip-2">屏蔽单个IP</a></li>
+      <li><a href="#c" id="markdown-toc-c">封C段</a>        <ul>
+          <li><a href="#b" id="markdown-toc-b">封B段</a></li>
+        </ul>
+      </li>
+      <li><a href="#a" id="markdown-toc-a">封A段</a></li>
+      <li><a href="#section-4" id="markdown-toc-section-4">删除一条规则</a></li>
+      <li><a href="#ip-3" id="markdown-toc-ip-3">只允许特定IP访问某端口</a></li>
+      <li><a href="#rootscreen" id="markdown-toc-rootscreen">无root权限使用screen</a></li>
+      <li><a href="#screen" id="markdown-toc-screen">screen的用法</a></li>
+    </ul>
+  </li>
+  <li><a href="#section-5" id="markdown-toc-section-5">双网卡端口转发，暴露内网端口</a>    <ul>
+      <li><a href="#section-6" id="markdown-toc-section-6">环境：</a></li>
+      <li><a href="#section-7" id="markdown-toc-section-7">实现方法：</a></li>
+      <li><a href="#section-8" id="markdown-toc-section-8">取消转发方法</a></li>
+      <li><a href="#section-9" id="markdown-toc-section-9">保护重要系统文件防止被删</a></li>
+    </ul>
+  </li>
+  <li><a href="#section-10" id="markdown-toc-section-10">时区设置</a></li>
+  <li><a href="#cpu" id="markdown-toc-cpu">查看CPU核心个数</a></li>
+  <li><a href="#section-11" id="markdown-toc-section-11">非交互式添加用户</a></li>
+  <li><a href="#openvpn" id="markdown-toc-openvpn">简单OpenVPN配置</a>    <ul>
+      <li><a href="#openvpn-1" id="markdown-toc-openvpn-1">安装openvpn:</a></li>
+      <li><a href="#section-12" id="markdown-toc-section-12">生成密钥</a></li>
+      <li><a href="#section-13" id="markdown-toc-section-13">服务端配置</a></li>
+      <li><a href="#section-14" id="markdown-toc-section-14">客户端配置</a></li>
+      <li><a href="#docker" id="markdown-toc-docker">在Docker中使用服务端</a></li>
+    </ul>
+  </li>
+  <li><a href="#section-15" id="markdown-toc-section-15">时区时间设置</a>    <ul>
+      <li><a href="#ext4" id="markdown-toc-ext4">快速地格式化大分区ext4</a></li>
+    </ul>
+  </li>
+</ul>
+
 <hr />
 
 <h1 id="section">如何翻墙</h1>

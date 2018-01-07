@@ -23,7 +23,26 @@
 
     <div class="container">
       <section id="main_content">
-        <h1 id="cc98-oauth2-">如何接入CC98 OAuth2 进行用户验证</h1>
+        
+<ul id="markdown-toc">
+  <li><a href="#cc98-oauth2-" id="markdown-toc-cc98-oauth2-">如何接入CC98 OAuth2 进行用户验证</a>    <ul>
+      <li><a href="#section" id="markdown-toc-section">要求</a></li>
+      <li><a href="#section-1" id="markdown-toc-section-1">一些坑</a></li>
+      <li><a href="#section-2" id="markdown-toc-section-2">详细过程</a>        <ul>
+          <li><a href="#api-key" id="markdown-toc-api-key">申请 API Key</a></li>
+          <li><a href="#cc98" id="markdown-toc-cc98">我们要求用户cc98登录，使用户跳转到这个页面</a></li>
+          <li><a href="#cc98-1" id="markdown-toc-cc98-1">用户确认授权 会被cc98跳转到这个页面</a></li>
+          <li><a href="#code" id="markdown-toc-code">后端如何使用这个code？</a>            <ul>
+              <li><a href="#accesstoken" id="markdown-toc-accesstoken">当然还没完，还要使用这个access_token得到用户信息</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="cc98-oauth2-">如何接入CC98 OAuth2 进行用户验证</h1>
 
 <p>本文以第三方网站开发者的角度尝试接入cc98.org的OAuth登录，然后你就可以进一步做用户绑定、自定义事件处理（比如做出某个题目自动解锁该用户cc98上某个writeup帖子的访问权限</p>
 

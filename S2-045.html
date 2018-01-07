@@ -25,6 +25,24 @@
       <section id="main_content">
         <h1 id="struts2s2-045">修复Struts2的S2-045漏洞</h1>
 
+<ul id="markdown-toc">
+  <li><a href="#struts2s2-045" id="markdown-toc-struts2s2-045">修复Struts2的S2-045漏洞</a>    <ul>
+      <li><a href="#section" id="markdown-toc-section">漏洞简介</a></li>
+      <li><a href="#exp" id="markdown-toc-exp">exp</a></li>
+      <li><a href="#section-1" id="markdown-toc-section-1">解决过程</a></li>
+    </ul>
+  </li>
+  <li><a href="#jar" id="markdown-toc-jar">通过升级jar包修复</a>    <ul>
+      <li><a href="#x" id="markdown-toc-x">2.3.x版本修复方法</a></li>
+      <li><a href="#x-1" id="markdown-toc-x-1">2.5.x版本修复方法</a></li>
+    </ul>
+  </li>
+  <li><a href="#filter" id="markdown-toc-filter">通过增加Filter修复</a>    <ul>
+      <li><a href="#section-2" id="markdown-toc-section-2">测试效果</a></li>
+    </ul>
+  </li>
+</ul>
+
 <h2 id="section">漏洞简介</h2>
 
 <p>最近批露，Apache Struts 2软件存在远程命令执行高危漏洞，Struts2官方已经确认该漏洞，漏洞编号为CVE-2017-5638，受影响的版本包括 Struts2.3.5 到 Struts2.3.31 以及 Struts2.5 到 Struts2.5.10 。黑客可以利用该漏洞通过浏览器在远程服务器上执行任意系统命令，对受影响站点造成严重影响，引发数据泄露、网页篡改、植入后门、成为肉鸡等安全事件。</p>

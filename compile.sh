@@ -1,4 +1,13 @@
 #! /bin/bash
+
+## 并发刷新缓存
+## 刷新又拍云缓存，代码在https://github.com/zjuchenyuan/EasyLogin/tree/master/examples/upyun
+pushd /mnt/d/Seafile/Developer/EasyLogin/examples/upyun/
+python3 upyun.py https://py3.io/*.html &
+popd
+python3 code/upyun_purge.py &
+
+
 rm *.html
 bundle exec jekyll build -d docs --no-watch -I
 cp docs/*.html ./
@@ -68,8 +77,3 @@ for filename in os.listdir("."):
 </html>""")
         open(filename,"w",encoding='utf-8').write(data)
 PYTHON
-#刷新又拍云缓存，代码在https://github.com/zjuchenyuan/EasyLogin/tree/master/examples/upyun
-pushd /mnt/d/Seafile/Developer/EasyLogin/examples/upyun/
-python3 upyun.py https://py3.io/*.html 
-popd
-python3 code/upyun_purge.py

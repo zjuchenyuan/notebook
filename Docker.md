@@ -1,3 +1,7 @@
+
+* TOC
+{:toc}
+
 # Install 安装
 
 建议参见[如何翻墙](https://github.com/zjuchenyuan/notebook/blob/master/code/ssprivoxy.txt)，部署http proxy

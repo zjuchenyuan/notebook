@@ -1,3 +1,7 @@
+
+* TOC
+{:toc}
+
 ## Java的神奇(keng)
 
 记录一下Java与C的不同点，感受Thinking in Java

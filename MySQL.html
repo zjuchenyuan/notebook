@@ -23,7 +23,37 @@
 
     <div class="container">
       <section id="main_content">
-        <h1 id="section">查看表结构</h1>
+        
+<ul id="markdown-toc">
+  <li><a href="#section" id="markdown-toc-section">查看表结构</a></li>
+  <li><a href="#merge" id="markdown-toc-merge">MERGE存储引擎</a>    <ul>
+      <li><a href="#merge-1" id="markdown-toc-merge-1">创建一个MERGE表：</a></li>
+    </ul>
+  </li>
+  <li><a href="#section-1" id="markdown-toc-section-1">删除表的冗余</a></li>
+  <li><a href="#alter-table" id="markdown-toc-alter-table">修改表 alter table</a></li>
+  <li><a href="#section-2" id="markdown-toc-section-2">将中文转为拼音 函数</a></li>
+  <li><a href="#url" id="markdown-toc-url">从路径URL获取文件名称</a></li>
+  <li><a href="#section-3" id="markdown-toc-section-3">查询优化</a>    <ul>
+      <li><a href="#explainusing-filesort" id="markdown-toc-explainusing-filesort">explain发现出现了using filesort</a></li>
+      <li><a href="#section-4" id="markdown-toc-section-4">内存表索引的选择</a></li>
+    </ul>
+  </li>
+  <li><a href="#the-table-is-full" id="markdown-toc-the-table-is-full">内存表The table is full</a></li>
+  <li><a href="#replace" id="markdown-toc-replace">replace函数替换文本</a></li>
+  <li><a href="#split" id="markdown-toc-split">简单的split功能，文本转数字</a>    <ul>
+      <li><a href="#mysqld" id="markdown-toc-mysqld">mysqld配置参数调优</a></li>
+      <li><a href="#emojiutf8utf8mb4" id="markdown-toc-emojiutf8utf8mb4">支持emoji，从utf8升级到utf8mb4</a>        <ul>
+          <li><a href="#charvarchartextutf8mb4" id="markdown-toc-charvarchartextutf8mb4">表的变更 表的每一个<code class="highlighter-rouge">CHAR</code>，<code class="highlighter-rouge">VARCHAR</code>和<code class="highlighter-rouge">TEXT</code>类型的列都要改为使用utf8mb4</a></li>
+          <li><a href="#section-5" id="markdown-toc-section-5">连接代码的改动</a></li>
+        </ul>
+      </li>
+      <li><a href="#too-many-open-files-" id="markdown-toc-too-many-open-files-">解决 Too many open files 错误</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="section">查看表结构</h1>
 
 <p>desc 表名称;</p>
 
