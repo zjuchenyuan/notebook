@@ -8,6 +8,8 @@
 
 [Linux备份](Linux-backup.md)
 
+TOC:
+
 * TOC
 {:toc}
 
@@ -189,7 +191,7 @@ echo 3 > /proc/sys/vm/drop_caches
 
     iptables -I INPUT -s 123.45.6.0/24 -j DROP
 
-#### 封B段
+### 封B段
 
      iptables -I INPUT -s 123.45.0.0/16 -j DROP
 

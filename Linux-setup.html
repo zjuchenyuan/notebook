@@ -33,6 +33,8 @@
 
 <p><a href="/Linux-backup.html">Linux备份</a></p>
 
+<p>TOC:</p>
+
 <ul id="markdown-toc">
   <li><a href="#linux" id="markdown-toc-linux">Linux系统配置</a></li>
   <li><a href="#section" id="markdown-toc-section">如何翻墙</a>    <ul>
@@ -58,10 +60,8 @@
   </li>
   <li><a href="#iptablesip" id="markdown-toc-iptablesip">使用iptables封ip</a>    <ul>
       <li><a href="#ip-2" id="markdown-toc-ip-2">屏蔽单个IP</a></li>
-      <li><a href="#c" id="markdown-toc-c">封C段</a>        <ul>
-          <li><a href="#b" id="markdown-toc-b">封B段</a></li>
-        </ul>
-      </li>
+      <li><a href="#c" id="markdown-toc-c">封C段</a></li>
+      <li><a href="#b" id="markdown-toc-b">封B段</a></li>
       <li><a href="#a" id="markdown-toc-a">封A段</a></li>
       <li><a href="#section-4" id="markdown-toc-section-4">删除一条规则</a></li>
       <li><a href="#ip-3" id="markdown-toc-ip-3">只允许特定IP访问某端口</a></li>
@@ -285,7 +285,7 @@ echo 3 &gt; /proc/sys/vm/drop_caches
 </code></pre>
 </div>
 
-<h4 id="b">封B段</h4>
+<h3 id="b">封B段</h3>
 
 <div class="highlighter-rouge"><pre class="highlight"><code> iptables -I INPUT -s 123.45.0.0/16 -j DROP
 </code></pre>
