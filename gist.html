@@ -25,6 +25,8 @@
       <section id="main_content">
         <h1 id="gist-">gist 记录一些代码片段</h1>
 
+<p>[TOC]</p>
+
 <h2 id="pythonmysql">python连接mysql插入、查询</h2>
 
 <div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pymysql</span>
@@ -59,6 +61,17 @@
 
 <div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">requests.structures</span> <span class="kn">import</span> <span class="n">CaseInsensitiveDict</span>
 <span class="n">mydict</span> <span class="o">=</span> <span class="n">CaseInsensitiveDict</span><span class="p">(</span><span class="n">mydict</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<h2 id="python-print">python print的时候顺带带上时间</h2>
+
+<p>当然更优雅的方式是用logging</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">time</span>
+<span class="n">myprint</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="k">print</span><span class="p">(</span><span class="s">"[{showtime}] {s}"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">showtime</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">"</span><span class="si">%</span><span class="s">Y-</span><span class="si">%</span><span class="s">m-</span><span class="si">%</span><span class="s">d </span><span class="si">%</span><span class="s">H:</span><span class="si">%</span><span class="s">M:</span><span class="si">%</span><span class="s">S"</span><span class="p">),</span> <span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="p">))</span>
+
+<span class="n">myprint</span><span class="p">(</span><span class="s">"aha myprint"</span><span class="p">)</span>
 </code></pre>
 </div>
 

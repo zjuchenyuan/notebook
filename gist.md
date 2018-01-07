@@ -1,5 +1,7 @@
 # gist 记录一些代码片段
 
+[TOC]
+
 ## python连接mysql插入、查询
 
 ```python
@@ -35,4 +37,15 @@ for path in ['pic', 'skin', 'images', '更多静态目录']:
 ```python
 from requests.structures import CaseInsensitiveDict
 mydict = CaseInsensitiveDict(mydict)
+```
+
+## python print的时候顺带带上时间
+
+当然更优雅的方式是用logging
+
+```python
+import time
+myprint = lambda s: print("[{showtime}] {s}".format(showtime=time.strftime("%Y-%m-%d %H:%M:%S"), s=s))
+
+myprint("aha myprint")
 ```
