@@ -1,8 +1,9 @@
 # gist 记录一些代码片段
 
-[TOC]
+* TOC
+{:toc}
 
-## python连接mysql插入、查询
+## 连接mysql插入、查询
 
 ```python
 import pymysql
@@ -32,16 +33,16 @@ for path in ['pic', 'skin', 'images', '更多静态目录']:
     app.register_blueprint(blueprint)
 ```
 
-## python大小写不敏感字典
+## 大小写不敏感字典
 
 ```python
 from requests.structures import CaseInsensitiveDict
 mydict = CaseInsensitiveDict(mydict)
 ```
 
-## python print的时候顺带带上时间
+## print的时候顺带带上时间
 
-当然更优雅的方式是用logging
+使用这种方式的好处不仅是显示时间，而且可以很方便地将往屏幕输出改为写文件；更优雅的方式是用logging
 
 ```python
 import time
@@ -50,7 +51,7 @@ myprint = lambda s: print("[{showtime}] {s}".format(showtime=time.strftime("%Y-%
 myprint("aha myprint")
 ```
 
-## python 用redis存储dict
+## 用redis存储字典
 
 假设存储一个用户名对应用户ID的字典，名称为USERS，例如{"zhangsan":1, "lisi":2}
 

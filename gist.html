@@ -25,9 +25,18 @@
       <section id="main_content">
         <h1 id="gist-">gist 记录一些代码片段</h1>
 
-<p>[TOC]</p>
+<ul id="markdown-toc">
+  <li><a href="#gist-" id="markdown-toc-gist-">gist 记录一些代码片段</a>    <ul>
+      <li><a href="#mysql" id="markdown-toc-mysql">连接mysql插入、查询</a></li>
+      <li><a href="#flask" id="markdown-toc-flask">flask设置一堆静态目录</a></li>
+      <li><a href="#section" id="markdown-toc-section">大小写不敏感字典</a></li>
+      <li><a href="#print" id="markdown-toc-print">print的时候顺带带上时间</a></li>
+      <li><a href="#redis" id="markdown-toc-redis">用redis存储字典</a></li>
+    </ul>
+  </li>
+</ul>
 
-<h2 id="pythonmysql">python连接mysql插入、查询</h2>
+<h2 id="mysql">连接mysql插入、查询</h2>
 
 <div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pymysql</span>
 <span class="k">def</span> <span class="nf">db</span><span class="p">():</span>
@@ -57,16 +66,16 @@
 </code></pre>
 </div>
 
-<h2 id="python">python大小写不敏感字典</h2>
+<h2 id="section">大小写不敏感字典</h2>
 
 <div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">requests.structures</span> <span class="kn">import</span> <span class="n">CaseInsensitiveDict</span>
 <span class="n">mydict</span> <span class="o">=</span> <span class="n">CaseInsensitiveDict</span><span class="p">(</span><span class="n">mydict</span><span class="p">)</span>
 </code></pre>
 </div>
 
-<h2 id="python-print">python print的时候顺带带上时间</h2>
+<h2 id="print">print的时候顺带带上时间</h2>
 
-<p>当然更优雅的方式是用logging</p>
+<p>使用这种方式的好处不仅是显示时间，而且可以很方便地将往屏幕输出改为写文件；更优雅的方式是用logging</p>
 
 <div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">time</span>
 <span class="n">myprint</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="k">print</span><span class="p">(</span><span class="s">"[{showtime}] {s}"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">showtime</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">"</span><span class="si">%</span><span class="s">Y-</span><span class="si">%</span><span class="s">m-</span><span class="si">%</span><span class="s">d </span><span class="si">%</span><span class="s">H:</span><span class="si">%</span><span class="s">M:</span><span class="si">%</span><span class="s">S"</span><span class="p">),</span> <span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="p">))</span>
@@ -75,7 +84,7 @@
 </code></pre>
 </div>
 
-<h2 id="python-redisdict">python 用redis存储dict</h2>
+<h2 id="redis">用redis存储字典</h2>
 
 <p>假设存储一个用户名对应用户ID的字典，名称为USERS，例如{“zhangsan”:1, “lisi”:2}</p>
 
