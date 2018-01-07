@@ -29,3 +29,10 @@ for path in ['pic', 'skin', 'images', '更多静态目录']:
     blueprint = Blueprint(path, __name__, static_url_path='/'+path, static_folder=path)
     app.register_blueprint(blueprint)
 ```
+
+## python大小写不敏感字典
+
+```python
+from requests.structures import CaseInsensitiveDict
+mydict = CaseInsensitiveDict(mydict)
+```
