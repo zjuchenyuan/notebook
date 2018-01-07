@@ -27,21 +27,31 @@
 
 <h2 id="pythonmysql">python连接mysql插入、查询</h2>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>import pymysql
-def db():
-    conn = pymysql.connect(user='root',passwd='123456',host='localhost',port=3306,db='dbname',charset='utf8',init_command="set NAMES utf8mb4", use_unicode=True)
-    conn.encoding = "utf8"
-    return conn
-conn=db()
-cur = conn.cursor()
-# 增
-for item in ...:
-    cur.execute("insert into tablename values("+repr(item)[1:-1]+")")
-    conn.commit()
-# 查一条，返回一个dict
-id = ... #id为主键 只会有一条记录
-cur.execute("select * from tablename where id="+str(id))
-return dict(zip(("id","flag","更多的列名"),list(cur)[0]))
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pymysql</span>
+<span class="k">def</span> <span class="nf">db</span><span class="p">():</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">pymysql</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s">'root'</span><span class="p">,</span><span class="n">passwd</span><span class="o">=</span><span class="s">'123456'</span><span class="p">,</span><span class="n">host</span><span class="o">=</span><span class="s">'localhost'</span><span class="p">,</span><span class="n">port</span><span class="o">=</span><span class="mi">3306</span><span class="p">,</span><span class="n">db</span><span class="o">=</span><span class="s">'dbname'</span><span class="p">,</span><span class="n">charset</span><span class="o">=</span><span class="s">'utf8'</span><span class="p">,</span><span class="n">init_command</span><span class="o">=</span><span class="s">"set NAMES utf8mb4"</span><span class="p">,</span> <span class="n">use_unicode</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">encoding</span> <span class="o">=</span> <span class="s">"utf8"</span>
+    <span class="k">return</span> <span class="n">conn</span>
+<span class="n">conn</span><span class="o">=</span><span class="n">db</span><span class="p">()</span>
+<span class="n">cur</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+<span class="c"># 增</span>
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="o">...</span><span class="p">:</span>
+    <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">"insert into tablename values("</span><span class="o">+</span><span class="nb">repr</span><span class="p">(</span><span class="n">item</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="s">")"</span><span class="p">)</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+<span class="c"># 查一条，返回一个dict</span>
+<span class="nb">id</span> <span class="o">=</span> <span class="o">...</span> <span class="c">#id为主键 只会有一条记录</span>
+<span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">"select * from tablename where id="</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">id</span><span class="p">))</span>
+<span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">((</span><span class="s">"id"</span><span class="p">,</span><span class="s">"flag"</span><span class="p">,</span><span class="s">"更多的列名"</span><span class="p">),</span><span class="nb">list</span><span class="p">(</span><span class="n">cur</span><span class="p">)[</span><span class="mi">0</span><span class="p">]))</span>
+</code></pre>
+</div>
+
+<h2 id="flask">flask设置一堆静态目录</h2>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span><span class="p">,</span> <span class="n">Blueprint</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">redirect</span><span class="p">,</span> <span class="n">Markup</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="p">[</span><span class="s">'pic'</span><span class="p">,</span> <span class="s">'skin'</span><span class="p">,</span> <span class="s">'images'</span><span class="p">,</span> <span class="s">'更多静态目录'</span><span class="p">]:</span>
+    <span class="n">blueprint</span> <span class="o">=</span> <span class="n">Blueprint</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">__name__</span><span class="p">,</span> <span class="n">static_url_path</span><span class="o">=</span><span class="s">'/'</span><span class="o">+</span><span class="n">path</span><span class="p">,</span> <span class="n">static_folder</span><span class="o">=</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">register_blueprint</span><span class="p">(</span><span class="n">blueprint</span><span class="p">)</span>
 </code></pre>
 </div>
 
