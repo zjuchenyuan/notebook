@@ -94,3 +94,22 @@ while cursor:
 USERS2 = {i.decode():int(j) for i,j in result.items()} #从bytes转为原来的格式
 assert USERS==USERS2 #存进去的与取出来的应该相同
 ```
+
+## mpms多线程下每个线程单独变量
+
+自己写的类不是线程安全的，所以在多线程下要做到每个线程自己一个变量互不干扰
+
+mpms下使用EasyLogin这么写：
+
+```
+from mpms import MPMS
+from EasyLogin import EasyLogin
+import threading
+
+def worker(pageid):
+    thread_data = threading.local()
+    a = thread_data.__dict__.get("a")
+    if not a:
+        a = EasyLogin()
+        thread_data.__dict__["a"] = a
+```

@@ -32,6 +32,7 @@
       <li><a href="#section" id="markdown-toc-section">大小写不敏感字典</a></li>
       <li><a href="#print" id="markdown-toc-print">print的时候顺带带上时间</a></li>
       <li><a href="#redis" id="markdown-toc-redis">用redis存储字典</a></li>
+      <li><a href="#mpms" id="markdown-toc-mpms">mpms多线程下每个线程单独变量</a></li>
     </ul>
   </li>
 </ul>
@@ -125,6 +126,25 @@
 
 <span class="n">USERS2</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="o">.</span><span class="n">decode</span><span class="p">():</span><span class="nb">int</span><span class="p">(</span><span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span> <span class="c">#从bytes转为原来的格式</span>
 <span class="k">assert</span> <span class="n">USERS</span><span class="o">==</span><span class="n">USERS2</span> <span class="c">#存进去的与取出来的应该相同</span>
+</code></pre>
+</div>
+
+<h2 id="mpms">mpms多线程下每个线程单独变量</h2>
+
+<p>自己写的类不是线程安全的，所以在多线程下要做到每个线程自己一个变量互不干扰</p>
+
+<p>mpms下使用EasyLogin这么写：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>from mpms import MPMS
+from EasyLogin import EasyLogin
+import threading
+
+def worker(pageid):
+    thread_data = threading.local()
+    a = thread_data.__dict__.get("a")
+    if not a:
+        a = EasyLogin()
+        thread_data.__dict__["a"] = a
 </code></pre>
 </div>
 
