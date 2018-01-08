@@ -7,6 +7,7 @@
 
 ```python
 import pymysql
+import time
 def db():
     conn = pymysql.connect(user='root',passwd='123456',host='localhost',port=3306,db='dbname',charset='utf8',init_command="set NAMES utf8mb4", use_unicode=True)
     conn.encoding = "utf8"
@@ -22,7 +23,7 @@ try:
     cur.execute(sql)
 except:
     print("Error SQL: "+sql)
-    time.sleep(1)
+    time.sleep(1) # 显示出错的SQL语句后稍作等待，也方便Ctrl+C
 conn.commit()
 
 # 查一条，返回一个dict

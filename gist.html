@@ -40,6 +40,7 @@
 <h2 id="mysql">连接mysql批量插入、查询</h2>
 
 <div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pymysql</span>
+<span class="kn">import</span> <span class="nn">time</span>
 <span class="k">def</span> <span class="nf">db</span><span class="p">():</span>
     <span class="n">conn</span> <span class="o">=</span> <span class="n">pymysql</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s">'root'</span><span class="p">,</span><span class="n">passwd</span><span class="o">=</span><span class="s">'123456'</span><span class="p">,</span><span class="n">host</span><span class="o">=</span><span class="s">'localhost'</span><span class="p">,</span><span class="n">port</span><span class="o">=</span><span class="mi">3306</span><span class="p">,</span><span class="n">db</span><span class="o">=</span><span class="s">'dbname'</span><span class="p">,</span><span class="n">charset</span><span class="o">=</span><span class="s">'utf8'</span><span class="p">,</span><span class="n">init_command</span><span class="o">=</span><span class="s">"set NAMES utf8mb4"</span><span class="p">,</span> <span class="n">use_unicode</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     <span class="n">conn</span><span class="o">.</span><span class="n">encoding</span> <span class="o">=</span> <span class="s">"utf8"</span>
@@ -55,7 +56,7 @@
     <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
 <span class="k">except</span><span class="p">:</span>
     <span class="k">print</span><span class="p">(</span><span class="s">"Error SQL: "</span><span class="o">+</span><span class="n">sql</span><span class="p">)</span>
-    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c"># 显示出错的SQL语句后稍作等待，也方便Ctrl+C</span>
 <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
 
 <span class="c"># 查一条，返回一个dict</span>
