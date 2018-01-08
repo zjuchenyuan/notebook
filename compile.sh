@@ -3,7 +3,7 @@
 ## 并发刷新缓存
 ## 刷新又拍云缓存，代码在https://github.com/zjuchenyuan/EasyLogin/tree/master/examples/upyun
 pushd /mnt/d/Seafile/Developer/EasyLogin/examples/upyun/
-python3 upyun.py "https://py3.io/*.html" &
+python3 upyun.py 'https://py3.io/*.html' &
 popd
 python3 code/upyun_purge.py &
 

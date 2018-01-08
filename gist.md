@@ -3,7 +3,7 @@
 * TOC
 {:toc}
 
-## 连接mysql插入、查询
+## 连接mysql批量插入、查询
 
 ```python
 import pymysql
@@ -13,10 +13,18 @@ def db():
     return conn
 conn=db()
 cur = conn.cursor()
-# 增
+# 批量插入 将list转为一条sql语句执行insert
+sql = "insert into TABLENAME values"
 for item in ...:
-    cur.execute("insert into tablename values("+repr(item)[1:-1]+")")
-    conn.commit()
+    sql += "('"+"','".join([pymysql.escape_string(str(i)) for i in item])+"'),"
+sql = sql[:-1]
+try:
+    cur.execute(sql)
+except:
+    print("Error SQL: "+sql)
+    time.sleep(1)
+conn.commit()
+
 # 查一条，返回一个dict
 id = ... #id为主键 只会有一条记录
 cur.execute("select * from tablename where id="+str(id))

@@ -27,7 +27,7 @@
 
 <ul id="markdown-toc">
   <li><a href="#gist-" id="markdown-toc-gist-">gist 记录一些代码片段</a>    <ul>
-      <li><a href="#mysql" id="markdown-toc-mysql">连接mysql插入、查询</a></li>
+      <li><a href="#mysql" id="markdown-toc-mysql">连接mysql批量插入、查询</a></li>
       <li><a href="#flask" id="markdown-toc-flask">flask设置一堆静态目录</a></li>
       <li><a href="#section" id="markdown-toc-section">大小写不敏感字典</a></li>
       <li><a href="#print" id="markdown-toc-print">print的时候顺带带上时间</a></li>
@@ -37,7 +37,7 @@
   </li>
 </ul>
 
-<h2 id="mysql">连接mysql插入、查询</h2>
+<h2 id="mysql">连接mysql批量插入、查询</h2>
 
 <div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pymysql</span>
 <span class="k">def</span> <span class="nf">db</span><span class="p">():</span>
@@ -46,10 +46,18 @@
     <span class="k">return</span> <span class="n">conn</span>
 <span class="n">conn</span><span class="o">=</span><span class="n">db</span><span class="p">()</span>
 <span class="n">cur</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-<span class="c"># 增</span>
+<span class="c"># 批量插入 将list转为一条sql语句执行insert</span>
+<span class="n">sql</span> <span class="o">=</span> <span class="s">"insert into TABLENAME values"</span>
 <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="o">...</span><span class="p">:</span>
-    <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">"insert into tablename values("</span><span class="o">+</span><span class="nb">repr</span><span class="p">(</span><span class="n">item</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="s">")"</span><span class="p">)</span>
-    <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="n">sql</span> <span class="o">+=</span> <span class="s">"('"</span><span class="o">+</span><span class="s">"','"</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">pymysql</span><span class="o">.</span><span class="n">escape_string</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">item</span><span class="p">])</span><span class="o">+</span><span class="s">"'),"</span>
+<span class="n">sql</span> <span class="o">=</span> <span class="n">sql</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"Error SQL: "</span><span class="o">+</span><span class="n">sql</span><span class="p">)</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
 <span class="c"># 查一条，返回一个dict</span>
 <span class="nb">id</span> <span class="o">=</span> <span class="o">...</span> <span class="c">#id为主键 只会有一条记录</span>
 <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">"select * from tablename where id="</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">id</span><span class="p">))</span>
