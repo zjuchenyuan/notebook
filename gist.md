@@ -64,17 +64,43 @@ myprint("aha myprint")
 
 自己写的类不是线程安全的，所以在多线程下要做到每个线程自己一个变量互不干扰
 
-mpms下使用EasyLogin这么写：
+mpms下使用EasyLogin完整示例代码模板， 先要使用我fork的版本 加上了len支持：
+
+```
+wget https://d.py3.io/mpms.py
+```
 
 ```
 from mpms import MPMS
 from EasyLogin import EasyLogin
 import threading
+thread_data = threading.local()
 
-def worker(pageid):
-    thread_data = threading.local()
+import time
+myprint = lambda s: print("[{showtime}] {s}".format(showtime=time.strftime("%Y-%m-%d %H:%M:%S"), s=s))
+
+def worker(id):
+    global thread_data
     a = thread_data.__dict__.get("a")
     if not a:
         a = EasyLogin()
         thread_data.__dict__["a"] = a
+    pass # do the stuff, like a.get
+    return result
+
+def handler(meta, result):
+    # meta["fp"].write ...
+    pass # do the stuff
+
+if __name__ == "__main__":
+    meta = {"fp": open("result.txt","w",encoding="utf-8")}
+    m = MPMS(worker, handler, 2, 2, meta=meta)
+    m.start()
+    for i in range(...):
+        m.put(i)
+    while len(m)>10:
+        myprint("Remaning "+str(len(m)))
+        time.sleep(2)
+    m.join()
+    myprint("Done!")
 ```
