@@ -66,11 +66,11 @@ myprint("aha myprint")
 
 mpms下使用EasyLogin完整示例代码模板， 先要使用我fork的版本 加上了len支持：
 
-```
+```bash
 wget https://d.py3.io/mpms.py
 ```
 
-```
+```python
 from mpms import MPMS
 from EasyLogin import EasyLogin
 import threading

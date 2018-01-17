@@ -99,42 +99,42 @@
 
 <p>mpms下使用EasyLogin完整示例代码模板， 先要使用我fork的版本 加上了len支持：</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>wget https://d.py3.io/mpms.py
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>wget https://d.py3.io/mpms.py
 </code></pre>
 </div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>from mpms import MPMS
-from EasyLogin import EasyLogin
-import threading
-thread_data = threading.local()
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">mpms</span> <span class="kn">import</span> <span class="n">MPMS</span>
+<span class="kn">from</span> <span class="nn">EasyLogin</span> <span class="kn">import</span> <span class="n">EasyLogin</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="n">thread_data</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">local</span><span class="p">()</span>
 
-import time
-myprint = lambda s: print("[{showtime}] {s}".format(showtime=time.strftime("%Y-%m-%d %H:%M:%S"), s=s))
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="n">myprint</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="k">print</span><span class="p">(</span><span class="s">"[{showtime}] {s}"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">showtime</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">"</span><span class="si">%</span><span class="s">Y-</span><span class="si">%</span><span class="s">m-</span><span class="si">%</span><span class="s">d </span><span class="si">%</span><span class="s">H:</span><span class="si">%</span><span class="s">M:</span><span class="si">%</span><span class="s">S"</span><span class="p">),</span> <span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="p">))</span>
 
-def worker(id):
-    global thread_data
-    a = thread_data.__dict__.get("a")
-    if not a:
-        a = EasyLogin()
-        thread_data.__dict__["a"] = a
-    pass # do the stuff, like a.get
-    return result
+<span class="k">def</span> <span class="nf">worker</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">thread_data</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">thread_data</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"a"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">a</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">EasyLogin</span><span class="p">()</span>
+        <span class="n">thread_data</span><span class="o">.</span><span class="n">__dict__</span><span class="p">[</span><span class="s">"a"</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span>
+    <span class="k">pass</span> <span class="c"># do the stuff, like a.get</span>
+    <span class="k">return</span> <span class="n">result</span>
 
-def handler(meta, result):
-    # meta["fp"].write ...
-    pass # do the stuff
+<span class="k">def</span> <span class="nf">handler</span><span class="p">(</span><span class="n">meta</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+    <span class="c"># meta["fp"].write ...</span>
+    <span class="k">pass</span> <span class="c"># do the stuff</span>
 
-if __name__ == "__main__":
-    meta = {"fp": open("result.txt","w",encoding="utf-8")}
-    m = MPMS(worker, handler, 2, 2, meta=meta)
-    m.start()
-    for i in range(...):
-        m.put(i)
-    while len(m)&gt;10:
-        myprint("Remaning "+str(len(m)))
-        time.sleep(2)
-    m.join()
-    myprint("Done!")
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">meta</span> <span class="o">=</span> <span class="p">{</span><span class="s">"fp"</span><span class="p">:</span> <span class="nb">open</span><span class="p">(</span><span class="s">"result.txt"</span><span class="p">,</span><span class="s">"w"</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s">"utf-8"</span><span class="p">)}</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">MPMS</span><span class="p">(</span><span class="n">worker</span><span class="p">,</span> <span class="n">handler</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">meta</span><span class="o">=</span><span class="n">meta</span><span class="p">)</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">10</span><span class="p">:</span>
+        <span class="n">myprint</span><span class="p">(</span><span class="s">"Remaning "</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">m</span><span class="p">)))</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+    <span class="n">myprint</span><span class="p">(</span><span class="s">"Done!"</span><span class="p">)</span>
 </code></pre>
 </div>
 
