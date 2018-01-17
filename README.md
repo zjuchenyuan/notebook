@@ -32,13 +32,14 @@ My notebook about technology, for lookup and share
 >* 修复gbk编码的文件名
 >* Crack RSA! 破解短长度密钥的RSA加密
 >* 时间戳与字符串相互转换
+>* 用redis存储字典
 
 ## [gist Python一些常用的代码片段](gist.md)
 >* 连接mysql插入、查询
 >* flask设置一堆静态目录
 >* 大小写不敏感字典
 >* print的时候顺带带上时间
->* 用redis存储字典
+>* mpms多线程下每个线程单独变量
 
 ## [BASH](BASH.md)
 >* 在bash脚本中使用alias

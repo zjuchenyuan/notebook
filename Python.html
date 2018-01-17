@@ -16,7 +16,7 @@
 
         <section id="downloads">
           
-          <a href="https://github.com/zjuchenyuan/notebook/blob/master/Python.md" class="btn btn-github"><span class="icon"></span>Star me on GitHub (58)</a>&nbsp;<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>
+          <a href="https://github.com/zjuchenyuan/notebook/blob/master/Python.md" class="btn btn-github"><span class="icon"></span>Star me on GitHub (59)</a>&nbsp;<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>
         </section>
       </div>
     </header>
@@ -95,6 +95,7 @@
       <li><a href="#flag" id="markdown-toc-flag">明文这么一个大数 我要的flag呢？</a></li>
       <li><a href="#section-12" id="markdown-toc-section-12">完整的代码</a></li>
       <li><a href="#section-13" id="markdown-toc-section-13">时间戳与字符串相互转换</a></li>
+      <li><a href="#redis" id="markdown-toc-redis">用redis存储字典</a></li>
     </ul>
   </li>
 </ul>
@@ -1026,6 +1027,52 @@ print(b16decode(plaindata))
 <p>时间戳1381419600转字符串：time.strftime(“%Y-%m-%d %H:%M:%S”, time.localtime(1381419600))</p>
 
 <p>字符串”2013-10-10 23:40:00”转时间戳：int(time.mktime(time.strptime(“2013-10-10 23:40:00”,”%Y-%m-%d %H:%M:%S”)))</p>
+
+<hr />
+
+<h2 id="redis">用redis存储字典</h2>
+
+<p>假设存储一个用户名对应用户ID的字典，名称为USERS，例如{“zhangsan”:1, “lisi”:2}</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">redis</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">redis</span><span class="o">.</span><span class="n">StrictRedis</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s">'localhost'</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">6379</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c">#db参数可以理解为命名空间</span>
+<span class="k">assert</span> <span class="n">r</span><span class="o">.</span><span class="n">ping</span><span class="p">()</span> <span class="c"># 是否成功连上</span>
+
+<span class="n">USERS</span> <span class="o">=</span> <span class="p">{</span><span class="s">"zhangsan"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="s">"lisi"</span><span class="p">:</span><span class="mi">2</span><span class="p">}</span>
+
+<span class="c"># 存储字典</span>
+<span class="n">r</span><span class="o">.</span><span class="n">hmset</span><span class="p">(</span><span class="s">"USERS"</span><span class="p">,</span> <span class="n">USERS</span><span class="p">)</span>
+
+<span class="c"># 获得已经存储的字典里面有哪些键，返回bytes的list</span>
+<span class="n">KEYS</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">hkeys</span><span class="p">(</span><span class="s">"USERS"</span><span class="p">)</span> 
+
+<span class="c"># 获得整个字典并转换回原来的类型</span>
+<span class="n">USERS1</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="o">.</span><span class="n">decode</span><span class="p">():</span><span class="nb">int</span><span class="p">(</span><span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">hgetall</span><span class="p">(</span><span class="s">"USERS"</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+
+<span class="c"># 修改字典中一个key的value</span>
+<span class="n">r</span><span class="o">.</span><span class="n">hset</span><span class="p">(</span><span class="s">"USERS"</span><span class="p">,</span><span class="s">"zhangsan"</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="c"># 删除存储的字典，只能一个个删，先要hkeys获取有哪些键</span>
+<span class="n">_</span><span class="o">=</span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">hdel</span><span class="p">(</span><span class="s">"USERS"</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">hkeys</span><span class="p">(</span><span class="s">"USERS"</span><span class="p">)</span> <span class="p">]</span>
+
+<span class="c"># 扫描式获得已经存储的字典里面有哪些键</span>
+<span class="c">## 如果字典里面存储了太多东西，执行KEYS会卡住整个redis，用hscan是更好的选择</span>
+<span class="c">## 这里先生成一个比较大的字典存进去</span>
+<span class="kn">import</span> <span class="nn">random</span><span class="o">,</span> <span class="nn">string</span>
+<span class="n">randomstr</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_letters</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+<span class="n">USERS</span> <span class="o">=</span> <span class="p">{</span><span class="n">randomstr</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10000</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">)}</span> <span class="c"># 生成一个1w条记录的字典</span>
+<span class="n">r</span><span class="o">.</span><span class="n">hmset</span><span class="p">(</span><span class="s">"USERS"</span><span class="p">,</span> <span class="n">USERS</span><span class="p">)</span> <span class="c"># 存进去</span>
+
+<span class="c">## 循环hscan</span>
+<span class="n">cursor</span><span class="p">,</span> <span class="n">result</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">hscan</span><span class="p">(</span><span class="s">"USERS"</span><span class="p">)</span>
+<span class="k">while</span> <span class="n">cursor</span><span class="p">:</span>
+    <span class="n">cursor</span><span class="p">,</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">hscan</span><span class="p">(</span><span class="s">"USERS"</span><span class="p">,</span> <span class="n">cursor</span><span class="p">)</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+
+<span class="n">USERS2</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="o">.</span><span class="n">decode</span><span class="p">():</span><span class="nb">int</span><span class="p">(</span><span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span> <span class="c">#从bytes转为原来的格式</span>
+<span class="k">assert</span> <span class="n">USERS</span><span class="o">==</span><span class="n">USERS2</span> <span class="c">#存进去的与取出来的应该相同</span>
+</code></pre>
+</div>
 
       </section>
 <br><hr><h1 id="comment">评论区</h1><div id="comment-thread"></div><div id="loading-spin"></div>
