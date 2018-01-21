@@ -16,7 +16,7 @@
 
         <section id="downloads">
           
-          <a href="https://github.com/zjuchenyuan/notebook/blob/master/Docker.md" class="btn btn-github"><span class="icon"></span>Star me on GitHub (59)</a>&nbsp;<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>
+          <a href="https://github.com/zjuchenyuan/notebook/blob/master/Docker.md" class="btn btn-github"><span class="icon"></span>Star me on GitHub (61)</a>&nbsp;<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>
         </section>
       </div>
     </header>
@@ -25,6 +25,7 @@
       <section id="main_content">
         
 <ul id="markdown-toc">
+  <li><a href="#myubuntu-" id="markdown-toc-myubuntu-">myubuntu 基础镜像</a></li>
   <li><a href="#install-" id="markdown-toc-install-">Install 安装</a>    <ul>
       <li><a href="#aufs" id="markdown-toc-aufs">解决aufs的问题</a></li>
     </ul>
@@ -38,10 +39,10 @@
     </ul>
   </li>
   <li><a href="#section-2" id="markdown-toc-section-2">导出导入</a>    <ul>
-      <li><a href="#export" id="markdown-toc-export">Export导出容器</a></li>
-      <li><a href="#import" id="markdown-toc-import">Import导入容器</a></li>
       <li><a href="#save" id="markdown-toc-save">搬运镜像–save导出镜像</a></li>
       <li><a href="#load" id="markdown-toc-load">搬运镜像–load载入镜像</a></li>
+      <li><a href="#export-" id="markdown-toc-export-">Export导出容器 并不常用</a></li>
+      <li><a href="#import" id="markdown-toc-import">Import导入容器</a></li>
     </ul>
   </li>
   <li><a href="#iptables-failed---no-chiantargetmatch-by-that-name" id="markdown-toc-iptables-failed---no-chiantargetmatch-by-that-name">解决iptables failed - No chian/target/match by that name</a></li>
@@ -68,6 +69,42 @@
     </ul>
   </li>
 </ul>
+
+<h1 id="myubuntu-">myubuntu 基础镜像</h1>
+
+<p>简单地将Docker当成虚拟机来使用的话，自然要准备个好用的基础镜像咯</p>
+
+<p>基于目前最新的ubuntu18.04，配置apt源、pip源、ssh允许密码登录</p>
+
+<p>Dockerfile:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>FROM ubuntu:18.04
+RUN sed -i 's/security.ubuntu.com/10.15.61.66/g' /etc/apt/sources.list &amp;&amp; \
+    sed -i 's/archive.ubuntu.com/10.15.61.66/g' /etc/apt/sources.list # 修改apt源
+RUN apt update &amp;&amp; apt install -y ssh curl wget net-tools iputils-ping netcat python3-pip python-pip nano vim
+RUN mkdir -p ~/.pip &amp;&amp; echo '[global]\nindex-url = http://pypi.doubanio.com/simple/\n[install]\ntrusted-host=pypi.doubanio.com\n'&gt;  ~/.pip/pip.conf
+RUN sed -i 's/prohibit-password/yes/g' /etc/ssh/sshd_config # 允许root用户密码登录
+RUN echo root:badpassword|chpasswd # 记得修改这里的密码
+ADD run.sh /
+RUN chmod +x /run.sh
+CMD /run.sh
+</code></pre>
+</div>
+
+<p>run.sh:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+service ssh start
+<span class="c"># 在容器内安装了mysql等之后可以在run.sh这里添加相应的启动命令</span>
+sleep infinity
+</code></pre>
+</div>
+
+<p>build命令：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>docker build -t myubuntu18 .
+</code></pre>
+</div>
 
 <h1 id="install-">Install 安装</h1>
 
@@ -152,22 +189,6 @@ getip 容器名称
 
 <h1 id="section-2">导出导入</h1>
 
-<h2 id="export">Export导出容器</h2>
-
-<p>导出容器得到的是tar文件，没有进行压缩，我们需要手动执行压缩</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>docker export 容器的名称或ID | gzip &gt;导出文件名.tar.gz
-</code></pre>
-</div>
-
-<h2 id="import">Import导入容器</h2>
-
-<p>虽然上一步我们压缩了，但docker可以直接import，不需要用gunzip</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>docker import 文件名
-</code></pre>
-</div>
-
 <h2 id="save">搬运镜像–save导出镜像</h2>
 
 <p>由于网络带宽(流量)往往是瓶颈资源，所以产生更小的压缩文件很有必要，这里我们可以生成 tar.7z 文件：<code class="highlighter-rouge">apt-get install -y p7zip-full</code></p>
@@ -196,6 +217,24 @@ getip 容器名称
 </code></pre>
 </div>
 
+<h2 id="export-">Export导出容器 并不常用</h2>
+
+<p>直接导出容器并不常用，建议<code class="highlighter-rouge">docker commit 容器名称 保存成的镜像名称</code>，然后导出镜像</p>
+
+<p>导出容器得到的是tar文件，没有进行压缩，我们需要手动执行压缩</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>docker export 容器的名称或ID | gzip &gt;导出文件名.tar.gz
+</code></pre>
+</div>
+
+<h2 id="import">Import导入容器</h2>
+
+<p>虽然上一步我们压缩了，但docker可以直接import，不需要用gunzip</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>docker import 文件名
+</code></pre>
+</div>
+
 <hr />
 
 <h1 id="iptables-failed---no-chiantargetmatch-by-that-name">解决iptables failed - No chian/target/match by that name</h1>
@@ -207,7 +246,7 @@ iptables -t filter -N DOCKER
 </code></pre>
 </div>
 
-<p>附：如果需要删除链条，可以用iptables-save导出后手动编辑后iptables-restore</p>
+<p>附：如果需要删除链条，可以用<code class="highlighter-rouge">iptables-save</code>导出后手动编辑后<code class="highlighter-rouge">iptables-restore</code></p>
 
 <hr />
 

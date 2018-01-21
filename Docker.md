@@ -2,6 +2,42 @@
 * TOC
 {:toc}
 
+# myubuntu 基础镜像
+
+简单地将Docker当成虚拟机来使用的话，自然要准备个好用的基础镜像咯
+
+基于目前最新的ubuntu18.04，配置apt源、pip源、ssh允许密码登录
+
+Dockerfile:
+
+```
+FROM ubuntu:18.04
+RUN sed -i 's/security.ubuntu.com/10.15.61.66/g' /etc/apt/sources.list && \
+    sed -i 's/archive.ubuntu.com/10.15.61.66/g' /etc/apt/sources.list # 修改apt源
+RUN apt update && apt install -y ssh curl wget net-tools iputils-ping netcat python3-pip python-pip nano vim
+RUN mkdir -p ~/.pip && echo '[global]\nindex-url = http://pypi.doubanio.com/simple/\n[install]\ntrusted-host=pypi.doubanio.com\n'>  ~/.pip/pip.conf
+RUN sed -i 's/prohibit-password/yes/g' /etc/ssh/sshd_config # 允许root用户密码登录
+RUN echo root:badpassword|chpasswd # 记得修改这里的密码
+ADD run.sh /
+RUN chmod +x /run.sh
+CMD /run.sh
+```
+
+run.sh:
+
+```
+#!/bin/bash
+service ssh start
+# 在容器内安装了mysql等之后可以在run.sh这里添加相应的启动命令
+sleep infinity
+```
+
+build命令：
+
+```
+docker build -t myubuntu18 .
+```
+
 # Install 安装
 
 建议参见[如何翻墙](https://github.com/zjuchenyuan/notebook/blob/master/code/ssprivoxy.txt)，部署http proxy
@@ -77,18 +113,6 @@ getip 容器名称
 
 # 导出导入
 
-## Export导出容器
-
-导出容器得到的是tar文件，没有进行压缩，我们需要手动执行压缩
-
-    docker export 容器的名称或ID | gzip >导出文件名.tar.gz
-
-## Import导入容器
-
-虽然上一步我们压缩了，但docker可以直接import，不需要用gunzip
-
-    docker import 文件名
-
 ## 搬运镜像--save导出镜像
 
 由于网络带宽(流量)往往是瓶颈资源，所以产生更小的压缩文件很有必要，这里我们可以生成 tar.7z 文件：`apt-get install -y p7zip-full`
@@ -109,6 +133,20 @@ getip 容器名称
 
     docker load < 文件名.tar.gz
 
+## Export导出容器 并不常用
+
+直接导出容器并不常用，建议`docker commit 容器名称 保存成的镜像名称`，然后导出镜像
+
+导出容器得到的是tar文件，没有进行压缩，我们需要手动执行压缩
+
+    docker export 容器的名称或ID | gzip >导出文件名.tar.gz
+
+## Import导入容器
+
+虽然上一步我们压缩了，但docker可以直接import，不需要用gunzip
+
+    docker import 文件名
+
 --------
 
 # 解决iptables failed - No chian/target/match by that name
@@ -118,7 +156,7 @@ getip 容器名称
     iptables -t nat -N DOCKER
     iptables -t filter -N DOCKER
 
-附：如果需要删除链条，可以用iptables-save导出后手动编辑后iptables-restore
+附：如果需要删除链条，可以用`iptables-save`导出后手动编辑后`iptables-restore`
 
 --------
 
