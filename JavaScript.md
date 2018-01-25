@@ -153,3 +153,25 @@ if (typeof(QueryString.parameter)!="undefined") {
 如果觉得cloudflare加载速度不佳，可以把所有js打包成一个文件
 
 效果如本博客页面底部评论区所示，为了偷懒就没有为每个md文件单独开issue了，整个blog共用一个issue
+
+----
+
+# history.replaceState修改历史记录
+
+如v2ex按照是否:visited来区分点开过和没点开过的帖子，其实现是url带上#reply回复数量
+
+但如果帖子页面有多种进入方式（自动跳转到页尾、发起了回复等），那么url并不一定与需要的一致
+
+我们可以使用history API来修改历史记录，从而保证带上`#reply回复数量`的url一定被认为访问过；而且自动改回去用户无感知（否则刷新后会打开不一样的页面）
+
+代码如下：
+
+```
+<script>
+setTimeout( function(){
+    var oldurl = location.href;
+    history.replaceState(null, null, '/t/{{topic["id"]}}#reply{{topic["replyCount"]}}');
+    history.replaceState(null, null, oldurl);
+}, 1000);
+</script>
+```

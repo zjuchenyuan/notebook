@@ -154,6 +154,7 @@ My notebook about technology, for lookup and share
 >* jQuery绑定"变为可见"事件
 >* 读取GET参数
 >* 使用 Github Issue 作为博客评论区
+>* history.replaceState修改历史记录
 
 ## [Jekyll](Jekyll.md)
 >* 碰到过的坑
