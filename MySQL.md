@@ -251,3 +251,32 @@ cat /proc/上述找到的进程ID/limits | grep files
 mysql -u root -p
 show global variables like "%open_files_limit%";
 ```
+
+----
+
+## 解决ubuntu16.04上mysql被apt upgrade自动关闭的问题
+
+问题现象： mysql服务自动退出，查日志`jounralctl -xe|tac|less`发现是`apt upgrade`引起的自动退出
+
+发现这是一个ubuntu16.04的特性，每天凌晨6点会自动apt upgrade安全更新，但不明原因这个更新失败了，apt关掉了mysql服务后由于异常退出并没有重新把mysql服务启动
+
+如果你想关掉自动更新（不建议）：修改`/etc/apt/apt.conf.d/20auto-upgrades`，改为`APT::Periodic::Unattended-Upgrade "0";`
+
+执行`apt upgrade`或者`apt-get install -f`看看，能重现问题（mysql被关掉了），也发现了报错信息：
+
+```
+mysql_upgrade: Got error: 2002: Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) while connecting to the MySQL server
+  Upgrade process encountered error and will not continue.
+```
+
+然后就查这个报错，发现了这个：https://github.com/chef-cookbooks/mysql/issues/466
+
+人家的解决方案是：`systemctl enable mysql`，然而我执行又遇到了systemd的报错：`Failed to execute operation: Invalid argument`
+
+最终解决方案就是先disable一下
+
+```
+systemctl disable mysql
+systemctl enable mysql
+apt-get install -f
+```

@@ -14,9 +14,10 @@ Dockerfile:
 FROM ubuntu:18.04
 RUN sed -i 's/security.ubuntu.com/10.15.61.66/g' /etc/apt/sources.list && \
     sed -i 's/archive.ubuntu.com/10.15.61.66/g' /etc/apt/sources.list # 修改apt源
-RUN apt update && apt install -y ssh curl wget net-tools iputils-ping netcat python3-pip python-pip nano vim
+RUN apt update && apt install -y ssh curl wget net-tools iputils-ping netcat python3-pip python-pip nano vim tzdata screen
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime # 修改时区
 RUN mkdir -p ~/.pip && echo '[global]\nindex-url = http://pypi.doubanio.com/simple/\n[install]\ntrusted-host=pypi.doubanio.com\n'>  ~/.pip/pip.conf
-RUN sed -i 's/prohibit-password/yes/g' /etc/ssh/sshd_config # 允许root用户密码登录
+RUN sed -i 's/prohibit-password/yes/g' /etc/ssh/sshd_config && sed -i 's/#PermitRootLogin/PermitRootLogin/g' /etc/ssh/sshd_config # 允许root用户密码登录
 RUN echo root:badpassword|chpasswd # 记得修改这里的密码
 ADD run.sh /
 RUN chmod +x /run.sh

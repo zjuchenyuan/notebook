@@ -49,6 +49,7 @@
         </ul>
       </li>
       <li><a href="#too-many-open-files-" id="markdown-toc-too-many-open-files-">解决 Too many open files 错误</a></li>
+      <li><a href="#ubuntu1604mysqlapt-upgrade" id="markdown-toc-ubuntu1604mysqlapt-upgrade">解决ubuntu16.04上mysql被apt upgrade自动关闭的问题</a></li>
     </ul>
   </li>
 </ul>
@@ -311,6 +312,35 @@ cat /proc/上述找到的进程ID/limits | grep files
 
 mysql -u root -p
 show global variables like "%open_files_limit%";
+</code></pre>
+</div>
+
+<hr />
+
+<h2 id="ubuntu1604mysqlapt-upgrade">解决ubuntu16.04上mysql被apt upgrade自动关闭的问题</h2>
+
+<p>问题现象： mysql服务自动退出，查日志<code class="highlighter-rouge">jounralctl -xe|tac|less</code>发现是<code class="highlighter-rouge">apt upgrade</code>引起的自动退出</p>
+
+<p>发现这是一个ubuntu16.04的特性，每天凌晨6点会自动apt upgrade安全更新，但不明原因这个更新失败了，apt关掉了mysql服务后由于异常退出并没有重新把mysql服务启动</p>
+
+<p>如果你想关掉自动更新（不建议）：修改<code class="highlighter-rouge">/etc/apt/apt.conf.d/20auto-upgrades</code>，改为<code class="highlighter-rouge">APT::Periodic::Unattended-Upgrade "0";</code></p>
+
+<p>执行<code class="highlighter-rouge">apt upgrade</code>或者<code class="highlighter-rouge">apt-get install -f</code>看看，能重现问题（mysql被关掉了），也发现了报错信息：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>mysql_upgrade: Got error: 2002: Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) while connecting to the MySQL server
+  Upgrade process encountered error and will not continue.
+</code></pre>
+</div>
+
+<p>然后就查这个报错，发现了这个：https://github.com/chef-cookbooks/mysql/issues/466</p>
+
+<p>人家的解决方案是：<code class="highlighter-rouge">systemctl enable mysql</code>，然而我执行又遇到了systemd的报错：<code class="highlighter-rouge">Failed to execute operation: Invalid argument</code></p>
+
+<p>最终解决方案就是先disable一下</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>systemctl disable mysql
+systemctl enable mysql
+apt-get install -f
 </code></pre>
 </div>
 

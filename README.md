@@ -241,6 +241,8 @@ My notebook about technology, for lookup and share
 >* 简单的split功能，文本转数字
 >* mysqld配置参数调优
 >* 支持emoji，从utf8升级到utf8mb4
+>* 解决 Too many open files 错误
+>* 解决ubuntu16.04上mysql被apt upgrade自动关闭的问题
 
 ## [Nginx](Nginx.md)
 >* Nginx思考题
