@@ -3,7 +3,7 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link rel="stylesheet" href="assets/css/style.css?20170509">
+    <link rel="stylesheet" href="/assets/css/style.css?v=803af9c04c3742b59c0ebb70298ec6e2b876adb3">
     <title>notebook by zjuchenyuan</title>
   </head>
 
@@ -16,7 +16,7 @@
 
         <section id="downloads">
           
-          <a href="https://github.com/zjuchenyuan/notebook/blob/master/Docker.md" class="btn btn-github"><span class="icon"></span>Star me on GitHub (61)</a>&nbsp;<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>
+          <a href="http://github.com/zjuchenyuan/notebook" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
         </section>
       </div>
     </header>
@@ -61,6 +61,10 @@
       <li><a href="#dockerip" id="markdown-toc-dockerip">让Docker容器得到内网IP</a>        <ul>
           <li><a href="#section-7" id="markdown-toc-section-7">一点额外的警告</a></li>
           <li><a href="#macvlanip" id="markdown-toc-macvlanip">macvlan查看已经分配的IP</a></li>
+        </ul>
+      </li>
+      <li><a href="#iptablesdockerip" id="markdown-toc-iptablesdockerip">使用iptables端口转发让Docker容器得到内网IP</a>        <ul>
+          <li><a href="#givecontaineripsh" id="markdown-toc-givecontaineripsh">give_container_ip.sh</a></li>
         </ul>
       </li>
       <li><a href="#tcpdump" id="markdown-toc-tcpdump">对容器网络流量tcpdump</a></li>
@@ -534,6 +538,44 @@ docker network inspect macvlan_bridge --format "{{range .Containers}}{{.IPv4Addr
 
 <hr />
 
+<h2 id="iptablesdockerip">使用iptables端口转发让Docker容器得到内网IP</h2>
+
+<p>上述基于macvlan的方法容器无法与主机通讯，所以下述基于iptables端口转发的方法更胜一筹</p>
+
+<p>这种方法基于主机自己去获得一个额外的内网ip后，用iptables端口转发来实现给容器内网IP的效果，容器应用可以得到请求源IP，但容器向外发起的tcp请求还是主机自身的默认IP</p>
+
+<p>该脚本运行时需要两个参数 第一个为容器名称 第二个为新的IP后缀</p>
+
+<p>举个例子 主机在10.12.34.x这个内网地址段 且可以随意得到这个地址段的内网IP，现在要给mysql容器10.12.34.202这个IP，运行方式就是<code class="highlighter-rouge">./give_container_ip.sh mysql 202</code></p>
+
+<p>记得修改下面的IPPREFIX和ETH0变量！</p>
+
+<h3 id="givecontaineripsh">give_container_ip.sh</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<span class="nb">set</span> -ex
+<span class="nb">shopt</span> -s expand_aliases
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="nv">$1</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> -z <span class="nv">$2</span> <span class="o">]</span>; <span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"Usage: </span><span class="nv">$0</span><span class="s2"> &lt;container name&gt; &lt;new IP suffix&gt;"</span>
+    <span class="nb">echo</span> <span class="s2">"Example: </span><span class="nv">$0</span><span class="s2"> u202 202"</span>
+    <span class="nb">exit </span>1
+<span class="k">fi
+
+</span><span class="nb">alias </span><span class="nv">getip</span><span class="o">=</span><span class="s2">"docker inspect  --format '' "</span>
+
+<span class="nv">IPPREFIX</span><span class="o">=</span><span class="s2">"10.12.34."</span>
+<span class="nv">ETH0</span><span class="o">=</span><span class="s2">"eth0"</span>
+sudo ifconfig <span class="nv">$ETH0</span>:<span class="nv">$2</span> <span class="nv">$IPPREFIX$2</span> netmask 255.255.255.0 up
+sudo iptables -t nat -I PREROUTING -d <span class="nv">$IPPREFIX$2</span> -p tcp -j DNAT --to <span class="sb">`</span>getip <span class="nv">$1</span><span class="sb">`</span>
+sudo iptables -t nat -I POSTROUTING -s <span class="sb">`</span>getip <span class="nv">$1</span><span class="sb">`</span>/32 -d <span class="sb">`</span>getip <span class="nv">$1</span><span class="sb">`</span>/32 -p tcp -m tcp -j MASQUERADE
+</code></pre>
+</div>
+
+<p>为什么最后用MASQUERADE而不用SNAT呢？因为用SNAT容器的应用就不能得到请求的源IP，在实际应用中是无法接受的；这一条iptables规则是我用<code class="highlighter-rouge">docker run -p</code>和<code class="highlighter-rouge">iptables-save</code>得到的</p>
+
+<hr />
+
 <h2 id="tcpdump">对容器网络流量tcpdump</h2>
 
 <p>Learned from: https://www.slideshare.net/SreenivasMakam/docker-networking-common-issues-and-troubleshooting-techniques</p>
@@ -583,43 +625,8 @@ docker network inspect macvlan_bridge --format "{{range .Containers}}{{.IPv4Addr
 <p>给访问者看的分享名称;物理位置;是否列出;未登录可否访问;允许访问的用户(all表示所有用户)</p>
 
       </section>
-<br><hr><h1 id="comment">评论区</h1><div id="comment-thread"></div><div id="loading-spin"></div>
     </div>
 
+    
   </body>
-<script src="assets/js/instantclick.min.js" data-no-instant></script>
-<link rel="stylesheet" href="assets/css/comment.css">
-<script src="assets/js/comment.js" data-no-instant></script>
-<script>
-  marked.setOptions({
-  highlight: function (code, lang) {
-     return hljs.highlightAuto(code).value;
-  }
-  });
-  function Highlighting(){
-    var markdowns = document.getElementsByClassName('markdown');
-    for(var i=0;i<markdowns.length;i++){
-       if(markdowns[i].innerHTML) markdowns[i].innerHTML =marked(markdowns[i].innerHTML);
-    }
-  }
-  window.addEventListener('DOMContentLoaded', Highlighting, false);
-  window.addEventListener('load', Highlighting, false);
-   var opt = {
-       type: "github",
-       user: "zjuchenyuan",
-       repo: "notebook",
-       no_comment: "No comments yet. Press the button and go to comment now!",
-       go_to_comment: "Go to comment",
-       issue_id: "1",
-       btn_class: "btn",
-       comments_target: "#comment-thread",
-       loading_target: "#loading-spin",
-       client_id: "8f7a792630aa459d0812",
-       client_secret: "084b314f30dd9b10201011e265c4cb5d78c2b2e9"
-   };
-   if (jQuery('.discussion-timeline').length == 0) getComments(opt);
-</script>
-<script data-no-instant>
-  InstantClick.init();
-</script>
 </html>

@@ -423,6 +423,44 @@ docker network inspect macvlan_bridge --format "{{range .Containers}}{{.IPv4Addr
 
 ----
 
+## 使用iptables端口转发让Docker容器得到内网IP
+
+上述基于macvlan的方法容器无法与主机通讯，所以下述基于iptables端口转发的方法更胜一筹
+
+这种方法基于主机自己去获得一个额外的内网ip后，用iptables端口转发来实现给容器内网IP的效果，容器应用可以得到请求源IP，但容器向外发起的tcp请求还是主机自身的默认IP
+
+该脚本运行时需要两个参数 第一个为容器名称 第二个为新的IP后缀
+
+举个例子 主机在10.12.34.x这个内网地址段 且可以随意得到这个地址段的内网IP，现在要给mysql容器10.12.34.202这个IP，运行方式就是`./give_container_ip.sh mysql 202`
+
+记得修改下面的IPPREFIX和ETH0变量！
+
+### give_container_ip.sh
+
+```
+#!/bin/bash
+set -ex
+shopt -s expand_aliases
+
+if [ -z $1 ] && [ -z $2 ]; then
+    echo "Usage: $0 <container name> <new IP suffix>"
+    echo "Example: $0 u202 202"
+    exit 1
+fi
+
+alias getip="docker inspect  --format '{{.NetworkSettings.IPAddress}}' "
+
+IPPREFIX="10.12.34."
+ETH0="eth0"
+sudo ifconfig $ETH0:$2 $IPPREFIX$2 netmask 255.255.255.0 up
+sudo iptables -t nat -I PREROUTING -d $IPPREFIX$2 -p tcp -j DNAT --to `getip $1`
+sudo iptables -t nat -I POSTROUTING -s `getip $1`/32 -d `getip $1`/32 -p tcp -m tcp -j MASQUERADE
+```
+
+为什么最后用MASQUERADE而不用SNAT呢？因为用SNAT容器的应用就不能得到请求的源IP，在实际应用中是无法接受的；这一条iptables规则是我用`docker run -p`和`iptables-save`得到的
+
+----
+
 ## 对容器网络流量tcpdump
 
 Learned from: https://www.slideshare.net/SreenivasMakam/docker-networking-common-issues-and-troubleshooting-techniques

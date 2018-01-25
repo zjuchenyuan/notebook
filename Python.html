@@ -3,7 +3,7 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link rel="stylesheet" href="assets/css/style.css?20170509">
+    <link rel="stylesheet" href="/assets/css/style.css?v=803af9c04c3742b59c0ebb70298ec6e2b876adb3">
     <title>notebook by zjuchenyuan</title>
   </head>
 
@@ -16,7 +16,7 @@
 
         <section id="downloads">
           
-          <a href="https://github.com/zjuchenyuan/notebook/blob/master/Python.md" class="btn btn-github"><span class="icon"></span>Star me on GitHub (61)</a>&nbsp;<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>
+          <a href="http://github.com/zjuchenyuan/notebook" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
         </section>
       </div>
     </header>
@@ -133,7 +133,7 @@ trusted-host=pypi.doubanio.com
 
 <div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">socket</span><span class="o">,</span><span class="nn">subprocess</span><span class="o">,</span><span class="nn">os</span>
 <span class="n">s</span><span class="o">=</span><span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span><span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
-<span class="n">s</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span> <span class="s">"IP地址"</span> <span class="p">,</span> <span class="s">端口</span> <span class="p">))</span>
+<span class="n">s</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span> <span class="s">"IP地址"</span> <span class="p">,</span> <span class="err">端口</span> <span class="p">))</span>
 <span class="n">os</span><span class="o">.</span><span class="n">dup2</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">fileno</span><span class="p">(),</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">os</span><span class="o">.</span><span class="n">dup2</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">fileno</span><span class="p">(),</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">os</span><span class="o">.</span><span class="n">dup2</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">fileno</span><span class="p">(),</span><span class="mi">2</span><span class="p">)</span>
@@ -598,10 +598,10 @@ if __name__ == '__main__':
 <p>耐心下来看文档把程序改为后面的撞墙式程序就好了，人家其实说了函数计算应该返回的数据结构，不按照这个结构来就会503：</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
-    </span><span class="nt">"isBase64Encoded"</span><span class="p">:</span><span class="w"> </span><span class="s">True或者False</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w"> </span><span class="s">#可以为302来实现跳转</span><span class="w">
-    </span><span class="nt">"headers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s">...</span><span class="p">}</span><span class="w"> </span><span class="s">#返回的response</span><span class="w"> </span><span class="s">headers，但其中的Content-Type没有作用</span><span class="w">
-    </span><span class="s2">"body"</span><span class="s">:</span><span class="w"> </span><span class="s2">"..."</span><span class="w"> </span><span class="s">#返回的网页正文内容</span><span class="w">
+    </span><span class="nt">"isBase64Encoded"</span><span class="p">:</span><span class="w"> </span><span class="err">True或者False</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w"> </span><span class="err">#可以为302来实现跳转</span><span class="w">
+    </span><span class="nt">"headers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="err">...</span><span class="p">}</span><span class="w"> </span><span class="err">#返回的response</span><span class="w"> </span><span class="err">headers，但其中的Content-Type没有作用</span><span class="w">
+    </span><span class="s2">"body"</span><span class="err">:</span><span class="w"> </span><span class="s2">"..."</span><span class="w"> </span><span class="err">#返回的网页正文内容</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 </div>
@@ -1075,43 +1075,8 @@ print(b16decode(plaindata))
 </div>
 
       </section>
-<br><hr><h1 id="comment">评论区</h1><div id="comment-thread"></div><div id="loading-spin"></div>
     </div>
 
+    
   </body>
-<script src="assets/js/instantclick.min.js" data-no-instant></script>
-<link rel="stylesheet" href="assets/css/comment.css">
-<script src="assets/js/comment.js" data-no-instant></script>
-<script>
-  marked.setOptions({
-  highlight: function (code, lang) {
-     return hljs.highlightAuto(code).value;
-  }
-  });
-  function Highlighting(){
-    var markdowns = document.getElementsByClassName('markdown');
-    for(var i=0;i<markdowns.length;i++){
-       if(markdowns[i].innerHTML) markdowns[i].innerHTML =marked(markdowns[i].innerHTML);
-    }
-  }
-  window.addEventListener('DOMContentLoaded', Highlighting, false);
-  window.addEventListener('load', Highlighting, false);
-   var opt = {
-       type: "github",
-       user: "zjuchenyuan",
-       repo: "notebook",
-       no_comment: "No comments yet. Press the button and go to comment now!",
-       go_to_comment: "Go to comment",
-       issue_id: "1",
-       btn_class: "btn",
-       comments_target: "#comment-thread",
-       loading_target: "#loading-spin",
-       client_id: "8f7a792630aa459d0812",
-       client_secret: "084b314f30dd9b10201011e265c4cb5d78c2b2e9"
-   };
-   if (jQuery('.discussion-timeline').length == 0) getComments(opt);
-</script>
-<script data-no-instant>
-  InstantClick.init();
-</script>
 </html>
