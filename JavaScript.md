@@ -175,3 +175,24 @@ setTimeout( function(){
 }, 1000);
 </script>
 ```
+
+----
+
+# 记住一个checkbox的状态（用localStorage）
+
+查询是否勾选用`.is(":checked")` ， 改变勾选状态用`.prop("checked",true)`
+
+```
+<script>
+function checkbox_onclick(){
+    var checked = $("#thecheckbox").is(":checked");
+    if(checked) localStorage.setItem("status_thecheckbox","1");
+    else localStorage.setItem("status_thecheckbox","0");
+}
+</script>
+<input type="checkbox" id="thecheckbox" onclick='checkbox_onclick();'>
+<script>
+    var status_thecheckbox = localStorage.getItem("status_thecheckbox");
+    if(status_thecheckbox!=null && status_thecheckbox=="1") $("#thecheckbox").prop("checked",true);
+</script>
+```

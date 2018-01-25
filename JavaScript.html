@@ -31,6 +31,7 @@
   <li><a href="#get" id="markdown-toc-get">读取GET参数</a></li>
   <li><a href="#github-issue-" id="markdown-toc-github-issue-">使用 Github Issue 作为博客评论区</a></li>
   <li><a href="#historyreplacestate" id="markdown-toc-historyreplacestate">history.replaceState修改历史记录</a></li>
+  <li><a href="#checkboxlocalstorage" id="markdown-toc-checkboxlocalstorage">记住一个checkbox的状态（用localStorage）</a></li>
 </ul>
 
 <h1 id="localstorage">使用localStorage</h1>
@@ -211,6 +212,27 @@ setTimeout( function(){
     history.replaceState(null, null, '/t/#reply');
     history.replaceState(null, null, oldurl);
 }, 1000);
+&lt;/script&gt;
+</code></pre>
+</div>
+
+<hr />
+
+<h1 id="checkboxlocalstorage">记住一个checkbox的状态（用localStorage）</h1>
+
+<p>查询是否勾选用<code class="highlighter-rouge">.is(":checked")</code> ， 改变勾选状态用<code class="highlighter-rouge">.prop("checked",true)</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;script&gt;
+function checkbox_onclick(){
+    var checked = $("#thecheckbox").is(":checked");
+    if(checked) localStorage.setItem("status_thecheckbox","1");
+    else localStorage.setItem("status_thecheckbox","0");
+}
+&lt;/script&gt;
+&lt;input type="checkbox" id="thecheckbox" onclick='checkbox_onclick();'&gt;
+&lt;script&gt;
+    var status_thecheckbox = localStorage.getItem("status_thecheckbox");
+    if(status_thecheckbox!=null &amp;&amp; status_thecheckbox=="1") $("#thecheckbox").prop("checked",true);
 &lt;/script&gt;
 </code></pre>
 </div>
