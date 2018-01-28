@@ -54,8 +54,10 @@ pages:
     
 extra:
   social:
-    - type: 'github'
+    - type: 'github-alt'
       link: 'https://github.com/zjuchenyuan'
+    - type: 'envelope'
+      link: py3io@zju.email
  
 markdown_extensions:
   - admonition
