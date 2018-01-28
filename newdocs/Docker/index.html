@@ -1,0 +1,1362 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="我的技术笔记本~">
+      
+      
+      
+        <meta name="author" content="chenyuan">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.5.3">
+    
+    
+      
+        <title>Docker - notebook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.aa3de92b.css">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
+    <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+    
+      <a href="#myubuntu" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../README/" title="notebook" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                notebook
+              </span>
+              <span class="md-header-nav__topic">
+                Docker
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/zjuchenyuan/notebook/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="drawer">
+    <span class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </span>
+    notebook
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/zjuchenyuan/notebook/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../README/" title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Python
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Python
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Python/" title="Python" class="md-nav__link">
+      Python
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../gist/" title="Gist Python一些常用代码片段" class="md-nav__link">
+      Gist Python一些常用代码片段
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Programming Languages
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Programming Languages
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../BASH/" title="BASH" class="md-nav__link">
+      BASH
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../BAT/" title="BAT批处理" class="md-nav__link">
+      BAT批处理
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../C/" title="C语言" class="md-nav__link">
+      C语言
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4">
+    
+    <label class="md-nav__link" for="nav-3-4">
+      Java
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="5">
+      <label class="md-nav__title" for="nav-3-4">
+        Java
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Java/" title="Java" class="md-nav__link">
+      Java
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../S2-045/" title="S2-045" class="md-nav__link">
+      S2-045
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../JavaScript/" title="JavaScript" class="md-nav__link">
+      JavaScript
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../PHP/" title="PHP" class="md-nav__link">
+      PHP
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Website & Network
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Website & Network
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../CC98/" title="CC98 OAuth2" class="md-nav__link">
+      CC98 OAuth2
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../CDN/" title="CDN" class="md-nav__link">
+      CDN
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cURL/" title="cURL" class="md-nav__link">
+      cURL
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-4" type="checkbox" id="nav-4-4">
+    
+    <label class="md-nav__link" for="nav-4-4">
+      Favorites
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="5">
+      <label class="md-nav__title" for="nav-4-4">
+        Favorites
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Favorites/" title="Favorites" class="md-nav__link">
+      Favorites
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../GithubProjectRecommendation/" title="Github Project Recommendation" class="md-nav__link">
+      Github Project Recommendation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Links/" title="更多链接" class="md-nav__link">
+      更多链接
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Jekyll/" title="Jekyll" class="md-nav__link">
+      Jekyll
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../MySQL/" title="MySQL" class="md-nav__link">
+      MySQL
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Nginx/" title="Nginx" class="md-nav__link">
+      Nginx
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" checked>
+    
+    <label class="md-nav__link" for="nav-5">
+      Developer
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Developer
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Developer/" title="Developer" class="md-nav__link">
+      Developer
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+      
+    
+    
+    <a href="./" title="Docker" class="md-nav__link md-nav__link--active">
+      Docker
+    </a>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Git/" title="Git" class="md-nav__link">
+      Git
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../WindowsSoftware/" title="WindowsSoftware" class="md-nav__link">
+      WindowsSoftware
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Linux
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Linux
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Linux-backup/" title="Linux-backup" class="md-nav__link">
+      Linux-backup
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Linux-setup/" title="Linux-setup" class="md-nav__link">
+      Linux-setup
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Linux-SSH/" title="Linux-SSH" class="md-nav__link">
+      Linux-SSH
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Linux-cli/" title="Linux-cli" class="md-nav__link">
+      Linux-cli
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Linux-VirtualBox/" title="Linux-VirtualBox" class="md-nav__link">
+      Linux-VirtualBox
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Ubuntu/" title="Ubuntu" class="md-nav__link">
+      Ubuntu
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/zjuchenyuan/notebook/edit/master/docs/Docker.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <ul>
+<li>TOC
+{:toc}</li>
+</ul>
+<h1 id="myubuntu">myubuntu 基础镜像<a class="headerlink" href="#myubuntu" title="Permanent link">&para;</a></h1>
+<p>简单地将Docker当成虚拟机来使用的话，自然要准备个好用的基础镜像咯</p>
+<p>基于目前最新的ubuntu18.04，配置apt源、pip源、ssh允许密码登录</p>
+<p>Dockerfile:</p>
+<div class="codehilite"><pre><span></span>FROM ubuntu:18.04
+RUN sed -i &#39;s/security.ubuntu.com/10.15.61.66/g&#39; /etc/apt/sources.list &amp;&amp; \
+    sed -i &#39;s/archive.ubuntu.com/10.15.61.66/g&#39; /etc/apt/sources.list # 修改apt源
+RUN apt update &amp;&amp; apt install -y ssh curl wget net-tools iputils-ping netcat python3-pip python-pip nano vim tzdata screen
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime # 修改时区
+RUN mkdir -p ~/.pip &amp;&amp; echo &#39;[global]\nindex-url = http://pypi.doubanio.com/simple/\n[install]\ntrusted-host=pypi.doubanio.com\n&#39;&gt;  ~/.pip/pip.conf
+RUN sed -i &#39;s/prohibit-password/yes/g&#39; /etc/ssh/sshd_config &amp;&amp; sed -i &#39;s/#PermitRootLogin/PermitRootLogin/g&#39; /etc/ssh/sshd_config # 允许root用户密码登录
+RUN echo root:badpassword|chpasswd # 记得修改这里的密码
+ADD run.sh /
+RUN chmod +x /run.sh
+CMD /run.sh
+</pre></div>
+
+
+<p>run.sh:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="ch">#!/bin/bash</span>
+service ssh start
+<span class="c1"># 在容器内安装了mysql等之后可以在run.sh这里添加相应的启动命令</span>
+sleep infinity
+</pre></div>
+</td></tr></table>
+
+<p>build命令：</p>
+<div class="codehilite"><pre><span></span>docker build -t myubuntu18 .
+</pre></div>
+
+
+<h1 id="install">Install 安装<a class="headerlink" href="#install" title="Permanent link">&para;</a></h1>
+<p>建议参见<a href="https://github.com/zjuchenyuan/notebook/blob/master/code/ssprivoxy.txt">如何翻墙</a>，部署http proxy</p>
+<p>安装之前，建议修改apt源</p>
+<p>安装之前，或许要对内核升级，如果执行安装脚本发出了对aufs的警告，请先看下面的 <em>解决aufs的问题</em></p>
+<p>安装命令： </p>
+<div class="codehilite"><pre><span></span>curl -fsSL get.docker.com -o get-docker.sh
+sh get-docker.sh --mirror Aliyun
+</pre></div>
+
+
+<p>其中最后一步的apt-get install docker-engine耗时较长，看起来很像卡死，需要耐心等待</p>
+<p>安装后执行docker version，没有报错即可</p>
+<h2 id="aufs">解决aufs的问题<a class="headerlink" href="#aufs" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span>apt-get install lxc wget bsdtar curl
+apt-get install linux-image-extra-$(uname -r)
+modprobe aufs
+</pre></div>
+
+
+<hr />
+<h1 id="_1">加速镜像下载<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>在执行以下操作之前，请检查docker的版本：<code>docker -v</code></p>
+<p>如果你的docker版本为1.6.2,请参考下方 卸载docker</p>
+</blockquote>
+<h2 id="_2">建议使用阿里云的镜像源<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span>sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json &lt;&lt;-&#39;EOF&#39;
+{
+  &quot;registry-mirrors&quot;: [&quot;https://h0kyslzs.mirror.aliyuncs.com&quot;]
+}
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+</pre></div>
+
+
+<p>另外你也可以使用USTC的镜像源：参考 https://lug.ustc.edu.cn/wiki/mirrors/help/docker</p>
+<hr />
+<h1 id="docker">Docker旧版本卸载<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h1>
+<p>如果你的docker是使用apt-get install docker.io安装的，请先执行以下命令卸载：</p>
+<div class="codehilite"><pre><span></span>apt-get remove docker.io
+apt-get autoremove
+rm -rf /var/lib/docker
+</pre></div>
+
+
+<p>然后就可以执行安装命令了</p>
+<hr />
+<h2 id="ip">获得容器的ip<a class="headerlink" href="#ip" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><span class="cp">{%</span> <span class="k">raw</span> <span class="cp">%}</span>
+alias getip=&quot;docker inspect  --format &#39;{{.NetworkSettings.IPAddress}}&#39; &quot;
+getip 容器名称
+<span class="cp">{%</span> <span class="k">endraw</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+
+
+<hr />
+<h1 id="_3">导出导入<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h1>
+<h2 id="-save">搬运镜像&ndash;save导出镜像<a class="headerlink" href="#-save" title="Permanent link">&para;</a></h2>
+<p>由于网络带宽(流量)往往是瓶颈资源，所以产生更小的压缩文件很有必要，这里我们可以生成 tar.7z 文件：<code>apt-get install -y p7zip-full</code></p>
+<div class="codehilite"><pre><span></span>docker save 镜像名称 | 7z a -si 导出文件名.tar.7z
+</pre></div>
+
+
+<p>这是生成tar.gz文件：</p>
+<div class="codehilite"><pre><span></span>docker save 镜像名称 | gzip &gt;导出文件名.tar.gz
+</pre></div>
+
+
+<h2 id="-load">搬运镜像&ndash;load载入镜像<a class="headerlink" href="#-load" title="Permanent link">&para;</a></h2>
+<p>如果是 tar.7z 文件，需要调用 7z 命令解压：</p>
+<div class="codehilite"><pre><span></span>7z x -so 文件名.tar.7z | docker load
+</pre></div>
+
+
+<p>如果是 tar.gz 文件，可以直接载入：</p>
+<div class="codehilite"><pre><span></span>docker load &lt; 文件名.tar.gz
+</pre></div>
+
+
+<h2 id="export">Export导出容器 并不常用<a class="headerlink" href="#export" title="Permanent link">&para;</a></h2>
+<p>直接导出容器并不常用，建议<code>docker commit 容器名称 保存成的镜像名称</code>，然后导出镜像</p>
+<p>导出容器得到的是tar文件，没有进行压缩，我们需要手动执行压缩</p>
+<div class="codehilite"><pre><span></span>docker export 容器的名称或ID | gzip &gt;导出文件名.tar.gz
+</pre></div>
+
+
+<h2 id="import">Import导入容器<a class="headerlink" href="#import" title="Permanent link">&para;</a></h2>
+<p>虽然上一步我们压缩了，但docker可以直接import，不需要用gunzip</p>
+<div class="codehilite"><pre><span></span><span class="n">docker</span> <span class="kn">import</span> <span class="err">文件名</span>
+</pre></div>
+
+
+<hr />
+<h1 id="iptables-failed-no-chiantargetmatch-by-that-name">解决iptables failed - No chian/target/match by that name<a class="headerlink" href="#iptables-failed-no-chiantargetmatch-by-that-name" title="Permanent link">&para;</a></h1>
+<p>如果docker安装的时候没有自动把需要的规则链加上，可以手动添加</p>
+<div class="codehilite"><pre><span></span>iptables -t nat -N DOCKER
+iptables -t filter -N DOCKER
+</pre></div>
+
+
+<p>附：如果需要删除链条，可以用<code>iptables-save</code>导出后手动编辑后<code>iptables-restore</code></p>
+<hr />
+<h1 id="docker_1">迁移Docker文件夹到其他硬盘<a class="headerlink" href="#docker_1" title="Permanent link">&para;</a></h1>
+<p>当镜像多了起来的时候，/var/lib所在的磁盘分区很可能被占满，这时候要考虑迁移到其他硬盘，此处以迁移到<code>/home/docker</code>为例说明</p>
+<div class="codehilite"><pre><span></span><span class="c1"># 首先记得关闭服务</span>
+service docker stop
+mv /var/lib/docker /home/
+<span class="c1"># 然后修改服务配置文件/etc/default/docker，此处建议手动vim编辑，在启动参数中加入这个：</span>
+<span class="c1">#    --graph=&#39;/home/docker&#39;</span>
+<span class="nb">echo</span> -e <span class="s2">&quot;\nDOCKER_OPTS=\&quot;--graph=&#39;/home/docker&#39;\&quot;&quot;</span> &gt;&gt; /etc/default/docker
+</pre></div>
+
+
+<hr />
+<h1 id="debianifconfigkillall">解决debian等容器没有ifconfig,killall的问题<a class="headerlink" href="#debianifconfigkillall" title="Permanent link">&para;</a></h1>
+<div class="codehilite"><pre><span></span>apt-get install net-tools psmisc
+</pre></div>
+
+
+<hr />
+<h1 id="_4">设置容器低权限用户运行<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h1>
+<p>在Dockerfile中加入</p>
+<div class="codehilite"><pre><span></span>User nobody
+</pre></div>
+
+
+<p>容器运行后exec进去默认是nobody用户，并不能su啥的，这时候exec需要带参数-u表示用指定用户身份进入容器：</p>
+<div class="codehilite"><pre><span></span>docker exec -i -t -u root 容器名称 /bin/bash
+</pre></div>
+
+
+<hr />
+<h1 id="etcresolvconfetchosts">设置容器/etc/resolv.conf和/etc/hosts<a class="headerlink" href="#etcresolvconfetchosts" title="Permanent link">&para;</a></h1>
+<p>在容器中这两个文件是以mount形式挂载的，不能unmount；即使进行修改，容器重启后修改就丢失了</p>
+<p>其实这两个文件应该在容器创建的时候指定参数<code>--dns</code>和<code>--add-host</code>来加以控制：</p>
+<div class="codehilite"><pre><span></span>docker run -d --dns 114.114.114.114 --add-host example.com:1.2.3.4 容器名称
+</pre></div>
+
+
+<hr />
+<h1 id="_5">容器限制参数设置<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h1>
+<p>当容器是开放给不可信域的时候(如部署一个CTF的pwn题目)，虽然容器逃逸0-day我也没办法，但限制一下容器资源占用防止搅屎也是很有必要的</p>
+<div class="codehilite"><pre><span></span>--cpu-shares 512 --cpu-period=100000 --cpu-quota=50000 --memory 104857600 --ulimit=nofile=65536 --pids-limit=200 --blkio-weight=512 --restart=&quot;always&quot;
+</pre></div>
+
+
+<p>效果简介：如上配置最多占用 50% 单个 CPU ，最多占用100MB物理内存，容器内进程数目最多200个</p>
+<p><code>--cpu-shares</code>表示相对利用占比，不设置的默认值为1024，单个CPU是1024，只有当容器试图占用100%的CPU时才会体现作用，举个例子：</p>
+<blockquote>
+<p>From: http://blog.opskumu.com/docker-cpu-limit.html
+假如一个 1core 的主机运行 3 个 container，其中一个 cpu-shares 设置为 1024，而其它 cpu-shares 被设置成 512。当 3 个容器中的进程尝试使用 100% CPU 的时候「尝试使用 100% CPU 很重要，此时才可以体现设置值」，则设置 1024 的容器会占用 50% 的 CPU 时间，其他两个容器则只能分别占用到 25% 的 CPU 时间。
+如果主机是 3core，运行 3 个容器，两个 cpu-shares 设置为 512，一个设置为 1024，则此时每个 container 都能占用其中一个 CPU 为 100%。</p>
+</blockquote>
+<p><code>--cpu-period</code>表示按多少秒分片，例如设置为100000就是按100ms分割，同时设置<code>--cpu-quota</code>为50000就是50ms，效果是同时只能使用0.5个CPU</p>
+<p><code>--memory</code>限制容器使用的物理内存，当容器超出时，其中的进程会被kill，详细请参考http://blog.opskumu.com/docker-memory-limit.html</p>
+<p><code>--blkio-weight</code>表示IO相对权重，详细请参考<a href="http://blog.opskumu.com/docker-io-limit.html">http://blog.opskumu.com/docker-io-limit.html</a></p>
+<hr />
+<h2 id="ftp">快速部署ftp<a class="headerlink" href="#ftp" title="Permanent link">&para;</a></h2>
+<p>vsftpd的配置真是让人头疼，不如<code>docker search ftp</code>一番，然后google一下找到对应的Docker Hub页面</p>
+<p>https://hub.docker.com/r/stilliard/pure-ftpd/</p>
+<p>使用步骤：</p>
+<div class="codehilite"><pre><span></span>docker run -d --name ftpd_server -p 21:21 -p 30000-30009:30000-30009 -e &quot;PUBLICHOST=localhost&quot; -v /path/to/the_ftp_directory:/data stilliard/pure-ftpd:hardened
+docker exec -it ftpd_server /bin/bash
+#进入容器后创建用户
+pure-pw useradd bob -f /etc/pure-ftpd/passwd/pureftpd.passwd -m -u ftpuser -d /data
+</pre></div>
+
+
+<hr />
+<h2 id="wordpress">快速部署wordpress<a class="headerlink" href="#wordpress" title="Permanent link">&para;</a></h2>
+<p>想搭建一个自己的blog，选择玩一玩wordpress咯，这里记录一下完整的流程和遇到的问题及解决方案(Google在手 天下我有)</p>
+<p>技术相关： Docker Nginx HTTPS </p>
+<p>目标： 快速搭建一个全站https的wordpress站点，域名为example.com</p>
+<h3 id="_6">完整流程：<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<ol>
+<li>前期准备:域名+vps</li>
+</ol>
+<p>注册域名 如果面向国内访问，还需要备案咯； 别忘了配置DNS解析；</p>
+<p>买个vps服务器，建议选择香港vps</p>
+<p>{:start=&rdquo;2&rdquo;}
+2. 安装Docker和Nginx，都是一条命令的事情</p>
+<div class="codehilite"><pre><span></span>curl -sSL https://get.docker.com/ | sh
+apt-get install nginx
+</pre></div>
+
+
+<p>{:start=&rdquo;3&rdquo;}
+3. 启动一个mysql的镜像：</p>
+<div class="codehilite"><pre><span></span># Google搜索关键词 &quot;docker mysql&quot;
+docker run --name mysql -e MYSQL_ROOT_PASSWORD=这里改成你想设置的密码 -d mysql
+# Google搜索关键词 &quot;docker wordpress&quot;
+docker run --name wp --link mysql:mysql -p 6666:80 -d wordpress
+</pre></div>
+
+
+<p>{:start=&rdquo;4&rdquo;}
+4. 域名https证书获取以及启用https访问，此部分具体见<a href="../Nginx/">Nginx.md</a>中<code>获得Let's encrypt免费https证书</code>和<code>配置安全的https</code>部分</p>
+<ol>
+<li>配置Nginx，完整配置如下：</li>
+</ol>
+<div class="codehilite"><pre><span></span><span class="nt">server</span><span class="p">{</span>
+    <span class="err">server_name</span> <span class="err">*.example.com</span> <span class="err">example.com</span><span class="p">;</span>
+    <span class="err">location</span> <span class="err">/.well-known/acme-challenge</span> <span class="err">{</span> <span class="err">#这是let&#39;s</span> <span class="err">encrypt申请证书的时候用到的目录</span>
+        <span class="err">alias</span> <span class="err">/tmp/acme/</span><span class="p">;</span>
+        <span class="err">try_files</span> <span class="err">$uri</span> <span class="err">=404</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nt">location</span> <span class="o">/</span><span class="p">{</span>
+        <span class="err">rewrite</span> <span class="err">^</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="err">$</span><span class="n">host</span><span class="err">$</span><span class="n">request_uri</span><span class="o">?</span> <span class="n">permanent</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="err">}</span>
+<span class="nt">server</span><span class="p">{</span>
+    <span class="err">server_name</span> <span class="err">*.example.com</span> <span class="err">example.com</span><span class="p">;</span>
+    <span class="err">include</span> <span class="err">https.conf</span><span class="p">;</span>
+    <span class="err">access_log</span> <span class="err">/var/log/nginx/example_access.log</span><span class="p">;</span>
+    <span class="err">error_log</span> <span class="err">/var/log/nginx/example_error.log</span><span class="p">;</span>
+    <span class="err">ssl_certificate</span> <span class="err">/home/keys/example.crt</span><span class="p">;</span>
+    <span class="err">ssl_certificate_key</span> <span class="err">/home/keys/example.key</span><span class="p">;</span>
+    <span class="err">location</span> <span class="err">/</span> <span class="err">{</span>
+        <span class="err">proxy_pass</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">127.0.0.1</span><span class="o">:</span><span class="mi">6666</span><span class="p">;</span>
+        <span class="err">proxy_set_header</span> <span class="err">Host</span> <span class="err">$host</span><span class="p">;</span>
+        <span class="err">proxy_set_header</span> <span class="err">Accept-Encoding</span> <span class="err">&quot;&quot;</span><span class="p">;</span> <span class="err">#禁止后端返回gzip内容，保证能够替换</span>
+        <span class="err">sub_filter_once</span> <span class="err">off</span><span class="p">;</span> <span class="err">#多次替换</span> <span class="err">不只是替换一次</span>
+        <span class="err">sub_filter</span> <span class="err">&quot;</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">com</span><span class="s2">&quot; &quot;</span><span class="n">https</span><span class="o">://</span><span class="n">www</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">com</span><span class="err">&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="err">}</span>
+</pre></div>
+
+
+<h3 id="_7">遇到的坑<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<ol>
+<li>docker run的时候忘记-p参数</li>
+</ol>
+<p>建议还是把端口映射出来，在容器重启后容器的内网IP是会发生变化的，不适合将172.17.0.*这种IP写入nginx配置</p>
+<p>此时我选择了<code>docker rm -f 容器ID</code>强制删掉容器，再用加上了-p参数启动了一个</p>
+<p>{:start=&rdquo;2&rdquo;}
+2. 全站https</p>
+<p>虽然我的https.conf中定义了HSTS，浏览器也确实会把所有的请求都自动用https协议访问，但是还是由于form的action为http协议而警告不安全(在Chrome开发人员工具的Console看到)，也没有小绿锁显示。所以要保证服务器输出给浏览器的内容就是https的链接</p>
+<p>一开始选择了官方wordpress的方法(Google关键词&rdquo;wordpress https&rdquo;)，结果导致了下文第三点的折腾</p>
+<p>最终选择的方案是在nginx反向代理的时候替换文本内容，使用sub_filter这个模块进行文本内容替换</p>
+<p>遇到了问题，这个sub_filter不起作用，(Google关键词 &ldquo;sub_filter not working&rdquo;)原因是容器返回的内容启用了gzip，无法替换，方法是加入一行配置禁止容器的Apache使用gzip: proxy_set_header Accept-Encoding &ldquo;&rdquo;;</p>
+<p>参考：</p>
+<p>http://stackoverflow.com/questions/31893211/http-sub-module-sub-filter-of-nginx-and-reverse-proxy-not-working</p>
+<p>{:start=&rdquo;3&rdquo;}
+3. 由于在后台修改了Wordpress Address和Site Address改为https的链接，导致后台无法打开，重定向死循环</p>
+<p>解决方案是进入mysql容器手动修改，把进行的修改改回去</p>
+<p>问题在于我也并不知道改了啥，在终端mysql<code>select * from wp_options;</code>有些行太长导致关键内容刷屏而过，不方便查看表</p>
+<p>我的方法是先<code>mysqldump -p密码 wordpress &gt;test.sql</code>，再用nano打开test.sql，用Ctrl+W搜索https（Google关键词&rdquo;nano search&rdquo;），把对应的地方找到改回http，保存后用<code>mysql -p密码 wordpress &lt; test.sql</code>导入数据库 完事~</p>
+<hr />
+<h2 id="dockerfile-apt-get">Dockerfile 中的 apt-get<a class="headerlink" href="#dockerfile-apt-get" title="Permanent link">&para;</a></h2>
+<p>为了让 apt-get 顺利静默执行，需要配置环境变量防止交互：</p>
+<div class="codehilite"><pre><span></span>DEBIAN_FRONTEND=noninteractive apt-get install -y ...
+</pre></div>
+
+
+<hr />
+<h2 id="dockerip">让Docker容器得到内网IP<a class="headerlink" href="#dockerip" title="Permanent link">&para;</a></h2>
+<p>这里的内网不是只有主机可以访问的容器Docker内网，而是主机接入的企业内网这种；如果你能直接通过设置IP获得公网IP，当然按照这个方法也能给容器分配公网IP</p>
+<p>注意：此方法Docker容器虽然获得了和主机地位相同的IP，但容器无法使用主机的IP与主机通讯，主机好像也不能访问容器的IP，这是Linux内核为了隔离性和安全性做出的限制</p>
+<p>参考： </p>
+<blockquote>
+<p><a href="https://micropyramid.com/blog/assign-public-ip-address-to-docker-container-without-port-binding/">不用端口转发给容器分配公网IP地址 ASSIGN PUBLIC IP ADDRESS TO DOCKER CONTAINER WITHOUT PORT BINDING.</a></p>
+<p><a href="https://sreeninet.wordpress.com/2016/05/29/macvlan-and-ipvlan/">Macvlan and IPvlan basics</a></p>
+<p><a href="https://sreeninet.wordpress.com/2017/08/05/docker-networking-tip-macvlan-driver/">Docker Networking Tip – Macvlan driver</a></p>
+<p><a href="https://www.slideshare.net/SreenivasMakam/docker-networking-common-issues-and-troubleshooting-techniques">PPT Docker Networking - Common Issues and Troubleshooting Techniques</a></p>
+</blockquote>
+<p>做法也很简单，首先创建一个Macvlan类型的docker网络，然后在创建容器的时候加入这个网络并指定IP/不指定则自动分配</p>
+<p>例子：主机（网卡eth0）的IP为10.1.1.2，网关为10.1.1.1，主机所处的IP段是10.1.1.1/24，在该网段内主机可以任意获得IP，我们希望容器分配在10.1.1.65~10.1.1.126之间 （即 10.1.1.64/26）</p>
+<p>附： <a href="http://jodies.de/ipcalc?host=10.1.1.64&amp;mask1=26&amp;mask2=">这是一个输入Network 10.1.1.64/26转换为HostMin 10.1.1.65~ HostMax 10.1.1.126的计算器</a></p>
+<div class="codehilite"><pre><span></span>docker network create -d macvlan -o macvlan_mode=bridge -o parent=eth0 --subnet=10.1.1.0/24 --ip-range=10.1.1.64/26 --gateway=10.1.1.1 macvlan_network
+
+docker run --net=macvlan_network --ip=10.1.1.100 -d nginx
+</pre></div>
+
+
+<p>现在你可以访问 <code>http://10.1.1.100</code> 来看到nginx的欢迎页面了，你需要在内网另一台机器上访问（我的发现是主机和这样分配的容器是不互通的）</p>
+<h3 id="_8">一点额外的警告<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>启动容器时可以不指定ip让docker自动分配，警告：如果没有配置ip-range参数，有可能被分配的恰好是主机本身的IP，这种情况将导致主机丢失IP无法联网！</p>
+<p>万一发生这种虚拟机把主机的IP抢占的情况，在没有物理控制方法下不可轻易使用ifconfig修改主机IP，因为一旦使用ifconfig主机的route将被清空、当前主机的其他IP也会丢失，你就丢失远程访问的可能了（也许你可以写一个脚本自动恢复route稳妥一点）；但神奇的是即使主机route已经丢失，按照上述macvlan开出来的Docker容器仍然在线（也可以理解——容器的route并没有受到影响，类似于Virtualbox的桥接网卡方式）</p>
+<h3 id="macvlanip">macvlan查看已经分配的IP<a class="headerlink" href="#macvlanip" title="Permanent link">&para;</a></h3>
+<p>由于主机和容器不能互通，所以主机如何得知目前已经分配的IP列表呢？用docker network inspect咯，然后用python处理一下输出格式</p>
+<p>下面这个命令列出了容器IP和容器名称：</p>
+<div class="codehilite"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="n">raw</span> <span class="o">%</span><span class="p">}</span>
+<span class="n">docker</span> <span class="n">network</span> <span class="n">inspect</span> <span class="n">macvlan_bridge</span> <span class="o">--</span><span class="n">format</span> <span class="s">&quot;{{range .Containers}}{{.IPv4Address}}@{{.Name}},,,{{end}}&quot;</span> <span class="o">|</span> <span class="n">python3</span> <span class="o">-</span><span class="n">c</span> <span class="err">&#39;</span><span class="n">print</span><span class="p">(</span><span class="n">input</span><span class="p">().</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;/24@&quot;</span><span class="p">,</span><span class="s">&quot;</span><span class="se">\t</span><span class="s">&quot;</span><span class="p">).</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;,,,&quot;</span><span class="p">,</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">),</span><span class="n">end</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="err">&#39;</span><span class="o">|</span><span class="n">sort</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">endraw</span> <span class="o">%</span><span class="p">}</span>
+</pre></div>
+
+
+<p>如果只需要IP列表：</p>
+<div class="codehilite"><pre><span></span><span class="cp">{%</span> <span class="k">raw</span> <span class="cp">%}</span>
+docker network inspect macvlan_bridge --format &quot;{{range .Containers}}{{.IPv4Address}},{{end}}&quot; | python3 -c &#39;print(input().replace(&quot;/24,&quot;,&quot;\n&quot;),end=&quot;&quot;)&#39;|sort
+<span class="cp">{%</span> <span class="k">endraw</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+
+
+<hr />
+<h2 id="iptablesdockerip">使用iptables端口转发让Docker容器得到内网IP<a class="headerlink" href="#iptablesdockerip" title="Permanent link">&para;</a></h2>
+<p>上述基于macvlan的方法容器无法与主机通讯，所以下述基于iptables端口转发的方法更胜一筹</p>
+<p>这种方法基于主机自己去获得一个额外的内网ip后，用iptables端口转发来实现给容器内网IP的效果，容器应用可以得到请求源IP，但容器向外发起的tcp请求还是主机自身的默认IP</p>
+<p>该脚本运行时需要两个参数 第一个为容器名称 第二个为新的IP后缀</p>
+<p>举个例子 主机在10.12.34.x这个内网地址段 且可以随意得到这个地址段的内网IP，现在要给mysql容器10.12.34.202这个IP，运行方式就是<code>./give_container_ip.sh mysql 202</code></p>
+<p>记得修改下面的IPPREFIX和ETH0变量！</p>
+<h3 id="give_container_ipsh">give_container_ip.sh<a class="headerlink" href="#give_container_ipsh" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="cp">{%</span> <span class="k">raw</span> <span class="cp">%}</span>
+#!/bin/bash
+set -ex
+shopt -s expand_aliases
+
+if [ -z $1 ] &amp;&amp; [ -z $2 ]; then
+    echo &quot;Usage: $0 &lt;container name&gt; &lt;new IP suffix&gt;&quot;
+    echo &quot;Example: $0 u202 202&quot;
+    exit 1
+fi
+
+alias getip=&quot;docker inspect  --format &#39;{{.NetworkSettings.IPAddress}}&#39; &quot;
+
+IPPREFIX=&quot;10.12.34.&quot;
+ETH0=&quot;eth0&quot;
+sudo ifconfig $ETH0:$2 $IPPREFIX$2 netmask 255.255.255.0 up
+sudo iptables -t nat -I PREROUTING -d $IPPREFIX$2 -p tcp -j DNAT --to `getip $1`
+sudo iptables -t nat -I POSTROUTING -s `getip $1`/32 -d `getip $1`/32 -p tcp -m tcp -j MASQUERADE
+<span class="cp">{%</span> <span class="k">endraw</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+
+
+<p>为什么最后用MASQUERADE而不用SNAT呢？因为用SNAT容器的应用就不能得到请求的源IP，在实际应用中是无法接受的；这一条iptables规则是我用<code>docker run -p</code>和<code>iptables-save</code>得到的</p>
+<hr />
+<h2 id="tcpdump">对容器网络流量tcpdump<a class="headerlink" href="#tcpdump" title="Permanent link">&para;</a></h2>
+<p>Learned from: https://www.slideshare.net/SreenivasMakam/docker-networking-common-issues-and-troubleshooting-techniques</p>
+<div class="codehilite"><pre><span></span>docker run -ti --net container:&lt;containerid&gt; nicolaka/netshoot tcpdump -i eth0 -n port 80
+</pre></div>
+
+
+<p>举个例子，上述启动了nginx容器并分配了内网ip 10.1.1.100，我们来收集80端口的流量，并保存到/tmp/pcapfiles/nginx.pcap文件：</p>
+<div class="codehilite"><pre><span></span>docker run -ti --net container:f5fc -v /tmp/pcapfiles:/data nicolaka/netshoot tcpdump -i eth0 -n -s0 -w /data/nginx.pcap port 80
+</pre></div>
+
+
+<p><a href="http://explainshell.com/explain?cmd=tcpdump%20-i%20eth0%20-n%20-s0%20-w%20/data/nginx.pcap%20port%2080">查看对应的tcpdump文档</a></p>
+<hr />
+<h2 id="_9">修改正在运行的容器的重启策略<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<p>docker run的时候忘了指定restart=always，除了commit后再正确地run一遍之外有没有更加优雅的修改容器参数的方法呢？</p>
+<p>参考： https://stackoverflow.com/questions/26852321/docker-add-a-restart-policy-to-a-container-that-was-already-created</p>
+<p>在1.11版本后有了<code>docker update</code>这个命令，可以修改正在运行的容器的参数，如CPU限制、内存限制 和 重启策略</p>
+<p>使目前运行的所有容器都设置为自动重启：</p>
+<div class="codehilite"><pre><span></span>docker update --restart=always `docker ps -q`
+</pre></div>
+
+
+<hr />
+<h2 id="samba">快速部署samba<a class="headerlink" href="#samba" title="Permanent link">&para;</a></h2>
+<p>镜像地址：<a href="https://hub.docker.com/r/dperson/samba/">dperson/samba</a></p>
+<p>快速分享一个目录/data，用户名user密码badpassword：</p>
+<div class="codehilite"><pre><span></span><span class="nt">docker</span> <span class="nt">run</span> <span class="nt">-d</span> <span class="nt">-p</span> <span class="nt">139</span><span class="p">:</span><span class="nd">139</span> <span class="nt">-p</span> <span class="nt">445</span><span class="p">:</span><span class="nd">445</span> <span class="nt">--name</span> <span class="nt">samba</span> <span class="nt">-v</span> <span class="o">/</span><span class="nt">data</span><span class="o">:/</span><span class="nt">data</span> <span class="nt">dperson</span><span class="o">/</span><span class="nt">samba</span> <span class="nt">-u</span> <span class="s2">&quot;user;badpassword&quot;</span> <span class="nt">-s</span> <span class="s2">&quot;data;/data;yes;no;no;all&quot;</span>
+</pre></div>
+
+
+<p>其中-u指定用户名密码；-s参数的格式为：</p>
+<p>给访问者看的分享名称;物理位置;是否列出;未登录可否访问;允许访问的用户(all表示所有用户)</p>
+<hr />
+<h2 id="ctf">[CTF]按需分配容器 过期自动销毁<a class="headerlink" href="#ctf" title="Permanent link">&para;</a></h2>
+<p>有些题目需要给每个人单独的容器，为了节约资源还需要设置一个时间，过期后自动删除容器</p>
+<p>为了防止滥用还要引入Proof Of Work，回答正确后才分配容器</p>
+<p>该代码直接用的docker命令来创建容器，且需要root权限，注意使用上的安全风险</p>
+<p>代码如下：<code>utils.py</code></p>
+<div class="codehilite"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="n">raw</span> <span class="o">%</span><span class="p">}</span>
+<span class="c1">#/usr/bin/python3</span>
+<span class="c1">#coding:utf-8</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">string</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span>
+
+<span class="c1"># 限时设定</span>
+<span class="k">def</span> <span class="nf">clock</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">signal</span>
+    <span class="k">def</span> <span class="nf">signal_handler</span><span class="p">(</span><span class="n">signum</span><span class="p">,</span><span class="n">data</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">signum</span> <span class="o">==</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGALRM</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Time is up!&quot;</span><span class="p">)</span>
+            <span class="nb">exit</span><span class="p">()</span>
+    <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGALRM</span><span class="p">,</span> <span class="n">signal_handler</span><span class="p">)</span>
+    <span class="n">signal</span><span class="o">.</span><span class="n">alarm</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">timeout</span><span class="p">))</span>
+
+<span class="c1"># 生成随机字符串</span>
+<span class="k">def</span> <span class="nf">randomstring</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_letters</span><span class="p">,</span><span class="nb">len</span><span class="p">))</span>
+
+<span class="c1"># 计算md5</span>
+<span class="k">def</span> <span class="nf">md5</span><span class="p">(</span><span class="n">src</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span><span class="n">src</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+
+<span class="c1"># 显示一个随机字符串，要求用户计算其md5</span>
+<span class="k">def</span> <span class="nf">pow_calcmd5</span><span class="p">():</span>
+    <span class="n">question</span> <span class="o">=</span> <span class="n">randomstring</span><span class="p">()</span>
+    <span class="n">answer</span> <span class="o">=</span> <span class="n">md5</span><span class="p">(</span><span class="n">question</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Please calculate md5(</span><span class="si">%s</span><span class="s2">)=&quot;</span><span class="o">%</span><span class="n">question</span><span class="p">,</span><span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">input</span><span class="p">()</span><span class="o">!=</span><span class="n">answer</span><span class="p">:</span>
+        <span class="nb">exit</span><span class="p">()</span>
+
+<span class="c1"># 显示一个随机字符串，要求用户输入另一个字符串满足md5以difficulty个0开头</span>
+<span class="k">def</span> <span class="nf">pow_realmd5</span><span class="p">(</span><span class="n">difficulty</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>
+    <span class="n">question</span> <span class="o">=</span> <span class="n">randomstring</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;[Proof Of Work]&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Please calculate s, make that </span><span class="se">\n</span><span class="s2">    md5(</span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2">+s).startswith(&#39;</span><span class="si">%s</span><span class="s2">&#39;)&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">question</span><span class="p">,</span><span class="s1">&#39;0&#39;</span><span class="o">*</span><span class="n">difficulty</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Input your s:&quot;</span><span class="p">,</span><span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="nb">input</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">md5</span><span class="p">(</span><span class="n">question</span><span class="o">+</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="o">*</span><span class="n">difficulty</span><span class="p">):</span>
+        <span class="nb">exit</span><span class="p">()</span>
+
+<span class="c1"># 从镜像启动容器</span>
+<span class="k">def</span> <span class="nf">start_container</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">paramstring</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    image:镜像名称</span>
+<span class="sd">    port: 需要映射的端口</span>
+<span class="sd">    paramstring: 额外的参数设置字符串 如&quot;-v /d/blabla:/data&quot;</span>
+
+<span class="sd">    返回(容器ID, 映射得到的端口)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">container</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span><span class="s2">&quot;docker run -d -p :&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">port</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot; &quot;</span><span class="o">+</span><span class="n">paramstring</span><span class="o">+</span><span class="s2">&quot; &quot;</span><span class="o">+</span><span class="n">image</span><span class="o">+</span><span class="s2">&quot; /run.sh&quot;</span><span class="p">,</span><span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">inspect</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span><span class="s2">&quot;docker inspect --format &#39;{{.NetworkSettings.Ports}}&#39; </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="n">container</span><span class="p">,</span><span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">openport</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;{&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;}&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">container</span><span class="p">,</span> <span class="n">openport</span><span class="p">)</span>
+
+<span class="c1"># 计划在minutes分钟后销毁容器container 需要atd服务</span>
+<span class="k">def</span> <span class="nf">plan_stop_container</span><span class="p">(</span><span class="n">container</span><span class="p">,</span> <span class="n">minutes</span><span class="p">):</span>
+    <span class="n">PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+    <span class="n">minutes</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">minutes</span><span class="p">)</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_</span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y_%m_</span><span class="si">%d</span><span class="s2">_%H_%M_%S&quot;</span><span class="p">),</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">666</span><span class="p">))</span>
+    <span class="nb">open</span><span class="p">(</span><span class="n">PATH</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="n">filename</span><span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;docker kill </span><span class="si">%s</span><span class="s2"> &amp;&amp; docker rm </span><span class="si">%s</span><span class="s2"> &amp;&amp; rm </span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">container</span><span class="p">,</span><span class="n">container</span><span class="p">,</span><span class="n">PATH</span><span class="p">,</span><span class="n">filename</span><span class="p">))</span>
+    <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span><span class="s2">&quot;at now + </span><span class="si">%s</span><span class="s2"> minutes -f </span><span class="si">%s</span><span class="s2"> 2&gt;/dev/null&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">minutes</span><span class="p">,</span><span class="n">filename</span><span class="p">),</span><span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="c1"># 生成一个runner的二进制程序，xinetd并不支持直接运行python</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;[*] writing to runner.c&quot;</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+    <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;runner.c&quot;</span><span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;#include &lt;stdio.h&gt;</span>
+<span class="s2">#include &lt;stdlib.h&gt;</span>
+<span class="s2">#include &lt;unistd.h&gt;</span>
+<span class="s2">int main(){</span>
+<span class="s2">   chdir(&quot;</span><span class="si">%s</span><span class="s2">&quot;);</span>
+<span class="s2">   system(&quot;python3 </span><span class="si">%s</span><span class="s2">/runner.py&quot;);</span>
+<span class="s2">   return 0;</span>
+<span class="s2">}</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">path</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;[*] compile runner.c to runner&quot;</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;gcc runner.c -o runner&quot;</span><span class="p">)</span>
+
+<span class="p">{</span><span class="o">%</span> <span class="n">endraw</span> <span class="o">%</span><span class="p">}</span>
+</pre></div>
+
+
+<p>用到的xinetd配置：<code>runner.conf</code>，注意保存的时候不能有\r <code>:set ff=unix</code></p>
+<div class="codehilite"><pre><span></span>service 题目名称
+{
+    socket_type = stream
+    protocol    = tcp
+    wait        = no
+    user        = root
+    bind        = 0.0.0.0
+    server      = /绝对路径/runner
+    type        = UNLISTED
+    port        = 端口号
+    disable = no
+}
+</pre></div>
+                
+                  
+                
+              
+              
+                
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../Developer/" title="Developer" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Developer
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../Git/" title="Git" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Git
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="http://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+  <div class="md-footer-social">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+      <a href="https://github.com/zjuchenyuan" class="md-footer-social__link fa fa-github"></a>
+    
+  </div>
+
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.f041762f.js"></script>
+      
+      <script>app.initialize({version:"0.17.2",url:{base:".."}})</script>
+      
+    
+    
+      
+    
+  </body>
+</html>

@@ -1,4 +1,4 @@
-# 保持技术精进
+## 保持技术精进
 
 先得有方向，我用这个技术能给我带来什么回报？找到内在动力
 
@@ -14,11 +14,11 @@
 
 ----
 
-# 如何明智地向程序员提问
+## 如何明智地向程序员提问
 
 From: https://z.codes/how-to-ask-computer-question/
 
-## 简短版
+### 简短版
 
 我现在遇到一个问题X
 
@@ -30,7 +30,7 @@ From: https://z.codes/how-to-ask-computer-question/
 
 请问还有什么是我遗漏的?
 
-## 首先你需要明白
+### 首先你需要明白
 
 * 程序员们只偏爱艰巨的任务，或者能激发他们思维的好问题
 
@@ -38,13 +38,13 @@ From: https://z.codes/how-to-ask-computer-question/
 
 * 周全的思考，准备好你的问题，草率的发问只能得到草率的回答，或者根本得不到任何答案
 
-## 提问之前
+### 提问之前
 
 * 用中**英文**进行**Google**, 翻前两页的结果, 往往Stack Overflow网站上的答案就是正确答案. 如果没有找到, **更换可能的关键词多次尝试**
 
 * 在FAQ/文档里找答案, 耐心读英文文档是基本素养
 
-## 发问的形式
+### 发问的形式
 
 <ul>
 <li><p>使用言简意赅，描述准确的标题</p>
@@ -75,17 +75,17 @@ From: https://z.codes/how-to-ask-computer-question/
 </li>
 </ul>
 
-## 问题解决后
+### 问题解决后
 
 * 简短说明自己是如何解决的, 后续尝试的过程
 
 * 如果别人对你有帮助, 感谢一下对方, 比如发个红包什么的
 
-## 附加
+### 附加
 
 ![](assets/img/how_to_ask_question.jpg)
 
-## 参考
+### 参考
 
 电脑出现故障，如何正确地提问 [https://vjudge1.github.io/2015/07/01/how-to-ask.html](https://vjudge1.github.io/2015/07/01/how-to-ask.html)
 
@@ -93,7 +93,7 @@ From: https://z.codes/how-to-ask-computer-question/
 
 《提问的艺术：如何快速获得答案》（精读版） [http://bbs.csdn.net/topics/390307835](http://bbs.csdn.net/topics/390307835)
 
-## 本文的图片版
+### 本文的图片版
 
 (方便在聊天工具里甩给对方):
 

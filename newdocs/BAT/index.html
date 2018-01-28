@@ -1,0 +1,1375 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="我的技术笔记本~">
+      
+      
+      
+        <meta name="author" content="chenyuan">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.5.3">
+    
+    
+      
+        <title>BAT批处理 - notebook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.aa3de92b.css">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
+    <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+    
+      <a href="#_1" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../README/" title="notebook" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                notebook
+              </span>
+              <span class="md-header-nav__topic">
+                BAT批处理
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/zjuchenyuan/notebook/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="drawer">
+    <span class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </span>
+    notebook
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/zjuchenyuan/notebook/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../README/" title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Python
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Python
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Python/" title="Python" class="md-nav__link">
+      Python
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../gist/" title="Gist Python一些常用代码片段" class="md-nav__link">
+      Gist Python一些常用代码片段
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      Programming Languages
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Programming Languages
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../BASH/" title="BASH" class="md-nav__link">
+      BASH
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        BAT批处理
+      </label>
+    
+    <a href="./" title="BAT批处理" class="md-nav__link md-nav__link--active">
+      BAT批处理
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cmd" title="快速打开cmd" class="md-nav__link">
+    快速打开cmd
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="并列语句语法" class="md-nav__link">
+    并列语句语法
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#for" title="来一个死循环吧 for" class="md-nav__link">
+    来一个死循环吧 for
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#taskkill" title="结束进程 taskkill" class="md-nav__link">
+    结束进程 taskkill
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#free" title="内存整理 free" class="md-nav__link">
+    内存整理 free
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sleepx" title="睡一会 SleepX" class="md-nav__link">
+    睡一会 SleepX
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#curl" title="命令行的浏览器 curl" class="md-nav__link">
+    命令行的浏览器 curl
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="判断文件夹存在" class="md-nav__link">
+    判断文件夹存在
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mklinkfsutil-hardlink-create" title="创建硬链接mklink或者fsutil hardlink create" class="md-nav__link">
+    创建硬链接mklink或者fsutil hardlink create
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" title="端口转发" class="md-nav__link">
+    端口转发
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rvpn" title="保持RVPN不断开" class="md-nav__link">
+    保持RVPN不断开
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vpn" title="浙江大学有线vpn静态路由配置脚本" class="md-nav__link">
+    浙江大学有线vpn静态路由配置脚本
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" title="进入休眠" class="md-nav__link">
+    进入休眠
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" title="快速进入系统代理设置" class="md-nav__link">
+    快速进入系统代理设置
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmd_1" title="在普通权限cmd中获得更高权限" class="md-nav__link">
+    在普通权限cmd中获得更高权限
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1elevate" title="方案1：elevate" class="md-nav__link">
+    方案1：elevate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2sudo-for-windows-luke-sampson" title="方案2：Sudo for Windows – Luke Sampson" class="md-nav__link">
+    方案2：Sudo for Windows – Luke Sampson
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ip" title="命令行配置IP" class="md-nav__link">
+    命令行配置IP
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ipdns" title="配置静态IP和DNS" class="md-nav__link">
+    配置静态IP和DNS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dhcp" title="配置DHCP" class="md-nav__link">
+    配置DHCP
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../C/" title="C语言" class="md-nav__link">
+      C语言
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4">
+    
+    <label class="md-nav__link" for="nav-3-4">
+      Java
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="5">
+      <label class="md-nav__title" for="nav-3-4">
+        Java
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Java/" title="Java" class="md-nav__link">
+      Java
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../S2-045/" title="S2-045" class="md-nav__link">
+      S2-045
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../JavaScript/" title="JavaScript" class="md-nav__link">
+      JavaScript
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../PHP/" title="PHP" class="md-nav__link">
+      PHP
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Website & Network
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Website & Network
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../CC98/" title="CC98 OAuth2" class="md-nav__link">
+      CC98 OAuth2
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../CDN/" title="CDN" class="md-nav__link">
+      CDN
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cURL/" title="cURL" class="md-nav__link">
+      cURL
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-4" type="checkbox" id="nav-4-4">
+    
+    <label class="md-nav__link" for="nav-4-4">
+      Favorites
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="5">
+      <label class="md-nav__title" for="nav-4-4">
+        Favorites
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Favorites/" title="Favorites" class="md-nav__link">
+      Favorites
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../GithubProjectRecommendation/" title="Github Project Recommendation" class="md-nav__link">
+      Github Project Recommendation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Links/" title="更多链接" class="md-nav__link">
+      更多链接
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Jekyll/" title="Jekyll" class="md-nav__link">
+      Jekyll
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../MySQL/" title="MySQL" class="md-nav__link">
+      MySQL
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Nginx/" title="Nginx" class="md-nav__link">
+      Nginx
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Developer
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Developer
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Developer/" title="Developer" class="md-nav__link">
+      Developer
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Docker/" title="Docker" class="md-nav__link">
+      Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Git/" title="Git" class="md-nav__link">
+      Git
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../WindowsSoftware/" title="WindowsSoftware" class="md-nav__link">
+      WindowsSoftware
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Linux
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Linux
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Linux-backup/" title="Linux-backup" class="md-nav__link">
+      Linux-backup
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Linux-setup/" title="Linux-setup" class="md-nav__link">
+      Linux-setup
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Linux-SSH/" title="Linux-SSH" class="md-nav__link">
+      Linux-SSH
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Linux-cli/" title="Linux-cli" class="md-nav__link">
+      Linux-cli
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Linux-VirtualBox/" title="Linux-VirtualBox" class="md-nav__link">
+      Linux-VirtualBox
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Ubuntu/" title="Ubuntu" class="md-nav__link">
+      Ubuntu
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cmd" title="快速打开cmd" class="md-nav__link">
+    快速打开cmd
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="并列语句语法" class="md-nav__link">
+    并列语句语法
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#for" title="来一个死循环吧 for" class="md-nav__link">
+    来一个死循环吧 for
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#taskkill" title="结束进程 taskkill" class="md-nav__link">
+    结束进程 taskkill
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#free" title="内存整理 free" class="md-nav__link">
+    内存整理 free
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sleepx" title="睡一会 SleepX" class="md-nav__link">
+    睡一会 SleepX
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#curl" title="命令行的浏览器 curl" class="md-nav__link">
+    命令行的浏览器 curl
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="判断文件夹存在" class="md-nav__link">
+    判断文件夹存在
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mklinkfsutil-hardlink-create" title="创建硬链接mklink或者fsutil hardlink create" class="md-nav__link">
+    创建硬链接mklink或者fsutil hardlink create
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" title="端口转发" class="md-nav__link">
+    端口转发
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rvpn" title="保持RVPN不断开" class="md-nav__link">
+    保持RVPN不断开
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vpn" title="浙江大学有线vpn静态路由配置脚本" class="md-nav__link">
+    浙江大学有线vpn静态路由配置脚本
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" title="进入休眠" class="md-nav__link">
+    进入休眠
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" title="快速进入系统代理设置" class="md-nav__link">
+    快速进入系统代理设置
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmd_1" title="在普通权限cmd中获得更高权限" class="md-nav__link">
+    在普通权限cmd中获得更高权限
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1elevate" title="方案1：elevate" class="md-nav__link">
+    方案1：elevate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2sudo-for-windows-luke-sampson" title="方案2：Sudo for Windows – Luke Sampson" class="md-nav__link">
+    方案2：Sudo for Windows – Luke Sampson
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ip" title="命令行配置IP" class="md-nav__link">
+    命令行配置IP
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ipdns" title="配置静态IP和DNS" class="md-nav__link">
+    配置静态IP和DNS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dhcp" title="配置DHCP" class="md-nav__link">
+    配置DHCP
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/zjuchenyuan/notebook/edit/master/docs/BAT.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="_1">写在前面<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>在没有接触到C和Python之前，我也常用BAT和一堆第三方的exe做事情</p>
+<p>年少无知的岁月呀~</p>
+<ul>
+<li>TOC
+{:toc}</li>
+</ul>
+<hr />
+<h2 id="cmd">快速打开cmd<a class="headerlink" href="#cmd" title="Permanent link">&para;</a></h2>
+<p>还在用Win+R cmd再用pushd命令？</p>
+<p>在资源管理器的地址栏输入cmd回车就能直接进入当前目录</p>
+<hr />
+<h2 id="_2">并列语句语法<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span>顺序执行 &amp;
+echo a &amp; echo b 
+
+前者正确才执行 &amp;&amp;
+&gt;nul 2&gt;nul ping -n 1 qq.com &amp;&amp; echo network ok
+
+前者错误才执行 ||
+&gt;nul 2&gt;nul ping -n 1 qq.com || echo network failure
+</pre></div>
+
+
+<hr />
+<h2 id="for">来一个死循环吧 for<a class="headerlink" href="#for" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>用于结束进程，或者DNS查询看看解析是否生效</p>
+</blockquote>
+<div class="codehilite"><pre><span></span>for /l %i in (1,1,9999999) do ...
+</pre></div>
+
+
+<p>类似的Linux命令为：</p>
+<div class="codehilite"><pre><span></span>for ((i=0; i&lt;10; ++i))  do ...  done
+</pre></div>
+
+
+<hr />
+<h2 id="taskkill">结束进程 taskkill<a class="headerlink" href="#taskkill" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>当启动cmd窗口过多的时候，使用taskkill清理一下（一个个关掉也是很烦的呢）</p>
+</blockquote>
+<div class="codehilite"><pre><span></span>taskkill /f /im cmd.exe
+</pre></div>
+
+
+<p>类似的Linux命令为<code>killall bash</code></p>
+<hr />
+<h2 id="free">内存整理 free<a class="headerlink" href="#free" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>微软自己出的一个内存整理工具，需要管理员权限</p>
+<p>下载：<a href="https://d.py3.io/empty.exe">empty.exe</a></p>
+</blockquote>
+<div class="codehilite"><pre><span></span>empty *
+</pre></div>
+
+
+<hr />
+<h2 id="sleepx">睡一会 SleepX<a class="headerlink" href="#sleepx" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>程序需要等待一定时间再继续运行就可以sleepx啦，作者Bill Stewart (bstewart@iname.com)</p>
+<p>下载：<a href="https://d.py3.io/SleepX.exe">SleepX.exe</a></p>
+</blockquote>
+<div class="codehilite"><pre><span></span>SleepX 10
+
+REM等待5s，如果用户等不及可以按键，此时 not &quot;%errorlevel%&quot; == &quot;0&quot;
+SleepX -k 5
+</pre></div>
+
+
+<hr />
+<h2 id="curl">命令行的浏览器 curl<a class="headerlink" href="#curl" title="Permanent link">&para;</a></h2>
+<p><img alt="cURL" src="https://curl.haxx.se/logo/curl-logo.svg" /></p>
+<blockquote>
+<p>大名鼎鼎的cURL，不必多言；只是它的命令行的运行方式与libcurl用起来差异很大（如比较php的curl用法）</p>
+<p>官方：https://curl.haxx.se/</p>
+<p>简单入门：http://www.bathome.net/thread-1761-1-1.html</p>
+<p><strong>将curl转为python requests</strong> http://curl.trillworks.com/</p>
+</blockquote>
+<p><a href="https://d.py3.io/curl.exe">下载7.51 x64版本</a></p>
+<p>具体请见单独文档<a href="../cURL/">cURL.md</a></p>
+<hr />
+<h2 id="_3">判断文件夹存在<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>通过判断nul这个特殊文件的存在性（用户并不能创建文件名形如nul的特殊文件）</p>
+<div class="codehilite"><pre><span></span>if exist DIRNAME\nul echo Yes!
+</pre></div>
+
+
+<hr />
+<h2 id="mklinkfsutil-hardlink-create">创建硬链接mklink或者fsutil hardlink create<a class="headerlink" href="#mklinkfsutil-hardlink-create" title="Permanent link">&para;</a></h2>
+<p>Win7及以上：</p>
+<div class="codehilite"><pre><span></span>mklink /H Link Target
+</pre></div>
+
+
+<p>目录还需要/J</p>
+<div class="codehilite"><pre><span></span>mklink /H /J Link Target
+</pre></div>
+
+
+<p>WinXP只能用：</p>
+<div class="codehilite"><pre><span></span>fsutil hardlink create &lt;new filename&gt; &lt;existing filename&gt;
+</pre></div>
+
+
+<hr />
+<h2 id="_4">端口转发<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>此命令需要管理员权限</p>
+<div class="codehilite"><pre><span></span>netsh interface portproxy add v4tov4 listenaddress=0.0.0.0 listenport=转发出的端口 connectaddress=转发的源IP地址 connectport=转发的源端口
+</pre></div>
+
+
+<hr />
+<h2 id="rvpn">保持RVPN不断开<a class="headerlink" href="#rvpn" title="Permanent link">&para;</a></h2>
+<p>rvpn会自动断开，所以写了个脚本判断并自动重连</p>
+<p><a href="../code/RVPNKeepAlive.bat">RVPNKeepAlive.bat</a></p>
+<p>其中的知识点：</p>
+<ol>
+<li>
+<p>判断命令是否成功用if &ldquo;%errorlevel%&rdquo;==&rdquo;0&rdquo;，errorlevel这个变量是上一条命令的返回结果（C程序的int main的返回值），一般规定返回0表示没有发生错误</p>
+</li>
+<li>
+<p>用ping www.baidu.com和ping -n 2 ip.cn做粗糙的等待延时，其中-n表示ping的次数，默认是4，改小一点就是更短的延时咯</p>
+</li>
+<li>
+<p>启动一个GUI的exe，需要用start &ldquo;&rdquo; example.exe</p>
+</li>
+</ol>
+<hr />
+<h2 id="vpn">浙江大学有线vpn静态路由配置脚本<a class="headerlink" href="#vpn" title="Permanent link">&para;</a></h2>
+<p>Author: shuishui</p>
+<p><a href="../code/静态路由设置.bat">静态路由设置.bat</a></p>
+<hr />
+<h2 id="_5">进入休眠<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>Win10似乎没有从鼠标进入休眠而不是睡眠的方法，但调用rundll32进入休眠模式还是可以的：</p>
+<div class="codehilite"><pre><span></span>rundll32.exe powrProf.dll,SetSuspendState
+</pre></div>
+
+
+<hr />
+<h2 id="_6">快速进入系统代理设置<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>From: https://stackoverflow.com/questions/3648366/is-it-possible-to-launch-ies-proxy-settings-dialog-from-the-command-line</p>
+<p>不用启动<code>c:\Program Files\Internet Explorer\iexplore.exe</code>，直接Win+R输入这个就能打开IE的连接设置，方便修改代理：</p>
+<div class="codehilite"><pre><span></span>inetcpl.cpl ,4
+</pre></div>
+
+
+<hr />
+<h2 id="cmd_1">在普通权限cmd中获得更高权限<a class="headerlink" href="#cmd_1" title="Permanent link">&para;</a></h2>
+<p>比如下文的修改ip等操作就需要管理员权限。你可以先启动任务管理器，再运行一个管理员权限的cmd；现在有了更加直接的操作</p>
+<h3 id="1elevate">方案1：<a href="http://code.kliu.org/misc/elevate/">elevate</a><a class="headerlink" href="#1elevate" title="Permanent link">&para;</a></h3>
+<p>下载地址：<a href="http://code.kliu.org/misc/elevate/elevate-1.3.0-redist.7z">http://code.kliu.org/misc/elevate/elevate-1.3.0-redist.7z</a></p>
+<p>特点：有UAC弹窗，会启动一个新窗口</p>
+<p>例子：</p>
+<div class="codehilite"><pre><span></span>REM 启动一个特权的cmd
+elevate -k
+REM 执行dir并等待结束
+elevate -c -w dir
+</pre></div>
+
+
+<h3 id="2sudo-for-windows-luke-sampson">方案2：Sudo for Windows – Luke Sampson<a class="headerlink" href="#2sudo-for-windows-luke-sampson" title="Permanent link">&para;</a></h3>
+<p>参考：https://helpdeskgeek.com/free-tools-review/5-windows-alternatives-linux-sudo-command/</p>
+<p>在powershell中输入以下命令完成安装：</p>
+<div class="codehilite"><pre><span></span>iex (new-object net.webclient).downloadstring(‘https://get.scoop.sh’)
+
+set-executionpolicy unrestricted -s cu -f
+
+scoop install sudo
+</pre></div>
+
+
+<p>特点：比较慢，仍然有UAC弹窗，不会启动一个新窗口</p>
+<hr />
+<h2 id="ip">命令行配置IP<a class="headerlink" href="#ip" title="Permanent link">&para;</a></h2>
+<p>需要管理员权限，参见上方<code>在普通权限cmd中获得更高权限</code></p>
+<p>参考：https://helpdeskgeek.com/networking/change-ip-address-and-dns-servers-using-the-command-prompt/</p>
+<p>首先使用<code>netsh interface ip show config</code>查看适配器的名称，假设需要配置的是<code>以太网</code></p>
+<h3 id="ipdns">配置静态IP和DNS<a class="headerlink" href="#ipdns" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>netsh interface ip set address name=&quot;以太网&quot; static 192.168.1.101 255.255.255.0 192.168.1.1
+netsh interface ip set dns &quot;以太网&quot; static 192.168.1.1
+</pre></div>
+
+
+<h3 id="dhcp">配置DHCP<a class="headerlink" href="#dhcp" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>netsh interface ip set address name=&quot;以太网&quot; dhcp
+netsh interface ip set dns &quot;以太网&quot; dhcp
+</pre></div>
+                
+                  
+                
+              
+              
+                
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../BASH/" title="BASH" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                BASH
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../C/" title="C语言" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                C语言
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="http://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+  <div class="md-footer-social">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+      <a href="https://github.com/zjuchenyuan" class="md-footer-social__link fa fa-github"></a>
+    
+  </div>
+
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.f041762f.js"></script>
+      
+      <script>app.initialize({version:"0.17.2",url:{base:".."}})</script>
+      
+    
+    
+      
+    
+  </body>
+</html>

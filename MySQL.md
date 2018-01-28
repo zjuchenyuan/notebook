@@ -3,13 +3,19 @@
 {:toc}
 
 
-# 查看表结构
+## 查看表结构
 
 desc 表名称;
 
+### 查看建表sql语句
+
+```
+show create table 表名称;
+```
+
 ----
 
-# MERGE存储引擎
+## MERGE存储引擎
 
 官方文档：http://dev.mysql.com/doc/refman/5.7/en/merge-storage-engine.html
 
@@ -36,7 +42,7 @@ CREATE TABLE c (
 
 ----
 
-# 删除表的冗余
+## 删除表的冗余
 
 两行只有一列(这里假设为 gettime )不同，删除其中一行
 
@@ -49,7 +55,7 @@ delete t1 from t as t1, t as t2 where
 
 ----
 
-# 修改表 alter table
+## 修改表 alter table
 
 ```sql
 ALTER IGNORE TABLE `表名称`
@@ -64,13 +70,13 @@ ADD INDEX `a1` (`user`);
 
 ----
 
-# 将中文转为拼音 函数
+## 将中文转为拼音 函数
 
 代码在[code/pinyin.sql](code/pinyin.sql)
 
 ----
 
-# 从路径URL获取文件名称
+## 从路径URL获取文件名称
 
 来源 http://stackoverflow.com/questions/17090237/extracting-filenames-from-a-path-mysql
 
@@ -82,9 +88,9 @@ ADD INDEX `a1` (`user`);
 
 ----
 
-# 查询优化
+## 查询优化
 
-## explain发现出现了using filesort
+### explain发现出现了using filesort
 
 > 参考 http://www.ccvita.com/169.html
 
@@ -92,7 +98,7 @@ ADD INDEX `a1` (`user`);
 
 group by用了两个列，两列要合在一起创建索引
 
-## 内存表索引的选择
+### 内存表索引的选择
 
 > 参考 https://dev.mysql.com/doc/refman/5.5/en/optimizing-memory-tables.html
 
@@ -100,7 +106,7 @@ group by用了两个列，两列要合在一起创建索引
 
 ----
 
-# 内存表The table is full
+## 内存表The table is full
 
 修改MySQL的配置文件/etc/mysql/my.cnf，在[mysqld]下添加/修改两行(下面的值仅供参考,请根据实际情况酌情处理)： 
 
@@ -111,7 +117,7 @@ max_heap_table_size = 256M // 内存表大小
 
 ----
 
-# replace函数替换文本
+## replace函数替换文本
 
 ```
 update `content` set value=replace(value,"original content","replaced content");
@@ -121,7 +127,7 @@ update `content` set value=replace(value,"original content","replaced content");
 
 ----
 
-# 简单的split功能，文本转数字
+## 简单的split功能，文本转数字
 
 表的设计违背了一列只存放一种数据的原则，搞出了这样一个Text类型的列(假设为info)，格式为"用户名: 数值"
 
@@ -240,7 +246,7 @@ EOF
 ```
 systemctl daemon-reload
 systemctl restart mysql.service
-````
+```
 
 使用这两种方法都能看到修改是否生效：
 

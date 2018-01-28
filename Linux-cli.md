@@ -13,7 +13,7 @@
 
 ----
 
-# 查看内置命令的帮助
+## 查看内置命令的帮助
 
 将以下内容加入`~/.bashrc`中即可，判断如果在内置命令就调用help -m，不是则绕开bash函数来运行man进程
 
@@ -32,7 +32,7 @@ man () {
 
 ----
 
-# grep搜索帮助文档
+## grep搜索帮助文档
 
 用两个横线`--`作为grep的第一个参数表示不要把其后面的形如`-z`的参数当成grep的参数
 
@@ -42,7 +42,7 @@ man () {
 man tar|grep -- -z
 ```
 
-# 帮助文本的grep，把stderr重定向到stdout
+## 帮助文本的grep，把stderr重定向到stdout
 
 某些时候帮助文本是输出到标准错误输出的，需要用2>&1这样的重定向咯
 
@@ -50,7 +50,7 @@ man tar|grep -- -z
 
 ----
 
-# 各种解压命令
+## 各种解压命令
 
 tar.gz： `tar -zxvf xx.tar.gz`
 
@@ -64,7 +64,7 @@ zip：`unzip xx.zip`
 
 ----
 
-# 当前目录文件全文搜索
+## 当前目录文件全文搜索
 
 这里要搜索当前目录下面所有的包含"MultiTeam"文件
 
@@ -72,7 +72,7 @@ zip：`unzip xx.zip`
 
 ----
 
-# 统计当前文件夹代码行数
+## 统计当前文件夹代码行数
 
 find 指定文件后缀名，记住要引号避免bash解析*
 
@@ -80,7 +80,7 @@ find 指定文件后缀名，记住要引号避免bash解析*
 
 ----
 
-# 查看给定文件列表的文件大小
+## 查看给定文件列表的文件大小
 
 用xargs -d指定分隔符为\n（默认会按照空格和\n分隔参数）
 
@@ -90,7 +90,7 @@ cat list.txt | xargs -d "\n" ls -alh
 
 ----
 
-# wget慢慢下载
+## wget慢慢下载
 
 ```
 wget -i list.txt  -nc --wait=60 --random-wait
@@ -100,7 +100,7 @@ wget -i list.txt  -nc --wait=60 --random-wait
 
 ----
 
-# touch修改时间戳
+## touch修改时间戳
 
 将b.txt的时间戳改为和a.txt一样
 
@@ -110,7 +110,7 @@ touch -r a.txt b.txt
 
 ----
 
-# 去掉Ubuntu默认情况下ls的颜色
+## 去掉Ubuntu默认情况下ls的颜色
 
 ```
 unalias ls
@@ -118,7 +118,7 @@ unalias ls
 
 ----
 
-# 换行方式修改
+## 换行方式修改
 
 如果一个文件来自于Windows，可能需要先修改换行方式才能用，去掉文件中的\r
 
@@ -126,7 +126,7 @@ vim中输入 `:set ff=unix`
 
 ----
 
-# iodine--使用DNS传输数据
+## iodine--使用DNS传输数据
 
 >* http://code.kryo.se/iodine/
 
@@ -166,7 +166,7 @@ http://code.kryo.se/iodine/check-it/
 
 ----
 
-# 远程控制Windows
+## 远程控制Windows
 
 Windows下有自带的mstsc，Linux如树莓派用啥呢？就用[rdesktop](http://www.rdesktop.org/)啦
 
@@ -185,7 +185,7 @@ rdesktop -f -u 用户名 -p 密码 服务器地址:端口
 
 ----
 
-# 统计以特定字符串开头的文件数目
+## 统计以特定字符串开头的文件数目
 
 awk是个很好用的工具呢，支持substr函数，用法为substr(源字符串，开始，长度)，其中开始从1计数
 
@@ -197,7 +197,7 @@ ls -l|awk '{if(substr($9,1,字符串长度)=="你要的那个字符串") print $
 
 ----
 
-# hexdump查看字符内部编码
+## hexdump查看字符内部编码
 
 echo的-n参数表示不要末尾加\n
 
@@ -207,7 +207,7 @@ echo -n hello | hexdump -C
 
 ----
 
-# 子目录大小排序
+## 子目录大小排序
 
 sort的-h表示按人类理解的大小格式排序，-r表示逆序
 
@@ -217,7 +217,7 @@ du -sh * | sort -hr
 
 ----
 
-# 安装ffmpeg
+## 安装ffmpeg
 
 在ubuntu14下是没有ffmpeg的官方包支持的，需要添加mc3man的ppa
 
@@ -230,7 +230,7 @@ sudo apt-get install -y ffmpeg
 
 ----
 
-# 保证脚本安全执行set -ex
+## 保证脚本安全执行set -ex
 
 `set`命令挺有用的呢，-e表示如果后面的语句返回不为0立刻结束shell，-x表示显示出每条命令及参数
 
@@ -238,7 +238,7 @@ sudo apt-get install -y ffmpeg
 
 ----
 
-# change readonly bash variable
+## change readonly bash variable
 
 bash is a weird thing...
 
@@ -258,7 +258,7 @@ $ echo $a
 
 ----
 
-# 永久等待 sleep infinity
+## 永久等待 sleep infinity
 
 有时写了一个sh文件后需要保持这个sh的运行，就用sleep永久等待好咯
 
@@ -268,7 +268,7 @@ sleep infinity
 
 ----
 
-# zmap扫描整个网段特定开放端口
+## zmap扫描整个网段特定开放端口
 
 zmap的运行需要root权限，用`apt-get install zmap`即可安装
 
@@ -286,7 +286,7 @@ zmap 192.168.0.0/16 -B1000M -i eth0 -g -T 4  -p 23 -o 23.txt
 
 ----
 
-# 对ip列表批量测试redis未授权漏洞
+## 对ip列表批量测试redis未授权漏洞
 
 ```
 for i in `cat iplist.txt`; do (if [ `echo PING|redis-cli -h $i` == "PONG" ] ;then echo $i;fi);done 2>/dev/null
@@ -300,7 +300,7 @@ redis-cli连接上服务器后发送PING，如果存在未授权访问漏洞则�
 
 ----
 
-# 使用ImageMagick对图像进行裁剪
+## 使用ImageMagick对图像进行裁剪
 
 安装命令：`sudo apt-get install -y imagemagick`
 
@@ -323,7 +323,7 @@ for i in {1..79}; do convert $i.png -crop 300x280+30+0 $i.png; done
 
 ----
 
-# 查找0字节的文件并删除
+## 查找0字节的文件并删除
 
 ```
 find . -size 0 -delete
@@ -333,7 +333,7 @@ find . -size 0 -delete
 
 ----
 
-# 批量修改文件后缀名
+## 批量修改文件后缀名
 
 将当前目录下(包含子目录)所有的txt文件改为.newext后缀：
 
@@ -343,7 +343,7 @@ find . -name "*.txt" -exec rename 's/.txt$/.newext/' {} \;
 
 ----
 
-# 用vim去除\r换行符 
+## 用vim去除\r换行符 
 
 用vim打开文件后，输入以下内容，冒号也是需要按的
 
@@ -353,7 +353,7 @@ find . -name "*.txt" -exec rename 's/.txt$/.newext/' {} \;
 ```
 ----
 
-# 不用free查看内存占用
+## 不用free查看内存占用
 
 在docker容器内部一般是不能通过`free -h`来查看真实占用的内存的，这时候可以采用`ps aux`累加RSS字段来估计：
 
@@ -363,7 +363,7 @@ ps aux | awk '{sum+=$6} END {print sum / 1024}'
 
 ----
 
-# watch持续观察命令输出
+## watch持续观察命令输出
 
 例如我想持续查看output.txt文件大小：
 

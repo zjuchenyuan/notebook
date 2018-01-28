@@ -1,0 +1,19 @@
+#假设已经开好ss的客户端在127.0.0.1:1080了
+
+echo """
+#!/bin/bash
+nc -x 127.0.0.1:1080 -X5 $*
+""">~/proxy-wrapper
+
+chmod +x ~/proxy-wrapper
+
+echo """
+Host github github.com
+    Hostname github.com
+    User git
+    ProxyCommand $HOME/proxy-wrapper '%h %p'
+""">>~/.ssh/config
+
+chmod 700 ~/.ssh/config
+
+#现在就可以欢快地高速`git clone`啦~

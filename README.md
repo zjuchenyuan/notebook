@@ -2,8 +2,6 @@
 
 My notebook about technology, for lookup and share
 
-# 目录
-
 ## [Python](Python.md)
 >* [语言勾勒QuickStart](quickstart.html)
 >* 设置pip源

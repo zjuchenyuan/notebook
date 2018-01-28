@@ -2,7 +2,7 @@
 * TOC
 {:toc}
 
-# 使用localStorage
+## 使用localStorage
 
 Cookie存数据影响访问速度(每次请求都需要带上Cookie)，使用localStorage存储有更大容量，还不易丢失
 
@@ -20,7 +20,7 @@ window.localStorage.clear();
 
 ----
 
-# 使用phantomjs爬取网页
+## 使用phantomjs爬取网页
 
 有些时候我们用Python的requests并不能很完美地渲染好网页，例如人家用酷炫的js作图了，我就想得到这张图，这时候用phantomjs就好啦
 
@@ -48,7 +48,7 @@ window.localStorage.clear();
 
 ----
 
-# jQuery绑定"变为可见"事件
+## jQuery劫持show事件
 
 我的需求：用户登录的div需要点击Login后显示(toggle)，此时浏览器已经自动帮用户填上了用户名和密码，用户需要手动点击登录按钮才会触发登录请求；现在我想加入快速登录功能，在显示登录div后自动提交登录请求，如果为空或密码错误再交给用户输入
 
@@ -105,7 +105,7 @@ jQuery(function($) {
 
 ----
 
-# 读取GET参数
+## 读取GET参数
 
 有些时候对GET参数的处理交给了前端，后端的PHP可以$_GET["parameter"]，前端JS咋办呢？
 
@@ -146,7 +146,7 @@ if (typeof(QueryString.parameter)!="undefined") {
 
 ----
 
-# 使用 Github Issue 作为博客评论区
+## 使用 Github Issue 作为博客评论区
 
 人家大佬的项目：[http://github.com/wzpan/comment.js](http://github.com/wzpan/comment.js)，[中文文档](http://www.hahack.com/codes/comment-js/)
 
@@ -156,7 +156,7 @@ if (typeof(QueryString.parameter)!="undefined") {
 
 ----
 
-# history.replaceState修改历史记录
+## history.replaceState修改历史记录
 
 如v2ex按照是否:visited来区分点开过和没点开过的帖子，其实现是url带上#reply回复数量
 
@@ -178,7 +178,7 @@ setTimeout( function(){
 
 ----
 
-# 记住一个checkbox的状态（用localStorage）
+## 记住一个checkbox的状态（用localStorage）
 
 查询是否勾选用`.is(":checked")` ， 改变勾选状态用`.prop("checked",true)`
 

@@ -1,0 +1,1039 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="我的技术笔记本~">
+      
+      
+      
+        <meta name="author" content="chenyuan">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.5.3">
+    
+    
+      
+        <title>S2-045 - notebook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.aa3de92b.css">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
+    <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+    
+      <a href="#struts2s2-045" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../README/" title="notebook" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                notebook
+              </span>
+              <span class="md-header-nav__topic">
+                S2-045
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/zjuchenyuan/notebook/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="drawer">
+    <span class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </span>
+    notebook
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/zjuchenyuan/notebook/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../README/" title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Python
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Python
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Python/" title="Python" class="md-nav__link">
+      Python
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../gist/" title="Gist Python一些常用代码片段" class="md-nav__link">
+      Gist Python一些常用代码片段
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      Programming Languages
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Programming Languages
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../BASH/" title="BASH" class="md-nav__link">
+      BASH
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../BAT/" title="BAT批处理" class="md-nav__link">
+      BAT批处理
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../C/" title="C语言" class="md-nav__link">
+      C语言
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4" checked>
+    
+    <label class="md-nav__link" for="nav-3-4">
+      Java
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="5">
+      <label class="md-nav__title" for="nav-3-4">
+        Java
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Java/" title="Java" class="md-nav__link">
+      Java
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        S2-045
+      </label>
+    
+    <a href="./" title="S2-045" class="md-nav__link md-nav__link--active">
+      S2-045
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="漏洞简介" class="md-nav__link">
+    漏洞简介
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exp" title="exp" class="md-nav__link">
+    exp
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="解决过程" class="md-nav__link">
+    解决过程
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../JavaScript/" title="JavaScript" class="md-nav__link">
+      JavaScript
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../PHP/" title="PHP" class="md-nav__link">
+      PHP
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Website & Network
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Website & Network
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../CC98/" title="CC98 OAuth2" class="md-nav__link">
+      CC98 OAuth2
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../CDN/" title="CDN" class="md-nav__link">
+      CDN
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cURL/" title="cURL" class="md-nav__link">
+      cURL
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-4" type="checkbox" id="nav-4-4">
+    
+    <label class="md-nav__link" for="nav-4-4">
+      Favorites
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="5">
+      <label class="md-nav__title" for="nav-4-4">
+        Favorites
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Favorites/" title="Favorites" class="md-nav__link">
+      Favorites
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../GithubProjectRecommendation/" title="Github Project Recommendation" class="md-nav__link">
+      Github Project Recommendation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Links/" title="更多链接" class="md-nav__link">
+      更多链接
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Jekyll/" title="Jekyll" class="md-nav__link">
+      Jekyll
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../MySQL/" title="MySQL" class="md-nav__link">
+      MySQL
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Nginx/" title="Nginx" class="md-nav__link">
+      Nginx
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Developer
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Developer
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Developer/" title="Developer" class="md-nav__link">
+      Developer
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Docker/" title="Docker" class="md-nav__link">
+      Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Git/" title="Git" class="md-nav__link">
+      Git
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../WindowsSoftware/" title="WindowsSoftware" class="md-nav__link">
+      WindowsSoftware
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Linux
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Linux
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Linux-backup/" title="Linux-backup" class="md-nav__link">
+      Linux-backup
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Linux-setup/" title="Linux-setup" class="md-nav__link">
+      Linux-setup
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Linux-SSH/" title="Linux-SSH" class="md-nav__link">
+      Linux-SSH
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Linux-cli/" title="Linux-cli" class="md-nav__link">
+      Linux-cli
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Linux-VirtualBox/" title="Linux-VirtualBox" class="md-nav__link">
+      Linux-VirtualBox
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Ubuntu/" title="Ubuntu" class="md-nav__link">
+      Ubuntu
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="漏洞简介" class="md-nav__link">
+    漏洞简介
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exp" title="exp" class="md-nav__link">
+    exp
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="解决过程" class="md-nav__link">
+    解决过程
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/zjuchenyuan/notebook/edit/master/docs/S2-045.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="struts2s2-045">修复Struts2的S2-045漏洞<a class="headerlink" href="#struts2s2-045" title="Permanent link">&para;</a></h1>
+<ul>
+<li>TOC
+{:toc}</li>
+</ul>
+<h2 id="_1">漏洞简介<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>最近批露，Apache Struts 2软件存在远程命令执行高危漏洞，Struts2官方已经确认该漏洞，漏洞编号为CVE-2017-5638，受影响的版本包括 Struts2.3.5 到 Struts2.3.31 以及 Struts2.5 到 Struts2.5.10 。黑客可以利用该漏洞通过浏览器在远程服务器上执行任意系统命令，对受影响站点造成严重影响，引发数据泄露、网页篡改、植入后门、成为肉鸡等安全事件。</p>
+<p>目前，Struts 2软件作为网站开发的底层模板使用，特别是互动性较强的用于报名、注册、查询、留言的信息系统，我国内超过300万家政府网站及其子站使用了Struts框架。鉴于Struts 2应用广泛、黑客关注度较高、漏洞危害较大、攻击方式简单，一旦被别有用心人员利用，可能对我网络安全造成较大的危害和影响，建议各重要行业部门及时督促核查本部门、本行业、本辖区网站安全情况，及时堵塞漏洞，消除安全隐患，提高安全防范能力，并及时上报核查及整改情况。</p>
+<hr />
+<h2 id="exp">exp<a class="headerlink" href="#exp" title="Permanent link">&para;</a></h2>
+<p>首先丢个exp，用于检验漏洞存在性：<a href="../code/exp.S2-045.py">exp.S2-045.py</a></p>
+<p>使用方法示例：</p>
+<div class="codehilite"><pre><span></span>python exp.S2-045.py http://example.com/example.action &quot;id&quot;
+</pre></div>
+
+
+<hr />
+<h2 id="_2">解决过程<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>翻遍了官网和各种新闻，没有切实可行的方案，下载地址只有存在漏洞的2.3.31的版本，漏洞修复方案都是简略的一句升级到2.3.32，某些播报平台&amp;官方真是mdzz，到底是为了促进漏洞修补还是促进全网被黑？</p>
+<p>官方只是给了一个maven的配置方法，并没有直接可以下载的jar文件或zip包</p>
+<p>只能按照官方的方法用maven去尝试构建一个struts应用(快速装好maven的方法是买个香港的vps用docker pull maven)，总算发现了新版的jar包下载地址：</p>
+<p><a href="https://repo.maven.apache.org/maven2/org/apache/struts/">https://repo.maven.apache.org/maven2/org/apache/struts/</a></p>
+<p>通过下载2.3.31核心包发现只有<code>struts2-core</code>是需要的。</p>
+<hr />
+<h1 id="jar">通过升级jar包修复<a class="headerlink" href="#jar" title="Permanent link">&para;</a></h1>
+<h2 id="23x">2.3.x版本修复方法<a class="headerlink" href="#23x" title="Permanent link">&para;</a></h2>
+<p>下载2.3.32版本的jar文件</p>
+<p><a href="https://repo.maven.apache.org/maven2/org/apache/struts/struts2-core/2.3.32/struts2-core-2.3.32.jar">https://repo.maven.apache.org/maven2/org/apache/struts/struts2-core/2.3.32/struts2-core-2.3.32.jar</a></p>
+<p>国内CDN下载地址: <a href="https://d.py3.io/struts2-core-2.3.32.jar">https://d.py3.io/struts2-core-2.3.32.jar</a></p>
+<p>假设服务器上用的是2.3.30版本，则<code>tomcat所在目录/webapps/应用名称/WEB-INF/lib</code>里面有一个<code>struts2-core-2.3.30.jar</code></p>
+<p>修复方法就是①把上述文件删掉(自行备份)，②下载到的新版jar文件改名为同名文件，③上传替换，④重启tomcat即可</p>
+<p>Tip: 替换后要保证旧版的jar文件不存在，例如移到上一级目录，不要把旧版本的jar改名留在lib目录下，否则将导致这个webapp无法启动</p>
+<h2 id="25x">2.5.x版本修复方法<a class="headerlink" href="#25x" title="Permanent link">&para;</a></h2>
+<p>下载2.5.10.1版本的jar文件</p>
+<p><a href="https://repo.maven.apache.org/maven2/org/apache/struts/struts2-core/2.5.10.1/struts2-core-2.5.10.1.jar">https://repo.maven.apache.org/maven2/org/apache/struts/struts2-core/2.5.10.1/struts2-core-2.5.10.1.jar</a></p>
+<p>国内CDN下载地址：<a href="https://d.py3.io/struts2-core-2.5.10.1.jar">https://d.py3.io/struts2-core-2.5.10.1.jar</a></p>
+<p>假设服务器上用的是2.5.10版本，则<code>tomcat所在目录/webapps/应用名称/WEB-INF/lib</code>里面有一个<code>struts2-core-2.5.10.jar</code></p>
+<p>修复方法同上</p>
+<hr />
+<h1 id="filter">通过增加Filter修复<a class="headerlink" href="#filter" title="Permanent link">&para;</a></h1>
+<p>如果不方便替换jar包，可以通过本方法进行拦截攻击请求</p>
+<p>① 将以下SecurityFilter.java文件编译成SecurityFilter.class，注意编译之前设置项目的兼容性级别，选择服务器版本的jdk，复制到应用的WEB-INF/classes目录下。</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.Filter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.FilterChain</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.FilterConfig</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.ServletException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.ServletRequest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.ServletResponse</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServlet</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletRequest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletResponse</span><span class="o">;</span>
+
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SecurityFilter</span> <span class="kd">extends</span> <span class="n">HttpServlet</span> <span class="kd">implements</span> <span class="n">Filter</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="mi">1L</span><span class="o">;</span>
+
+
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">www_url_encode</span><span class="o">=</span> <span class="s">&quot;application/x-www-form-urlencoded&quot;</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">mul_data</span><span class="o">=</span> <span class="s">&quot;multipart/form-data&quot;</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">txt_pla</span><span class="o">=</span> <span class="s">&quot;text/plain&quot;</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doFilter</span><span class="o">(</span><span class="n">ServletRequest</span> <span class="n">arg0</span><span class="o">,</span> <span class="n">ServletResponse</span> <span class="n">arg1</span><span class="o">,</span>
+            <span class="n">FilterChain</span> <span class="n">arg2</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ServletException</span> <span class="o">{</span>
+
+        <span class="n">HttpServletRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpServletRequest</span><span class="o">)</span> <span class="n">arg0</span><span class="o">;</span>
+        <span class="n">HttpServletResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpServletResponse</span><span class="o">)</span> <span class="n">arg1</span><span class="o">;</span>
+
+        <span class="n">String</span> <span class="n">contentType</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="na">getHeader</span><span class="o">(</span><span class="s">&quot;Content-Type&quot;</span><span class="o">);</span>
+
+        <span class="k">if</span><span class="o">(</span><span class="n">contentType</span><span class="o">!=</span><span class="kc">null</span><span class="o">&amp;&amp;!</span><span class="n">contentType</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">)&amp;&amp;!</span><span class="n">contentType</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="n">www_url_encode</span><span class="o">)&amp;&amp;!</span><span class="n">contentType</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="n">mul_data</span><span class="o">)&amp;&amp;!</span><span class="n">contentType</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="n">txt_pla</span><span class="o">)){</span>
+            <span class="n">response</span><span class="o">.</span><span class="na">setContentType</span><span class="o">(</span><span class="s">&quot;text/html;charset=UTF-8&quot;</span><span class="o">);</span>
+            <span class="n">response</span><span class="o">.</span><span class="na">getWriter</span><span class="o">().</span><span class="na">write</span><span class="o">(</span><span class="s">&quot;非法请求Content-Type！&quot;</span><span class="o">);</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">arg2</span><span class="o">.</span><span class="na">doFilter</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">(</span><span class="n">FilterConfig</span> <span class="n">arg0</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span> <span class="o">{</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>假设服务器上的<code>java -version</code>告诉我们java的版本是1.7的，手里又没有当前网站的项目文件，需要这样进行编译：</p>
+<p>eclipse新建一个工程，新建类复制以上代码，项目属性的<code>Java Build Path</code>中的<code>Libraries</code>添加tomcat中的<code>servlet-api.jar</code>，<code>Java Complier</code>页面中选择Complier compliance level为1.7</p>
+<p>eclipse自动通过编译后，即可将此SecurityFilter.class文件传至服务器上的应用的WEB-INF/classes目录下。</p>
+<p>这里有我已经编译好的class文件：<a href="https://d.py3.io/SecurityFilter_jdk1.6.class">1.6</a>  <a href="https://d.py3.io/SecurityFilter_jdk1.7.class">1.7</a>  <a href="https://d.py3.io/SecurityFilter_jdk1.8.class">1.8</a></p>
+<p>② 将下面的代码加入WEB-INF/web.xml文件的第一个filter之前。</p>
+<p>操作之前请记得备份</p>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;filter&gt;</span>
+    <span class="nt">&lt;filter-name&gt;</span>SecurityFilter<span class="nt">&lt;/filter-name&gt;</span>
+    <span class="nt">&lt;filter-class&gt;</span>SecurityFilter<span class="nt">&lt;/filter-class&gt;</span>
+<span class="nt">&lt;/filter&gt;</span>
+<span class="nt">&lt;filter-mapping&gt;</span>
+    <span class="nt">&lt;filter-name&gt;</span>SecurityFilter<span class="nt">&lt;/filter-name&gt;</span>
+    <span class="nt">&lt;url-pattern&gt;</span>/*<span class="nt">&lt;/url-pattern&gt;</span>
+<span class="nt">&lt;/filter-mapping&gt;</span>
+</pre></div>
+
+
+<p>如图所示</p>
+<p><img alt="S2-045_filter.jpg" src="../assets/img/S2-045_filter.jpg!/format/webp" /></p>
+<p>③ 重启应用即可</p>
+<p>重启可以在tomcat的manager页面Reload应用，或者直接重启整个tomcat</p>
+<p>如果应用无法启动，在tomcat下有logs目录可以看到为啥出错</p>
+<h3 id="_3">测试效果<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p><img alt="" src="../assets/img/S2-045_filterresult.jpg" /></p>
+<hr />
+<p>期待一个更负责任的漏洞披露过程，期待一个更加安全的互联网</p>
+<p>Author: zjuchenyuan</p>
+<p>Source: <a href="https://py3.io/S2-045.html">https://py3.io/S2-045.html</a></p>
+                
+                  
+                
+              
+              
+                
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../Java/" title="Java" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Java
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../JavaScript/" title="JavaScript" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                JavaScript
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="http://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+  <div class="md-footer-social">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+      <a href="https://github.com/zjuchenyuan" class="md-footer-social__link fa fa-github"></a>
+    
+  </div>
+
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.f041762f.js"></script>
+      
+      <script>app.initialize({version:"0.17.2",url:{base:".."}})</script>
+      
+    
+    
+      
+    
+  </body>
+</html>

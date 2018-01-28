@@ -1,0 +1,1351 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="我的技术笔记本~">
+      
+      
+      
+        <meta name="author" content="chenyuan">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.5.3">
+    
+    
+      
+        <title>Nginx - notebook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.aa3de92b.css">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
+    <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+    
+      <a href="#nginx" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../README/" title="notebook" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                notebook
+              </span>
+              <span class="md-header-nav__topic">
+                Nginx
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/zjuchenyuan/notebook/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="drawer">
+    <span class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </span>
+    notebook
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/zjuchenyuan/notebook/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../README/" title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Python
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Python
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Python/" title="Python" class="md-nav__link">
+      Python
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../gist/" title="Gist Python一些常用代码片段" class="md-nav__link">
+      Gist Python一些常用代码片段
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Programming Languages
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Programming Languages
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../BASH/" title="BASH" class="md-nav__link">
+      BASH
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../BAT/" title="BAT批处理" class="md-nav__link">
+      BAT批处理
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../C/" title="C语言" class="md-nav__link">
+      C语言
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4">
+    
+    <label class="md-nav__link" for="nav-3-4">
+      Java
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="5">
+      <label class="md-nav__title" for="nav-3-4">
+        Java
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Java/" title="Java" class="md-nav__link">
+      Java
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../S2-045/" title="S2-045" class="md-nav__link">
+      S2-045
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../JavaScript/" title="JavaScript" class="md-nav__link">
+      JavaScript
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../PHP/" title="PHP" class="md-nav__link">
+      PHP
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+    
+    <label class="md-nav__link" for="nav-4">
+      Website & Network
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Website & Network
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../CC98/" title="CC98 OAuth2" class="md-nav__link">
+      CC98 OAuth2
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../CDN/" title="CDN" class="md-nav__link">
+      CDN
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cURL/" title="cURL" class="md-nav__link">
+      cURL
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-4" type="checkbox" id="nav-4-4">
+    
+    <label class="md-nav__link" for="nav-4-4">
+      Favorites
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="5">
+      <label class="md-nav__title" for="nav-4-4">
+        Favorites
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Favorites/" title="Favorites" class="md-nav__link">
+      Favorites
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../GithubProjectRecommendation/" title="Github Project Recommendation" class="md-nav__link">
+      Github Project Recommendation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Links/" title="更多链接" class="md-nav__link">
+      更多链接
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Jekyll/" title="Jekyll" class="md-nav__link">
+      Jekyll
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../MySQL/" title="MySQL" class="md-nav__link">
+      MySQL
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Nginx
+      </label>
+    
+    <a href="./" title="Nginx" class="md-nav__link md-nav__link--active">
+      Nginx
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#nginx_1" title="Nginx思考题" class="md-nav__link">
+    Nginx思考题
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#post" title="普通资源允许POST" class="md-nav__link">
+    普通资源允许POST
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#php" title="不带后缀的文件当成php执行" class="md-nav__link">
+    不带后缀的文件当成php执行
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#httphttps" title="http跳转到https" class="md-nav__link">
+    http跳转到https
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lets-encrypthttps" title="获得Let's encrypt免费https证书" class="md-nav__link">
+    获得Let's encrypt免费https证书
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" title="使用方法：" class="md-nav__link">
+    使用方法：
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="第一步：" class="md-nav__link">
+    第一步：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getcertpy" title="第二步，运行我的getcert.py（创建私钥并提交申请）：" class="md-nav__link">
+    第二步，运行我的getcert.py（创建私钥并提交申请）：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#https" title="配置安全的https" class="md-nav__link">
+    配置安全的https
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#js" title="反向代理之替换网页、JS中的文本" class="md-nav__link">
+    反向代理之替换网页、JS中的文本
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git" title="禁止git目录访问" class="md-nav__link">
+    禁止git目录访问
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rootalias" title="root与alias的区别" class="md-nav__link">
+    root与alias的区别
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bash-on-win10nginx" title="在bash on win10上使用Nginx" class="md-nav__link">
+    在bash on win10上使用Nginx
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ip" title="使上一级服务知道用户IP" class="md-nav__link">
+    使上一级服务知道用户IP
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nginx_2" title="Nginx允许列目录" class="md-nav__link">
+    Nginx允许列目录
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Developer
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Developer
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Developer/" title="Developer" class="md-nav__link">
+      Developer
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Docker/" title="Docker" class="md-nav__link">
+      Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Git/" title="Git" class="md-nav__link">
+      Git
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../WindowsSoftware/" title="WindowsSoftware" class="md-nav__link">
+      WindowsSoftware
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Linux
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Linux
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Linux-backup/" title="Linux-backup" class="md-nav__link">
+      Linux-backup
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Linux-setup/" title="Linux-setup" class="md-nav__link">
+      Linux-setup
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Linux-SSH/" title="Linux-SSH" class="md-nav__link">
+      Linux-SSH
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Linux-cli/" title="Linux-cli" class="md-nav__link">
+      Linux-cli
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Linux-VirtualBox/" title="Linux-VirtualBox" class="md-nav__link">
+      Linux-VirtualBox
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Ubuntu/" title="Ubuntu" class="md-nav__link">
+      Ubuntu
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#nginx_1" title="Nginx思考题" class="md-nav__link">
+    Nginx思考题
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#post" title="普通资源允许POST" class="md-nav__link">
+    普通资源允许POST
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#php" title="不带后缀的文件当成php执行" class="md-nav__link">
+    不带后缀的文件当成php执行
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#httphttps" title="http跳转到https" class="md-nav__link">
+    http跳转到https
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lets-encrypthttps" title="获得Let's encrypt免费https证书" class="md-nav__link">
+    获得Let's encrypt免费https证书
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" title="使用方法：" class="md-nav__link">
+    使用方法：
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="第一步：" class="md-nav__link">
+    第一步：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getcertpy" title="第二步，运行我的getcert.py（创建私钥并提交申请）：" class="md-nav__link">
+    第二步，运行我的getcert.py（创建私钥并提交申请）：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#https" title="配置安全的https" class="md-nav__link">
+    配置安全的https
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#js" title="反向代理之替换网页、JS中的文本" class="md-nav__link">
+    反向代理之替换网页、JS中的文本
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git" title="禁止git目录访问" class="md-nav__link">
+    禁止git目录访问
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rootalias" title="root与alias的区别" class="md-nav__link">
+    root与alias的区别
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bash-on-win10nginx" title="在bash on win10上使用Nginx" class="md-nav__link">
+    在bash on win10上使用Nginx
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ip" title="使上一级服务知道用户IP" class="md-nav__link">
+    使上一级服务知道用户IP
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nginx_2" title="Nginx允许列目录" class="md-nav__link">
+    Nginx允许列目录
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/zjuchenyuan/notebook/edit/master/docs/Nginx.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="nginx">Nginx<a class="headerlink" href="#nginx" title="Permanent link">&para;</a></h1>
+<p>记录用到的配置，说不定你也能遇到这些特殊需求呢~</p>
+<ul>
+<li>TOC
+{:toc}</li>
+</ul>
+<h2 id="nginx_1">Nginx思考题<a class="headerlink" href="#nginx_1" title="Permanent link">&para;</a></h2>
+<p>请以批判的眼光阅读以下链接或者自行google，回答以下问题：</p>
+<p>http://www.nginx.cn/591.html</p>
+<ol>
+<li>
+<p>nginx.conf在你Linux的什么目录下？用什么命令知道的？修改配置后通过什么命令重新载入配置？</p>
+</li>
+<li>
+<p>nginx.conf分为几个部分？我们需要关注的是哪个？</p>
+</li>
+<li>
+<p>nginx.conf中怎么表示注释行？是否留意到include的行载入了额外的配置文件？</p>
+</li>
+<li>
+<p>如何增加一个虚拟主机，根据域名来区分访问不同的网站？访问者直接访问IP或者错误的域名会匹配到默认网站，怎么配置默认网站？</p>
+</li>
+</ol>
+<p>这些是更为进阶/发散的问题：</p>
+<ol>
+<li>
+<p>静态内容：root与alias有何区别？访问403了怎么办？</p>
+</li>
+<li>
+<p>动态内容/反向代理：如何做负载均衡、文本替换？</p>
+</li>
+<li>
+<p>全站https和HTTP/2.0怎么配置？</p>
+</li>
+<li>
+<p>Nginx是否有必要作为一个Docker容器运行？CentOS下Nginx镜像很大，怎么<a href="https://www.v2ex.com/t/360759">减小镜像大小</a>？</p>
+</li>
+<li>
+<p>Nginx的worker进程一般不是root权限的，那是怎么监听到80端口的？</p>
+</li>
+<li>
+<p>Nginx在处理高并发的时候参数如何调优？</p>
+</li>
+<li>
+<p>如何在Nginx层面拦截sql注入、密码爆破等安全风险？<a href="https://github.com/alexazhou/VeryNginx">VeryNginx</a></p>
+</li>
+</ol>
+<h2 id="post">普通资源允许POST<a class="headerlink" href="#post" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><span class="n">error_page</span> <span class="mi">405</span> <span class="o">=</span><span class="mi">200</span> <span class="mi">@405</span><span class="p">;</span>
+</pre></div>
+
+
+<h2 id="php">不带后缀的文件当成php执行<a class="headerlink" href="#php" title="Permanent link">&para;</a></h2>
+<p>这里的思路是用反向代理的方式简单实现</p>
+<div class="codehilite"><pre><span></span><span class="nt">location</span> <span class="o">/</span><span class="nt">path</span><span class="o">/</span><span class="nt">something</span> <span class="p">{</span>
+    <span class="err">proxy_pass</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">yourdomain</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">something</span><span class="o">.</span><span class="n">php</span><span class="p">;</span>
+    <span class="err">proxy_method</span> <span class="err">GET</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>顺带拒绝掉对php后缀的猜测：</p>
+<div class="codehilite"><pre><span></span>location = /path/something.php {
+    if ($remote_addr != &#39;服务器自身IP&#39;) {
+        return 404;
+    }
+    include fastcgi.conf;
+}
+</pre></div>
+
+
+<h2 id="httphttps">http跳转到https<a class="headerlink" href="#httphttps" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><span class="nt">location</span> <span class="o">/</span><span class="p">{</span>
+    <span class="err">rewrite</span> <span class="err">^</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="err">$</span><span class="n">host</span><span class="err">$</span><span class="n">request_uri</span><span class="o">?</span> <span class="n">permanent</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h2 id="lets-encrypthttps">获得Let&rsquo;s encrypt免费https证书<a class="headerlink" href="#lets-encrypthttps" title="Permanent link">&para;</a></h2>
+<p>为简化操作，我写了一个更加方便的<a href="../code/getcert.py">getcert.py</a></p>
+<h3 id="_1">使用方法：<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<h4 id="_2">第一步：<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<p>配置相应网站的nginx conf中的server里面，加入这个：</p>
+<div class="codehilite"><pre><span></span>    location /.well-known/acme-challenge {
+        alias 保存密钥的目录;
+        try_files $uri =404;
+    }
+</pre></div>
+
+
+<p>记得运行后 <code>nginx -s reload</code></p>
+<h4 id="getcertpy">第二步，运行我的getcert.py（创建私钥并提交申请）：<a class="headerlink" href="#getcertpy" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span>pushd 上述保存密钥的目录
+wget https://raw.githubusercontent.com/zjuchenyuan/notebook/master/code/getcert.py
+./getcert.py 文件名称 该证书包含的域名列表
+</pre></div>
+
+
+<p>例如这样就能获得一张涵盖zjusec.com三个子域名的证书：<code>./getcert.py zjusec zjusec.com,www.zjusec.com,web.zjusec.com</code></p>
+<p>具体来说，这个脚本会自动下载需要的acme_tiny.py和Let&rsquo;s Encrypt的中间证书，调用openssl创建账号私钥和站点私钥，最终产生 <strong>名称.crt</strong> <strong>名称.key</strong>。</p>
+<p><img alt="https.jpg" src="../download/img/https.jpg" /></p>
+<h2 id="https">配置安全的https<a class="headerlink" href="#https" title="Permanent link">&para;</a></h2>
+<p>此处参考<a href="https://z.codes/ssl-lab-a-plus-configuration-for-nginx/">https://z.codes/ssl-lab-a-plus-configuration-for-nginx/</a></p>
+<p>首先从PPA安装nginx, 这样可以保证最新版</p>
+<div class="codehilite"><pre><span></span>add-apt-repository ppa:nginx/stable
+apt update
+apt install nginx
+</pre></div>
+
+
+<p>创建DH随机质数：</p>
+<div class="codehilite"><pre><span></span>openssl dhparam -out /etc/ssl/dhparams.pem 2048
+</pre></div>
+
+
+<p>创建/etc/nginx/https.conf：</p>
+<div class="codehilite"><pre><span></span><span class="nt">listen</span> <span class="nt">443</span> <span class="nt">ssl</span> <span class="nt">http2</span><span class="o">;</span>
+<span class="nt">add_header</span> <span class="nt">Strict-Transport-Security</span> <span class="s2">&quot;max-age=31536000&quot;</span> <span class="nt">always</span><span class="o">;</span>
+<span class="nt">add_header</span> <span class="nt">Upgrade-Insecure-Requests</span> <span class="s2">&quot;1&quot;</span><span class="o">;</span>
+<span class="nt">add_header</span> <span class="nt">Content-Security-Policy</span> <span class="s2">&quot;upgrade-insecure-requests&quot;</span><span class="o">;</span>
+<span class="nt">ssl_dhparam</span> <span class="o">/</span><span class="nt">etc</span><span class="o">/</span><span class="nt">ssl</span><span class="o">/</span><span class="nt">dhparams</span><span class="p">.</span><span class="nc">pem</span><span class="o">;</span>
+<span class="nt">ssl_stapling</span> <span class="nt">on</span><span class="o">;</span>
+<span class="nt">ssl_stapling_verify</span> <span class="nt">on</span><span class="o">;</span>
+<span class="nt">resolver</span> <span class="nt">8</span><span class="p">.</span><span class="nc">8</span><span class="p">.</span><span class="nc">8</span><span class="p">.</span><span class="nc">8</span> <span class="nt">8</span><span class="p">.</span><span class="nc">8</span><span class="p">.</span><span class="nc">4</span><span class="p">.</span><span class="nc">4</span> <span class="nt">114</span><span class="p">.</span><span class="nc">114</span><span class="p">.</span><span class="nc">114</span><span class="p">.</span><span class="nc">114</span> <span class="nt">valid</span><span class="o">=</span><span class="nt">60s</span><span class="o">;</span>
+<span class="nt">resolver_timeout</span> <span class="nt">2s</span><span class="o">;</span>
+<span class="nt">ssl_protocols</span> <span class="nt">TLSv1</span> <span class="nt">TLSv1</span><span class="p">.</span><span class="nc">1</span> <span class="nt">TLSv1</span><span class="p">.</span><span class="nc">2</span><span class="o">;</span>
+<span class="nt">ssl_ciphers</span> <span class="s1">&#39;ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:AES:CAMELLIA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA&#39;</span><span class="o">;</span>
+<span class="nt">ssl_session_cache</span> <span class="nt">shared</span><span class="p">:</span><span class="nd">SSL</span><span class="p">:</span><span class="nd">10m</span><span class="o">;</span>
+<span class="nt">ssl_session_timeout</span> <span class="nt">24h</span><span class="o">;</span>
+<span class="nt">ssl_buffer_size</span> <span class="nt">1400</span><span class="o">;</span>
+<span class="nt">ssl_prefer_server_ciphers</span>  <span class="nt">on</span><span class="o">;</span>
+<span class="nt">keepalive_timeout</span> <span class="nt">600s</span><span class="o">;</span>
+<span class="nt">location</span> <span class="o">~*</span> <span class="o">/</span><span class="err">\</span><span class="o">.(?!</span><span class="nt">well-known</span><span class="err">\</span><span class="o">/)</span> <span class="p">{</span>
+    <span class="err">deny</span> <span class="err">all</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">location</span> <span class="o">~*</span> <span class="o">(?:</span><span class="err">\</span><span class="o">.(?</span><span class="p">:</span><span class="nd">bak</span><span class="o">|</span><span class="nt">conf</span><span class="o">|</span><span class="nt">dist</span><span class="o">|</span><span class="nt">fla</span><span class="o">|</span><span class="nt">in</span><span class="cp">[</span><span class="nx">ci</span><span class="cp">]</span><span class="o">|</span><span class="nt">log</span><span class="o">|</span><span class="nt">psd</span><span class="o">|</span><span class="nt">sh</span><span class="o">|</span><span class="nt">sql</span><span class="o">|</span><span class="nt">sw</span><span class="cp">[</span><span class="nx">op</span><span class="cp">]</span><span class="o">)|~)$</span> <span class="p">{</span>
+    <span class="err">deny</span> <span class="err">all</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">include</span> <span class="nt">mime</span><span class="p">.</span><span class="nc">types</span><span class="o">;</span>
+</pre></div>
+
+
+<p>为需要启用https的站点，在/etc/nginx/sites-enabled/中写入conf文件</p>
+<div class="codehilite"><pre><span></span>server {
+    listen 443;
+    server_name 域名1 域名2;
+    access_log /tmp/access.log;
+    error_log /tmp/error.log;
+    ssl_certificate 密钥目录/名称.crt;
+    ssl_certificate_key 密钥目录/名称.key;
+    include https.conf
+    其他配置。。。
+}
+</pre></div>
+
+
+<h2 id="js">反向代理之替换网页、JS中的文本<a class="headerlink" href="#js" title="Permanent link">&para;</a></h2>
+<p>使用模块ngx_http_substitutions_filter_module，见Github: https://github.com/yaoweibin/ngx_http_substitutions_filter_module</p>
+<p>需要重新编译nginx，Tip: <code>nginx -V</code>命令可以显示当前版本的nginx的编译参数</p>
+<p>编译后就可以用啦，举个例子：微信的公众号文章页面为了节省用户流量，图片是把页面滚动至所在位置才加载的，代码上的差异就是img标签本应是src的改成了data-src，这里我们要做一个微信的反向代理网站，把data-src替换成src，则可以直接加载所有图片（唔。。。其实还不够，还需要考虑防盗链的问题）；并且设置MIME类型包含Javascript</p>
+<div class="codehilite"><pre><span></span>        subs_filter 需要替换掉的内容 替换后的文本;
+        subs_filter data-src src;
+        subs_filter_types application/x-javascript text/javascript appliation/x-javascript;
+</pre></div>
+
+
+<h2 id="git">禁止git目录访问<a class="headerlink" href="#git" title="Permanent link">&para;</a></h2>
+<p>在server块中添加：</p>
+<div class="codehilite"><pre><span></span>location ~ /\. {
+    return 404;
+}
+</pre></div>
+
+
+<p>相应的Apache可以在httpd.conf中添加：</p>
+<div class="codehilite"><pre><span></span>RedirectMatch 404 /\.git
+</pre></div>
+
+
+<h2 id="rootalias">root与alias的区别<a class="headerlink" href="#rootalias" title="Permanent link">&para;</a></h2>
+<p>From: http://stackoverflow.com/questions/10631933/nginx-static-file-serving-confusion-with-root-alias</p>
+<p>一句话概括，root对应的目录会加上location部分去找文件，而alias则不会</p>
+<div class="codehilite"><pre><span></span>        location /static/ {
+                root /var/www/app/static/;
+                autoindex off;
+        }
+</pre></div>
+
+
+<p>如果我们这么写，那么访问static目录下的a.jpg就会去找/var/www/app/static/static目录下的a.jpg，如果没有这个static/static就会404</p>
+<p>解决方法有两种：</p>
+<p>如果location中的static就是真实目录，root中就不要写static了</p>
+<div class="codehilite"><pre><span></span>        location /static/ {
+                root /var/www/app/;
+                autoindex off;
+        }
+</pre></div>
+
+
+<p>或者用alias就不会再加上location的部分：</p>
+<div class="codehilite"><pre><span></span>        location /static/ {
+                alias /var/www/app/static/;
+                autoindex off;
+        }
+</pre></div>
+
+
+<hr />
+<h2 id="bash-on-win10nginx">在bash on win10上使用Nginx<a class="headerlink" href="#bash-on-win10nginx" title="Permanent link">&para;</a></h2>
+<p>与Linux中安装类似，只要<code>apt-get install nginx</code>即可，但可能会发现nginx并不正常工作，日志中是这样的：</p>
+<div class="codehilite"><pre><span></span>[alert] 79#0: ioctl(FIOASYNC) failed while spawning &quot;worker process&quot; (22: Invalid argument)
+</pre></div>
+
+
+<p>解决方案：在/etc/nginx/nginx.conf中添加一行：</p>
+<div class="codehilite"><pre><span></span>master_process off;
+</pre></div>
+
+
+<hr />
+<h2 id="ip">使上一级服务知道用户IP<a class="headerlink" href="#ip" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span>proxy_set_header realip $remote_addr;
+</pre></div>
+
+
+<p>这样设置后，Nginx反向代理上一级服务会加上realip这个头，从而传递用户真实的IP（如果是代理则是代理的IP）</p>
+<hr />
+<h2 id="nginx_2">Nginx允许列目录<a class="headerlink" href="#nginx_2" title="Permanent link">&para;</a></h2>
+<p>加上<code>autoindex on</code>即可</p>
+<div class="codehilite"><pre><span></span>location / {
+    autoindex on;
+    autoindex_localtime on; #显示服务器时间而不是GMT时间
+    autoindex_exact_size off; #以kB,MB,GB为单位显示大小而不是确切的字节数
+}
+</pre></div>
+                
+                  
+                
+              
+              
+                
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../MySQL/" title="MySQL" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                MySQL
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../Developer/" title="Developer" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Developer
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="http://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+  <div class="md-footer-social">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+      <a href="https://github.com/zjuchenyuan" class="md-footer-social__link fa fa-github"></a>
+    
+  </div>
+
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.f041762f.js"></script>
+      
+      <script>app.initialize({version:"0.17.2",url:{base:".."}})</script>
+      
+    
+    
+      
+    
+  </body>
+</html>

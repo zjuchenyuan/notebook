@@ -20,7 +20,7 @@ curl这么有用的东西，还是单独开个文档咯~
 
 ----
 
-# 模拟浏览器请求
+## 模拟浏览器请求
 
 用Chrome开发人员工具，对请求右键，Copy as cURL就好啦
 
@@ -28,7 +28,7 @@ curl这么有用的东西，还是单独开个文档咯~
 
 ----
 
-# 基本教程
+## 基本教程
 
 ```
 REM 在bat中REM命令表示注释行
@@ -66,7 +66,7 @@ curl dict://www.dict.org/d:computer -v
 
 ----
 
-# 还可以循环哟
+## 还可以循环哟
 
 curl -OJ http://example.com/[1-100].jpg
 

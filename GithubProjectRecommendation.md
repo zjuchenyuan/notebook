@@ -2,7 +2,7 @@
 * TOC
 {:toc}
 
-# you-get
+## you-get
 
 https://github.com/soimort/you-get
 
@@ -12,7 +12,7 @@ pip安装后直接下载b站超清视频
 
 ----
 
-# Anki
+## Anki
 
 https://github.com/dae/anki
 
@@ -26,7 +26,7 @@ https://zhuanlan.zhihu.com/-anki
 
 ----
 
-# OnlineJudge
+## OnlineJudge
 
 https://github.com/QingdaoU/OnlineJudge
 
@@ -50,7 +50,7 @@ docker-compose up -d
 
 -----
 
-# sympy
+## sympy
 
 https://github.com/sympy/sympy
 
@@ -60,7 +60,7 @@ Python也能用来解方程！求极限！求积分！
 
 -----
 
-# InstantClick
+## InstantClick
 
 https://github.com/dieulot/instantclick
 
@@ -68,7 +68,7 @@ https://github.com/dieulot/instantclick
 
 ----
 
-# explainshell 
+## explainshell 
 
 https://github.com/idank/explainshell
 
@@ -76,7 +76,7 @@ https://github.com/idank/explainshell
 
 ----
 
-# Python Learn Notes
+## Python Learn Notes
 
 https://github.com/AnyISalIn/Python_Learn_Notes
 
@@ -84,7 +84,7 @@ https://github.com/AnyISalIn/Python_Learn_Notes
 
 ----
 
-# websocketd
+## websocketd
 
 https://github.com/joewalnes/websocketd/
 

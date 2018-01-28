@@ -15,7 +15,7 @@ TOC:
 
 ----
 
-# 如何翻墙
+## 如何翻墙
 
 ## 部署shadowsocks客户端，并部署Privoxy提供http proxy
 
@@ -23,7 +23,7 @@ TOC:
 
 ----
 
-# 配置有线静态IP
+## 配置有线静态IP
 ```bash
 vim /etc/network/interfaces
 # 写入以下内容，请自行替换xx部分
@@ -43,7 +43,7 @@ route add default gw 10.xx.xx.254 dev eth0 #这里设置为你的网关
 
 注意使用ifconfig进行ip的修改后，会丢失路由信息、额外的ip设置，需要重新配置route（执行上述两条route命令即可）
 
-# 配置为dhcp自动获取ip，解决RTNETLINK answers: File exists问题
+## 配置为dhcp自动获取ip，解决RTNETLINK answers: File exists问题
 
 之前已经配置过静态ip，现在要改为自动获取
 
@@ -82,7 +82,7 @@ ifconfig eth0:233 10.xx.xx.233 netmask 255.255.255.0 up
 
 ----
 
-# 锐速安装
+## 锐速安装
 
 来自：https://github.com/91yun/serverspeeder
 
@@ -102,7 +102,7 @@ ifconfig eth0:233 10.xx.xx.233 netmask 255.255.255.0 up
     
 ----
 
-# 解决apt依赖问题
+## 解决apt依赖问题
 
 问题描述：服务器为ubuntu14.04版本，某些不明操作后，无法用`apt-get`安装任何东西
 
@@ -135,7 +135,7 @@ https://launchpad.net/ubuntu/vivid/amd64/libglib2.0-0/2.44.0-1ubuntu3
 
 得到deb文件后`dpkg -i 文件名`
 
-## Note
+### Note
 
 一般apt依赖冲突问题都是由于系统版本与需要的包的版本不一致导致的，检查一下/etc/apt/sources.list看看是否匹配系统版本咯
 
@@ -143,7 +143,7 @@ https://launchpad.net/ubuntu/vivid/amd64/libglib2.0-0/2.44.0-1ubuntu3
 
 ----
 
-# UnixBench
+## UnixBench
 
 VPS性能测试工具，耗时较长，耐心等待
 
@@ -157,16 +157,14 @@ screen -S ub
 ./Run
 ```
 
-## 硬盘IO性能测试
+参考数据，均为最低配置：主机屋1590.5；阿里云1470.4；腾讯云1156.0
+
+### 硬盘IO性能测试
 
 ```
 dd if=/dev/zero of=test bs=64k count=4k oflag=dsync
 dd if=/dev/zero of=test bs=8k count=256k conv=fdatasync
 ```
-
-## 参考数据，均为最低配置
-
-主机屋1590.5；阿里云1470.4；腾讯云1156.0
 
 ----
 
@@ -181,7 +179,7 @@ echo 3 > /proc/sys/vm/drop_caches
 
 ----
 
-# 使用iptables封ip
+## 使用iptables封ip
 
 ### 屏蔽单个IP
 
@@ -277,7 +275,7 @@ iptables -A INPUT -p tcp --dport 8888 -j REJECT
 
 ----
 
-# 双网卡端口转发，暴露内网端口
+## 双网卡端口转发，暴露内网端口
 
 > 来自： https://yq.aliyun.com/wenzhang/show_25824
 
@@ -285,13 +283,13 @@ iptables -A INPUT -p tcp --dport 8888 -j REJECT
 
 目标： 在外网访问A机器的2121端口，就相当于连上了B机器的ftp(21)
 
-## 环境： 
+### 环境： 
 
 A机器外网IP为 1.2.3.4(eth1) 内网IP为 192.168.1.20 (eth0)
 
 B机器内网为 192.168.1.21
 
-## 实现方法：
+### 实现方法：
 
 首先在A机器上打开端口转发功能
 
@@ -314,7 +312,7 @@ iptables -t nat -I POSTROUTING -d 192.168.1.21 -p tcp --dport 21 -j SNAT --to 19
 service iptables save
 ```
 
-## 取消转发方法
+### 取消转发方法
 
 iptables中把-I改为-D运行就是删除此条规则
 
@@ -336,7 +334,7 @@ chattr -R -i /bin /sbin /usr/sbin /usr/bin /usr/local/sbin /usr/local/bin
 
 ----
 
-# 时区设置
+## 时区设置
 
 ```
 cp /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
@@ -345,7 +343,7 @@ ntpdate cn.pool.ntp.org
 
 ----
 
-# 查看CPU核心个数
+## 查看CPU核心个数
 
 一般我会用 `top` 命令，按 `1` 就能看到每个CPU占用情况
 
@@ -364,7 +362,7 @@ cat /proc/cpuinfo| grep "processor"| wc -l
 
 ----
 
-# 非交互式添加用户
+## 非交互式添加用户
 
 ```
 useradd username -m
@@ -375,13 +373,13 @@ echo username:password|chpasswd
 
 ----
 
-# 简单OpenVPN配置
+## 简单OpenVPN配置
 
 一个最最简单的场景：只有一个服务器 一个客户端，在容器中用来给用户直接访问的一个内网IP
 
 参考：https://openvpn.net/index.php/open-source/documentation/miscellaneous/78-static-key-mini-howto.html
 
-## 安装openvpn:
+### 安装openvpn:
 
 Linux:
 
@@ -393,7 +391,7 @@ Windows:
 
 [openvpn.exe](https://d.py3.io/openvpn.exe)
 
-## 生成密钥
+### 生成密钥
 
 ```
 openvpn --genkey --secret static.key
@@ -401,7 +399,7 @@ openvpn --genkey --secret static.key
 
 用另外建立的安全通道(SSH)将static.key发给客户端
 
-## 服务端配置
+### 服务端配置
 
 ```
 ifconfig 10.8.0.1 10.8.0.2
@@ -432,7 +430,7 @@ service openvpn@myvpn start
 systemctl enable openvpn@myvpn.service
 ```
 
-## 客户端配置
+### 客户端配置
 
 ```
 
@@ -442,7 +440,7 @@ ifconfig 10.8.0.2 10.8.0.1
 secret static.key
 ```
 
-## 在Docker中使用服务端
+### 在Docker中使用服务端
 
 参考：https://raw.githubusercontent.com/kylemanna/docker-openvpn/master/bin/ovpn_run
 
@@ -459,11 +457,12 @@ fi
 
 ----
 
-# 时区时间设置
+## 时区时间设置
 
 参考：http://liumissyou.blog.51cto.com/4828343/1302050
 
 ```
+apt-get install tzdata
 cp /etc/localtime /etc/localtime.bak
 ln -svf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 echo "TZ='Asia/Shanghai'">>~/.bashrc

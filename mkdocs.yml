@@ -4,19 +4,52 @@ site_description: 我的技术笔记本~
 site_author: chenyuan
 theme:
   name: 'material'
-  language: 'en'
-  palette:
-    primary: 'indigo'
-    accent: 'indigo'
-  font:
-    text: 'Roboto'
-    code: 'Roboto Mono'
 docs_dir: 'mdfiles'
-site_dir: 'docs'
+site_dir: 'newdocs'
 pages:
     - Home: README.md
-    - Python: Python.md
-    - Gist: gist.md
+    - Python: 
+        - Python: Python.md
+        - Gist Python一些常用代码片段: gist.md
+    - Programming Languages:
+        - BASH: BASH.md
+        - BAT批处理: BAT.md
+        - C语言: C.md
+        - Java: 
+            - Java: Java.md
+            - S2-045: S2-045.md
+        - JavaScript: JavaScript.md
+        - PHP: PHP.md
+        
+    - Website & Network:
+        - CC98 OAuth2: CC98.md
+        - CDN: CDN.md
+        - cURL: cURL.md
+        - Favorites: 
+            - Favorites: Favorites.md
+            - Github Project Recommendation: GithubProjectRecommendation.md
+            - 更多链接: Links.md
+        - Jekyll: Jekyll.md
+        - MySQL: MySQL.md
+        - Nginx: Nginx.md
+        
+
+    - Developer: 
+        - Developer: Developer.md
+        - Docker: Docker.md
+        - Git: Git.md
+        - WindowsSoftware: WindowsSoftware.md
+
+    - Linux:
+            - Linux-backup: Linux-backup.md
+            - Linux-setup: Linux-setup.md
+            - Linux-SSH: Linux-SSH.md
+            - Linux-cli: Linux-cli.md
+            - Linux-VirtualBox: Linux-VirtualBox.md
+            - Ubuntu: Ubuntu.md
+
+    
+    
 extra:
   social:
     - type: 'github'

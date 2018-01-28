@@ -1,0 +1,57 @@
+#全新ubuntu14.04需要运行的代码
+
+echo """nameserver 114.114.114.114
+nameserver 223.5.5.5"""> /etc/resolv.conf
+
+curl http://mirrors.163.com/.help/sources.list.trusty>/etc/apt/sources.list
+
+apt-get update
+
+apt-get install -y screen python-pip  privoxy unzip  libssl-dev openssl 
+
+mkdir -p ~/.pip
+echo """
+[global]
+index-url = http://pypi.doubanio.com/simple/
+[install]
+trusted-host=pypi.doubanio.com
+""">~/.pip/pip.conf
+
+pip install shadowsocks
+
+screen -S ss
+
+sslocal ...
+
+curl ip.cn --proxy socks5://127.0.0.1:1080
+
+echo """
+user-manual /usr/share/doc/privoxy/user-manual
+confdir /etc/privoxy
+logdir /var/log/privoxy
+actionsfile match-all.action
+actionsfile user.action
+logfile logfile
+toggle  1
+enable-remote-toggle  0
+enable-remote-http-toggle  0
+enable-edit-actions 0
+enforce-blocks 0
+buffer-limit 4096
+enable-proxy-authentication-forwarding 0
+forwarded-connect-retries  0
+accept-intercepted-requests 0
+allow-cgi-request-crunching 0
+split-large-forms 0
+keep-alive-timeout 5
+tolerate-pipelining 1
+socket-timeout 300
+listen-address  127.0.0.1:8118
+forward-socks5    /    127.0.0.1:1080 .
+""">/etc/privoxy/config
+service privoxy restart
+
+curl https://codeload.github.com/kdlucas/byte-unixbench/zip/v5.1.3 --proxy socks5://127.0.0.1:1080 >UnixBench.zip
+unzip UnixBench.zip
+cd byte-unixbench-5.1.3/UnixBench
+./Run

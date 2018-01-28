@@ -1,0 +1,1543 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="我的技术笔记本~">
+      
+      
+      
+        <meta name="author" content="chenyuan">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.5.3">
+    
+    
+      
+        <title>C语言 - notebook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.aa3de92b.css">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
+    <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+    
+      <a href="#_1" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../README/" title="notebook" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                notebook
+              </span>
+              <span class="md-header-nav__topic">
+                C语言
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/zjuchenyuan/notebook/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="drawer">
+    <span class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </span>
+    notebook
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/zjuchenyuan/notebook/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../README/" title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Python
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Python
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Python/" title="Python" class="md-nav__link">
+      Python
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../gist/" title="Gist Python一些常用代码片段" class="md-nav__link">
+      Gist Python一些常用代码片段
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      Programming Languages
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Programming Languages
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../BASH/" title="BASH" class="md-nav__link">
+      BASH
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../BAT/" title="BAT批处理" class="md-nav__link">
+      BAT批处理
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        C语言
+      </label>
+    
+    <a href="./" title="C语言" class="md-nav__link md-nav__link--active">
+      C语言
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#dev-c" title="关于Dev C++" class="md-nav__link">
+    关于Dev C++
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="输入的问题" class="md-nav__link">
+    输入的问题
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#csstreamsprintf" title="C++用sstream代替sprintf" class="md-nav__link">
+    C++用sstream代替sprintf
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#g" title="解决g++省略拷贝构造函数的问题" class="md-nav__link">
+    解决g++省略拷贝构造函数的问题
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="[数据结构]树的遍历" class="md-nav__link">
+    [数据结构]树的遍历
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="遍历的循环条件" class="md-nav__link">
+    遍历的循环条件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="使用面向对象的思想" class="md-nav__link">
+    使用面向对象的思想
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constvectorconst_iterator" title="对一个const的vector使用迭代器要用const_iterator" class="md-nav__link">
+    对一个const的vector使用迭代器要用const_iterator
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="小心未初始化的变量" class="md-nav__link">
+    小心未初始化的变量
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" title="获取文件大小" class="md-nav__link">
+    获取文件大小
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c" title="C程习题解答" class="md-nav__link">
+    C程习题解答
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" title="1.结构指针" class="md-nav__link">
+    1.结构指针
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="题目" class="md-nav__link">
+    题目
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" title="答案" class="md-nav__link">
+    答案
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" title="一句话解释" class="md-nav__link">
+    一句话解释
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" title="详细解释" class="md-nav__link">
+    详细解释
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" title="这就够了吗？" class="md-nav__link">
+    这就够了吗？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" title="回顾一下" class="md-nav__link">
+    回顾一下
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" title="2.结构数组" class="md-nav__link">
+    2.结构数组
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" title="题目" class="md-nav__link">
+    题目
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" title="答案" class="md-nav__link">
+    答案
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" title="解析" class="md-nav__link">
+    解析
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" title="指针，数组各种玩法" class="md-nav__link">
+    指针，数组各种玩法
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4">
+    
+    <label class="md-nav__link" for="nav-3-4">
+      Java
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="5">
+      <label class="md-nav__title" for="nav-3-4">
+        Java
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Java/" title="Java" class="md-nav__link">
+      Java
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../S2-045/" title="S2-045" class="md-nav__link">
+      S2-045
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../JavaScript/" title="JavaScript" class="md-nav__link">
+      JavaScript
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../PHP/" title="PHP" class="md-nav__link">
+      PHP
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Website & Network
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Website & Network
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../CC98/" title="CC98 OAuth2" class="md-nav__link">
+      CC98 OAuth2
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../CDN/" title="CDN" class="md-nav__link">
+      CDN
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cURL/" title="cURL" class="md-nav__link">
+      cURL
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-4" type="checkbox" id="nav-4-4">
+    
+    <label class="md-nav__link" for="nav-4-4">
+      Favorites
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="5">
+      <label class="md-nav__title" for="nav-4-4">
+        Favorites
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Favorites/" title="Favorites" class="md-nav__link">
+      Favorites
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../GithubProjectRecommendation/" title="Github Project Recommendation" class="md-nav__link">
+      Github Project Recommendation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Links/" title="更多链接" class="md-nav__link">
+      更多链接
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Jekyll/" title="Jekyll" class="md-nav__link">
+      Jekyll
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../MySQL/" title="MySQL" class="md-nav__link">
+      MySQL
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Nginx/" title="Nginx" class="md-nav__link">
+      Nginx
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Developer
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Developer
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Developer/" title="Developer" class="md-nav__link">
+      Developer
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Docker/" title="Docker" class="md-nav__link">
+      Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Git/" title="Git" class="md-nav__link">
+      Git
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../WindowsSoftware/" title="WindowsSoftware" class="md-nav__link">
+      WindowsSoftware
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Linux
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Linux
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Linux-backup/" title="Linux-backup" class="md-nav__link">
+      Linux-backup
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Linux-setup/" title="Linux-setup" class="md-nav__link">
+      Linux-setup
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Linux-SSH/" title="Linux-SSH" class="md-nav__link">
+      Linux-SSH
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Linux-cli/" title="Linux-cli" class="md-nav__link">
+      Linux-cli
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Linux-VirtualBox/" title="Linux-VirtualBox" class="md-nav__link">
+      Linux-VirtualBox
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Ubuntu/" title="Ubuntu" class="md-nav__link">
+      Ubuntu
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#dev-c" title="关于Dev C++" class="md-nav__link">
+    关于Dev C++
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="输入的问题" class="md-nav__link">
+    输入的问题
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#csstreamsprintf" title="C++用sstream代替sprintf" class="md-nav__link">
+    C++用sstream代替sprintf
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#g" title="解决g++省略拷贝构造函数的问题" class="md-nav__link">
+    解决g++省略拷贝构造函数的问题
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="[数据结构]树的遍历" class="md-nav__link">
+    [数据结构]树的遍历
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="遍历的循环条件" class="md-nav__link">
+    遍历的循环条件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="使用面向对象的思想" class="md-nav__link">
+    使用面向对象的思想
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constvectorconst_iterator" title="对一个const的vector使用迭代器要用const_iterator" class="md-nav__link">
+    对一个const的vector使用迭代器要用const_iterator
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="小心未初始化的变量" class="md-nav__link">
+    小心未初始化的变量
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" title="获取文件大小" class="md-nav__link">
+    获取文件大小
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c" title="C程习题解答" class="md-nav__link">
+    C程习题解答
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" title="1.结构指针" class="md-nav__link">
+    1.结构指针
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="题目" class="md-nav__link">
+    题目
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" title="答案" class="md-nav__link">
+    答案
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" title="一句话解释" class="md-nav__link">
+    一句话解释
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" title="详细解释" class="md-nav__link">
+    详细解释
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" title="这就够了吗？" class="md-nav__link">
+    这就够了吗？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" title="回顾一下" class="md-nav__link">
+    回顾一下
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" title="2.结构数组" class="md-nav__link">
+    2.结构数组
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" title="题目" class="md-nav__link">
+    题目
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" title="答案" class="md-nav__link">
+    答案
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" title="解析" class="md-nav__link">
+    解析
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" title="指针，数组各种玩法" class="md-nav__link">
+    指针，数组各种玩法
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/zjuchenyuan/notebook/edit/master/docs/C.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="_1">写在前面<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>一点关于C的建议咯，也包含C++</p>
+<p>顺带附上几个题目和我写的解答</p>
+<ul>
+<li>TOC
+{:toc}</li>
+</ul>
+<hr />
+<h2 id="dev-c">关于Dev C++<a class="headerlink" href="#dev-c" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>有时候会发生改了代码但运行起来是旧版本的情况，需要检查是否关闭了正在运行的exe，如果是工程需要按F12全部重新编译清空缓存</p>
+</li>
+<li>
+<p>编译工程错误定位在Makefile说明有函数声明了但没有定义，或者可能是出现了多个文件同名函数，小心其创建工程的时候自动产生的main.c</p>
+</li>
+<li>
+<p>如果单纯只需要编译一个C文件，为追求编译速度可以考虑使用tcc (Tiny C Compile)编译器，参见<a href="https://qs1401.com/?post=18">https://qs1401.com/?post=18</a></p>
+</li>
+<li>
+<p>不要在一个项目中混用.c和.cpp，将导致<code>ld</code>链接的时候函数找不到。因为编译.cpp的时候是C++的编译，由于要支持重载，编译器会自动修改函数名称，导致代码中同样名字的函数编译出来的.o文件里面函数名称是不同的，这样.c找不到.cpp的函数，自然无法链接</p>
+</li>
+<li>
+<p>注意指针的星号别少写：想一次写两个指针？不能写FILE<em> fp1,fp2;而是每个变量前面都要带上星号！正确写法：FILE </em>fp1,<em>fp2; char </em>s1,*s2;</p>
+</li>
+</ul>
+<hr />
+<h2 id="_2">输入的问题<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>我建议所有的输入全部使用gets完成，然后再用sscanf读取到变量，可以有效防止scanf在一行出错波及到下一行</p>
+<p>当然更安全的是 <code>fgets(buf,9999,stdin);</code> 但这种方法会得到\n字符</p>
+<p>另外，无论是scanf还是sscanf，赋值给int/double等类型的变量一定要写&amp;符号！</p>
+<p>以下代码演示这种输入方法，对输入的n个数调用qsort排序；输入格式：第一行 N表示数的个数，第二行 N个需要排序的数(N&lt;1000)</p>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+<span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">9999</span><span class="p">];</span>
+<span class="kt">int</span> <span class="n">data</span><span class="p">[</span><span class="mi">1005</span><span class="p">];</span> <span class="c1">//不要在局部变量定义大数组，会炸栈</span>
+<span class="kt">int</span> <span class="nf">cmp</span><span class="p">(</span><span class="k">const</span> <span class="kt">void</span><span class="o">*</span> <span class="n">a</span><span class="p">,</span><span class="k">const</span> <span class="kt">void</span><span class="o">*</span> <span class="n">b</span><span class="p">){</span>
+    <span class="k">return</span> <span class="o">*</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">a</span><span class="o">-*</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="kt">int</span> <span class="n">N</span><span class="p">,</span><span class="n">i</span><span class="p">;</span>
+    <span class="n">gets</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span>
+    <span class="n">sscanf</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">N</span><span class="p">);</span>
+    <span class="n">gets</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">N</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">sscanf</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span><span class="s">&quot;%d %[^</span><span class="se">\n</span><span class="s">]&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">buf</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">qsort</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">),</span><span class="n">cmp</span><span class="p">);</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d &quot;</span><span class="p">,</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<hr />
+<h2 id="csstreamsprintf">C++用sstream代替sprintf<a class="headerlink" href="#csstreamsprintf" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;sstream&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;iostream&gt; </span><span class="cp"></span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">stringstream</span> <span class="n">s</span><span class="p">;</span>
+    <span class="n">string</span> <span class="n">result</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span>
+    <span class="n">s</span> <span class="o">&lt;&lt;</span><span class="s">&quot;haha &quot;</span><span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span> 
+    <span class="n">getline</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">result</span><span class="p">);</span> <span class="c1">// the whole line rather than just the first word</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">result</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">// print &quot;haha1000&quot;</span>
+    <span class="n">s</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+<span class="p">}</span> 
+</pre></div>
+
+
+<hr />
+<h2 id="g">解决g++省略拷贝构造函数的问题<a class="headerlink" href="#g" title="Permanent link">&para;</a></h2>
+<p>g++为了防止在函数返回值是对象的时候，拷贝构造被调用多次，即使拷贝构造函数有副作用，也会被优化掉（直接就不调用拷贝构造函数了）</p>
+<p>为了解决这个问题，从而证明教材上的正确性/语言的特性，需要在编译（不是链接）的时候加入以下开关：</p>
+<div class="codehilite"><pre><span></span>-fno-elide-constructors
+</pre></div>
+
+
+<hr />
+<h2 id="_3">[数据结构]树的遍历<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>允许不确定个元素的子节点个数，要求给出所有从根节点开始到叶节点的路径</p>
+<p>我是这么写的遍历循环（伪代码），其中p1和p2是指向节点的指针：</p>
+<div class="codehilite"><pre><span></span>路径=[根节点]
+while(循环条件):
+    while (p2=p1的下一个没有遍历过的子节点)不为空:
+        把p2加入路径
+        p1=p2
+    if p1为叶节点:
+        得到了一条从根节点到一个叶节点的路径
+    路径pop，换言之，删掉最后加入的节点
+    p1=p1的父节点（就是回溯）
+</pre></div>
+
+
+<p>其中关键的<strong>p1的下一个没有遍历过的子节点</strong>的实现是这样子的：</p>
+<div class="codehilite"><pre><span></span>if 当前孩子的下标&gt;=孩子总数:
+    return NULL
+else return 子节点数组[当前下标++]
+</pre></div>
+
+
+<p>卖个关子。。。请思考一下循环条件应该写啥？</p>
+<h3 id="_4">遍历的循环条件<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>一开始我写的是：“根节点还有未遍历过的子节点”，但是这么写在这里就出了问题，由于标记已经遍历的子节点发生在真正遍历完子节点之前（我用的return 数组[下标++]），在循环根节点的最后一个子节点的时候会提前结束循环，导致没能遍历所有节点！</p>
+<p>正确的写法是：<strong>路径的元素个数&gt;=1</strong></p>
+<p>路径可以用vector实现，元素个数就是vector的size()，只有遍历完成了整个树之后，根节点才会被pop出来，结束循环。</p>
+<h3 id="_5">使用面向对象的思想<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>这个题目我使用了C++来写，果然比C好多了。。。只要想好接口就能很方便地实现需要的功能啦（不过还是Python内置的list好多了，C++的vector各种const的坑</p>
+<p>这里分享一下我设计的接口：</p>
+<div class="codehilite"><pre><span></span><span class="kr">class</span> <span class="nx">Node</span><span class="p">{</span>
+    <span class="kr">public</span><span class="o">:</span>
+        <span class="nx">Node</span><span class="p">();</span>
+        <span class="k">void</span> <span class="nx">setChildNum</span><span class="p">(</span><span class="kr">int</span> <span class="nx">num</span><span class="p">);</span> <span class="c1">//为子节点的指针的数组分配空间</span>
+        <span class="k">void</span> <span class="nx">addOneChild</span><span class="p">(</span><span class="nx">Node</span><span class="o">*</span> <span class="nx">child</span><span class="p">);</span>
+        <span class="k">void</span> <span class="nx">setData</span><span class="p">(</span><span class="kr">int</span> <span class="nx">data</span><span class="p">);</span>
+        <span class="kr">int</span> <span class="nx">getData</span><span class="p">();</span>
+        <span class="k">void</span> <span class="nx">setParent</span><span class="p">(</span><span class="nx">Node</span><span class="o">*</span> <span class="nx">parent</span><span class="p">);</span>
+        <span class="nx">Node</span><span class="o">*</span> <span class="nx">getParent</span><span class="p">();</span>
+        <span class="nx">Node</span><span class="o">*</span> <span class="nx">getCurrentChild</span><span class="p">();</span> <span class="c1">//获得当前还没走过的子节点，并且把返回的子节点标记为走过了</span>
+        <span class="kt">bool</span> <span class="nx">hasChildToGo</span><span class="p">();</span> <span class="c1">//这个节点是不是所有的子节点都完成了</span>
+        <span class="kt">bool</span> <span class="nx">isLeafNode</span><span class="p">();</span> <span class="c1">//这个节点是不是叶节点</span>
+    <span class="kr">private</span><span class="o">:</span>
+        <span class="c1">//...省略咯...</span>
+<span class="p">};</span>
+<span class="kr">class</span> <span class="nx">Nodes</span><span class="p">{</span> <span class="c1">//存储路径的Nodes</span>
+    <span class="kr">public</span><span class="o">:</span>
+        <span class="k">void</span> <span class="nx">append</span><span class="p">(</span><span class="nx">Node</span><span class="o">*</span> <span class="nx">x</span><span class="p">);</span> <span class="c1">//把节点加入路径</span>
+        <span class="k">void</span> <span class="nx">pop</span><span class="p">();</span> <span class="c1">//删掉最后加入的那个节点</span>
+        <span class="kr">int</span> <span class="nx">getSumData</span><span class="p">();</span> <span class="c1">//路径上所有节点的data的和</span>
+        <span class="kr">int</span> <span class="nx">length</span><span class="p">();</span> <span class="c1">//路径当前的长度</span>
+        <span class="nx">friend</span> <span class="kt">bool</span> <span class="nx">cmp</span><span class="p">(</span><span class="kr">const</span> <span class="nx">Nodes</span><span class="o">&amp;</span> <span class="nx">a</span><span class="p">,</span><span class="kr">const</span> <span class="nx">Nodes</span><span class="o">&amp;</span><span class="nx">b</span><span class="p">);</span> <span class="c1">//用于对路径进行排序</span>
+        <span class="nx">friend</span> <span class="nx">ostream</span><span class="o">&amp;</span> <span class="nx">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="nx">ostream</span><span class="o">&amp;</span> <span class="nx">out</span><span class="p">,</span><span class="nx">Nodes</span><span class="o">&amp;</span> <span class="nx">x</span><span class="p">);</span> 
+    <span class="kr">private</span><span class="o">:</span>
+        <span class="nx">vector</span><span class="o">&lt;</span><span class="nx">Node</span><span class="o">*&gt;</span> <span class="nx">data</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+
+
+<h2 id="constvectorconst_iterator">对一个const的vector使用迭代器要用const_iterator<a class="headerlink" href="#constvectorconst_iterator" title="Permanent link">&para;</a></h2>
+<p>有时候函数参数就规定了必须是const的，如sort的比较函数，而比较的对象又是vector</p>
+<p>方法就是用<code>vector&lt;你的类型&gt;::const_iterator</code></p>
+<hr />
+<h3 id="_6">小心未初始化的变量<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>写代码的时候最好声明的时候就立刻初始化，未初始化的变量是未定义行为，可能出现加了个printf就好了，去掉printf就炸了的情况。</p>
+<hr />
+<h2 id="_7">获取文件大小<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>Learned from: http://blog.csdn.net/chenglibin1988/article/details/8750480</p>
+<div class="codehilite"><pre><span></span>long int get_file_size(char* filename){
+    /*
+     * 使用fseek和ftell获取文件大小，失败时返回-1 
+     */
+    int filesize;
+    FILE* fp = fopen(filename,&quot;rb&quot;);
+    if( NULL == fp ) return -1;
+    fseek(fp,0,SEEK_END);
+    filesize = ftell(fp);
+    fclose(fp);
+    return filesize;
+}
+</pre></div>
+
+
+<hr />
+<h2 id="c">C程习题解答<a class="headerlink" href="#c" title="Permanent link">&para;</a></h2>
+<p>学习一下各种坑爹的题目也是很不错的嘛（其实我就是为了把我的解析发上来。。。</p>
+<h3 id="1">1.结构指针<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<h4 id="_8">题目<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span>对于以下结构定义，p-&gt;str++中的++加在____。
+struct {int len; char *str}*p;
+A.指针str上     B.指针p上    C.str指向的内容上   D.语法错误
+</pre></div>
+
+
+<h4 id="_9">答案<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
+<p>D</p>
+<h4 id="_10">一句话解释<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h4>
+<p>你再仔细看看？是不是少了个分号？</p>
+<h4 id="_11">详细解释<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h4>
+<p>这个题目这么写编译存在语法问题的，而且运行也会炸</p>
+<p>你试试复制到Dev C++编译看看？</p>
+<div class="codehilite"><pre><span></span>[Error] expected &#39;;&#39; at end of member declaration
+</pre></div>
+
+
+<p>这个错误很显然的嘛，缺少了分号，正确写法：</p>
+<div class="codehilite"><pre><span></span>struct {int len; char *str;} *p;
+</pre></div>
+
+
+<h4 id="_12">这就够了吗？<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h4>
+<p>p是一个指针，对指针使用-&gt;运算符之前必须要给指针一个空间(正确的值)，否则就会导致*null而炸掉23333</p>
+<p>另外 这个struct没有名字，也就意味着无法给他赋值，不能被赋值的指针有什么用呢？</p>
+<p>正确的写法如下：</p>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="kt">char</span> <span class="n">string</span><span class="p">[</span><span class="mi">666</span><span class="p">]</span><span class="o">=</span><span class="s">&quot;abcd&quot;</span><span class="p">;</span> <span class="c1">//准备一个字符串</span>
+    <span class="k">struct</span> <span class="n">name</span> <span class="p">{</span><span class="kt">int</span> <span class="n">len</span><span class="p">;</span> <span class="kt">char</span> <span class="o">*</span><span class="n">str</span><span class="p">;}</span> <span class="n">s</span><span class="p">;</span><span class="c1">//首先要给struct取一个名字name，顺带用这个名字创建一个实例s</span>
+    <span class="n">s</span><span class="p">.</span><span class="n">str</span> <span class="o">=</span> <span class="n">string</span><span class="p">;</span> <span class="c1">//对这个实例的str赋值为string的地址</span>
+    <span class="k">struct</span> <span class="n">name</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">;</span> <span class="c1">//然后是用struct name来创建一个指向结构的指针p</span>
+    <span class="n">p</span><span class="o">-&gt;</span><span class="n">str</span><span class="o">++</span><span class="p">;</span><span class="c1">//相当于s的str++了，str原来指向&quot;abcd&quot;字符串的&#39;a&#39;，现在指向&#39;b&#39;</span>
+    <span class="n">puts</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">str</span><span class="p">);</span><span class="c1">//输出bcd</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h4 id="_13">回顾一下<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h4>
+<ol>
+<li>
+<p>struct必须要有一个名字</p>
+</li>
+<li>
+<p>struct大括号中的每一项都必须<strong>以分号结尾</strong></p>
+</li>
+<li>
+<p>使用指针取值 如<code>*p</code> , <code>p-&gt;something</code>之前指针的值必须设置好</p>
+</li>
+<li>
+<p>遇到不会的题目，为啥不自己问问编译器呢？</p>
+</li>
+</ol>
+<hr />
+<h3 id="2">2.结构数组<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<h4 id="_14">题目<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span>对于以下的变量定义，表达式____是正确的。
+struct node {
+    char s[10];
+    int k;
+} p[4];
+A. p-&gt;k=2
+B. p[0].s=&quot;abc&quot;;
+C. p[0]-&gt;k=2;
+D. p-&gt;s=&#39;a&#39;;
+</pre></div>
+
+
+<h4 id="_15">答案<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h4>
+<p>A</p>
+<h4 id="_16">解析<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h4>
+<p><code>p[0].num</code> 与 <code>(*(p+0)).num</code> 等价, 所以 <code>p[0].num</code> 与 <code>(p+0)-&gt;num</code> 等价</p>
+<p>编译一下确实A是可以的</p>
+<p>B选项错在结构体里面的s是一个有内存空间的char数组，<strong>不能把有内存空间的数组名称放到赋值的等号左边</strong> (编译器把数组名称当成常量，编译器这么设计的原因也许是：不然这个内存空间不就弄丢了嘛)</p>
+<p>字符串正确的&rdquo;赋值&rdquo;操作是： </p>
+<div class="codehilite"><pre><span></span>strcpy(p[0].s,&quot;abc&quot;);
+</pre></div>
+
+
+<p>C选项 p[0]是结构，而不是指针，直接写<code>p[0].k=2</code></p>
+<p>D选项 还是相同的道理 <strong>不能把有内存空间的数组名称放到赋值的等号左边</strong></p>
+<p>正确的写法 <code>p-&gt;s[0]='a'</code>, 也可以写 <code>p[0].s[0]='a'</code></p>
+<h4 id="_17">指针，数组各种玩法<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h4>
+<p>如果要写<code>p[1].s[2]='a'</code>, 等价的写法有：</p>
+<div class="codehilite"><pre><span></span>(p+1)-&gt;s[2]=&#39;a&#39;;
+*((p+1)-&gt;s + 2)=&#39;a&#39;;
+*((char*)p+1*sizeof(struct node)+2)=&#39;a&#39;;
+</pre></div>
+
+
+<p>此代码供你测试：</p>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="k">struct</span> <span class="n">node</span><span class="p">{</span>
+        <span class="kt">char</span> <span class="n">s</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+        <span class="kt">int</span> <span class="n">k</span><span class="p">;</span>
+    <span class="p">}</span> <span class="n">p</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+    <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span><span class="sc">&#39;a&#39;</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%c</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+    <span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span><span class="sc">&#39;b&#39;</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%c</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+    <span class="o">*</span><span class="p">((</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">s</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span><span class="o">=</span><span class="sc">&#39;c&#39;</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%c</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+    <span class="o">*</span><span class="p">((</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="o">*</span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">node</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span><span class="o">=</span><span class="sc">&#39;d&#39;</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%c&quot;</span><span class="p">,</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+                
+                  
+                
+              
+              
+                
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../BAT/" title="BAT批处理" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                BAT批处理
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../Java/" title="Java" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Java
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="http://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+  <div class="md-footer-social">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+      <a href="https://github.com/zjuchenyuan" class="md-footer-social__link fa fa-github"></a>
+    
+  </div>
+
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.f041762f.js"></script>
+      
+      <script>app.initialize({version:"0.17.2",url:{base:".."}})</script>
+      
+    
+    
+      
+    
+  </body>
+</html>
