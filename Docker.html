@@ -553,7 +553,8 @@ docker network inspect macvlan_bridge --format "{{range .Containers}}{{.IPv4Addr
 
 <h3 id="givecontaineripsh">give_container_ip.sh</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<div class="highlighter-rouge"><pre class="highlight"><code>
+<span class="c">#!/bin/bash</span>
 <span class="nb">set</span> -ex
 <span class="nb">shopt</span> -s expand_aliases
 
@@ -563,13 +564,14 @@ docker network inspect macvlan_bridge --format "{{range .Containers}}{{.IPv4Addr
     <span class="nb">exit </span>1
 <span class="k">fi
 
-</span><span class="nb">alias </span><span class="nv">getip</span><span class="o">=</span><span class="s2">"docker inspect  --format '' "</span>
+</span><span class="nb">alias </span><span class="nv">getip</span><span class="o">=</span><span class="s2">"docker inspect  --format '{{.NetworkSettings.IPAddress}}' "</span>
 
 <span class="nv">IPPREFIX</span><span class="o">=</span><span class="s2">"10.12.34."</span>
 <span class="nv">ETH0</span><span class="o">=</span><span class="s2">"eth0"</span>
 sudo ifconfig <span class="nv">$ETH0</span>:<span class="nv">$2</span> <span class="nv">$IPPREFIX$2</span> netmask 255.255.255.0 up
 sudo iptables -t nat -I PREROUTING -d <span class="nv">$IPPREFIX$2</span> -p tcp -j DNAT --to <span class="sb">`</span>getip <span class="nv">$1</span><span class="sb">`</span>
 sudo iptables -t nat -I POSTROUTING -s <span class="sb">`</span>getip <span class="nv">$1</span><span class="sb">`</span>/32 -d <span class="sb">`</span>getip <span class="nv">$1</span><span class="sb">`</span>/32 -p tcp -m tcp -j MASQUERADE
+
 </code></pre>
 </div>
 
@@ -638,7 +640,6 @@ sudo iptables -t nat -I POSTROUTING -s <span class="sb">`</span>getip <span clas
 <p>代码如下：<code class="highlighter-rouge">utils.py</code></p>
 
 <div class="language-python highlighter-rouge"><pre class="highlight"><code>
-<span class="p">{</span><span class="o">%</span> <span class="n">highlight</span> <span class="n">python</span> <span class="n">linenos</span> <span class="o">%</span><span class="p">}</span>
 <span class="c">#/usr/bin/python3</span>
 <span class="c">#coding:utf-8</span>
 <span class="kn">import</span> <span class="nn">subprocess</span>
@@ -723,7 +724,6 @@ int main(){
     <span class="k">print</span><span class="p">(</span><span class="s">"[*] compile runner.c to runner"</span><span class="p">)</span>
     <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s">"gcc runner.c -o runner"</span><span class="p">)</span>
 
-<span class="p">{</span><span class="o">%</span> <span class="n">endhighlight</span> <span class="o">%</span><span class="p">}</span>
 
 </code></pre>
 </div>

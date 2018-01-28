@@ -438,6 +438,7 @@ docker network inspect macvlan_bridge --format "{{range .Containers}}{{.IPv4Addr
 ### give_container_ip.sh
 
 ```
+{% raw %}
 #!/bin/bash
 set -ex
 shopt -s expand_aliases
@@ -455,6 +456,7 @@ ETH0="eth0"
 sudo ifconfig $ETH0:$2 $IPPREFIX$2 netmask 255.255.255.0 up
 sudo iptables -t nat -I PREROUTING -d $IPPREFIX$2 -p tcp -j DNAT --to `getip $1`
 sudo iptables -t nat -I POSTROUTING -s `getip $1`/32 -d `getip $1`/32 -p tcp -m tcp -j MASQUERADE
+{% endraw %}
 ```
 
 为什么最后用MASQUERADE而不用SNAT呢？因为用SNAT容器的应用就不能得到请求的源IP，在实际应用中是无法接受的；这一条iptables规则是我用`docker run -p`和`iptables-save`得到的
@@ -524,7 +526,6 @@ docker run -d -p 139:139 -p 445:445 --name samba -v /data:/data dperson/samba -u
 
 ```python
 {% raw %}
-{% highlight python linenos %}
 #/usr/bin/python3
 #coding:utf-8
 import subprocess
@@ -609,7 +610,6 @@ int main(){
     print("[*] compile runner.c to runner")
     os.system("gcc runner.c -o runner")
 
-{% endhighlight %}
 {% endraw %}
 ```
 
