@@ -523,6 +523,8 @@ docker run -d -p 139:139 -p 445:445 --name samba -v /data:/data dperson/samba -u
 代码如下：`utils.py`
 
 ```python
+{% raw %}
+{% highlight python linenos %}
 #/usr/bin/python3
 #coding:utf-8
 import subprocess
@@ -606,6 +608,9 @@ int main(){
 """%(path, path))
     print("[*] compile runner.c to runner")
     os.system("gcc runner.c -o runner")
+
+{% endhighlight %}
+{% endraw %}
 ```
 
 用到的xinetd配置：`runner.conf`，注意保存的时候不能有\r `:set ff=unix`
