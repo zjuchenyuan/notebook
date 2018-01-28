@@ -1,6 +1,4 @@
 
-* TOC
-{:toc}
 
 ## 使用localStorage
 

@@ -1,6 +1,4 @@
 
-* TOC
-{:toc}
 
 # myubuntu 基础镜像
 

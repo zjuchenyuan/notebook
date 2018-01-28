@@ -1,6 +1,4 @@
 
-* TOC
-{:toc}
 
 ## Java的神奇(keng)
 

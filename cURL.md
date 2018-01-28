@@ -2,8 +2,6 @@
 
 curl这么有用的东西，还是单独开个文档咯~
 
-* TOC
-{:toc}
 
 
 ![cURL](https://curl.haxx.se/logo/curl-logo.svg)

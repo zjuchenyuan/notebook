@@ -1,7 +1,5 @@
 # BASH
 
-* TOC
-{:toc}
 
 ## 在bash脚本中使用alias
 

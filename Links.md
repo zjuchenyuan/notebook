@@ -1,6 +1,4 @@
 
-* TOC
-{:toc}
 
 # Links Share
 
