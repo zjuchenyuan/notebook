@@ -6,3 +6,4 @@ download/
 config.py
 __pycache__
 *.pyc
+mdfiles

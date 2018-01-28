@@ -1,0 +1,32 @@
+site_name: notebook
+repo_url: https://github.com/zjuchenyuan/notebook/
+site_description: 我的技术笔记本~
+site_author: chenyuan
+theme:
+  name: 'material'
+  language: 'en'
+  palette:
+    primary: 'indigo'
+    accent: 'indigo'
+  font:
+    text: 'Roboto'
+    code: 'Roboto Mono'
+docs_dir: 'mdfiles'
+site_dir: 'docs'
+pages:
+    - Home: README.md
+    - Python: Python.md
+    - Gist: gist.md
+extra:
+  social:
+    - type: 'github'
+      link: 'https://github.com/zjuchenyuan'
+ 
+markdown_extensions:
+  - admonition
+  - codehilite
+  - smarty
+  - sane_lists
+  - meta
+  - toc:
+      permalink: True
