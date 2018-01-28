@@ -5,7 +5,7 @@ site_author: chenyuan
 theme:
   name: 'material'
 docs_dir: 'mdfiles'
-site_dir: 'newdocs'
+site_dir: 'docs'
 pages:
     - Home: README.md
     - Python: 
