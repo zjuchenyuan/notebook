@@ -79,3 +79,31 @@ Win+R打开regedit，找到HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Photo V
 我的情况是原先有.tif和.tiff的，还需要新建这些后缀名.jpeg .bmp .png .gif
 
 创建后再看打开方式就有了Windows照片查看器
+
+## 星号密码查看
+
+一般是用不着 [AsteriskPassword.exe](https://d.py3.io/AsteriskPassword.exe)
+
+## 远程连接密码查看
+
+[mstscpass.exe](https://d.py3.io/mstscpass.exe)
+
+## GHO文件查看
+
+也是很久没用了啊 [Ghostexp.exe](https://d.py3.io/Ghostexp.exe)
+
+## 文件哈希计算
+
+Linux下直接用md5sum sha1sum就够了
+
+[Hash.exe](https://d.py3.io/Hash.exe)
+
+## tcping 检测端口是否开放
+
+一直ping的用法: `tcping -t py3.io 443`
+
+[tcping.exe](https://d.py3.io/tcping.exe)
+
+## Nginx 1.11.8
+
+[nginx.zip](https://d.py3.io/nginx.zip)

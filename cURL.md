@@ -14,7 +14,9 @@ curl这么有用的东西，还是单独开个文档咯~
 
 > **将curl转为python requests** http://curl.trillworks.com/
 
-[下载7.51 x64的Win版本](download/curl.exe)
+[下载7.51 x64的Win版本](https://d.py3.io/curl.exe)
+
+[下载7.16 32bit的curl32.exe](https://d.py3.io/curl32.exe)
 
 ----
 
