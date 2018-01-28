@@ -3,7 +3,7 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=803af9c04c3742b59c0ebb70298ec6e2b876adb3">
+    <link rel="stylesheet" href="assets/css/style.css?20170509">
     <title>notebook by zjuchenyuan</title>
   </head>
 
@@ -16,7 +16,7 @@
 
         <section id="downloads">
           
-          <a href="http://github.com/zjuchenyuan/notebook" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+          <a href="https://github.com/zjuchenyuan/notebook/blob/master/CC98.md" class="btn btn-github"><span class="icon"></span>Star me on GitHub (61)</a>&nbsp;<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>
         </section>
       </div>
     </header>
@@ -145,8 +145,43 @@ App Secret: 017cd47e-39ce-43e1-af3a-e620e725bf59
 <p>后续就是写数据库咯，加油~</p>
 
       </section>
+<br><hr><h1 id="comment">评论区</h1><div id="comment-thread"></div><div id="loading-spin"></div>
     </div>
 
-    
   </body>
+<script src="assets/js/instantclick.min.js" data-no-instant></script>
+<link rel="stylesheet" href="assets/css/comment.css">
+<script src="assets/js/comment.js" data-no-instant></script>
+<script>
+  marked.setOptions({
+  highlight: function (code, lang) {
+     return hljs.highlightAuto(code).value;
+  }
+  });
+  function Highlighting(){
+    var markdowns = document.getElementsByClassName('markdown');
+    for(var i=0;i<markdowns.length;i++){
+       if(markdowns[i].innerHTML) markdowns[i].innerHTML =marked(markdowns[i].innerHTML);
+    }
+  }
+  window.addEventListener('DOMContentLoaded', Highlighting, false);
+  window.addEventListener('load', Highlighting, false);
+   var opt = {
+       type: "github",
+       user: "zjuchenyuan",
+       repo: "notebook",
+       no_comment: "No comments yet. Press the button and go to comment now!",
+       go_to_comment: "Go to comment",
+       issue_id: "1",
+       btn_class: "btn",
+       comments_target: "#comment-thread",
+       loading_target: "#loading-spin",
+       client_id: "8f7a792630aa459d0812",
+       client_secret: "084b314f30dd9b10201011e265c4cb5d78c2b2e9"
+   };
+   if (jQuery('.discussion-timeline').length == 0) getComments(opt);
+</script>
+<script data-no-instant>
+  InstantClick.init();
+</script>
 </html>

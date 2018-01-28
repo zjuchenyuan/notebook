@@ -3,7 +3,7 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=803af9c04c3742b59c0ebb70298ec6e2b876adb3">
+    <link rel="stylesheet" href="assets/css/style.css?20170509">
     <title>notebook by zjuchenyuan</title>
   </head>
 
@@ -16,7 +16,7 @@
 
         <section id="downloads">
           
-          <a href="http://github.com/zjuchenyuan/notebook" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+          <a href="https://github.com/zjuchenyuan/notebook" class="btn btn-github"><span class="icon"></span>Star me on GitHub (61)</a>&nbsp;
         </section>
       </div>
     </header>
@@ -174,6 +174,7 @@
     <li>让Docker容器得到内网IP</li>
     <li>使用iptables端口转发让Docker容器得到内网IP</li>
     <li>快速部署samba</li>
+    <li>[CTF]按需分配容器 过期自动销毁</li>
   </ul>
 </blockquote>
 
@@ -413,9 +414,44 @@
 
 
       </section>
+<br><hr><h1 id="comment">评论区</h1><div id="comment-thread"></div><div id="loading-spin"></div>
     </div>
 
-    
   </body>
+<script src="assets/js/instantclick.min.js" data-no-instant></script>
+<link rel="stylesheet" href="assets/css/comment.css">
+<script src="assets/js/comment.js" data-no-instant></script>
+<script>
+  marked.setOptions({
+  highlight: function (code, lang) {
+     return hljs.highlightAuto(code).value;
+  }
+  });
+  function Highlighting(){
+    var markdowns = document.getElementsByClassName('markdown');
+    for(var i=0;i<markdowns.length;i++){
+       if(markdowns[i].innerHTML) markdowns[i].innerHTML =marked(markdowns[i].innerHTML);
+    }
+  }
+  window.addEventListener('DOMContentLoaded', Highlighting, false);
+  window.addEventListener('load', Highlighting, false);
+   var opt = {
+       type: "github",
+       user: "zjuchenyuan",
+       repo: "notebook",
+       no_comment: "No comments yet. Press the button and go to comment now!",
+       go_to_comment: "Go to comment",
+       issue_id: "1",
+       btn_class: "btn",
+       comments_target: "#comment-thread",
+       loading_target: "#loading-spin",
+       client_id: "8f7a792630aa459d0812",
+       client_secret: "084b314f30dd9b10201011e265c4cb5d78c2b2e9"
+   };
+   if (jQuery('.discussion-timeline').length == 0) getComments(opt);
+</script>
+<script data-no-instant>
+  InstantClick.init();
+</script>
 </html>
-<hr><small>Last updated: 2018-01-26T00:49:27+08:00&nbsp;&nbsp;&nbsp;<a href=http://www.miitbeian.gov.cn/>浙ICP备15043819号-2</a>&nbsp;&nbsp;<a target=_blank href=http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33010602007826><img src=beian.png height=14px>浙公网安备 33010602007826号</p></a></small>
+<hr><small>Last updated: 2018-01-28T20:18:01+08:00&nbsp;&nbsp;&nbsp;<a href=http://www.miitbeian.gov.cn/>浙ICP备15043819号-2</a>&nbsp;&nbsp;<a target=_blank href=http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33010602007826><img src=beian.png height=14px>浙公网安备 33010602007826号</p></a></small>

@@ -509,3 +509,118 @@ docker run -d -p 139:139 -p 445:445 --name samba -v /data:/data dperson/samba -u
 其中-u指定用户名密码；-s参数的格式为：
 
 给访问者看的分享名称;物理位置;是否列出;未登录可否访问;允许访问的用户(all表示所有用户)
+
+----
+
+## [CTF]按需分配容器 过期自动销毁
+
+有些题目需要给每个人单独的容器，为了节约资源还需要设置一个时间，过期后自动删除容器
+
+为了防止滥用还要引入Proof Of Work，回答正确后才分配容器
+
+该代码直接用的docker命令来创建容器，且需要root权限，注意使用上的安全风险
+
+代码如下：`utils.py`
+
+```python
+#/usr/bin/python3
+#coding:utf-8
+import subprocess
+import time
+import string
+import os
+import hashlib
+import random
+from random import randint
+
+# 限时设定
+def clock(timeout=5):
+    import signal
+    def signal_handler(signum,data):
+        if signum == signal.SIGALRM:
+            print("Time is up!")
+            exit()
+    signal.signal(signal.SIGALRM, signal_handler)
+    signal.alarm(int(timeout))
+
+# 生成随机字符串
+def randomstring(len=5):
+    return ''.join(random.sample(string.ascii_letters,len))
+
+# 计算md5
+def md5(src):
+    return hashlib.md5(bytes(src,encoding='utf-8')).hexdigest()
+
+# 显示一个随机字符串，要求用户计算其md5
+def pow_calcmd5():
+    question = randomstring()
+    answer = md5(question)
+    print("Please calculate md5(%s)="%question,end='')
+    if input()!=answer:
+        exit()
+
+# 显示一个随机字符串，要求用户输入另一个字符串满足md5以difficulty个0开头
+def pow_realmd5(difficulty=4):
+    question = randomstring()
+    print("[Proof Of Work]")
+    print("Please calculate s, make that \n    md5(\"%s\"+s).startswith('%s')"%(question,'0'*difficulty))
+    print("Input your s:",end='')
+    s = input()
+    if not md5(question+s).startswith('0'*difficulty):
+        exit()
+
+# 从镜像启动容器
+def start_container(image, port, paramstring):
+    """
+    image:镜像名称
+    port: 需要映射的端口
+    paramstring: 额外的参数设置字符串 如"-v /d/blabla:/data"
+    
+    返回(容器ID, 映射得到的端口)
+    """
+    container = subprocess.check_output("docker run -d -p :"+str(port)+" "+paramstring+" "+image+" /run.sh",shell=True).decode().replace("\n","")
+    inspect = subprocess.check_output("docker inspect --format '{{.NetworkSettings.Ports}}' %s"%container,shell=True).decode().replace("\n","")
+    openport = inspect.split("{")[1].split()[1].split("}")[0]
+    return (container, openport)
+
+# 计划在minutes分钟后销毁容器container 需要atd服务
+def plan_stop_container(container, minutes):
+    PATH = os.getcwd()
+    minutes = str(minutes)
+    filename = "%s_%d"%(time.strftime("%Y_%m_%d_%H_%M_%S"),randint(0,666))
+    open(PATH+"/"+filename,"w").write("docker kill %s && docker rm %s && rm %s/%s"%(container,container,PATH,filename))
+    subprocess.check_output("at now + %s minutes -f %s 2>/dev/null"%(minutes,filename),shell=True)
+
+# 生成一个runner的二进制程序，xinetd并不支持直接运行python
+if __name__ == "__main__":
+    print("[*] writing to runner.c")
+    path = os.getcwd()
+    open("runner.c","w").write("""#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+int main(){
+   chdir("%s");
+   system("python3 %s/runner.py");
+   return 0;
+}
+"""%(path, path))
+    print("[*] compile runner.c to runner")
+    os.system("gcc runner.c -o runner")
+```
+
+用到的xinetd配置：`runner.conf`，注意保存的时候不能有\r `:set ff=unix`
+
+```
+service 题目名称
+{
+    socket_type = stream
+    protocol    = tcp
+    wait        = no
+    user        = root
+    bind        = 0.0.0.0
+    server      = /绝对路径/runner
+    type        = UNLISTED
+    port        = 端口号
+    disable = no
+}
+```

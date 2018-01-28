@@ -3,7 +3,7 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=803af9c04c3742b59c0ebb70298ec6e2b876adb3">
+    <link rel="stylesheet" href="assets/css/style.css?20170509">
     <title>notebook by zjuchenyuan</title>
   </head>
 
@@ -16,7 +16,7 @@
 
         <section id="downloads">
           
-          <a href="http://github.com/zjuchenyuan/notebook" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+          <a href="https://github.com/zjuchenyuan/notebook/blob/master/Docker.md" class="btn btn-github"><span class="icon"></span>Star me on GitHub (61)</a>&nbsp;<a href="https://py3.io" class="btn btn-back"><span class="icon"></span>Back to Index</a>
         </section>
       </div>
     </header>
@@ -70,6 +70,7 @@
       <li><a href="#tcpdump" id="markdown-toc-tcpdump">对容器网络流量tcpdump</a></li>
       <li><a href="#section-8" id="markdown-toc-section-8">修改正在运行的容器的重启策略</a></li>
       <li><a href="#samba" id="markdown-toc-samba">快速部署samba</a></li>
+      <li><a href="#ctf-" id="markdown-toc-ctf-">[CTF]按需分配容器 过期自动销毁</a></li>
     </ul>
   </li>
 </ul>
@@ -624,9 +625,159 @@ sudo iptables -t nat -I POSTROUTING -s <span class="sb">`</span>getip <span clas
 
 <p>给访问者看的分享名称;物理位置;是否列出;未登录可否访问;允许访问的用户(all表示所有用户)</p>
 
+<hr />
+
+<h2 id="ctf-">[CTF]按需分配容器 过期自动销毁</h2>
+
+<p>有些题目需要给每个人单独的容器，为了节约资源还需要设置一个时间，过期后自动删除容器</p>
+
+<p>为了防止滥用还要引入Proof Of Work，回答正确后才分配容器</p>
+
+<p>该代码直接用的docker命令来创建容器，且需要root权限，注意使用上的安全风险</p>
+
+<p>代码如下：<code class="highlighter-rouge">utils.py</code></p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c">#/usr/bin/python3</span>
+<span class="c">#coding:utf-8</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">string</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span>
+
+<span class="c"># 限时设定</span>
+<span class="k">def</span> <span class="nf">clock</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">signal</span>
+    <span class="k">def</span> <span class="nf">signal_handler</span><span class="p">(</span><span class="n">signum</span><span class="p">,</span><span class="n">data</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">signum</span> <span class="o">==</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGALRM</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"Time is up!"</span><span class="p">)</span>
+            <span class="nb">exit</span><span class="p">()</span>
+    <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGALRM</span><span class="p">,</span> <span class="n">signal_handler</span><span class="p">)</span>
+    <span class="n">signal</span><span class="o">.</span><span class="n">alarm</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">timeout</span><span class="p">))</span>
+
+<span class="c"># 生成随机字符串</span>
+<span class="k">def</span> <span class="nf">randomstring</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s">''</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_letters</span><span class="p">,</span><span class="nb">len</span><span class="p">))</span>
+
+<span class="c"># 计算md5</span>
+<span class="k">def</span> <span class="nf">md5</span><span class="p">(</span><span class="n">src</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span><span class="n">src</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s">'utf-8'</span><span class="p">))</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+
+<span class="c"># 显示一个随机字符串，要求用户计算其md5</span>
+<span class="k">def</span> <span class="nf">pow_calcmd5</span><span class="p">():</span>
+    <span class="n">question</span> <span class="o">=</span> <span class="n">randomstring</span><span class="p">()</span>
+    <span class="n">answer</span> <span class="o">=</span> <span class="n">md5</span><span class="p">(</span><span class="n">question</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"Please calculate md5(</span><span class="si">%</span><span class="s">s)="</span><span class="o">%</span><span class="n">question</span><span class="p">,</span><span class="n">end</span><span class="o">=</span><span class="s">''</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">input</span><span class="p">()</span><span class="o">!=</span><span class="n">answer</span><span class="p">:</span>
+        <span class="nb">exit</span><span class="p">()</span>
+
+<span class="c"># 显示一个随机字符串，要求用户输入另一个字符串满足md5以difficulty个0开头</span>
+<span class="k">def</span> <span class="nf">pow_realmd5</span><span class="p">(</span><span class="n">difficulty</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>
+    <span class="n">question</span> <span class="o">=</span> <span class="n">randomstring</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"[Proof Of Work]"</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"Please calculate s, make that </span><span class="se">\n</span><span class="s">    md5(</span><span class="se">\"</span><span class="si">%</span><span class="s">s</span><span class="se">\"</span><span class="s">+s).startswith('</span><span class="si">%</span><span class="s">s')"</span><span class="o">%</span><span class="p">(</span><span class="n">question</span><span class="p">,</span><span class="s">'0'</span><span class="o">*</span><span class="n">difficulty</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"Input your s:"</span><span class="p">,</span><span class="n">end</span><span class="o">=</span><span class="s">''</span><span class="p">)</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="nb">input</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">md5</span><span class="p">(</span><span class="n">question</span><span class="o">+</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">'0'</span><span class="o">*</span><span class="n">difficulty</span><span class="p">):</span>
+        <span class="nb">exit</span><span class="p">()</span>
+
+<span class="c"># 从镜像启动容器</span>
+<span class="k">def</span> <span class="nf">start_container</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">paramstring</span><span class="p">):</span>
+    <span class="s">"""
+    image:镜像名称
+    port: 需要映射的端口
+    paramstring: 额外的参数设置字符串 如"-v /d/blabla:/data"
+    
+    返回(容器ID, 映射得到的端口)
+    """</span>
+    <span class="n">container</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span><span class="s">"docker run -d -p :"</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">port</span><span class="p">)</span><span class="o">+</span><span class="s">" "</span><span class="o">+</span><span class="n">paramstring</span><span class="o">+</span><span class="s">" "</span><span class="o">+</span><span class="n">image</span><span class="o">+</span><span class="s">" /run.sh"</span><span class="p">,</span><span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="s">""</span><span class="p">)</span>
+    <span class="n">inspect</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span><span class="s">"docker inspect --format '' </span><span class="si">%</span><span class="s">s"</span><span class="o">%</span><span class="n">container</span><span class="p">,</span><span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="s">""</span><span class="p">)</span>
+    <span class="n">openport</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">"{"</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">"}"</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">container</span><span class="p">,</span> <span class="n">openport</span><span class="p">)</span>
+
+<span class="c"># 计划在minutes分钟后销毁容器container 需要atd服务</span>
+<span class="k">def</span> <span class="nf">plan_stop_container</span><span class="p">(</span><span class="n">container</span><span class="p">,</span> <span class="n">minutes</span><span class="p">):</span>
+    <span class="n">PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+    <span class="n">minutes</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">minutes</span><span class="p">)</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="s">"</span><span class="si">%</span><span class="s">s_</span><span class="si">%</span><span class="s">d"</span><span class="o">%</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">"</span><span class="si">%</span><span class="s">Y_</span><span class="si">%</span><span class="s">m_</span><span class="si">%</span><span class="s">d_</span><span class="si">%</span><span class="s">H_</span><span class="si">%</span><span class="s">M_</span><span class="si">%</span><span class="s">S"</span><span class="p">),</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">666</span><span class="p">))</span>
+    <span class="nb">open</span><span class="p">(</span><span class="n">PATH</span><span class="o">+</span><span class="s">"/"</span><span class="o">+</span><span class="n">filename</span><span class="p">,</span><span class="s">"w"</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">"docker kill </span><span class="si">%</span><span class="s">s &amp;&amp; docker rm </span><span class="si">%</span><span class="s">s &amp;&amp; rm </span><span class="si">%</span><span class="s">s/</span><span class="si">%</span><span class="s">s"</span><span class="o">%</span><span class="p">(</span><span class="n">container</span><span class="p">,</span><span class="n">container</span><span class="p">,</span><span class="n">PATH</span><span class="p">,</span><span class="n">filename</span><span class="p">))</span>
+    <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span><span class="s">"at now + </span><span class="si">%</span><span class="s">s minutes -f </span><span class="si">%</span><span class="s">s 2&gt;/dev/null"</span><span class="o">%</span><span class="p">(</span><span class="n">minutes</span><span class="p">,</span><span class="n">filename</span><span class="p">),</span><span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="c"># 生成一个runner的二进制程序，xinetd并不支持直接运行python</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"[*] writing to runner.c"</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+    <span class="nb">open</span><span class="p">(</span><span class="s">"runner.c"</span><span class="p">,</span><span class="s">"w"</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">"""#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+int main(){
+   chdir("</span><span class="si">%</span><span class="s">s");
+   system("python3 </span><span class="si">%</span><span class="s">s/runner.py");
+   return 0;
+}
+"""</span><span class="o">%</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">path</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"[*] compile runner.c to runner"</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s">"gcc runner.c -o runner"</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>用到的xinetd配置：<code class="highlighter-rouge">runner.conf</code>，注意保存的时候不能有\r <code class="highlighter-rouge">:set ff=unix</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>service 题目名称
+{
+    socket_type = stream
+    protocol    = tcp
+    wait        = no
+    user        = root
+    bind        = 0.0.0.0
+    server      = /绝对路径/runner
+    type        = UNLISTED
+    port        = 端口号
+    disable = no
+}
+</code></pre>
+</div>
+
       </section>
+<br><hr><h1 id="comment">评论区</h1><div id="comment-thread"></div><div id="loading-spin"></div>
     </div>
 
-    
   </body>
+<script src="assets/js/instantclick.min.js" data-no-instant></script>
+<link rel="stylesheet" href="assets/css/comment.css">
+<script src="assets/js/comment.js" data-no-instant></script>
+<script>
+  marked.setOptions({
+  highlight: function (code, lang) {
+     return hljs.highlightAuto(code).value;
+  }
+  });
+  function Highlighting(){
+    var markdowns = document.getElementsByClassName('markdown');
+    for(var i=0;i<markdowns.length;i++){
+       if(markdowns[i].innerHTML) markdowns[i].innerHTML =marked(markdowns[i].innerHTML);
+    }
+  }
+  window.addEventListener('DOMContentLoaded', Highlighting, false);
+  window.addEventListener('load', Highlighting, false);
+   var opt = {
+       type: "github",
+       user: "zjuchenyuan",
+       repo: "notebook",
+       no_comment: "No comments yet. Press the button and go to comment now!",
+       go_to_comment: "Go to comment",
+       issue_id: "1",
+       btn_class: "btn",
+       comments_target: "#comment-thread",
+       loading_target: "#loading-spin",
+       client_id: "8f7a792630aa459d0812",
+       client_secret: "084b314f30dd9b10201011e265c4cb5d78c2b2e9"
+   };
+   if (jQuery('.discussion-timeline').length == 0) getComments(opt);
+</script>
+<script data-no-instant>
+  InstantClick.init();
+</script>
 </html>
