@@ -1,7 +1,5 @@
 Gemfile.lock
 .jekyll-metadata
-download/
-!download/img
 config.py
 __pycache__
 *.pyc
