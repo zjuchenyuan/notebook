@@ -6,7 +6,7 @@
 
 ----
 
-# 立即使用
+## 立即使用
 
 在网页上先创建了仓库，设置好.gitignore
 
@@ -21,7 +21,7 @@ git push
 
 ----
 
-# 加速git clone
+## 加速git clone
 
 方法1：配置一个代理(如privoxy)，并使用https地址
 
@@ -34,13 +34,13 @@ git clone --depth 1 https://github.com/zjuchenyuan/notebook
 
 ----
 
-# git push加速
+## git push加速
 
-代码参见[code/ssgit.txt](code/ssgit.txt)
+代码参见[code/ssgit.txt](/code/ssgit.txt)
 
 ----
 
-# git push免密码
+## git push免密码
 
 参照http://blog.csdn.net/chfe007/article/details/43388041
 
@@ -61,7 +61,7 @@ git clone --depth 1 https://github.com/zjuchenyuan/notebook
     
 ----
 
-# bash别名设置
+## bash别名设置
 
 通过修改~/.bashrc来设置别名，让git的日常使用更简单：
 
@@ -88,7 +88,7 @@ alias gl="git log --all --pretty=format:'%h %ad | %s%d [%an]' --graph --date=sho
 
 要立即生效，可以执行`source ~/.bashrc`
 
-# 设置bash中的自动完成与dirty提示
+## 设置bash中的自动完成与dirty提示
 
 此部分内容来自Udacity 如何使用 Git 和 GitHub 课程
 
@@ -116,27 +116,27 @@ export PS1="$purple\u$green\$(__git_ps1) \w\a $ $reset"
 
 ![setgit.jpg](download/img/setgit.jpg)
 
-# 好玩的命令们
+## 好玩的命令们
 
-## git status
+### git status
 
 查看状态咯~
 
-## git reset
+### git reset
 
 已经`git add`了，想取消这一步就用`git reset`
 
-## git checkout
+### git checkout
 
 啊。。。代码搞坏了我要回滚到上次commit，用`git checkout -- 文件名`
 
-## git reset --soft <commit_id>
+### git reset --soft <commit_id>
 
 撤销到某次commit，但不删除新增文件
 
 其中commit_id可以从`git log`获得
 
-## 恢复git reset --hard删除的文件
+### 恢复git reset --hard删除的文件
 
 git的历史是不能用命令修改的，丢失的commit用reflog可以找回，除非git已经把它当成垃圾删除（30天）
 
@@ -152,7 +152,7 @@ git branch -d recover # 合并完成后就可以删了
 
 ----
 
-# 哲学
+## 你可能会问的一些问题
 
 * 为啥要**git add**呢?
 
@@ -168,11 +168,11 @@ git branch -d recover # 合并完成后就可以删了
 
 ----
 
-# Git各种情景
+## Git各种情景
 
 Learned from [githug](https://github.com/Gazler/githug)
 
-## 忽略*.a文件但不想忽略lib.a
+### 忽略*.a文件但不想忽略lib.a
 
 文档查看：`git gitignore --help`
 
@@ -183,7 +183,7 @@ Learned from [githug](https://github.com/Gazler/githug)
 !lib.a
 ```
 
-## commit补上忘掉的文件
+### commit补上忘掉的文件
 
 如果发现上次commit漏了文件，不应该新加commit而是应该用amend，否则可能上CI就挂
 
@@ -192,7 +192,7 @@ git add forgotten.txt
 git commit --amend
 ```
 
-## 查出此行代码的最后修改者
+### 查出此行代码的最后修改者
 
 github提供的blame功能更好看，显示每行代码的作者和来源于哪次commit
 
@@ -200,7 +200,7 @@ github提供的blame功能更好看，显示每行代码的作者和来源于哪
 git blame filename
 ```
 
-## 文件一次性改太多了，拆成多次commit
+### 文件一次性改太多了，拆成多次commit
 
 让每次commit保持在比较小的改动，不要在一个commit中出现两个不那么相关的修改
 
@@ -212,7 +212,7 @@ git blame filename
 
 完成好选择后，使用`git diff --staged`命令来查询暂存的修改，没有问题就可以继续`git commit`啦
 
-## 本地忽略一些个人的修改
+### 本地忽略一些个人的修改
 
 原文： http://stackoverflow.com/questions/1753070/git-ignore-files-only-locally
 
@@ -226,7 +226,7 @@ git blame filename
 git update-index --assume-unchanged [<file>...]
 ```
 
-## 本地创建branch后push操作git push -u
+### 本地创建branch后push操作git push -u
 
 From: http://stackoverflow.com/questions/2765421/how-do-i-push-a-new-local-branch-to-a-remote-git-repository-and-track-it-too
 
