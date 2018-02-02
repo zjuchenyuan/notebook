@@ -7,19 +7,19 @@
 
 ----
 
-## 设置pip源
+## 设置pip源 - mirrors.aliyun.com
 
-如果只需要一次性安装个包（如Dockerfile）： pip install -i https://pypi.doubanio.com/simple/ --trusted-host pypi.doubanio.com
+如果只需要一次性安装个包（如Dockerfile）： pip install -i https://mirros.aliyun.com/pypi/simple/ --trusted-host mirros.aliyun.com
 
-在Linux服务器上安装python的包时，执行这段代码可以将pip源改为国内的豆瓣源，能显著提高包的下载速度
+在Linux服务器上安装python的包时，执行这段代码可以将pip源改为国内的阿里镜像（豆瓣源似乎不再更新），能显著提高包的下载速度
 
 ```bash
 mkdir -p ~/.pip
 echo """
 [global]
-index-url = http://pypi.doubanio.com/simple/
+index-url = http://mirrors.aliyun.com/pypi/simple/
 [install]
-trusted-host=pypi.doubanio.com
+trusted-host=mirrors.aliyun.com
 """>~/.pip/pip.conf
 ```
 
@@ -27,9 +27,9 @@ trusted-host=pypi.doubanio.com
 
 ```
 [global]
-index-url = http://pypi.doubanio.com/simple/
+index-url = http://mirrors.aliyun.com/pypi/simple/
 [install]
-trusted-host=pypi.doubanio.com
+trusted-host=mirrors.aliyun.com
 ```
 
 ### 反弹shell

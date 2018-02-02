@@ -275,8 +275,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#pip" title="设置pip源" class="md-nav__link">
-    设置pip源
+  <a href="#pip-mirrorsaliyuncom" title="设置pip源 - mirrors.aliyun.com" class="md-nav__link">
+    设置pip源 - mirrors.aliyun.com
   </a>
   
     <nav class="md-nav">
@@ -1148,8 +1148,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#pip" title="设置pip源" class="md-nav__link">
-    设置pip源
+  <a href="#pip-mirrorsaliyuncom" title="设置pip源 - mirrors.aliyun.com" class="md-nav__link">
+    设置pip源 - mirrors.aliyun.com
   </a>
   
     <nav class="md-nav">
@@ -1539,24 +1539,24 @@
 <p>嗯哼，Python很好玩呢&hellip;有人说Python是能运行的伪代码，就写代码的速度而言是显著优于C的，也有很多好用的类库呢，反正强烈推荐这门语言啦~</p>
 <p>当你尝试一个包的时候，注意自己的py文件名称不能与包名重名，例如不要出现flask.py</p>
 <hr />
-<h2 id="pip">设置pip源<a class="headerlink" href="#pip" title="Permanent link">&para;</a></h2>
-<p>如果只需要一次性安装个包（如Dockerfile）： pip install -i https://pypi.doubanio.com/simple/ &ndash;trusted-host pypi.doubanio.com</p>
-<p>在Linux服务器上安装python的包时，执行这段代码可以将pip源改为国内的豆瓣源，能显著提高包的下载速度</p>
+<h2 id="pip-mirrorsaliyuncom">设置pip源 - mirrors.aliyun.com<a class="headerlink" href="#pip-mirrorsaliyuncom" title="Permanent link">&para;</a></h2>
+<p>如果只需要一次性安装个包（如Dockerfile）： pip install -i https://mirros.aliyun.com/pypi/simple/ &ndash;trusted-host mirros.aliyun.com</p>
+<p>在Linux服务器上安装python的包时，执行这段代码可以将pip源改为国内的阿里镜像（豆瓣源似乎不再更新），能显著提高包的下载速度</p>
 <div class="codehilite"><pre><span></span>mkdir -p ~/.pip
 <span class="nb">echo</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">[global]</span>
-<span class="s2">index-url = http://pypi.doubanio.com/simple/</span>
+<span class="s2">index-url = http://mirrors.aliyun.com/pypi/simple/</span>
 <span class="s2">[install]</span>
-<span class="s2">trusted-host=pypi.doubanio.com</span>
+<span class="s2">trusted-host=mirrors.aliyun.com</span>
 <span class="s2">&quot;&quot;&quot;</span>&gt;~/.pip/pip.conf
 </pre></div>
 
 
 <p>至于Windows用户，在用户目录下创建一个pip目录，如：C:\Users\chenyuan\pip，新建文件pip.ini，内容如下：</p>
 <div class="codehilite"><pre><span></span><span class="k">[global]</span>
-<span class="na">index-url</span> <span class="o">=</span> <span class="s">http://pypi.doubanio.com/simple/</span>
+<span class="na">index-url</span> <span class="o">=</span> <span class="s">http://mirrors.aliyun.com/pypi/simple/</span>
 <span class="k">[install]</span>
-<span class="na">trusted-host</span><span class="o">=</span><span class="s">pypi.doubanio.com</span>
+<span class="na">trusted-host</span><span class="o">=</span><span class="s">mirrors.aliyun.com</span>
 </pre></div>
 
 
