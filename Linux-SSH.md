@@ -12,11 +12,14 @@ Host myshortname realname.example.com
     IdentityFile ~/.ssh/realname_rsa # private key for realname
     User remoteusername
 
-Host myother realname2.example.org
-    HostName realname2.example.org
+Host aliyun
+    HostName 1.2.3.4
     IdentityFile ~/.ssh/realname2_rsa
-    User remoteusername
+    Port 10022
+    User root
 ```
+
+然后就能ssh aliyun这样访问1.2.3.4:10022的ssh了，不用修改/etc/hosts
 
 ## 换个端口开启一个临时的sshd
 
