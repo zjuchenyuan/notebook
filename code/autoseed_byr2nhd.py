@@ -46,9 +46,16 @@ def get_byr(a, torrentid):
     name = a.b.find("h1",{"id":"share"}).text.split("\xa0")[0]
     subtitle = a.b.find("div",{"id":"subtitle"}).text
     name_orignal = name
+    subtitle_orignal = subtitle
     if name.count("][")==3:
         name = name_orignal.split("][")[1]
         subtitle = name_orignal.split("][")[0].strip("[")+" "+name_orignal.split("][")[2]+" "+name_orignal.split("][")[3].strip("]") + subtitle
+    else:
+        name = torrent_filename.replace("[BYRBT].","").replace(".torrent","")
+        if len(name.split(".")[-1])<4:
+            name = ".".join(name.split(".")[:-1])
+        subtitle = name_orignal.replace("[","").replace("]"," ").replace(name, "") + subtitle
+    
     # 来源
     source_sel = "0"
     for key, value in source_sel_dict.items():
@@ -104,7 +111,12 @@ def upload_nhd(a_nhd, filename, torrentid, uploadedimgs, name,subtitle,descr,typ
          "codec_sel": "1",
          "standard_sel": standard_sel,
     }
-    pprint(data)
+    if "禁止转载" in data["small_descr"] or "禁转" in data["small_descr"]:
+        data["small_descr"] = subtitle.replace("禁止转载","").replace("禁转","")
+        data["uplver"] = "yes"
+    data_no_descr = data.copy()
+    del(data_no_descr["descr"])
+    pprint(data_no_descr)
     input("Sure to upload?")
     x = a_nhd.s.post("http://www.nexushd.org/takeupload.php",files={"file":open(filename,"rb")},
         data=data)
