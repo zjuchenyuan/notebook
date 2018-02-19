@@ -1,6 +1,6 @@
 
 
-# myubuntu 基础镜像
+## myubuntu 基础镜像
 
 简单地将Docker当成虚拟机来使用的话，自然要准备个好用的基础镜像咯
 
@@ -37,7 +37,7 @@ build命令：
 docker build -t myubuntu18 .
 ```
 
-# Install 安装
+## Install 安装
 
 建议参见[如何翻墙](https://github.com/zjuchenyuan/notebook/blob/master/code/ssprivoxy.txt)，部署http proxy
 
@@ -54,7 +54,7 @@ docker build -t myubuntu18 .
 
 安装后执行docker version，没有报错即可
 
-## 解决aufs的问题
+### 解决aufs的问题
 
 ```
 apt-get install lxc wget bsdtar curl
@@ -64,7 +64,7 @@ modprobe aufs
 
 --------
 
-# 加速镜像下载
+## 加速镜像下载
 
 > 在执行以下操作之前，请检查docker的版本：`docker -v`
 
@@ -87,7 +87,7 @@ sudo systemctl restart docker
 
 -------
 
-# Docker旧版本卸载
+### Docker旧版本卸载
 
 如果你的docker是使用apt-get install docker.io安装的，请先执行以下命令卸载：
 
@@ -110,9 +110,9 @@ getip 容器名称
 
 --------
 
-# 导出导入
+## 导出导入
 
-## 搬运镜像--save导出镜像
+### 搬运镜像--save导出镜像
 
 由于网络带宽(流量)往往是瓶颈资源，所以产生更小的压缩文件很有必要，这里我们可以生成 tar.7z 文件：`apt-get install -y p7zip-full`
 
@@ -122,7 +122,7 @@ getip 容器名称
 
     docker save 镜像名称 | gzip >导出文件名.tar.gz
 
-## 搬运镜像--load载入镜像
+### 搬运镜像--load载入镜像
 
 如果是 tar.7z 文件，需要调用 7z 命令解压：
 
@@ -132,7 +132,7 @@ getip 容器名称
 
     docker load < 文件名.tar.gz
 
-## Export导出容器 并不常用
+### Export导出容器 并不常用
 
 直接导出容器并不常用，建议`docker commit 容器名称 保存成的镜像名称`，然后导出镜像
 
@@ -140,7 +140,7 @@ getip 容器名称
 
     docker export 容器的名称或ID | gzip >导出文件名.tar.gz
 
-## Import导入容器
+### Import导入容器
 
 虽然上一步我们压缩了，但docker可以直接import，不需要用gunzip
 
@@ -148,7 +148,7 @@ getip 容器名称
 
 --------
 
-# 解决iptables failed - No chian/target/match by that name
+## 解决iptables failed - No chian/target/match by that name
 
 如果docker安装的时候没有自动把需要的规则链加上，可以手动添加
 
@@ -159,7 +159,7 @@ getip 容器名称
 
 --------
 
-# 迁移Docker文件夹到其他硬盘
+## 迁移Docker文件夹到其他硬盘
 
 当镜像多了起来的时候，/var/lib所在的磁盘分区很可能被占满，这时候要考虑迁移到其他硬盘，此处以迁移到`/home/docker`为例说明
 
@@ -174,7 +174,7 @@ echo -e "\nDOCKER_OPTS=\"--graph='/home/docker'\"" >> /etc/default/docker
 
 ----
 
-# 解决debian等容器没有ifconfig,killall的问题
+## 解决debian等容器没有ifconfig,killall的问题
 
 ```
 apt-get install net-tools psmisc
@@ -182,7 +182,7 @@ apt-get install net-tools psmisc
 
 ----
 
-# 设置容器低权限用户运行
+## 设置容器低权限用户运行
 
 在Dockerfile中加入
 
@@ -198,7 +198,7 @@ docker exec -i -t -u root 容器名称 /bin/bash
 
 ----
 
-# 设置容器/etc/resolv.conf和/etc/hosts
+## 设置容器/etc/resolv.conf和/etc/hosts
 
 在容器中这两个文件是以mount形式挂载的，不能unmount；即使进行修改，容器重启后修改就丢失了
 
@@ -210,7 +210,7 @@ docker run -d --dns 114.114.114.114 --add-host example.com:1.2.3.4 容器名称
 
 ----
 
-# 容器限制参数设置
+## 容器限制参数设置
 
 当容器是开放给不可信域的时候(如部署一个CTF的pwn题目)，虽然容器逃逸0-day我也没办法，但限制一下容器资源占用防止搅屎也是很有必要的
 
