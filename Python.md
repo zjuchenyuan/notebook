@@ -974,3 +974,13 @@ while cursor:
 USERS2 = {i.decode():int(j) for i,j in result.items()} #从bytes转为原来的格式
 assert USERS==USERS2 #存进去的与取出来的应该相同
 ```
+
+----
+
+## 搬运种子 从北邮人搬运到NexusHD
+
+代码： [code/autoseed_byr2nhd.py](code/autoseed_byr2nhd.py)
+
+依赖于[EasyLogin](https://github.com/zjuchenyuan/EasyLogin)，以及 `pip3 install transmissionrpc python-resize-image`
+
+运行需要提供byr和NHD的登录cookie，以及transmission连接信息
