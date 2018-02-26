@@ -734,6 +734,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#ssh-ubuntu" title="ssh登录禁用默认的信息显示 Ubuntu" class="md-nav__link">
+    ssh登录禁用默认的信息显示 Ubuntu
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -832,6 +839,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#ssh-ubuntu" title="ssh登录禁用默认的信息显示 Ubuntu" class="md-nav__link">
+    ssh登录禁用默认的信息显示 Ubuntu
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -915,6 +929,12 @@ UsePAM yes
 <p>第五步，重启服务以生效</p>
 <p>service ssh restart</p>
 <p>注意它的提问，Verification code问的才是验证码，Password问的是账号密码</p>
+<hr />
+<h2 id="ssh-ubuntu">ssh登录禁用默认的信息显示 Ubuntu<a class="headerlink" href="#ssh-ubuntu" title="Permanent link">&para;</a></h2>
+<p>Ubuntu 默认登录后会显示Welcome to Ubuntu等多少软件包可以升级信息，这些信息并不是很重要，却会拖慢ssh登录的速度</p>
+<p>禁用方法如下：From: https://ubuntuforums.org/showthread.php?t=1449020</p>
+<p>编辑这两个文件：<code>/etc/pam.d/login</code>, <code>/etc/pam.d/sshd</code>，找到其中包含<code>pam_motd</code>的行，注释掉之后 <code>service ssh reload</code></p>
+<p>以后再登录ssh就不用等待了</p>
                 
                   
                 

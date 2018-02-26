@@ -90,3 +90,15 @@ service ssh restart
 
 
 注意它的提问，Verification code问的才是验证码，Password问的是账号密码
+
+----
+
+## ssh登录禁用默认的信息显示 Ubuntu
+
+Ubuntu 默认登录后会显示Welcome to Ubuntu等多少软件包可以升级信息，这些信息并不是很重要，却会拖慢ssh登录的速度
+
+禁用方法如下：From: https://ubuntuforums.org/showthread.php?t=1449020
+
+编辑这两个文件：`/etc/pam.d/login`, `/etc/pam.d/sshd`，找到其中包含`pam_motd`的行，注释掉之后 `service ssh reload`
+
+以后再登录ssh就不用等待了

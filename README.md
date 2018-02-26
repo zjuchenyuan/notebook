@@ -191,6 +191,7 @@ My notebook about technology, for lookup and share
 >* 换个端口开启一个临时的sshd
 >* ssh反向代理
 >* 启用SSH密钥登录后两步验证
+>* ssh登录禁用默认的信息显示 Ubuntu
 
 ## [Linux-cli](Linux-cli.md)
 >* 查看内置命令的帮助
