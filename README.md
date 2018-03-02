@@ -111,6 +111,7 @@ My notebook about technology, for lookup and share
 >* 快速部署samba
 >* [CTF]按需分配容器 过期自动销毁
 >* 在容器A中使用别名访问容器B
+>* 修复Docker更新到18.02后部分容器无法start的问题
 
 ## [Favorites](Favorites.md)
 >* Intel i386 手册 及 勘误

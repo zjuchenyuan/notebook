@@ -643,3 +643,27 @@ docker network connect --alias app useredis app
 ```
 
 在加入网络的时候指定--alias即可，网络中的其他容器就能通过这个alias访问到，这样操作后app容器里面就能ping redis了
+
+----
+
+## 修复Docker更新到18.02后部分容器无法start的问题
+
+apt说可以更新，于是就更新了，然而却悲催地发现部分容器无法启动，报错信息：
+
+```
+docker start <container_name> returns "container <hash> already exists"
+```
+
+Google找到了相关issue在这里→https://github.com/moby/moby/issues/36145
+
+不删容器重建、不回滚Docker的紧急解决方案为：
+
+```
+docker-containerd-ctr --namespace moby --address /run/docker/containerd/docker-containerd.sock c rm 出错的容器id
+```
+
+如果docker-containerd-ctr 不存在，也许你使用的是Docker for mac，需要这么操作：
+
+```
+docker run -it --rm -v /:/host alpine /host/usr/local/bin/docker-containerd-ctr  --namespace moby --address /host/run/docker/containerd/docker-containerd.sock c rm 出错的容器id
+```
