@@ -28,3 +28,5 @@ _/    _/  _/    _/  _/    _/
 [Git Emoji](https://www.webpagefx.com/tools/emoji-cheat-sheet/)
 
 [Math 识别手写公式 画函数图像](https://webdemo.myscript.com/views/math.html)
+
+[安全文摘 每天看看](http://wiki.ioin.in/)
