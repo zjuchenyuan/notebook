@@ -110,6 +110,7 @@ My notebook about technology, for lookup and share
 >* 使用iptables端口转发让Docker容器得到内网IP
 >* 快速部署samba
 >* [CTF]按需分配容器 过期自动销毁
+>* 在容器A中使用别名访问容器B
 
 ## [Favorites](Favorites.md)
 >* Intel i386 手册 及 勘误

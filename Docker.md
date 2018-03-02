@@ -627,3 +627,19 @@ service 题目名称
     disable = no
 }
 ```
+
+----
+
+## 在容器A中使用别名访问容器B
+
+容器A是web应用，需要访问redis的容器B，如果用docker inspect拿到现在容器B的IP写入到配置，一旦docker重启这个容器IP就会发生变化
+
+更好的方式是使用docker的自定义网络：创建网络-把redis加入网络-把app加入网络
+
+```
+docker network create useredis
+docker network connect --alias redis useredis redis
+docker network connect --alias app useredis app
+```
+
+在加入网络的时候指定--alias即可，网络中的其他容器就能通过这个alias访问到，这样操作后app容器里面就能ping redis了
