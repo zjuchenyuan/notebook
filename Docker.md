@@ -659,8 +659,10 @@ Google找到了相关issue在这里→https://github.com/moby/moby/issues/36145
 不删容器重建、不回滚Docker的紧急解决方案为：
 
 ```
-docker-containerd-ctr --namespace moby --address /run/docker/containerd/docker-containerd.sock c rm 出错的容器id
+sudo docker-containerd-ctr --namespace moby --address /run/docker/containerd/docker-containerd.sock c rm `docker inspect --format '{{.Id}}' 无法启动的容器名称`
 ```
+
+注意需要输入的是那个很长的容器id，所以先用docker inspect获取其长Id
 
 如果docker-containerd-ctr 不存在，也许你使用的是Docker for mac，需要这么操作：
 
