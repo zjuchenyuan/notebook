@@ -494,6 +494,8 @@ docker run的时候忘了指定restart=always，除了commit后再正确地run�
 docker update --restart=always `docker ps -q`
 ```
 
+如果要取消这个自动重启，改为--restart=no即可
+
 ----
 
 ## 快速部署samba

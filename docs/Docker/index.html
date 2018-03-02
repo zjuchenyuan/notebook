@@ -1721,6 +1721,7 @@ sudo iptables -t nat -I POSTROUTING -s `getip $1`/32 -d `getip $1`/32 -p tcp -m 
 </pre></div>
 
 
+<p>如果要取消这个自动重启，改为&ndash;restart=no即可</p>
 <hr />
 <h2 id="samba">快速部署samba<a class="headerlink" href="#samba" title="Permanent link">&para;</a></h2>
 <p>镜像地址：<a href="https://hub.docker.com/r/dperson/samba/">dperson/samba</a></p>
