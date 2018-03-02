@@ -892,6 +892,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#docker-exec-it" title="解决docker exec -it进入容器屏幕大小不对的问题" class="md-nav__link">
+    解决docker exec -it进入容器屏幕大小不对的问题
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1314,6 +1321,13 @@
         <li class="md-nav__item">
   <a href="#docker1802start" title="修复Docker更新到18.02后部分容器无法start的问题" class="md-nav__link">
     修复Docker更新到18.02后部分容器无法start的问题
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-exec-it" title="解决docker exec -it进入容器屏幕大小不对的问题" class="md-nav__link">
+    解决docker exec -it进入容器屏幕大小不对的问题
   </a>
   
 </li>
@@ -1871,6 +1885,20 @@ docker network connect --alias app useredis app
 <p>如果docker-containerd-ctr 不存在，也许你使用的是Docker for mac，需要这么操作：</p>
 <div class="codehilite"><pre><span></span>docker run -it --rm -v /:/host alpine /host/usr/local/bin/docker-containerd-ctr  --namespace moby --address /host/run/docker/containerd/docker-containerd.sock c rm 出错的容器id
 </pre></div>
+
+
+<hr />
+<h2 id="docker-exec-it">解决docker exec -it进入容器屏幕大小不对的问题<a class="headerlink" href="#docker-exec-it" title="Permanent link">&para;</a></h2>
+<p>发现docker exec -it进入容器的bash后tty的大小不对 只有80x24，参考这个 https://github.com/moby/moby/issues/35407</p>
+<p>解决方案：在进入容器时配置环境变量COLUMNS和LINES为正确值即可，为了便于操作与记忆，写~/.bashrc咯：</p>
+<div class="codehilite"><pre><span></span><span class="kd">function</span> <span class="nx">din</span><span class="p">(){</span>
+    <span class="nx">docker</span> <span class="nx">exec</span> <span class="o">-</span><span class="nx">ti</span> <span class="o">--</span><span class="nx">env</span> <span class="nx">COLUMNS</span><span class="o">=</span><span class="sb">`tput cols`</span> <span class="o">--</span><span class="nx">env</span> <span class="nx">LINES</span><span class="o">=</span><span class="sb">`tput lines`</span> <span class="nx">$1</span> <span class="o">/</span><span class="nx">bin</span><span class="o">/</span><span class="nx">bash</span>
+<span class="p">}</span>
+<span class="nx">alias</span> <span class="nx">din</span><span class="o">=</span><span class="nx">din</span>
+</pre></div>
+
+
+<p>使用的时候只需要<code>din 容器名称</code>就能进入容器bash啦，这样进入容器vim也能全屏幕显示了</p>
                 
                   
                 

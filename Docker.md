@@ -671,3 +671,20 @@ sudo docker-containerd-ctr --namespace moby --address /run/docker/containerd/doc
 ```
 docker run -it --rm -v /:/host alpine /host/usr/local/bin/docker-containerd-ctr  --namespace moby --address /host/run/docker/containerd/docker-containerd.sock c rm 出错的容器id
 ```
+
+----
+
+## 解决docker exec -it进入容器屏幕大小不对的问题
+
+发现docker exec -it进入容器的bash后tty的大小不对 只有80x24，参考这个 https://github.com/moby/moby/issues/35407
+
+解决方案：在进入容器时配置环境变量COLUMNS和LINES为正确值即可，为了便于操作与记忆，写~/.bashrc咯：
+
+```
+function din(){
+    docker exec -ti --env COLUMNS=`tput cols` --env LINES=`tput lines` $1 /bin/bash
+}
+alias din=din
+```
+
+使用的时候只需要`din 容器名称`就能进入容器bash啦，这样进入容器vim也能全屏幕显示了
