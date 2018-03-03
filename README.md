@@ -77,6 +77,7 @@ My notebook about technology, for lookup and share
 >*    管理文件可以用FTP，UpyunManager，Upx
 >*    python规则刷新，python调用官方API进行URL刷新
 >*    使用upyun提供的webp功能节省流量
+>*    使用边缘规则修复改版导致的404问题
 >* ·Qiniu 七牛
 >*    使用qshell上传文件夹
 

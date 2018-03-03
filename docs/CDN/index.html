@@ -512,6 +512,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#404" title="使用边缘规则修复改版导致的404问题" class="md-nav__link">
+    使用边缘规则修复改版导致的404问题
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -895,6 +902,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#404" title="使用边缘规则修复改版导致的404问题" class="md-nav__link">
+    使用边缘规则修复改版导致的404问题
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -960,6 +974,16 @@
 <h3 id="upyunwebp">使用upyun提供的webp功能节省流量<a class="headerlink" href="#upyunwebp" title="Permanent link">&para;</a></h3>
 <p>无需任何代码，只需要在原图后面加上<code>!/format/webp</code>即可，假设已经在使用自定义图片格式，例如<code>!compress</code>则变为<code>!compress/format/webp</code>可以进一步节省流量</p>
 <p>官方说明：https://www.upyun.com/webp.html</p>
+<h3 id="404">使用边缘规则修复改版导致的404问题<a class="headerlink" href="#404" title="Permanent link">&para;</a></h3>
+<p>本站原版使用的Jekyll将xxx.md编译为xxx.html，现在改用MkDocs后xxx.md编译得到的是xxx/index.html，原先的链接就404了</p>
+<p>又拍云能配置边缘规则 进行URL改写，用户在访问xxx.html的时候实际回源xxx/</p>
+<p>而且配置挺简单，只要会写正则即可</p>
+<p>配置规则如下：</p>
+<p>条件判断： 如果请求URI 正则匹配 <code>^/[^/]*html$</code>
+功能选择： URL改写
+    URI 字符串提取： <code>^/([^/]*).html$</code>
+    改写规则：<code>/$1/</code>
+break: 打勾</p>
 <hr />
 <h2 id="qiniu">Qiniu<a class="headerlink" href="#qiniu" title="Permanent link">&para;</a></h2>
 <h3 id="qshell">使用qshell上传文件夹<a class="headerlink" href="#qshell" title="Permanent link">&para;</a></h3>

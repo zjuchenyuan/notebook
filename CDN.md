@@ -43,6 +43,21 @@ http://curlftpfs.sourceforge.net/
 
 官方说明：https://www.upyun.com/webp.html
 
+### 使用边缘规则修复改版导致的404问题
+
+本站原版使用的Jekyll将xxx.md编译为xxx.html，现在改用MkDocs后xxx.md编译得到的是xxx/index.html，原先的链接就404了
+
+又拍云能配置边缘规则 进行URL改写，用户在访问xxx.html的时候实际回源xxx/
+
+而且配置挺简单，只要会写正则即可
+
+配置规则如下：
+
+条件判断： 如果请求URI 正则匹配 `^/[^/]*html$`
+功能选择： URL改写
+    URI 字符串提取： `^/([^/]*).html$`
+    改写规则：`/$1/`
+break: 打勾
 ----
 
 ## Qiniu
