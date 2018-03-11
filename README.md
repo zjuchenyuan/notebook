@@ -31,6 +31,7 @@ My notebook about technology, for lookup and share
 >* Crack RSA! 破解短长度密钥的RSA加密
 >* 时间戳与字符串相互转换
 >* 用redis存储字典
+>* python selenium+Docker chrome headless爬复杂网页
 
 ## [gist Python一些常用的代码片段](gist.md)
 >* 连接mysql插入、查询

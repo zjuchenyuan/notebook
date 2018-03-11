@@ -984,3 +984,43 @@ assert USERS==USERS2 #存进去的与取出来的应该相同
 依赖于[EasyLogin](https://github.com/zjuchenyuan/EasyLogin)，以及 `pip3 install transmissionrpc python-resize-image`
 
 运行需要提供byr和NHD的登录cookie，以及transmission连接信息
+
+----
+
+## python selenium+Docker chrome headless爬复杂网页
+
+例子：阿里云所有域名价格页面 https://wanwang.aliyun.com/help/price.html
+
+从网络请求看出其价格接口有多个，而且较为复杂；那就不妨试试用selenium让chrome headless访问这个页面，加载渲染完成后我们再获取页面源代码，此时源代码里面就有了完整的价格数据
+
+运行环境：只需要Docker和Python3，无需桌面环境
+
+镜像参考：https://hub.docker.com/r/selenium/standalone-chrome/
+
+先跑起来容器呗，这样就运行了selenium server，主机暴露了一个6666端口，：
+
+```
+docker run -d -p 6666:4444 -v /dev/shm:/dev/shm selenium/standalone-chrome
+```
+
+安装Python包：`pip3 install selenium`
+
+调用代码，爬取url，得到网页源代码，其中127.0.0.1相应地修改为Docker主机的IP:
+
+```
+url = "https://wanwang.aliyun.com/help/price.html"
+
+from selenium import webdriver
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+driver = webdriver.Remote(
+    command_executor='http://127.0.0.1:6666/wd/hub',
+    desired_capabilities=DesiredCapabilities.CHROME)
+driver.get(url)
+html = driver.page_source
+with open("result.html", "w", encoding="utf-8") as fp:
+        fp.write(html)
+driver.quit() #一定要记得清理掉Chrome进程 否则内存会占满
+```
+
+如果没有在代码里面清理Chrome进程，可以在浏览器里面进入Console，在这里可以看到当前运行的Session (Chrome进程) ，对当前页面查看页面截图：
+http://127.0.0.1:6666/wd/hub/static/resource/hub.html
