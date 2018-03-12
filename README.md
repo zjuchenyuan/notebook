@@ -91,6 +91,7 @@ My notebook about technology, for lookup and share
 ## [Developer](Developer.md)
 >* 保持技术精进
 >* 如何明智地向程序员提问
+>* 使用chrome缓存找到被删的qq空间的图片
 
 ## [Docker](Docker.md)
 >* myubuntu 基础镜像
