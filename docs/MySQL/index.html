@@ -716,6 +716,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#null0" title="NULL转0" class="md-nav__link">
+    NULL转0
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1086,6 +1093,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#null0" title="NULL转0" class="md-nav__link">
+    NULL转0
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1313,6 +1327,14 @@ show global variables like &quot;%open_files_limit%&quot;;
 <div class="codehilite"><pre><span></span>systemctl disable mysql
 systemctl enable mysql
 apt-get install -f
+</pre></div>
+
+
+<hr />
+<h2 id="null0">NULL转0<a class="headerlink" href="#null0" title="Permanent link">&para;</a></h2>
+<p>用函数IFNULL，写法就是<code>IFNULL(列名, 0)</code></p>
+<p>举个例子</p>
+<div class="codehilite"><pre><span></span>select sum(IFNULL(score, 0)) from runs;
 </pre></div>
                 
                   

@@ -284,3 +284,16 @@ systemctl disable mysql
 systemctl enable mysql
 apt-get install -f
 ```
+
+----
+
+## NULL转0
+
+用函数IFNULL，写法就是`IFNULL(列名, 0)`
+
+举个例子
+
+```
+select sum(IFNULL(score, 0)) from runs;
+```
+

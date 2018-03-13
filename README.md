@@ -252,6 +252,7 @@ My notebook about technology, for lookup and share
 >* 支持emoji，从utf8升级到utf8mb4
 >* 解决 Too many open files 错误
 >* 解决ubuntu16.04上mysql被apt upgrade自动关闭的问题
+>* NULL转0
 
 ## [Nginx](Nginx.md)
 >* Nginx思考题
