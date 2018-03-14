@@ -59,7 +59,7 @@ extra:
     - type: 'github-alt'
       link: 'https://github.com/zjuchenyuan'
     - type: 'envelope'
-      link: 'mailto: py3io@zju.email'
+      link: 'mailto: py3io.chenyuan@qiushi.ac.cn'
  
 markdown_extensions:
   - admonition
