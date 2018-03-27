@@ -1643,6 +1643,11 @@ zmap 192.168.0.0/16 -B1000M -i eth0 -g -T 4  -p 23 -o 23.txt
 </pre></div>
 
 
+<p>如果curl下载的时候允许gzip但忘了&ndash;compressed得到的文件是gzip压缩的，修改当前文件夹所有.txt为.txt.gz，然后解压缩：</p>
+<div class="codehilite"><pre><span></span>rename &#39;s/.txt$/.txt.gz/&#39; *.txt
+</pre></div>
+
+
 <hr />
 <h2 id="vimr">用vim去除\r换行符<a class="headerlink" href="#vimr" title="Permanent link">&para;</a></h2>
 <p>用vim打开文件后，输入以下内容，冒号也是需要按的</p>

@@ -339,6 +339,12 @@ find . -size 0 -delete
 find . -name "*.txt" -exec rename 's/.txt$/.newext/' {} \;
 ```
 
+如果curl下载的时候允许gzip但忘了--compressed得到的文件是gzip压缩的，修改当前文件夹所有.txt为.txt.gz，然后解压缩：
+
+```
+rename 's/.txt$/.txt.gz/' *.txt
+```
+
 ----
 
 ## 用vim去除\r换行符 
