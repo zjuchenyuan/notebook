@@ -339,10 +339,11 @@ find . -size 0 -delete
 find . -name "*.txt" -exec rename 's/.txt$/.newext/' {} \;
 ```
 
-如果curl下载的时候允许gzip但忘了--compressed得到的文件是gzip压缩的，修改当前文件夹所有.txt为.txt.gz，然后解压缩：
+如果curl下载的时候允许gzip但忘了--compressed得到的文件是gzip压缩的，修改当前文件夹所有.txt为.txt.gz，然后解压缩：其中rename -v表示显示修改的列表
 
 ```
-rename 's/.txt$/.txt.gz/' *.txt
+rename -v 's/.txt$/.txt.gz/' *.txt
+gunzip *.gz
 ```
 
 ----

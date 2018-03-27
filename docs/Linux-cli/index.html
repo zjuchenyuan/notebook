@@ -1643,8 +1643,9 @@ zmap 192.168.0.0/16 -B1000M -i eth0 -g -T 4  -p 23 -o 23.txt
 </pre></div>
 
 
-<p>如果curl下载的时候允许gzip但忘了&ndash;compressed得到的文件是gzip压缩的，修改当前文件夹所有.txt为.txt.gz，然后解压缩：</p>
-<div class="codehilite"><pre><span></span>rename &#39;s/.txt$/.txt.gz/&#39; *.txt
+<p>如果curl下载的时候允许gzip但忘了&ndash;compressed得到的文件是gzip压缩的，修改当前文件夹所有.txt为.txt.gz，然后解压缩：其中rename -v表示显示修改的列表</p>
+<div class="codehilite"><pre><span></span>rename -v &#39;s/.txt$/.txt.gz/&#39; *.txt
+gunzip *.gz
 </pre></div>
 
 
