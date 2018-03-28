@@ -659,6 +659,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#pythonroot" title="python丢弃root权限" class="md-nav__link">
+    python丢弃root权限
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1546,6 +1553,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#pythonroot" title="python丢弃root权限" class="md-nav__link">
+    python丢弃root权限
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -2369,6 +2383,28 @@ print(b16decode(plaindata))
 
 <p>如果没有在代码里面清理Chrome进程，可以在浏览器里面进入Console，在这里可以看到当前运行的Session (Chrome进程) ，对当前页面查看页面截图：
 http://127.0.0.1:6666/wd/hub/static/resource/hub.html</p>
+<hr />
+<h2 id="pythonroot">python丢弃root权限<a class="headerlink" href="#pythonroot" title="Permanent link">&para;</a></h2>
+<p>如果python需要监听80端口，简单方式就是直接用root权限启动，但启动后可以丢弃root权限来提高安全性</p>
+<p>code from https://stackoverflow.com/questions/2699907/dropping-root-permissions-in-python</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">pwd</span><span class="o">,</span> <span class="nn">grp</span>
+
+<span class="k">def</span> <span class="nf">drop_privileges</span><span class="p">(</span><span class="n">uid_name</span><span class="o">=</span><span class="s1">&#39;nobody&#39;</span><span class="p">,</span> <span class="n">gid_name</span><span class="o">=</span><span class="s1">&#39;nogroup&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">getuid</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># We&#39;re not root so, like, whatever dude</span>
+        <span class="k">return</span>
+
+    <span class="c1"># Get the uid/gid from the name</span>
+    <span class="n">running_uid</span> <span class="o">=</span> <span class="n">pwd</span><span class="o">.</span><span class="n">getpwnam</span><span class="p">(</span><span class="n">uid_name</span><span class="p">)</span><span class="o">.</span><span class="n">pw_uid</span>
+    <span class="n">running_gid</span> <span class="o">=</span> <span class="n">grp</span><span class="o">.</span><span class="n">getgrnam</span><span class="p">(</span><span class="n">gid_name</span><span class="p">)</span><span class="o">.</span><span class="n">gr_gid</span>
+
+    <span class="c1"># Remove group privileges</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">setgroups</span><span class="p">([])</span>
+
+    <span class="c1"># Try setting the new uid/gid</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">setgid</span><span class="p">(</span><span class="n">running_gid</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">setuid</span><span class="p">(</span><span class="n">running_uid</span><span class="p">)</span>
+</pre></div>
                 
                   
                 

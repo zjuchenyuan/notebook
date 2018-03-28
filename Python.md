@@ -1024,3 +1024,31 @@ driver.quit() #一定要记得清理掉Chrome进程 否则内存会占满
 
 如果没有在代码里面清理Chrome进程，可以在浏览器里面进入Console，在这里可以看到当前运行的Session (Chrome进程) ，对当前页面查看页面截图：
 http://127.0.0.1:6666/wd/hub/static/resource/hub.html
+
+----
+
+## python丢弃root权限
+
+如果python需要监听80端口，简单方式就是直接用root权限启动，但启动后可以丢弃root权限来提高安全性
+
+code from https://stackoverflow.com/questions/2699907/dropping-root-permissions-in-python
+
+```
+import os, pwd, grp
+
+def drop_privileges(uid_name='nobody', gid_name='nogroup'):
+    if os.getuid() != 0:
+        # We're not root so, like, whatever dude
+        return
+
+    # Get the uid/gid from the name
+    running_uid = pwd.getpwnam(uid_name).pw_uid
+    running_gid = grp.getgrnam(gid_name).gr_gid
+
+    # Remove group privileges
+    os.setgroups([])
+
+    # Try setting the new uid/gid
+    os.setgid(running_gid)
+    os.setuid(running_uid)
+```
