@@ -1052,3 +1052,58 @@ def drop_privileges(uid_name='nobody', gid_name='nogroup'):
     os.setgid(running_gid)
     os.setuid(running_uid)
 ```
+
+----
+
+## python transmissionrpc
+
+下述主要介绍[transmissionrpc](https://pythonhosted.org/transmissionrpc/)这个库的使用
+
+### 上传一个种子 开始下载
+
+使用Client的add_torrent方法，传入种子文件的base64
+
+```
+def upload_transmission(thost, tport, tuser, tpassword, filename):
+    tc = transmissionrpc.Client(thost, port=tport, user=tuser, password=tpassword)
+    return tc.add_torrent(base64.b64encode(open(filename, "rb").read()).decode())
+```
+
+返回值是一个不完整的torrent对象
+
+### 获取完整的torrent对象
+
+```
+torrent_id = torrent.id
+full_torrent = tc.get_torrent(torrent_id)
+```
+
+其中就有状态和进度信息
+
+```
+print(full_torrent.status, full_torrent.progress)
+```
+
+### 给种子增加一个tracker
+
+这样可以把pt站点的种子转到OpenTracker，无需重新校验种子（但传到新的pt站点infohash会变，只能传新种子重新校验）
+
+transmissionrpc本身似乎没有暴露出trackerAdd的方法，这是结合浏览器和翻阅代码自己试出来的
+
+```
+torrent._client._request('torrent-set', {"trackerAdd": [new_tracker_url]}, torrent.id, True)
+```
+
+### 修改一个.torrent文件的tracker
+
+使用torf库，这个库使用了python3.6才支持的特性，依赖于格式化字符串、dict遍历的有序性
+
+我修改后的版本下载，支持py3.5：https://d.py3.io/torf.zip
+
+代码：
+
+```
+t=torf.Torrent.read(torrent_filename)
+t.trackers=[[new_tracker_url]]
+t.write("new.torrent")
+```
