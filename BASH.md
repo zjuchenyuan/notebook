@@ -18,3 +18,9 @@ if [ -z "$1" ] && [ -z "$2" ]; then
     echo "Usage: $0 <parameter1> <parameter2>"
 fi
 ```
+
+## 写个for循环吧
+
+```
+for i in $(seq 1 $END); do echo $i; done
+```
