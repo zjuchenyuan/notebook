@@ -707,6 +707,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#uwsgi" title="uwsgi优雅重启" class="md-nav__link">
+    uwsgi优雅重启
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1642,6 +1649,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#uwsgi" title="uwsgi优雅重启" class="md-nav__link">
+    uwsgi优雅重启
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -2526,6 +2540,24 @@ full_torrent = tc.get_torrent(torrent_id)
 <div class="codehilite"><pre><span></span>t=torf.Torrent.read(torrent_filename)
 t.trackers=[[new_tracker_url]]
 t.write(&quot;new.torrent&quot;)
+</pre></div>
+
+
+<hr />
+<h2 id="uwsgi">uwsgi优雅重启<a class="headerlink" href="#uwsgi" title="Permanent link">&para;</a></h2>
+<p>参考：http://uwsgi-docs.readthedocs.io/en/latest/articles/TheArtOfGracefulReloading.html</p>
+<p>在uwsgi.ini中添加一行：</p>
+<div class="codehilite"><pre><span></span>master-fifo = /tmp/uwsgififo
+</pre></div>
+
+
+<p>需要重启的时候就：</p>
+<div class="codehilite"><pre><span></span>echo r&gt;/tmp/uwsgififo
+</pre></div>
+
+
+<p>文件打开方式必须是&rdquo;w&rdquo;而不能是&rdquo;a&rdquo;：</p>
+<div class="codehilite"><pre><span></span>open(&quot;/tmp/uwsgififo&quot;, &quot;w&quot;).write(&quot;r&quot;)
 </pre></div>
                 
                   

@@ -1107,3 +1107,27 @@ t=torf.Torrent.read(torrent_filename)
 t.trackers=[[new_tracker_url]]
 t.write("new.torrent")
 ```
+
+----
+
+## uwsgi优雅重启
+
+参考：http://uwsgi-docs.readthedocs.io/en/latest/articles/TheArtOfGracefulReloading.html
+
+在uwsgi.ini中添加一行：
+
+```
+master-fifo = /tmp/uwsgififo
+```
+
+需要重启的时候就：
+
+```
+echo r>/tmp/uwsgififo
+```
+
+文件打开方式必须是"w"而不能是"a"：
+
+```
+open("/tmp/uwsgififo", "w").write("r")
+```
