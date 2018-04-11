@@ -61,6 +61,9 @@ My notebook about technology, for lookup and share
 >* vpn静态路由配置
 >* 进入休眠
 >* 快速进入系统代理设置，不用打开IE
+>* 在普通权限cmd中获得更高权限
+>* 命令行配置IP
+>* 命令行使用VeraCrypt
 
 ## [C 语言](C.md)
 >* 关于Dev C++

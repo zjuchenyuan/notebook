@@ -237,3 +237,39 @@ netsh interface ip set dns "以太网" static 192.168.1.1
 netsh interface ip set address name="以太网" dhcp
 netsh interface ip set dns "以太网" dhcp
 ```
+
+----
+
+## 命令行使用VeraCrypt
+
+VeraCrypt是TrueCrypt代替者，其命令行使用方式：https://www.veracrypt.fr/en/Command%20Line%20Usage.html
+
+下载Portable版本即可，下载地址：https://www.veracrypt.fr/en/Downloads.html
+
+### 创建一个加密盘
+
+不与用户交互所以指定/q /s，具体来说/q表示不显示主窗口，/s表示不显示任何交互窗口也不报错，注意使用这两个参数后即使出错也不会有任何提醒
+
+文件名test.hc，大小100M，密码必须20个字符或以上，加密方式使用最快的Serpent，为了加速挂载过程指定/pim 1
+
+```
+"VeraCrypt Format.exe" /create test.hc /password testtesttesttesttest /hash sha512 /encryption serpent /filesystem FAT /size 100M /pim 1 /force /silent
+```
+
+如果不指定/pim来降低迭代次数，挂载时需要耗时十秒以上无法接受，所以牺牲一点安全性来换取性能。关于PIM的文档：https://www.veracrypt.fr/en/Personal%20Iterations%20Multiplier%20(PIM).html
+
+### 挂载加密盘
+
+挂载test.hc至Z:盘，需要指定与创建过程相同的/pim
+
+这个命令会立即返回，但真正挂载可以访问Z盘可能还需要等待数秒
+
+```
+VeraCrypt.exe /quit /silent /volume test.hc /password testtesttesttesttest /pim 1 /l z
+```
+
+### 卸载已经挂载的加密盘
+
+```
+VeraCrypt.exe /quit /silent /dismount z
+```
