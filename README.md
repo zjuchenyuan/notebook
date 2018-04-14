@@ -266,6 +266,7 @@ My notebook about technology, for lookup and share
 >* 普通资源允许POST
 >* 不带后缀的文件当成php执行
 >* 获得Let's encrypt免费https证书
+>* 使用acme.sh获得泛域名证书
 >* 配置安全的https
 >* 反向代理之替换网页、JS中的文本
 >* root与alias的区别

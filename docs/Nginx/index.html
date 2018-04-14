@@ -643,6 +643,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#acmesh" title="使用acme.sh获得泛域名证书" class="md-nav__link">
+    使用acme.sh获得泛域名证书
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#https" title="配置安全的https" class="md-nav__link">
     配置安全的https
   </a>
@@ -962,6 +969,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#acmesh" title="使用acme.sh获得泛域名证书" class="md-nav__link">
+    使用acme.sh获得泛域名证书
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#https" title="配置安全的https" class="md-nav__link">
     配置安全的https
   </a>
@@ -1124,6 +1138,19 @@ wget https://raw.githubusercontent.com/zjuchenyuan/notebook/master/code/getcert.
 <p>例如这样就能获得一张涵盖zjusec.com三个子域名的证书：<code>./getcert.py zjusec zjusec.com,www.zjusec.com,web.zjusec.com</code></p>
 <p>具体来说，这个脚本会自动下载需要的acme_tiny.py和Let&rsquo;s Encrypt的中间证书，调用openssl创建账号私钥和站点私钥，最终产生 <strong>名称.crt</strong> <strong>名称.key</strong>。</p>
 <p><img alt="https.jpg" src="../download/img/https.jpg" /></p>
+<h2 id="acmesh">使用acme.sh获得泛域名证书<a class="headerlink" href="#acmesh" title="Permanent link">&para;</a></h2>
+<p>泛域名解析需要使用DNS验证，就需要使用DNS服务的API，即使没有API只要配置一条CNAME指向一个有DNS API的域名即可</p>
+<p>首先获得acme.sh</p>
+<p>git clone https://github.com/Neilpang/acme.sh</p>
+<p>然后拿到cloudflare的API Key，托管b.com</p>
+<p>需要拿到能用于a.com和*.a.com的证书，先配置CNAME（参考：https://github.com/Neilpang/acme.sh/wiki/DNS-alias-mode）</p>
+<p>_acme-challenge.a.com   =&gt;   _acme-challenge.b.com</p>
+<p>执行命令咯：</p>
+<div class="codehilite"><pre><span></span>CF_Key=xxx CF_Email=xxx@example.com /root/acme.sh/acme.sh --issue --dns dns_cf -d &#39;*.a.com&#39; --challenge-alias b.com -d a.com --dnssleep 10 --fullchain-file /root/acom.crt --key-file /root/acom.key -f
+</pre></div>
+
+
+<p>解释：前面两个是配置环境变量，使用cloudflare所以指定&ndash;dns dns_cf，然后-d &hellip; &ndash;challenge-alias &hellip; -d &hellip; 指定域名和验证用的域名，&ndash;dnssleep 10等待10秒DNS生效（默认120秒没必要），&ndash;fullchain-file和&ndash;key-file 指定生成后把证书文件和密钥文件拷贝到哪</p>
 <h2 id="https">配置安全的https<a class="headerlink" href="#https" title="Permanent link">&para;</a></h2>
 <p>此处参考<a href="https://z.codes/ssl-lab-a-plus-configuration-for-nginx/">https://z.codes/ssl-lab-a-plus-configuration-for-nginx/</a></p>
 <p>首先从PPA安装nginx, 这样可以保证最新版</p>

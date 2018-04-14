@@ -98,6 +98,28 @@ wget https://raw.githubusercontent.com/zjuchenyuan/notebook/master/code/getcert.
 ![https.jpg](download/img/https.jpg)
 
 
+## 使用acme.sh获得泛域名证书
+
+泛域名解析需要使用DNS验证，就需要使用DNS服务的API，即使没有API只要配置一条CNAME指向一个有DNS API的域名即可
+
+首先获得acme.sh
+
+git clone https://github.com/Neilpang/acme.sh
+
+然后拿到cloudflare的API Key，托管b.com
+
+需要拿到能用于a.com和*.a.com的证书，先配置CNAME（参考：https://github.com/Neilpang/acme.sh/wiki/DNS-alias-mode）
+
+_acme-challenge.a.com   =>   _acme-challenge.b.com
+
+执行命令咯：
+
+```
+CF_Key=xxx CF_Email=xxx@example.com /root/acme.sh/acme.sh --issue --dns dns_cf -d '*.a.com' --challenge-alias b.com -d a.com --dnssleep 10 --fullchain-file /root/acom.crt --key-file /root/acom.key -f
+```
+
+解释：前面两个是配置环境变量，使用cloudflare所以指定--dns dns_cf，然后-d ... --challenge-alias ... -d ... 指定域名和验证用的域名，--dnssleep 10等待10秒DNS生效（默认120秒没必要），--fullchain-file和--key-file 指定生成后把证书文件和密钥文件拷贝到哪
+
 ## 配置安全的https
 
 此处参考[https://z.codes/ssl-lab-a-plus-configuration-for-nginx/](https://z.codes/ssl-lab-a-plus-configuration-for-nginx/)
