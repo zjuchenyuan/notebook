@@ -76,8 +76,9 @@ My notebook about technology, for lookup and share
 >* 获取文件大小
 >* 题目解析 (结构指针、结构数组...)
 
-## [如何接入CC98 OAuth2 进行用户验证](CC98.md)
->* 给出了详细过程哟~
+## [CC98 OAuth2 登录/用户验证](CC98.md)
+>* 使用CC98 OAuth Login完成cc98_api登录
+>* 如何接入CC98 OAuth2 进行用户验证(旧版)
 
 ## [CDN](CDN.md)
 >* ·UPYUN 又拍云
