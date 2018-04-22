@@ -306,7 +306,7 @@ for i in range(0,len(s)//8):
 ```
 import binascii
 s="0110001101111001"
-ans=binascii.unhexlify('%x'%int(s,2))
+ans=binascii.unhexlify('%x'%int(s,2)).decode()
 ```
 
 补充：相应的如果要把十进制转为二进制，可以用bin(123)[2:]

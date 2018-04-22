@@ -343,6 +343,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#bash_1" title="BASH做不同进制间数学计算" class="md-nav__link">
+    BASH做不同进制间数学计算
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -818,6 +825,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#bash_1" title="BASH做不同进制间数学计算" class="md-nav__link">
+    BASH做不同进制间数学计算
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -852,6 +866,12 @@ fi
 
 <h2 id="for">写个for循环吧<a class="headerlink" href="#for" title="Permanent link">&para;</a></h2>
 <div class="codehilite"><pre><span></span>for i in $(seq 1 $END); do echo $i; done
+</pre></div>
+
+
+<h2 id="bash_1">BASH做不同进制间数学计算<a class="headerlink" href="#bash_1" title="Permanent link">&para;</a></h2>
+<p>不需要bc也可以直接做计算，例如计算5+0xa+0b1010</p>
+<div class="codehilite"><pre><span></span>echo $((5+16#a+2#1010))
 </pre></div>
                 
                   
