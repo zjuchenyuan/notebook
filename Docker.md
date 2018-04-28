@@ -1,4 +1,9 @@
+## 搬运镜像
 
+```
+docker save image_name | 7z a -si filename.tar.7z
+7z x -so filename.tar.7z | docker load
+```
 
 ## myubuntu 基础镜像
 
