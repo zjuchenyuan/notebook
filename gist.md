@@ -100,3 +100,22 @@ if __name__ == "__main__":
     m.join()
     myprint("Done!")
 ```
+
+## 将值存入字典中的列表 dict_add_list
+
+判断key是否存在 应该有更好的方法？这个实现还是很naive的
+
+```
+def dict_add_list(dictname, key, value):
+    if key not in dictname:
+        dictname[key] = [value]
+    else:
+        dictname[key].append(value)
+
+# 如果字典是存储count计数的话 用这个
+def dict_incr(dictname, key):
+    if key not in dictname:
+        dictname[key] = 1
+    else:
+        dictname[key] += 1
+```

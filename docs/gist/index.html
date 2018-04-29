@@ -314,6 +314,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#dict_add_list" title="将值存入字典中的列表 dict_add_list" class="md-nav__link">
+    将值存入字典中的列表 dict_add_list
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -832,6 +839,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#dict_add_list" title="将值存入字典中的列表 dict_add_list" class="md-nav__link">
+    将值存入字典中的列表 dict_add_list
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -938,6 +952,23 @@
         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
     <span class="n">m</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
     <span class="n">myprint</span><span class="p">(</span><span class="s2">&quot;Done!&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<h2 id="dict_add_list">将值存入字典中的列表 dict_add_list<a class="headerlink" href="#dict_add_list" title="Permanent link">&para;</a></h2>
+<p>判断key是否存在 应该有更好的方法？这个实现还是很naive的</p>
+<div class="codehilite"><pre><span></span>def dict_add_list(dictname, key, value):
+    if key not in dictname:
+        dictname[key] = [value]
+    else:
+        dictname[key].append(value)
+
+# 如果字典是存储count计数的话 用这个
+def dict_incr(dictname, key):
+    if key not in dictname:
+        dictname[key] = 1
+    else:
+        dictname[key] += 1
 </pre></div>
                 
                   
