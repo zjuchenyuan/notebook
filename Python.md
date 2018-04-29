@@ -1131,3 +1131,13 @@ echo r>/tmp/uwsgififo
 ```
 open("/tmp/uwsgififo", "w").write("r")
 ```
+
+## flask设置一堆静态目录
+
+```python
+from flask import Flask, render_template, Blueprint, request, redirect, Markup
+app = Flask(__name__)
+for path in ['pic', 'skin', 'images', '更多静态目录']:
+    blueprint = Blueprint(path, __name__, static_url_path='/'+path, static_folder=path)
+    app.register_blueprint(blueprint)
+```

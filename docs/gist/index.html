@@ -287,6 +287,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#print" title="print的时候顺带带上时间" class="md-nav__link">
+    print的时候顺带带上时间
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#mysql" title="连接mysql批量插入、查询" class="md-nav__link">
     连接mysql批量插入、查询
   </a>
@@ -294,22 +301,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#flask" title="flask设置一堆静态目录" class="md-nav__link">
-    flask设置一堆静态目录
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#_1" title="大小写不敏感字典" class="md-nav__link">
     大小写不敏感字典
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#print" title="print的时候顺带带上时间" class="md-nav__link">
-    print的时候顺带带上时间
   </a>
   
 </li>
@@ -812,6 +805,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#print" title="print的时候顺带带上时间" class="md-nav__link">
+    print的时候顺带带上时间
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#mysql" title="连接mysql批量插入、查询" class="md-nav__link">
     连接mysql批量插入、查询
   </a>
@@ -819,22 +819,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#flask" title="flask设置一堆静态目录" class="md-nav__link">
-    flask设置一堆静态目录
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#_1" title="大小写不敏感字典" class="md-nav__link">
     大小写不敏感字典
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#print" title="print的时候顺带带上时间" class="md-nav__link">
-    print的时候顺带带上时间
   </a>
   
 </li>
@@ -864,6 +850,21 @@
                 
                 
                 <h1 id="gist">gist 记录一些代码片段<a class="headerlink" href="#gist" title="Permanent link">&para;</a></h1>
+<h2 id="print">print的时候顺带带上时间<a class="headerlink" href="#print" title="Permanent link">&para;</a></h2>
+<p>使用这种方式的好处不仅是显示时间，而且可以很方便地将往屏幕输出改为写文件；更优雅的方式是用logging</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+<span class="k">def</span> <span class="nf">myprint</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+    <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;[&quot;</span><span class="o">+</span><span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;] &quot;</span><span class="o">+</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">print</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</pre></div>
+
+
+<p>使用的时候就和print一样使用，可以传入多个参数</p>
+<div class="codehilite"><pre><span></span>myprint(&quot;aha myprint&quot;, 666)
+</pre></div>
+
+
 <h2 id="mysql">连接mysql批量插入、查询<a class="headerlink" href="#mysql" title="Permanent link">&para;</a></h2>
 <div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">pymysql</span>
 <span class="kn">import</span> <span class="nn">time</span>
@@ -892,27 +893,9 @@
 </pre></div>
 
 
-<h2 id="flask">flask设置一堆静态目录<a class="headerlink" href="#flask" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span><span class="p">,</span> <span class="n">Blueprint</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">redirect</span><span class="p">,</span> <span class="n">Markup</span>
-<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;pic&#39;</span><span class="p">,</span> <span class="s1">&#39;skin&#39;</span><span class="p">,</span> <span class="s1">&#39;images&#39;</span><span class="p">,</span> <span class="s1">&#39;更多静态目录&#39;</span><span class="p">]:</span>
-    <span class="n">blueprint</span> <span class="o">=</span> <span class="n">Blueprint</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">,</span> <span class="n">static_url_path</span><span class="o">=</span><span class="s1">&#39;/&#39;</span><span class="o">+</span><span class="n">path</span><span class="p">,</span> <span class="n">static_folder</span><span class="o">=</span><span class="n">path</span><span class="p">)</span>
-    <span class="n">app</span><span class="o">.</span><span class="n">register_blueprint</span><span class="p">(</span><span class="n">blueprint</span><span class="p">)</span>
-</pre></div>
-
-
 <h2 id="_1">大小写不敏感字典<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">requests.structures</span> <span class="kn">import</span> <span class="n">CaseInsensitiveDict</span>
 <span class="n">mydict</span> <span class="o">=</span> <span class="n">CaseInsensitiveDict</span><span class="p">(</span><span class="n">mydict</span><span class="p">)</span>
-</pre></div>
-
-
-<h2 id="print">print的时候顺带带上时间<a class="headerlink" href="#print" title="Permanent link">&para;</a></h2>
-<p>使用这种方式的好处不仅是显示时间，而且可以很方便地将往屏幕输出改为写文件；更优雅的方式是用logging</p>
-<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
-<span class="n">myprint</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="k">print</span><span class="p">(</span><span class="s2">&quot;[{showtime}] {s}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">showtime</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">),</span> <span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="p">))</span>
-
-<span class="n">myprint</span><span class="p">(</span><span class="s2">&quot;aha myprint&quot;</span><span class="p">)</span>
 </pre></div>
 
 

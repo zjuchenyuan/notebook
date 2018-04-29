@@ -1,5 +1,24 @@
 # gist 记录一些代码片段
 
+## print的时候顺带带上时间
+
+使用这种方式的好处不仅是显示时间，而且可以很方便地将往屏幕输出改为写文件；更优雅的方式是用logging
+
+```python
+import time
+def myprint(*args, **kwargs):
+    args = list(args)
+    args[0] = "["+time.strftime("%Y-%m-%d %H:%M:%S")+"] "+args[0]
+    print(*args, **kwargs)
+
+
+```
+
+使用的时候就和print一样使用，可以传入多个参数
+
+```
+myprint("aha myprint", 666)
+```
 
 ## 连接mysql批量插入、查询
 
@@ -30,32 +49,11 @@ cur.execute("select * from tablename where id="+str(id))
 return dict(zip(("id","flag","更多的列名"),list(cur)[0]))
 ```
 
-## flask设置一堆静态目录
-
-```python
-from flask import Flask, render_template, Blueprint, request, redirect, Markup
-app = Flask(__name__)
-for path in ['pic', 'skin', 'images', '更多静态目录']:
-    blueprint = Blueprint(path, __name__, static_url_path='/'+path, static_folder=path)
-    app.register_blueprint(blueprint)
-```
-
 ## 大小写不敏感字典
 
 ```python
 from requests.structures import CaseInsensitiveDict
 mydict = CaseInsensitiveDict(mydict)
-```
-
-## print的时候顺带带上时间
-
-使用这种方式的好处不仅是显示时间，而且可以很方便地将往屏幕输出改为写文件；更优雅的方式是用logging
-
-```python
-import time
-myprint = lambda s: print("[{showtime}] {s}".format(showtime=time.strftime("%Y-%m-%d %H:%M:%S"), s=s))
-
-myprint("aha myprint")
 ```
 
 ## mpms多线程下每个线程单独变量

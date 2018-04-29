@@ -34,6 +34,7 @@ My notebook about technology, for lookup and share
 >* python selenium+Docker chrome headless爬复杂网页
 >* python transmissionrpc 上传种子 获取状态 增加tracker 修改torrent文件中的tracker
 >* uwsgi优雅重启
+>* flask设置一堆静态目录
 
 ## [gist Python一些常用的代码片段](gist.md)
 >* 连接mysql插入、查询

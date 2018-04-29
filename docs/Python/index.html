@@ -714,6 +714,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#flask" title="flask设置一堆静态目录" class="md-nav__link">
+    flask设置一堆静态目录
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1656,6 +1663,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#flask" title="flask设置一堆静态目录" class="md-nav__link">
+    flask设置一堆静态目录
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -2558,6 +2572,15 @@ t.write(&quot;new.torrent&quot;)
 
 <p>文件打开方式必须是&rdquo;w&rdquo;而不能是&rdquo;a&rdquo;：</p>
 <div class="codehilite"><pre><span></span>open(&quot;/tmp/uwsgififo&quot;, &quot;w&quot;).write(&quot;r&quot;)
+</pre></div>
+
+
+<h2 id="flask">flask设置一堆静态目录<a class="headerlink" href="#flask" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span><span class="p">,</span> <span class="n">Blueprint</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">redirect</span><span class="p">,</span> <span class="n">Markup</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;pic&#39;</span><span class="p">,</span> <span class="s1">&#39;skin&#39;</span><span class="p">,</span> <span class="s1">&#39;images&#39;</span><span class="p">,</span> <span class="s1">&#39;更多静态目录&#39;</span><span class="p">]:</span>
+    <span class="n">blueprint</span> <span class="o">=</span> <span class="n">Blueprint</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">,</span> <span class="n">static_url_path</span><span class="o">=</span><span class="s1">&#39;/&#39;</span><span class="o">+</span><span class="n">path</span><span class="p">,</span> <span class="n">static_folder</span><span class="o">=</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">register_blueprint</span><span class="p">(</span><span class="n">blueprint</span><span class="p">)</span>
 </pre></div>
                 
                   
