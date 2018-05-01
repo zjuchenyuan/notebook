@@ -241,3 +241,77 @@ git checkout -b dev
 ```
 git push -u origin dev
 ```
+
+----
+
+## 用gpg给git提交签名
+
+参考：https://help.github.com/articles/signing-commits-with-gpg/
+
+下述以ubuntu16.04（其实是bash on win10）讲解整个过程
+
+### 安装gpg2
+
+查看gpg版本：`gpg --version`发现版本是`gpg (GnuPG) 1.4.20`，而教程要求要2以上，所以先要安装gpg2，并告诉git我们要使用gpg2：
+
+```
+apt install -y gpg2
+git config --global gpg.program gpg2
+```
+
+
+### 创建一个新的key
+
+这里github给出的命令有问题，google发现参数改了
+
+```
+gpg2 --full-gen-key
+```
+
+回车选择RSA and RSA，然后输入密钥大小输入4096，然后回车永不过期，确认y，然后输入自己的名字和邮箱 注意这里邮箱要和git commit用到的邮箱一致
+
+### 导出key的公钥 在github设置中提交
+
+```
+gpg2 --list-secret-keys --keyid-format LONG
+```
+
+如下输出中，我们需要的是3AA5C34371567BD2这一串 就是sec那一行的4096R/后面的东西
+
+```
+$ gpg2 --list-secret-keys --keyid-format LONG
+/Users/hubot/.gnupg/secring.gpg
+------------------------------------
+sec   4096R/3AA5C34371567BD2 2016-03-10 [expires: 2017-03-10]
+uid                          Hubot 
+ssb   4096R/42B317FD4BA89E7A 2016-03-10
+```
+
+然后得到公钥：
+
+```
+gpg2 --armor --export 3AA5C34371567BD2
+```
+
+复制屏幕上输出的一大串，打开下面的网页 粘贴提交
+
+https://github.com/settings/gpg/new
+
+### 配置git使用gpg签名
+
+告诉git默认使用这个key：
+
+```
+git config --global user.signingkey 3AA5C34371567BD2
+git config --global commit.gpgsign true
+```
+
+执行 建议将这一行写入~/.bashrc：
+
+```
+export GPG_TTY=$(tty)
+```
+
+然后就是正常的git add .，git commit -m "message"咯
+
+gpg-agent会在后台运行，不必频繁输入密码

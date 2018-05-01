@@ -786,6 +786,47 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#gpggit" title="用gpg给git提交签名" class="md-nav__link">
+    用gpg给git提交签名
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gpg2" title="安装gpg2" class="md-nav__link">
+    安装gpg2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key" title="创建一个新的key" class="md-nav__link">
+    创建一个新的key
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-github" title="导出key的公钥 在github设置中提交" class="md-nav__link">
+    导出key的公钥 在github设置中提交
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gitgpg" title="配置git使用gpg签名" class="md-nav__link">
+    配置git使用gpg签名
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
     </ul>
@@ -1080,6 +1121,47 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#gpggit" title="用gpg给git提交签名" class="md-nav__link">
+    用gpg给git提交签名
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gpg2" title="安装gpg2" class="md-nav__link">
+    安装gpg2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key" title="创建一个新的key" class="md-nav__link">
+    创建一个新的key
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-github" title="导出key的公钥 在github设置中提交" class="md-nav__link">
+    导出key的公钥 在github设置中提交
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gitgpg" title="配置git使用gpg签名" class="md-nav__link">
+    配置git使用gpg签名
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
     </ul>
@@ -1275,6 +1357,62 @@ git commit --amend
 <p>现在再执行<code>git add</code>，<code>git commit</code>后，需要把新的分支push给远程服务器：</p>
 <div class="codehilite"><pre><span></span>git push -u origin dev
 </pre></div>
+
+
+<hr />
+<h2 id="gpggit">用gpg给git提交签名<a class="headerlink" href="#gpggit" title="Permanent link">&para;</a></h2>
+<p>参考：https://help.github.com/articles/signing-commits-with-gpg/</p>
+<p>下述以ubuntu16.04（其实是bash on win10）讲解整个过程</p>
+<h3 id="gpg2">安装gpg2<a class="headerlink" href="#gpg2" title="Permanent link">&para;</a></h3>
+<p>查看gpg版本：<code>gpg --version</code>发现版本是<code>gpg (GnuPG) 1.4.20</code>，而教程要求要2以上，所以先要安装gpg2，并告诉git我们要使用gpg2：</p>
+<div class="codehilite"><pre><span></span>apt install -y gpg2
+git config --global gpg.program gpg2
+</pre></div>
+
+
+<h3 id="key">创建一个新的key<a class="headerlink" href="#key" title="Permanent link">&para;</a></h3>
+<p>这里github给出的命令有问题，google发现参数改了</p>
+<div class="codehilite"><pre><span></span>gpg2 --full-gen-key
+</pre></div>
+
+
+<p>回车选择RSA and RSA，然后输入密钥大小输入4096，然后回车永不过期，确认y，然后输入自己的名字和邮箱 注意这里邮箱要和git commit用到的邮箱一致</p>
+<h3 id="key-github">导出key的公钥 在github设置中提交<a class="headerlink" href="#key-github" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>gpg2 --list-secret-keys --keyid-format LONG
+</pre></div>
+
+
+<p>如下输出中，我们需要的是3AA5C34371567BD2这一串 就是sec那一行的4096R/后面的东西</p>
+<div class="codehilite"><pre><span></span>$ gpg2 --list-secret-keys --keyid-format LONG
+/Users/hubot/.gnupg/secring.gpg
+------------------------------------
+sec   4096R/3AA5C34371567BD2 <span class="m">2016</span>-03-10 <span class="o">[</span>expires: <span class="m">2017</span>-03-10<span class="o">]</span>
+uid                          Hubot 
+ssb   4096R/42B317FD4BA89E7A <span class="m">2016</span>-03-10
+</pre></div>
+
+
+<p>然后得到公钥：</p>
+<div class="codehilite"><pre><span></span>gpg2 --armor --export 3AA5C34371567BD2
+</pre></div>
+
+
+<p>复制屏幕上输出的一大串，打开下面的网页 粘贴提交</p>
+<p>https://github.com/settings/gpg/new</p>
+<h3 id="gitgpg">配置git使用gpg签名<a class="headerlink" href="#gitgpg" title="Permanent link">&para;</a></h3>
+<p>告诉git默认使用这个key：</p>
+<div class="codehilite"><pre><span></span>git config --global user.signingkey 3AA5C34371567BD2
+git config --global commit.gpgsign true
+</pre></div>
+
+
+<p>执行 建议将这一行写入~/.bashrc：</p>
+<div class="codehilite"><pre><span></span>export GPG_TTY=$(tty)
+</pre></div>
+
+
+<p>然后就是正常的git add .，git commit -m &ldquo;message&rdquo;咯</p>
+<p>gpg-agent会在后台运行，不必频繁输入密码</p>
                 
                   
                 
