@@ -146,6 +146,7 @@ My notebook about technology, for lookup and share
 >* 文件一次性改太多了，拆成多次提交 add -p
 >* 本地忽略一些个人的修改
 >* 本地创建branch后push操作git push -u
+>* 用gpg给git提交签名
 
 ## [Github Project Recommendation](GithubProjectRecommendation.md)
 >* 视频下载you-get
