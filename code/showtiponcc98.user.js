@@ -2002,15 +2002,18 @@ setInterval(function(){
             var thisx = this;
             var topicid = href.split("/")[2];
             var content;
+            var width=400;
+            if(window.innerWidth<420) width = window.innerWidth-20;
+            if(window.innerWidth>1000) width=700;
             if(typeof(cache_content[topicid])!='undefined'){
                 content = cache_content[topicid];
-                domTT_activate(thisx, event, 'content', content, 'trail', false, 'direction', 'southeast', 'clearMouse', true, 'delay', 0, 'maxWidth', 400, 'caption', title, 'type', 'velcro', 'draggable', false);
+                domTT_activate(thisx, event, 'content', content, 'trail', false, 'direction', 'southeast', 'clearMouse', true, 'delay', 0, 'maxWidth', width, 'caption', title, 'type', 'velcro', 'draggable', false);
             }else{
                 //console.log("request "+topicid);
                 GM_xmlhttpRequest({method:"GET", url:"https://cc98.tech/topic/"+topicid+"/onmouseover",responseType:"json",onload: function (response) {
                     content=JSON.parse(response.responseText).html;
                     cache_content[topicid] = content;
-                    domTT_activate(thisx, event, 'content', content, 'trail', false, 'direction', 'southeast', 'clearMouse', true, 'delay', 0, 'maxWidth', 400, 'caption', title, 'type', 'velcro', 'draggable', false);
+                    domTT_activate(thisx, event, 'content', content, 'trail', false, 'direction', 'southeast', 'clearMouse', true, 'delay', 0, 'maxWidth', width, 'caption', title, 'type', 'velcro', 'draggable', false);
                 }});
             }
 
