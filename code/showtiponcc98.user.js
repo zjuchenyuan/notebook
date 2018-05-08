@@ -1,8 +1,10 @@
 // ==UserScript==
 // @name                show tip on cc98.org
+// @version        0.2
+// @author chenyuan
 // @namespace	        cc98.tech
-// @description	        show tip on cc98.org recent page
-// @include		https://www.cc98.org/newTopics
+// @description	        show tip on cc98.org recent page, by requesting cc98.tech
+// @include		https://www.cc98.org/*
 // @connect cc98.tech
 // @grant        GM_xmlhttpRequest
 // @grant GM_addStyle
@@ -1991,16 +1993,23 @@ max-width: 100%;
 `);
 var cache_content = {};
 var oldlength = 0;
-setInterval(function(){
-    var focustopictitle = $(".focus-topic-title");
+function handletarget(target){
+    var focustopictitle = $(target);
     if (focustopictitle.length == oldlength){return;}
     focustopictitle.unbind('mouseover');
     focustopictitle.mouseover(
         function(event){
-            var title=$(this).text();
-            var href=$(this).attr('href');
             var thisx = this;
-            var topicid = href.split("/")[2];
+            var title=$(this).text();
+            var topicid;
+            if(target==".focus-topic-title"){
+                var href=$(this).attr('href');
+                topicid = href.split("/")[2];
+            }else if(target==".listTitle"){
+                topicid = $(this).attr('id').replace("title","");
+            }else{
+                return;
+            }
             var content;
             var width=400;
             if(window.innerWidth<420) width = window.innerWidth-20;
@@ -2009,7 +2018,7 @@ setInterval(function(){
                 content = cache_content[topicid];
                 domTT_activate(thisx, event, 'content', content, 'trail', false, 'direction', 'southeast', 'clearMouse', true, 'delay', 0, 'maxWidth', width, 'caption', title, 'type', 'velcro', 'draggable', false);
             }else{
-                //console.log("request "+topicid);
+                console.log("request "+topicid);
                 GM_xmlhttpRequest({method:"GET", url:"https://cc98.tech/topic/"+topicid+"/onmouseover",responseType:"json",onload: function (response) {
                     content=JSON.parse(response.responseText).html;
                     cache_content[topicid] = content;
@@ -2019,4 +2028,8 @@ setInterval(function(){
 
         }
     );
+}
+setInterval(function(){
+    handletarget(".focus-topic-title");
+    handletarget(".listTitle");
 },2000);
