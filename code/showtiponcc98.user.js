@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                show tip on cc98.org
-// @version        0.2
+// @version        0.2.1
 // @author chenyuan
 // @namespace	        cc98.tech
 // @description	        show tip on cc98.org recent page, by requesting cc98.tech
@@ -1992,10 +1992,11 @@ max-width: 100%;
 }
 `);
 var cache_content = {};
-var oldlength = 0;
+var oldlength = {};
 function handletarget(target){
     var focustopictitle = $(target);
-    if (focustopictitle.length == oldlength){return;}
+    if (focustopictitle.length == oldlength[target]){return;}
+    oldlength[target] = focustopictitle.length;
     focustopictitle.unbind('mouseover');
     focustopictitle.mouseover(
         function(event){
@@ -2018,7 +2019,7 @@ function handletarget(target){
                 content = cache_content[topicid];
                 domTT_activate(thisx, event, 'content', content, 'trail', false, 'direction', 'southeast', 'clearMouse', true, 'delay', 0, 'maxWidth', width, 'caption', title, 'type', 'velcro', 'draggable', false);
             }else{
-                console.log("request "+topicid);
+                //console.log("request "+topicid);
                 GM_xmlhttpRequest({method:"GET", url:"https://cc98.tech/topic/"+topicid+"/onmouseover",responseType:"json",onload: function (response) {
                     content=JSON.parse(response.responseText).html;
                     cache_content[topicid] = content;
