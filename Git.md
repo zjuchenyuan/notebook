@@ -314,4 +314,17 @@ export GPG_TTY=$(tty)
 
 然后就是正常的git add .，git commit -m "message"咯
 
-gpg-agent会在后台运行，不必频繁输入密码
+gpg-agent会在后台运行，默认10分钟内不需要再次输入密码
+
+### 修改gpg要求再次输入密码的时间限制
+
+10分钟的默认限制还是太短了，对于安全性要求不高的情景（比如自己的开源代码push到github），不妨设置为密码一直有效，直到gpg-agent重启
+
+下面的设置将限制改到1年，当然gpg-agent重启还是要再次输入密码的：
+
+```
+vi ~/.gnupg/gpg-agent.conf
+
+default-cache-ttl 34560000
+max-cache-ttl 34560000
+```
