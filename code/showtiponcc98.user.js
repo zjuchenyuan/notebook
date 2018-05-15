@@ -1993,17 +1993,21 @@ max-width: 100%;
 `);
 var cache_content = {};
 var oldlength = {};
+var oldurl = {};
 function handletarget(target){
     var focustopictitle = $(target);
-    if (focustopictitle.length == oldlength[target]){return;}
+    if (focustopictitle.length == oldlength[target] && document.location.href == oldurl[target]){return;}
+    $("[id^='__autoId']").each(function(){$(this).removeAttr("id");})
     oldlength[target] = focustopictitle.length;
+    oldurl[target] = document.location.href;
+    //console.log("unbind mouseover "+target);
     focustopictitle.unbind('mouseover');
     focustopictitle.mouseover(
         function(event){
             var thisx = this;
             var title=$(this).text();
             var topicid;
-            if(target==".focus-topic-title"){
+            if(target==".focus-topic-title"||target=='a[href^="/topic/"]'){
                 var href=$(this).attr('href');
                 topicid = href.split("/")[2];
             }else if(target==".listTitle"){
@@ -2019,7 +2023,7 @@ function handletarget(target){
                 content = cache_content[topicid];
                 domTT_activate(thisx, event, 'content', content, 'trail', false, 'direction', 'southeast', 'clearMouse', true, 'delay', 0, 'maxWidth', width, 'caption', title, 'type', 'velcro', 'draggable', false);
             }else{
-                //console.log("request "+topicid);
+                console.log("request "+topicid);
                 GM_xmlhttpRequest({method:"GET", url:"https://cc98.tech/topic/"+topicid+"/onmouseover",responseType:"json",onload: function (response) {
                     content=JSON.parse(response.responseText).html;
                     cache_content[topicid] = content;
@@ -2033,4 +2037,5 @@ function handletarget(target){
 setInterval(function(){
     handletarget(".focus-topic-title");
     handletarget(".listTitle");
+    handletarget('a[href^="/topic/"]');
 },2000);
