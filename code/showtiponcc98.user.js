@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                show tip on cc98.org
-// @version        0.2.1
+// @version        0.3.2
 // @author chenyuan
 // @namespace	        cc98.tech
 // @description	        show tip on cc98.org recent page, by requesting cc98.tech
@@ -2037,5 +2037,5 @@ function handletarget(target){
 setInterval(function(){
     handletarget(".focus-topic-title");
     handletarget(".listTitle");
-    handletarget('a[href^="/topic/"]');
+    if(/message/.test(document.location.href)) handletarget('a[href^="/topic/"]');
 },2000);
