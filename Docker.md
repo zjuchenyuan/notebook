@@ -693,3 +693,30 @@ alias din=din
 ```
 
 使用的时候只需要`din 容器名称`就能进入容器bash啦，这样进入容器vim也能全屏幕显示了
+
+----
+
+## 不使用docker pull也能下载到镜像
+
+**该脚本存在问题，下载到的镜像层无法导入，仍待研究**
+
+github上官方有下载脚本：https://github.com/moby/moby/blob/master/contrib/download-frozen-image-v2.sh
+
+使用的时候第一个参数是目录名称，第二个是镜像名称:latest，其中:tag是必须要写的
+
+下述命令下载脚本，替换为从阿里云下载，最后打包成golang.tar （由于下载到的layer的tar包已经是gzip压缩过的 没必要再7zip压缩）
+
+```
+wget https://raw.githubusercontent.com/moby/moby/master/contrib/download-frozen-image-v2.sh
+sed -i 's/registry-1.docker.io/h0kyslzs.mirror.aliyuncs.com/g' download-frozen-image-v2.sh
+sed -i 's/token="$(/token="" #/g' download-frozen-image-v2.sh
+chmod +x download-frozen-image-v2.sh
+./download-frozen-image-v2.sh /tmp/golang google/golang:latest
+tar -vf golang.tar -cC '/tmp/golang' . 
+```
+
+然后就可以传输golang.tar，导入方法很简单
+
+```
+docker load < golang.tar
+```

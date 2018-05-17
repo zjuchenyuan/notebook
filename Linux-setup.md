@@ -487,3 +487,11 @@ mkfs.ext4 /dev/sdXX -E lazy_itable_init=0,lazy_journal_init=0 -O sparse_super,la
 ```
 
 对应的[man文档](http://manpages.ubuntu.com/manpages/precise/en/man8/mkfs.ext4.8.html)
+
+----
+
+## 添加受信任的CA证书 mitmproxy
+
+```
+echo ~/.mitmproxy/mitmproxy-ca-cert.pem >> /etc/ssl/certs/ca-certificates.crt
+```
