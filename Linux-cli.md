@@ -584,3 +584,15 @@ dd if=input.binary of=output.binary skip=$offset count=$bytes iflag=skip_bytes,c
 From: https://stackoverflow.com/questions/1423346/how-do-i-extract-a-single-chunk-of-bytes-from-within-a-file
 
 如果省略掉count就是一直到末尾
+
+----
+
+## redis匹配前缀删除大量键值
+
+FROM: https://stackoverflow.com/questions/4006324/how-to-atomically-delete-keys-matching-a-pattern-using-redis
+
+删除当前数据库中prefix开头的所有key：
+
+```
+EVAL "local keys = redis.call('keys', ARGV[1]) \n for i=1,#keys,5000 do \n redis.call('del', unpack(keys, i, math.min(i+4999, #keys))) \n end \n return keys" 0 prefix*
+```

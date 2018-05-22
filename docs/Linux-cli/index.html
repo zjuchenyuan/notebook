@@ -1024,6 +1024,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#redis" title="redis匹配前缀删除大量键值" class="md-nav__link">
+    redis匹配前缀删除大量键值
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1384,6 +1391,13 @@
         <li class="md-nav__item">
   <a href="#_13" title="从二进制文件中提取片段" class="md-nav__link">
     从二进制文件中提取片段
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#redis" title="redis匹配前缀删除大量键值" class="md-nav__link">
+    redis匹配前缀删除大量键值
   </a>
   
 </li>
@@ -1828,6 +1842,12 @@ cryptsetup close 名称
 
 <p>From: https://stackoverflow.com/questions/1423346/how-do-i-extract-a-single-chunk-of-bytes-from-within-a-file</p>
 <p>如果省略掉count就是一直到末尾</p>
+<hr />
+<h2 id="redis">redis匹配前缀删除大量键值<a class="headerlink" href="#redis" title="Permanent link">&para;</a></h2>
+<p>FROM: https://stackoverflow.com/questions/4006324/how-to-atomically-delete-keys-matching-a-pattern-using-redis</p>
+<p>删除当前数据库中prefix开头的所有key：</p>
+<div class="codehilite"><pre><span></span>EVAL &quot;local keys = redis.call(&#39;keys&#39;, ARGV[1]) \n for i=1,#keys,5000 do \n redis.call(&#39;del&#39;, unpack(keys, i, math.min(i+4999, #keys))) \n end \n return keys&quot; 0 prefix*
+</pre></div>
                 
                   
                 
