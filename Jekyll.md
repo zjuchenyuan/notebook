@@ -17,7 +17,6 @@
 代码：
 
 ```liquid
-{% raw %}
 {% highlight java linenos %}
 public class HelloWorld {
     public static void main(String args[]) {
@@ -25,10 +24,9 @@ public class HelloWorld {
     }
 }
 {% endhighlight %}
-{% endraw %}
 ```
 
-效果如下：
+效果如下：(由于现在已经不再使用Jekyll，所以看不出了23333）
 
 {% highlight java linenos %}
 public class HelloWorld {

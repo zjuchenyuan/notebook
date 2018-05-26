@@ -1469,10 +1469,9 @@ rm -rf /var/lib/docker
 <p>然后就可以执行安装命令了</p>
 <hr />
 <h2 id="ip">获得容器的ip<a class="headerlink" href="#ip" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><span class="cp">{%</span> <span class="k">raw</span> <span class="cp">%}</span>
-alias getip=&quot;docker inspect  --format &#39;{{.NetworkSettings.IPAddress}}&#39; &quot;
-getip 容器名称
-<span class="cp">{%</span> <span class="k">endraw</span> <span class="cp">%}</span><span class="x"></span>
+<div class="codehilite"><pre><span></span><span class="x">alias getip=&quot;docker inspect  --format &#39;</span><span class="cp">{{</span><span class="nv">.NetworkSettings.IPAddress</span><span class="cp">}}</span><span class="x">&#39; &quot;</span>
+
+<span class="x">getip 容器名称</span>
 </pre></div>
 
 
@@ -1702,16 +1701,12 @@ docker run --net=macvlan_network --ip=10.1.1.100 -d nginx
 <h3 id="macvlanip">macvlan查看已经分配的IP<a class="headerlink" href="#macvlanip" title="Permanent link">&para;</a></h3>
 <p>由于主机和容器不能互通，所以主机如何得知目前已经分配的IP列表呢？用docker network inspect咯，然后用python处理一下输出格式</p>
 <p>下面这个命令列出了容器IP和容器名称：</p>
-<div class="codehilite"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="n">raw</span> <span class="o">%</span><span class="p">}</span>
-<span class="n">docker</span> <span class="n">network</span> <span class="n">inspect</span> <span class="n">macvlan_bridge</span> <span class="o">--</span><span class="n">format</span> <span class="s">&quot;{{range .Containers}}{{.IPv4Address}}@{{.Name}},,,{{end}}&quot;</span> <span class="o">|</span> <span class="n">python3</span> <span class="o">-</span><span class="n">c</span> <span class="err">&#39;</span><span class="n">print</span><span class="p">(</span><span class="n">input</span><span class="p">().</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;/24@&quot;</span><span class="p">,</span><span class="s">&quot;</span><span class="se">\t</span><span class="s">&quot;</span><span class="p">).</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;,,,&quot;</span><span class="p">,</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">),</span><span class="n">end</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="err">&#39;</span><span class="o">|</span><span class="n">sort</span>
-<span class="p">{</span><span class="o">%</span> <span class="n">endraw</span> <span class="o">%</span><span class="p">}</span>
+<div class="codehilite"><pre><span></span><span class="n">docker</span> <span class="n">network</span> <span class="n">inspect</span> <span class="n">macvlan_bridge</span> <span class="o">--</span><span class="n">format</span> <span class="s">&quot;{{range .Containers}}{{.IPv4Address}}@{{.Name}},,,{{end}}&quot;</span> <span class="o">|</span> <span class="n">python3</span> <span class="o">-</span><span class="n">c</span> <span class="err">&#39;</span><span class="n">print</span><span class="p">(</span><span class="n">input</span><span class="p">().</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;/24@&quot;</span><span class="p">,</span><span class="s">&quot;</span><span class="se">\t</span><span class="s">&quot;</span><span class="p">).</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;,,,&quot;</span><span class="p">,</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">),</span><span class="n">end</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="err">&#39;</span><span class="o">|</span><span class="n">sort</span>
 </pre></div>
 
 
 <p>如果只需要IP列表：</p>
-<div class="codehilite"><pre><span></span><span class="cp">{%</span> <span class="k">raw</span> <span class="cp">%}</span>
-docker network inspect macvlan_bridge --format &quot;{{range .Containers}}{{.IPv4Address}},{{end}}&quot; | python3 -c &#39;print(input().replace(&quot;/24,&quot;,&quot;\n&quot;),end=&quot;&quot;)&#39;|sort
-<span class="cp">{%</span> <span class="k">endraw</span> <span class="cp">%}</span><span class="x"></span>
+<div class="codehilite"><pre><span></span><span class="x">docker network inspect macvlan_bridge --format &quot;</span><span class="cp">{{</span><span class="nv">range</span> <span class="nv">.Containers</span><span class="cp">}}{{</span><span class="nv">.IPv4Address</span><span class="cp">}}</span><span class="x">,</span><span class="cp">{{</span><span class="nv">end</span><span class="cp">}}</span><span class="x">&quot; | python3 -c &#39;print(input().replace(&quot;/24,&quot;,&quot;\n&quot;),end=&quot;&quot;)&#39;|sort</span>
 </pre></div>
 
 
@@ -1723,27 +1718,41 @@ docker network inspect macvlan_bridge --format &quot;{{range .Containers}}{{.IPv
 <p>举个例子 主机在10.12.34.x这个内网地址段 且可以随意得到这个地址段的内网IP，现在要给mysql容器10.12.34.202这个IP，运行方式就是<code>./give_container_ip.sh mysql 202</code></p>
 <p>记得修改下面的IPPREFIX和ETH0变量！</p>
 <h3 id="give_container_ipsh">give_container_ip.sh<a class="headerlink" href="#give_container_ipsh" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><span class="cp">{%</span> <span class="k">raw</span> <span class="cp">%}</span>
-#!/bin/bash
-set -ex
-shopt -s expand_aliases
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="nb">set</span> -ex
+<span class="nb">shopt</span> -s expand_aliases
 
-if [ -z $1 ] &amp;&amp; [ -z $2 ]; then
-    echo &quot;Usage: $0 &lt;container name&gt; &lt;new IP suffix&gt;&quot;
-    echo &quot;Example: $0 u202 202&quot;
-    exit 1
-fi
+<span class="k">if</span> <span class="o">[</span> -z <span class="nv">$1</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> -z <span class="nv">$2</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Usage: </span><span class="nv">$0</span><span class="s2"> &lt;container name&gt; &lt;new IP suffix&gt;&quot;</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Example: </span><span class="nv">$0</span><span class="s2"> u202 202&quot;</span>
+    <span class="nb">exit</span> <span class="m">1</span>
+<span class="k">fi</span>
 
-alias getip=&quot;docker inspect  --format &#39;{{.NetworkSettings.IPAddress}}&#39; &quot;
+<span class="nb">alias</span> <span class="nv">getip</span><span class="o">=</span><span class="s2">&quot;docker inspect  --format &#39;{{.NetworkSettings.IPAddress}}&#39; &quot;</span>
 
-IPPREFIX=&quot;10.12.34.&quot;
-ETH0=&quot;eth0&quot;
-sudo ifconfig $ETH0:$2 $IPPREFIX$2 netmask 255.255.255.0 up
-sudo iptables -t nat -I PREROUTING -d $IPPREFIX$2 -p tcp -j DNAT --to `getip $1`
-sudo iptables -t nat -I POSTROUTING -s `getip $1`/32 -d `getip $1`/32 -p tcp -m tcp -j MASQUERADE
-<span class="cp">{%</span> <span class="k">endraw</span> <span class="cp">%}</span><span class="x"></span>
+<span class="nv">IPPREFIX</span><span class="o">=</span><span class="s2">&quot;10.12.34.&quot;</span>
+<span class="nv">ETH0</span><span class="o">=</span><span class="s2">&quot;eth0&quot;</span>
+sudo ifconfig <span class="nv">$ETH0</span>:<span class="nv">$2</span> <span class="nv">$IPPREFIX$2</span> netmask <span class="m">255</span>.255.255.0 up
+sudo iptables -t nat -I PREROUTING -d <span class="nv">$IPPREFIX$2</span> -p tcp -j DNAT --to <span class="sb">`</span>getip <span class="nv">$1</span><span class="sb">`</span>
+sudo iptables -t nat -I POSTROUTING -s <span class="sb">`</span>getip <span class="nv">$1</span><span class="sb">`</span>/32 -d <span class="sb">`</span>getip <span class="nv">$1</span><span class="sb">`</span>/32 -p tcp -m tcp -j MASQUERADE
 </pre></div>
-
+</td></tr></table>
 
 <p>为什么最后用MASQUERADE而不用SNAT呢？因为用SNAT容器的应用就不能得到请求的源IP，在实际应用中是无法接受的；这一条iptables规则是我用<code>docker run -p</code>和<code>iptables-save</code>得到的</p>
 <hr />
@@ -1786,8 +1795,7 @@ sudo iptables -t nat -I POSTROUTING -s `getip $1`/32 -d `getip $1`/32 -p tcp -m 
 <p>为了防止滥用还要引入Proof Of Work，回答正确后才分配容器</p>
 <p>该代码直接用的docker命令来创建容器，且需要root权限，注意使用上的安全风险</p>
 <p>代码如下：<code>utils.py</code></p>
-<div class="codehilite"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="n">raw</span> <span class="o">%</span><span class="p">}</span>
-<span class="c1">#/usr/bin/python3</span>
+<div class="codehilite"><pre><span></span><span class="c1">#/usr/bin/python3</span>
 <span class="c1">#coding:utf-8</span>
 <span class="kn">import</span> <span class="nn">subprocess</span>
 <span class="kn">import</span> <span class="nn">time</span>
@@ -1870,8 +1878,6 @@ sudo iptables -t nat -I POSTROUTING -s `getip $1`/32 -d `getip $1`/32 -p tcp -m 
 <span class="s2">&quot;&quot;&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">path</span><span class="p">))</span>
     <span class="k">print</span><span class="p">(</span><span class="s2">&quot;[*] compile runner.c to runner&quot;</span><span class="p">)</span>
     <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;gcc runner.c -o runner&quot;</span><span class="p">)</span>
-
-<span class="p">{</span><span class="o">%</span> <span class="n">endraw</span> <span class="o">%</span><span class="p">}</span>
 </pre></div>
 
 

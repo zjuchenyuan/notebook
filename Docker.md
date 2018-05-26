@@ -107,10 +107,9 @@ sudo systemctl restart docker
 ## 获得容器的ip
 
 ```
-{% raw %}
 alias getip="docker inspect  --format '{{.NetworkSettings.IPAddress}}' "
+
 getip 容器名称
-{% endraw %}
 ```
 
 --------
@@ -411,17 +410,13 @@ docker run --net=macvlan_network --ip=10.1.1.100 -d nginx
 下面这个命令列出了容器IP和容器名称：
 
 ```
-{% raw %}
 docker network inspect macvlan_bridge --format "{{range .Containers}}{{.IPv4Address}}@{{.Name}},,,{{end}}" | python3 -c 'print(input().replace("/24@","\t").replace(",,,","\n"),end="")'|sort
-{% endraw %}
 ```
 
 如果只需要IP列表：
 
 ```
-{% raw %}
 docker network inspect macvlan_bridge --format "{{range .Containers}}{{.IPv4Address}},{{end}}" | python3 -c 'print(input().replace("/24,","\n"),end="")'|sort
-{% endraw %}
 ```
 
 ----
@@ -441,7 +436,6 @@ docker network inspect macvlan_bridge --format "{{range .Containers}}{{.IPv4Addr
 ### give_container_ip.sh
 
 ```
-{% raw %}
 #!/bin/bash
 set -ex
 shopt -s expand_aliases
@@ -459,7 +453,6 @@ ETH0="eth0"
 sudo ifconfig $ETH0:$2 $IPPREFIX$2 netmask 255.255.255.0 up
 sudo iptables -t nat -I PREROUTING -d $IPPREFIX$2 -p tcp -j DNAT --to `getip $1`
 sudo iptables -t nat -I POSTROUTING -s `getip $1`/32 -d `getip $1`/32 -p tcp -m tcp -j MASQUERADE
-{% endraw %}
 ```
 
 为什么最后用MASQUERADE而不用SNAT呢？因为用SNAT容器的应用就不能得到请求的源IP，在实际应用中是无法接受的；这一条iptables规则是我用`docker run -p`和`iptables-save`得到的
@@ -530,7 +523,6 @@ docker run -d -p 139:139 -p 445:445 --name samba -v /data:/data dperson/samba -u
 代码如下：`utils.py`
 
 ```python
-{% raw %}
 #/usr/bin/python3
 #coding:utf-8
 import subprocess
@@ -615,7 +607,6 @@ int main(){
     print("[*] compile runner.c to runner")
     os.system("gcc runner.c -o runner")
 
-{% endraw %}
 ```
 
 用到的xinetd配置：`runner.conf`，注意保存的时候不能有\r `:set ff=unix`

@@ -865,19 +865,17 @@
 </ol>
 <h2 id="_2">配置代码高亮并显示行号<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>代码：</p>
-<div class="codehilite"><pre><span></span><span class="p">{%</span><span class="w"> </span><span class="nt">raw</span><span class="w"> </span><span class="p">%}</span>
-{% highlight java linenos %}
+<div class="codehilite"><pre><span></span><span class="p">{%</span><span class="w"> </span><span class="nt">highlight</span><span class="w"> </span>java<span class="w"> </span>linenos<span class="w"> </span><span class="p">%}</span>
 public class HelloWorld {
     public static void main(String args[]) {
       System.out.println(&quot;Hello World!&quot;);
     }
 }
-{% endhighlight %}
-<span class="p">{%</span><span class="w"> </span><span class="nt">endraw</span><span class="w"> </span><span class="p">%}</span>
+<span class="p">{%</span><span class="w"> </span><span class="nt">endhighlight</span><span class="w"> </span><span class="p">%}</span>
 </pre></div>
 
 
-<p>效果如下：</p>
+<p>效果如下：(由于现在已经不再使用Jekyll，所以看不出了23333）</p>
 <p>{% highlight java linenos %}
 public class HelloWorld {
     public static void main(String args[]) {
