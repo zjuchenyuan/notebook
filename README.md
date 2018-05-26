@@ -42,6 +42,7 @@ My notebook about technology, for lookup and share
 >* 大小写不敏感字典
 >* print的时候顺带带上时间
 >* mpms多线程下每个线程单独变量
+>* 使用AES加密字符串 pyaes库
 
 ## [BASH](BASH.md)
 >* 在bash脚本中使用alias

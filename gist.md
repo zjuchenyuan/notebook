@@ -119,3 +119,33 @@ def dict_incr(dictname, key):
     else:
         dictname[key] += 1
 ```
+
+## 使用AES加密字符串
+
+https://github.com/ricmoo/pyaes
+
+首先 `pip install pyaes -t .` 注意每次加密的时候都需要重新初始化aes
+
+加密：
+
+```
+plaintext = "hello world"
+
+import pyaes,base64
+aes = pyaes.AESModeOfOperationCTR(b"This_key_for_demo_purposes_only!")
+encrypted_text = base64.b64encode(aes.encrypt(plaintext.encode("utf-8")))
+
+print(encrypted_text) # ipkEJevbnsfbEm4=
+```
+
+解密：
+
+```
+encrypted_text = "ipkEJevbnsfbEm4="
+
+import pyaes, base64
+aes = pyaes.AESModeOfOperationCTR(b"This_key_for_demo_purposes_only!")
+plaintext = aes.decrypt(base64.b64decode(encrypted_text)).decode()
+
+print(plaintext) # hello world
+```
