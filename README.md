@@ -6,6 +6,8 @@ My notebook about technology, for lookup and share
 
 查看内容 请点击Topic标题（如[Docker](Docker.md)）进入页面后使用右侧目录定位
 
+评论请使用: [Github Issue](https://github.com/zjuchenyuan/notebook/issues/1)
+
 ## [Python](Python.md)
 >* [语言勾勒QuickStart](https://py3.io/doc/python/quickstart.html)
 >* 设置pip源
