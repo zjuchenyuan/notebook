@@ -596,3 +596,16 @@ FROM: https://stackoverflow.com/questions/4006324/how-to-atomically-delete-keys-
 ```
 EVAL "local keys = redis.call('keys', ARGV[1]) \n for i=1,#keys,5000 do \n redis.call('del', unpack(keys, i, math.min(i+4999, #keys))) \n end \n return keys" 0 prefix*
 ```
+
+----
+
+## 批量替换子目录特定后缀名文件内容
+
+使用`sed -i` 和`find`
+
+例如本站编译脚本在mkdocs编译后对所有.html文件执行替换，改用国内CDN
+
+```
+sed -i 's#cdnjs.cloudflare.com#cdnjs.loli.net#g' $(find -type f -name "*.html")
+sed -i 's#fonts.googleapis.com#fonts.loli.net#g' $(find -type f -name "*.html")
+```

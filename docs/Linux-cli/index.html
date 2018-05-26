@@ -1031,6 +1031,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_14" title="批量替换子目录特定后缀名文件内容" class="md-nav__link">
+    批量替换子目录特定后缀名文件内容
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1398,6 +1405,13 @@
         <li class="md-nav__item">
   <a href="#redis" title="redis匹配前缀删除大量键值" class="md-nav__link">
     redis匹配前缀删除大量键值
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" title="批量替换子目录特定后缀名文件内容" class="md-nav__link">
+    批量替换子目录特定后缀名文件内容
   </a>
   
 </li>
@@ -1847,6 +1861,15 @@ cryptsetup close 名称
 <p>FROM: https://stackoverflow.com/questions/4006324/how-to-atomically-delete-keys-matching-a-pattern-using-redis</p>
 <p>删除当前数据库中prefix开头的所有key：</p>
 <div class="codehilite"><pre><span></span>EVAL &quot;local keys = redis.call(&#39;keys&#39;, ARGV[1]) \n for i=1,#keys,5000 do \n redis.call(&#39;del&#39;, unpack(keys, i, math.min(i+4999, #keys))) \n end \n return keys&quot; 0 prefix*
+</pre></div>
+
+
+<hr />
+<h2 id="_14">批量替换子目录特定后缀名文件内容<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
+<p>使用<code>sed -i</code> 和<code>find</code></p>
+<p>例如本站编译脚本在mkdocs编译后对所有.html文件执行替换，改用国内CDN</p>
+<div class="codehilite"><pre><span></span>sed -i &#39;s#cdnjs.loli.net#cdnjs.loli.net#g&#39; $(find -type f -name &quot;*.html&quot;)
+sed -i &#39;s#fonts.loli.net#fonts.loli.net#g&#39; $(find -type f -name &quot;*.html&quot;)
 </pre></div>
                 
                   
