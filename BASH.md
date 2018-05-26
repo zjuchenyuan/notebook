@@ -32,3 +32,26 @@ for i in $(seq 1 $END); do echo $i; done
 ```
 echo $((5+16#a+2#1010))
 ```
+
+## 判断命令不存在再apt安装
+
+```
+command -v aria2c >/dev/null 2>&1 || { apt update;     apt-get install -y aria2; }
+```
+
+如果有多个软件可能要安装，没必要每次都apt update，可以先装了再说 失败就apt update
+
+```
+command -v 7z >/dev/null 2>&1 || { apt-get install -y p7zip; }
+command -v 7z >/dev/null 2>&1 || { apt update;  apt-get install -y p7zip; }
+```
+
+## 判断文件不存在
+
+注意]前面要有空格
+
+```
+if [ ! -f "somefile" ]; then
+    curl ...
+fi
+```

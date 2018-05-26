@@ -350,6 +350,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#apt" title="判断命令不存在再apt安装" class="md-nav__link">
+    判断命令不存在再apt安装
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="判断文件不存在" class="md-nav__link">
+    判断文件不存在
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -832,6 +846,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#apt" title="判断命令不存在再apt安装" class="md-nav__link">
+    判断命令不存在再apt安装
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="判断文件不存在" class="md-nav__link">
+    判断文件不存在
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -872,6 +900,25 @@ fi
 <h2 id="bash_1">BASH做不同进制间数学计算<a class="headerlink" href="#bash_1" title="Permanent link">&para;</a></h2>
 <p>不需要bc也可以直接做计算，例如计算5+0xa+0b1010</p>
 <div class="codehilite"><pre><span></span>echo $((5+16#a+2#1010))
+</pre></div>
+
+
+<h2 id="apt">判断命令不存在再apt安装<a class="headerlink" href="#apt" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span>command -v aria2c &gt;/dev/null 2&gt;&amp;1 || { apt update;     apt-get install -y aria2; }
+</pre></div>
+
+
+<p>如果有多个软件可能要安装，没必要每次都apt update，可以先装了再说 失败就apt update</p>
+<div class="codehilite"><pre><span></span>command -v 7z &gt;/dev/null 2&gt;&amp;1 || { apt-get install -y p7zip; }
+command -v 7z &gt;/dev/null 2&gt;&amp;1 || { apt update;  apt-get install -y p7zip; }
+</pre></div>
+
+
+<h2 id="_2">判断文件不存在<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>注意]前面要有空格</p>
+<div class="codehilite"><pre><span></span>if [ ! -f &quot;somefile&quot; ]; then
+    curl ...
+fi
 </pre></div>
                 
                   
