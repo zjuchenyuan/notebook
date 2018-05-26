@@ -9,5 +9,5 @@ python3 code/upyun_purge.py &
 
 mkdocs build
 cd docs
-sed 's#cdnjs.cloudflare.com#cdnjs.loli.net#g' $(find -type f -name "*.html")
-sed 's#fonts.googleapis.com#fonts.loli.net#g' $(find -type f -name "*.html")
+sed -i 's#cdnjs.cloudflare.com#cdnjs.loli.net#g' $(find -type f -name "*.html")
+sed -i 's#fonts.googleapis.com#fonts.loli.net#g' $(find -type f -name "*.html")
