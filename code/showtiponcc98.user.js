@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                show tip on cc98.org
-// @version        0.3.2
+// @version        0.4.0
 // @author chenyuan
 // @namespace	        cc98.tech
 // @description	        show tip on cc98.org recent page, by requesting cc98.tech
