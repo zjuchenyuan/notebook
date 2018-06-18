@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                show tip on cc98.org
-// @version        0.4.0
+// @version        0.4.1
 // @author chenyuan
 // @namespace	        cc98.tech
 // @description	        show tip on cc98.org recent page, by requesting cc98.tech
@@ -1871,6 +1871,7 @@ padding: 3px 2px;
 background-color: #F1F1FF;
 word-break: break-all;
 word-wrap: break-word;
+white-space: pre-line;
 }
 
 /* Classic Style */
