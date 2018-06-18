@@ -132,6 +132,7 @@ My notebook about technology, for lookup and share
 >* 在容器A中使用别名访问容器B
 >* 修复Docker更新到18.02后部分容器无法start的问题
 >* 解决docker exec -it进入容器屏幕大小不对的问题
+>* 启动另一个Docker Daemon进程
 
 ## [Favorites](Favorites.md)
 >* Intel i386 手册 及 勘误

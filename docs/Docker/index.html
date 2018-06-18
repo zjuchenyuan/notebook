@@ -913,6 +913,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#docker-daemon" title="启动另一个Docker Daemon进程" class="md-nav__link">
+    启动另一个Docker Daemon进程
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1356,6 +1363,13 @@
         <li class="md-nav__item">
   <a href="#docker-pull" title="不使用docker pull也能下载到镜像" class="md-nav__link">
     不使用docker pull也能下载到镜像
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-daemon" title="启动另一个Docker Daemon进程" class="md-nav__link">
+    启动另一个Docker Daemon进程
   </a>
   
 </li>
@@ -1956,6 +1970,40 @@ tar -vf golang.tar -cC &#39;/tmp/golang&#39; .
 
 <p>然后就可以传输golang.tar，导入方法很简单</p>
 <div class="codehilite"><pre><span></span>docker load &lt; golang.tar
+</pre></div>
+
+
+<hr />
+<h2 id="docker-daemon">启动另一个Docker Daemon进程<a class="headerlink" href="#docker-daemon" title="Permanent link">&para;</a></h2>
+<p>有时候需要进行build操作，发现根目录剩余空间不够了，但另外一块硬盘还有空间，整体迁移/var/lib/docker或合并两个硬盘为lvm又不现实，这时就可以开启一个新的Docker Daemon，把Docker使用的目录设置为另一块硬盘</p>
+<p>参考：http://blog.alpaca.ai/run-multiple-docker-daemons-with-net-container/</p>
+<p>docker工作目录假设为/home/cy/docker</p>
+<p>第一次执行：</p>
+<div class="codehilite"><pre><span></span>OFFSET=0
+u=&quot;cy&quot;
+BRIDGE_NAME=br_<span class="cp">${</span><span class="n">u</span><span class="cp">}</span>
+DOCKER_ROOT=/home/<span class="cp">${</span><span class="n">u</span><span class="cp">}</span>/docker
+mkdir -p <span class="cp">${</span><span class="n">DOCKER_ROOT</span><span class="cp">}</span>
+brctl addbr <span class="cp">${</span><span class="n">BRIDGE_NAME</span><span class="cp">}</span>
+SUBNET=$(expr 52 + <span class="cp">${</span><span class="n">OFFSET</span><span class="cp">}</span>)
+ip addr add 172.18.<span class="cp">${</span><span class="n">SUBNET</span><span class="cp">}</span>.1/24 dev <span class="cp">${</span><span class="n">BRIDGE_NAME</span><span class="cp">}</span>
+ip link set dev <span class="cp">${</span><span class="n">BRIDGE_NAME</span><span class="cp">}</span> up
+iptables -t nat -A POSTROUTING -j MASQUERADE -s 172.18.<span class="cp">${</span><span class="n">SUBNET</span><span class="cp">}</span>.0/24 -d 0.0.0.0/0
+</pre></div>
+
+
+<p>运行dockerd执行：</p>
+<div class="codehilite"><pre><span></span>u=&quot;cy&quot;
+BRIDGE_NAME=br_<span class="cp">${</span><span class="n">u</span><span class="cp">}</span>
+DOCKER_ROOT=/home/<span class="cp">${</span><span class="n">u</span><span class="cp">}</span>/docker
+      dockerd -D \
+        -g <span class="cp">${</span><span class="n">DOCKER_ROOT</span><span class="cp">}</span>/g \
+        --exec-root=<span class="cp">${</span><span class="n">DOCKER_ROOT</span><span class="cp">}</span>/e \
+        -b <span class="cp">${</span><span class="n">BRIDGE_NAME</span><span class="cp">}</span> \
+        --dns=8.8.8.8 \
+        --iptables=true \
+        -H unix://<span class="cp">${</span><span class="n">DOCKER_ROOT</span><span class="cp">}</span>/docker.sock \
+        -p <span class="cp">${</span><span class="n">DOCKER_ROOT</span><span class="cp">}</span>/docker.pid
 </pre></div>
                 
                   

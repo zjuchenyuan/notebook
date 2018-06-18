@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name                show tip on cc98.org
-// @version        0.3.2
+// @version        0.4.1
 // @author chenyuan
 // @namespace	        cc98.tech
 // @description	        show tip on cc98.org recent page, by requesting cc98.tech
@@ -1871,6 +1871,7 @@ padding: 3px 2px;
 background-color: #F1F1FF;
 word-break: break-all;
 word-wrap: break-word;
+white-space: pre-line;
 }
 
 /* Classic Style */
@@ -1990,6 +1991,45 @@ background-color: #E6E6E6;
 div.domTT .contents img {
 max-width: 100%;
 }
+
+.emotac01, .emotac02, .emotac03, .emotac04, .emotac05, 
+.emotac06, .emotac07, .emotac08, .emotac09, .emotac10, 
+.emotac1003, .emotac11, .emotac12, .emotac13, .emotac14, 
+.emotac15, .emotac16, .emotac17, .emotac18, .emotac19, 
+.emotac20, .emotac22, .emotac23, .emotac24, .emotac25, 
+.emotac26, .emotac32, .emotac39, .emotac43, .emotac52
+{ max-width: 100%; background-size: 100%; background-image: url('https://file.cc98.org/v2-upload/43yyjnlr.png'); }
+ 
+.emotac01 { background-position: 0 0%; background-size: 100%; }
+.emotac02 { background-position: 0 3.448276%; background-size: 100%; }
+.emotac03 { background-position: 0 6.896552%; background-size: 100%; }
+.emotac04 { background-position: 0 10.344828%; background-size: 100%; }
+.emotac05 { background-position: 0 13.793103%; background-size: 100%; }
+.emotac06 { background-position: 0 17.241379%; background-size: 100%; }
+.emotac07 { background-position: 0 20.689655%; background-size: 100%; }
+.emotac08 { background-position: 0 24.137931%; background-size: 100%; }
+.emotac09 { background-position: 0 27.586207%; background-size: 100%; }
+.emotac10 { background-position: 0 31.034483%; background-size: 100%; }
+.emotac1003 { background-position: 0 34.482759%; background-size: 100%; }
+.emotac11 { background-position: 0 37.931034%; background-size: 100%; }
+.emotac12 { background-position: 0 41.37931%; background-size: 100%; }
+.emotac13 { background-position: 0 44.827586%; background-size: 100%; }
+.emotac14 { background-position: 0 48.275862%; background-size: 100%; }
+.emotac15 { background-position: 0 51.724138%; background-size: 100%; }
+.emotac16 { background-position: 0 55.172414%; background-size: 100%; }
+.emotac17 { background-position: 0 58.62069%; background-size: 100%; }
+.emotac18 { background-position: 0 62.068966%; background-size: 100%; }
+.emotac19 { background-position: 0 65.517241%; background-size: 100%; }
+.emotac20 { background-position: 0 68.965517%; background-size: 100%; }
+.emotac22 { background-position: 0 72.413793%; background-size: 100%; }
+.emotac23 { background-position: 0 75.862069%; background-size: 100%; }
+.emotac24 { background-position: 0 79.310345%; background-size: 100%; }
+.emotac25 { background-position: 0 82.758621%; background-size: 100%; }
+.emotac26 { background-position: 0 86.206897%; background-size: 100%; }
+.emotac32 { background-position: 0 89.655172%; background-size: 100%; }
+.emotac39 { background-position: 0 93.103448%; background-size: 100%; }
+.emotac43 { background-position: 0 96.551724%; background-size: 100%; }
+.emotac52 { background-position: 0 100%; background-size: 100%; }
 `);
 var cache_content = {};
 var oldlength = {};

@@ -2,24 +2,24 @@
 cls
 :: code by shuishui
 color 0a
-title ç½‘ç»œè®¾ç½®
+title ÍøÂçÉèÖÃ
 mode con COLS=80 LINES=36
 :menu
 cls
 ECHO.
-ECHO                       + â˜†â˜…â˜†â˜…-ç½‘ç»œè®¾ç½®-â˜…â˜†â˜…â˜† +
-ECHO                     +ã€€ ã€€ã€€ã€€ã€€ ã€€ã€€ã€€ã€€ ã€€ã€€ã€€ã€€   +
-ECHO                        +â˜†â˜…â˜†â˜…-shuishui-â˜…â˜†â˜…â˜†+
+ECHO                       + ¡î¡ï¡î¡ï-ÍøÂçÉèÖÃ-¡ï¡î¡ï¡î +
+ECHO                     +¡¡ ¡¡¡¡¡¡¡¡ ¡¡¡¡¡¡¡¡ ¡¡¡¡¡¡¡¡   +
+ECHO                        +¡î¡ï¡î¡ï-shuishui-¡ï¡î¡ï¡î+
 ECHO  -------------------------------------------------------------------------
-echo   [1]. è®¾ç½®é™æ€è·¯ç”±    [2]. å–æ¶ˆé™æ€è·¯ç”±    [3]. è®¾ç½®IP    [0 ]. é€€å‡º 
+echo   [1]. ÉèÖÃ¾²Ì¬Â·ÓÉ    [2]. È¡Ïû¾²Ì¬Â·ÓÉ    [3]. ÉèÖÃIP    [0 ]. ÍË³ö 
 ECHO  -------------------------------------------------------------------------
 ECHO.
-ECHO  æç¤ºï¼šVistaåŠä»¥åçš„æ“ä½œç³»ç»Ÿè¯·å³é”®é€‰æ‹©ç”¨ç®¡ç†å‘˜èº«ä»½è¿è¡Œ!
+ECHO  ÌáÊ¾£ºVista¼°ÒÔºóµÄ²Ù×÷ÏµÍ³ÇëÓÒ¼üÑ¡ÔñÓÃ¹ÜÀíÔ±Éí·İÔËĞĞ!
 ECHO. 
 
 :menu2
 SET cho2=
-SET /p cho2= é€‰æ‹©æ“ä½œ:
+SET /p cho2= Ñ¡Ôñ²Ù×÷:
 echo.
 
 if /i "%cho2%"=="0" (
@@ -32,7 +32,7 @@ netsh interface ipv4 show config>nul 2>nul || SET orderIP=ip
 
 if /i "%cho2%"=="3" (
 echo.^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>[ %cho2%]^<^<^<^<^<^<^<^<^<^<^<^<^<^<
-@REM ä»…è®¾ç½®"Ethernet adapter"
+@REM ½öÉèÖÃ"Ethernet adapter"
 set orderID=%cho2%
 set uip= &set /a numb=0&set /a uipnum=0
 for /f "usebackq delims=: tokens=1" %%a in (`"ipconfig | find "Ethernet adapter""`) do (
@@ -43,14 +43,14 @@ call echo %%uipnum%%. %%a
 call set uip=%%uip:Ethernet adapter =%%
 call :cchoice70
 call :cchoice71 %%uip%%
-echo.å·²è®¾ç½®[%cho2%]ï¼
+echo.ÒÑÉèÖÃ[%cho2%]£¡
 echo.
 )
 if /i "%cho2%"=="1" (
 echo.^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>[ %cho2%]^<^<^<^<^<^<^<^<^<^<^<^<^<^<
 set orderID=%cho2%
 set uip= &set uip1=&set /a uipnum=0&set /a numb=0
-@REM æ ¹æ®"Ethernet adapter""Default Gateway"å­—æ ·æŸ¥æ‰¾
+@REM ¸ù¾İ"Ethernet adapter""Default Gateway"×ÖÑù²éÕÒ
 for /f "usebackq tokens=1 delims=:" %%a in (`"ipconfig | find "Ethernet adapter""`) do (
 call set uip=%%uip%%"%%a" 
 )
@@ -58,7 +58,7 @@ call set uip=%%uip:Ethernet adapter =%%
 call :cchoice70 "00" 01
 call :cchoice70
 call :cchoice71 %%uip%%
-echo.å·²è®¾ç½®[%cho2%]ï¼
+echo.ÒÑÉèÖÃ[%cho2%]£¡
 echo.
 )
 if /i "%cho2%"=="2" (
@@ -68,7 +68,7 @@ route delete 10.0.0.0
 route delete 210.32.0.0
 route delete 210.32.128.0
 route delete 222.205.0.0
-echo.å·²è®¾ç½®[%cho2%]ï¼
+echo.ÒÑÉèÖÃ[%cho2%]£¡
 echo.
 )
 
@@ -90,49 +90,49 @@ if /i "%2"=="01" (
 if /i "%orderID%"=="1" (
 if /i %uipnum% EQU 0 (
 for %%a in (%uip%) do (
-for /f "usebackq tokens=2" %%i in (`"netsh interface %orderIP% show config %%a | find "é»˜è®¤ç½‘å…³:""`) do (
+for /f "usebackq tokens=2" %%i in (`"netsh interface %orderIP% show config %%a | find "Ä¬ÈÏÍø¹Ø:""`) do (
 call set uip1=%%uip1%%%%i 
 call set /a uipnum=%%uipnum%%+1
 call echo %%uipnum%%. %%a
-echo.   "é»˜è®¤ç½‘å…³":%%i
+echo.   "Ä¬ÈÏÍø¹Ø":%%i
 )))
 call set uip=%%uip1%%
 goto end
 ))
 if /i %uipnum% EQU 0 (
-for /f "usebackq tokens=1 delims=:" %%a in (`"ipconfig | find "ä»¥å¤ªç½‘é€‚é…å™¨""`) do (
+for /f "usebackq tokens=1 delims=:" %%a in (`"ipconfig | find "ÒÔÌ«ÍøÊÊÅäÆ÷""`) do (
 call set uip=%%uip%%"%%a" 
 if /i "%orderID%"=="3" (
 call set /a uipnum=%%uipnum%%+1
 call echo %%uipnum%%. %%a
 )))
-set uip=%uip:ä»¥å¤ªç½‘é€‚é…å™¨ =%
+set uip=%uip:ÒÔÌ«ÍøÊÊÅäÆ÷ =%
 if /i %uipnum% EQU 0 (
 if /i "%orderID%"=="1" (
 for %%a in (%uip%) do (
-for /f "usebackq tokens=2" %%i in (`"netsh interface %orderIP% show config %%a | find "é»˜è®¤ç½‘å…³:""`) do (
+for /f "usebackq tokens=2" %%i in (`"netsh interface %orderIP% show config %%a | find "Ä¬ÈÏÍø¹Ø:""`) do (
 call set uip1=%%uip1%%%%i 
 call set /a uipnum=%%uipnum%%+1
 call echo %%uipnum%%. %%a
-echo.   "é»˜è®¤ç½‘å…³":%%i
+echo.   "Ä¬ÈÏÍø¹Ø":%%i
 ))
 call set uip=%%uip1%%
 ))
 goto end
 
 :cchoice71
-if %uipnum% LSS 1 echo.æ²¡æœ‰æ‰¾åˆ°ç½‘ç»œæ¥å£ï¼&goto end
+if %uipnum% LSS 1 echo.Ã»ÓĞÕÒµ½ÍøÂç½Ó¿Ú£¡&goto end
 if %uipnum% GTR 1 (
-echo.&echo.   è¾“å…¥è¦è®¾ç½®çš„æ¥å£çš„åºå·,é€€å‡ºQ
+echo.&echo.   ÊäÈëÒªÉèÖÃµÄ½Ó¿ÚµÄĞòºÅ,ÍË³öQ
 set /p numb=   :
 ) else (set numb=1)
 if /i "%numb%"=="Q" goto end
-if %numb% LSS 1 (echo.è¾“å…¥^<1æ— æ•ˆï¼&goto cchoice71)
+if %numb% LSS 1 (echo.ÊäÈë^<1ÎŞĞ§£¡&goto cchoice71)
 if %numb% LEQ 9 (
 if %numb% LEQ %uipnum% (
 call set uip=%%%numb%%
-) else (echo.è¾“å…¥^>=%uipnum%æ— æ•ˆï¼&goto cchoice71)
-) else (echo.è¾“å…¥^>=9æ— æ•ˆï¼&goto cchoice71)
+) else (echo.ÊäÈë^>=%uipnum%ÎŞĞ§£¡&goto cchoice71)
+) else (echo.ÊäÈë^>=9ÎŞĞ§£¡&goto cchoice71)
 if /i "%orderID%"=="1" (
 route -4 -p add 10.0.0.0  mask 255.0.0.0 %uip% 2>nul || ^
 route -p add 10.0.0.0  mask 255.0.0.0  %uip% >nul
@@ -147,11 +147,11 @@ goto end)
 set myip=
 set mygateway=
 set mydns=10.10.0.21
-echo.&echo.   è¾“å…¥è¦è®¾ç½®IP
+echo.&echo.   ÊäÈëÒªÉèÖÃIP
 set /p myip=   :
-echo.   è¾“å…¥è¦è®¾ç½®ç½‘å…³
+echo.   ÊäÈëÒªÉèÖÃÍø¹Ø
 set /p mygateway=   :
-echo.   è¾“å…¥è¦è®¾ç½®DNS
+echo.   ÊäÈëÒªÉèÖÃDNS
 set /p mydns=   :
 
 if /i "%orderID%"=="3" (

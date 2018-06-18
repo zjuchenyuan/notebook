@@ -711,3 +711,44 @@ tar -vf golang.tar -cC '/tmp/golang' .
 ```
 docker load < golang.tar
 ```
+
+----
+
+## 启动另一个Docker Daemon进程
+
+有时候需要进行build操作，发现根目录剩余空间不够了，但另外一块硬盘还有空间，整体迁移/var/lib/docker或合并两个硬盘为lvm又不现实，这时就可以开启一个新的Docker Daemon，把Docker使用的目录设置为另一块硬盘
+
+参考：http://blog.alpaca.ai/run-multiple-docker-daemons-with-net-container/
+
+docker工作目录假设为/home/cy/docker
+
+第一次执行：
+
+```
+OFFSET=0
+u="cy"
+BRIDGE_NAME=br_${u}
+DOCKER_ROOT=/home/${u}/docker
+mkdir -p ${DOCKER_ROOT}
+brctl addbr ${BRIDGE_NAME}
+SUBNET=$(expr 52 + ${OFFSET})
+ip addr add 172.18.${SUBNET}.1/24 dev ${BRIDGE_NAME}
+ip link set dev ${BRIDGE_NAME} up
+iptables -t nat -A POSTROUTING -j MASQUERADE -s 172.18.${SUBNET}.0/24 -d 0.0.0.0/0
+```
+
+运行dockerd执行：
+
+```
+u="cy"
+BRIDGE_NAME=br_${u}
+DOCKER_ROOT=/home/${u}/docker
+      dockerd -D \
+        -g ${DOCKER_ROOT}/g \
+        --exec-root=${DOCKER_ROOT}/e \
+        -b ${BRIDGE_NAME} \
+        --dns=8.8.8.8 \
+        --iptables=true \
+        -H unix://${DOCKER_ROOT}/docker.sock \
+        -p ${DOCKER_ROOT}/docker.pid
+```
