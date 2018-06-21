@@ -752,3 +752,94 @@ DOCKER_ROOT=/home/${u}/docker
         -H unix://${DOCKER_ROOT}/docker.sock \
         -p ${DOCKER_ROOT}/docker.pid
 ```
+
+----
+
+## 配置使用Docker版本的Gitlab CI
+
+参考文档：
+官方教程 https://docs.gitlab.com/runner/
+高级配置 https://docs.gitlab.com/runner/configuration/advanced-configuration.html
+
+人家这东西本质上是一个docker容器，但是把主机的docker sock传入到容器中，所以容器内可以创建容器
+
+我这里的教程着重解决两个问题：使用自定义的镜像，设置DNS
+
+### 第一步当然是pull人家的runner镜像咯
+
+```
+docker pull gitlab/gitlab-runner
+```
+
+### 第二步 获取CI连接时需要的token
+
+在管理员界面 Overview下Runners点开即可看到 
+
+网址： /admin/runners
+
+### 第三步 注册以生成初始的配置信息
+
+参考https://docs.gitlab.com/runner/register/index.html#docker
+
+假设容器配置文件保存在/dockerfiles/gitlabrunner中，其中docker-image是默认跑任务的镜像
+
+```
+docker run --rm -t -i -v /dockerfiles/gitlabrunner:/etc/gitlab-runner --dns 10.0.0.1 gitlab/gitlab-runner  register  --non-interactive \
+  --url "https://gitlab.com/" \
+  --registration-token "上一步获得的token" \
+  --executor "docker" \
+  --docker-image myubuntu:latest \
+  --description "docker-runner" \
+  --run-untagged \
+  --locked="false"
+```
+
+### 第四步 修改配置文件
+
+参考高级配置 https://docs.gitlab.com/runner/configuration/advanced-configuration.html
+和 https://docs.gitlab.com/runner/executors/docker.html#how-pull-policies-work
+
+```
+cd /dockerfiles/gitlabrunner #你的配置文件目录
+sudo vim config.yml
+```
+
+为了跑本地已经存在的镜像（默认为always表示只能跑dockerhub上的），在[runners.docker]中需要添加：
+
+```
+pull_policy = "never"
+```
+
+或者这里你也可以使用"if-not-present" 不存在就pull
+
+另外 如果需要修改容器DNS，也添加进去即可
+
+```
+dns = ["10.0.0.1"]
+```
+
+### 第五步 启动runner容器
+
+如果需要改dns，这里也别忘记写上
+
+```
+docker run -d --name gitlab-runner --restart always \
+  -v /dockerfiles/gitlabrunner:/etc/gitlab-runner \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  --dns 10.0.0.1 \
+  gitlab/gitlab-runner:latest
+```
+
+### 第六步 创建一个新的repo来测试一下吧
+
+新建`.gitlab-ci.yml`文件，这里使用自己编译的myubuntu镜像
+
+```
+image: myubuntu:latest
+test:app:
+  script:
+  - echo ok
+  - curl ip.cn
+```
+
+然后在gitlab的仓库页面 最新的一次commit message右侧就有CI成功与否状态的图标 点进去看详细日志咯

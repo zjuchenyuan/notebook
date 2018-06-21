@@ -920,6 +920,61 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#dockergitlab-ci" title="配置使用Docker版本的Gitlab CI" class="md-nav__link">
+    配置使用Docker版本的Gitlab CI
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pullrunner" title="第一步当然是pull人家的runner镜像咯" class="md-nav__link">
+    第一步当然是pull人家的runner镜像咯
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#citoken" title="第二步 获取CI连接时需要的token" class="md-nav__link">
+    第二步 获取CI连接时需要的token
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" title="第三步 注册以生成初始的配置信息" class="md-nav__link">
+    第三步 注册以生成初始的配置信息
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" title="第四步 修改配置文件" class="md-nav__link">
+    第四步 修改配置文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runner" title="第五步 启动runner容器" class="md-nav__link">
+    第五步 启动runner容器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#repo" title="第六步 创建一个新的repo来测试一下吧" class="md-nav__link">
+    第六步 创建一个新的repo来测试一下吧
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
     </ul>
@@ -1371,6 +1426,61 @@
   <a href="#docker-daemon" title="启动另一个Docker Daemon进程" class="md-nav__link">
     启动另一个Docker Daemon进程
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dockergitlab-ci" title="配置使用Docker版本的Gitlab CI" class="md-nav__link">
+    配置使用Docker版本的Gitlab CI
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pullrunner" title="第一步当然是pull人家的runner镜像咯" class="md-nav__link">
+    第一步当然是pull人家的runner镜像咯
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#citoken" title="第二步 获取CI连接时需要的token" class="md-nav__link">
+    第二步 获取CI连接时需要的token
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" title="第三步 注册以生成初始的配置信息" class="md-nav__link">
+    第三步 注册以生成初始的配置信息
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" title="第四步 修改配置文件" class="md-nav__link">
+    第四步 修改配置文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runner" title="第五步 启动runner容器" class="md-nav__link">
+    第五步 启动runner容器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#repo" title="第六步 创建一个新的repo来测试一下吧" class="md-nav__link">
+    第六步 创建一个新的repo来测试一下吧
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2005,6 +2115,77 @@ DOCKER_ROOT=/home/<span class="cp">${</span><span class="n">u</span><span class=
         -H unix://<span class="cp">${</span><span class="n">DOCKER_ROOT</span><span class="cp">}</span>/docker.sock \
         -p <span class="cp">${</span><span class="n">DOCKER_ROOT</span><span class="cp">}</span>/docker.pid
 </pre></div>
+
+
+<hr />
+<h2 id="dockergitlab-ci">配置使用Docker版本的Gitlab CI<a class="headerlink" href="#dockergitlab-ci" title="Permanent link">&para;</a></h2>
+<p>参考文档：
+官方教程 https://docs.gitlab.com/runner/
+高级配置 https://docs.gitlab.com/runner/configuration/advanced-configuration.html</p>
+<p>人家这东西本质上是一个docker容器，但是把主机的docker sock传入到容器中，所以容器内可以创建容器</p>
+<p>我这里的教程着重解决两个问题：使用自定义的镜像，设置DNS</p>
+<h3 id="pullrunner">第一步当然是pull人家的runner镜像咯<a class="headerlink" href="#pullrunner" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>docker pull gitlab/gitlab-runner
+</pre></div>
+
+
+<h3 id="citoken">第二步 获取CI连接时需要的token<a class="headerlink" href="#citoken" title="Permanent link">&para;</a></h3>
+<p>在管理员界面 Overview下Runners点开即可看到 </p>
+<p>网址： /admin/runners</p>
+<h3 id="_11">第三步 注册以生成初始的配置信息<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<p>参考https://docs.gitlab.com/runner/register/index.html#docker</p>
+<p>假设容器配置文件保存在/dockerfiles/gitlabrunner中，其中docker-image是默认跑任务的镜像</p>
+<div class="codehilite"><pre><span></span>docker run --rm -t -i -v /dockerfiles/gitlabrunner:/etc/gitlab-runner --dns 10.0.0.1 gitlab/gitlab-runner  register  --non-interactive \
+  --url &quot;https://gitlab.com/&quot; \
+  --registration-token &quot;上一步获得的token&quot; \
+  --executor &quot;docker&quot; \
+  --docker-image myubuntu:latest \
+  --description &quot;docker-runner&quot; \
+  --run-untagged \
+  --locked=&quot;false&quot;
+</pre></div>
+
+
+<h3 id="_12">第四步 修改配置文件<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<p>参考高级配置 https://docs.gitlab.com/runner/configuration/advanced-configuration.html
+和 https://docs.gitlab.com/runner/executors/docker.html#how-pull-policies-work</p>
+<div class="codehilite"><pre><span></span>cd /dockerfiles/gitlabrunner #你的配置文件目录
+sudo vim config.yml
+</pre></div>
+
+
+<p>为了跑本地已经存在的镜像（默认为always表示只能跑dockerhub上的），在[runners.docker]中需要添加：</p>
+<div class="codehilite"><pre><span></span>pull_policy = &quot;never&quot;
+</pre></div>
+
+
+<p>或者这里你也可以使用&rdquo;if-not-present&rdquo; 不存在就pull</p>
+<p>另外 如果需要修改容器DNS，也添加进去即可</p>
+<div class="codehilite"><pre><span></span>dns = [&quot;10.0.0.1&quot;]
+</pre></div>
+
+
+<h3 id="runner">第五步 启动runner容器<a class="headerlink" href="#runner" title="Permanent link">&para;</a></h3>
+<p>如果需要改dns，这里也别忘记写上</p>
+<div class="codehilite"><pre><span></span>docker run -d --name gitlab-runner --restart always \
+  -v /dockerfiles/gitlabrunner:/etc/gitlab-runner \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  --dns 10.0.0.1 \
+  gitlab/gitlab-runner:latest
+</pre></div>
+
+
+<h3 id="repo">第六步 创建一个新的repo来测试一下吧<a class="headerlink" href="#repo" title="Permanent link">&para;</a></h3>
+<p>新建<code>.gitlab-ci.yml</code>文件，这里使用自己编译的myubuntu镜像</p>
+<div class="codehilite"><pre><span></span><span class="n">image</span><span class="o">:</span> <span class="n">myubuntu</span><span class="o">:</span><span class="n">latest</span>
+<span class="n">test</span><span class="o">:</span><span class="n">app</span><span class="o">:</span>
+  <span class="n">script</span><span class="o">:</span>
+  <span class="o">-</span> <span class="n">echo</span> <span class="n">ok</span>
+  <span class="o">-</span> <span class="n">curl</span> <span class="n">ip</span><span class="o">.</span><span class="na">cn</span>
+</pre></div>
+
+
+<p>然后在gitlab的仓库页面 最新的一次commit message右侧就有CI成功与否状态的图标 点进去看详细日志咯</p>
                 
                   
                 
