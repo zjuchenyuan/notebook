@@ -843,3 +843,21 @@ test:app:
 ```
 
 然后在gitlab的仓库页面 最新的一次commit message右侧就有CI成功与否状态的图标 点进去看详细日志咯
+
+----
+
+## 为已经存在的容器创建临时端口映射 socat
+
+出于学习目的，想快速地建立一下临时的Docker容器端口映射
+
+用socat咯：
+
+```
+socat TCP4-LISTEN:9300,fork TCP4:172.17.0.3:9300
+```
+
+如果没有socat，可以：
+
+```
+docker run -ti --rm --net host bobrik/socat TCP4-LISTEN:9300 TCP4:172.17.0.3:9300
+```
