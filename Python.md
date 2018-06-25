@@ -1148,6 +1148,8 @@ for path in ['pic', 'skin', 'images', '更多静态目录']:
 
 Windows下open打开文件总是会使用gbk，配置环境变量如PYTHONIOENCODING都没用，就很气，难道只能每次open都保证写上encoding="utf-8"嘛？当然不必
 
+google搜索关键词：windows python3 change open file encoding
+
 解决方案：参考：https://stackoverflow.com/questions/31469707/changing-the-locale-preferred-encoding-in-python-3-in-windows
 
 添加代码：由于只有windows才需要这么处理，所以先判断操作系统

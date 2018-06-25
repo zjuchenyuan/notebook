@@ -2601,6 +2601,7 @@ t.write(&quot;new.torrent&quot;)
 <hr />
 <h2 id="python35-openutf-8">Python3.5 open打开文件默认使用utf-8<a class="headerlink" href="#python35-openutf-8" title="Permanent link">&para;</a></h2>
 <p>Windows下open打开文件总是会使用gbk，配置环境变量如PYTHONIOENCODING都没用，就很气，难道只能每次open都保证写上encoding=&rdquo;utf-8&rdquo;嘛？当然不必</p>
+<p>google搜索关键词：windows python3 change open file encoding</p>
 <p>解决方案：参考：https://stackoverflow.com/questions/31469707/changing-the-locale-preferred-encoding-in-python-3-in-windows</p>
 <p>添加代码：由于只有windows才需要这么处理，所以先判断操作系统</p>
 <div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
