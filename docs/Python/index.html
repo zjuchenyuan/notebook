@@ -721,6 +721,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#python35-openutf-8" title="Python3.5 open打开文件默认使用utf-8" class="md-nav__link">
+    Python3.5 open打开文件默认使用utf-8
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1670,6 +1677,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#python35-openutf-8" title="Python3.5 open打开文件默认使用utf-8" class="md-nav__link">
+    Python3.5 open打开文件默认使用utf-8
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -2581,6 +2595,18 @@ t.write(&quot;new.torrent&quot;)
 <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;pic&#39;</span><span class="p">,</span> <span class="s1">&#39;skin&#39;</span><span class="p">,</span> <span class="s1">&#39;images&#39;</span><span class="p">,</span> <span class="s1">&#39;更多静态目录&#39;</span><span class="p">]:</span>
     <span class="n">blueprint</span> <span class="o">=</span> <span class="n">Blueprint</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">,</span> <span class="n">static_url_path</span><span class="o">=</span><span class="s1">&#39;/&#39;</span><span class="o">+</span><span class="n">path</span><span class="p">,</span> <span class="n">static_folder</span><span class="o">=</span><span class="n">path</span><span class="p">)</span>
     <span class="n">app</span><span class="o">.</span><span class="n">register_blueprint</span><span class="p">(</span><span class="n">blueprint</span><span class="p">)</span>
+</pre></div>
+
+
+<hr />
+<h2 id="python35-openutf-8">Python3.5 open打开文件默认使用utf-8<a class="headerlink" href="#python35-openutf-8" title="Permanent link">&para;</a></h2>
+<p>Windows下open打开文件总是会使用gbk，配置环境变量如PYTHONIOENCODING都没用，就很气，难道只能每次open都保证写上encoding=&rdquo;utf-8&rdquo;嘛？当然不必</p>
+<p>解决方案：参考：https://stackoverflow.com/questions/31469707/changing-the-locale-preferred-encoding-in-python-3-in-windows</p>
+<p>添加代码：由于只有windows才需要这么处理，所以先判断操作系统</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;win&quot;</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">_locale</span>
+    <span class="n">_locale</span><span class="o">.</span><span class="n">_getdefaultlocale</span> <span class="o">=</span> <span class="p">(</span><span class="k">lambda</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;en_US&#39;</span><span class="p">,</span> <span class="s1">&#39;utf8&#39;</span><span class="p">])</span>
 </pre></div>
                 
                   

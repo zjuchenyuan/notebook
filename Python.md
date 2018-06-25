@@ -1141,3 +1141,20 @@ for path in ['pic', 'skin', 'images', '更多静态目录']:
     blueprint = Blueprint(path, __name__, static_url_path='/'+path, static_folder=path)
     app.register_blueprint(blueprint)
 ```
+
+----
+
+## Python3.5 open打开文件默认使用utf-8
+
+Windows下open打开文件总是会使用gbk，配置环境变量如PYTHONIOENCODING都没用，就很气，难道只能每次open都保证写上encoding="utf-8"嘛？当然不必
+
+解决方案：参考：https://stackoverflow.com/questions/31469707/changing-the-locale-preferred-encoding-in-python-3-in-windows
+
+添加代码：由于只有windows才需要这么处理，所以先判断操作系统
+
+```
+import sys
+if sys.platform.startswith("win"):
+    import _locale
+    _locale._getdefaultlocale = (lambda *args: ['en_US', 'utf8'])
+```

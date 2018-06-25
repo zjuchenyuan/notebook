@@ -41,6 +41,7 @@ My notebook about technology, for lookup and share
 >* python transmissionrpc 上传种子 获取状态 增加tracker 修改torrent文件中的tracker
 >* uwsgi优雅重启
 >* flask设置一堆静态目录
+>* Python3.5 open打开文件默认使用utf-8
 
 ## [gist Python一些常用的代码片段](gist.md)
 >* 连接mysql插入、查询
