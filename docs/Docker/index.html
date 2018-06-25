@@ -1518,8 +1518,9 @@
                   <h1>Docker</h1>
                 
                 <h2 id="_1">搬运镜像<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span>docker save image_name | 7z a -si filename.tar.7z
-7z x -so filename.tar.7z | docker load
+<div class="codehilite"><pre><span></span>IMAGE=mysql
+docker save $IMAGE | 7z a -si $IMAGE.tar.7z
+7z x -so $IMAGE.tar.7z | docker load
 </pre></div>
 
 
