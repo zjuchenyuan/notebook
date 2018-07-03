@@ -623,8 +623,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#docker" title="Docker启动服务器" class="md-nav__link">
-    Docker启动服务器
+  <a href="#docker" title="Docker部署" class="md-nav__link">
+    Docker部署
   </a>
   
 </li>
@@ -813,8 +813,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#docker" title="Docker启动服务器" class="md-nav__link">
-    Docker启动服务器
+  <a href="#docker" title="Docker部署" class="md-nav__link">
+    Docker部署
   </a>
   
 </li>
@@ -878,11 +878,13 @@
                 
                 
                 <h1 id="rabbitmq">RabbitMQ 消息队列<a class="headerlink" href="#rabbitmq" title="Permanent link">&para;</a></h1>
-<h2 id="docker">Docker启动服务器<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h2>
-<p>设置主机名（必须）
-数据卷映射
-使用macvlan分配IP
-配置用户密码</p>
+<h2 id="docker">Docker部署<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h2>
+<ul>
+<li>必须设置主机名 &ndash;hostname</li>
+<li>数据卷映射</li>
+<li>使用macvlan分配IP</li>
+<li>配置用户密码</li>
+</ul>
 <p>配置用户密码必须要求数据文件夹为空，否则不会生效</p>
 <div class="codehilite"><pre><span></span>rm -rf /docker/rabbitmq/
 
@@ -1048,6 +1050,8 @@ RMQ_PASSWORD = &quot;password&quot;
 <span class="n">channel</span><span class="o">.</span><span class="n">start_consuming</span><span class="p">()</span>
 </pre></div>
 </td></tr></table>
+
+<p>代码来自官方教程：https://www.rabbitmq.com/tutorials/tutorial-two-python.html</p>
                 
                   
                 

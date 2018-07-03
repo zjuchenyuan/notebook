@@ -293,6 +293,10 @@ My notebook about technology, for lookup and share
 >* 显示错误信息
 >* 全页面iframe
 
+## [RabbitMQ](RabbitMQ.md)
+>* 使用Docker部署
+>* 任务推送执行 代码示例
+
 ## [Ubuntu桌面版](Ubuntu.md)
 >* 安装Google拼音后用上云候选功能
 

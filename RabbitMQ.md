@@ -1,11 +1,11 @@
 # RabbitMQ 消息队列
 
-## Docker启动服务器
+## Docker部署
 
-设置主机名（必须）
-数据卷映射
-使用macvlan分配IP
-配置用户密码
+* 必须设置主机名 --hostname
+* 数据卷映射
+* 使用macvlan分配IP
+* 配置用户密码
 
 配置用户密码必须要求数据文件夹为空，否则不会生效
 
@@ -114,3 +114,5 @@ channel.basic_consume(callback,
 
 channel.start_consuming()
 ```
+
+代码来自官方教程：https://www.rabbitmq.com/tutorials/tutorial-two-python.html
