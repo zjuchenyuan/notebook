@@ -22,31 +22,70 @@ myprint("aha myprint", 666)
 
 ## 连接mysql批量插入、查询
 
+config.py:
+
+```python
+MYSQL_DB = "web"
+MYSQL_USER = "web"
+MYSQL_PASSWORD = "sEcret_strOng_passw0rd"
+MYSQL_HOST = "localhost"
+MYSQL_PORT = 3306
+```
+
 ```python
 import pymysql
 import time
+from config import MYSQL_DB, MYSQL_USER, MYSQL_PASSWORD, MYSQL_HOST, MYSQL_PORT
+
 def db():
-    conn = pymysql.connect(user='root',passwd='123456',host='localhost',port=3306,db='dbname',charset='utf8',init_command="set NAMES utf8mb4", use_unicode=True)
+    conn = pymysql.connect(
+                user=MYSQL_USER, passwd=MYSQL_PASSWORD,
+                host=MYSQL_HOST, port=MYSQL_PORT,
+                db=MYSQL_DB, charset='utf8',
+                init_command="set NAMES utf8mb4", use_unicode=True)
     conn.encoding = "utf8"
     return conn
-conn=db()
-cur = conn.cursor()
-# 批量插入 将list转为一条sql语句执行insert
-sql = "insert into TABLENAME values"
-for item in ...:
-    sql += "('"+"','".join([pymysql.escape_string(str(i)) for i in item])+"'),"
-sql = sql[:-1]
-try:
-    cur.execute(sql)
-except:
-    print("Error SQL: "+sql)
-    time.sleep(1) # 显示出错的SQL语句后稍作等待，也方便Ctrl+C
-conn.commit()
 
-# 查一条，返回一个dict
-id = ... #id为主键 只会有一条记录
-cur.execute("select * from tablename where id="+str(id))
-return dict(zip(("id","flag","更多的列名"),list(cur)[0]))
+conn = db()
+def runsql(sql, *args, onerror='raise'):
+    global conn
+    if not conn.open:
+        conn = db()
+    cur = conn.cursor()
+    try:
+        cur.execute(sql, args) #参数化查询 不要自己拼接sql
+    except:
+        if onerror=="ignore":
+            return False
+        else:
+            raise
+    result = list(cur)
+    conn.commit()
+    cur.close()
+    return result
+
+def tags_tagname2ids_set(tagname):
+    """
+    select查询示例
+    返回包含标签tagname的帖子id集合
+    """
+    sql = "select topicid from tags where tagname=%s"
+    sqlresult = runsql(sql, tagname)
+    return set([i[0] for i in sqlresult])
+
+def usersettings_write_bool(userid, username, settingname, settingvalue):
+    """
+    replace查询示例
+    写入用户配置信息至usersetting表
+    返回bool
+    """
+    sql = "replace into usersettings values (%s, %s, %s, %s)"
+    try:
+        runsql(sql, userid, username, settingname, settingvalue)
+        return True
+    except:
+        traceback.print_exc()
+        return False
 ```
 
 ## 大小写不敏感字典

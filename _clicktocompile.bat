@@ -1,5 +1,5 @@
 @echo off
-bash -c 'git status'
+bash -c 'git --no-pager diff; git status'
 set /p message=commit message?
 bash -c './compile.sh'
 bash -c 'git add -A .'
