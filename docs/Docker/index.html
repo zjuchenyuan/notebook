@@ -982,6 +982,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_13" title="查看所有容器内存占用 并排序" class="md-nav__link">
+    查看所有容器内存占用 并排序
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1494,6 +1501,13 @@
         <li class="md-nav__item">
   <a href="#socat" title="为已经存在的容器创建临时端口映射 socat" class="md-nav__link">
     为已经存在的容器创建临时端口映射 socat
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" title="查看所有容器内存占用 并排序" class="md-nav__link">
+    查看所有容器内存占用 并排序
   </a>
   
 </li>
@@ -2212,6 +2226,54 @@ sudo vim config.yml
 <p>如果没有socat，可以：</p>
 <div class="codehilite"><pre><span></span>docker run -ti --rm --net host bobrik/socat TCP4-LISTEN:9300 TCP4:172.17.0.3:9300
 </pre></div>
+
+
+<hr />
+<h2 id="_13">查看所有容器内存占用 并排序<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
+<p><code>docker stats</code>就能看到实时更新的结果，但并没有提供排序功能</p>
+<div class="codehilite"><pre><span></span>docker stats --no-stream|sort -h -r -k 4,4
+</pre></div>
+
+
+<p>排序列对应关系如下：</p>
+<table>
+<thead>
+<tr>
+<th>列号</th>
+<th>列名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3</td>
+<td>CPU</td>
+</tr>
+<tr>
+<td>4</td>
+<td>内存</td>
+</tr>
+<tr>
+<td>8</td>
+<td>网络流入</td>
+</tr>
+<tr>
+<td>10</td>
+<td>网络流出</td>
+</tr>
+<tr>
+<td>11</td>
+<td>文件写入</td>
+</tr>
+<tr>
+<td>13</td>
+<td>文件读取</td>
+</tr>
+<tr>
+<td>14</td>
+<td>容器内线程数量(PID数)</td>
+</tr>
+</tbody>
+</table>
                 
                   
                 

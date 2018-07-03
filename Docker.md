@@ -862,3 +862,26 @@ socat TCP4-LISTEN:9300,fork TCP4:172.17.0.3:9300
 ```
 docker run -ti --rm --net host bobrik/socat TCP4-LISTEN:9300 TCP4:172.17.0.3:9300
 ```
+
+----
+
+## 查看所有容器内存占用 并排序
+
+`docker stats`就能看到实时更新的结果，但并没有提供排序功能
+
+```
+docker stats --no-stream|sort -h -r -k 4,4
+```
+
+排序列对应关系如下：
+
+|列号|列名|
+|---|---|
+|3|CPU|
+|4|内存|
+|8|网络流入|
+|10|网络流出|
+|11|文件写入|
+|13|文件读取|
+|14|容器内线程数量(PID数)|
+
