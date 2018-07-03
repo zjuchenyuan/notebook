@@ -1,0 +1,1873 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="我的技术笔记本~">
+      
+      
+      
+        <meta name="author" content="chenyuan">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.5.3">
+    
+    
+      
+        <title>Linux-setup - notebook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.aa3de92b.css">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      
+        <link rel="stylesheet" href="https://fonts.loli.net/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+      <link rel="stylesheet" href="https://fonts.loli.net/icon?family=Material+Icons">
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
+    <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+    
+      <a href="#linux" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../README/" title="notebook" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                notebook
+              </span>
+              <span class="md-header-nav__topic">
+                Linux-setup
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/zjuchenyuan/notebook/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="drawer">
+    <span class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </span>
+    notebook
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/zjuchenyuan/notebook/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../README/" title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Python
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Python
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Python/" title="Python" class="md-nav__link">
+      Python
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../gist/" title="Gist Python一些常用代码片段" class="md-nav__link">
+      Gist Python一些常用代码片段
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Programming Languages
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Programming Languages
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../BASH/" title="BASH" class="md-nav__link">
+      BASH
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../BAT/" title="BAT批处理" class="md-nav__link">
+      BAT批处理
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../C/" title="C语言" class="md-nav__link">
+      C语言
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4">
+    
+    <label class="md-nav__link" for="nav-3-4">
+      Java
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-4">
+        Java
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Java/" title="Java" class="md-nav__link">
+      Java
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../S2-045/" title="S2-045" class="md-nav__link">
+      S2-045
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../JavaScript/" title="JavaScript" class="md-nav__link">
+      JavaScript
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../PHP/" title="PHP" class="md-nav__link">
+      PHP
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Website & Network & Developing
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Website & Network & Developing
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../CC98/" title="CC98 OAuth2" class="md-nav__link">
+      CC98 OAuth2
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../CDN/" title="CDN" class="md-nav__link">
+      CDN
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cURL/" title="cURL" class="md-nav__link">
+      cURL
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Developer/" title="Developer" class="md-nav__link">
+      Developer
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Docker/" title="Docker" class="md-nav__link">
+      Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-6" type="checkbox" id="nav-4-6">
+    
+    <label class="md-nav__link" for="nav-4-6">
+      Favorites
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-6">
+        Favorites
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Favorites/" title="Favorites" class="md-nav__link">
+      Favorites
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../GithubProjectRecommendation/" title="Github Project Recommendation" class="md-nav__link">
+      Github Project Recommendation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Links/" title="更多链接" class="md-nav__link">
+      更多链接
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Git/" title="Git" class="md-nav__link">
+      Git
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Jekyll/" title="Jekyll" class="md-nav__link">
+      Jekyll
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../MySQL/" title="MySQL" class="md-nav__link">
+      MySQL
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Nginx/" title="Nginx" class="md-nav__link">
+      Nginx
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../RabbitMQ/" title="RabbitMQ" class="md-nav__link">
+      RabbitMQ
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../WindowsSoftware/" title="WindowsSoftware" class="md-nav__link">
+      WindowsSoftware
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" checked>
+    
+    <label class="md-nav__link" for="nav-5">
+      Linux
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Linux
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Linux-backup/" title="Linux-backup" class="md-nav__link">
+      Linux-backup
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Linux-setup
+      </label>
+    
+    <a href="./" title="Linux-setup" class="md-nav__link md-nav__link--active">
+      Linux-setup
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="如何翻墙" class="md-nav__link">
+    如何翻墙
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shadowsocksprivoxyhttp-proxy" title="部署shadowsocks客户端，并部署Privoxy提供http proxy" class="md-nav__link">
+    部署shadowsocks客户端，并部署Privoxy提供http proxy
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ip" title="配置有线静态IP" class="md-nav__link">
+    配置有线静态IP
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dhcpiprtnetlink-answers-file-exists" title="配置为dhcp自动获取ip，解决RTNETLINK answers: File exists问题" class="md-nav__link">
+    配置为dhcp自动获取ip，解决RTNETLINK answers: File exists问题
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aptapt" title="配置apt源以加速国内环境下apt速度" class="md-nav__link">
+    配置apt源以加速国内环境下apt速度
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ip_1" title="单网卡获得多个IP" class="md-nav__link">
+    单网卡获得多个IP
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="锐速安装" class="md-nav__link">
+    锐速安装
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apt" title="解决apt依赖问题" class="md-nav__link">
+    解决apt依赖问题
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#note" title="Note" class="md-nav__link">
+    Note
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unixbench" title="UnixBench" class="md-nav__link">
+    UnixBench
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#io" title="硬盘IO性能测试" class="md-nav__link">
+    硬盘IO性能测试
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="清除内存缓存" class="md-nav__link">
+    清除内存缓存
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iptablesip" title="使用iptables封ip" class="md-nav__link">
+    使用iptables封ip
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ip_2" title="屏蔽单个IP" class="md-nav__link">
+    屏蔽单个IP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c" title="封C段" class="md-nav__link">
+    封C段
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b" title="封B段" class="md-nav__link">
+    封B段
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a" title="封A段" class="md-nav__link">
+    封A段
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" title="删除一条规则" class="md-nav__link">
+    删除一条规则
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ip_3" title="只允许特定IP访问某端口" class="md-nav__link">
+    只允许特定IP访问某端口
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rootscreen" title="无root权限使用screen" class="md-nav__link">
+    无root权限使用screen
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#screen" title="screen的用法" class="md-nav__link">
+    screen的用法
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" title="双网卡端口转发，暴露内网端口" class="md-nav__link">
+    双网卡端口转发，暴露内网端口
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="环境：" class="md-nav__link">
+    环境：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="实现方法：" class="md-nav__link">
+    实现方法：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="取消转发方法" class="md-nav__link">
+    取消转发方法
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" title="保护重要系统文件防止被删" class="md-nav__link">
+    保护重要系统文件防止被删
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" title="时区设置" class="md-nav__link">
+    时区设置
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cpu" title="查看CPU核心个数" class="md-nav__link">
+    查看CPU核心个数
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" title="非交互式添加用户" class="md-nav__link">
+    非交互式添加用户
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#openvpn" title="简单OpenVPN配置" class="md-nav__link">
+    简单OpenVPN配置
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#openvpn_1" title="安装openvpn:" class="md-nav__link">
+    安装openvpn:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" title="生成密钥" class="md-nav__link">
+    生成密钥
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" title="服务端配置" class="md-nav__link">
+    服务端配置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" title="客户端配置" class="md-nav__link">
+    客户端配置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker" title="在Docker中使用服务端" class="md-nav__link">
+    在Docker中使用服务端
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" title="时区时间设置" class="md-nav__link">
+    时区时间设置
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ext4" title="快速地格式化大分区ext4" class="md-nav__link">
+    快速地格式化大分区ext4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ca-mitmproxy" title="添加受信任的CA证书 mitmproxy" class="md-nav__link">
+    添加受信任的CA证书 mitmproxy
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Linux-SSH/" title="Linux-SSH" class="md-nav__link">
+      Linux-SSH
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Linux-cli/" title="Linux-cli" class="md-nav__link">
+      Linux-cli
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Linux-VirtualBox/" title="Linux-VirtualBox" class="md-nav__link">
+      Linux-VirtualBox
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Ubuntu/" title="Ubuntu" class="md-nav__link">
+      Ubuntu
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="如何翻墙" class="md-nav__link">
+    如何翻墙
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shadowsocksprivoxyhttp-proxy" title="部署shadowsocks客户端，并部署Privoxy提供http proxy" class="md-nav__link">
+    部署shadowsocks客户端，并部署Privoxy提供http proxy
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ip" title="配置有线静态IP" class="md-nav__link">
+    配置有线静态IP
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dhcpiprtnetlink-answers-file-exists" title="配置为dhcp自动获取ip，解决RTNETLINK answers: File exists问题" class="md-nav__link">
+    配置为dhcp自动获取ip，解决RTNETLINK answers: File exists问题
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aptapt" title="配置apt源以加速国内环境下apt速度" class="md-nav__link">
+    配置apt源以加速国内环境下apt速度
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ip_1" title="单网卡获得多个IP" class="md-nav__link">
+    单网卡获得多个IP
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="锐速安装" class="md-nav__link">
+    锐速安装
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apt" title="解决apt依赖问题" class="md-nav__link">
+    解决apt依赖问题
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#note" title="Note" class="md-nav__link">
+    Note
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unixbench" title="UnixBench" class="md-nav__link">
+    UnixBench
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#io" title="硬盘IO性能测试" class="md-nav__link">
+    硬盘IO性能测试
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="清除内存缓存" class="md-nav__link">
+    清除内存缓存
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iptablesip" title="使用iptables封ip" class="md-nav__link">
+    使用iptables封ip
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ip_2" title="屏蔽单个IP" class="md-nav__link">
+    屏蔽单个IP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c" title="封C段" class="md-nav__link">
+    封C段
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b" title="封B段" class="md-nav__link">
+    封B段
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a" title="封A段" class="md-nav__link">
+    封A段
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" title="删除一条规则" class="md-nav__link">
+    删除一条规则
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ip_3" title="只允许特定IP访问某端口" class="md-nav__link">
+    只允许特定IP访问某端口
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rootscreen" title="无root权限使用screen" class="md-nav__link">
+    无root权限使用screen
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#screen" title="screen的用法" class="md-nav__link">
+    screen的用法
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" title="双网卡端口转发，暴露内网端口" class="md-nav__link">
+    双网卡端口转发，暴露内网端口
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="环境：" class="md-nav__link">
+    环境：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="实现方法：" class="md-nav__link">
+    实现方法：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="取消转发方法" class="md-nav__link">
+    取消转发方法
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" title="保护重要系统文件防止被删" class="md-nav__link">
+    保护重要系统文件防止被删
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" title="时区设置" class="md-nav__link">
+    时区设置
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cpu" title="查看CPU核心个数" class="md-nav__link">
+    查看CPU核心个数
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" title="非交互式添加用户" class="md-nav__link">
+    非交互式添加用户
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#openvpn" title="简单OpenVPN配置" class="md-nav__link">
+    简单OpenVPN配置
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#openvpn_1" title="安装openvpn:" class="md-nav__link">
+    安装openvpn:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" title="生成密钥" class="md-nav__link">
+    生成密钥
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" title="服务端配置" class="md-nav__link">
+    服务端配置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" title="客户端配置" class="md-nav__link">
+    客户端配置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker" title="在Docker中使用服务端" class="md-nav__link">
+    在Docker中使用服务端
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" title="时区时间设置" class="md-nav__link">
+    时区时间设置
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ext4" title="快速地格式化大分区ext4" class="md-nav__link">
+    快速地格式化大分区ext4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ca-mitmproxy" title="添加受信任的CA证书 mitmproxy" class="md-nav__link">
+    添加受信任的CA证书 mitmproxy
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/zjuchenyuan/notebook/edit/master/Linux-setup.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="linux">Linux系统配置<a class="headerlink" href="#linux" title="Permanent link">&para;</a></h1>
+<p>本文档为Linux服务器的配置方面的笔记，Linux相关笔记还有：</p>
+<p><a href="../Linux-cli/">Linux命令行操作技巧</a></p>
+<p><a href="../Linux-SSH/">SSH远程登录</a></p>
+<p><a href="../Linux-backup/">Linux备份</a></p>
+<p>TOC:</p>
+<hr />
+<h2 id="_1">如何翻墙<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="shadowsocksprivoxyhttp-proxy">部署shadowsocks客户端，并部署Privoxy提供http proxy<a class="headerlink" href="#shadowsocksprivoxyhttp-proxy" title="Permanent link">&para;</a></h2>
+<p>代码参见<a href="../code/ssprivoxy.txt">ssprivoxy.txt</a></p>
+<hr />
+<h2 id="ip">配置有线静态IP<a class="headerlink" href="#ip" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span>vim /etc/network/interfaces
+<span class="c1"># 写入以下内容，请自行替换xx部分</span>
+iface eth0 inet static
+ address <span class="m">10</span>.xx.xx.13 <span class="c1">#你需要设置的IP</span>
+ netmask <span class="m">255</span>.255.255.0 <span class="c1">#子网掩码</span>
+ network <span class="m">10</span>.xx.xx.0
+ broadcast <span class="m">10</span>.xx.xx.255
+ gateway <span class="m">10</span>.xx.xx.254 <span class="c1">#网关</span>
+ dns-nameservers <span class="m">10</span>.10.0.21 <span class="c1">#dns服务器</span>
+<span class="c1"># 按Esc, :wq退出保存</span>
+service networking restart
+ifconfig eth0 <span class="m">10</span>.xx.xx.13 netmask <span class="m">255</span>.255.255.0 up
+route add default eth0 <span class="c1">#路由配置也很重要，错误的路由将导致不能访问</span>
+route add default gw <span class="m">10</span>.xx.xx.254 dev eth0 <span class="c1">#这里设置为你的网关</span>
+</pre></div>
+
+
+<p>注意使用ifconfig进行ip的修改后，会丢失路由信息、额外的ip设置，需要重新配置route（执行上述两条route命令即可）</p>
+<h2 id="dhcpiprtnetlink-answers-file-exists">配置为dhcp自动获取ip，解决RTNETLINK answers: File exists问题<a class="headerlink" href="#dhcpiprtnetlink-answers-file-exists" title="Permanent link">&para;</a></h2>
+<p>之前已经配置过静态ip，现在要改为自动获取</p>
+<div class="codehilite"><pre><span></span>dhclient eth0
+</pre></div>
+
+
+<p>出现报错RTNETLINK answers: File exists，解决方案：</p>
+<div class="codehilite"><pre><span></span>ip addr flush dev eth0
+</pre></div>
+
+
+<h2 id="aptapt">配置apt源以加速国内环境下apt速度<a class="headerlink" href="#aptapt" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span>curl http://mirrors.163.com/.help/sources.list.trusty&gt;/etc/apt/sources.list
+</pre></div>
+
+
+<p>如果还未安装curl，先手动写入这两行：</p>
+<div class="codehilite"><pre><span></span><span class="k">deb</span> <span class="s">http://mirrors.163.com/ubuntu/</span> <span class="kp">trusty</span> <span class="kp">main</span> <span class="kp">restricted</span> <span class="kp">universe</span> <span class="kp">multiverse</span>
+<span class="k">deb</span> <span class="s">http://mirrors.163.com/ubuntu/</span> <span class="kp">trusty-security</span> <span class="kp">main</span> <span class="kp">restricted</span> <span class="kp">universe</span> <span class="kp">multiverse</span>
+</pre></div>
+
+
+<blockquote>
+<p>注：vim复制一行的命令为yy，粘贴为p</p>
+</blockquote>
+<p>或者通过sed替换：</p>
+<div class="codehilite"><pre><span></span>sed -i &#39;s/security.ubuntu.com/mirrors.zju.edu.cn/g&#39; /etc/apt/sources.list
+sed -i &#39;s/archive.ubuntu.com/mirrors.zju.edu.cn/g&#39; /etc/apt/sources.list
+</pre></div>
+
+
+<h2 id="ip_1">单网卡获得多个IP<a class="headerlink" href="#ip_1" title="Permanent link">&para;</a></h2>
+<p>ifconfig eth0:233 10.xx.xx.233 netmask 255.255.255.0 up</p>
+<hr />
+<h2 id="_2">锐速安装<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>来自：https://github.com/91yun/serverspeeder</p>
+<p>安装之前需要修改内核版本并重启：</p>
+<div class="codehilite"><pre><span></span>apt-get install linux-image-3.16.0-43-generic
+reboot
+</pre></div>
+
+
+<p>安装命令：# 此安装脚本会连接开发者的服务器以root权限执行远程指令，风险自负</p>
+<div class="codehilite"><pre><span></span>wget -N --no-check-certificate https://raw.githubusercontent.com/91yun/serverspeeder/master/serverspeeder-all.sh &amp;&amp; bash serverspeeder-all.sh
+</pre></div>
+
+
+<p>查看状态/关闭服务：</p>
+<div class="codehilite"><pre><span></span>service serverSpeeder stauts
+service serverSpeeder stop
+</pre></div>
+
+
+<hr />
+<h2 id="apt">解决apt依赖问题<a class="headerlink" href="#apt" title="Permanent link">&para;</a></h2>
+<p>问题描述：服务器为ubuntu14.04版本，某些不明操作后，无法用<code>apt-get</code>安装任何东西</p>
+<div class="codehilite"><pre><span></span>&gt; apt-get -f install
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+Correcting dependencies... failed.
+The following packages have unmet dependencies:
+ libatk1.0-0 : Depends: libglib2.0-0 <span class="o">(</span>&gt;<span class="o">=</span> <span class="m">2</span>.41.1<span class="o">)</span> but <span class="m">2</span>.40.0-2 is installed
+ libglib2.0-bin : Depends: libglib2.0-0 <span class="o">(=</span> <span class="m">2</span>.44.0-1ubuntu3<span class="o">)</span> but <span class="m">2</span>.40.0-2 is installed
+ libglib2.0-dev : Depends: libglib2.0-0 <span class="o">(=</span> <span class="m">2</span>.44.0-1ubuntu3<span class="o">)</span> but <span class="m">2</span>.40.0-2 is installed
+ libgtk2.0-0 : Depends: libglib2.0-0 <span class="o">(</span>&gt;<span class="o">=</span> <span class="m">2</span>.41.1<span class="o">)</span> but <span class="m">2</span>.40.0-2 is installed
+E: Error, pkgProblemResolver::Resolve generated breaks, this may be caused by held packages.
+E: Unable to correct dependencies
+</pre></div>
+
+
+<p>仔细看错误说明，libglib2.0-bin这个软件包要求libglib2.0-0的版本=2.44但是现有的安装版本为2.40</p>
+<p>在ubuntu的软件包官网搜索咯：https://launchpad.net/ubuntu/</p>
+<p>发现2.44版本的是vivid才提供的，现在系统版本是trusty，自然apt-get装不了</p>
+<p>解决方案：</p>
+<p>找到报错信息需要的精确匹配的那个deb文件下载咯，例如这里就要下载这个版本的：</p>
+<p>https://launchpad.net/ubuntu/vivid/amd64/libglib2.0-0/2.44.0-1ubuntu3</p>
+<p>得到deb文件后<code>dpkg -i 文件名</code></p>
+<h3 id="note">Note<a class="headerlink" href="#note" title="Permanent link">&para;</a></h3>
+<p>一般apt依赖冲突问题都是由于系统版本与需要的包的版本不一致导致的，检查一下/etc/apt/sources.list看看是否匹配系统版本咯</p>
+<p>用apt-get前检查一下sources.list，树莓派是版本8，是jessie不是wheezy!</p>
+<hr />
+<h2 id="unixbench">UnixBench<a class="headerlink" href="#unixbench" title="Permanent link">&para;</a></h2>
+<p>VPS性能测试工具，耗时较长，耐心等待</p>
+<div class="codehilite"><pre><span></span>curl https://codeload.github.com/kdlucas/byte-unixbench/zip/v5.1.3&gt;UnixBench.zip
+unzip UnixBench.zip
+<span class="nb">cd</span> byte-unixbench-5.1.3/UnixBench
+<span class="c1"># apt-get install build-essential</span>
+make
+screen -S ub
+./Run
+</pre></div>
+
+
+<p>参考数据，均为最低配置：主机屋1590.5；阿里云1470.4；腾讯云1156.0</p>
+<h3 id="io">硬盘IO性能测试<a class="headerlink" href="#io" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>dd if=/dev/zero of=test bs=64k count=4k oflag=dsync
+dd if=/dev/zero of=test bs=8k count=256k conv=fdatasync
+</pre></div>
+
+
+<hr />
+<h2 id="_3">清除内存缓存<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>使用<code>free -h</code>查看可用内存前可以执行这个命令，查看除去buffer后的可用内存</p>
+<div class="codehilite"><pre><span></span>sync
+echo 3 &gt; /proc/sys/vm/drop_caches
+</pre></div>
+
+
+<hr />
+<h2 id="iptablesip">使用iptables封ip<a class="headerlink" href="#iptablesip" title="Permanent link">&para;</a></h2>
+<h3 id="ip_2">屏蔽单个IP<a class="headerlink" href="#ip_2" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>iptables -I INPUT -s 123.45.6.7 -j DROP
+</pre></div>
+
+
+<h3 id="c">封C段<a class="headerlink" href="#c" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>iptables -I INPUT -s 123.45.6.0/24 -j DROP
+</pre></div>
+
+
+<h3 id="b">封B段<a class="headerlink" href="#b" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span> iptables -I INPUT -s 123.45.0.0/16 -j DROP
+</pre></div>
+
+
+<h3 id="a">封A段<a class="headerlink" href="#a" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>iptables -I INPUT -s 123.0.0.0/8 -j DROP
+</pre></div>
+
+
+<p>记得<strong>保存</strong>：</p>
+<div class="codehilite"><pre><span></span>service iptables save
+</pre></div>
+
+
+<h2 id="_4">删除一条规则<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>只要把上述的插入规则重写一次，将其中的-I改为-D即可</p>
+<div class="codehilite"><pre><span></span>iptables -D INPUT -s IP地址 -j DROP
+</pre></div>
+
+
+<p>如果懒得重写 你也可以先列举出规则所在的id，根据id删除：</p>
+<div class="codehilite"><pre><span></span>iptables -L --line-numbers
+</pre></div>
+
+
+<p>假设你想删除INPUT链的第3条规则：</p>
+<div class="codehilite"><pre><span></span>iptables -D INPUT 3
+</pre></div>
+
+
+<h2 id="ip_3">只允许特定IP访问某端口<a class="headerlink" href="#ip_3" title="Permanent link">&para;</a></h2>
+<p>iptables的插入次序很重要，先加入的会先匹配，所以拒绝策略应该最后加入</p>
+<p>以8888端口为例，只允许10.77.88.99这个IP 和 10.22.33.0/24 这个C段访问，其他来源的访问拒绝 返回connection refused</p>
+<div class="codehilite"><pre><span></span>iptables -A INPUT -s 10.77.88.99 -p tcp --dport 8888 -j ACCEPT
+iptables -A INPUT -s 10.22.33.0/24 -p tcp --dport 8888 -j ACCEPT
+iptables -A INPUT -p tcp --dport 8888 -j REJECT
+</pre></div>
+
+
+<hr />
+<h2 id="rootscreen">无root权限使用screen<a class="headerlink" href="#rootscreen" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>https://www.gnu.org/software/screen/</p>
+</blockquote>
+<p>复制相同操作系统下的screen二进制文件，运行前指定环境变量</p>
+<div class="codehilite"><pre><span></span>mkdir -p $HOME/.screen
+export SCREENDIR=$HOME/.screen
+</pre></div>
+
+
+<hr />
+<h2 id="screen">screen的用法<a class="headerlink" href="#screen" title="Permanent link">&para;</a></h2>
+<p>列出存在的screen：</p>
+<div class="codehilite"><pre><span></span>screen -ls
+</pre></div>
+
+
+<p>创建一个名为name的screen：</p>
+<div class="codehilite"><pre><span></span>screen -S name
+</pre></div>
+
+
+<p>从screen脱离：</p>
+<div class="codehilite"><pre><span></span>按Ctrl+A后按d
+</pre></div>
+
+
+<p>重新连上名称为name的screen：</p>
+<div class="codehilite"><pre><span></span>screen -r name
+</pre></div>
+
+
+<p>创建一个screen的自启动，让后台进程获得tty</p>
+<div class="codehilite"><pre><span></span># 假设写好了一个/root/code.sh
+vim /etc/rc.local
+# 在最后加入一行，其中NAME替换为自己喜欢的名字
+screen -dmS NAME /root/code.sh
+</pre></div>
+
+
+<p>举个例子&ndash;监测外网能否ping通，如果不能重连zjuvpn：</p>
+<p><a href="../code/pingtest.sh">code/pingtest.sh</a></p>
+<hr />
+<h2 id="_5">双网卡端口转发，暴露内网端口<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>来自： https://yq.aliyun.com/wenzhang/show_25824</p>
+</blockquote>
+<p>有两台机器，其中一台A 有内网和外网，B只有内网。</p>
+<p>目标： 在外网访问A机器的2121端口，就相当于连上了B机器的ftp(21)</p>
+<h3 id="_6">环境：<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>A机器外网IP为 1.2.3.4(eth1) 内网IP为 192.168.1.20 (eth0)</p>
+<p>B机器内网为 192.168.1.21</p>
+<h3 id="_7">实现方法：<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>首先在A机器上打开端口转发功能</p>
+<div class="codehilite"><pre><span></span>    echo 1 &gt; /proc/sys/net/ipv4/ip_forward
+    echo -e &quot;\nnet.ipv4.ip_forward = 1&quot;&gt;&gt;/etc/sysctl.conf
+    sysctl -p
+</pre></div>
+
+
+<p>然后在A机器上创建iptables规则</p>
+<div class="codehilite"><pre><span></span># 把访问外网2121端口的包转发到内网ftp服务器
+iptables -t nat -I PREROUTING -d 1.2.3.4 -p tcp --dport 2121 -j DNAT --to 192.168.1.21:21 
+
+# 把到内网ftp服务器的包回源到内网网卡上，不然包只能转到ftp服务器，而返回的包不能到达客户端
+iptables -t nat -I POSTROUTING -d 192.168.1.21 -p tcp --dport 21 -j SNAT --to 192.168.1.20 
+
+# 保存一下规则
+service iptables save
+</pre></div>
+
+
+<h3 id="_8">取消转发方法<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>iptables中把-I改为-D运行就是删除此条规则</p>
+<hr />
+<h2 id="_9">保护重要系统文件防止被删<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<p>使用+i标志位使得root用户也不能删除/bin, /sbin, /usr/sbin, /usr/bin, /usr/local/sbin, /usr/local/bin</p>
+<div class="codehilite"><pre><span></span>chattr -R +i /bin /sbin /usr/sbin /usr/bin /usr/local/sbin /usr/local/bin
+</pre></div>
+
+
+<p>设置后无法apt-get安装新软件，需要先取消标志位</p>
+<div class="codehilite"><pre><span></span>chattr -R -i /bin /sbin /usr/sbin /usr/bin /usr/local/sbin /usr/local/bin
+</pre></div>
+
+
+<hr />
+<h2 id="_10">时区设置<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span>cp /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
+ntpdate cn.pool.ntp.org
+</pre></div>
+
+
+<hr />
+<h2 id="cpu">查看CPU核心个数<a class="headerlink" href="#cpu" title="Permanent link">&para;</a></h2>
+<p>一般我会用 <code>top</code> 命令，按 <code>1</code> 就能看到每个CPU占用情况</p>
+<p>但当CPU太多的时候还是需要执行命令的：</p>
+<div class="codehilite"><pre><span></span># 查看物理CPU个数
+cat /proc/cpuinfo| grep &quot;physical id&quot;| sort| uniq| wc -l
+
+# 查看每个物理CPU中core的个数(即核数)
+cat /proc/cpuinfo| grep &quot;cpu cores&quot;| uniq
+
+# 查看逻辑CPU的个数
+cat /proc/cpuinfo| grep &quot;processor&quot;| wc -l
+</pre></div>
+
+
+<hr />
+<h2 id="_11">非交互式添加用户<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span>useradd username -m
+echo username:password|chpasswd
+</pre></div>
+
+
+<p>添加一个用户名为username的用户并创建home目录，并设置密码为password</p>
+<hr />
+<h2 id="openvpn">简单OpenVPN配置<a class="headerlink" href="#openvpn" title="Permanent link">&para;</a></h2>
+<p>一个最最简单的场景：只有一个服务器 一个客户端，在容器中用来给用户直接访问的一个内网IP</p>
+<p>参考：https://openvpn.net/index.php/open-source/documentation/miscellaneous/78-static-key-mini-howto.html</p>
+<h3 id="openvpn_1">安装openvpn:<a class="headerlink" href="#openvpn_1" title="Permanent link">&para;</a></h3>
+<p>Linux:</p>
+<div class="codehilite"><pre><span></span>apt-get install openvpn
+</pre></div>
+
+
+<p>Windows:</p>
+<p><a href="https://d.py3.io/openvpn.exe">openvpn.exe</a></p>
+<h3 id="_12">生成密钥<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>openvpn --genkey --secret static.key
+</pre></div>
+
+
+<p>用另外建立的安全通道(SSH)将static.key发给客户端</p>
+<h3 id="_13">服务端配置<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>ifconfig 10.8.0.1 10.8.0.2
+secret /static.key
+keepalive 10 60
+persist-key
+persist-tun
+proto udp
+port 1194
+dev tun0
+status /tmp/openvpn-status.log
+
+user nobody
+group nogroup
+</pre></div>
+
+
+<p>在 Ubuntu 中，如果要配置成系统服务的形式，将其保存到/etc/openvpn/myvpn.conf</p>
+<p>然后这样启动它：</p>
+<div class="codehilite"><pre><span></span>service openvpn@myvpn start
+</pre></div>
+
+
+<p>这样设置开机自启</p>
+<div class="codehilite"><pre><span></span>systemctl enable openvpn@myvpn.service
+</pre></div>
+
+
+<h3 id="_14">客户端配置<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>remote 这里是你的服务器IP 这里是你的服务器端口 udp
+dev tun
+ifconfig 10.8.0.2 10.8.0.1
+secret static.key
+</pre></div>
+
+
+<h3 id="docker">在Docker中使用服务端<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h3>
+<p>参考：https://raw.githubusercontent.com/kylemanna/docker-openvpn/master/bin/ovpn_run</p>
+<p>运行容器的时候一定要给参数<code>--cap-add=NET_ADMIN</code></p>
+<p>另外还需要在容器中执行：</p>
+<div class="codehilite"><pre><span></span>mkdir -p /dev/net
+if [ ! -c /dev/net/tun ]; then
+    mknod /dev/net/tun c 10 200
+fi
+</pre></div>
+
+
+<hr />
+<h2 id="_15">时区时间设置<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h2>
+<p>参考：http://liumissyou.blog.51cto.com/4828343/1302050</p>
+<div class="codehilite"><pre><span></span>apt-get install tzdata
+cp /etc/localtime /etc/localtime.bak
+ln -svf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+echo &quot;TZ=&#39;Asia/Shanghai&#39;&quot;&gt;&gt;~/.bashrc
+</pre></div>
+
+
+<p>修改时间可以用：</p>
+<div class="codehilite"><pre><span></span>date -s &quot;2017-06-18 16:40:00&quot;
+</pre></div>
+
+
+<hr />
+<h2 id="ext4">快速地格式化大分区ext4<a class="headerlink" href="#ext4" title="Permanent link">&para;</a></h2>
+<p>Linux系统建议使用ext4分区格式，但直接mkfs.ext4 /dev/sda1就有很大的坑：会默认lazyinit在很长一段时间内占用IO</p>
+<blockquote>
+<p>参考：<a href="http://fibrevillage.com/storage/474-ext4-lazy-init">http://fibrevillage.com/storage/474-ext4-lazy-init</a></p>
+</blockquote>
+<p>正确格式化大硬盘的方法如下，这样不会跳过初始化磁盘的过程而且初始化过程很快：</p>
+<div class="codehilite"><pre><span></span>mkfs.ext4 /dev/sdXX -E lazy_itable_init=0,lazy_journal_init=0 -O sparse_super,large_file -m 0 -T largefile4
+</pre></div>
+
+
+<p>对应的<a href="http://manpages.ubuntu.com/manpages/precise/en/man8/mkfs.ext4.8.html">man文档</a></p>
+<hr />
+<h2 id="ca-mitmproxy">添加受信任的CA证书 mitmproxy<a class="headerlink" href="#ca-mitmproxy" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span>echo ~/.mitmproxy/mitmproxy-ca-cert.pem &gt;&gt; /etc/ssl/certs/ca-certificates.crt
+</pre></div>
+                
+                  
+                
+              
+              
+                
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../Linux-backup/" title="Linux-backup" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Linux-backup
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../Linux-SSH/" title="Linux-SSH" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Linux-SSH
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            <a href=http://www.miitbeian.gov.cn/>浙ICP备15043819号-2</a>&nbsp;&nbsp;<a target=_blank href=http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33010602007826><img src="/assets/images/beian.png" height=14px>浙公网安备 33010602007826号</p></a>
+          </div>
+        
+        powered by
+        <a href="http://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+  <div class="md-footer-social">
+    
+    <link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+      <a href="https://github.com/zjuchenyuan" class="md-footer-social__link fa fa-github-alt"></a>
+    
+      <a href="mailto: py3io.chenyuan@qiushi.ac.cn" class="md-footer-social__link fa fa-envelope"></a>
+    
+  </div>
+
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.f041762f.js"></script>
+      
+      <script>app.initialize({version:"0.17.2",url:{base:".."}})</script>
+      
+        <script src="../assets/js/instantclick.min.js"></script>
+      
+    
+    
+      
+    
+  </body>
+</html>
