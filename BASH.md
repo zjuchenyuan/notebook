@@ -55,3 +55,15 @@ if [ ! -f "somefile" ]; then
     curl ...
 fi
 ```
+
+----
+
+## sort排序
+
+逆序 -r
+按版本排序 排序IP地址 -V
+按数字排序 -n
+按人类理解的文件大小排序 -h
+指定某些列来排序 -k 3,3 -k 4,4 指定分隔符用-t '.'
+
+参考： https://www.madboa.com/geek/sort-addr/
