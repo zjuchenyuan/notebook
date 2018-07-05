@@ -728,6 +728,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#pythonurl" title="Python提取url 正则匹配的回溯爆炸问题" class="md-nav__link">
+    Python提取url 正则匹配的回溯爆炸问题
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1672,6 +1679,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#pythonurl" title="Python提取url 正则匹配的回溯爆炸问题" class="md-nav__link">
+    Python提取url 正则匹配的回溯爆炸问题
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -2596,6 +2610,27 @@ t.write(&quot;new.torrent&quot;)
 <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;win&quot;</span><span class="p">):</span>
     <span class="kn">import</span> <span class="nn">_locale</span>
     <span class="n">_locale</span><span class="o">.</span><span class="n">_getdefaultlocale</span> <span class="o">=</span> <span class="p">(</span><span class="k">lambda</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;en_US&#39;</span><span class="p">,</span> <span class="s1">&#39;utf8&#39;</span><span class="p">])</span>
+</pre></div>
+
+
+<hr />
+<h2 id="pythonurl">Python提取url 正则匹配的回溯爆炸问题<a class="headerlink" href="#pythonurl" title="Permanent link">&para;</a></h2>
+<p>提取url想遇到中文字符就不算入url中，写出了这样的正则(Python)，把中文加入到最后的排除字符：</p>
+<div class="codehilite"><pre><span></span>_url_re = re.compile(r&#39;(?im)((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()&lt;&gt;，。（）]+|\([^\s()&lt;&gt;，。（）]+\))+(?:\([^\s()&lt;&gt;，。（）]+\)|[^\u4e00-\u9fa5，。（）\s`!()\[\]{};:\&#39;&quot;.,&lt;&gt;?]))&#39;)
+</pre></div>
+
+
+<p>然后实际运行的时候发现网站特定页面访问特别缓慢，CPU占用高，排除许久死循环后发现是这个正则花了太长的时间</p>
+<p>解决方案就是放弃使用正则来剔除中文，提取出含有中文字符的url后再做处理去掉中文字符（字节数&gt;1的）</p>
+<p>现在使用的正则是：</p>
+<div class="codehilite"><pre><span></span>_url_re = re.compile(r&#39;(?im)((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()&lt;&gt;]+|\([^\s()&lt;&gt;]+\))+(?:\([^\s()&lt;&gt;]+\)|[^\s`!()\[\]{};:\&#39;&quot;.,&lt;&gt;?]))&#39;)
+</pre></div>
+
+
+<p>提取后的处理代码：</p>
+<div class="codehilite"><pre><span></span>start, end = match.span()
+while len(data[end-1].encode(&quot;utf-8&quot;))&gt;1:
+    end -= 1
 </pre></div>
                 
                   
