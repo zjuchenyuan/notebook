@@ -495,3 +495,83 @@ mkfs.ext4 /dev/sdXX -E lazy_itable_init=0,lazy_journal_init=0 -O sparse_super,la
 ```
 echo ~/.mitmproxy/mitmproxy-ca-cert.pem >> /etc/ssl/certs/ca-certificates.crt
 ```
+
+----
+
+## 明明还有大量空间却说没有？inode满了！挂载单个文件为btrfs分区
+
+### 问题现象
+
+`df -h`显示还有很多空间，但`echo test>test.txt`会显示`No space left on device`
+
+查到这个：https://wiki.gentoo.org/wiki/Knowledge_Base:No_space_left_on_device_while_there_is_plenty_of_space_available
+
+使用`df -i`查看inodes占用情况，发现确实100%了
+
+### 解决方案
+
+inodes上限在mkfs时就定下来了，不能改动，所以没救了。。。
+
+真没救了嘛？ 当然不是，虽然不能写入大量小文件，但还是可以写一个大文件的嘛，就想到挂载单个文件为btrfs分区
+
+#### 1. 删文件 腾出部分inodes
+
+删掉一些不用的小文件，也不用删太多
+
+#### 2. 创建一个1TB的sparse file
+
+参考: https://prefetch.net/blog/2009/07/05/creating-sparse-files-on-linux-hosts-with-dd/
+
+使用dd命令，不将实际内容写入硬盘，能很快执行完成：
+
+```
+dd if=/dev/zero of=filesystem.img bs=1 count=0 seek=1T
+```
+
+执行后ls -alh能看到文件大小为1T，使用du filesystem.img查看真实空间
+
+#### 3. 创建磁盘分区
+
+参考：https://www.jamescoyle.net/how-to/2096-use-a-file-as-a-linux-block-device
+
+btrfs参考：https://btrfs.wiki.kernel.org/index.php/Getting_started
+
+```
+mkfs.btrfs filesystem.img
+```
+
+#### 4. 挂载分区
+
+首先找到一个空闲的loop设备：
+
+```
+losetup -f
+```
+
+假设得到了/dev/loop0，然后mount挂载咯：
+
+```
+sudo mount -o loop=/dev/loop0 /path/to/filesystem.img /mnt
+```
+
+#### 5. 然后就可以搬运数据过去了
+
+就用mv像往常一样搬咯
+
+#### 一些查看空间的命令
+
+```
+# 查看磁盘文件占用空间
+du -h filesystem.img
+# 查看btrfs元数据占用空间
+btrfs filesystem df /mnt
+# 也是查看空间
+btrfs filesystem usage /mnt
+```
+
+#### 6. 卸载设备
+
+```
+sudo umount /mnt
+sudo losetup -d /dev/loop0
+```

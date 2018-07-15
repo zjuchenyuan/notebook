@@ -212,6 +212,7 @@ My notebook about technology, for lookup and share
 >* 简单OpenVPN配置
 >* 时区时间设置
 >* 快速地格式化大分区ext4
+>* 明明还有大量空间却说没有？inode满了！挂载单个文件为btrfs分区
 
 ## [Linux-SSH](Linux-SSH.md)
 >* 客户端不同服务器使用不同的id_rsa
