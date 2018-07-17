@@ -107,3 +107,13 @@ Linux下直接用md5sum sha1sum就够了
 ## Nginx 1.11.8
 
 [nginx.zip](https://d.py3.io/nginx.zip)
+
+----
+
+## Bash On Win10
+
+### mount挂载其他分区
+
+```
+mount -t drvfs D: /mnt/d
+```
