@@ -1708,7 +1708,11 @@
 <p>当你尝试一个包的时候，注意自己的py文件名称不能与包名重名，例如不要出现flask.py</p>
 <hr />
 <h2 id="pip-mirrorsaliyuncom">设置pip源 - mirrors.aliyun.com<a class="headerlink" href="#pip-mirrorsaliyuncom" title="Permanent link">&para;</a></h2>
-<p>如果只需要一次性安装个包（如Dockerfile）： pip install -i https://mirros.aliyun.com/pypi/simple/ &ndash;trusted-host mirros.aliyun.com</p>
+<p>如果只需要一次性安装个包（如Dockerfile）： </p>
+<div class="codehilite"><pre><span></span>pip install -i https://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+</pre></div>
+
+
 <p>在Linux服务器上安装python的包时，执行这段代码可以将pip源改为国内的阿里镜像（豆瓣源似乎不再更新），能显著提高包的下载速度</p>
 <div class="codehilite"><pre><span></span>mkdir -p ~/.pip
 <span class="nb">echo</span> <span class="s2">&quot;&quot;&quot;</span>

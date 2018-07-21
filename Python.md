@@ -9,7 +9,11 @@
 
 ## 设置pip源 - mirrors.aliyun.com
 
-如果只需要一次性安装个包（如Dockerfile）： pip install -i https://mirros.aliyun.com/pypi/simple/ --trusted-host mirros.aliyun.com
+如果只需要一次性安装个包（如Dockerfile）： 
+
+```
+pip install -i https://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+```
 
 在Linux服务器上安装python的包时，执行这段代码可以将pip源改为国内的阿里镜像（豆瓣源似乎不再更新），能显著提高包的下载速度
 
