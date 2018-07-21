@@ -1192,3 +1192,16 @@ start, end = match.span()
 while len(data[end-1].encode("utf-8"))>1:
     end -= 1
 ```
+
+----
+
+## ubuntu安装gmpy2
+
+```
+apt install libmpc-dev libmpfr-dev
+pip install gmpy2
+```
+
+辣鸡的官方文档都不提一下apt安装依赖库的事情，apt能搞定的为啥还要自己编译hhh
+
+支持python3 也可以-t .安装到当前目录，就是编译生成了一个so文件
