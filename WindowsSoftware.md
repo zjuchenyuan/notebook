@@ -117,3 +117,13 @@ Linux下直接用md5sum sha1sum就够了
 ```
 mount -t drvfs D: /mnt/d
 ```
+
+----
+
+## VMware vCenter Converter
+
+无需关机，无需移动硬盘将物理机转为虚拟机镜像
+
+基于Windows的卷影复制功能
+
+http://www.softpedia.com/get/System/System-Miscellaneous/VMware-Converter.shtml
