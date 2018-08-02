@@ -1060,6 +1060,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_19" title="安全地拔出移动硬盘" class="md-nav__link">
+    安全地拔出移动硬盘
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1517,6 +1524,13 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_19" title="安全地拔出移动硬盘" class="md-nav__link">
+    安全地拔出移动硬盘
+  </a>
   
 </li>
       
@@ -1995,6 +2009,16 @@ btrfs filesystem usage /mnt
 <div class="codehilite"><pre><span></span>sudo umount /mnt
 sudo losetup -d /dev/loop0
 </pre></div>
+
+
+<hr />
+<h2 id="_19">安全地拔出移动硬盘<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h2>
+<p>首先当然是<code>sudo umount /mnt</code>卸载挂载点咯，如何更安全一点呢？</p>
+<div class="codehilite"><pre><span></span>udisksctl power-off -b /dev/sdb
+</pre></div>
+
+
+<p>From: https://unix.stackexchange.com/questions/354138/safest-way-to-remove-usb-drive-on-linux</p>
                 
                   
                 

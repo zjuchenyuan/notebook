@@ -575,3 +575,15 @@ btrfs filesystem usage /mnt
 sudo umount /mnt
 sudo losetup -d /dev/loop0
 ```
+
+----
+
+## 安全地拔出移动硬盘
+
+首先当然是`sudo umount /mnt`卸载挂载点咯，如何更安全一点呢？
+
+```
+udisksctl power-off -b /dev/sdb
+```
+
+From: https://unix.stackexchange.com/questions/354138/safest-way-to-remove-usb-drive-on-linux
