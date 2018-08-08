@@ -885,3 +885,38 @@ docker stats --no-stream|sort -h -r -k 4,4
 |13|文件读取|
 |14|容器内线程数量(PID数)|
 
+----
+
+## 运行中的容器添加目录挂载
+
+Docker自身只允许在创建容器的时候指定-v进行目录挂载，怎么在不停止容器的情况下增加挂载呢？
+
+参考：https://medium.com/kokster/mount-volumes-into-a-running-container-65a967bee3b5
+
+方法是把块设备挂载到容器中，然后可以使用bind mount
+
+假设容器名称为app_container，需要挂载/dev/sdb1这个设备，命令如下：
+
+Step1: 首先要查看设备id以便在容器中mknod创建设备，然后使用nsenter使用主机的权限挂载设备
+
+Step2: 现在就可以在容器中使用/tmpmount读取到设备了，但如果我们只需要挂载其中一个文件夹 例如设备的data文件夹挂载到容器的/newdata，还可以继续执行：
+
+Step3: 最后清理掉临时挂载的/tmpmount 不会影响bind mount挂载出来的/newdata
+
+```
+CONTAINER_NAME="app_container"
+DEVICE_NAME="/dev/sdb1"
+MOUNT_SRC="data"
+MOUNT_TARGET="/newdata"
+
+# Step1
+x=$(grep $DEVICE_NAME /proc/self/mountinfo|cut -d ' ' -f 3)
+docker exec -it -u root $CONTAINER_NAME sh -c "[ -b $DEVICE_NAME ] || mknod -m 0600 $DEVICE_NAME b ${x/:/ }"
+sudo nsenter --target $(docker inspect --format {{.State.Pid}} $CONTAINER_NAME) --mount --uts --ipc --net --pid --  sh -c "mkdir -p /tmpmount;mount $DEVICE_NAME /tmpmount"
+
+# Step2
+sudo nsenter --target $(docker inspect --format {{.State.Pid}} $CONTAINER_NAME) --mount --uts --ipc --net --pid -- sh -c "mkdir $MOUNT_TARGET; mount -o bind /tmpmount/$MOUNT_SRC $MOUNT_TARGET"
+
+# Step3
+sudo nsenter --target $(docker inspect --format {{.State.Pid}} $CONTAINER_NAME) --mount --uts --ipc --net --pid -- sh -c "umount /tmpmount"
+```
