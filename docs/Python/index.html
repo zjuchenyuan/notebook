@@ -742,6 +742,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#flask_1" title="Flask模板 删去循环引入的多余空格" class="md-nav__link">
+    Flask模板 删去循环引入的多余空格
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1696,6 +1703,13 @@
         <li class="md-nav__item">
   <a href="#ubuntugmpy2" title="ubuntu安装gmpy2" class="md-nav__link">
     ubuntu安装gmpy2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flask_1" title="Flask模板 删去循环引入的多余空格" class="md-nav__link">
+    Flask模板 删去循环引入的多余空格
   </a>
   
 </li>
@@ -2670,6 +2684,14 @@ pip install gmpy2
 
 <p>辣鸡的官方文档都不提一下apt安装依赖库的事情，apt能搞定的为啥还要自己编译hhh</p>
 <p>支持python3 也可以-t .安装到当前目录，就是编译生成了一个so文件</p>
+<hr />
+<h2 id="flask_1">Flask模板 删去循环引入的多余空格<a class="headerlink" href="#flask_1" title="Permanent link">&para;</a></h2>
+<p>在模板文件中写for循环的时候，产生的html会包含代码中的缩进空格，这可能会暴露代码的信息，所以有必要删去</p>
+<p>很简单 把 <code>{% %}</code>改为 <code>{%- -%}</code>即可</p>
+<div class="codehilite"><pre><span></span><span class="cp">{%</span>- <span class="k">for</span> <span class="nv">i</span> <span class="k">in</span> <span class="nv">range</span><span class="o">(</span><span class="m">1</span><span class="o">,</span><span class="m">10</span><span class="o">)</span> -<span class="cp">%}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{{</span><span class="nv">i</span><span class="cp">}}</span><span class="x"></span>
+<span class="cp">{%</span>- <span class="k">endfor</span> -<span class="cp">%}</span><span class="x"></span>
+</pre></div>
                 
                   
                 
