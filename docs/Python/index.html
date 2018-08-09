@@ -2652,6 +2652,15 @@ while len(data[end-1].encode(&quot;utf-8&quot;))&gt;1:
 </pre></div>
 
 
+<p>现在改为更加保守的 从左往右遍历，遇到字节数&gt;1的就终止url：</p>
+<div class="codehilite"><pre><span></span>start, end = match.span()
+newend = start
+while newend&lt;end and len(data[newend].encode(&quot;utf-8&quot;))==1:
+    newend += 1
+end = newend
+</pre></div>
+
+
 <hr />
 <h2 id="ubuntugmpy2">ubuntu安装gmpy2<a class="headerlink" href="#ubuntugmpy2" title="Permanent link">&para;</a></h2>
 <div class="codehilite"><pre><span></span>apt install libmpc-dev libmpfr-dev

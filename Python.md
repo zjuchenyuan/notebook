@@ -1193,6 +1193,16 @@ while len(data[end-1].encode("utf-8"))>1:
     end -= 1
 ```
 
+现在改为更加保守的 从左往右遍历，遇到字节数>1的就终止url：
+
+```
+start, end = match.span()
+newend = start
+while newend<end and len(data[newend].encode("utf-8"))==1:
+    newend += 1
+end = newend
+```
+
 ----
 
 ## ubuntu安装gmpy2
