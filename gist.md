@@ -8,7 +8,7 @@
 import time
 def myprint(*args, **kwargs):
     args = list(args)
-    args[0] = "["+time.strftime("%Y-%m-%d %H:%M:%S")+"] "+args[0]
+    args[0] = "["+time.strftime("%Y-%m-%d %H:%M:%S")+"] " + str(args[0])
     print(*args, **kwargs)
 
 
