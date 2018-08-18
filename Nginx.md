@@ -276,12 +276,12 @@ proxy_set_header realip $remote_addr;
 
 ## Nginx允许列目录
 
-加上`autoindex on`即可
+加上`autoindex on`即可，后两项是为了 显示服务器时间而不是GMT时间 以及 以kB,MB,GB为单位显示大小而不是确切的字节数
 
 ```
 location / {
     autoindex on;
-    autoindex_localtime on; #显示服务器时间而不是GMT时间
-    autoindex_exact_size off; #以kB,MB,GB为单位显示大小而不是确切的字节数
+    autoindex_localtime on;
+    autoindex_exact_size off;
 }
 ```
