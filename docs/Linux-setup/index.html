@@ -1067,6 +1067,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#iptables-127001" title="iptables 让监听在127.0.0.1上的端口可以公网访问" class="md-nav__link">
+    iptables 让监听在127.0.0.1上的端口可以公网访问
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1530,6 +1537,13 @@
         <li class="md-nav__item">
   <a href="#_19" title="安全地拔出移动硬盘" class="md-nav__link">
     安全地拔出移动硬盘
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iptables-127001" title="iptables 让监听在127.0.0.1上的端口可以公网访问" class="md-nav__link">
+    iptables 让监听在127.0.0.1上的端口可以公网访问
   </a>
   
 </li>
@@ -2019,6 +2033,13 @@ sudo losetup -d /dev/loop0
 
 
 <p>From: https://unix.stackexchange.com/questions/354138/safest-way-to-remove-usb-drive-on-linux</p>
+<hr />
+<h2 id="iptables-127001">iptables 让监听在127.0.0.1上的端口可以公网访问<a class="headerlink" href="#iptables-127001" title="Permanent link">&para;</a></h2>
+<p>参考：https://unix.stackexchange.com/questions/111433/iptables-redirect-outside-requests-to-127-0-0-1</p>
+<p>例如有监听在127.0.0.1:1234的应用，现在想通过ip:5678来访问</p>
+<div class="codehilite"><pre><span></span>iptables -t nat -I PREROUTING -p tcp --dport 5678 -j DNAT --to-destination 127.0.0.1:1234
+sysctl -w net.ipv4.conf.eth0.route_localnet=1
+</pre></div>
                 
                   
                 

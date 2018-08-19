@@ -587,3 +587,16 @@ udisksctl power-off -b /dev/sdb
 ```
 
 From: https://unix.stackexchange.com/questions/354138/safest-way-to-remove-usb-drive-on-linux
+
+----
+
+## iptables 让监听在127.0.0.1上的端口可以公网访问
+
+参考：https://unix.stackexchange.com/questions/111433/iptables-redirect-outside-requests-to-127-0-0-1
+
+例如有监听在127.0.0.1:1234的应用，现在想通过ip:5678来访问
+
+```
+iptables -t nat -I PREROUTING -p tcp --dport 5678 -j DNAT --to-destination 127.0.0.1:1234
+sysctl -w net.ipv4.conf.eth0.route_localnet=1
+```
