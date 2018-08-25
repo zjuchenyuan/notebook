@@ -891,6 +891,8 @@ docker stats --no-stream|sort -h -r -k 4,4
 
 Docker自身只允许在创建容器的时候指定-v进行目录挂载，怎么在不停止容器的情况下增加挂载呢？
 
+注意此方法在容器重启后即失效，需要重新挂载
+
 参考：https://medium.com/kokster/mount-volumes-into-a-running-container-65a967bee3b5
 
 方法是把块设备挂载到容器中，然后可以使用bind mount
@@ -912,11 +914,11 @@ MOUNT_TARGET="/newdata"
 # Step1
 x=$(grep $DEVICE_NAME /proc/self/mountinfo|cut -d ' ' -f 3)
 docker exec -it -u root $CONTAINER_NAME sh -c "[ -b $DEVICE_NAME ] || mknod -m 0600 $DEVICE_NAME b ${x/:/ }"
-sudo nsenter --target $(docker inspect --format {{.State.Pid}} $CONTAINER_NAME) --mount --uts --ipc --net --pid --  sh -c "mkdir -p /tmpmount;mount $DEVICE_NAME /tmpmount"
+sudo nsenter --target "$(docker inspect --format '{{.State.Pid}}' $CONTAINER_NAME)" --mount --uts --ipc --net --pid --  sh -c "mkdir -p /tmpmount;mount $DEVICE_NAME /tmpmount"
 
 # Step2
-sudo nsenter --target $(docker inspect --format {{.State.Pid}} $CONTAINER_NAME) --mount --uts --ipc --net --pid -- sh -c "mkdir $MOUNT_TARGET; mount -o bind /tmpmount/$MOUNT_SRC $MOUNT_TARGET"
+sudo nsenter --target "$(docker inspect --format '{{.State.Pid}}' $CONTAINER_NAME)" --mount --uts --ipc --net --pid -- sh -c "mkdir -p $MOUNT_TARGET; mount -o bind /tmpmount/$MOUNT_SRC $MOUNT_TARGET"
 
 # Step3
-sudo nsenter --target $(docker inspect --format {{.State.Pid}} $CONTAINER_NAME) --mount --uts --ipc --net --pid -- sh -c "umount /tmpmount"
+sudo nsenter --target "$(docker inspect --format '{{.State.Pid}}' $CONTAINER_NAME)" --mount --uts --ipc --net --pid -- sh -c "umount /tmpmount"
 ```

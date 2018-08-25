@@ -2279,6 +2279,7 @@ sudo vim config.yml
 <hr />
 <h2 id="_14">运行中的容器添加目录挂载<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
 <p>Docker自身只允许在创建容器的时候指定-v进行目录挂载，怎么在不停止容器的情况下增加挂载呢？</p>
+<p>注意此方法在容器重启后即失效，需要重新挂载</p>
 <p>参考：https://medium.com/kokster/mount-volumes-into-a-running-container-65a967bee3b5</p>
 <p>方法是把块设备挂载到容器中，然后可以使用bind mount</p>
 <p>假设容器名称为app_container，需要挂载/dev/sdb1这个设备，命令如下：</p>
@@ -2293,13 +2294,13 @@ MOUNT_TARGET=&quot;/newdata&quot;
 # Step1
 x=$(grep <span class="nv">$DEVICE_NAME</span> /proc/self/mountinfo|cut -d &#39; &#39; -f 3)
 docker exec -it -u root <span class="nv">$CONTAINER_NAME</span> sh -c &quot;[ -b <span class="nv">$DEVICE_NAME</span> ] || mknod -m 0600 <span class="nv">$DEVICE_NAME</span> b <span class="cp">${</span><span class="n">x</span><span class="o">/</span><span class="p">:</span><span class="o">/</span> <span class="cp">}</span>&quot;
-sudo nsenter --target $(docker inspect --format {{.State.Pid}} <span class="nv">$CONTAINER_NAME</span>) --mount --uts --ipc --net --pid --  sh -c &quot;mkdir -p /tmpmount;mount <span class="nv">$DEVICE_NAME</span> /tmpmount&quot;
+sudo nsenter --target &quot;$(docker inspect --format &#39;{{.State.Pid}}&#39; <span class="nv">$CONTAINER_NAME</span>)&quot; --mount --uts --ipc --net --pid --  sh -c &quot;mkdir -p /tmpmount;mount <span class="nv">$DEVICE_NAME</span> /tmpmount&quot;
 
 # Step2
-sudo nsenter --target $(docker inspect --format {{.State.Pid}} <span class="nv">$CONTAINER_NAME</span>) --mount --uts --ipc --net --pid -- sh -c &quot;mkdir <span class="nv">$MOUNT_TARGET</span>; mount -o bind /tmpmount/<span class="nv">$MOUNT_SRC</span> <span class="nv">$MOUNT_TARGET</span>&quot;
+sudo nsenter --target &quot;$(docker inspect --format &#39;{{.State.Pid}}&#39; <span class="nv">$CONTAINER_NAME</span>)&quot; --mount --uts --ipc --net --pid -- sh -c &quot;mkdir -p <span class="nv">$MOUNT_TARGET</span>; mount -o bind /tmpmount/<span class="nv">$MOUNT_SRC</span> <span class="nv">$MOUNT_TARGET</span>&quot;
 
 # Step3
-sudo nsenter --target $(docker inspect --format {{.State.Pid}} <span class="nv">$CONTAINER_NAME</span>) --mount --uts --ipc --net --pid -- sh -c &quot;umount /tmpmount&quot;
+sudo nsenter --target &quot;$(docker inspect --format &#39;{{.State.Pid}}&#39; <span class="nv">$CONTAINER_NAME</span>)&quot; --mount --uts --ipc --net --pid -- sh -c &quot;umount /tmpmount&quot;
 </pre></div>
                 
                   

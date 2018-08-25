@@ -58,6 +58,16 @@ Python也能用来解方程！求极限！求积分！
 
 -----
 
+## shellcheck
+
+检查自己写的shell脚本有没有问题
+
+https://github.com/koalaman/shellcheck
+
+https://www.shellcheck.net/
+
+-----
+
 ## InstantClick
 
 https://github.com/dieulot/instantclick
