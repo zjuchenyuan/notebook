@@ -60,6 +60,18 @@ http://curlftpfs.sourceforge.net/
 break: 打勾
 ----
 
+### 使用边缘规则实现upyun TOKEN反盗链功能
+
+想只对特定url使用token反盗链，于是就使用边缘规则来实现一下完全兼容反盗链的算法咯
+
+发现一个坑：又拍云的边缘规则的`$SUB`函数 其from和to是从1开始计数的，包括from，也包括to
+
+URI 字符串提取不填，break不选，规则编辑器填以下内容
+
+```
+$WHEN($MATCH($_URI, '这里填URI匹配正则'),$OR($GT($_TIME, $SUB($_GET__upt, 9,99)),$NOT($_GET__upt), $NOT($EQ($SUB($MD5('这里填TOKEN''&'$SUB($_GET__upt, 9,99)'&'$_URI),13,20),$SUB($_GET__upt, 1,8)))))$EXIT(403)
+```
+
 ## Qiniu
 
 ### 使用qshell上传文件夹

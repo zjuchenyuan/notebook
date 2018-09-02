@@ -519,6 +519,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#upyun-token" title="使用边缘规则实现upyun TOKEN反盗链功能" class="md-nav__link">
+    使用边缘规则实现upyun TOKEN反盗链功能
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -897,6 +904,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#upyun-token" title="使用边缘规则实现upyun TOKEN反盗链功能" class="md-nav__link">
+    使用边缘规则实现upyun TOKEN反盗链功能
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -973,6 +987,14 @@
     改写规则：<code>/$1/</code>
 break: 打勾</p>
 <hr />
+<h3 id="upyun-token">使用边缘规则实现upyun TOKEN反盗链功能<a class="headerlink" href="#upyun-token" title="Permanent link">&para;</a></h3>
+<p>想只对特定url使用token反盗链，于是就使用边缘规则来实现一下完全兼容反盗链的算法咯</p>
+<p>发现一个坑：又拍云的边缘规则的<code>$SUB</code>函数 其from和to是从1开始计数的，包括from，也包括to</p>
+<p>URI 字符串提取不填，break不选，规则编辑器填以下内容</p>
+<div class="codehilite"><pre><span></span>$WHEN($MATCH($_URI, &#39;这里填URI匹配正则&#39;),$OR($GT($_TIME, $SUB($_GET__upt, 9,99)),$NOT($_GET__upt), $NOT($EQ($SUB($MD5(&#39;这里填TOKEN&#39;&#39;&amp;&#39;$SUB($_GET__upt, 9,99)&#39;&amp;&#39;$_URI),13,20),$SUB($_GET__upt, 1,8)))))$EXIT(403)
+</pre></div>
+
+
 <h2 id="qiniu">Qiniu<a class="headerlink" href="#qiniu" title="Permanent link">&para;</a></h2>
 <h3 id="qshell">使用qshell上传文件夹<a class="headerlink" href="#qshell" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span>qshell qupload [&lt;ThreadCount&gt;] &lt;LocalUploadConfig&gt;

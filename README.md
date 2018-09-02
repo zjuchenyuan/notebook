@@ -96,6 +96,7 @@ My notebook about technology, for lookup and share
 >*    python规则刷新，python调用官方API进行URL刷新
 >*    使用upyun提供的webp功能节省流量
 >*    使用边缘规则修复改版导致的404问题
+>*    使用边缘规则实现upyun TOKEN反盗链功能
 >* ·Qiniu 七牛
 >*    使用qshell上传文件夹
 
