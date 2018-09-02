@@ -25,21 +25,23 @@ pages:
         - JavaScript: JavaScript.md
         - PHP: PHP.md
         
-    - Website & Network & Developing:
-        - CC98 OAuth2: CC98.md
+    - Web:
         - CDN: CDN.md
         - cURL: cURL.md
-        - Developer: Developer.md
-        - Docker: Docker.md
         - Favorites: 
             - Favorites: Favorites.md
             - Github Project Recommendation: GithubProjectRecommendation.md
             - 更多链接: Links.md
-        - Git: Git.md
-        - Jekyll: Jekyll.md
+        - Flask: Flask.md
         - MySQL: MySQL.md
         - Nginx: Nginx.md
         - RabbitMQ: RabbitMQ.md
+
+    - Development:
+        - Developer: Developer.md
+        - Docker: Docker.md
+        - Git: Git.md
+        - Jekyll: Jekyll.md
         - WindowsSoftware: WindowsSoftware.md
 
     - Linux:

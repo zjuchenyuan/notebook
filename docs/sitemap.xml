@@ -68,12 +68,6 @@
     
         
     <url>
-     <loc>/CC98/</loc>
-     <lastmod>2018-09-02</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
      <loc>/CDN/</loc>
      <lastmod>2018-09-02</lastmod>
      <changefreq>daily</changefreq>
@@ -86,31 +80,13 @@
     </url>
         
     <url>
-     <loc>/Developer/</loc>
-     <lastmod>2018-09-02</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>/Docker/</loc>
-     <lastmod>2018-09-02</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
      <loc></loc>
      <lastmod></lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>/Git/</loc>
-     <lastmod>2018-09-02</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>/Jekyll/</loc>
+     <loc>/Flask/</loc>
      <lastmod>2018-09-02</lastmod>
      <changefreq>daily</changefreq>
     </url>
@@ -129,6 +105,34 @@
         
     <url>
      <loc>/RabbitMQ/</loc>
+     <lastmod>2018-09-02</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    
+
+    
+        
+    <url>
+     <loc>/Developer/</loc>
+     <lastmod>2018-09-02</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/Docker/</loc>
+     <lastmod>2018-09-02</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/Git/</loc>
+     <lastmod>2018-09-02</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/Jekyll/</loc>
      <lastmod>2018-09-02</lastmod>
      <changefreq>daily</changefreq>
     </url>
