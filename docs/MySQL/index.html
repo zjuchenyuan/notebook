@@ -1176,7 +1176,7 @@
 
 <hr />
 <h2 id="merge">MERGE存储引擎<a class="headerlink" href="#merge" title="Permanent link">&para;</a></h2>
-<p>官方文档：http://dev.mysql.com/doc/refman/5.7/en/merge-storage-engine.html</p>
+<p><a href="http://官方文档：http://dev.mysql.com">官方文档：http://dev.mysql.com</a>/doc/refman/5.7/en/merge-storage-engine.html</p>
 <p>查看能用的引擎：<strong>show engines</strong></p>
 <h2 id="merge_1">创建一个MERGE表：<a class="headerlink" href="#merge_1" title="Permanent link">&para;</a></h2>
 <p>假设有a,b表，他们的结构完全相同，然后就可以建立一个c表，注意这个表的定义要与a和b表完全一致</p>
@@ -1220,8 +1220,8 @@
 <p>代码在<a href="../code/pinyin.sql">code/pinyin.sql</a></p>
 <hr />
 <h2 id="url">从路径URL获取文件名称<a class="headerlink" href="#url" title="Permanent link">&para;</a></h2>
-<p>来源 http://stackoverflow.com/questions/17090237/extracting-filenames-from-a-path-mysql</p>
-<p>使用SUBSTRING_INDEX函数，假设url此行的内容为&rdquo;http://example.com/some/path/to/filename.zip&rdquo;</p>
+<p>来源 <a href="http://stackoverflow.com/questions/17090237/extracting-filenames-from-a-path-mysql">http://stackoverflow.com/questions/17090237/extracting-filenames-from-a-path-mysql</a></p>
+<p><a href="http://使用SUBSTRING_INDEX函数，假设url此行的内容为&quot;http://example.com">使用SUBSTRING_INDEX函数，假设url此行的内容为"http://example.com</a>/some/path/to/filename.zip&rdquo;</p>
 <div class="codehilite"><pre><span></span>select SUBSTRING_INDEX(url, &#39;/&#39;, -1) as filename;
 </pre></div>
 
@@ -1231,13 +1231,13 @@
 <h2 id="_4">查询优化<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <h3 id="explainusing-filesort">explain发现出现了using filesort<a class="headerlink" href="#explainusing-filesort" title="Permanent link">&para;</a></h3>
 <blockquote>
-<p>参考 http://www.ccvita.com/169.html</p>
+<p>参考 <a href="http://www.ccvita.com/169.html">http://www.ccvita.com/169.html</a></p>
 </blockquote>
 <p>如果使用了order by或者group by，需要建索引以优化这个查询</p>
 <p>group by用了两个列，两列要合在一起创建索引</p>
 <h3 id="_5">内存表索引的选择<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <blockquote>
-<p>参考 https://dev.mysql.com/doc/refman/5.5/en/optimizing-memory-tables.html</p>
+<p>参考 <a href="https://dev.mysql.com/doc/refman/5.5/en/optimizing-memory-tables.html">https://dev.mysql.com/doc/refman/5.5/en/optimizing-memory-tables.html</a></p>
 </blockquote>
 <p>内存表的索引应该选择BTREE</p>
 <hr />
@@ -1271,12 +1271,12 @@ max_heap_table_size = 256M // 内存表大小
 
 <p>Google关键词：<code>mysql split string</code>,<code>mysql string to int</code></p>
 <p>参考：</p>
-<p>https://stackoverflow.com/questions/14950466/how-to-split-the-name-string-in-mysql</p>
-<p>https://stackoverflow.com/questions/5960620/convert-text-into-number-in-mysql-query</p>
+<p><a href="https://stackoverflow.com/questions/14950466/how-to-split-the-name-string-in-mysql">https://stackoverflow.com/questions/14950466/how-to-split-the-name-string-in-mysql</a></p>
+<p><a href="https://stackoverflow.com/questions/5960620/convert-text-into-number-in-mysql-query">https://stackoverflow.com/questions/5960620/convert-text-into-number-in-mysql-query</a></p>
 <hr />
 <h2 id="mysqld">mysqld配置参数调优<a class="headerlink" href="#mysqld" title="Permanent link">&para;</a></h2>
 <blockquote>
-<p>参考：<a href="https://www.linode.com/docs/databases/mysql/how-to-optimize-mysql-performance-using-mysqltuner">https://www.linode.com/docs/databases/mysql/how-to-optimize-mysql-performance-using-mysqltuner</a></p>
+<p>参考：<a href="https://www.linode.com/docs/databases/mysql/how-to-optimize-mysql-performance-using-mysqltuner"><a href="https://www.linode.com/docs/databases/mysql/how-to-optimize-mysql-performance-using-mysqltuner">https://www.linode.com/docs/databases/mysql/how-to-optimize-mysql-performance-using-mysqltuner</a></a></p>
 </blockquote>
 <p>使用MySQLTuner这个工具得到一些建议：</p>
 <div class="codehilite"><pre><span></span>curl -L http://mysqltuner.pl/ | perl
@@ -1288,7 +1288,7 @@ max_heap_table_size = 256M // 内存表大小
 <hr />
 <h2 id="emojiutf8utf8mb4">支持emoji，从utf8升级到utf8mb4<a class="headerlink" href="#emojiutf8utf8mb4" title="Permanent link">&para;</a></h2>
 <p>为了让mysql存储<a href="http://getemoji.com/">emoji表情</a>，需要进行表的变更操作 以及 连接代码的修改</p>
-<p>参考<a href="https://stackoverflow.com/questions/26532722/how-to-encode-utf8mb4-in-python">https://stackoverflow.com/questions/26532722/how-to-encode-utf8mb4-in-python</a></p>
+<p>参考<a href="https://stackoverflow.com/questions/26532722/how-to-encode-utf8mb4-in-python"><a href="https://stackoverflow.com/questions/26532722/how-to-encode-utf8mb4-in-python">https://stackoverflow.com/questions/26532722/how-to-encode-utf8mb4-in-python</a></a></p>
 <h4 id="charvarchartextutf8mb4">表的变更 表的每一个<code>CHAR</code>，<code>VARCHAR</code>和<code>TEXT</code>类型的列都要改为使用utf8mb4<a class="headerlink" href="#charvarchartextutf8mb4" title="Permanent link">&para;</a></h4>
 <p>举个例子，表名称{tablename}，修改其<code>user</code>列和<code>content</code>列，以及表的默认字符集：</p>
 <div class="codehilite"><pre><span></span><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="o">`</span><span class="err">{</span><span class="n">tablename</span><span class="err">}</span><span class="o">`</span>
@@ -1309,8 +1309,8 @@ SET character_set_connection=utf8mb4;
 <hr />
 <h2 id="too-many-open-files">解决 Too many open files 错误<a class="headerlink" href="#too-many-open-files" title="Permanent link">&para;</a></h2>
 <blockquote>
-<p>参考：https://duntuk.com/how-raise-ulimit-open-files-and-mysql-openfileslimit</p>
-<p>https://stackoverflow.com/questions/22495124/cannot-set-limit-of-mysql-open-files-limit-from-1024-to-65535/35515570</p>
+<p><a href="http://参考：https://duntuk.com">参考：https://duntuk.com</a>/how-raise-ulimit-open-files-and-mysql-openfileslimit</p>
+<p><a href="https://stackoverflow.com/questions/22495124/cannot-set-limit-of-mysql-open-files-limit-from-1024-to-65535/35515570">https://stackoverflow.com/questions/22495124/cannot-set-limit-of-mysql-open-files-limit-from-1024-to-65535/35515570</a></p>
 </blockquote>
 <p>系统环境： ubuntu16.04，用apt install mysql-server安装的mysql</p>
 <p>这个问题的原因是mysql默认的open_files_limit是1024，在mysql打开1024个文件后就无法再打开新文件，需要修改这个limit，如改为1024000</p>
@@ -1334,7 +1334,7 @@ LimitMEMLOCK = infinity
 
 
 <p>在ubuntu16.04上，这些还不够，还要继续改systemd:
-（参考：https://serverfault.com/questions/791729/ubuntu-16-04-server-mysql-open-file-limit-wont-go-higher-than-65536）</p>
+<a href="http://（参考：https://serverfault.com">（参考：https://serverfault.com</a>/questions/791729/ubuntu-16-04-server-mysql-open-file-limit-wont-go-higher-than-65536）</p>
 <div class="codehilite"><pre><span></span>mkdir /etc/systemd/system/mysql.service.d
 tee /etc/systemd/system/mysql.service.d/override.conf &lt;&lt;-&#39;EOF&#39;
 [Service]
@@ -1369,7 +1369,7 @@ show global variables like &quot;%open_files_limit%&quot;;
 </pre></div>
 
 
-<p>然后就查这个报错，发现了这个：https://github.com/chef-cookbooks/mysql/issues/466</p>
+<p><a href="http://然后就查这个报错，发现了这个：https://github.com">然后就查这个报错，发现了这个：https://github.com</a>/chef-cookbooks/mysql/issues/466</p>
 <p>人家的解决方案是：<code>systemctl enable mysql</code>，然而我执行又遇到了systemd的报错：<code>Failed to execute operation: Invalid argument</code></p>
 <p>最终解决方案就是先disable一下</p>
 <div class="codehilite"><pre><span></span>systemctl disable mysql

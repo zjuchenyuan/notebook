@@ -1671,7 +1671,7 @@ sudo systemctl restart docker
 </pre></div>
 
 
-<p>另外你也可以使用USTC的镜像源：参考 https://lug.ustc.edu.cn/wiki/mirrors/help/docker</p>
+<p>另外你也可以使用USTC的镜像源：参考 <a href="https://lug.ustc.edu.cn/wiki/mirrors/help/docker">https://lug.ustc.edu.cn/wiki/mirrors/help/docker</a></p>
 <hr />
 <h3 id="docker">Docker旧版本卸载<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h3>
 <p>如果你的docker是使用apt-get install docker.io安装的，请先执行以下命令卸载：</p>
@@ -1784,17 +1784,17 @@ mv /var/lib/docker /home/
 <p>效果简介：如上配置最多占用 50% 单个 CPU ，最多占用100MB物理内存，容器内进程数目最多200个</p>
 <p><code>--cpu-shares</code>表示相对利用占比，不设置的默认值为1024，单个CPU是1024，只有当容器试图占用100%的CPU时才会体现作用，举个例子：</p>
 <blockquote>
-<p>From: http://blog.opskumu.com/docker-cpu-limit.html
+<p>From: <a href="http://blog.opskumu.com/docker-cpu-limit.html">http://blog.opskumu.com/docker-cpu-limit.html</a>
 假如一个 1core 的主机运行 3 个 container，其中一个 cpu-shares 设置为 1024，而其它 cpu-shares 被设置成 512。当 3 个容器中的进程尝试使用 100% CPU 的时候「尝试使用 100% CPU 很重要，此时才可以体现设置值」，则设置 1024 的容器会占用 50% 的 CPU 时间，其他两个容器则只能分别占用到 25% 的 CPU 时间。
 如果主机是 3core，运行 3 个容器，两个 cpu-shares 设置为 512，一个设置为 1024，则此时每个 container 都能占用其中一个 CPU 为 100%。</p>
 </blockquote>
 <p><code>--cpu-period</code>表示按多少秒分片，例如设置为100000就是按100ms分割，同时设置<code>--cpu-quota</code>为50000就是50ms，效果是同时只能使用0.5个CPU</p>
-<p><code>--memory</code>限制容器使用的物理内存，当容器超出时，其中的进程会被kill，详细请参考http://blog.opskumu.com/docker-memory-limit.html</p>
-<p><code>--blkio-weight</code>表示IO相对权重，详细请参考<a href="http://blog.opskumu.com/docker-io-limit.html">http://blog.opskumu.com/docker-io-limit.html</a></p>
+<p><a href="http://klzzwxh:0013限制容器使用的物理内存，当容器超出时，其中的进程会被kill，详细请参考http://blog.opskumu.com"><code>--memory</code>限制容器使用的物理内存，当容器超出时，其中的进程会被kill，详细请参考http://blog.opskumu.com</a>/docker-memory-limit.html</p>
+<p><code>--blkio-weight</code>表示IO相对权重，详细请参考<a href="http://blog.opskumu.com/docker-io-limit.html"><a href="http://blog.opskumu.com/docker-io-limit.html">http://blog.opskumu.com/docker-io-limit.html</a></a></p>
 <hr />
 <h2 id="ftp">快速部署ftp<a class="headerlink" href="#ftp" title="Permanent link">&para;</a></h2>
 <p>vsftpd的配置真是让人头疼，不如<code>docker search ftp</code>一番，然后google一下找到对应的Docker Hub页面</p>
-<p>https://hub.docker.com/r/stilliard/pure-ftpd/</p>
+<p><a href="https://hub.docker.com/r/stilliard/pure-ftpd/">https://hub.docker.com/r/stilliard/pure-ftpd/</a></p>
 <p>使用步骤：</p>
 <div class="codehilite"><pre><span></span>docker run -d --name ftpd_server -p 21:21 -p 30000-30009:30000-30009 -e &quot;PUBLICHOST=localhost&quot; -v /path/to/the_ftp_directory:/data stilliard/pure-ftpd:hardened
 docker exec -it ftpd_server /bin/bash
@@ -1807,7 +1807,7 @@ pure-pw useradd bob -f /etc/pure-ftpd/passwd/pureftpd.passwd -m -u ftpuser -d /d
 <h2 id="wordpress">快速部署wordpress<a class="headerlink" href="#wordpress" title="Permanent link">&para;</a></h2>
 <p>想搭建一个自己的blog，选择玩一玩wordpress咯，这里记录一下完整的流程和遇到的问题及解决方案(Google在手 天下我有)</p>
 <p>技术相关： Docker Nginx HTTPS </p>
-<p>目标： 快速搭建一个全站https的wordpress站点，域名为example.com</p>
+<p>目标： <a href="http://快速搭建一个全站https的wordpress站点，域名为example.com">快速搭建一个全站https的wordpress站点，域名为example.com</a></p>
 <h3 id="_7">完整流程：<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
 <ol>
 <li>前期准备:域名+vps</li>
@@ -1876,7 +1876,7 @@ docker run --name wp --link mysql:mysql -p 6666:80 -d wordpress
 <p>最终选择的方案是在nginx反向代理的时候替换文本内容，使用sub_filter这个模块进行文本内容替换</p>
 <p>遇到了问题，这个sub_filter不起作用，(Google关键词 &ldquo;sub_filter not working&rdquo;)原因是容器返回的内容启用了gzip，无法替换，方法是加入一行配置禁止容器的Apache使用gzip: proxy_set_header Accept-Encoding &ldquo;&rdquo;;</p>
 <p>参考：</p>
-<p>http://stackoverflow.com/questions/31893211/http-sub-module-sub-filter-of-nginx-and-reverse-proxy-not-working</p>
+<p><a href="http://stackoverflow.com/questions/31893211/http-sub-module-sub-filter-of-nginx-and-reverse-proxy-not-working">http://stackoverflow.com/questions/31893211/http-sub-module-sub-filter-of-nginx-and-reverse-proxy-not-working</a></p>
 <p>{:start=&rdquo;3&rdquo;}
 3. 由于在后台修改了Wordpress Address和Site Address改为https的链接，导致后台无法打开，重定向死循环</p>
 <p>解决方案是进入mysql容器手动修改，把进行的修改改回去</p>
@@ -1972,7 +1972,7 @@ sudo iptables -t nat -I POSTROUTING -s <span class="sb">`</span>getip <span clas
 <p>为什么最后用MASQUERADE而不用SNAT呢？因为用SNAT容器的应用就不能得到请求的源IP，在实际应用中是无法接受的；这一条iptables规则是我用<code>docker run -p</code>和<code>iptables-save</code>得到的</p>
 <hr />
 <h2 id="tcpdump">对容器网络流量tcpdump<a class="headerlink" href="#tcpdump" title="Permanent link">&para;</a></h2>
-<p>Learned from: https://www.slideshare.net/SreenivasMakam/docker-networking-common-issues-and-troubleshooting-techniques</p>
+<p>Learned from: <a href="https://www.slideshare.net/SreenivasMakam/docker-networking-common-issues-and-troubleshooting-techniques">https://www.slideshare.net/SreenivasMakam/docker-networking-common-issues-and-troubleshooting-techniques</a></p>
 <div class="codehilite"><pre><span></span>docker run -ti --net container:&lt;containerid&gt; nicolaka/netshoot tcpdump -i eth0 -n port 80
 </pre></div>
 
@@ -1986,7 +1986,7 @@ sudo iptables -t nat -I POSTROUTING -s <span class="sb">`</span>getip <span clas
 <hr />
 <h2 id="_10">修改正在运行的容器的重启策略<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
 <p>docker run的时候忘了指定restart=always，除了commit后再正确地run一遍之外有没有更加优雅的修改容器参数的方法呢？</p>
-<p>参考： https://stackoverflow.com/questions/26852321/docker-add-a-restart-policy-to-a-container-that-was-already-created</p>
+<p>参考： <a href="https://stackoverflow.com/questions/26852321/docker-add-a-restart-policy-to-a-container-that-was-already-created">https://stackoverflow.com/questions/26852321/docker-add-a-restart-policy-to-a-container-that-was-already-created</a></p>
 <p>在1.11版本后有了<code>docker update</code>这个命令，可以修改正在运行的容器的参数，如CPU限制、内存限制 和 重启策略</p>
 <p>使目前运行的所有容器都设置为自动重启：</p>
 <div class="codehilite"><pre><span></span>docker update --restart=always `docker ps -q`
@@ -2130,7 +2130,7 @@ docker network connect --alias app useredis app
 </pre></div>
 
 
-<p>Google找到了相关issue在这里→https://github.com/moby/moby/issues/36145</p>
+<p><a href="http://Google找到了相关issue在这里→https://github.com">Google找到了相关issue在这里→https://github.com</a>/moby/moby/issues/36145</p>
 <p>不删容器重建、不回滚Docker的紧急解决方案为：</p>
 <div class="codehilite"><pre><span></span><span class="x">sudo docker-containerd-ctr --namespace moby --address /run/docker/containerd/docker-containerd.sock c rm `docker inspect --format &#39;</span><span class="cp">{{</span><span class="nv">.Id</span><span class="cp">}}</span><span class="x">&#39; 无法启动的容器名称`</span>
 </pre></div>
@@ -2144,7 +2144,7 @@ docker network connect --alias app useredis app
 
 <hr />
 <h2 id="docker-exec-it">解决docker exec -it进入容器屏幕大小不对的问题<a class="headerlink" href="#docker-exec-it" title="Permanent link">&para;</a></h2>
-<p>发现docker exec -it进入容器的bash后tty的大小不对 只有80x24，参考这个 https://github.com/moby/moby/issues/35407</p>
+<p>发现docker exec -it进入容器的bash后tty的大小不对 只有80x24，参考这个 <a href="https://github.com/moby/moby/issues/35407">https://github.com/moby/moby/issues/35407</a></p>
 <p>解决方案：在进入容器时配置环境变量COLUMNS和LINES为正确值即可，为了便于操作与记忆，写~/.bashrc咯：</p>
 <div class="codehilite"><pre><span></span><span class="kd">function</span> <span class="nx">din</span><span class="p">(){</span>
     <span class="nx">docker</span> <span class="nx">exec</span> <span class="o">-</span><span class="nx">ti</span> <span class="o">--</span><span class="nx">env</span> <span class="nx">COLUMNS</span><span class="o">=</span><span class="sb">`tput cols`</span> <span class="o">--</span><span class="nx">env</span> <span class="nx">LINES</span><span class="o">=</span><span class="sb">`tput lines`</span> <span class="nx">$1</span> <span class="o">/</span><span class="nx">bin</span><span class="o">/</span><span class="nx">bash</span>
@@ -2157,7 +2157,7 @@ docker network connect --alias app useredis app
 <hr />
 <h2 id="docker-pull">不使用docker pull也能下载到镜像<a class="headerlink" href="#docker-pull" title="Permanent link">&para;</a></h2>
 <p><strong>该脚本存在问题，下载到的镜像层无法导入，仍待研究</strong></p>
-<p>github上官方有下载脚本：https://github.com/moby/moby/blob/master/contrib/download-frozen-image-v2.sh</p>
+<p><a href="http://github上官方有下载脚本：https://github.com">github上官方有下载脚本：https://github.com</a>/moby/moby/blob/master/contrib/download-frozen-image-v2.sh</p>
 <p>使用的时候第一个参数是目录名称，第二个是镜像名称:latest，其中:tag是必须要写的</p>
 <p>下述命令下载脚本，替换为从阿里云下载，最后打包成golang.tar （由于下载到的layer的tar包已经是gzip压缩过的 没必要再7zip压缩）</p>
 <div class="codehilite"><pre><span></span>wget https://raw.githubusercontent.com/moby/moby/master/contrib/download-frozen-image-v2.sh
@@ -2177,7 +2177,7 @@ tar -vf golang.tar -cC &#39;/tmp/golang&#39; .
 <hr />
 <h2 id="docker-daemon">启动另一个Docker Daemon进程<a class="headerlink" href="#docker-daemon" title="Permanent link">&para;</a></h2>
 <p>有时候需要进行build操作，发现根目录剩余空间不够了，但另外一块硬盘还有空间，整体迁移/var/lib/docker或合并两个硬盘为lvm又不现实，这时就可以开启一个新的Docker Daemon，把Docker使用的目录设置为另一块硬盘</p>
-<p>参考：http://blog.alpaca.ai/run-multiple-docker-daemons-with-net-container/</p>
+<p>参考：<a href="http://blog.alpaca.ai/run-multiple-docker-daemons-with-net-container/">http://blog.alpaca.ai/run-multiple-docker-daemons-with-net-container/</a></p>
 <p>docker工作目录假设为/home/cy/docker</p>
 <p>第一次执行：</p>
 <div class="codehilite"><pre><span></span>OFFSET=0
@@ -2211,8 +2211,8 @@ DOCKER_ROOT=/home/<span class="cp">${</span><span class="n">u</span><span class=
 <hr />
 <h2 id="dockergitlab-ci">配置使用Docker版本的Gitlab CI<a class="headerlink" href="#dockergitlab-ci" title="Permanent link">&para;</a></h2>
 <p>参考文档：
-官方教程 https://docs.gitlab.com/runner/
-高级配置 https://docs.gitlab.com/runner/configuration/advanced-configuration.html</p>
+官方教程 <a href="https://docs.gitlab.com/runner/">https://docs.gitlab.com/runner/</a>
+高级配置 <a href="https://docs.gitlab.com/runner/configuration/advanced-configuration.html">https://docs.gitlab.com/runner/configuration/advanced-configuration.html</a></p>
 <p>人家这东西本质上是一个docker容器，但是把主机的docker sock传入到容器中，所以容器内可以创建容器</p>
 <p>我这里的教程着重解决两个问题：使用自定义的镜像，设置DNS</p>
 <h3 id="pullrunner">第一步当然是pull人家的runner镜像咯<a class="headerlink" href="#pullrunner" title="Permanent link">&para;</a></h3>
@@ -2224,7 +2224,7 @@ DOCKER_ROOT=/home/<span class="cp">${</span><span class="n">u</span><span class=
 <p>在管理员界面 Overview下Runners点开即可看到 </p>
 <p>网址： /admin/runners</p>
 <h3 id="_11">第三步 注册以生成初始的配置信息<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
-<p>参考https://docs.gitlab.com/runner/register/index.html#docker</p>
+<p><a href="http://参考https://docs.gitlab.com">参考https://docs.gitlab.com</a>/runner/register/index.html#docker</p>
 <p>假设容器配置文件保存在/dockerfiles/gitlabrunner中，其中docker-image是默认跑任务的镜像</p>
 <div class="codehilite"><pre><span></span>docker run --rm -t -i -v /dockerfiles/gitlabrunner:/etc/gitlab-runner --dns 10.0.0.1 gitlab/gitlab-runner  register  --non-interactive \
   --url &quot;https://gitlab.com/&quot; \
@@ -2238,8 +2238,8 @@ DOCKER_ROOT=/home/<span class="cp">${</span><span class="n">u</span><span class=
 
 
 <h3 id="_12">第四步 修改配置文件<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
-<p>参考高级配置 https://docs.gitlab.com/runner/configuration/advanced-configuration.html
-和 https://docs.gitlab.com/runner/executors/docker.html#how-pull-policies-work</p>
+<p>参考高级配置 <a href="https://docs.gitlab.com/runner/configuration/advanced-configuration.html">https://docs.gitlab.com/runner/configuration/advanced-configuration.html</a>
+和 <a href="https://docs.gitlab.com/runner/executors/docker.html#how-pull-policies-work">https://docs.gitlab.com/runner/executors/docker.html#how-pull-policies-work</a></p>
 <div class="codehilite"><pre><span></span>cd /dockerfiles/gitlabrunner #你的配置文件目录
 sudo vim config.yml
 </pre></div>
@@ -2340,7 +2340,7 @@ sudo vim config.yml
 <h2 id="_14">运行中的容器添加目录挂载<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
 <p>Docker自身只允许在创建容器的时候指定-v进行目录挂载，怎么在不停止容器的情况下增加挂载呢？</p>
 <p>注意此方法在容器重启后即失效，需要重新挂载</p>
-<p>参考：https://medium.com/kokster/mount-volumes-into-a-running-container-65a967bee3b5</p>
+<p><a href="http://参考：https://medium.com">参考：https://medium.com</a>/kokster/mount-volumes-into-a-running-container-65a967bee3b5</p>
 <p>方法是把块设备挂载到容器中，然后可以使用bind mount</p>
 <p>假设容器名称为app_container，需要挂载/dev/sdb1这个设备，命令如下：</p>
 <p>Step1: 首先要查看设备id以便在容器中mknod创建设备，然后使用nsenter使用主机的权限挂载设备</p>

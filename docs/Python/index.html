@@ -1795,7 +1795,7 @@
 <p>嗯哼，Python很好玩呢&hellip;有人说Python是能运行的伪代码，就写代码的速度而言是显著优于C的，也有很多好用的类库呢，反正强烈推荐这门语言啦~</p>
 <p>当你尝试一个包的时候，注意自己的py文件名称不能与包名重名，例如不要出现flask.py</p>
 <hr />
-<h2 id="pip-mirrorsaliyuncom">设置pip源 - mirrors.aliyun.com<a class="headerlink" href="#pip-mirrorsaliyuncom" title="Permanent link">&para;</a></h2>
+<h2 id="pip-mirrorsaliyuncom">设置pip源 - <a href="http://mirrors.aliyun.com">mirrors.aliyun.com</a><a class="headerlink" href="#pip-mirrorsaliyuncom" title="Permanent link">&para;</a></h2>
 <p>如果只需要一次性安装个包（如Dockerfile）： </p>
 <div class="codehilite"><pre><span></span>pip install -i https://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
 </pre></div>
@@ -2088,7 +2088,7 @@ print( b16decode( hex(key)[2:].upper() ) )#output: b&#39;I_4m-k3y&#39;
 <p>如果要做爬虫，欢迎使用我的<a href="https://github.com/zjuchenyuan/EasyLogin">EasyLogin</a>，无需再操心这些细节，专注于核心爬虫代码</p>
 <hr />
 <h2 id="tkinter">通过tkinter获取、修改剪贴板<a class="headerlink" href="#tkinter" title="Permanent link">&para;</a></h2>
-<p>支持py2和py3，Learned from https://www.daniweb.com/programming/software-development/code/487653/access-the-clipboard-via-tkinter</p>
+<p>支持py2和py3，Learned from <a href="https://www.daniweb.com/programming/software-development/code/487653/access-the-clipboard-via-tkinter">https://www.daniweb.com/programming/software-development/code/487653/access-the-clipboard-via-tkinter</a></p>
 <div class="codehilite"><pre><span></span><span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">Tk</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
@@ -2186,7 +2186,7 @@ print( b16decode( hex(key)[2:].upper() ) )#output: b&#39;I_4m-k3y&#39;
 </pre></div>
 
 
-<p>Tutorial: <a href="https://github.com/spiside/pdb-tutorial">https://github.com/spiside/pdb-tutorial</a></p>
+<p>Tutorial: <a href="https://github.com/spiside/pdb-tutorial"><a href="https://github.com/spiside/pdb-tutorial">https://github.com/spiside/pdb-tutorial</a></a></p>
 <hr />
 <h2 id="pythonserverlessfunction-as-service">使用Python开发Serverless(Function as Service)后端服务<a class="headerlink" href="#pythonserverlessfunction-as-service" title="Permanent link">&para;</a></h2>
 <p><a href="https://github.com/zjuchenyuan/zju-jwb-to-icalendar">项目地址 &amp; 部署过程</a></p>
@@ -2249,7 +2249,7 @@ print( b16decode( hex(key)[2:].upper() ) )#output: b&#39;I_4m-k3y&#39;
 <p>略&hellip;(连这个都不知道还不去google，你适不适合CTF心里一点B数都没有吗)</p>
 <p>符号约定： n一个大数， p和q是它的质因子，d私钥，m信息明文，c信息密文</p>
 <h3 id="_9">破解的数学原理<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
-<p>参考：https://stackoverflow.com/questions/4078902/cracking-short-rsa-keys</p>
+<p><a href="http://参考：https://stackoverflow.com">参考：https://stackoverflow.com</a>/questions/4078902/cracking-short-rsa-keys</p>
 <p>Google搜索关键词 crack rsa key</p>
 <p>给定公钥n和e，假定我们成功分解n = p * q，那么求出d</p>
 <div class="codehilite"><pre><span></span>d = e^-1 mod phi(n)
@@ -2274,7 +2274,7 @@ e+fuqvuwBPUfAgMBAAE=
 
 <p>看起来很短，估计是可以分解的比较小的N</p>
 <p>google搜索关键词：openssl get n from public key</p>
-<p>参考：https://stackoverflow.com/questions/3116907/rsa-get-exponent-and-modulus-given-a-public-key</p>
+<p><a href="http://参考：https://stackoverflow.com">参考：https://stackoverflow.com</a>/questions/3116907/rsa-get-exponent-and-modulus-given-a-public-key</p>
 <p>人家给出了这样的做法：(环境Linux，已经安装openssl)</p>
 <div class="codehilite"><pre><span></span># 丢弃头尾的---行，提取公钥内容并合并一行（这是base64编码的字符串）
 PUBKEY=`grep -v -- ----- public.pem | tr -d &#39;\n&#39;`
@@ -2317,7 +2317,7 @@ print(n)
 <h4 id="n-pq">怎么分解n 得到p和q？<a class="headerlink" href="#n-pq" title="Permanent link">&para;</a></h4>
 <p>你可以自己写代码，然而我懒，直接查数据库：</p>
 <p>打开factordb.com这个神奇的网站，输入n的值就能查到分解结果啦：</p>
-<p>http://factordb.com/index.php?query=90499887424928873790510606439768063703452393541528122252967476339871041516831</p>
+<p><a href="http://factordb.com/index.php?query=90499887424928873790510606439768063703452393541528122252967476339871041516831">http://factordb.com/index.php?query=90499887424928873790510606439768063703452393541528122252967476339871041516831</a></p>
 <p>分解结果：</p>
 <div class="codehilite"><pre><span></span>9049988742...31&lt;77&gt; = 283194537446483890135816972554288437117&lt;39&gt; · 319567913424286672035093410391626922443&lt;39&gt;
 </pre></div>
@@ -2330,7 +2330,7 @@ print(n)
 <p>但e^-1是个啥玩意？倒数？ 倒数还能求模？</p>
 <p>emmm 其实是求逆元啦 然而不会写代码怎么办，当时是继续google啊</p>
 <p>google关键词： python calculate inverse mod</p>
-<p>参考：https://stackoverflow.com/questions/4798654/modular-multiplicative-inverse-function-in-python</p>
+<p><a href="http://参考：https://stackoverflow.com">参考：https://stackoverflow.com</a>/questions/4798654/modular-multiplicative-inverse-function-in-python</p>
 <p>得到代码：</p>
 <div class="codehilite"><pre><span></span>def egcd(a, b):
     if a == 0:
@@ -2381,7 +2381,7 @@ print(d)
 <img alt="" src="https://d.py3.io/img/15365186860.png" /></p>
 <p>emmm一共32字节长的密文，直接读文件将得到bytes strig，怎么把它转为一个很大的整数呢？</p>
 <p>google关键词： python byte string to int</p>
-<p>参考：https://stackoverflow.com/questions/444591/convert-a-string-of-bytes-into-an-int-python</p>
+<p><a href="http://参考：https://stackoverflow.com">参考：https://stackoverflow.com</a>/questions/444591/convert-a-string-of-bytes-into-an-int-python</p>
 <p>人家给出了python3.2以后可以用int.from_bytes的方式，继续写我们的py咯：</p>
 <div class="codehilite"><pre><span></span>encrypteddata = open(&#39;flag.enc&#39;,&#39;rb&#39;).read()
 c = int.from_bytes(encrypteddata, &#39;big&#39;)
@@ -2412,7 +2412,7 @@ m = (c**d)%n
 
 <p>果然运行这个py就卡死了，实际上并没有必要算出精确的c**d，我们需要调用快速的mod乘方的方法</p>
 <p>google关键词： python mod pow</p>
-<p>参考：https://stackoverflow.com/questions/32738637/calculate-mod-using-pow-function-python</p>
+<p><a href="http://参考：https://stackoverflow.com">参考：https://stackoverflow.com</a>/questions/32738637/calculate-mod-using-pow-function-python</p>
 <p>人家说pow函数就可以提供第3个参数，例如pow(6, 8, 5)就是 6^8 mod 5</p>
 <p>那就写代码咯(瞎写，C语言的pow需要#include <math.h> 那我就也从math导入吧)：</p>
 <div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="nb">pow</span>
@@ -2438,7 +2438,7 @@ print(m)
 
 <p>得到输出 4114174865819530012247735243997890458185276719507135882385278623252053258</p>
 <h3 id="flag">明文这么一个大数 我要的flag呢？<a class="headerlink" href="#flag" title="Permanent link">&para;</a></h3>
-<p>cy打开了他的笔记本 <a href="https://py3.io/Python.html#bytes">https://py3.io/Python.html#bytes</a></p>
+<p>cy打开了他的笔记本 <a href="https://py3.io/Python.html#bytes"><a href="https://py3.io/Python.html#bytes">https://py3.io/Python.html#bytes</a></a></p>
 <p>查到了 十六进制字符串转bytes字符串 和 拿到一个int转字符串 的方法：</p>
 <div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">base64</span> <span class="kn">import</span> <span class="n">b16decode</span>
 <span class="k">print</span><span class="p">(</span> <span class="n">b16decode</span><span class="p">(</span> <span class="nb">hex</span><span class="p">(</span><span class="n">m</span><span class="p">)[</span><span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="p">)</span> <span class="p">)</span>
@@ -2573,10 +2573,10 @@ print(b16decode(plaindata))
 <p>运行需要提供byr和NHD的登录cookie，以及transmission连接信息</p>
 <hr />
 <h2 id="python-seleniumdocker-chrome-headless">python selenium+Docker chrome headless爬复杂网页<a class="headerlink" href="#python-seleniumdocker-chrome-headless" title="Permanent link">&para;</a></h2>
-<p>例子：阿里云所有域名价格页面 https://wanwang.aliyun.com/help/price.html</p>
+<p>例子：阿里云所有域名价格页面 <a href="https://wanwang.aliyun.com/help/price.html">https://wanwang.aliyun.com/help/price.html</a></p>
 <p>从网络请求看出其价格接口有多个，而且较为复杂；那就不妨试试用selenium让chrome headless访问这个页面，加载渲染完成后我们再获取页面源代码，此时源代码里面就有了完整的价格数据</p>
 <p>运行环境：只需要Docker和Python3，无需桌面环境</p>
-<p>镜像参考：https://hub.docker.com/r/selenium/standalone-chrome/</p>
+<p><a href="http://镜像参考：https://hub.docker.com">镜像参考：https://hub.docker.com</a>/r/selenium/standalone-chrome/</p>
 <p>先跑起来容器呗，这样就运行了selenium server，主机暴露了一个6666端口，：</p>
 <div class="codehilite"><pre><span></span>docker run -d -p 6666:4444 -v /dev/shm:/dev/shm selenium/standalone-chrome
 </pre></div>
@@ -2600,11 +2600,11 @@ print(b16decode(plaindata))
 
 
 <p>如果没有在代码里面清理Chrome进程，可以在浏览器里面进入Console，在这里可以看到当前运行的Session (Chrome进程) ，对当前页面查看页面截图：
-http://127.0.0.1:6666/wd/hub/static/resource/hub.html</p>
+<a href="http://127.0.0.1:6666/wd/hub/static/resource/hub.html">http://127.0.0.1:6666/wd/hub/static/resource/hub.html</a></p>
 <hr />
 <h2 id="pythonroot">python丢弃root权限<a class="headerlink" href="#pythonroot" title="Permanent link">&para;</a></h2>
 <p>如果python需要监听80端口，简单方式就是直接用root权限启动，但启动后可以丢弃root权限来提高安全性</p>
-<p>code from https://stackoverflow.com/questions/2699907/dropping-root-permissions-in-python</p>
+<p>code from <a href="https://stackoverflow.com/questions/2699907/dropping-root-permissions-in-python">https://stackoverflow.com/questions/2699907/dropping-root-permissions-in-python</a></p>
 <div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">pwd</span><span class="o">,</span> <span class="nn">grp</span>
 
 <span class="k">def</span> <span class="nf">drop_privileges</span><span class="p">(</span><span class="n">uid_name</span><span class="o">=</span><span class="s1">&#39;nobody&#39;</span><span class="p">,</span> <span class="n">gid_name</span><span class="o">=</span><span class="s1">&#39;nogroup&#39;</span><span class="p">):</span>
@@ -2657,7 +2657,7 @@ full_torrent = tc.get_torrent(torrent_id)
 
 <h3 id="torrenttracker">修改一个.torrent文件的tracker<a class="headerlink" href="#torrenttracker" title="Permanent link">&para;</a></h3>
 <p>使用torf库，这个库使用了python3.6才支持的特性，依赖于格式化字符串、dict遍历的有序性</p>
-<p>我修改后的版本下载，支持py3.5：https://d.py3.io/torf.zip</p>
+<p>我修改后的版本下载，支持py3.5：<a href="https://d.py3.io/torf.zip">https://d.py3.io/torf.zip</a></p>
 <p>代码：</p>
 <div class="codehilite"><pre><span></span>t=torf.Torrent.read(torrent_filename)
 t.trackers=[[new_tracker_url]]
@@ -2667,7 +2667,7 @@ t.write(&quot;new.torrent&quot;)
 
 <hr />
 <h2 id="uwsgi">uwsgi优雅重启<a class="headerlink" href="#uwsgi" title="Permanent link">&para;</a></h2>
-<p>参考：http://uwsgi-docs.readthedocs.io/en/latest/articles/TheArtOfGracefulReloading.html</p>
+<p>参考：<a href="http://uwsgi-docs.readthedocs.io/en/latest/articles/TheArtOfGracefulReloading.html">http://uwsgi-docs.readthedocs.io/en/latest/articles/TheArtOfGracefulReloading.html</a></p>
 <p>在uwsgi.ini中添加一行：</p>
 <div class="codehilite"><pre><span></span>master-fifo = /tmp/uwsgififo
 </pre></div>
@@ -2696,7 +2696,7 @@ t.write(&quot;new.torrent&quot;)
 <h2 id="python35-openutf-8">Python3.5 open打开文件默认使用utf-8<a class="headerlink" href="#python35-openutf-8" title="Permanent link">&para;</a></h2>
 <p>Windows下open打开文件总是会使用gbk，配置环境变量如PYTHONIOENCODING都没用，就很气，难道只能每次open都保证写上encoding=&rdquo;utf-8&rdquo;嘛？当然不必</p>
 <p>google搜索关键词：windows python3 change open file encoding</p>
-<p>解决方案：参考：https://stackoverflow.com/questions/31469707/changing-the-locale-preferred-encoding-in-python-3-in-windows</p>
+<p><a href="http://解决方案：参考：https://stackoverflow.com">解决方案：参考：https://stackoverflow.com</a>/questions/31469707/changing-the-locale-preferred-encoding-in-python-3-in-windows</p>
 <p>添加代码：由于只有windows才需要这么处理，所以先判断操作系统</p>
 <div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
 <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;win&quot;</span><span class="p">):</span>

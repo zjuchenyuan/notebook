@@ -938,7 +938,7 @@
                 <h2 id="localstorage">使用localStorage<a class="headerlink" href="#localstorage" title="Permanent link">&para;</a></h2>
 <p>Cookie存数据影响访问速度(每次请求都需要带上Cookie)，使用localStorage存储有更大容量，还不易丢失</p>
 <p>建议将用户的大段输入随时存储到localStorage中</p>
-<p>高级应用可以是把js等代码文件这样缓存到本地，安全性讨论见<a href="https://imququ.com/post/enhance-security-for-ls-code.html">https://imququ.com/post/enhance-security-for-ls-code.html</a></p>
+<p>高级应用可以是把js等代码文件这样缓存到本地，安全性讨论见<a href="https://imququ.com/post/enhance-security-for-ls-code.html"><a href="https://imququ.com/post/enhance-security-for-ls-code.html">https://imququ.com/post/enhance-security-for-ls-code.html</a></a></p>
 <div class="codehilite"><pre><span></span>//写入
 var storage=window.localStorage;
 storage[&quot;a&quot;]=1;
@@ -951,7 +951,7 @@ window.localStorage.clear();
 <h2 id="phantomjs">使用phantomjs爬取网页<a class="headerlink" href="#phantomjs" title="Permanent link">&para;</a></h2>
 <p>有些时候我们用Python的requests并不能很完美地渲染好网页，例如人家用酷炫的js作图了，我就想得到这张图，这时候用phantomjs就好啦</p>
 <p>爬取目标：</p>
-<p><a href="http://oncokb.org/#/gene/AKT1">http://oncokb.org/#/gene/AKT1</a></p>
+<p><a href="http://oncokb.org/#/gene/AKT1"><a href="http://oncokb.org/#/gene/AKT1">http://oncokb.org/#/gene/AKT1</a></a></p>
 <p>这个网页的右边有一张Tumor Types with AKT1 Mutations的图</p>
 <p>代码：</p>
 <p><a href="../code/spider.oncokb.js">code/spider.oncokb.js</a></p>
@@ -978,7 +978,7 @@ window.localStorage.clear();
 <p>我的需求：用户登录的div需要点击Login后显示(toggle)，此时浏览器已经自动帮用户填上了用户名和密码，用户需要手动点击登录按钮才会触发登录请求；现在我想加入快速登录功能，在显示登录div后自动提交登录请求，如果为空或密码错误再交给用户输入</p>
 <p>我的解决方案：加入下述扩展jQuery的代码后，对#login绑定beforeShow事件，处理函数先根据全局变量是否存在来判断是否执行过（防止死循环），如果没有执行过则执行登录函数clicklogin并设置全局变量</p>
 <p>效果：如果浏览器自动填入了正确的用户名密码，则用户点击Login后快速闪过登录输入框即完成登录；如果浏览器没有自动填入用户名密码，clicklogin函数直接return，用户没有感知；如果浏览器填入的密码是错的，用户会看到密码错误提示，1s后再次toggle登录的div要求用户输入</p>
-<p>From: http://stackoverflow.com/questions/1225102/jquery-event-to-trigger-action-when-a-div-is-made-visible</p>
+<p>From: <a href="http://stackoverflow.com/questions/1225102/jquery-event-to-trigger-action-when-a-div-is-made-visible">http://stackoverflow.com/questions/1225102/jquery-event-to-trigger-action-when-a-div-is-made-visible</a></p>
 <p>引入jQuery后，修改jQuery自身的show函数以扩展bind：</p>
 <div class="codehilite"><pre><span></span>jQuery(function($) {
 
@@ -1025,7 +1025,7 @@ window.localStorage.clear();
 <hr />
 <h2 id="get">读取GET参数<a class="headerlink" href="#get" title="Permanent link">&para;</a></h2>
 <p>有些时候对GET参数的处理交给了前端，后端的PHP可以$_GET[&ldquo;parameter&rdquo;]，前端JS咋办呢？</p>
-<p>From: http://stackoverflow.com/questions/979975/how-to-get-the-value-from-the-get-parameters</p>
+<p>From: <a href="http://stackoverflow.com/questions/979975/how-to-get-the-value-from-the-get-parameters">http://stackoverflow.com/questions/979975/how-to-get-the-value-from-the-get-parameters</a></p>
 <div class="codehilite"><pre><span></span>var QueryString = function () {
   // This function is anonymous, is executed immediately and 
   // the return value is assigned to QueryString!
@@ -1060,7 +1060,7 @@ window.localStorage.clear();
 
 <hr />
 <h2 id="github-issue">使用 Github Issue 作为博客评论区<a class="headerlink" href="#github-issue" title="Permanent link">&para;</a></h2>
-<p>人家大佬的项目：<a href="http://github.com/wzpan/comment.js">http://github.com/wzpan/comment.js</a>，<a href="http://www.hahack.com/codes/comment-js/">中文文档</a></p>
+<p>人家大佬的项目：<a href="http://github.com/wzpan/comment.js"><a href="http://github.com/wzpan/comment.js">http://github.com/wzpan/comment.js</a></a>，<a href="http://www.hahack.com/codes/comment-js/">中文文档</a></p>
 <p>如果觉得cloudflare加载速度不佳，可以把所有js打包成一个文件</p>
 <p>效果如本博客页面底部评论区所示，为了偷懒就没有为每个md文件单独开issue了，整个blog共用一个issue</p>
 <hr />

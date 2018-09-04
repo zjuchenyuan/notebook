@@ -1243,7 +1243,7 @@
                 
                 <h1 id="git">Git的学习笔记咯<a class="headerlink" href="#git" title="Permanent link">&para;</a></h1>
 <blockquote>
-<p>参考 <strong>沉浸式学 Git</strong> http://igit.linuxtoy.org/</p>
+<p>参考 <strong>沉浸式学 Git</strong> <a href="http://igit.linuxtoy.org/">http://igit.linuxtoy.org/</a></p>
 </blockquote>
 <hr />
 <h2 id="_1">立即使用<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
@@ -1271,7 +1271,7 @@ git clone --depth 1 https://github.com/zjuchenyuan/notebook
 <p>代码参见<a href="../code/ssgit.txt">code/ssgit.txt</a></p>
 <hr />
 <h2 id="git-push_1">git push免密码<a class="headerlink" href="#git-push_1" title="Permanent link">&para;</a></h2>
-<p>参照http://blog.csdn.net/chfe007/article/details/43388041</p>
+<p><a href="http://参照http://blog.csdn.net">参照http://blog.csdn.net</a>/chfe007/article/details/43388041</p>
 <p>首先生成自己的ssh密钥，不要修改生成的文件位置</p>
 <div class="codehilite"><pre><span></span>ssh-keygen -t rsa -b 4096
 </pre></div>
@@ -1401,7 +1401,7 @@ git commit --amend
 <p>然后git会在每一个修改的block询问是否加入这次的commit，回答y表示加入，n表示不加入，s表示进一步拆分这个block</p>
 <p>完成好选择后，使用<code>git diff --staged</code>命令来查询暂存的修改，没有问题就可以继续<code>git commit</code>啦</p>
 <h3 id="_5">本地忽略一些个人的修改<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
-<p>原文： http://stackoverflow.com/questions/1753070/git-ignore-files-only-locally</p>
+<p>原文： <a href="http://stackoverflow.com/questions/1753070/git-ignore-files-only-locally">http://stackoverflow.com/questions/1753070/git-ignore-files-only-locally</a></p>
 <p>有时候我们不想让git追踪一些个人相关的文件，例如config中修改Debug=True，此时如果去修改.gitignore造成的影响是全局的，并且需要从git中删除这个文件；手动避开add config很烦，有没有更好的方法，让git忽略掉config文件的修改呢？</p>
 <p>方法是修改<code>.git/info/exclude</code>文件，这个文件的语法规则与.gitignore一样</p>
 <p>如果已经造成了修改，还需要执行以下命令：</p>
@@ -1410,7 +1410,7 @@ git commit --amend
 
 
 <h3 id="branchpushgit-push-u">本地创建branch后push操作git push -u<a class="headerlink" href="#branchpushgit-push-u" title="Permanent link">&para;</a></h3>
-<p>From: http://stackoverflow.com/questions/2765421/how-do-i-push-a-new-local-branch-to-a-remote-git-repository-and-track-it-too</p>
+<p>From: <a href="http://stackoverflow.com/questions/2765421/how-do-i-push-a-new-local-branch-to-a-remote-git-repository-and-track-it-too">http://stackoverflow.com/questions/2765421/how-do-i-push-a-new-local-branch-to-a-remote-git-repository-and-track-it-too</a></p>
 <p>执行了一些修改引入新功能，但还不能工作，决定建立一个dev分支：</p>
 <div class="codehilite"><pre><span></span>git checkout -b dev
 </pre></div>
@@ -1423,7 +1423,7 @@ git commit --amend
 
 <hr />
 <h2 id="gpggit">用gpg给git提交签名<a class="headerlink" href="#gpggit" title="Permanent link">&para;</a></h2>
-<p>参考：https://help.github.com/articles/signing-commits-with-gpg/</p>
+<p><a href="http://参考：https://help.github.com">参考：https://help.github.com</a>/articles/signing-commits-with-gpg/</p>
 <p>下述以ubuntu16.04（其实是bash on win10）讲解整个过程</p>
 <h3 id="gpg2">安装gpg2<a class="headerlink" href="#gpg2" title="Permanent link">&para;</a></h3>
 <p>查看gpg版本：<code>gpg --version</code>发现版本是<code>gpg (GnuPG) 1.4.20</code>，而教程要求要2以上，所以先要安装gpg2，并告诉git我们要使用gpg2：</p>
@@ -1460,7 +1460,7 @@ ssb   4096R/42B317FD4BA89E7A <span class="m">2016</span>-03-10
 
 
 <p>复制屏幕上输出的一大串，打开下面的网页 粘贴提交</p>
-<p>https://github.com/settings/gpg/new</p>
+<p><a href="https://github.com/settings/gpg/new">https://github.com/settings/gpg/new</a></p>
 <h3 id="gitgpg">配置git使用gpg签名<a class="headerlink" href="#gitgpg" title="Permanent link">&para;</a></h3>
 <p>告诉git默认使用这个key：</p>
 <div class="codehilite"><pre><span></span>git config --global user.signingkey 3AA5C34371567BD2

@@ -1270,7 +1270,7 @@ echo a &amp; echo b
 <hr />
 <h2 id="sleepx">睡一会 SleepX<a class="headerlink" href="#sleepx" title="Permanent link">&para;</a></h2>
 <blockquote>
-<p>程序需要等待一定时间再继续运行就可以sleepx啦，作者Bill Stewart (bstewart@iname.com)</p>
+<p>程序需要等待一定时间再继续运行就可以sleepx啦，作者Bill Stewart (<a href="mailto:bstewart@iname.com">bstewart@iname.com</a>)</p>
 <p>下载：<a href="https://d.py3.io/SleepX.exe">SleepX.exe</a></p>
 </blockquote>
 <div class="codehilite"><pre><span></span>SleepX 10
@@ -1285,9 +1285,9 @@ SleepX -k 5
 <p><img alt="cURL" src="https://curl.haxx.se/logo/curl-logo.svg" /></p>
 <blockquote>
 <p>大名鼎鼎的cURL，不必多言；只是它的命令行的运行方式与libcurl用起来差异很大（如比较php的curl用法）</p>
-<p>官方：https://curl.haxx.se/</p>
-<p>简单入门：http://www.bathome.net/thread-1761-1-1.html</p>
-<p><strong>将curl转为python requests</strong> http://curl.trillworks.com/</p>
+<p>官方：<a href="https://curl.haxx.se/">https://curl.haxx.se/</a></p>
+<p><a href="http://简单入门：http://www.bathome.net">简单入门：http://www.bathome.net</a>/thread-1761-1-1.html</p>
+<p><strong>将curl转为python requests</strong> <a href="http://curl.trillworks.com/">http://curl.trillworks.com/</a></p>
 </blockquote>
 <p><a href="https://d.py3.io/curl.exe">下载7.51 x64版本</a></p>
 <p>具体请见单独文档<a href="../cURL/">cURL.md</a></p>
@@ -1332,7 +1332,7 @@ SleepX -k 5
 <p>判断命令是否成功用if &ldquo;%errorlevel%&rdquo;==&rdquo;0&rdquo;，errorlevel这个变量是上一条命令的返回结果（C程序的int main的返回值），一般规定返回0表示没有发生错误</p>
 </li>
 <li>
-<p>用ping www.baidu.com和ping -n 2 ip.cn做粗糙的等待延时，其中-n表示ping的次数，默认是4，改小一点就是更短的延时咯</p>
+<p>用ping <a href="http://www.baidu.com和ping">www.baidu.com和ping</a> -n 2 ip.cn做粗糙的等待延时，其中-n表示ping的次数，默认是4，改小一点就是更短的延时咯</p>
 </li>
 <li>
 <p>启动一个GUI的exe，需要用start &ldquo;&rdquo; example.exe</p>
@@ -1351,7 +1351,7 @@ SleepX -k 5
 
 <hr />
 <h2 id="_6">快速进入系统代理设置<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
-<p>From: https://stackoverflow.com/questions/3648366/is-it-possible-to-launch-ies-proxy-settings-dialog-from-the-command-line</p>
+<p>From: <a href="https://stackoverflow.com/questions/3648366/is-it-possible-to-launch-ies-proxy-settings-dialog-from-the-command-line">https://stackoverflow.com/questions/3648366/is-it-possible-to-launch-ies-proxy-settings-dialog-from-the-command-line</a></p>
 <p>不用启动<code>c:\Program Files\Internet Explorer\iexplore.exe</code>，直接Win+R输入这个就能打开IE的连接设置，方便修改代理：</p>
 <div class="codehilite"><pre><span></span>inetcpl.cpl ,4
 </pre></div>
@@ -1361,7 +1361,7 @@ SleepX -k 5
 <h2 id="cmd_1">在普通权限cmd中获得更高权限<a class="headerlink" href="#cmd_1" title="Permanent link">&para;</a></h2>
 <p>比如下文的修改ip等操作就需要管理员权限。你可以先启动任务管理器，再运行一个管理员权限的cmd；现在有了更加直接的操作</p>
 <h3 id="1elevate">方案1：<a href="http://code.kliu.org/misc/elevate/">elevate</a><a class="headerlink" href="#1elevate" title="Permanent link">&para;</a></h3>
-<p>下载地址：<a href="http://code.kliu.org/misc/elevate/elevate-1.3.0-redist.7z">http://code.kliu.org/misc/elevate/elevate-1.3.0-redist.7z</a></p>
+<p>下载地址：<a href="http://code.kliu.org/misc/elevate/elevate-1.3.0-redist.7z"><a href="http://code.kliu.org/misc/elevate/elevate-1.3.0-redist.7z">http://code.kliu.org/misc/elevate/elevate-1.3.0-redist.7z</a></a></p>
 <p>特点：有UAC弹窗，会启动一个新窗口</p>
 <p>例子：</p>
 <div class="codehilite"><pre><span></span>REM 启动一个特权的cmd
@@ -1372,7 +1372,7 @@ elevate -c -w dir
 
 
 <h3 id="2sudo-for-windows-luke-sampson">方案2：Sudo for Windows – Luke Sampson<a class="headerlink" href="#2sudo-for-windows-luke-sampson" title="Permanent link">&para;</a></h3>
-<p>参考：https://helpdeskgeek.com/free-tools-review/5-windows-alternatives-linux-sudo-command/</p>
+<p><a href="http://参考：https://helpdeskgeek.com">参考：https://helpdeskgeek.com</a>/free-tools-review/5-windows-alternatives-linux-sudo-command/</p>
 <p>在powershell中输入以下命令完成安装：</p>
 <div class="codehilite"><pre><span></span>iex (new-object net.webclient).downloadstring(‘https://get.scoop.sh’)
 
@@ -1386,7 +1386,7 @@ scoop install sudo
 <hr />
 <h2 id="ip">命令行配置IP<a class="headerlink" href="#ip" title="Permanent link">&para;</a></h2>
 <p>需要管理员权限，参见上方<code>在普通权限cmd中获得更高权限</code></p>
-<p>参考：https://helpdeskgeek.com/networking/change-ip-address-and-dns-servers-using-the-command-prompt/</p>
+<p><a href="http://参考：https://helpdeskgeek.com">参考：https://helpdeskgeek.com</a>/networking/change-ip-address-and-dns-servers-using-the-command-prompt/</p>
 <p>首先使用<code>netsh interface ip show config</code>查看适配器的名称，假设需要配置的是<code>以太网</code></p>
 <h3 id="ipdns">配置静态IP和DNS<a class="headerlink" href="#ipdns" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span>netsh interface ip set address name=&quot;以太网&quot; static 192.168.1.101 255.255.255.0 192.168.1.1
@@ -1402,8 +1402,8 @@ netsh interface ip set dns &quot;以太网&quot; dhcp
 
 <hr />
 <h2 id="veracrypt">命令行使用VeraCrypt<a class="headerlink" href="#veracrypt" title="Permanent link">&para;</a></h2>
-<p>VeraCrypt是TrueCrypt代替者，其命令行使用方式：https://www.veracrypt.fr/en/Command%20Line%20Usage.html</p>
-<p>下载Portable版本即可，下载地址：https://www.veracrypt.fr/en/Downloads.html</p>
+<p>VeraCrypt是TrueCrypt代替者，其命令行使用方式：<a href="https://www.veracrypt.fr/en/Command%20Line%20Usage.html">https://www.veracrypt.fr/en/Command%20Line%20Usage.html</a></p>
+<p>下载Portable版本即可，下载地址：<a href="https://www.veracrypt.fr/en/Downloads.html">https://www.veracrypt.fr/en/Downloads.html</a></p>
 <h3 id="_7">创建一个加密盘<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
 <p>不与用户交互所以指定/q /s，具体来说/q表示不显示主窗口，/s表示不显示任何交互窗口也不报错，注意使用这两个参数后即使出错也不会有任何提醒</p>
 <p>文件名test.hc，大小100M，密码必须20个字符或以上，加密方式使用最快的Serpent，为了加速挂载过程指定/pim 1</p>
@@ -1411,7 +1411,7 @@ netsh interface ip set dns &quot;以太网&quot; dhcp
 </pre></div>
 
 
-<p>如果不指定/pim来降低迭代次数，挂载时需要耗时十秒以上无法接受，所以牺牲一点安全性来换取性能。关于PIM的文档：https://www.veracrypt.fr/en/Personal%20Iterations%20Multiplier%20(PIM).html</p>
+<p>如果不指定/pim来降低迭代次数，挂载时需要耗时十秒以上无法接受，所以牺牲一点安全性来换取性能。关于PIM的文档：<a href="https://www.veracrypt.fr/en/Personal%20Iterations%20Multiplier%20(PIM">https://www.veracrypt.fr/en/Personal%20Iterations%20Multiplier%20(PIM</a>).html</p>
 <h3 id="_8">挂载加密盘<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
 <p>挂载test.hc至Z:盘，需要指定与创建过程相同的/pim</p>
 <p>这个命令会立即返回，但真正挂载可以访问Z盘可能还需要等待数秒</p>

@@ -895,7 +895,7 @@ zip -r -P 压缩密码 -m bakup<span class="nv">$d</span>.zip bakup<span class="
 <hr />
 <h2 id="rsyncscp">用rsync代替scp<a class="headerlink" href="#rsyncscp" title="Permanent link">&para;</a></h2>
 <p>rsync可以断点续传，不如就用rsync代替scp</p>
-<p>参考：<a href="https://www.digitalocean.com/community/tutorials/how-to-copy-files-with-rsync-over-ssh">https://www.digitalocean.com/community/tutorials/how-to-copy-files-with-rsync-over-ssh</a></p>
+<p>参考：<a href="https://www.digitalocean.com/community/tutorials/how-to-copy-files-with-rsync-over-ssh"><a href="https://www.digitalocean.com/community/tutorials/how-to-copy-files-with-rsync-over-ssh">https://www.digitalocean.com/community/tutorials/how-to-copy-files-with-rsync-over-ssh</a></a></p>
 <p>首先需要ssh-keygen生成id_rsa,把id_rsa.pub的内容复制到目标机器的~/.ssh/authorized_keys</p>
 <p>在需要使用scp -r的地方改为rsync -avz -e &ldquo;ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null&rdquo; &ndash;progress</p>
                 

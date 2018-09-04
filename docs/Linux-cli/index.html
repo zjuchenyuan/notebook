@@ -1572,14 +1572,14 @@
 <h2 id="iodine-dns">iodine&ndash;使用DNS传输数据<a class="headerlink" href="#iodine-dns" title="Permanent link">&para;</a></h2>
 <blockquote>
 <ul>
-<li>http://code.kryo.se/iodine/</li>
+<li><a href="http://code.kryo.se/iodine/">http://code.kryo.se/iodine/</a></li>
 </ul>
 </blockquote>
 <p>注意： 本方案网速极低，使用时要有足够的耐心，不能保证复杂情况下是否可行（尤其是Windows）</p>
-<p>前期准备：一个域名（假设为example.com）及一台服务器（假设为1.2.3.4），建议客户端在Linux上运行</p>
+<p><a href="http://前期准备：一个域名（假设为example.com">前期准备：一个域名（假设为example.com</a>）及一台服务器（假设为1.2.3.4），建议客户端在Linux上运行</p>
 <h3 id="1">1. 设置域名解析<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
 <p>dns.example.com添加一条A记录，解析至1.2.3.4</p>
-<p>t.example.com添加一条NS记录，值为dns.example.com</p>
+<p><a href="http://t.example.com添加一条NS记录，值为dns.example.com">t.example.com添加一条NS记录，值为dns.example.com</a></p>
 <h3 id="2">2. 服务器端<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span>./iodined -f -c -P secretpassword 192.168.99.1 t.example.com
 </pre></div>
@@ -1588,7 +1588,7 @@
 <p>-f表示持续占用前台，-c表示不限制请求源，-P指定密码，最后是<code>内网IP</code>和使用的域名</p>
 <p>内网IP可以随意指定，只要当前服务器没有占用即可，例如可以改为172.16.0.1</p>
 <h3 id="3">3.检查服务端是否正常<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
-<p>http://code.kryo.se/iodine/check-it/</p>
+<p><a href="http://code.kryo.se/iodine/check-it/">http://code.kryo.se/iodine/check-it/</a></p>
 <p>作者提供了在线检查工具，输入t.example.com即可检查</p>
 <h3 id="4">4.客户端<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
 <p>建议在ubuntu等完整的Linux操作系统上运行，下载源码后make即可</p>
@@ -1767,7 +1767,7 @@ gunzip *.gz
 
 <hr />
 <h2 id="2truecrypt-71amake-j5-l4">树莓派2上编译Truecrypt 7.1a，使用make -j5 -l4加速编译<a class="headerlink" href="#2truecrypt-71amake-j5-l4" title="Permanent link">&para;</a></h2>
-<p>参照<a href="http://davidstutz.de/installing-truecrypt-raspbian/">http://davidstutz.de/installing-truecrypt-raspbian/</a>，一步步来就行啦</p>
+<p>参照<a href="http://davidstutz.de/installing-truecrypt-raspbian/"><a href="http://davidstutz.de/installing-truecrypt-raspbian/">http://davidstutz.de/installing-truecrypt-raspbian/</a></a>，一步步来就行啦</p>
 <p>具体步骤如下，其中make使用参数<code>-j5 -l4</code>表示同时执行5个编译但限制系统负载&lt;4（因为编译过程很慢，直接make只会使用1个CPU，这样设置后可以充分利用树莓派4核心CPU）：</p>
 <p>涉及的压缩包<a href="https://d.py3.io/truecrypt-targz.zip">truecrypt-targz.zip</a>，<a href="https://d.py3.io/wxWidgets-2.8.11.zip">wxWidgets-2.8.11.zip</a>，<a href="https://d.py3.io/pkcs.zip">pkcs.zip</a></p>
 <div class="codehilite"><pre><span></span>apt-get install -y unzip build-essentials pkg-config gtk2.0-dev libfuse-dev
@@ -1804,7 +1804,7 @@ cp Main/truecrypt /usr/local/bin/
 
 <p>注意源路径/path后面不能有/，否则rsync不会创建/mnt/path这个文件夹；/path被两层引号包围是为了支持含有空格的文件夹名称，一层是本地命令，远程目录也要一层</p>
 <p>rsync的<code>--progress -v</code>参数表示显示当前进度和更多内容，<code>-a</code>表示archive递归并尽可能原样保留所有信息，<code>-u</code>表示跳过已经存在的文件</p>
-<p><a href="https://www.explainshell.com/explain?cmd=rsync+--progress+-v+-au+username%40host%3A%22%27%2Fpath%27%22+%2Fmnt%2F">查看man文档 explainshell.com</a></p>
+<p><a href="https://www.explainshell.com/explain?cmd=rsync+--progress+-v+-au+username%40host%3A%22%27%2Fpath%27%22+%2Fmnt%2F">查看man文档 <a href="http://explainshell.com">explainshell.com</a></a></p>
 <hr />
 <h2 id="wgetscp">使用wget代替scp传输文件夹 避免无谓的加密性能损失（适用于树莓派）<a class="headerlink" href="#wgetscp" title="Permanent link">&para;</a></h2>
 <p>在内网传输非敏感数据时，没有必要使用scp（基于ssh）的安全传输，尤其是树莓派这种计算性能有限的情形。使用HTTP能有效加速传输过程，且部署简单，相比配置复杂的vsftpd可以说是很简单了</p>
@@ -1870,8 +1870,8 @@ myget http://server_IP:8080/yourdir #相当于将yourdir复制到当前文件夹
 <h2 id="cryptsetuptruecrypt">使用cryptsetup挂载truecrypt分区<a class="headerlink" href="#cryptsetuptruecrypt" title="Permanent link">&para;</a></h2>
 <p>在ubuntu 16.04中编译truecrypt 7.1a运行时出现错误：<code>error: Invalid characters encountered.</code></p>
 <p>在这个链接上找到了答案（感谢在其他论坛找到答案后主动提供解决方案的Jakub Urbanowicz）</p>
-<p>https://bugs.archlinux.org/task/47325
-原贴地址（搜索cryptsetup）：https://forums.gentoo.org/viewtopic-p-7809512.html</p>
+<p><a href="https://bugs.archlinux.org/task/47325">https://bugs.archlinux.org/task/47325</a>
+<a href="http://原贴地址（搜索cryptsetup）：https://forums.gentoo.org">原贴地址（搜索cryptsetup）：https://forums.gentoo.org</a>/viewtopic-p-7809512.html</p>
 <p>方法是：</p>
 <div class="codehilite"><pre><span></span>sudo su #以下命令都要root权限，如果在Docker容器中尝试 启动容器时需要--privileged
 # 先安装cryptsetup
@@ -1902,11 +1902,11 @@ cryptsetup close 名称
 </pre></div>
 
 
-<p>From: https://stackoverflow.com/questions/1423346/how-do-i-extract-a-single-chunk-of-bytes-from-within-a-file</p>
+<p>From: <a href="https://stackoverflow.com/questions/1423346/how-do-i-extract-a-single-chunk-of-bytes-from-within-a-file">https://stackoverflow.com/questions/1423346/how-do-i-extract-a-single-chunk-of-bytes-from-within-a-file</a></p>
 <p>如果省略掉count就是一直到末尾</p>
 <hr />
 <h2 id="redis">redis匹配前缀删除大量键值<a class="headerlink" href="#redis" title="Permanent link">&para;</a></h2>
-<p>FROM: https://stackoverflow.com/questions/4006324/how-to-atomically-delete-keys-matching-a-pattern-using-redis</p>
+<p>FROM: <a href="https://stackoverflow.com/questions/4006324/how-to-atomically-delete-keys-matching-a-pattern-using-redis">https://stackoverflow.com/questions/4006324/how-to-atomically-delete-keys-matching-a-pattern-using-redis</a></p>
 <p>删除当前数据库中prefix开头的所有key：</p>
 <div class="codehilite"><pre><span></span>EVAL &quot;local keys = redis.call(&#39;keys&#39;, ARGV[1]) \n for i=1,#keys,5000 do \n redis.call(&#39;del&#39;, unpack(keys, i, math.min(i+4999, #keys))) \n end \n return keys&quot; 0 prefix*
 </pre></div>

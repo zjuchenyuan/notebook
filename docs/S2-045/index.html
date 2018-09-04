@@ -902,21 +902,21 @@
 <p>翻遍了官网和各种新闻，没有切实可行的方案，下载地址只有存在漏洞的2.3.31的版本，漏洞修复方案都是简略的一句升级到2.3.32，某些播报平台&amp;官方真是mdzz，到底是为了促进漏洞修补还是促进全网被黑？</p>
 <p>官方只是给了一个maven的配置方法，并没有直接可以下载的jar文件或zip包</p>
 <p>只能按照官方的方法用maven去尝试构建一个struts应用(快速装好maven的方法是买个香港的vps用docker pull maven)，总算发现了新版的jar包下载地址：</p>
-<p><a href="https://repo.maven.apache.org/maven2/org/apache/struts/">https://repo.maven.apache.org/maven2/org/apache/struts/</a></p>
+<p><a href="https://repo.maven.apache.org/maven2/org/apache/struts/"><a href="https://repo.maven.apache.org/maven2/org/apache/struts/">https://repo.maven.apache.org/maven2/org/apache/struts/</a></a></p>
 <p>通过下载2.3.31核心包发现只有<code>struts2-core</code>是需要的。</p>
 <hr />
 <h1 id="jar">通过升级jar包修复<a class="headerlink" href="#jar" title="Permanent link">&para;</a></h1>
 <h2 id="23x">2.3.x版本修复方法<a class="headerlink" href="#23x" title="Permanent link">&para;</a></h2>
 <p>下载2.3.32版本的jar文件</p>
-<p><a href="https://repo.maven.apache.org/maven2/org/apache/struts/struts2-core/2.3.32/struts2-core-2.3.32.jar">https://repo.maven.apache.org/maven2/org/apache/struts/struts2-core/2.3.32/struts2-core-2.3.32.jar</a></p>
-<p>国内CDN下载地址: <a href="https://d.py3.io/struts2-core-2.3.32.jar">https://d.py3.io/struts2-core-2.3.32.jar</a></p>
+<p><a href="https://repo.maven.apache.org/maven2/org/apache/struts/struts2-core/2.3.32/struts2-core-2.3.32.jar"><a href="https://repo.maven.apache.org/maven2/org/apache/struts/struts2-core/2.3.32/struts2-core-2.3.32.jar">https://repo.maven.apache.org/maven2/org/apache/struts/struts2-core/2.3.32/struts2-core-2.3.32.jar</a></a></p>
+<p>国内CDN下载地址: <a href="https://d.py3.io/struts2-core-2.3.32.jar"><a href="https://d.py3.io/struts2-core-2.3.32.jar">https://d.py3.io/struts2-core-2.3.32.jar</a></a></p>
 <p>假设服务器上用的是2.3.30版本，则<code>tomcat所在目录/webapps/应用名称/WEB-INF/lib</code>里面有一个<code>struts2-core-2.3.30.jar</code></p>
 <p>修复方法就是①把上述文件删掉(自行备份)，②下载到的新版jar文件改名为同名文件，③上传替换，④重启tomcat即可</p>
 <p>Tip: 替换后要保证旧版的jar文件不存在，例如移到上一级目录，不要把旧版本的jar改名留在lib目录下，否则将导致这个webapp无法启动</p>
 <h2 id="25x">2.5.x版本修复方法<a class="headerlink" href="#25x" title="Permanent link">&para;</a></h2>
 <p>下载2.5.10.1版本的jar文件</p>
-<p><a href="https://repo.maven.apache.org/maven2/org/apache/struts/struts2-core/2.5.10.1/struts2-core-2.5.10.1.jar">https://repo.maven.apache.org/maven2/org/apache/struts/struts2-core/2.5.10.1/struts2-core-2.5.10.1.jar</a></p>
-<p>国内CDN下载地址：<a href="https://d.py3.io/struts2-core-2.5.10.1.jar">https://d.py3.io/struts2-core-2.5.10.1.jar</a></p>
+<p><a href="https://repo.maven.apache.org/maven2/org/apache/struts/struts2-core/2.5.10.1/struts2-core-2.5.10.1.jar"><a href="https://repo.maven.apache.org/maven2/org/apache/struts/struts2-core/2.5.10.1/struts2-core-2.5.10.1.jar">https://repo.maven.apache.org/maven2/org/apache/struts/struts2-core/2.5.10.1/struts2-core-2.5.10.1.jar</a></a></p>
+<p>国内CDN下载地址：<a href="https://d.py3.io/struts2-core-2.5.10.1.jar"><a href="https://d.py3.io/struts2-core-2.5.10.1.jar">https://d.py3.io/struts2-core-2.5.10.1.jar</a></a></p>
 <p>假设服务器上用的是2.5.10版本，则<code>tomcat所在目录/webapps/应用名称/WEB-INF/lib</code>里面有一个<code>struts2-core-2.5.10.jar</code></p>
 <p>修复方法同上</p>
 <hr />
@@ -993,7 +993,7 @@
 <hr />
 <p>期待一个更负责任的漏洞披露过程，期待一个更加安全的互联网</p>
 <p>Author: zjuchenyuan</p>
-<p>Source: <a href="https://py3.io/S2-045.html">https://py3.io/S2-045.html</a></p>
+<p>Source: <a href="https://py3.io/S2-045.html"><a href="https://py3.io/S2-045.html">https://py3.io/S2-045.html</a></a></p>
                 
                   
                 

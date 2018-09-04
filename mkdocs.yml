@@ -65,6 +65,7 @@ extra:
  
 markdown_extensions:
   - admonition
+  - urlize
   - codehilite
   - smarty
   - sane_lists

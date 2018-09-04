@@ -1690,7 +1690,7 @@ sed -i &#39;s/archive.ubuntu.com/mirrors.zju.edu.cn/g&#39; /etc/apt/sources.list
 <p>ifconfig eth0:233 10.xx.xx.233 netmask 255.255.255.0 up</p>
 <hr />
 <h2 id="_2">锐速安装<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p>来自：https://github.com/91yun/serverspeeder</p>
+<p><a href="http://来自：https://github.com">来自：https://github.com</a>/91yun/serverspeeder</p>
 <p>安装之前需要修改内核版本并重启：</p>
 <div class="codehilite"><pre><span></span>apt-get install linux-image-3.16.0-43-generic
 reboot
@@ -1727,11 +1727,11 @@ E: Unable to correct dependencies
 
 
 <p>仔细看错误说明，libglib2.0-bin这个软件包要求libglib2.0-0的版本=2.44但是现有的安装版本为2.40</p>
-<p>在ubuntu的软件包官网搜索咯：https://launchpad.net/ubuntu/</p>
+<p><a href="http://在ubuntu的软件包官网搜索咯：https://launchpad.net">在ubuntu的软件包官网搜索咯：https://launchpad.net</a>/ubuntu/</p>
 <p>发现2.44版本的是vivid才提供的，现在系统版本是trusty，自然apt-get装不了</p>
 <p>解决方案：</p>
 <p>找到报错信息需要的精确匹配的那个deb文件下载咯，例如这里就要下载这个版本的：</p>
-<p>https://launchpad.net/ubuntu/vivid/amd64/libglib2.0-0/2.44.0-1ubuntu3</p>
+<p><a href="https://launchpad.net/ubuntu/vivid/amd64/libglib2.0-0/2.44.0-1ubuntu3">https://launchpad.net/ubuntu/vivid/amd64/libglib2.0-0/2.44.0-1ubuntu3</a></p>
 <p>得到deb文件后<code>dpkg -i 文件名</code></p>
 <h3 id="note">Note<a class="headerlink" href="#note" title="Permanent link">&para;</a></h3>
 <p>一般apt依赖冲突问题都是由于系统版本与需要的包的版本不一致导致的，检查一下/etc/apt/sources.list看看是否匹配系统版本咯</p>
@@ -1819,7 +1819,7 @@ iptables -A INPUT -p tcp --dport 8888 -j REJECT
 <hr />
 <h2 id="rootscreen">无root权限使用screen<a class="headerlink" href="#rootscreen" title="Permanent link">&para;</a></h2>
 <blockquote>
-<p>https://www.gnu.org/software/screen/</p>
+<p><a href="https://www.gnu.org/software/screen/">https://www.gnu.org/software/screen/</a></p>
 </blockquote>
 <p>复制相同操作系统下的screen二进制文件，运行前指定环境变量</p>
 <div class="codehilite"><pre><span></span>mkdir -p $HOME/.screen
@@ -1862,7 +1862,7 @@ screen -dmS NAME /root/code.sh
 <hr />
 <h2 id="_5">双网卡端口转发，暴露内网端口<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <blockquote>
-<p>来自： https://yq.aliyun.com/wenzhang/show_25824</p>
+<p>来自： <a href="https://yq.aliyun.com/wenzhang/show_25824">https://yq.aliyun.com/wenzhang/show_25824</a></p>
 </blockquote>
 <p>有两台机器，其中一台A 有内网和外网，B只有内网。</p>
 <p>目标： 在外网访问A机器的2121端口，就相当于连上了B机器的ftp(21)</p>
@@ -1936,7 +1936,7 @@ echo username:password|chpasswd
 <hr />
 <h2 id="openvpn">简单OpenVPN配置<a class="headerlink" href="#openvpn" title="Permanent link">&para;</a></h2>
 <p>一个最最简单的场景：只有一个服务器 一个客户端，在容器中用来给用户直接访问的一个内网IP</p>
-<p>参考：https://openvpn.net/index.php/open-source/documentation/miscellaneous/78-static-key-mini-howto.html</p>
+<p><a href="http://参考：https://openvpn.net">参考：https://openvpn.net</a>/index.php/open-source/documentation/miscellaneous/78-static-key-mini-howto.html</p>
 <h3 id="openvpn_1">安装openvpn:<a class="headerlink" href="#openvpn_1" title="Permanent link">&para;</a></h3>
 <p>Linux:</p>
 <div class="codehilite"><pre><span></span>apt-get install openvpn
@@ -1987,7 +1987,7 @@ secret static.key
 
 
 <h3 id="docker">在Docker中使用服务端<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h3>
-<p>参考：https://raw.githubusercontent.com/kylemanna/docker-openvpn/master/bin/ovpn_run</p>
+<p><a href="http://参考：https://raw.githubusercontent.com">参考：https://raw.githubusercontent.com</a>/kylemanna/docker-openvpn/master/bin/ovpn_run</p>
 <p>运行容器的时候一定要给参数<code>--cap-add=NET_ADMIN</code></p>
 <p>另外还需要在容器中执行：</p>
 <div class="codehilite"><pre><span></span>mkdir -p /dev/net
@@ -1999,7 +1999,7 @@ fi
 
 <hr />
 <h2 id="_15">时区时间设置<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h2>
-<p>参考：http://liumissyou.blog.51cto.com/4828343/1302050</p>
+<p><a href="http://参考：http://liumissyou.blog.51cto.com">参考：http://liumissyou.blog.51cto.com</a>/4828343/1302050</p>
 <div class="codehilite"><pre><span></span>apt-get install tzdata
 cp /etc/localtime /etc/localtime.bak
 ln -svf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
@@ -2016,7 +2016,7 @@ echo &quot;TZ=&#39;Asia/Shanghai&#39;&quot;&gt;&gt;~/.bashrc
 <h2 id="ext4">快速地格式化大分区ext4<a class="headerlink" href="#ext4" title="Permanent link">&para;</a></h2>
 <p>Linux系统建议使用ext4分区格式，但直接mkfs.ext4 /dev/sda1就有很大的坑：会默认lazyinit在很长一段时间内占用IO</p>
 <blockquote>
-<p>参考：<a href="http://fibrevillage.com/storage/474-ext4-lazy-init">http://fibrevillage.com/storage/474-ext4-lazy-init</a></p>
+<p>参考：<a href="http://fibrevillage.com/storage/474-ext4-lazy-init"><a href="http://fibrevillage.com/storage/474-ext4-lazy-init">http://fibrevillage.com/storage/474-ext4-lazy-init</a></a></p>
 </blockquote>
 <p>正确格式化大硬盘的方法如下，这样不会跳过初始化磁盘的过程而且初始化过程很快：</p>
 <div class="codehilite"><pre><span></span>mkfs.ext4 /dev/sdXX -E lazy_itable_init=0,lazy_journal_init=0 -O sparse_super,large_file -m 0 -T largefile4
@@ -2034,7 +2034,7 @@ echo &quot;TZ=&#39;Asia/Shanghai&#39;&quot;&gt;&gt;~/.bashrc
 <h2 id="inodebtrfs">明明还有大量空间却说没有？inode满了！挂载单个文件为btrfs分区<a class="headerlink" href="#inodebtrfs" title="Permanent link">&para;</a></h2>
 <h3 id="_16">问题现象<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
 <p><code>df -h</code>显示还有很多空间，但<code>echo test&gt;test.txt</code>会显示<code>No space left on device</code></p>
-<p>查到这个：https://wiki.gentoo.org/wiki/Knowledge_Base:No_space_left_on_device_while_there_is_plenty_of_space_available</p>
+<p><a href="http://查到这个：https://wiki.gentoo.org">查到这个：https://wiki.gentoo.org</a>/wiki/Knowledge_Base:No_space_left_on_device_while_there_is_plenty_of_space_available</p>
 <p>使用<code>df -i</code>查看inodes占用情况，发现确实100%了</p>
 <h3 id="_17">解决方案<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
 <p>inodes上限在mkfs时就定下来了，不能改动，所以没救了。。。</p>
@@ -2042,7 +2042,7 @@ echo &quot;TZ=&#39;Asia/Shanghai&#39;&quot;&gt;&gt;~/.bashrc
 <h4 id="1-inodes">1. 删文件 腾出部分inodes<a class="headerlink" href="#1-inodes" title="Permanent link">&para;</a></h4>
 <p>删掉一些不用的小文件，也不用删太多</p>
 <h4 id="2-1tbsparse-file">2. 创建一个1TB的sparse file<a class="headerlink" href="#2-1tbsparse-file" title="Permanent link">&para;</a></h4>
-<p>参考: https://prefetch.net/blog/2009/07/05/creating-sparse-files-on-linux-hosts-with-dd/</p>
+<p>参考: <a href="https://prefetch.net/blog/2009/07/05/creating-sparse-files-on-linux-hosts-with-dd/">https://prefetch.net/blog/2009/07/05/creating-sparse-files-on-linux-hosts-with-dd/</a></p>
 <p>使用dd命令，不将实际内容写入硬盘，能很快执行完成：</p>
 <div class="codehilite"><pre><span></span>dd if=/dev/zero of=filesystem.img bs=1 count=0 seek=1T
 </pre></div>
@@ -2050,8 +2050,8 @@ echo &quot;TZ=&#39;Asia/Shanghai&#39;&quot;&gt;&gt;~/.bashrc
 
 <p>执行后ls -alh能看到文件大小为1T，使用du filesystem.img查看真实空间</p>
 <h4 id="3">3. 创建磁盘分区<a class="headerlink" href="#3" title="Permanent link">&para;</a></h4>
-<p>参考：https://www.jamescoyle.net/how-to/2096-use-a-file-as-a-linux-block-device</p>
-<p>btrfs参考：https://btrfs.wiki.kernel.org/index.php/Getting_started</p>
+<p><a href="http://参考：https://www.jamescoyle.net">参考：https://www.jamescoyle.net</a>/how-to/2096-use-a-file-as-a-linux-block-device</p>
+<p><a href="http://btrfs参考：https://btrfs.wiki.kernel.org">btrfs参考：https://btrfs.wiki.kernel.org</a>/index.php/Getting_started</p>
 <div class="codehilite"><pre><span></span>mkfs.btrfs filesystem.img
 </pre></div>
 
@@ -2092,10 +2092,10 @@ sudo losetup -d /dev/loop0
 </pre></div>
 
 
-<p>From: https://unix.stackexchange.com/questions/354138/safest-way-to-remove-usb-drive-on-linux</p>
+<p>From: <a href="https://unix.stackexchange.com/questions/354138/safest-way-to-remove-usb-drive-on-linux">https://unix.stackexchange.com/questions/354138/safest-way-to-remove-usb-drive-on-linux</a></p>
 <hr />
 <h2 id="iptables-127001">iptables 让监听在127.0.0.1上的端口可以公网访问<a class="headerlink" href="#iptables-127001" title="Permanent link">&para;</a></h2>
-<p>参考：https://unix.stackexchange.com/questions/111433/iptables-redirect-outside-requests-to-127-0-0-1</p>
+<p><a href="http://参考：https://unix.stackexchange.com">参考：https://unix.stackexchange.com</a>/questions/111433/iptables-redirect-outside-requests-to-127-0-0-1</p>
 <p>例如有监听在127.0.0.1:1234的应用，现在想通过ip:5678来访问</p>
 <div class="codehilite"><pre><span></span>iptables -t nat -I PREROUTING -p tcp --dport 5678 -j DNAT --to-destination 127.0.0.1:1234
 sysctl -w net.ipv4.conf.eth0.route_localnet=1

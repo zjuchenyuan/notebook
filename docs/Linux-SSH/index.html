@@ -935,7 +935,7 @@ Host aliyun
 
 
 <h2 id="ssh_1">ssh反向代理<a class="headerlink" href="#ssh_1" title="Permanent link">&para;</a></h2>
-<p>参见：http://www.tuicool.com/articles/UVRNfi</p>
+<p><a href="http://参见：http://www.tuicool.com">参见：http://www.tuicool.com</a>/articles/UVRNfi</p>
 <p>将本机的22端口转发至外网服务器的2222端口：</p>
 <div class="codehilite"><pre><span></span>ssh -b 0.0.0.0 -L 2222:127.0.0.1:22 user@ip
 </pre></div>
@@ -980,7 +980,7 @@ UsePAM yes
 <hr />
 <h2 id="ssh-ubuntu">ssh登录禁用默认的信息显示 Ubuntu<a class="headerlink" href="#ssh-ubuntu" title="Permanent link">&para;</a></h2>
 <p>Ubuntu 默认登录后会显示Welcome to Ubuntu等多少软件包可以升级信息，这些信息并不是很重要，却会拖慢ssh登录的速度</p>
-<p>禁用方法如下：From: https://ubuntuforums.org/showthread.php?t=1449020</p>
+<p>禁用方法如下：From: <a href="https://ubuntuforums.org/showthread.php?t=1449020">https://ubuntuforums.org/showthread.php?t=1449020</a></p>
 <p>编辑这两个文件：<code>/etc/pam.d/login</code>, <code>/etc/pam.d/sshd</code>，找到其中包含<code>pam_motd</code>的行，注释掉之后 <code>service ssh reload</code></p>
 <p>以后再登录ssh就不用等待了</p>
                 
