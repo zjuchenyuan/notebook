@@ -1,6 +1,6 @@
 # ZJU grs helper 浙大研究生选课助手
 
-版本: v0.3
+版本: v0.3.1
 
 目前的功能列表：
 
@@ -16,21 +16,27 @@
 
 https://github.com/zjuchenyuan/notebook/raw/master/code/zju_grs_helper.user.js
 
+遇到以下弹框请务必选择**总是允许域名**
+
+![](https://py3.io/assets/img/grshelper_note2.jpg)
+
+_谁能教教我为啥用`@connect chalaoshi.cn`就是不行啊_
+
 ### 配置项
 
-只显示特定校区课程：修改代码中的CONFIG_XQ变量
+只显示特定校区课程：修改代码中的`CONFIG_XQ`变量
 
 ## 使用方法
 
 1. 登录选课网站 http://grs.zju.edu.cn/allogene/page/home.htm
 2. 打开“全校开课情况查询”页面（`培养`的最右侧项） http://grs.zju.edu.cn/py/page/student/lnsjCxdc.htm
-3. 选择`开课学院`，例如经济学院，查询 
+3. 选择`开课学院`，例如`经济学院`，查询 
 
     ![](https://py3.io/assets/img/grshelper_note1.jpg)
 
     可见`开课号`现在可以点击，找到你想选的课程，即可进入选课
 
-4. 在选课列表中显示查老师网站上的评分数据（如果有多条数据则都显示）
+4. 在选课列表中显示[查老师网站](https://chalaoshi.cn)上的评分数据（如果有多条数据则都显示）
 
     ![](https://py3.io/assets/img/grshelper_note3.png)
 

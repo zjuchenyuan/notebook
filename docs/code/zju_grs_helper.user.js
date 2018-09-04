@@ -1,16 +1,21 @@
 // ==UserScript==
 // @name         ZJU研究生选课助手
 // @namespace    http://grs.zju.edu.cn
-// @version      0.3
+// @version      0.3.1
 // @description  在“全校开课情况查询”页面可以进入选课；整合查老师分数与评论显示；支持只显示特定校区课程
 // @author       zjuchenyuan
 // @match        http://grs.zju.edu.cn/*
 // @grant        GM_xmlhttpRequest
-// @connect chalaoshi.cn
+// @connect *
 // ==/UserScript==
 var CONFIG_XQ=null; //配置校区
 // var CONFIG_XQ = "玉泉"
 // 例如将上一行取消注释则表示只显示玉泉校区的课程
+
+/*TODO: 将@connect设置为chalaoshi.cn无效，
+    目前设置为任意域名(虽然实际上只要访问查老师这一个域名)，会要求用户授权，
+    咋修复啊Orz
+*/
 
 var bheight = unsafeWindow.bheight;
 var $ = unsafeWindow.$;
