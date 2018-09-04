@@ -21,17 +21,17 @@ https://github.com/zjuchenyuan/notebook/raw/master/code/zju_grs_helper.user.js
 ２. 打开“全校开课情况查询”页面（`培养`的最右侧项） http://grs.zju.edu.cn/py/page/student/lnsjCxdc.htm
 ３. 选择`开课学院`，例如经济学院，查询 
 
-![](https://py3.io/assets/img/grshelper_note1.jpg)
+    ![](https://py3.io/assets/img/grshelper_note1.jpg)
 
-可见`开课号`现在可以点击，找到你想选的课程，即可进入选课
+    可见`开课号`现在可以点击，找到你想选的课程，即可进入选课
 
 ４. 在选课列表中显示查老师网站上的评分数据（如果有多条数据则都显示）
 
-![](https://py3.io/assets/img/grshelper_note3.png)
+    ![](https://py3.io/assets/img/grshelper_note3.png)
 
 ５. 可以点开评分数据查看评论 虽然现在样式emmmm
 
-![](https://py3.io/assets/img/grshelper_note4.png)
+    ![](https://py3.io/assets/img/grshelper_note4.png)
 
 ## 欢迎反馈与贡献
 
