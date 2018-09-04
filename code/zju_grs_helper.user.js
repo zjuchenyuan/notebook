@@ -1,13 +1,17 @@
 // ==UserScript==
 // @name         ZJU研究生选课助手
 // @namespace    http://grs.zju.edu.cn
-// @version      0.2
-// @description  在“全校开课情况查询”页面可以进入选课；整合查老师分数与评论显示
+// @version      0.3
+// @description  在“全校开课情况查询”页面可以进入选课；整合查老师分数与评论显示；支持只显示特定校区课程
 // @author       zjuchenyuan
 // @match        http://grs.zju.edu.cn/*
 // @grant        GM_xmlhttpRequest
 // @connect chalaoshi.cn
 // ==/UserScript==
+var CONFIG_XQ=null; //配置校区
+// var CONFIG_XQ = "玉泉"
+// 例如将上一行取消注释则表示只显示玉泉校区的课程
+
 var bheight = unsafeWindow.bheight;
 var $ = unsafeWindow.$;
 var Path = unsafeWindow.Path;
@@ -55,7 +59,7 @@ function re_findall(regex, text){
 var PHONE_UA = "Mozilla/5.0 (iPhone 84; CPU iPhone OS 10_3_3 like Mac OS X) AppleWebKit/603.3.8 (KHTML, like Gecko) Version/10.0 MQQBrowser/7.8.0 Mobile/14G60 Safari/8536.25 MttCustomUA/2 QBWebViewType/1 WKType/1";
 
 function chalaoshi_search(teacher_name, callback, td){
-    if(typeof(teacher_cache[teacher_name])!=="undefined") return callback(td, teacher_cache[teacher_name][0], teacher_cache[teacher_name][1]);
+    if(typeof(teacher_cache[teacher_name])!=="undefined") return callback(td, teacher_cache[teacher_name][0], teacher_cache[teacher_name][1], teacher_cache[teacher_name][2]);
     console.log("chalaoshi_search", teacher_name);
     GM_xmlhttpRequest({
         url:"https://chalaoshi.cn/search?q="+encodeURIComponent(teacher_name),
@@ -65,8 +69,9 @@ function chalaoshi_search(teacher_name, callback, td){
             var html = response.responseText;
             var ids = re_findall(/teacher\/(\d+)\//g, html);
             var scores = re_findall(/<h2>([^<]+)<\/h2>/g, html);
-            callback(td, ids, scores);
-            teacher_cache[teacher_name] = [ids, scores];
+            var names = re_findall(/<h3>([^<]+)<\/h3>/g, html);
+            callback(td, ids, scores, names);
+            teacher_cache[teacher_name] = [ids, scores, names];
         }
     })
 }
@@ -118,9 +123,10 @@ function show_chalaoshi_page(id){
 
 unsafeWindow.show_chalaoshi_page = exportFunction(show_chalaoshi_page, unsafeWindow);
 
-function callback_modify_teacher_td(td, ids, scores){
+function callback_modify_teacher_td(td, ids, scores, names){
     var r = td.innerText;
     for(var i=0; i<ids.length; i++){
+        if(names[i]!=td.innerText) continue;
         r += "<a onclick='show_chalaoshi_page("+ids[i]+")'>"+scores[i]+"</a>&nbsp;";
     }
     td.innerHTML = r;
@@ -137,5 +143,9 @@ function test_chalaoshi(){
     'use strict';
 
     if(document.location.pathname=="/py/page/student/lnsjCxdc.htm") setInterval(run,1000);
-    else if(document.location.pathname=="/py/page/student/xkbjxxWindow.htm") test_chalaoshi();
+    else if(document.location.pathname=="/py/page/student/xkbjxxWindow.htm") {
+        for(var note of document.querySelectorAll("#classTable > tbody > tr > td:nth-child(7)")){if(/非全日制/.test(note.innerText)||/MBA/.test(note.innerText)||/MPA/.test(note.innerText)) note.parentNode.remove()}
+        if(typeof(CONFIG_XQ)!="undefined" && CONFIG_XQ && CONFIG_XQ!="null") for(var xq of document.querySelectorAll("#classTable > tbody > tr > td:nth-child(6)")){if(xq.innerText!=CONFIG_XQ) xq.parentNode.remove()}
+        test_chalaoshi();
+    }
 })();
