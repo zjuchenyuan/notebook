@@ -114,6 +114,14 @@ touch -r a.txt b.txt
 unalias ls
 ```
 
+或者直接使用：Credits [@rachpt](https://github.com/rachpt)
+
+```
+\ls
+```
+
+同理也可以绕过grep的alias: `\grep`
+
 ----
 
 ## 换行方式修改
