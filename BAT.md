@@ -273,3 +273,17 @@ VeraCrypt.exe /quit /silent /volume test.hc /password testtesttesttesttest /pim 
 ```
 VeraCrypt.exe /quit /silent /dismount z
 ```
+
+----
+
+## 命令行关闭Windows Defender
+
+在进行大量IO操作的时候（如拷贝大量小文件），Windows Defender会严重拖慢任务速度
+
+在管理员权限下powershell可以直接临时关闭Windows Defender的实时防护
+
+搭配elevate.exe使用即可在Win+R中快速关闭：
+
+```
+elevate powershell -Command "Set-MpPreference -DisableRealtimeMonitoring $true"
+```

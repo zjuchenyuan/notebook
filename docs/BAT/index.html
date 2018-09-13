@@ -520,6 +520,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#windows-defender" title="命令行关闭Windows Defender" class="md-nav__link">
+    命令行关闭Windows Defender
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1196,6 +1203,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#windows-defender" title="命令行关闭Windows Defender" class="md-nav__link">
+    命令行关闭Windows Defender
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1421,6 +1435,15 @@ netsh interface ip set dns &quot;以太网&quot; dhcp
 
 <h3 id="_9">卸载已经挂载的加密盘<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span>VeraCrypt.exe /quit /silent /dismount z
+</pre></div>
+
+
+<hr />
+<h2 id="windows-defender">命令行关闭Windows Defender<a class="headerlink" href="#windows-defender" title="Permanent link">&para;</a></h2>
+<p>在进行大量IO操作的时候（如拷贝大量小文件），Windows Defender会严重拖慢任务速度</p>
+<p>在管理员权限下powershell可以直接临时关闭Windows Defender的实时防护</p>
+<p>搭配elevate.exe使用即可在Win+R中快速关闭：</p>
+<div class="codehilite"><pre><span></span>elevate powershell -Command &quot;Set-MpPreference -DisableRealtimeMonitoring $true&quot;
 </pre></div>
                 
                   
