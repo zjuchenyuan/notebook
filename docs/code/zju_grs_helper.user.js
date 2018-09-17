@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ZJU研究生选课助手
 // @namespace    http://grs.zju.edu.cn
-// @version      0.3.1
+// @version      0.4.0
 // @description  在“全校开课情况查询”页面可以进入选课；整合查老师分数与评论显示；支持只显示特定校区课程
 // @author       zjuchenyuan
 // @match        http://grs.zju.edu.cn/*
@@ -20,10 +20,11 @@ var CONFIG_XQ=null; //配置校区
 var bheight = unsafeWindow.bheight;
 var $ = unsafeWindow.$;
 var Path = unsafeWindow.Path;
-function xk(id){
+function xk(id){ //在全校开课查询页面进入选课
     console.log(id);
     $.get("xkkcss.htm?kcbh="+id.slice(0, -3)+"&kcSearch=%E6%9F%A5%E8%AF%A2", null ,function(data){
         //console.log(data);
+        //搜索课程Id
         var re = /kcId=([^"]+)/g;
         var kcid = re.exec(data)[1];
         console.log(kcid);
@@ -63,7 +64,7 @@ function re_findall(regex, text){
 
 var PHONE_UA = "Mozilla/5.0 (iPhone 84; CPU iPhone OS 10_3_3 like Mac OS X) AppleWebKit/603.3.8 (KHTML, like Gecko) Version/10.0 MQQBrowser/7.8.0 Mobile/14G60 Safari/8536.25 MttCustomUA/2 QBWebViewType/1 WKType/1";
 
-function chalaoshi_search(teacher_name, callback, td){
+function chalaoshi_search(teacher_name, callback, td){ //搜索查老师
     if(typeof(teacher_cache[teacher_name])!=="undefined") return callback(td, teacher_cache[teacher_name][0], teacher_cache[teacher_name][1], teacher_cache[teacher_name][2]);
     console.log("chalaoshi_search", teacher_name);
     GM_xmlhttpRequest({
@@ -87,7 +88,7 @@ function chalaoshi_page_extract(div, selector){
     return tmp.innerText.trim().replace(/ /g,"");
 }
 
-function show_chalaoshi_page(id){
+function show_chalaoshi_page(id){ //显示查老师信息，获取基本信息及评论第一页显示
     GM_xmlhttpRequest({
         url:"https://chalaoshi.cn/teacher/"+id+"/",
         method:"GET",
@@ -153,4 +154,6 @@ function test_chalaoshi(){
         if(typeof(CONFIG_XQ)!="undefined" && CONFIG_XQ && CONFIG_XQ!="null") for(var xq of document.querySelectorAll("#classTable > tbody > tr > td:nth-child(6)")){if(xq.innerText!=CONFIG_XQ) xq.parentNode.remove()}
         test_chalaoshi();
     }
+    var header = document.getElementsByClassName("grs-header-wrap")[0];
+    if(typeof(header)!="undefined") header.addEventListener('mouseover',function(e) {e.stopImmediatePropagation(); e.stopPropagation(); }, true);
 })();

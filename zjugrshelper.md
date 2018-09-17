@@ -1,12 +1,13 @@
 # ZJU grs helper 浙大研究生选课助手
 
-版本: v0.3.1
+版本: v0.4.0
 
 目前的功能列表：
 
 - “全校开课情况查询”页面 直接进入选课——不再迷茫于没开的课程
 - 整合查老师分数与评论显示，选课界面直接看评分——选个好点的老师呗
 - 只看特定校区的课程班级——不想校区间奔波？减轻人工筛选负担
+- 禁用顶部鼠标切换事件，不用再小心翼翼地移动鼠标
 
 ## 安装方法
 
@@ -16,7 +17,11 @@
 
 https://github.com/zjuchenyuan/notebook/raw/master/code/zju_grs_helper.user.js
 
-遇到以下弹框请务必选择**总是允许域名**
+然后就能进入选课咯：如全校开课情况查询
+
+http://grs.zju.edu.cn/py/page/student/lnsjCxdc.htm
+
+在使用过程中 遇到以下弹框请务必选择**总是允许域名**
 
 ![](https://py3.io/assets/img/grshelper_note2.jpg)
 
