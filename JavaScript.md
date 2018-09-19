@@ -194,3 +194,16 @@ function checkbox_onclick(){
     if(status_thecheckbox!=null && status_thecheckbox=="1") $("#thecheckbox").prop("checked",true);
 </script>
 ```
+
+----
+
+## NodeJS
+
+### 用Docker执行npm
+
+例如安装canvas和gifencoder包：
+
+```
+PACKAGES="canvas gifencoder"
+docker run --rm --volume="`pwd`:/app" -w /app -it node:10 npm install ${PACKAGES}  --registry=https://registry.npm.taobao.org
+```
