@@ -451,6 +451,26 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#nodejs" title="NodeJS" class="md-nav__link">
+    NodeJS
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dockernpm" title="用Docker执行npm" class="md-nav__link">
+    用Docker执行npm
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
     </ul>
@@ -916,6 +936,26 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#nodejs" title="NodeJS" class="md-nav__link">
+    NodeJS
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dockernpm" title="用Docker执行npm" class="md-nav__link">
+    用Docker执行npm
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
     </ul>
@@ -1094,6 +1134,15 @@ setTimeout( function(){
     <span class="kd">var</span> <span class="nx">status_thecheckbox</span> <span class="o">=</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s2">&quot;status_thecheckbox&quot;</span><span class="p">);</span>
     <span class="k">if</span><span class="p">(</span><span class="nx">status_thecheckbox</span><span class="o">!=</span><span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">status_thecheckbox</span><span class="o">==</span><span class="s2">&quot;1&quot;</span><span class="p">)</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#thecheckbox&quot;</span><span class="p">).</span><span class="nx">prop</span><span class="p">(</span><span class="s2">&quot;checked&quot;</span><span class="p">,</span><span class="kc">true</span><span class="p">);</span>
 <span class="o">&lt;</span><span class="err">/script&gt;</span>
+</pre></div>
+
+
+<hr />
+<h2 id="nodejs">NodeJS<a class="headerlink" href="#nodejs" title="Permanent link">&para;</a></h2>
+<h3 id="dockernpm">用Docker执行npm<a class="headerlink" href="#dockernpm" title="Permanent link">&para;</a></h3>
+<p>例如安装canvas和gifencoder包：</p>
+<div class="codehilite"><pre><span></span>PACKAGES=&quot;canvas gifencoder&quot;
+docker run --rm --volume=&quot;`pwd`:/app&quot; -w /app -it node:10 npm install <span class="cp">${</span><span class="n">PACKAGES</span><span class="cp">}</span>  --registry=https://registry.npm.taobao.org
 </pre></div>
                 
                   

@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name         ZJU研究生选课助手
 // @namespace    http://grs.zju.edu.cn
-// @version      0.4.0
-// @description  在“全校开课情况查询”页面可以进入选课；整合查老师分数与评论显示；支持只显示特定校区课程
+// @version      0.5.0
+// @description  在“全校开课情况查询”页面可以进入选课；整合查老师分数与评论显示；支持只显示特定校区课程；登录页面验证码自动识别
 // @author       zjuchenyuan
 // @match        http://grs.zju.edu.cn/*
+// @match        https://grs.zju.edu.cn/*
 // @grant        GM_xmlhttpRequest
 // @connect *
 // ==/UserScript==
@@ -145,6 +146,63 @@ function test_chalaoshi(){
     }
 }
 
+/* 验证码识别模块CAPTCHA_RECOGNIZE 配置项如下
+ * ENDPOINT: api地址
+ * IMG_SELECTOR: 验证码图片selector
+ * CAPTCHA_INPUT: 验证码识别后填入的input标签selector
+ */
+
+var CONFIG_CAPTCHA = {
+    "ENDPOINT": "https://api.py3.io/ocr",
+    "IMG_SELECTOR": "#yzmImg",
+    "CAPTCHA_INPUT": "#authcode"
+}
+
+function getBase64Image(img) {
+    var canvas = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+    var dataURL = canvas.toDataURL("image/png");
+    return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+}
+
+function work(img){
+    var postdata = getBase64Image(img);
+    GM_xmlhttpRequest({
+        method:"POST",
+        url:CONFIG_CAPTCHA["ENDPOINT"],
+        data: "img="+encodeURIComponent(postdata),
+        headers: {"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"},
+        responseType:"json",
+        onload: function (response) {
+            var data = JSON.parse(response.responseText);
+            console.log("captcha recognize confidence:",data[1]);
+            if(data[0].length==4 && data[1][0]>40){
+                document.querySelector(CONFIG_CAPTCHA["CAPTCHA_INPUT"]).value= data[0];
+            }else{
+                img.click();
+            }
+        }});
+}
+
+function onchange(){
+    setTimeout(work, 100, this);
+}
+
+function wait(callback){
+    var img = document.querySelector(CONFIG_CAPTCHA["IMG_SELECTOR"]);
+    if(img==null){
+        setTimeout(wait, 500, callback);
+    }else{
+        img.addEventListener("click", onchange);
+        setTimeout(callback, 100, img);
+    }
+}
+
+
+
 (function() {
     'use strict';
 
@@ -156,4 +214,8 @@ function test_chalaoshi(){
     }
     var header = document.getElementsByClassName("grs-header-wrap")[0];
     if(typeof(header)!="undefined") header.addEventListener('mouseover',function(e) {e.stopImmediatePropagation(); e.stopPropagation(); }, true);
+    if(document.location.pathname=="/cas/login"){ //登录页面识别验证码
+        wait(work);
+    }
 })();
+
