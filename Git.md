@@ -328,3 +328,43 @@ vi ~/.gnupg/gpg-agent.conf
 default-cache-ttl 34560000
 max-cache-ttl 34560000
 ```
+
+
+## 使用GitLab API存储数据备份文件 不占用本地空间
+
+这里的需求是定时任务生成snapshot文件，打算传至免费存储作为备份，不想占用服务器硬盘去存储这个文件，也不想花钱买存储服务
+
+于是想到免费的gitlab.com的私有仓库，仓库数量无限，[每个repo可以存10GB](https://about.gitlab.com/2015/04/08/gitlab-dot-com-storage-limit-raised-to-10gb-per-repo/)
+
+使用API来提交可以避免占用本地空间
+
+其实本来打算用github的，但是github今天(20181022)挂了，于是就gitlab吧
+
+找到这个python sdk: https://python-gitlab.readthedocs.io/
+
+写点代码咯：上传当前目录的to_upload.jpg到uploaded.jpg，记得相应修改你的访问令牌和项目ID
+
+```
+TOKEN = '...' # personal access token, https://gitlab.com/profile/personal_access_tokens
+REPO_ID = 123456 # after create project, you can see project ID in your repo homepage
+message = 'test commit'
+target_filename = 'uploaded.jpg'
+src_filename = 'to_upload.jpg'
+
+import gitlab
+import base64
+gl=gitlab.Gitlab('https://gitlab.com',private_token=TOKEN)
+gl.auth()
+p=gl.projects.get(REPO_ID)
+filecontent = open(src_filename, 'rb').read()
+data={
+    'branch_name':'master', 
+    'branch':'master', 
+    'commit_message':message,
+    'actions':[{'action':'create','file_path':target_filename,
+                'content':base64.b64encode(filecontent).decode(),
+                'encoding': 'base64'}]
+}
+c=p.commits.create(data)
+print(c)
+```

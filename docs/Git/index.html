@@ -834,6 +834,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#gitlab-api" title="使用GitLab API存储数据备份文件 不占用本地空间" class="md-nav__link">
+    使用GitLab API存储数据备份文件 不占用本地空间
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1224,6 +1231,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#gitlab-api" title="使用GitLab API存储数据备份文件 不占用本地空间" class="md-nav__link">
+    使用GitLab API存储数据备份文件 不占用本地空间
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1482,6 +1496,38 @@ git config --global commit.gpgsign true
 
 default-cache-ttl 34560000
 max-cache-ttl 34560000
+</pre></div>
+
+
+<h2 id="gitlab-api">使用GitLab API存储数据备份文件 不占用本地空间<a class="headerlink" href="#gitlab-api" title="Permanent link">&para;</a></h2>
+<p>这里的需求是定时任务生成snapshot文件，打算传至免费存储作为备份，不想占用服务器硬盘去存储这个文件，也不想花钱买存储服务</p>
+<p>于是想到免费的gitlab.com的私有仓库，仓库数量无限，<a href="https://about.gitlab.com/2015/04/08/gitlab-dot-com-storage-limit-raised-to-10gb-per-repo/">每个repo可以存10GB</a></p>
+<p>使用API来提交可以避免占用本地空间</p>
+<p>其实本来打算用github的，但是github今天(20181022)挂了，于是就gitlab吧</p>
+<p>找到这个python sdk: <a href="https://python-gitlab.readthedocs.io/">https://python-gitlab.readthedocs.io/</a></p>
+<p>写点代码咯：上传当前目录的to_upload.jpg到uploaded.jpg，记得相应修改你的访问令牌和项目ID</p>
+<div class="codehilite"><pre><span></span><span class="n">TOKEN</span> <span class="o">=</span> <span class="s1">&#39;...&#39;</span> <span class="c1"># personal access token, https://gitlab.com/profile/personal_access_tokens</span>
+<span class="n">REPO_ID</span> <span class="o">=</span> <span class="mi">123456</span> <span class="c1"># after create project, you can see project ID in your repo homepage</span>
+<span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;test commit&#39;</span>
+<span class="n">target_filename</span> <span class="o">=</span> <span class="s1">&#39;uploaded.jpg&#39;</span>
+<span class="n">src_filename</span> <span class="o">=</span> <span class="s1">&#39;to_upload.jpg&#39;</span>
+
+<span class="kn">import</span> <span class="nn">gitlab</span>
+<span class="kn">import</span> <span class="nn">base64</span>
+<span class="n">gl</span><span class="o">=</span><span class="n">gitlab</span><span class="o">.</span><span class="n">Gitlab</span><span class="p">(</span><span class="s1">&#39;https://gitlab.com&#39;</span><span class="p">,</span><span class="n">private_token</span><span class="o">=</span><span class="n">TOKEN</span><span class="p">)</span>
+<span class="n">gl</span><span class="o">.</span><span class="n">auth</span><span class="p">()</span>
+<span class="n">p</span><span class="o">=</span><span class="n">gl</span><span class="o">.</span><span class="n">projects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">REPO_ID</span><span class="p">)</span>
+<span class="n">filecontent</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">src_filename</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">data</span><span class="o">=</span><span class="p">{</span>
+    <span class="s1">&#39;branch_name&#39;</span><span class="p">:</span><span class="s1">&#39;master&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;branch&#39;</span><span class="p">:</span><span class="s1">&#39;master&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;commit_message&#39;</span><span class="p">:</span><span class="n">message</span><span class="p">,</span>
+    <span class="s1">&#39;actions&#39;</span><span class="p">:[{</span><span class="s1">&#39;action&#39;</span><span class="p">:</span><span class="s1">&#39;create&#39;</span><span class="p">,</span><span class="s1">&#39;file_path&#39;</span><span class="p">:</span><span class="n">target_filename</span><span class="p">,</span>
+                <span class="s1">&#39;content&#39;</span><span class="p">:</span><span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">filecontent</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(),</span>
+                <span class="s1">&#39;encoding&#39;</span><span class="p">:</span> <span class="s1">&#39;base64&#39;</span><span class="p">}]</span>
+<span class="p">}</span>
+<span class="n">c</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">commits</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
 </pre></div>
                 
                   
