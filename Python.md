@@ -1229,3 +1229,39 @@ pip install gmpy2
     {{i}}
 {%- endfor -%}
 ```
+
+----
+
+## 使用sentry
+
+在py文件一开始进行加载，会自动处理没有被handle的异常
+
+安装：pip install sentry_sdk
+
+```
+import sentry_sdk
+from sentry_sdk import capture_message, capture_exception
+sentry_sdk.init("....")
+```
+
+在出现了意外但是不严重可以pass的时候 代替`traceback.print_exc()`：
+
+```
+try:
+    1/0
+except:
+    capture_exception()
+    capture_message("oho, 1/0 failed...")
+    pass
+```
+
+如果是flask的应用 比如用户登录了，希望报错的时候顺带给出用户名：
+
+```
+from sentry_sdk import configure_scope
+@app.before_request
+def before_request_session():
+    if "username" in session:
+        with configure_scope() as scope:
+            scope.user = {"username": session["username"]}
+```

@@ -42,6 +42,7 @@ My notebook about technology, for lookup and share
 >* uwsgi优雅重启
 >* flask设置一堆静态目录
 >* Python3.5 open打开文件默认使用utf-8
+>* 使用sentry
 
 ## [gist Python一些常用的代码片段](gist.md)
 >* 连接mysql插入、查询
