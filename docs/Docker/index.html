@@ -996,6 +996,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#docker32" title="Docker使用32位镜像" class="md-nav__link">
+    Docker使用32位镜像
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1570,6 +1577,13 @@
         <li class="md-nav__item">
   <a href="#_14" title="运行中的容器添加目录挂载" class="md-nav__link">
     运行中的容器添加目录挂载
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker32" title="Docker使用32位镜像" class="md-nav__link">
+    Docker使用32位镜像
   </a>
   
 </li>
@@ -2361,6 +2375,15 @@ sudo nsenter --target &quot;$(docker inspect --format &#39;{{.State.Pid}}&#39; <
 
 # Step3
 sudo nsenter --target &quot;$(docker inspect --format &#39;{{.State.Pid}}&#39; <span class="nv">$CONTAINER_NAME</span>)&quot; --mount --uts --ipc --net --pid -- sh -c &quot;umount /tmpmount&quot;
+</pre></div>
+
+
+<hr />
+<h2 id="docker32">Docker使用32位镜像<a class="headerlink" href="#docker32" title="Permanent link">&para;</a></h2>
+<p>例如ubuntu16.04.5 32位镜像 从这里下载i386后缀的<code>ubuntu-base-16.04.5-base-i386.tar.gz</code>：</p>
+<p><a href="http://cdimage.ubuntu.com/ubuntu-base/releases/16.04/release/">http://cdimage.ubuntu.com/ubuntu-base/releases/16.04/release/</a></p>
+<p>下载了之后直接交给docker导入即可：<a href="https://docs.docker.com/engine/reference/commandline/import/#examples">docker import 文档</a></p>
+<div class="codehilite"><pre><span></span><span class="n">cat</span> <span class="n">ubuntu</span><span class="o">-</span><span class="n">base</span><span class="o">-</span><span class="mf">16.04</span><span class="o">.</span><span class="mi">5</span><span class="o">-</span><span class="n">base</span><span class="o">-</span><span class="n">i386</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span><span class="o">|</span><span class="n">docker</span> <span class="kn">import</span> <span class="o">-</span> <span class="n">ubuntu1604_32bit</span>
 </pre></div>
                 
                   

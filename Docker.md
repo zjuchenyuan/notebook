@@ -922,3 +922,17 @@ sudo nsenter --target "$(docker inspect --format '{{.State.Pid}}' $CONTAINER_NAM
 # Step3
 sudo nsenter --target "$(docker inspect --format '{{.State.Pid}}' $CONTAINER_NAME)" --mount --uts --ipc --net --pid -- sh -c "umount /tmpmount"
 ```
+
+----
+
+## Docker使用32位镜像
+
+例如ubuntu16.04.5 32位镜像 从这里下载i386后缀的`ubuntu-base-16.04.5-base-i386.tar.gz`：
+
+http://cdimage.ubuntu.com/ubuntu-base/releases/16.04/release/
+
+下载了之后直接交给docker导入即可：[docker import 文档](https://docs.docker.com/engine/reference/commandline/import/#examples)
+
+```
+cat ubuntu-base-16.04.5-base-i386.tar.gz|docker import - ubuntu1604_32bit
+```
