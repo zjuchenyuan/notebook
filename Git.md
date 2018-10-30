@@ -368,3 +368,20 @@ data={
 c=p.commits.create(data)
 print(c)
 ```
+
+----
+
+## 在git服务器无法连接时点对点git pull
+
+情景：客户端A和B使用gitlab服务器S，然后某天S无法连上了，但A和B之间可以直接通讯。B上开发了新代码，想让A获取到这个更新，如何最方便简单地在A上同步B上的代码更新呢？
+
+解决方案：用python开个简单的http服务器然后添加http的remote进行pull，注意先要让git解压pack文件
+
+```
+git update-server-info
+python3 -m http.server 6666
+git remote add tmp http://ip-b:6666/.git/
+git pull tmp master
+```
+
+问题来了：如果A访问不了B怎么办呢？通过`git format-patch HEAD~2..HEAD --stdout>patchfile`生成patch文件再发过去`git am patchfile`，但这样可能会改变commit id

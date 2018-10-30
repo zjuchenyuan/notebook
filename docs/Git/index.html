@@ -841,6 +841,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#gitgit-pull" title="在git服务器无法连接时点对点git pull" class="md-nav__link">
+    在git服务器无法连接时点对点git pull
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1238,6 +1245,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#gitgit-pull" title="在git服务器无法连接时点对点git pull" class="md-nav__link">
+    在git服务器无法连接时点对点git pull
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1529,6 +1543,20 @@ max-cache-ttl 34560000
 <span class="n">c</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">commits</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
 </pre></div>
+
+
+<hr />
+<h2 id="gitgit-pull">在git服务器无法连接时点对点git pull<a class="headerlink" href="#gitgit-pull" title="Permanent link">&para;</a></h2>
+<p>情景：客户端A和B使用gitlab服务器S，然后某天S无法连上了，但A和B之间可以直接通讯。B上开发了新代码，想让A获取到这个更新，如何最方便简单地在A上同步B上的代码更新呢？</p>
+<p>解决方案：用python开个简单的http服务器然后添加http的remote进行pull，注意先要让git解压pack文件</p>
+<div class="codehilite"><pre><span></span>git update-server-info
+python3 -m http.server 6666
+git remote add tmp http://ip-b:6666/.git/
+git pull tmp master
+</pre></div>
+
+
+<p>问题来了：如果A访问不了B怎么办呢？通过<code>git format-patch HEAD~2..HEAD --stdout&gt;patchfile</code>生成patch文件再发过去<code>git am patchfile</code>，但这样可能会改变commit id</p>
                 
                   
                 
