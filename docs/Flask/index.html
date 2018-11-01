@@ -587,6 +587,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#requesturl" title="request怎么拿到url的各个部分" class="md-nav__link">
+    request怎么拿到url的各个部分
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -922,6 +929,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#requesturl" title="request怎么拿到url的各个部分" class="md-nav__link">
+    request怎么拿到url的各个部分
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1040,6 +1054,28 @@ def before_request():
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">hashlib</span>
 <span class="kn">import</span> <span class="nn">json</span>
+</pre></div>
+
+
+<h2 id="requesturl">request怎么拿到url的各个部分<a class="headerlink" href="#requesturl" title="Permanent link">&para;</a></h2>
+<p><a href="http://来自https://stackoverflow.com">来自https://stackoverflow.com</a>/questions/15974730/how-do-i-get-the-different-parts-of-a-flask-requests-url</p>
+<p>request:</p>
+<p><code>curl -XGET http://127.0.0.1:5000/alert/dingding/test?x=y</code></p>
+<p>then:</p>
+<div class="codehilite"><pre><span></span>request.method:              GET
+request.url:                 http://127.0.0.1:5000/alert/dingding/test?x=y
+request.base_url:            http://127.0.0.1:5000/alert/dingding/test
+request.url_charset:         utf-8
+request.url_root:            http://127.0.0.1:5000/
+str(request.url_rule):       /alert/dingding/test
+request.host_url:            http://127.0.0.1:5000/
+request.host:                127.0.0.1:5000
+request.script_root:
+request.path:                /alert/dingding/test
+request.full_path:           /alert/dingding/test?x=y
+
+request.args:                ImmutableMultiDict([(&#39;x&#39;, &#39;y&#39;)])
+request.args.get(&#39;x&#39;):       y
 </pre></div>
                 
                   
