@@ -1350,7 +1350,7 @@ docker run --rm --volume=&quot;`pwd`:/app&quot; -w /app -it node:10 npm install 
 <p>现在的方法是对js动态添加的元素加个class 然后用jQuery的remove方法先通通删掉再添加</p>
 <h4 id="ready">页面ready事件不会触发<a class="headerlink" href="#ready" title="Permanent link">&para;</a></h4>
 <p>需要加入<code>InstantClick.on('change', callback);</code> 加到Init后即可</p>
-<p>但是似乎这个事件触发在页面图片加载完成之前Orz 不能完美</p>
+<p>但是似乎这个事件触发在页面图片加载完成之前Orz 不够完美</p>
 <h3 id="hash">超链接的#hash定位功能也需要自己实现<a class="headerlink" href="#hash" title="Permanent link">&para;</a></h3>
 <p>预加载的页面总是定位到顶部，忽视地址栏中的<code>#end</code>这种定位hash</p>
 <p>我的做法是这样写上述onchange的callback函数<code>implement_hashjump</code>：</p>

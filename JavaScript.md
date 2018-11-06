@@ -272,7 +272,7 @@ if(typeof paste_registered == "undefined"){
 
 需要加入`InstantClick.on('change', callback);` 加到Init后即可
 
-但是似乎这个事件触发在页面图片加载完成之前Orz 不能完美
+但是似乎这个事件触发在页面图片加载完成之前Orz 不够完美
 
 ### 超链接的#hash定位功能也需要自己实现
 
