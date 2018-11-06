@@ -1265,3 +1265,11 @@ def before_request_session():
         with configure_scope() as scope:
             scope.user = {"username": session["username"]}
 ```
+
+### 不要过于依赖Sentry
+
+`capture_exception`和`capture_message` 都是同步调用 本质上是一个耗时的网络请求
+
+尤其在循环中触发 会导致页面加载速度显著变慢
+
+对于已经知道会有异常产生也不关心的，就不要抓住这种异常来损害性能了 pass就好了

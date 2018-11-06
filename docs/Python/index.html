@@ -754,6 +754,19 @@
     使用sentry
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sentry_1" title="不要过于依赖Sentry" class="md-nav__link">
+    不要过于依赖Sentry
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
       
@@ -1786,6 +1799,19 @@
     使用sentry
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sentry_1" title="不要过于依赖Sentry" class="md-nav__link">
+    不要过于依赖Sentry
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
       
@@ -2796,6 +2822,12 @@ pip install gmpy2
         <span class="k">with</span> <span class="n">configure_scope</span><span class="p">()</span> <span class="k">as</span> <span class="n">scope</span><span class="p">:</span>
             <span class="n">scope</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="n">session</span><span class="p">[</span><span class="s2">&quot;username&quot;</span><span class="p">]}</span>
 </pre></div>
+
+
+<h3 id="sentry_1">不要过于依赖Sentry<a class="headerlink" href="#sentry_1" title="Permanent link">&para;</a></h3>
+<p><code>capture_exception</code>和<code>capture_message</code> 都是同步调用 本质上是一个耗时的网络请求</p>
+<p>尤其在循环中触发 会导致页面加载速度显著变慢</p>
+<p>对于已经知道会有异常产生也不关心的，就不要抓住这种异常来损害性能了 pass就好了</p>
                 
                   
                 
