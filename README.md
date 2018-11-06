@@ -194,6 +194,7 @@ My notebook about technology, for lookup and share
 >* 使用 Github Issue 作为博客评论区
 >* history.replaceState修改历史记录
 >* 记住一个checkbox的状态
+>* 使用InstantClick踩坑
 
 ## [Jekyll](Jekyll.md)
 >* 碰到过的坑

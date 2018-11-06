@@ -471,6 +471,81 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#instantclick" title="使用InstantClick踩坑" class="md-nav__link">
+    使用InstantClick踩坑
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" title="快速使用" class="md-nav__link">
+    快速使用
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="注意默认配置下后端将被频繁请求 频率限制需要放宽" class="md-nav__link">
+    注意默认配置下后端将被频繁请求 频率限制需要放宽
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#instantclick-js" title="InstantClick引入一些副作用 对页面js要进行修改" class="md-nav__link">
+    InstantClick引入一些副作用 对页面js要进行修改
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jsreferrer" title="js无法取得正确的referrer" class="md-nav__link">
+    js无法取得正确的referrer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentaddeventlistener" title="document.addEventListener 重复触发" class="md-nav__link">
+    document.addEventListener 重复触发
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#js" title="返回上一页重复执行页面添加元素的js 导致元素重复出现" class="md-nav__link">
+    返回上一页重复执行页面添加元素的js 导致元素重复出现
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ready" title="页面ready事件不会触发" class="md-nav__link">
+    页面ready事件不会触发
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hash" title="超链接的#hash定位功能也需要自己实现" class="md-nav__link">
+    超链接的#hash定位功能也需要自己实现
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
     </ul>
@@ -956,6 +1031,81 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#instantclick" title="使用InstantClick踩坑" class="md-nav__link">
+    使用InstantClick踩坑
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" title="快速使用" class="md-nav__link">
+    快速使用
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="注意默认配置下后端将被频繁请求 频率限制需要放宽" class="md-nav__link">
+    注意默认配置下后端将被频繁请求 频率限制需要放宽
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#instantclick-js" title="InstantClick引入一些副作用 对页面js要进行修改" class="md-nav__link">
+    InstantClick引入一些副作用 对页面js要进行修改
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jsreferrer" title="js无法取得正确的referrer" class="md-nav__link">
+    js无法取得正确的referrer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentaddeventlistener" title="document.addEventListener 重复触发" class="md-nav__link">
+    document.addEventListener 重复触发
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#js" title="返回上一页重复执行页面添加元素的js 导致元素重复出现" class="md-nav__link">
+    返回上一页重复执行页面添加元素的js 导致元素重复出现
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ready" title="页面ready事件不会触发" class="md-nav__link">
+    页面ready事件不会触发
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hash" title="超链接的#hash定位功能也需要自己实现" class="md-nav__link">
+    超链接的#hash定位功能也需要自己实现
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
     </ul>
@@ -1143,6 +1293,68 @@ setTimeout( function(){
 <p>例如安装canvas和gifencoder包：</p>
 <div class="codehilite"><pre><span></span>PACKAGES=&quot;canvas gifencoder&quot;
 docker run --rm --volume=&quot;`pwd`:/app&quot; -w /app -it node:10 npm install <span class="cp">${</span><span class="n">PACKAGES</span><span class="cp">}</span>  --registry=https://registry.npm.taobao.org
+</pre></div>
+
+
+<hr />
+<h2 id="instantclick">使用InstantClick踩坑<a class="headerlink" href="#instantclick" title="Permanent link">&para;</a></h2>
+<h3 id="_1">快速使用<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p><a href="http://instantclick.io/v3.1.0/instantclick.min.js">http://instantclick.io/v3.1.0/instantclick.min.js</a></p>
+<p>一定要在页面底部 <code>&lt;/body&gt;</code>之前才能引入：</p>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;script</span> <span class="na">src=</span><span class="s">&quot;instantclick.min.js&quot;</span> <span class="err">data-no-instant</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script</span> <span class="err">data-no-instant</span><span class="nt">&gt;</span>InstantClick.init(&#39;mousedown&#39;);<span class="nt">&lt;/script&gt;</span>
+</pre></div>
+
+
+<h3 id="_2">注意默认配置下后端将被频繁请求 频率限制需要放宽<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p><a href="http://instantclick.io/download">官网</a>给出的代码使用<code>InstantClick.init()</code>，意味着鼠标移动上去就会触发加载（不是只触发一次），鼠标反复移动会导致大量的请求</p>
+<p>如果后端做了请求频率限制 需要放宽限制</p>
+<p>还是改为用<code>mousedown</code>来初始化 只有用户确实点击了才开始加载 据说也能有很好的效果</p>
+<h3 id="instantclick-js">InstantClick引入一些副作用 对页面js要进行修改<a class="headerlink" href="#instantclick-js" title="Permanent link">&para;</a></h3>
+<h4 id="jsreferrer">js无法取得正确的referrer<a class="headerlink" href="#jsreferrer" title="Permanent link">&para;</a></h4>
+<p>页面加载的请求是js执行的 document.referrer不会被设置为上一页</p>
+<h4 id="documentaddeventlistener">document.addEventListener 重复触发<a class="headerlink" href="#documentaddeventlistener" title="Permanent link">&para;</a></h4>
+<p>例如绑定paste事件 你可能这么写：</p>
+<div class="codehilite"><pre><span></span>document.addEventListener(&#39;paste&#39;, handlepaste);
+</pre></div>
+
+
+<p>在切换页面后 这个事件会多次绑定 导致多次触发</p>
+<p>我的做法是先判断一个变量是否存在 不存在才设置：</p>
+<div class="codehilite"><pre><span></span>if(typeof paste_registered == &quot;undefined&quot;){
+    document.addEventListener(&#39;paste&#39;, handlepaste);
+    paste_registered = true;
+}
+</pre></div>
+
+
+<p>你也可以把这一部分<strong>不能重复执行</strong>的代码放入<code>&lt;script data-no-instant&gt;</code>中，但如果前一页没有这一块代码（也就是这个代码是当前页面才有的，需要执行一次），进入当前页面是<strong>不会触发</strong>的</p>
+<h4 id="js">返回上一页重复执行页面添加元素的js 导致元素重复出现<a class="headerlink" href="#js" title="Permanent link">&para;</a></h4>
+<p>现在的方法是对js动态添加的元素加个class 然后用jQuery的remove方法先通通删掉再添加</p>
+<h4 id="ready">页面ready事件不会触发<a class="headerlink" href="#ready" title="Permanent link">&para;</a></h4>
+<p>需要加入<code>InstantClick.on('change', callback);</code> 加到Init后即可</p>
+<p>但是似乎这个事件触发在页面图片加载完成之前Orz 不能完美</p>
+<h3 id="hash">超链接的#hash定位功能也需要自己实现<a class="headerlink" href="#hash" title="Permanent link">&para;</a></h3>
+<p>预加载的页面总是定位到顶部，忽视地址栏中的<code>#end</code>这种定位hash</p>
+<p>我的做法是这样写上述onchange的callback函数<code>implement_hashjump</code>：</p>
+<div class="codehilite"><pre><span></span><span class="kd">function</span> <span class="nx">has_hashjump</span><span class="p">(){</span> <span class="c1">// if there is a #hash present for jumpping, return true</span>
+    <span class="kd">var</span> <span class="nx">hash</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">hash</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">hash</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="nx">hash</span><span class="p">)</span> <span class="o">||</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByName</span><span class="p">(</span><span class="nx">hash</span><span class="p">).</span><span class="nx">length</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="k">else</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">implement_hashjump() {</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="nx">has_hashjump</span><span class="p">()</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">hash</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">hash</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="nx">hash</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">scrollTop</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="o">+</span><span class="nx">hash</span><span class="p">).</span><span class="nx">offset</span><span class="p">().</span><span class="nx">top</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span><span class="p">{</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">scrollTop</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;[name=&#39;&quot;</span><span class="o">+</span><span class="nx">hash</span><span class="o">+</span><span class="s2">&quot;&#39;]&quot;</span><span class="p">).</span><span class="nx">offset</span><span class="p">().</span><span class="nx">top</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
                 
                   

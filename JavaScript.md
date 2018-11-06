@@ -207,3 +207,90 @@ function checkbox_onclick(){
 PACKAGES="canvas gifencoder"
 docker run --rm --volume="`pwd`:/app" -w /app -it node:10 npm install ${PACKAGES}  --registry=https://registry.npm.taobao.org
 ```
+
+----
+
+## 使用InstantClick踩坑
+
+### 快速使用
+
+http://instantclick.io/v3.1.0/instantclick.min.js
+
+一定要在页面底部 `</body>`之前才能引入：
+
+```
+<script src="instantclick.min.js" data-no-instant></script>
+<script data-no-instant>InstantClick.init('mousedown');</script>
+```
+
+### 注意默认配置下后端将被频繁请求 频率限制需要放宽
+
+[官网](http://instantclick.io/download)给出的代码使用`InstantClick.init()`，意味着鼠标移动上去就会触发加载（不是只触发一次），鼠标反复移动会导致大量的请求
+
+如果后端做了请求频率限制 需要放宽限制
+
+还是改为用`mousedown`来初始化 只有用户确实点击了才开始加载 据说也能有很好的效果
+
+### InstantClick引入一些副作用 对页面js要进行修改
+
+#### js无法取得正确的referrer
+
+页面加载的请求是js执行的 document.referrer不会被设置为上一页
+
+#### document.addEventListener 重复触发
+
+例如绑定paste事件 你可能这么写：
+
+```
+document.addEventListener('paste', handlepaste);
+```
+
+在切换页面后 这个事件会多次绑定 导致多次触发
+
+我的做法是先判断一个变量是否存在 不存在才设置：
+
+```
+if(typeof paste_registered == "undefined"){
+    document.addEventListener('paste', handlepaste);
+    paste_registered = true;
+}
+```
+
+你也可以把这一部分**不能重复执行**的代码放入`<script data-no-instant>`中，但如果前一页没有这一块代码（也就是这个代码是当前页面才有的，需要执行一次），进入当前页面是**不会触发**的
+
+#### 返回上一页重复执行页面添加元素的js 导致元素重复出现
+
+现在的方法是对js动态添加的元素加个class 然后用jQuery的remove方法先通通删掉再添加
+
+#### 页面ready事件不会触发
+
+需要加入`InstantClick.on('change', callback);` 加到Init后即可
+
+但是似乎这个事件触发在页面图片加载完成之前Orz 不能完美
+
+### 超链接的#hash定位功能也需要自己实现
+
+预加载的页面总是定位到顶部，忽视地址栏中的`#end`这种定位hash
+
+我的做法是这样写上述onchange的callback函数`implement_hashjump`：
+
+```
+function has_hashjump(){ // if there is a #hash present for jumpping, return true
+    var hash = document.location.hash.replace("#","");
+    if(!hash) return false;
+    if(document.getElementById(hash) || document.getElementsByName(hash).length>0) return true;
+    else return false;
+}
+
+function implement_hashjump() {
+    if ( has_hashjump() ) {
+        var hash = document.location.hash.replace("#","");
+        if(document.getElementById(hash)) {
+            document.documentElement.scrollTop = $("#"+hash).offset().top;
+        }
+        else{
+            document.documentElement.scrollTop = $("[name='"+hash+"']").offset().top;
+        }
+    }
+}
+```
