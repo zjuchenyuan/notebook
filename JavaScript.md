@@ -223,6 +223,12 @@ http://instantclick.io/v3.1.0/instantclick.min.js
 <script data-no-instant>InstantClick.init('mousedown');</script>
 ```
 
+### 被预加载的页面不能让后端返回302
+
+否则会显示跳转之前的URL
+
+这种情况下可以对这个链接禁止预加载（不过更应该考虑这种链接改为post请求） 在a标签加上`data-no-instant`
+
 ### 注意默认配置下后端将被频繁请求 频率限制需要放宽
 
 [官网](http://instantclick.io/download)给出的代码使用`InstantClick.init()`，意味着鼠标移动上去就会触发加载（不是只触发一次），鼠标反复移动会导致大量的请求

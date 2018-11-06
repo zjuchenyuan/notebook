@@ -487,6 +487,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#302" title="被预加载的页面不能让后端返回302" class="md-nav__link">
+    被预加载的页面不能让后端返回302
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#_2" title="注意默认配置下后端将被频繁请求 频率限制需要放宽" class="md-nav__link">
     注意默认配置下后端将被频繁请求 频率限制需要放宽
   </a>
@@ -1047,6 +1054,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#302" title="被预加载的页面不能让后端返回302" class="md-nav__link">
+    被预加载的页面不能让后端返回302
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#_2" title="注意默认配置下后端将被频繁请求 频率限制需要放宽" class="md-nav__link">
     注意默认配置下后端将被频繁请求 频率限制需要放宽
   </a>
@@ -1306,6 +1320,9 @@ docker run --rm --volume=&quot;`pwd`:/app&quot; -w /app -it node:10 npm install 
 </pre></div>
 
 
+<h3 id="302">被预加载的页面不能让后端返回302<a class="headerlink" href="#302" title="Permanent link">&para;</a></h3>
+<p>否则会显示跳转之前的URL</p>
+<p>这种情况下可以对这个链接禁止预加载（不过更应该考虑这种链接改为post请求） 在a标签加上<code>data-no-instant</code></p>
 <h3 id="_2">注意默认配置下后端将被频繁请求 频率限制需要放宽<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <p><a href="http://instantclick.io/download">官网</a>给出的代码使用<code>InstantClick.init()</code>，意味着鼠标移动上去就会触发加载（不是只触发一次），鼠标反复移动会导致大量的请求</p>
 <p>如果后端做了请求频率限制 需要放宽限制</p>
