@@ -601,6 +601,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#lazyload" title="lazyload 延迟加载耗时的初始化操作" class="md-nav__link">
+    lazyload 延迟加载耗时的初始化操作
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -950,6 +957,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#lazyload" title="lazyload 延迟加载耗时的初始化操作" class="md-nav__link">
+    lazyload 延迟加载耗时的初始化操作
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1123,6 +1137,49 @@ request.args.get(&#39;x&#39;):       y
 <li>别忘记<code>mkdir /tmp/profiles</code> 然后就可以启动了<code>python3 profiler_app.py</code></li>
 <li>使用http://127.0.0.1/_profiler/ 查看结果，可以点开每个请求看各个函数耗时详情</li>
 </ol>
+<hr />
+<h2 id="lazyload">lazyload 延迟加载耗时的初始化操作<a class="headerlink" href="#lazyload" title="Permanent link">&para;</a></h2>
+<p>需求：特定页面需要加载一些耗时的资源，如果在应用启动的时候做加载，此时新来的请求就必须等待这个加载才能完成；而实际上这个init并非所有请求都必须的，想做一个lazyinit: 在不影响正常请求的前提下尽快完成init函数</p>
+<p>我的做法：设计一个<code>/lazyinit</code>路由函数做初始化工作，在重新部署/重启flask服务的时候同时启动一个简单的python脚本反复请求这个url直到所有的进程都已经触发</p>
+<p>这样利用uwsgi自身就有的多进程负载均衡，每次最多只会有一个进程做初始化工作，其他进程可以正常处理请求；坏处就是在日志里面产生一些垃圾吧，影响不大</p>
+<p>问题来了 uwsgi怎么知道当前是哪个进程呢 我发现threading提供的进程名称是字符串<code>b'uWSGIWorker2Core2'</code>，其中<code>Worker</code>后面的数字就是进程ID 不同进程ID的全局变量是不同的</p>
+<p>代码：</p>
+<p>flask中的<code>/lazyinit</code>实现，返回处理当前请求的worker id：</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">threading</span>
+<span class="k">def</span> <span class="nf">get_workerid</span><span class="p">():</span>
+    <span class="c1"># return uwsgi worker id: int</span>
+    <span class="n">threadname</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">current_thread</span><span class="p">()</span><span class="o">.</span><span class="n">name</span>
+    <span class="n">id_str</span> <span class="o">=</span> <span class="n">threadname</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;worker&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;core&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">id_str</span><span class="p">)</span>
+
+<span class="n">HAS_INITED</span> <span class="o">=</span> <span class="bp">False</span>
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="s2">&quot;/lazyinit&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">lazyinit</span><span class="p">():</span>
+    <span class="n">workerid</span> <span class="o">=</span> <span class="n">get_workerid</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">HAS_INITED</span><span class="p">:</span> <span class="c1"># skip init if has already initialized</span>
+        <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># do real init code...</span>
+        <span class="n">HAS_INITED</span> <span class="o">=</span> <span class="bp">True</span>
+
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">workerid</span><span class="p">)</span>
+</pre></div>
+
+
+<p>这是反复请求的代码，重复请求最多100次，直到所有4个进程都已经触发，其中uwsgi的workerid是从1开始计数的</p>
+<div class="codehilite"><pre><span></span><span class="n">MAX_TRIES</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">PROCESS_COUNT</span> <span class="o">=</span> <span class="mi">4</span>
+
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">status</span> <span class="o">=</span> <span class="p">[</span><span class="bp">False</span><span class="p">]</span><span class="o">*</span><span class="n">PROCESS_COUNT</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">MAX_TRIES</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;http://127.0.0.1/lazyinit?id=&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span><span class="o">.</span><span class="n">text</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">status</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">status</span><span class="p">):</span>
+        <span class="k">break</span>
+</pre></div>
                 
                   
                 

@@ -163,3 +163,57 @@ if __name__ == "__main__":
 
 3. 别忘记`mkdir /tmp/profiles` 然后就可以启动了`python3 profiler_app.py`
 4. 使用http://127.0.0.1/_profiler/ 查看结果，可以点开每个请求看各个函数耗时详情
+
+----
+
+## lazyload 延迟加载耗时的初始化操作
+
+需求：特定页面需要加载一些耗时的资源，如果在应用启动的时候做加载，此时新来的请求就必须等待这个加载才能完成；而实际上这个init并非所有请求都必须的，想做一个lazyinit: 在不影响正常请求的前提下尽快完成init函数
+
+我的做法：设计一个`/lazyinit`路由函数做初始化工作，在重新部署/重启flask服务的时候同时启动一个简单的python脚本反复请求这个url直到所有的进程都已经触发
+
+这样利用uwsgi自身就有的多进程负载均衡，每次最多只会有一个进程做初始化工作，其他进程可以正常处理请求；坏处就是在日志里面产生一些垃圾吧，影响不大
+
+问题来了 uwsgi怎么知道当前是哪个进程呢 我发现threading提供的进程名称是字符串`b'uWSGIWorker2Core2'`，其中`Worker`后面的数字就是进程ID 不同进程ID的全局变量是不同的
+
+代码：
+
+flask中的`/lazyinit`实现，返回处理当前请求的worker id：
+
+```
+import threading
+def get_workerid():
+    # return uwsgi worker id: int
+    threadname = threading.current_thread().name
+    id_str = threadname.lower().split("worker")[1].split("core")[0]
+    return int(id_str)
+
+HAS_INITED = False
+
+@app.route("/lazyinit")
+def lazyinit():
+    workerid = get_workerid()
+    
+    if not HAS_INITED: # skip init if has already initialized
+        sleep(1) # do real init code...
+        HAS_INITED = True
+    
+    return str(workerid)
+```
+
+这是反复请求的代码，重复请求最多100次，直到所有4个进程都已经触发，其中uwsgi的workerid是从1开始计数的
+
+```
+MAX_TRIES = 100
+PROCESS_COUNT = 4
+
+import requests
+i = 0
+status = [False]*PROCESS_COUNT
+for i in range(MAX_TRIES):
+    id = requests.get("http://127.0.0.1/lazyinit?id="+str(i)).text
+    id = int(id) - 1
+    status[id] = True
+    if all(status):
+        break
+```

@@ -156,6 +156,7 @@ My notebook about technology, for lookup and share
 >* 判断是否手机访问 g.isphone
 >* request怎么拿到url的各个部分
 >* 遇到性能瓶颈做profiling看函数耗时
+>* lazyload 延迟加载耗时的初始化操作
 
 ## [Git](Git.md)
 >* 立即使用
