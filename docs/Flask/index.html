@@ -594,6 +594,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#profiling" title="遇到性能瓶颈做profiling看函数耗时" class="md-nav__link">
+    遇到性能瓶颈做profiling看函数耗时
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -936,6 +943,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#profiling" title="遇到性能瓶颈做profiling看函数耗时" class="md-nav__link">
+    遇到性能瓶颈做profiling看函数耗时
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1077,6 +1091,38 @@ request.full_path:           /alert/dingding/test?x=y
 request.args:                ImmutableMultiDict([(&#39;x&#39;, &#39;y&#39;)])
 request.args.get(&#39;x&#39;):       y
 </pre></div>
+
+
+<hr />
+<h2 id="profiling">遇到性能瓶颈做profiling看函数耗时<a class="headerlink" href="#profiling" title="Permanent link">&para;</a></h2>
+<p>找到对uwsgi应用做profiling的<a href="https://mg.pov.lt/blog/profiling-with-dozer.html">dozer</a>库</p>
+<p>使用方法：</p>
+<ol>
+<li>先安装python3对应的uwsgi：<code>apt install uwsgi-plugin-python3</code></li>
+<li>写一个python脚本包装app，如<code>profiler_app.py</code>：</li>
+</ol>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="ch">#!/usr/bin/python3</span>
+<span class="kn">from</span> <span class="nn">app</span> <span class="k">import</span> <span class="n">app</span>
+<span class="kn">from</span> <span class="nn">dozer</span> <span class="k">import</span> <span class="n">Profiler</span>
+<span class="n">appx</span> <span class="o">=</span> <span class="n">Profiler</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">profile_path</span><span class="o">=</span><span class="s2">&quot;/tmp/profiles&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">os</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;uwsgi -w profiler_app:appx --http :80&quot;</span><span class="p">)</span>
+</pre></div>
+</td></tr></table>
+
+<ol>
+<li>别忘记<code>mkdir /tmp/profiles</code> 然后就可以启动了<code>python3 profiler_app.py</code></li>
+<li>使用http://127.0.0.1/_profiler/ 查看结果，可以点开每个请求看各个函数耗时详情</li>
+</ol>
                 
                   
                 

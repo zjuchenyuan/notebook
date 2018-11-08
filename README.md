@@ -154,6 +154,8 @@ My notebook about technology, for lookup and share
 >* 应用根目录APP_ROOT
 >* render_template引入所有全局变量+局部变量
 >* 判断是否手机访问 g.isphone
+>* request怎么拿到url的各个部分
+>* 遇到性能瓶颈做profiling看函数耗时
 
 ## [Git](Git.md)
 >* 立即使用

@@ -138,3 +138,28 @@ request.full_path:           /alert/dingding/test?x=y
 request.args:                ImmutableMultiDict([('x', 'y')])
 request.args.get('x'):       y
 ```
+
+----
+
+## 遇到性能瓶颈做profiling看函数耗时
+
+找到对uwsgi应用做profiling的[dozer](https://mg.pov.lt/blog/profiling-with-dozer.html)库
+
+使用方法：
+
+1. 先安装python3对应的uwsgi：`apt install uwsgi-plugin-python3`
+2. 写一个python脚本包装app，如`profiler_app.py`：
+
+```
+#!/usr/bin/python3
+from app import app
+from dozer import Profiler
+appx = Profiler(app, profile_path="/tmp/profiles")
+
+if __name__ == "__main__":
+    import os
+    os.system("uwsgi -w profiler_app:appx --http :80")
+```
+
+3. 别忘记`mkdir /tmp/profiles` 然后就可以启动了`python3 profiler_app.py`
+4. 使用http://127.0.0.1/_profiler/ 查看结果，可以点开每个请求看各个函数耗时详情
