@@ -694,6 +694,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#bash" title="文件夹背景右键添加bash" class="md-nav__link">
+    文件夹背景右键添加bash
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#u" title="软媒U盘启动盘制作" class="md-nav__link">
     软媒U盘启动盘制作
   </a>
@@ -999,6 +1006,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#bash" title="文件夹背景右键添加bash" class="md-nav__link">
+    文件夹背景右键添加bash
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#u" title="软媒U盘启动盘制作" class="md-nav__link">
     软媒U盘启动盘制作
   </a>
@@ -1139,6 +1153,17 @@
 <h2 id="menumgr">MenuMgr 右键菜单管理<a class="headerlink" href="#menumgr" title="Permanent link">&para;</a></h2>
 <p>还右键菜单一份清净</p>
 <p><a href="https://d.py3.io/MenuMgr.exe">MenuMgr</a></p>
+<h2 id="bash">文件夹背景右键添加bash<a class="headerlink" href="#bash" title="Permanent link">&para;</a></h2>
+<p>发现自己经常需要在当前路径下打开bash，之前我都是在地址栏输入bash回车 但这样的副作用是不能再方便地复制当前路径了</p>
+<p>现在我将bash添加到右键菜单 只需鼠标点击两次即可打开bash</p>
+<p>regedit定位到</p>
+<div class="codehilite"><pre><span></span>计算机\HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Directory\background\shell\
+</pre></div>
+
+
+<p>新建项bash 再在bash中新建项command 修改command的默认为<code>bash</code></p>
+<p>顺带可以把在此处打开命令窗口给显示出来：同一个文件夹里面有个cmd 但还有一些其他项 删掉即可</p>
+<p>如果修改注册表没有权限，右键改权限 先改所有者再对everyone允许完全控制即可</p>
 <h2 id="u">软媒U盘启动盘制作<a class="headerlink" href="#u" title="Permanent link">&para;</a></h2>
 <p><a href="https://d.py3.io/usbbooter.exe">usbbooter.exe</a></p>
 <h2 id="winrar">WinRAR<a class="headerlink" href="#winrar" title="Permanent link">&para;</a></h2>

@@ -40,6 +40,23 @@ Cloc是一款使用Perl语言开发的开源代码统计工具，支持多平台
 
 [MenuMgr](https://d.py3.io/MenuMgr.exe)
 
+## 文件夹背景右键添加bash
+
+发现自己经常需要在当前路径下打开bash，之前我都是在地址栏输入bash回车 但这样的副作用是不能再方便地复制当前路径了
+
+现在我将bash添加到右键菜单 只需鼠标点击两次即可打开bash
+
+regedit定位到
+
+```
+计算机\HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Directory\background\shell\
+```
+
+新建项bash 再在bash中新建项command 修改command的默认为`bash`
+
+顺带可以把在此处打开命令窗口给显示出来：同一个文件夹里面有个cmd 但还有一些其他项 删掉即可
+
+如果修改注册表没有权限，右键改权限 先改所有者再对everyone允许完全控制即可
 ## 软媒U盘启动盘制作
 
 [usbbooter.exe](https://d.py3.io/usbbooter.exe)
