@@ -420,6 +420,26 @@ docker network inspect macvlan_bridge --format "{{range .Containers}}{{.IPv4Addr
 docker network inspect macvlan_bridge --format "{{range .Containers}}{{.IPv4Address}},{{end}}" | python3 -c 'print(input().replace("/24,","\n"),end="")'|sort
 ```
 
+### 主机访问macvlan的容器
+
+由于内核限制并不支持host直接使用上述指定的ip访问容器，而docker network connect让容器再加入一个网络又会改变容器的默认路由，但我就是想让主机能访问到容器，咋办哩？
+
+参考：http://blog.oddbit.com/2018/03/12/using-docker-macvlan-networks/
+
+想访问的容器IP为10.1.1.66，这种方法需要让主机再获得一个IP，例如10.1.1.3。注意这种配置是不持久的，重启后丢失
+
+```
+DEVICE_NAME="eth0"
+NAME="mynet-shim"
+HOST_GETIP="10.1.1.3"
+TARGET_IP="10.1.1.66"
+
+ip link add $NAME link $DEVICE_NAME type macvlan  mode bridge
+ip addr add $HOST_GETIP/32 dev $NAME
+ip link set $NAME up
+ip route add $TARGET_IP/32 dev $NAME
+```
+
 ----
 
 ## 使用iptables端口转发让Docker容器得到内网IP
