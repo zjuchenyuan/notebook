@@ -43,6 +43,7 @@ My notebook about technology, for lookup and share
 >* flask设置一堆静态目录
 >* Python3.5 open打开文件默认使用utf-8
 >* 使用sentry
+>* 解决命令行执行py文件没有sys.argv的问题
 
 ## [gist Python一些常用的代码片段](gist.md)
 >* 连接mysql插入、查询

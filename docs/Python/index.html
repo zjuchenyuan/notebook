@@ -769,6 +769,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#pysysargv" title="解决命令行执行py文件没有sys.argv的问题" class="md-nav__link">
+    解决命令行执行py文件没有sys.argv的问题
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1814,6 +1821,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#pysysargv" title="解决命令行执行py文件没有sys.argv的问题" class="md-nav__link">
+    解决命令行执行py文件没有sys.argv的问题
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -2828,6 +2842,20 @@ pip install gmpy2
 <p><code>capture_exception</code>和<code>capture_message</code> 都是同步调用 本质上是一个耗时的网络请求</p>
 <p>尤其在循环中触发 会导致页面加载速度显著变慢</p>
 <p>对于已经知道会有异常产生也不关心的，就不要抓住这种异常来损害性能了 pass就好了</p>
+<h2 id="pysysargv">解决命令行执行py文件没有sys.argv的问题<a class="headerlink" href="#pysysargv" title="Permanent link">&para;</a></h2>
+<p>这是由于打开方式没有把%*加上的原因，修改注册表</p>
+<div class="codehilite"><pre><span></span>HKEY_CLASSES_ROOT\Python.File\Shell\open\command
+</pre></div>
+
+
+<p>末尾加上<code>%*</code>即可，例如改为</p>
+<div class="codehilite"><pre><span></span>&quot;C:\Python37\python.exe&quot; &quot;%1&quot; %*
+</pre></div>
+
+
+<p>你也可以用管理员权限的cmd来做修改：</p>
+<p>先查询.py的文件类型：<code>assoc .py</code>查到<code>.py=Python.File</code></p>
+<p>然后查一下当前的运行命令：<code>ftype Python.File</code> 然后用<code>ftype Python.File="C:\Python37\python.exe" "%1" %*</code>修改即可</p>
                 
                   
                 

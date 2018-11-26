@@ -1273,3 +1273,23 @@ def before_request_session():
 尤其在循环中触发 会导致页面加载速度显著变慢
 
 对于已经知道会有异常产生也不关心的，就不要抓住这种异常来损害性能了 pass就好了
+
+## 解决命令行执行py文件没有sys.argv的问题
+
+这是由于打开方式没有把%*加上的原因，修改注册表
+
+```
+HKEY_CLASSES_ROOT\Python.File\Shell\open\command
+```
+
+末尾加上`%*`即可，例如改为
+
+```
+"C:\Python37\python.exe" "%1" %*
+```
+
+你也可以用管理员权限的cmd来做修改：
+
+先查询.py的文件类型：`assoc .py`查到`.py=Python.File`
+
+然后查一下当前的运行命令：`ftype Python.File` 然后用`ftype Python.File="C:\Python37\python.exe" "%1" %*`修改即可
