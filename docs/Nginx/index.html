@@ -1639,8 +1639,9 @@ sudo chown -R nobody /data/weedfs
 <div class="codehilite"><pre><span></span><span class="n">TARGET_SERVER</span> <span class="o">=</span> <span class="s2">&quot;http://images.example.com/&quot;</span>
 <span class="n">WEEDFS_FILER_ENDPOINT</span> <span class="o">=</span> <span class="s2">&quot;http://nginx/upload_images/&quot;</span>
 
-<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">Response</span>
 <span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">io</span>
 <span class="n">sess</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">session</span><span class="p">()</span>
 <span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
@@ -1648,7 +1649,7 @@ sudo chown -R nobody /data/weedfs
 <span class="k">def</span> <span class="nf">handler</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">TARGET_SERVER</span><span class="o">+</span><span class="n">name</span><span class="p">)</span>
     <span class="n">sess</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">WEEDFS_FILER_ENDPOINT</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;filename&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">content</span><span class="p">)))])</span>
-    <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">content</span>
+    <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="n">mimetype</span><span class="o">=</span><span class="s2">&quot;image/jpeg&quot;</span><span class="p">)</span> 
 </pre></div>
 
 

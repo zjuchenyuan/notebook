@@ -306,6 +306,7 @@ My notebook about technology, for lookup and share
 >* root与alias的区别
 >* 在bash on win10上使用Nginx
 >* Nginx允许列目录
+>* 安全地使用SeaweedFS作为图片反向代理服务器: 多上游切换，SeaweedFS Docker部署
 
 ## [PHP](PHP.md)
 >* 显示错误信息

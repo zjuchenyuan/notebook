@@ -402,14 +402,13 @@ sudo chown -R nobody /data/weedfs
 
 ### B服务器的实现
 
-
-
 ```
 TARGET_SERVER = "http://images.example.com/"
 WEEDFS_FILER_ENDPOINT = "http://nginx/upload_images/"
 
-from flask import Flask
+from flask import Flask, Response
 import requests
+import io
 sess = requests.session()
 app = Flask(__name__)
 
@@ -417,7 +416,7 @@ app = Flask(__name__)
 def handler(name):
     x = sess.get(TARGET_SERVER+name)
     sess.post(WEEDFS_FILER_ENDPOINT, files=[('filename', (name, io.BytesIO(x.content)))])
-    return x.content
+    return Response(x.content, mimetype="image/jpeg") 
 ```
 
 #### 顺便附上Python库pyseaweed的使用
