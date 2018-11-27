@@ -285,3 +285,155 @@ location / {
     autoindex_exact_size off;
 }
 ```
+
+----
+
+## 安全地使用SeaweedFS作为图片反向代理服务器
+
+想基于seaweedfs实现一个反向代理的缓存服务器，Nginx先请求A服务器(weedfs filer)，如果还没有存下这张图片(返回404)，切至B服务器(Python flask)去爬取图片并传至weedfs存储
+
+seaweedfs的filer提供了按自己指定的路径上传下载功能（对象存储），就不需要再自己考虑怎么存储path与fid的对应关系了，直接按爬取源的路径存储即可
+
+实现：
+
+### Nginx配置
+
+#### 在http段中添加upstream
+
+注意把B服务器设置为backup 不要参与默认负载均衡
+
+```
+upstream up {
+        server weedfs:8888;
+        server 127.0.0.1:80 backup;
+}
+```
+
+#### server段配置
+
+我希望访问`/images/hhh.jpg`实际访问`http://weedfs:8888/my_images/hhh.jpg`
+
+关键就是`proxy_next_upstream`
+
+```
+location /images/ {
+        rewrite ^/images(/.*)$ /my_images$1 break;
+        proxy_pass http://up;
+        proxy_next_upstream http_404;
+        proxy_hide_header Content-Type;
+        add_header Content-Type image/jpeg;
+        limit_except GET {
+                deny all;
+        }
+}
+```
+
+在seaweedfs返回404的时候会继续请求`http://127.0.0.1/my_images/hhh.jpg`
+
+这种rewrite是不会修改POST的url的。。。就很迷，另外允许用户POST上传也是不安全的，这里就直接禁止了非GET方法
+
+#### 修改后端特定header
+
+这里用的是先删除`proxy_hide_header`再添加`add_header`
+
+#### 我还是想让nginx也能支持给seaweedfs上传文件
+
+不要死磕一个location嘛，再配置个呗：
+
+```
+location /upload_images/ {
+        rewrite ^/upload_images(/.*)$ $1 break;
+        resolver 127.0.0.11 valid=10s;
+        proxy_pass http://weedfs:8888/my_images$1;
+        allow 127.0.0.0/8;
+        deny all;
+}
+```
+
+这样配置的效果是POST `/upload_images/`相当于在POST `http://weedfs:8888/my_images/`
+
+与前述的GET配置是相同的后端路径，上传的文件（如`/123.jpg`）就传到了weedfs的`http://weedfs:8888/my_images/123.jpg`能通过`/images/123.jpg`访问到
+
+#### 配置proxy_pass使用的DNS服务器
+
+由于这个nginx是在Docker容器里面的，weedfs是另一个容器加入网络的时候指定的别名，所以注意上面的resolver设置为与容器/etc/resolv.conf一致的`127.0.0.11`
+
+经过我测试，这个配置必须在location中才有效，放到http里面没用
+
+### Docker 我使用的seaweedfs启动命令
+
+#### 编译镜像 避免丢失filer数据
+
+首先需要自己编译一个Docker镜像，默认的镜像会把filer的leveldb数据存储在根目录，删除容器就会丢失这部分数据
+
+参见：https://github.com/chrislusf/seaweedfs/blob/master/docker/
+
+`filer.toml`:
+```
+[leveldb]
+enabled = true
+dir = "/data/filer/"
+```
+
+`Dockerfile`:
+
+```
+FROM chrislusf/seaweedfs
+COPY filer.toml /etc/seaweedfs/filer.toml
+```
+
+#### 启动命令
+
+```
+docker run -dit --name weedfs --restart=always --user nobody -v /data/weedfs:/data myweed -log_dir=/data/logs/ server -dir /data -filer=true -filer.disableDirListing -volume.publicUrl=weedfs.py3.io
+
+docker network connect useweed weedfs --alias weedfs
+```
+
+建议在测试的时候不要用`-filer.disableDirListing`选项，可以列目录来看看到底上传到哪了：`curl  -H "Accept: application/json" "http://weedfs:8888/my_images/?pretty=y"`
+
+另外注意启动前创建文件夹和配置权限：（不要以为人家会给你创建目录）
+
+```
+mkdir -p /data/weedfs/logs/
+mkdir -p /data/weedfs/filer/
+sudo chown -R nobody /data/weedfs
+```
+
+### B服务器的实现
+
+
+
+```
+TARGET_SERVER = "http://images.example.com/"
+WEEDFS_FILER_ENDPOINT = "http://nginx/upload_images/"
+
+from flask import Flask
+import requests
+sess = requests.session()
+app = Flask(__name__)
+
+@app.route("/my_images/<name>")
+def handler(name):
+    x = sess.get(TARGET_SERVER+name)
+    sess.post(WEEDFS_FILER_ENDPOINT, files=[('filename', (name, io.BytesIO(x.content)))])
+    return x.content
+```
+
+#### 顺便附上Python库pyseaweed的使用
+
+pip install pyseaweed
+
+如果服务器启动的时候配置的`publicUrl`以`https://`开头，这个`pyseaweed`库是有问题的，需要手动修几处url构造的地方
+
+```
+publicurl = "http://localhost:8080/"
+
+from pyseaweed import WeedFS
+w = WeedFS("localhost", 9333, use_session=True)
+# 上传 也支持传入流
+fid = w.upload_file(filename)
+
+# 下载 得到对象字节
+data = w.conn._conn.get(publicurl+fid).content
+```
