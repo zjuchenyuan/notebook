@@ -1197,6 +1197,9 @@ request.args.get(&#39;x&#39;):       y
 
 
 <h2 id="apprunhttp11">让app.run启动的服务器使用HTTP/1.1<a class="headerlink" href="#apprunhttp11" title="Permanent link">&para;</a></h2>
+<p>就是这个问题： <a href="https://www.reddit.com/r/flask/comments/634i5u/make_flask_return_header_response_with_http11/">https://www.reddit.com/r/flask/comments/634i5u/make_flask_return_header_response_with_http11/</a></p>
+<p>人家认为Flask不支持，其实flask使用的是<code>werkzeug.serving</code>，最底层还是BaseHTTPRequestHandler，而这个是支持HTTP/1.1的，只是默认HTTP/1.0而已</p>
+<p>实际发送请求<code>HTTP/1.1 200 OK</code>是这个类的<code>send_response</code>函数，用到<code>protocol_version</code>这个属性，而这个属性是类的属性（不是在<strong>init</strong>函数赋值的），所以我们可以直接修改 之后创建的对象就会自动拥有新的值</p>
 <p>在调用之前添加以下几行即可</p>
 <div class="codehilite"><pre><span></span><span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">http.server</span> <span class="kn">import</span> <span class="n">BaseHTTPRequestHandler</span>
