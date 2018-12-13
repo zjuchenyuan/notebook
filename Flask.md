@@ -217,3 +217,15 @@ for i in range(MAX_TRIES):
     if all(status):
         break
 ```
+
+## 让app.run启动的服务器使用HTTP/1.1
+
+在调用之前添加以下几行即可
+
+```
+try:
+    from http.server import BaseHTTPRequestHandler
+except: #PY2
+    from BaseHTTPServer import BaseHTTPRequestHandler
+BaseHTTPRequestHandler.protocol_version = "HTTP/1.1"
+```

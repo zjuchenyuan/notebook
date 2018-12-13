@@ -158,6 +158,7 @@ My notebook about technology, for lookup and share
 >* request怎么拿到url的各个部分
 >* 遇到性能瓶颈做profiling看函数耗时
 >* lazyload 延迟加载耗时的初始化操作
+>* 让app.run启动的服务器使用HTTP/1.1
 
 ## [Git](Git.md)
 >* 立即使用

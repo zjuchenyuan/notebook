@@ -608,6 +608,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#apprunhttp11" title="让app.run启动的服务器使用HTTP/1.1" class="md-nav__link">
+    让app.run启动的服务器使用HTTP/1.1
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -964,6 +971,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#apprunhttp11" title="让app.run启动的服务器使用HTTP/1.1" class="md-nav__link">
+    让app.run启动的服务器使用HTTP/1.1
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1179,6 +1193,16 @@ request.args.get(&#39;x&#39;):       y
     <span class="n">status</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
     <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">status</span><span class="p">):</span>
         <span class="k">break</span>
+</pre></div>
+
+
+<h2 id="apprunhttp11">让app.run启动的服务器使用HTTP/1.1<a class="headerlink" href="#apprunhttp11" title="Permanent link">&para;</a></h2>
+<p>在调用之前添加以下几行即可</p>
+<div class="codehilite"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">http.server</span> <span class="kn">import</span> <span class="n">BaseHTTPRequestHandler</span>
+<span class="k">except</span><span class="p">:</span> <span class="c1">#PY2</span>
+    <span class="kn">from</span> <span class="nn">BaseHTTPServer</span> <span class="kn">import</span> <span class="n">BaseHTTPRequestHandler</span>
+<span class="n">BaseHTTPRequestHandler</span><span class="o">.</span><span class="n">protocol_version</span> <span class="o">=</span> <span class="s2">&quot;HTTP/1.1&quot;</span>
 </pre></div>
                 
                   
