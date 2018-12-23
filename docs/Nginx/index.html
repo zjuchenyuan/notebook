@@ -794,6 +794,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#proxy_pass" title="proxy_pass 动态代理" class="md-nav__link">
+    proxy_pass 动态代理
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1288,6 +1295,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#proxy_pass" title="proxy_pass 动态代理" class="md-nav__link">
+    proxy_pass 动态代理
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1665,6 +1679,21 @@ sudo chown -R nobody /data/weedfs
 
 <span class="c1"># 下载 得到对象字节</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">_conn</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">publicurl</span><span class="o">+</span><span class="n">fid</span><span class="p">)</span><span class="o">.</span><span class="n">content</span>
+</pre></div>
+
+
+<h2 id="proxy_pass">proxy_pass 动态代理<a class="headerlink" href="#proxy_pass" title="Permanent link">&para;</a></h2>
+<p>效果：访问<code>/www.example.com/</code> 反向代理到<code>http://www.example.com</code>，并支持一次跳转</p>
+<div class="codehilite"><pre><span></span><span class="nt">location</span> <span class="o">~</span> <span class="o">^/(.*)$</span> <span class="p">{</span>
+    <span class="err">proxy_pass</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="err">$</span><span class="mi">1</span><span class="p">;</span>
+    <span class="err">proxy_intercept_errors</span> <span class="err">on</span><span class="p">;</span>
+    <span class="err">error_page</span> <span class="err">301</span> <span class="err">302</span> <span class="err">307</span> <span class="err">=</span> <span class="err">@handle_redirect</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">location</span> <span class="p">@</span><span class="k">handle_redirect</span> <span class="p">{</span>
+    <span class="nt">set</span> <span class="o">$</span><span class="nt">saved_redirect_location</span> <span class="s1">&#39;$upstream_http_location&#39;</span><span class="o">;</span>
+    <span class="nt">proxy_pass</span> <span class="o">$</span><span class="nt">saved_redirect_location</span><span class="o">;</span>
+<span class="p">}</span>
 </pre></div>
                 
                   

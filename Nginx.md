@@ -436,3 +436,20 @@ fid = w.upload_file(filename)
 # 下载 得到对象字节
 data = w.conn._conn.get(publicurl+fid).content
 ```
+
+## proxy_pass 动态代理
+
+效果：访问`/www.example.com/` 反向代理到`http://www.example.com`，并支持一次跳转
+
+```
+location ~ ^/(.*)$ {
+	proxy_pass http://$1;
+	proxy_intercept_errors on;
+	error_page 301 302 307 = @handle_redirect;
+}
+
+location @handle_redirect {
+	set $saved_redirect_location '$upstream_http_location';
+	proxy_pass $saved_redirect_location;
+}
+```
