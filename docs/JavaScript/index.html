@@ -553,6 +553,81 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#javascriptdom-the-basics-of-dom-manipulation-in-vanilla-javascript" title="用原生Javascript操作DOM节点 The Basics of DOM Manipulation in Vanilla JavaScript" class="md-nav__link">
+    用原生Javascript操作DOM节点 The Basics of DOM Manipulation in Vanilla JavaScript
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="选择元素" class="md-nav__link">
+    选择元素
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class" title="修改class和属性" class="md-nav__link">
+    修改class和属性
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#css" title="修改CSS" class="md-nav__link">
+    修改CSS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dom" title="修改DOM" class="md-nav__link">
+    修改DOM
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="监听事件" class="md-nav__link">
+    监听事件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="阻止默认行为" class="md-nav__link">
+    阻止默认行为
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#event-delegation" title="Event delegation" class="md-nav__link">
+    Event delegation
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="动画" class="md-nav__link">
+    动画
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
     </ul>
@@ -1120,6 +1195,81 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#javascriptdom-the-basics-of-dom-manipulation-in-vanilla-javascript" title="用原生Javascript操作DOM节点 The Basics of DOM Manipulation in Vanilla JavaScript" class="md-nav__link">
+    用原生Javascript操作DOM节点 The Basics of DOM Manipulation in Vanilla JavaScript
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="选择元素" class="md-nav__link">
+    选择元素
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class" title="修改class和属性" class="md-nav__link">
+    修改class和属性
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#css" title="修改CSS" class="md-nav__link">
+    修改CSS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dom" title="修改DOM" class="md-nav__link">
+    修改DOM
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="监听事件" class="md-nav__link">
+    监听事件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="阻止默认行为" class="md-nav__link">
+    阻止默认行为
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#event-delegation" title="Event delegation" class="md-nav__link">
+    Event delegation
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="动画" class="md-nav__link">
+    动画
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
     </ul>
@@ -1372,6 +1522,119 @@ docker run --rm --volume=&quot;`pwd`:/app&quot; -w /app -it node:10 npm install 
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
+</pre></div>
+
+
+<hr />
+<h2 id="javascriptdom-the-basics-of-dom-manipulation-in-vanilla-javascript">用原生Javascript操作DOM节点 The Basics of DOM Manipulation in Vanilla JavaScript<a class="headerlink" href="#javascriptdom-the-basics-of-dom-manipulation-in-vanilla-javascript" title="Permanent link">&para;</a></h2>
+<p><a href="https://www.sitepoint.com/dom-manipulation-vanilla-javascript-no-jquery/">https://www.sitepoint.com/dom-manipulation-vanilla-javascript-no-jquery/</a></p>
+<h3 id="_3">选择元素<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>const myElement = document.querySelector(&#39;#foo &gt; div.bar&#39;)
+myElement.matches(&#39;div.bar&#39;) === true
+</pre></div>
+
+
+<p>注意querySelector是立即执行 而getElementsByTagName是取值的时候执行效率更高</p>
+<p>对元素列表遍历应该这么写：</p>
+<div class="codehilite"><pre><span></span>[].forEach.call(myElements, doSomethingWithEachElement)
+</pre></div>
+
+
+<p><code>myElement.children</code>,<code>myElement.firstElementChild</code> 只会有tag，而<code>myElement.childNodes</code>,<code>myElement.firstChild</code>会有文本节点</p>
+<p>如：<code>myElement.firstChild.nodeType === 3 // this would be a text node</code></p>
+<h3 id="class">修改class和属性<a class="headerlink" href="#class" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>myElement.classList.add(&#39;foo&#39;)
+myElement.classList.remove(&#39;bar&#39;)
+myElement.classList.toggle(&#39;baz&#39;)
+
+// Set multiple properties using Object.assign()
+Object.assign(myElement, {
+  value: &#39;foo&#39;,
+  id: &#39;bar&#39;
+})
+
+// Remove an attribute
+myElement.value = null
+</pre></div>
+
+
+<p>除了直接赋值，还有这些方法<code>.getAttibute(), .setAttribute() and .removeAttribute()</code> 但他们会直接修改HTML 导致重绘 只有没有对应属性的时候如<code>colspan</code>才应该这么干</p>
+<h3 id="css">修改CSS<a class="headerlink" href="#css" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>myElement.style.marginLeft = &#39;2em&#39;
+
+//获得计算出来的CSS属性
+getComputedStyle(myElement).getPropertyValue(&#39;margin-left&#39;)
+</pre></div>
+
+
+<h3 id="dom">修改DOM<a class="headerlink" href="#dom" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>const myNewElement = document.createElement(&#39;div&#39;)
+const myNewTextNode = document.createTextNode(&#39;some text&#39;)
+
+// Append element1 as the last child of element2
+element1.appendChild(element2)
+
+// Insert element2 as child of element 1, right before element3
+element1.insertBefore(element2, element3)
+
+// Create a clone
+const myElementClone = myElement.cloneNode()
+myParentElement.appendChild(myElementClone)
+
+// 删除一个节点
+myElement.parentNode.removeChild(myElement)
+</pre></div>
+
+
+<p>当需要把多个元素appendChild到一个已经在页面上的元素时，每次append都会重绘 这时候就应该用<code>DocumentFragment</code></p>
+<div class="codehilite"><pre><span></span>const fragment = document.createDocumentFragment()
+
+fragment.appendChild(text)
+fragment.appendChild(hr)
+myElement.appendChild(fragment)
+</pre></div>
+
+
+<h3 id="_4">监听事件<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>事件event里面有<code>target</code>指向谁触发的事件</p>
+<div class="codehilite"><pre><span></span>const myForm = document.forms[0]
+const myInputElements = myForm.querySelectorAll(&#39;input&#39;)
+
+Array.from(myInputElements).forEach(el =&gt; {
+  el.addEventListener(&#39;change&#39;, function (event) {
+    console.log(event.target.value)
+  })
+})
+</pre></div>
+
+
+<h3 id="_5">阻止默认行为<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p><code>.preventDefault()</code></p>
+<p><code>.stopPropagation()</code> 子节点click不会再冒泡触发父节点onclick</p>
+<h2 id="event-delegation">Event delegation<a class="headerlink" href="#event-delegation" title="Permanent link">&para;</a></h2>
+<p>对表单每个input修改时执行，直接对form添加change的事件 不需要对每个input添加，这样也自动支持动态新添加的input</p>
+<div class="codehilite"><pre><span></span>myForm.addEventListener(&#39;change&#39;, function (event) {
+  const target = event.target
+  if (target.matches(&#39;input&#39;)) {
+    console.log(target.value)
+  }
+})
+</pre></div>
+
+
+<h3 id="_6">动画<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>需要高性能时 不要用setTimeout 而使用<code>requestAnimationFrame</code></p>
+<div class="codehilite"><pre><span></span>const start = window.performance.now()
+const duration = 2000
+
+window.requestAnimationFrame(function fadeIn (now)) {
+  const progress = now - start
+  myElement.style.opacity = progress / duration
+
+  if (progress &lt; duration) {
+    window.requestAnimationFrame(fadeIn)
+  }
+}
 </pre></div>
                 
                   

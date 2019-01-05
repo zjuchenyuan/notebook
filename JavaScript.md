@@ -300,3 +300,138 @@ function implement_hashjump() {
     }
 }
 ```
+
+----
+
+## 用原生Javascript操作DOM节点 The Basics of DOM Manipulation in Vanilla JavaScript 
+
+https://www.sitepoint.com/dom-manipulation-vanilla-javascript-no-jquery/
+
+### 选择元素
+
+```
+const myElement = document.querySelector('#foo > div.bar')
+myElement.matches('div.bar') === true
+```
+注意querySelector是立即执行 而getElementsByTagName是取值的时候执行效率更高
+
+
+对元素列表遍历应该这么写：
+
+```
+[].forEach.call(myElements, doSomethingWithEachElement)
+```
+
+`myElement.children`,`myElement.firstElementChild` 只会有tag，而`myElement.childNodes`,`myElement.firstChild`会有文本节点
+
+如：`myElement.firstChild.nodeType === 3 // this would be a text node`
+
+### 修改class和属性
+
+```
+myElement.classList.add('foo')
+myElement.classList.remove('bar')
+myElement.classList.toggle('baz')
+
+// Set multiple properties using Object.assign()
+Object.assign(myElement, {
+  value: 'foo',
+  id: 'bar'
+})
+
+// Remove an attribute
+myElement.value = null
+```
+
+除了直接赋值，还有这些方法` .getAttibute(), .setAttribute() and .removeAttribute()` 但他们会直接修改HTML 导致重绘 只有没有对应属性的时候如`colspan`才应该这么干
+
+### 修改CSS
+
+```
+myElement.style.marginLeft = '2em'
+
+//获得计算出来的CSS属性
+getComputedStyle(myElement).getPropertyValue('margin-left')
+```
+
+### 修改DOM
+
+```
+const myNewElement = document.createElement('div')
+const myNewTextNode = document.createTextNode('some text')
+
+// Append element1 as the last child of element2
+element1.appendChild(element2)
+
+// Insert element2 as child of element 1, right before element3
+element1.insertBefore(element2, element3)
+
+// Create a clone
+const myElementClone = myElement.cloneNode()
+myParentElement.appendChild(myElementClone)
+
+// 删除一个节点
+myElement.parentNode.removeChild(myElement)
+```
+
+当需要把多个元素appendChild到一个已经在页面上的元素时，每次append都会重绘 这时候就应该用`DocumentFragment`
+
+```
+const fragment = document.createDocumentFragment()
+
+fragment.appendChild(text)
+fragment.appendChild(hr)
+myElement.appendChild(fragment)
+```
+
+### 监听事件
+
+事件event里面有`target`指向谁触发的事件
+
+```
+const myForm = document.forms[0]
+const myInputElements = myForm.querySelectorAll('input')
+
+Array.from(myInputElements).forEach(el => {
+  el.addEventListener('change', function (event) {
+    console.log(event.target.value)
+  })
+})
+```
+
+### 阻止默认行为
+
+`.preventDefault()`
+
+`.stopPropagation()` 子节点click不会再冒泡触发父节点onclick
+
+## Event delegation
+
+对表单每个input修改时执行，直接对form添加change的事件 不需要对每个input添加，这样也自动支持动态新添加的input
+
+```
+myForm.addEventListener('change', function (event) {
+  const target = event.target
+  if (target.matches('input')) {
+    console.log(target.value)
+  }
+})
+```
+
+### 动画
+
+需要高性能时 不要用setTimeout 而使用`requestAnimationFrame`
+
+```
+const start = window.performance.now()
+const duration = 2000
+
+window.requestAnimationFrame(function fadeIn (now)) {
+  const progress = now - start
+  myElement.style.opacity = progress / duration
+
+  if (progress < duration) {
+    window.requestAnimationFrame(fadeIn)
+  }
+}
+```
