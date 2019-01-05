@@ -628,6 +628,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#src" title="劫持动态图片加载 修改src属性" class="md-nav__link">
+    劫持动态图片加载 修改src属性
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ajaxfetch" title="劫持Ajax和fetch" class="md-nav__link">
+    劫持Ajax和fetch
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1270,6 +1284,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#src" title="劫持动态图片加载 修改src属性" class="md-nav__link">
+    劫持动态图片加载 修改src属性
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ajaxfetch" title="劫持Ajax和fetch" class="md-nav__link">
+    劫持Ajax和fetch
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1636,6 +1664,38 @@ window.requestAnimationFrame(function fadeIn (now)) {
   }
 }
 </pre></div>
+
+
+<hr />
+<h2 id="src">劫持动态图片加载 修改src属性<a class="headerlink" href="#src" title="Permanent link">&para;</a></h2>
+<p>React网站应用底层用的是createElement方法（svg等对象用createElementNS），可以通过劫持document所属类原型的createElement方法来实现图片路径重定向</p>
+<p>但是没有考虑使用innerHTML直接赋值的操作，如果目标站点确实用了这种技术，大不了再加个定时器遍历即可</p>
+<div class="codehilite"><pre><span></span><span class="nt">var</span> <span class="nt">dc</span> <span class="o">=</span> <span class="nt">HTMLDocument</span><span class="p">.</span><span class="nc">prototype</span><span class="p">.</span><span class="nc">createElement</span><span class="o">;</span>
+<span class="nt">HTMLDocument</span><span class="p">.</span><span class="nc">prototype</span><span class="p">.</span><span class="nc">createElement</span> <span class="o">=</span> <span class="nt">function</span> <span class="o">(</span><span class="nt">tag</span><span class="o">,</span> <span class="nt">options</span><span class="o">)</span> <span class="p">{</span>
+  <span class="err">var</span> <span class="err">r</span> <span class="err">=</span> <span class="err">dc.call(document,</span> <span class="err">tag,</span> <span class="err">options)</span><span class="p">;</span>
+  <span class="err">if(tag==&quot;img&quot;||tag==&#39;a&#39;)</span> <span class="err">{</span>
+      <span class="err">var</span> <span class="err">x=r.setAttribute</span><span class="p">;</span>
+      <span class="err">r.setAttribute=function(a,b){</span>
+          <span class="err">if(a==&quot;src&quot;||a==&quot;href&quot;){</span>
+              <span class="err">if(b</span><span class="cp">[</span><span class="mi">0</span><span class="cp">]</span><span class="err">==&quot;/&quot;)</span> <span class="err">b=b.replace(&quot;/&quot;,</span> <span class="err">window.ROOT)</span><span class="p">;</span>
+              <span class="err">else{</span>
+                  <span class="err">b</span> <span class="err">=</span> <span class="err">b.replace(&quot;</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="s2">&quot;,&quot;</span><span class="o">/</span><span class="n">web</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="n">http</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="s2">&quot;);</span>
+<span class="s2">                  b = b.replace(&quot;</span><span class="n">https</span><span class="o">://</span><span class="s2">&quot;,&quot;</span><span class="o">/</span><span class="n">web</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="n">https</span><span class="o">/</span><span class="mi">0</span><span class="o">/</span><span class="err">&quot;</span><span class="p">);</span>
+              <span class="p">}</span>
+          <span class="err">}</span>
+          <span class="nt">return</span> <span class="nt">x</span><span class="p">.</span><span class="nc">call</span><span class="o">(</span><span class="nt">r</span><span class="o">,</span><span class="nt">a</span><span class="o">,</span><span class="nt">b</span><span class="o">);</span>
+      <span class="err">}</span>
+  <span class="err">}</span>
+  <span class="nt">return</span> <span class="nt">r</span><span class="o">;</span>
+<span class="err">}</span>
+</pre></div>
+
+
+<p>上述代码会将/开头的src和href属性的第一个/替换为window.ROOT</p>
+<h2 id="ajaxfetch">劫持Ajax和fetch<a class="headerlink" href="#ajaxfetch" title="Permanent link">&para;</a></h2>
+<p>需要将fetch使用xhr实现，然后Hook Ajax即可</p>
+<p>参见完整的RVPN劫持代码 <a href="../code/jshook_preload.js">jshook_preload.js</a></p>
+<p>背景知识参见：RVPN网页版介绍 <a href="https://www.cc98.org/topic/4816921/">https://www.cc98.org/topic/4816921/</a></p>
                 
                   
                 

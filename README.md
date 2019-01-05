@@ -200,6 +200,8 @@ My notebook about technology, for lookup and share
 >* history.replaceState修改历史记录
 >* 记住一个checkbox的状态
 >* 使用InstantClick踩坑
+>* 用原生Javascript操作DOM节点
+>* 劫持动态图片加载 修改src属性
 
 ## [Jekyll](Jekyll.md)
 >* 碰到过的坑

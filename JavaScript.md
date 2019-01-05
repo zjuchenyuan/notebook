@@ -435,3 +435,42 @@ window.requestAnimationFrame(function fadeIn (now)) {
   }
 }
 ```
+
+----
+
+## 劫持动态图片加载 修改src属性
+
+React网站应用底层用的是createElement方法（svg等对象用createElementNS），可以通过劫持document所属类原型的createElement方法来实现图片路径重定向
+
+但是没有考虑使用innerHTML直接赋值的操作，如果目标站点确实用了这种技术，大不了再加个定时器遍历即可
+
+```
+var dc = HTMLDocument.prototype.createElement;
+HTMLDocument.prototype.createElement = function (tag, options) {
+  var r = dc.call(document, tag, options);
+  if(tag=="img"||tag=='a') {
+      var x=r.setAttribute;
+      r.setAttribute=function(a,b){
+          if(a=="src"||a=="href"){
+              if(b[0]=="/") b=b.replace("/", window.ROOT);
+              else{
+                  b = b.replace("http://","/web/0/http/0/");
+                  b = b.replace("https://","/web/0/https/0/");
+              }
+          }
+          return x.call(r,a,b);
+      }
+  }
+  return r;
+}
+```
+
+上述代码会将/开头的src和href属性的第一个/替换为window.ROOT
+
+## 劫持Ajax和fetch
+
+需要将fetch使用xhr实现，然后Hook Ajax即可
+
+参见完整的RVPN劫持代码 [jshook_preload.js](code/jshook_preload.js)
+
+背景知识参见：RVPN网页版介绍 https://www.cc98.org/topic/4816921/
