@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name                show tip on cc98.org
-// @version        0.4.1
+// @version        0.4.2
 // @author chenyuan
 // @namespace	        cc98.tech
 // @description	        show tip on cc98.org recent page, by requesting cc98.tech
 // @include		https://www.cc98.org/*
+// @include		http://www.cc98.org/*
 // @connect cc98.tech
 // @grant        GM_xmlhttpRequest
 // @grant GM_addStyle
