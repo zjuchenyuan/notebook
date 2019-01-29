@@ -642,6 +642,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#ajax" title="多个Ajax请求等待全部完成" class="md-nav__link">
+    多个Ajax请求等待全部完成
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1298,6 +1305,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#ajax" title="多个Ajax请求等待全部完成" class="md-nav__link">
+    多个Ajax请求等待全部完成
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1696,6 +1710,25 @@ window.requestAnimationFrame(function fadeIn (now)) {
 <p>需要将fetch使用xhr实现，然后Hook Ajax即可</p>
 <p>参见完整的RVPN劫持代码 <a href="../code/jshook_preload.js">jshook_preload.js</a></p>
 <p>背景知识参见：RVPN网页版介绍 <a href="https://www.cc98.org/topic/4816921/">https://www.cc98.org/topic/4816921/</a></p>
+<hr />
+<h2 id="ajax">多个Ajax请求等待全部完成<a class="headerlink" href="#ajax" title="Permanent link">&para;</a></h2>
+<p>方法就是把jQuery的ajax函数返回值放到数组里面，然后用<code>$.when.apply(null, 数组).done</code>即可</p>
+<p>实例：CC98发米机</p>
+<div class="codehilite"><pre><span></span><span class="kd">function</span> <span class="nx">apiget</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">callback</span><span class="p">){</span>
+    <span class="k">return</span> <span class="nx">$</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;/98api_cache/&quot;</span><span class="o">+</span><span class="nx">url</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="s2">&quot;json&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">async_request</span><span class="o">=</span><span class="p">[</span><span class="nx">check_permission</span><span class="p">(</span><span class="nx">topic</span><span class="p">.</span><span class="nx">boardId</span><span class="p">)];</span>
+<span class="kd">var</span> <span class="nx">i</span><span class="p">;</span>
+<span class="k">for</span><span class="p">(</span><span class="nx">i</span><span class="o">=</span><span class="nx">from_</span><span class="p">;</span> <span class="nx">i</span><span class="o">&gt;=</span><span class="nx">from_</span><span class="o">-</span><span class="mi">80</span><span class="p">;</span><span class="nx">i</span><span class="o">-=</span><span class="mi">20</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">i</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
+    <span class="nx">async_request</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">apiget</span><span class="p">(</span><span class="s2">&quot;Topic/&quot;</span><span class="o">+</span><span class="nx">topicid</span><span class="o">+</span><span class="s2">&quot;/post?from=&quot;</span><span class="o">+</span><span class="nx">i</span><span class="o">+</span><span class="s2">&quot;&amp;size=20&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span>
+        <span class="nx">lastfloors</span><span class="p">.</span><span class="nx">push</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">lastfloors</span><span class="p">,</span><span class="nx">data</span><span class="p">);</span>
+    <span class="p">}))</span>
+<span class="p">}</span>
+
+<span class="nx">$</span><span class="p">.</span><span class="nx">when</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">async_request</span><span class="p">).</span><span class="nx">done</span><span class="p">(</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;all done&quot;</span><span class="p">)}</span> <span class="p">)</span>
+</pre></div>
                 
                   
                 

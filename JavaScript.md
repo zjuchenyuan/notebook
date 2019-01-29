@@ -474,3 +474,29 @@ HTMLDocument.prototype.createElement = function (tag, options) {
 参见完整的RVPN劫持代码 [jshook_preload.js](code/jshook_preload.js)
 
 背景知识参见：RVPN网页版介绍 https://www.cc98.org/topic/4816921/
+
+----
+
+## 多个Ajax请求等待全部完成
+
+方法就是把jQuery的ajax函数返回值放到数组里面，然后用`$.when.apply(null, 数组).done`即可
+
+
+实例：CC98发米机
+
+```
+function apiget(url, callback){
+    return $.get("/98api_cache/"+url, null, callback, "json");
+}
+
+var async_request=[check_permission(topic.boardId)];
+var i;
+for(i=from_; i>=from_-80;i-=20){
+    if(i<0) break;
+    async_request.push(apiget("Topic/"+topicid+"/post?from="+i+"&size=20", function(data){
+        lastfloors.push.apply(lastfloors,data);
+    }))
+}
+
+$.when.apply(null, async_request).done( function(){ alert("all done")} )
+```
