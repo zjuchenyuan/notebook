@@ -453,3 +453,19 @@ location @handle_redirect {
 	proxy_pass $saved_redirect_location;
 }
 ```
+
+---
+
+## Nginx隐藏Server头 简单方式
+
+参考： https://serverfault.com/questions/214242/can-i-hide-all-server-os-info
+
+```
+apt install -y nginx-extras
+```
+
+配置中添加：
+
+```
+header_filter_by_lua 'ngx.header["server"] = nil';
+```

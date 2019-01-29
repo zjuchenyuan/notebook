@@ -801,6 +801,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#nginxserver" title="Nginx隐藏Server头 简单方式" class="md-nav__link">
+    Nginx隐藏Server头 简单方式
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1302,6 +1309,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#nginxserver" title="Nginx隐藏Server头 简单方式" class="md-nav__link">
+    Nginx隐藏Server头 简单方式
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1694,6 +1708,18 @@ sudo chown -R nobody /data/weedfs
     <span class="nt">set</span> <span class="o">$</span><span class="nt">saved_redirect_location</span> <span class="s1">&#39;$upstream_http_location&#39;</span><span class="o">;</span>
     <span class="nt">proxy_pass</span> <span class="o">$</span><span class="nt">saved_redirect_location</span><span class="o">;</span>
 <span class="p">}</span>
+</pre></div>
+
+
+<hr />
+<h2 id="nginxserver">Nginx隐藏Server头 简单方式<a class="headerlink" href="#nginxserver" title="Permanent link">&para;</a></h2>
+<p>参考： <a href="https://serverfault.com/questions/214242/can-i-hide-all-server-os-info">https://serverfault.com/questions/214242/can-i-hide-all-server-os-info</a></p>
+<div class="codehilite"><pre><span></span>apt install -y nginx-extras
+</pre></div>
+
+
+<p>配置中添加：</p>
+<div class="codehilite"><pre><span></span>header_filter_by_lua &#39;ngx.header[&quot;server&quot;] = nil&#39;;
 </pre></div>
                 
                   
