@@ -804,6 +804,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#powershell" title="命令行开关蓝牙 powershell" class="md-nav__link">
+    命令行开关蓝牙 powershell
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1116,6 +1123,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#powershell" title="命令行开关蓝牙 powershell" class="md-nav__link">
+    命令行开关蓝牙 powershell
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1210,6 +1224,39 @@
 <p>无需关机，无需移动硬盘将物理机转为虚拟机镜像</p>
 <p>基于Windows的卷影复制功能</p>
 <p><a href="http://www.softpedia.com/get/System/System-Miscellaneous/VMware-Converter.shtml">http://www.softpedia.com/get/System/System-Miscellaneous/VMware-Converter.shtml</a></p>
+<hr />
+<h2 id="powershell">命令行开关蓝牙 powershell<a class="headerlink" href="#powershell" title="Permanent link">&para;</a></h2>
+<p>参考： <a href="https://blog.netspi.com/15-ways-to-bypass-the-powershell-execution-policy/https://superuser.com/questions/1168551/turn-on-off-bluetooth-radio-adapter-from-cmd-powershell-in-windows-10">https://blog.netspi.com/15-ways-to-bypass-the-powershell-execution-policy/https://superuser.com/questions/1168551/turn-on-off-bluetooth-radio-adapter-from-cmd-powershell-in-windows-10</a></p>
+<p>绕过powershell执行安全策略参考： <a href="https://blog.netspi.com/15-ways-to-bypass-the-powershell-execution-policy/">https://blog.netspi.com/15-ways-to-bypass-the-powershell-execution-policy/</a></p>
+<p>将这个保存为b.ps1</p>
+<div class="codehilite"><pre><span></span>[CmdletBinding()] Param (
+    [Parameter(Mandatory=$true)][ValidateSet(&#39;Off&#39;, &#39;On&#39;)][string]$BluetoothStatus
+)
+If ((Get-Service bthserv).Status -eq &#39;Stopped&#39;) { Start-Service bthserv }
+Add-Type -AssemblyName System.Runtime.WindowsRuntime
+$asTaskGeneric = ([System.WindowsRuntimeSystemExtensions].GetMethods() | ? { $_.Name -eq &#39;AsTask&#39; -and $_.GetParameters().Count -eq 1 -and $_.GetParameters()[0].ParameterType.Name -eq &#39;IAsyncOperation`1&#39; })[0]
+Function Await($WinRtTask, $ResultType) {
+    $asTask = $asTaskGeneric.MakeGenericMethod($ResultType)
+    $netTask = $asTask.Invoke($null, @($WinRtTask))
+    $netTask.Wait(-1) | Out-Null
+    $netTask.Result
+}
+[Windows.Devices.Radios.Radio,Windows.System.Devices,ContentType=WindowsRuntime] | Out-Null
+[Windows.Devices.Radios.RadioAccessStatus,Windows.System.Devices,ContentType=WindowsRuntime] | Out-Null
+Await ([Windows.Devices.Radios.Radio]::RequestAccessAsync()) ([Windows.Devices.Radios.RadioAccessStatus]) | Out-Null
+$radios = Await ([Windows.Devices.Radios.Radio]::GetRadiosAsync()) ([System.Collections.Generic.IReadOnlyList[Windows.Devices.Radios.Radio]])
+$bluetooth = $radios | ? { $_.Kind -eq &#39;Bluetooth&#39; }
+[Windows.Devices.Radios.RadioState,Windows.System.Devices,ContentType=WindowsRuntime] | Out-Null
+Await ($bluetooth.SetStateAsync($BluetoothStatus)) ([Windows.Devices.Radios.RadioAccessStatus]) | Out-Null
+</pre></div>
+
+
+<p>开启蓝牙：</p>
+<div class="codehilite"><pre><span></span>powershell -ExecutionPolicy Bypass -File ./b.ps1 -BluetoothStatus On
+</pre></div>
+
+
+<p>关闭就是Off</p>
                 
                   
                 
