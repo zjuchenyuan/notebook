@@ -139,6 +139,13 @@ request.args:                ImmutableMultiDict([('x', 'y')])
 request.args.get('x'):       y
 ```
 
+## request其他的部分
+
+```
+request.get_data()    POST内容 bytes类型
+request.endpoint      处理这个请求的函数名称
+```
+
 ----
 
 ## 遇到性能瓶颈做profiling看函数耗时

@@ -649,6 +649,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_7" title="等待图片加载完成后 缩小过大的图片" class="md-nav__link">
+    等待图片加载完成后 缩小过大的图片
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1312,6 +1319,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_7" title="等待图片加载完成后 缩小过大的图片" class="md-nav__link">
+    等待图片加载完成后 缩小过大的图片
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1728,6 +1742,26 @@ window.requestAnimationFrame(function fadeIn (now)) {
 <span class="p">}</span>
 
 <span class="nx">$</span><span class="p">.</span><span class="nx">when</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">async_request</span><span class="p">).</span><span class="nx">done</span><span class="p">(</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;all done&quot;</span><span class="p">)}</span> <span class="p">)</span>
+</pre></div>
+
+
+<h2 id="_7">等待图片加载完成后 缩小过大的图片<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>首先等待DOM节点就绪，找到所有的img，等待图片加载完成后判断图片高度是否大于窗口高度的80%，如果太长就设置<code>max-width:80vh</code>，可点击展开，再次点击则折叠并跳至图片开始的地方</p>
+<div class="codehilite"><pre><span></span><span class="sx">!function(a){&quot;function&quot;==typeof define&amp;&amp;define.amd?define([&quot;jquery&quot;],a):&quot;object&quot;==typeof exports?module.exports=a(require(&quot;jquery&quot;)):a(jQuery)}(function(a){var b=&quot;waitForImages&quot;,c=function(a){return a.srcset&amp;&amp;a.sizes}(new Image);a.waitForImages={hasImageProperties:[&quot;backgroundImage&quot;,&quot;listStyleImage&quot;,&quot;borderImage&quot;,&quot;borderCornerImage&quot;,&quot;cursor&quot;],hasImageAttributes:[&quot;srcset&quot;]},a.expr.pseudos[&quot;has-src&quot;]=function(b){return a(b).is(&#39;img[src][src!=&quot;&quot;]&#39;)},a.expr.pseudos.uncached=function(b){return!!a(b).is(&quot;:has-src&quot;)&amp;&amp;!b.complete},a.fn.waitForImages=function(){var d,e,f,g=0,h=0,i=a.Deferred(),j=this,k=[],l=a.waitForImages.hasImageProperties||[],m=a.waitForImages.hasImageAttributes||[],n=/url\(\s*([&#39;&quot;]?)(.*?)\1\s*\)/g;if(a.isPlainObject(arguments[0])?(f=arguments[0].waitForAll,e=arguments[0].each,d=arguments[0].finished):1===arguments.length&amp;&amp;&quot;boolean&quot;===a.type(arguments[0])?f=arguments[0]:(d=arguments[0],e=arguments[1],f=arguments[2]),d=d||a.noop,e=e||a.noop,f=!!f,!a.isFunction(d)||!a.isFunction(e))throw new TypeError(&quot;An invalid callback was supplied.&quot;);return this.each(function(){var b=a(this);f?b.find(&quot;*&quot;).addBack().each(function(){var b=a(this);b.is(&quot;img:has-src&quot;)&amp;&amp;!b.is(&quot;[srcset]&quot;)&amp;&amp;k.push({src:b.attr(&quot;src&quot;),element:b[0]}),a.each(l,function(a,c){var d,e=b.css(c);if(!e)return!0;for(;d=n.exec(e);)k.push({src:d[2],element:b[0]})}),a.each(m,function(a,c){var d=b.attr(c);return!d||void k.push({src:b.attr(&quot;src&quot;),srcset:b.attr(&quot;srcset&quot;),element:b[0]})})}):b.find(&quot;img:has-src&quot;).each(function(){k.push({src:this.src,element:this})})}),g=k.length,h=0,0===g&amp;&amp;(d.call(j),i.resolveWith(j)),a.each(k,function(f,k){var l=new Image,m=&quot;load.&quot;+b+&quot; error.&quot;+b;a(l).one(m,function b(c){var f=[h,g,&quot;load&quot;==c.type];if(h++,e.apply(k.element,f),i.notifyWith(k.element,f),a(this).off(m,b),h==g)return d.call(j[0]),i.resolveWith(j[0]),!1}),c&amp;&amp;k.srcset&amp;&amp;(l.srcset=k.srcset,l.sizes=k.sizes),l.src=k.src}),i.promise()}});</span>
+
+$<span class="p">(</span><span class="k">function</span><span class="p">(){</span>$<span class="p">(</span>&quot;<span class="n">img</span>&quot;<span class="p">).</span><span class="n">waitForImages</span><span class="p">(</span><span class="k">function</span><span class="p">(){</span> 
+    <span class="p">(</span> $<span class="p">(</span>&quot;<span class="n">img</span>&quot;<span class="p">).</span><span class="n">filter</span><span class="p">(</span><span class="k">function</span><span class="p">(){</span><span class="k">return</span> $<span class="p">(</span><span class="n">this</span><span class="p">).</span><span class="n">height</span><span class="p">()</span><span class="o">&gt;</span><span class="n">document</span><span class="p">.</span><span class="n">documentElement</span><span class="p">.</span><span class="n">clientHeight</span> <span class="o">*</span> <span class="mf">0.8</span><span class="p">})</span> <span class="p">)</span>
+    <span class="p">.</span><span class="n">css</span><span class="p">(</span>&quot;<span class="n">max</span><span class="o">-</span><span class="n">height</span>&quot;<span class="p">,</span>&quot;<span class="mi">80</span><span class="n">vh</span>&quot;<span class="p">)</span>
+    <span class="p">.</span><span class="n">css</span><span class="p">(</span>&quot;<span class="n">cursor</span>&quot;<span class="p">,</span>&quot;<span class="n">pointer</span>&quot;<span class="p">)</span>
+    <span class="p">.</span><span class="n">on</span><span class="p">(</span>&quot;<span class="n">click</span>&quot;<span class="p">,</span> <span class="k">function</span><span class="p">(){</span>
+        <span class="k">if</span><span class="p">(</span>$<span class="p">(</span><span class="n">this</span><span class="p">).</span><span class="n">css</span><span class="p">(</span>&quot;<span class="n">max</span><span class="o">-</span><span class="n">height</span>&quot;<span class="p">)</span>!<span class="p">=</span>&quot;<span class="mi">100</span><span class="c">%&quot;){</span>
+            $<span class="p">(</span><span class="n">this</span><span class="p">).</span><span class="n">css</span><span class="p">(</span>&quot;<span class="n">max</span><span class="o">-</span><span class="n">height</span>&quot;<span class="p">,</span>&quot;<span class="mi">100</span><span class="c">%&quot;); </span>
+        <span class="p">}</span><span class="k">else</span> <span class="p">{</span>
+            $<span class="p">(</span><span class="n">this</span><span class="p">).</span><span class="n">css</span><span class="p">(</span>&quot;<span class="n">max</span><span class="o">-</span><span class="n">height</span>&quot;<span class="p">,</span>&quot;<span class="mi">80</span><span class="n">vh</span>&quot;<span class="p">);</span>
+            $<span class="p">(</span>&quot;<span class="n">html</span><span class="p">,</span><span class="n">body</span>&quot;<span class="p">).</span><span class="n">animate</span><span class="p">({</span><span class="n">scrollTop</span><span class="p">:</span>$<span class="p">(</span><span class="n">this</span><span class="p">).</span><span class="n">position</span><span class="p">().</span><span class="n">top</span><span class="p">},</span>&quot;<span class="n">fast</span>&quot;<span class="p">)</span> 
+        <span class="p">}</span>
+    <span class="p">});</span>  
+<span class="p">})});</span>
 </pre></div>
                 
                   
