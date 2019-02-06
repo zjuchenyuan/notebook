@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ZJU研究生选课助手
 // @namespace    http://grs.zju.edu.cn
-// @version      0.5.0
+// @version      0.5.1
 // @description  在“全校开课情况查询”页面可以进入选课；整合查老师分数与评论显示；支持只显示特定校区课程；登录页面验证码自动识别
 // @author       zjuchenyuan
 // @match        http://grs.zju.edu.cn/*
@@ -155,17 +155,33 @@ function test_chalaoshi(){
 var CONFIG_CAPTCHA = {
     "ENDPOINT": "https://api.py3.io/ocr",
     "IMG_SELECTOR": "#yzmImg",
-    "CAPTCHA_INPUT": "#authcode"
+    "CAPTCHA_INPUT": "#authcode",
+    "ALLOW_RETRY": 3,
 }
 
 function getBase64Image(img) {
     var canvas = document.createElement("canvas");
-    canvas.width = img.width;
-    canvas.height = img.height;
+    canvas.width = img.naturalWidth;
+    canvas.height = img.naturalHeight;
     var ctx = canvas.getContext("2d");
     ctx.drawImage(img, 0, 0);
     var dataURL = canvas.toDataURL("image/png");
     return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+}
+
+function logimage(url){
+  var image = new Image();
+  image.onload = function() {
+    var style = [
+      'font-size: 1px;',
+      'line-height: ' + this.height + 'px;',
+      'padding: ' + this.height * .5 + 'px ' + this.width * .5 + 'px;',
+      'background-size: ' + this.width + 'px ' + this.height + 'px;',
+      'background: url('+ url +');'
+     ].join(' ');
+     console.log('%c ', style);
+  };
+  image.src = url;
 }
 
 function work(img){
@@ -178,11 +194,15 @@ function work(img){
         responseType:"json",
         onload: function (response) {
             var data = JSON.parse(response.responseText);
-            console.log("captcha recognize confidence:",data[1]);
+            logimage("data:image/png;base64,"+postdata);
+            console.log("captcha recognize:",data);
             if(data[0].length==4 && data[1][0]>40){
                 document.querySelector(CONFIG_CAPTCHA["CAPTCHA_INPUT"]).value= data[0];
             }else{
-                img.click();
+                if(CONFIG_CAPTCHA.ALLOW_RETRY>0){
+                    img.click();
+                    CONFIG_CAPTCHA.ALLOW_RETRY --;
+                }
             }
         }});
 }
