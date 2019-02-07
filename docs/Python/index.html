@@ -776,6 +776,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#pythonwindows-chromecookie" title="Python获取Windows Chrome的Cookie" class="md-nav__link">
+    Python获取Windows Chrome的Cookie
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1828,6 +1835,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#pythonwindows-chromecookie" title="Python获取Windows Chrome的Cookie" class="md-nav__link">
+    Python获取Windows Chrome的Cookie
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -2856,6 +2870,28 @@ pip install gmpy2
 <p>你也可以用管理员权限的cmd来做修改：</p>
 <p>先查询.py的文件类型：<code>assoc .py</code>查到<code>.py=Python.File</code></p>
 <p>然后查一下当前的运行命令：<code>ftype Python.File</code> 然后用<code>ftype Python.File="C:\Python37\python.exe" "%1" %*</code>修改即可</p>
+<hr />
+<h2 id="pythonwindows-chromecookie">Python获取Windows Chrome的Cookie<a class="headerlink" href="#pythonwindows-chromecookie" title="Permanent link">&para;</a></h2>
+<p><a href="http://参考：https://github.com">参考：https://github.com</a>/cheezone/ZhihuVAPI/blob/34ef5881f83da0026119e3167ebe727619774c7b/ZhihuVAPI/util/Session.py#L18</p>
+<p>Chrome的cookie用sqlite数据库存储，用WinAPI加密，当前用户任何程序都可以调用解密API来获取cookie</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">sqlite3</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">win32.win32crypt</span> <span class="kn">import</span> <span class="n">CryptUnprotectData</span>
+
+<span class="k">def</span> <span class="nf">getcookie</span><span class="p">(</span><span class="n">host</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">cookiepath</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;LOCALAPPDATA&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;\*\*\User Data\Default\Cookies&quot;</span><span class="p">)</span><span class="o">+</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;LOCALAPPDATA&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;\*\User Data\Default\Cookies&quot;</span><span class="p">):</span>
+        <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;select host_key,name,encrypted_value from cookies where host_key=&#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="n">host</span>
+        <span class="k">with</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">cookiepath</span><span class="p">)</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
+            <span class="n">cu</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">cookies</span> <span class="o">=</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">CryptUnprotectData</span><span class="p">(</span><span class="n">encrypted_value</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span> <span class="k">for</span> <span class="n">host_key</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">encrypted_value</span> <span class="ow">in</span> <span class="n">cu</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()}</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">k</span><span class="o">+</span><span class="s2">&quot;=&quot;</span><span class="o">+</span><span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">cookies</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
+    <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+
+
+<p>调用如<code>getcookie(".zhihu.com")</code></p>
                 
                   
                 

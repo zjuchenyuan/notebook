@@ -1293,3 +1293,31 @@ HKEY_CLASSES_ROOT\Python.File\Shell\open\command
 先查询.py的文件类型：`assoc .py`查到`.py=Python.File`
 
 然后查一下当前的运行命令：`ftype Python.File` 然后用`ftype Python.File="C:\Python37\python.exe" "%1" %*`修改即可
+
+----
+
+## Python获取Windows Chrome的Cookie
+
+参考：https://github.com/cheezone/ZhihuVAPI/blob/34ef5881f83da0026119e3167ebe727619774c7b/ZhihuVAPI/util/Session.py#L18
+
+Chrome的cookie用sqlite数据库存储，用WinAPI加密，当前用户任何程序都可以调用解密API来获取cookie
+
+```
+import sqlite3
+import glob
+import os
+from win32.win32crypt import CryptUnprotectData
+
+def getcookie(host):
+    result = []
+    for cookiepath in glob.glob(os.environ['LOCALAPPDATA'] + r"\*\*\User Data\Default\Cookies")+glob.glob(os.environ['LOCALAPPDATA'] + r"\*\User Data\Default\Cookies"):
+        sql = "select host_key,name,encrypted_value from cookies where host_key='%s'" % host
+        with sqlite3.connect(cookiepath) as conn:
+            cu = conn.cursor()
+            cookies = {name: CryptUnprotectData(encrypted_value)[1].decode() for host_key, name, encrypted_value in cu.execute(sql).fetchall()}
+        result.extend([k+"="+v for k, v in cookies.items()])
+    return result
+
+```
+
+调用如`getcookie(".zhihu.com")`
