@@ -538,3 +538,22 @@ $(function(){$("img").waitForImages(function(){
 		});
 	});
 ```
+
+## 创建一个文件下载 Blob
+
+参考OneIndex的`downall`方法
+
+Blob文档：https://developer.mozilla.org/zh-CN/docs/Web/API/Blob
+
+还可以看看这篇：https://juejin.im/post/59e35d0e6fb9a045030f1f35
+
+```
+     let blob = new Blob(["文档内容"], {
+         type: 'text/plain'
+     }); // 构造Blob对象
+     let a = document.createElement('a'); // 伪造一个a对象
+     a.href = window.URL.createObjectURL(blob); // 构造href属性为Blob对象生成的链接
+     a.download = "666.txt"; // 文件名称，你可以根据你的需要构造
+     a.click() // 模拟点击
+     a.remove();
+```
