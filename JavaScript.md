@@ -522,3 +522,19 @@ $(function(){$("img").waitForImages(function(){
     });  
 })});
 ```
+
+## a链接改用POST请求 jQuery
+
+参考OneIndex，用POST方法表示来自文件列表的点击可以显示网页，默认的GET请求则下载文件
+
+```
+	$('.file a').each(function(){
+		$(this).on('click', function () {
+			var form = $('<form target=_blank method=post></form>').attr('action', $(this).attr('href')).get(0);
+			$(document.body).append(form);
+			form.submit();
+			$(form).remove();
+			return false;
+		});
+	});
+```
