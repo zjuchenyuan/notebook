@@ -656,6 +656,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#css-inline" title="CSS inline模糊预览图片" class="md-nav__link">
+    CSS inline模糊预览图片
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1326,6 +1333,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#css-inline" title="CSS inline模糊预览图片" class="md-nav__link">
+    CSS inline模糊预览图片
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1762,6 +1776,40 @@ $<span class="p">(</span><span class="k">function</span><span class="p">(){</spa
         <span class="p">}</span>
     <span class="p">});</span>  
 <span class="p">})});</span>
+</pre></div>
+
+
+<hr />
+<h2 id="css-inline">CSS inline模糊预览图片<a class="headerlink" href="#css-inline" title="Permanent link">&para;</a></h2>
+<p>参考： <a href="https://css-tricks.com/the-blur-up-technique-for-loading-background-images/">https://css-tricks.com/the-blur-up-technique-for-loading-background-images/</a></p>
+<p>使用一张很大的图片作为背景的时候，可能需要一张inline到css中的模糊背景图，完整方案参见上述链接</p>
+<p>这里介绍从一张图片怎么变成模糊预览的inline CSS:</p>
+<ol>
+<li>首先把图片变成40x22大小，这个直接用Windows自带的画图工具即可完成</li>
+<li>然后丢给<a href="https://tinyjpg.com/"><a href="http://tinyjpg.com">tinyjpg.com</a></a>再压缩一下</li>
+<li>用<code>base64 -w0 &lt; x.jpg</code>获取图片的base64文本</li>
+<li>放入下述svg中，再交给这个svg encoder: <a href="https://codepen.io/yoksel/details/JDqvs/">https://codepen.io/yoksel/details/JDqvs/</a></li>
+</ol>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;svg</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/2000/svg&quot;</span>
+     <span class="na">xmlns:xlink=</span><span class="s">&quot;http://www.w3.org/1999/xlink&quot;</span>
+     <span class="na">width=</span><span class="s">&quot;1500&quot;</span> <span class="na">height=</span><span class="s">&quot;823&quot;</span>
+     <span class="na">viewBox=</span><span class="s">&quot;0 0 1500 823&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;filter</span> <span class="na">id=</span><span class="s">&quot;blur&quot;</span> <span class="na">filterUnits=</span><span class="s">&quot;userSpaceOnUse&quot;</span> <span class="na">color-interpolation-filters=</span><span class="s">&quot;sRGB&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;feGaussianBlur</span> <span class="na">stdDeviation=</span><span class="s">&quot;20 20&quot;</span> <span class="na">edgeMode=</span><span class="s">&quot;duplicate&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;feComponentTransfer&gt;</span>
+      <span class="nt">&lt;feFuncA</span> <span class="na">type=</span><span class="s">&quot;discrete&quot;</span> <span class="na">tableValues=</span><span class="s">&quot;1 1&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/feComponentTransfer&gt;</span>
+  <span class="nt">&lt;/filter&gt;</span>
+  <span class="nt">&lt;image</span> <span class="na">filter=</span><span class="s">&quot;url(#blur)&quot;</span>
+         <span class="na">xlink:href=</span><span class="s">&quot;data:image/jpeg;base64,/9j/4AAQSkZJ ...[truncated]...&quot;</span>
+         <span class="na">x=</span><span class="s">&quot;0&quot;</span> <span class="na">y=</span><span class="s">&quot;0&quot;</span>
+         <span class="na">height=</span><span class="s">&quot;100%&quot;</span> <span class="na">width=</span><span class="s">&quot;100%&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/svg&gt;</span>
+</pre></div>
+
+
+<p>注意encoder输出的内容还要加上<code>charset</code>，最终效果：</p>
+<div class="codehilite"><pre><span></span><span class="nt">background-image</span><span class="o">:</span> <span class="nt">url</span><span class="o">(</span><span class="nt">data</span><span class="p">:</span><span class="nd">image</span><span class="o">/</span><span class="nt">svg</span><span class="o">+</span><span class="nt">xml</span><span class="o">;</span><span class="nt">charset</span><span class="o">=</span><span class="nt">utf-8</span><span class="o">,%</span><span class="nt">3Csvg</span><span class="o">...);</span>
 </pre></div>
                 
                   

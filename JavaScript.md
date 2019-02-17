@@ -522,3 +522,42 @@ $(function(){$("img").waitForImages(function(){
     });  
 })});
 ```
+
+----
+
+## CSS inline模糊预览图片
+
+参考： https://css-tricks.com/the-blur-up-technique-for-loading-background-images/
+
+使用一张很大的图片作为背景的时候，可能需要一张inline到css中的模糊背景图，完整方案参见上述链接
+
+这里介绍从一张图片怎么变成模糊预览的inline CSS:
+
+1. 首先把图片变成40x22大小，这个直接用Windows自带的画图工具即可完成
+2. 然后丢给[tinyjpg.com](https://tinyjpg.com/)再压缩一下
+3. 用`base64 -w0 < x.jpg`获取图片的base64文本
+4. 放入下述svg中，再交给这个svg encoder: https://codepen.io/yoksel/details/JDqvs/
+
+```
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="1500" height="823"
+     viewBox="0 0 1500 823">
+  <filter id="blur" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+    <feGaussianBlur stdDeviation="20 20" edgeMode="duplicate" />
+    <feComponentTransfer>
+      <feFuncA type="discrete" tableValues="1 1" />
+    </feComponentTransfer>
+  </filter>
+  <image filter="url(#blur)"
+         xlink:href="data:image/jpeg;base64,/9j/4AAQSkZJ ...[truncated]..."
+         x="0" y="0"
+         height="100%" width="100%"/>
+</svg>
+```
+
+注意encoder输出的内容还要加上`charset`，最终效果：
+
+```
+background-image: url(data:image/svg+xml;charset=utf-8,%3Csvg...);
+```
