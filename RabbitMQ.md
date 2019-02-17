@@ -115,4 +115,4 @@ channel.basic_consume(callback,
 channel.start_consuming()
 ```
 
-代码来自官方教程：https://www.rabbitmq.com/tutorials/tutorial-two-python.html
+代码来自官方教程： https://www.rabbitmq.com/tutorials/tutorial-two-python.html

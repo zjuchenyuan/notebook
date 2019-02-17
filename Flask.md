@@ -231,7 +231,7 @@ for i in range(MAX_TRIES):
 
 人家认为Flask不支持，其实flask使用的是`werkzeug.serving`，最底层还是BaseHTTPRequestHandler，而这个是支持HTTP/1.1的，只是默认HTTP/1.0而已
 
-实际发送请求`HTTP/1.1 200 OK`是这个类的`send_response`函数，用到`protocol_version`这个属性，而这个属性是类的属性（不是在__init__函数赋值的），所以我们可以直接修改 之后创建的对象就会自动拥有新的值
+实际发送请求`HTTP/1.1 200 OK`是这个类的`send_response`函数，用到`protocol_version`这个属性，而这个属性是类的属性（不是在`__init__`函数赋值的），所以我们可以直接修改 之后创建的对象就会自动拥有新的值
 
 在调用之前添加以下几行即可
 
