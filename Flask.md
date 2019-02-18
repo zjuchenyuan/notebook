@@ -34,6 +34,18 @@ def index():
     return render_template("template.html", **targs)
 ```
 
+## 添加多个静态目录
+
+```
+from flask import Flask, render_template, Blueprint, request, redirect
+app = Flask(__name__)
+
+for path in ['images', 'pic', 'css']:
+    blueprint = Blueprint(path, __name__, static_url_path='/'+path, static_folder=path)
+    app.register_blueprint(blueprint)
+
+```
+
 ## 判断是否手机访问 g.isphone
 
 ```
