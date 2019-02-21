@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ZJU研究生选课助手
 // @namespace    http://grs.zju.edu.cn
-// @version      0.5.1
+// @version      0.6.0
 // @description  在“全校开课情况查询”页面可以进入选课；整合查老师分数与评论显示；支持只显示特定校区课程；登录页面验证码自动识别
 // @author       zjuchenyuan
 // @match        http://grs.zju.edu.cn/*
@@ -41,7 +41,6 @@ function xk(id){ //在全校开课查询页面进入选课
     });
 }
 unsafeWindow.xk = exportFunction(xk, unsafeWindow);
-unsafeWindow.GM_xmlhttpRequest = exportFunction(GM_xmlhttpRequest, unsafeWindow);
 
 function run(){
     for(var td of document.querySelectorAll("#lssjCxdcForm > table > tbody > tr > td:nth-child(3)")){
@@ -221,7 +220,27 @@ function wait(callback){
     }
 }
 
-
+function lnsjCxdc(){
+    var form = document.forms, i=form.length-1;
+    for(; i>=0; i--) {
+        if(/post/i.test(form[i].method)) form[i].action += "#method-post";
+    }
+    var is_post = location.hash.indexOf("#method-post") != -1;
+    if(!is_post){
+        document.querySelector("#kkxn_chzn > ul > li").insertAdjacentHTML('beforeBegin', '<li class="search-choice" id="kkxn_chzn_c_24"><span>2018</span></li>');
+        var theyear = new Date().getFullYear();
+        var xueqi = 12; //秋冬学期
+        $("#kckkxj_chzn > a > span").text("秋冬学期");
+        if(new Date().getMonth()<6) {
+            theyear--;
+            xueqi = 11; //春夏
+            $("#kckkxj_chzn > a > span").text("春夏学期");
+        }
+        $("[name='kkxn']")[0].insertAdjacentHTML('afterBegin', '<option value="'+theyear+'" selected="">'+theyear+'</option>');
+        $("#kckkxj>option").attr("selected",false)
+        $("#kckkxj>option[value="+xueqi+"]").attr("selected",true);
+    }
+}
 
 (function() {
     'use strict';
@@ -236,6 +255,8 @@ function wait(callback){
     if(typeof(header)!="undefined") header.addEventListener('mouseover',function(e) {e.stopImmediatePropagation(); e.stopPropagation(); }, true);
     if(document.location.pathname=="/cas/login"){ //登录页面识别验证码
         wait(work);
+    }else if(document.location.pathname=="/py/page/student/lnsjCxdc.htm"){
+        lnsjCxdc();
     }
 })();
 
