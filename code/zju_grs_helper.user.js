@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ZJU研究生选课助手
 // @namespace    http://grs.zju.edu.cn
-// @version      0.6.0
+// @version      0.6.1
 // @description  在“全校开课情况查询”页面可以进入选课；整合查老师分数与评论显示；支持只显示特定校区课程；登录页面验证码自动识别
 // @author       zjuchenyuan
 // @match        http://grs.zju.edu.cn/*
@@ -220,6 +220,15 @@ function wait(callback){
     }
 }
 
+function getXY(callback){
+    if(localStorage.getItem("xy")) return callback(localStorage.getItem("xy"));
+    $.get("/gl/page/student/studentBaseTwo.htm",null,function(html){
+        var result = html.split("学院</dt>")[1].split("</p>")[0].replace('<p class="ml10 content w300 detail">','').replace(/&nbsp;/g,'').trim();
+        localStorage.setItem("xy", result);
+        callback(result);
+    })
+}
+
 function lnsjCxdc(){
     var form = document.forms, i=form.length-1;
     for(; i>=0; i--) {
@@ -239,6 +248,14 @@ function lnsjCxdc(){
         $("[name='kkxn']")[0].insertAdjacentHTML('afterBegin', '<option value="'+theyear+'" selected="">'+theyear+'</option>');
         $("#kckkxj>option").attr("selected",false)
         $("#kckkxj>option[value="+xueqi+"]").attr("selected",true);
+        getXY(function(xy){
+            $("#kkyx>option").attr("selected",false);
+            var temp=$("#kkyx>option").filter(function(){return $(this).text()==xy});
+            if(temp.length){
+                temp.attr("selected", true);
+                $("#kkyx_chzn > a > span").text(xy);
+            }
+        });
     }
 }
 
