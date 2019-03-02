@@ -1,16 +1,18 @@
 // ==UserScript==
 // @name         ZJU研究生选课助手
 // @namespace    http://grs.zju.edu.cn
-// @version      0.6.1
-// @description  在“全校开课情况查询”页面可以进入选课；整合查老师分数与评论显示；支持只显示特定校区课程；登录页面验证码自动识别
+// @version      0.7.0
+// @description  在“全校开课情况查询”页面可以进入选课；整合查老师分数与评论显示；支持只显示特定校区课程；登录页面验证码自动识别；跳过验证码自动登录
 // @author       zjuchenyuan
 // @match        http://grs.zju.edu.cn/*
 // @match        https://grs.zju.edu.cn/*
 // @grant        GM_xmlhttpRequest
+// @grant        GM_setValue
+// @grant        GM_getValue
 // @connect *
 // ==/UserScript==
 var CONFIG_XQ=null; //配置校区
-// var CONFIG_XQ = "玉泉"
+//var CONFIG_XQ = "玉泉"
 // 例如将上一行取消注释则表示只显示玉泉校区的课程
 
 /*TODO: 将@connect设置为chalaoshi.cn无效，
@@ -203,7 +205,12 @@ function work(img){
                     CONFIG_CAPTCHA.ALLOW_RETRY --;
                 }
             }
-        }});
+        }
+    });
+    document.forms[0].onsubmit=function(){
+        GM_setValue("xh", document.querySelector("#username").value);
+        GM_setValue("pwd", document.querySelector("#password").value);
+    }
 }
 
 function onchange(){
@@ -254,9 +261,31 @@ function lnsjCxdc(){
             if(temp.length){
                 temp.attr("selected", true);
                 $("#kkyx_chzn > a > span").text(xy);
+                $.changePage('search')
             }
         });
     }
+}
+
+function quicklogin(xh,password){
+    GM_xmlhttpRequest({
+        method:"GET",
+        url:"https://m.zjuqsc.com/api/v2/jw_grs/validate?stuid="+encodeURIComponent(xh)+"&pwd="+encodeURIComponent(password)+"&from=qsc_mobile_android",
+        responseType:"json",
+        onload: function (response) {
+            var data = JSON.parse(response.responseText);
+            if(data.cli_cookie && data.cli_cookie.split("CASTGC=")[1]){
+                document.cookie = 'CASTGC=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                document.cookie = 'wsess=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                document.cookie = 'JSESSIONID=;path=/cas; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                document.cookie = "CASTGC="+data.cli_cookie.split("CASTGC=")[1].split(";")[0];
+                console.log("quick login success for "+xh);
+                document.querySelector("#content > div:nth-child(2) > p:nth-child(1)").innerText="[grs_helper] 自动登录成功: "+xh;
+            }else{
+                document.querySelector("#content > div:nth-child(2) > p:nth-child(1)").innerText="[grs_helper] sorry 自动登录失败";
+            }
+        }
+    });
 }
 
 (function() {
@@ -274,6 +303,11 @@ function lnsjCxdc(){
         wait(work);
     }else if(document.location.pathname=="/py/page/student/lnsjCxdc.htm"){
         lnsjCxdc();
+    }else if(document.location.pathname=="/grsinfo.html"){//登录前页面 自动登录
+        if(GM_getValue("xh")) {
+            document.querySelector("#content > div:nth-child(2) > p:nth-child(1)").innerText="[grs_helper] 正在为您自动登录...";
+            quicklogin(GM_getValue("xh"),GM_getValue("pwd"));
+        }
     }
 })();
 
