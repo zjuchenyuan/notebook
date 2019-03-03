@@ -1,16 +1,18 @@
 // ==UserScript==
 // @name         ZJU研究生选课助手
 // @namespace    http://grs.zju.edu.cn
-// @version      0.5.1
-// @description  在“全校开课情况查询”页面可以进入选课；整合查老师分数与评论显示；支持只显示特定校区课程；登录页面验证码自动识别
+// @version      0.7.0
+// @description  在“全校开课情况查询”页面可以进入选课；整合查老师分数与评论显示；支持只显示特定校区课程；登录页面验证码自动识别；跳过验证码自动登录
 // @author       zjuchenyuan
 // @match        http://grs.zju.edu.cn/*
 // @match        https://grs.zju.edu.cn/*
 // @grant        GM_xmlhttpRequest
+// @grant        GM_setValue
+// @grant        GM_getValue
 // @connect *
 // ==/UserScript==
 var CONFIG_XQ=null; //配置校区
-// var CONFIG_XQ = "玉泉"
+//var CONFIG_XQ = "玉泉"
 // 例如将上一行取消注释则表示只显示玉泉校区的课程
 
 /*TODO: 将@connect设置为chalaoshi.cn无效，
@@ -41,7 +43,6 @@ function xk(id){ //在全校开课查询页面进入选课
     });
 }
 unsafeWindow.xk = exportFunction(xk, unsafeWindow);
-unsafeWindow.GM_xmlhttpRequest = exportFunction(GM_xmlhttpRequest, unsafeWindow);
 
 function run(){
     for(var td of document.querySelectorAll("#lssjCxdcForm > table > tbody > tr > td:nth-child(3)")){
@@ -204,7 +205,12 @@ function work(img){
                     CONFIG_CAPTCHA.ALLOW_RETRY --;
                 }
             }
-        }});
+        }
+    });
+    document.forms[0].onsubmit=function(){
+        GM_setValue("xh", document.querySelector("#username").value);
+        GM_setValue("pwd", document.querySelector("#password").value);
+    }
 }
 
 function onchange(){
@@ -221,7 +227,66 @@ function wait(callback){
     }
 }
 
+function getXY(callback){
+    if(localStorage.getItem("xy")) return callback(localStorage.getItem("xy"));
+    $.get("/gl/page/student/studentBaseTwo.htm",null,function(html){
+        var result = html.split("学院</dt>")[1].split("</p>")[0].replace('<p class="ml10 content w300 detail">','').replace(/&nbsp;/g,'').trim();
+        localStorage.setItem("xy", result);
+        callback(result);
+    })
+}
 
+function lnsjCxdc(){
+    var form = document.forms, i=form.length-1;
+    for(; i>=0; i--) {
+        if(/post/i.test(form[i].method)) form[i].action += "#method-post";
+    }
+    var is_post = location.hash.indexOf("#method-post") != -1;
+    if(!is_post){
+        document.querySelector("#kkxn_chzn > ul > li").insertAdjacentHTML('beforeBegin', '<li class="search-choice" id="kkxn_chzn_c_24"><span>2018</span></li>');
+        var theyear = new Date().getFullYear();
+        var xueqi = 12; //秋冬学期
+        $("#kckkxj_chzn > a > span").text("秋冬学期");
+        if(new Date().getMonth()<6) {
+            theyear--;
+            xueqi = 11; //春夏
+            $("#kckkxj_chzn > a > span").text("春夏学期");
+        }
+        $("[name='kkxn']")[0].insertAdjacentHTML('afterBegin', '<option value="'+theyear+'" selected="">'+theyear+'</option>');
+        $("#kckkxj>option").attr("selected",false)
+        $("#kckkxj>option[value="+xueqi+"]").attr("selected",true);
+        getXY(function(xy){
+            $("#kkyx>option").attr("selected",false);
+            var temp=$("#kkyx>option").filter(function(){return $(this).text()==xy});
+            if(temp.length){
+                temp.attr("selected", true);
+                $("#kkyx_chzn > a > span").text(xy);
+                $.changePage('search')
+            }
+        });
+    }
+}
+
+function quicklogin(xh,password){
+    GM_xmlhttpRequest({
+        method:"GET",
+        url:"https://m.zjuqsc.com/api/v2/jw_grs/validate?stuid="+encodeURIComponent(xh)+"&pwd="+encodeURIComponent(password)+"&from=qsc_mobile_android",
+        responseType:"json",
+        onload: function (response) {
+            var data = JSON.parse(response.responseText);
+            if(data.cli_cookie && data.cli_cookie.split("CASTGC=")[1]){
+                document.cookie = 'CASTGC=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                document.cookie = 'wsess=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                document.cookie = 'JSESSIONID=;path=/cas; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                document.cookie = "CASTGC="+data.cli_cookie.split("CASTGC=")[1].split(";")[0];
+                console.log("quick login success for "+xh);
+                document.querySelector("#content > div:nth-child(2) > p:nth-child(1)").innerText="[grs_helper] 自动登录成功: "+xh;
+            }else{
+                document.querySelector("#content > div:nth-child(2) > p:nth-child(1)").innerText="[grs_helper] sorry 自动登录失败";
+            }
+        }
+    });
+}
 
 (function() {
     'use strict';
@@ -236,6 +301,13 @@ function wait(callback){
     if(typeof(header)!="undefined") header.addEventListener('mouseover',function(e) {e.stopImmediatePropagation(); e.stopPropagation(); }, true);
     if(document.location.pathname=="/cas/login"){ //登录页面识别验证码
         wait(work);
+    }else if(document.location.pathname=="/py/page/student/lnsjCxdc.htm"){
+        lnsjCxdc();
+    }else if(document.location.pathname=="/grsinfo.html"){//登录前页面 自动登录
+        if(GM_getValue("xh")) {
+            document.querySelector("#content > div:nth-child(2) > p:nth-child(1)").innerText="[grs_helper] 正在为您自动登录...";
+            quicklogin(GM_getValue("xh"),GM_getValue("pwd"));
+        }
     }
 })();
 

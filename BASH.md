@@ -67,3 +67,18 @@ fi
 指定某些列来排序 -k 3,3 -k 4,4 指定分隔符用-t '.'
 
 参考： https://www.madboa.com/geek/sort-addr/
+
+----
+
+## rsync移动远程目录特定文件至本机后循环操作
+
+rsync有`--dry-run`参数确认没出错后再操作
+
+```
+rsync -P --remove-source-files -avz '1.2.3.4:/root/dockerimages/*.tar.7z' ./
+
+for filename in *.tar.7z; do 
+    7z x -so $filename | docker load; 
+    mv $filename ./done/; 
+done
+```

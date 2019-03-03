@@ -371,6 +371,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#rsync" title="rsync移动远程目录特定文件至本机后循环操作" class="md-nav__link">
+    rsync移动远程目录特定文件至本机后循环操作
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -922,6 +929,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#rsync" title="rsync移动远程目录特定文件至本机后循环操作" class="md-nav__link">
+    rsync移动远程目录特定文件至本机后循环操作
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -992,6 +1006,16 @@ fi
 按人类理解的文件大小排序 -h
 指定某些列来排序 -k 3,3 -k 4,4 指定分隔符用-t &lsquo;.&rsquo;</p>
 <p>参考： <a href="https://www.madboa.com/geek/sort-addr/">https://www.madboa.com/geek/sort-addr/</a></p>
+<hr />
+<h2 id="rsync">rsync移动远程目录特定文件至本机后循环操作<a class="headerlink" href="#rsync" title="Permanent link">&para;</a></h2>
+<p>rsync有<code>--dry-run</code>参数确认没出错后再操作</p>
+<div class="codehilite"><pre><span></span>rsync -P --remove-source-files -avz &#39;1.2.3.4:/root/dockerimages/*.tar.7z&#39; ./
+
+for filename in *.tar.7z; do 
+    7z x -so $filename | docker load; 
+    mv $filename ./done/; 
+done
+</pre></div>
                 
                   
                 

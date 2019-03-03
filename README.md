@@ -58,6 +58,7 @@ My notebook about technology, for lookup and share
 >* 判断命令行参数是否为空
 >* for循环
 >* 判断命令、文件是否存在
+>* rsync移动远程目录特定文件至本机后循环操作
 
 ## [BAT 批处理](BAT.md)
 >* 快速打开cmd
