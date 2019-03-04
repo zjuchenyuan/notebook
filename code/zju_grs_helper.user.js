@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ZJU研究生选课助手
 // @namespace    http://grs.zju.edu.cn
-// @version      0.7.0
+// @version      0.7.1
 // @description  在“全校开课情况查询”页面可以进入选课；整合查老师分数与评论显示；支持只显示特定校区课程；登录页面验证码自动识别；跳过验证码自动登录
 // @author       zjuchenyuan
 // @match        http://grs.zju.edu.cn/*
@@ -281,6 +281,7 @@ function quicklogin(xh,password){
                 document.cookie = "CASTGC="+data.cli_cookie.split("CASTGC=")[1].split(";")[0];
                 console.log("quick login success for "+xh);
                 document.querySelector("#content > div:nth-child(2) > p:nth-child(1)").innerText="[grs_helper] 自动登录成功: "+xh;
+                document.querySelector("#content > div:nth-child(2) > blockquote > p:nth-child(1) > a").href="http://grs.zju.edu.cn/py/page/student/grkcb.htm"; //直接进入课表页面
             }else{
                 document.querySelector("#content > div:nth-child(2) > p:nth-child(1)").innerText="[grs_helper] sorry 自动登录失败";
             }
