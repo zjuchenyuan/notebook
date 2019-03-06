@@ -1098,6 +1098,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#vmware-lvm" title="VMWare扩容磁盘 LVM在线扩容" class="md-nav__link">
+    VMWare扩容磁盘 LVM在线扩容
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1608,6 +1615,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#vmware-lvm" title="VMWare扩容磁盘 LVM在线扩容" class="md-nav__link">
+    VMWare扩容磁盘 LVM在线扩容
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -2099,6 +2113,173 @@ sudo losetup -d /dev/loop0
 <p>例如有监听在127.0.0.1:1234的应用，现在想通过ip:5678来访问</p>
 <div class="codehilite"><pre><span></span>iptables -t nat -I PREROUTING -p tcp --dport 5678 -j DNAT --to-destination 127.0.0.1:1234
 sysctl -w net.ipv4.conf.eth0.route_localnet=1
+</pre></div>
+
+
+<hr />
+<h2 id="vmware-lvm">VMWare扩容磁盘 LVM在线扩容<a class="headerlink" href="#vmware-lvm" title="Permanent link">&para;</a></h2>
+<p>参考： <a href="https://ma.ttias.be/increase-a-vmware-disk-size-vmdk-formatted-as-linux-lvm-without-rebooting/">https://ma.ttias.be/increase-a-vmware-disk-size-vmdk-formatted-as-linux-lvm-without-rebooting/</a></p>
+<p><a href="https://ubuntuforums.org/showthread.php?t=2277232">https://ubuntuforums.org/showthread.php?t=2277232</a></p>
+<p>修复<code>GPT PMBR size mismatch</code>用<code>parted -l</code>输入Fix即可，无需live cd</p>
+<div class="codehilite"><pre><span></span>root@docker:/d# parted -l
+Warning: Not all of the space available to /dev/sda appears to be used, you can
+fix the GPT to use all of the space (an extra 314572800 blocks) or continue with
+the current setting?
+Fix/Ignore? Fix
+Model: VMware Virtual disk (scsi)
+Disk /dev/sda: 215GB
+Sector size (logical/physical): 512B/512B
+Partition Table: gpt
+Disk Flags:
+
+Number  Start   End     Size    File system  Name  Flags
+ 1      1049kB  2097kB  1049kB                     bios_grub
+ 2      2097kB  1076MB  1074MB  ext4
+ 3      1076MB  53.7GB  52.6GB
+
+
+Model: Linux device-mapper (linear) (dm)
+Disk /dev/mapper/ubuntu--vg-ubuntu--lv: 52.6GB
+Sector size (logical/physical): 512B/512B
+Partition Table: loop
+Disk Flags:
+
+Number  Start  End     Size    File system  Flags
+ 1      0.00B  52.6GB  52.6GB  ext4
+
+
+Warning: Unable to open /dev/sr0 read-write (Read-only file system).  /dev/sr0 has been opened read-only.
+Model: NECVMWar VMware SATA CD00 (scsi)
+Disk /dev/sr0: 875MB
+Sector size (logical/physical): 2048B/2048B
+Partition Table: mac
+Disk Flags:
+
+Number  Start  End    Size    File system  Name   Flags
+ 1      2048B  6143B  4096B                Apple
+ 2      659MB  662MB  2523kB               EFI
+
+
+root@docker:/d# fdisk -l
+Disk /dev/loop0: 91 MiB, 95408128 bytes, 186344 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/sda: 200 GiB, 214748364800 bytes, 419430400 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: C6597B3B-17F0-482A-AF5D-6056F7788052
+
+Device       Start       End   Sectors Size Type
+/dev/sda1     2048      4095      2048   1M BIOS boot
+/dev/sda2     4096   2101247   2097152   1G Linux filesystem
+/dev/sda3  2101248 104855551 102754304  49G Linux filesystem
+
+
+Disk /dev/mapper/ubuntu--vg-ubuntu--lv: 49 GiB, 52609155072 bytes, 102752256 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+root@docker:/d# fdisk /dev/sda
+
+Welcome to fdisk (util-linux 2.31.1).
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+
+Command (m for help): n
+Partition number (4-128, default 4):
+First sector (104855552-419430366, default 104855552):
+Last sector, +sectors or +size{K,M,G,T,P} (104855552-419430366, default 419430366):
+
+Created a new partition 4 of type &#39;Linux filesystem&#39; and of size 150 GiB.
+
+Command (m for help): t
+Partition number (1-4, default 4): 4
+Partition type (type L to list all types): 8e
+
+Type of partition 4 is unchanged: Linux filesystem.
+
+Command (m for help): w
+The partition table has been altered.
+Syncing disks.
+
+root@docker:/d# partprobe -s
+/dev/sda: gpt partitions 1 2 3 4
+/dev/mapper/ubuntu--vg-ubuntu--lv: loop partitions 1
+Warning: Unable to open /dev/sr0 read-write (Read-only file system).  /dev/sr0 has been opened read-only.
+Warning: Unable to open /dev/sr0 read-write (Read-only file system).  /dev/sr0 has been opened read-only.
+Warning: Unable to open /dev/sr0 read-write (Read-only file system).  /dev/sr0 has been opened read-only.
+/dev/sr0: mac partitions 1 2
+root@docker:/d# fdisk -l
+Disk /dev/loop0: 91 MiB, 95408128 bytes, 186344 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/sda: 200 GiB, 214748364800 bytes, 419430400 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: C6597B3B-17F0-482A-AF5D-6056F7788052
+
+Device         Start       End   Sectors  Size Type
+/dev/sda1       2048      4095      2048    1M BIOS boot
+/dev/sda2       4096   2101247   2097152    1G Linux filesystem
+/dev/sda3    2101248 104855551 102754304   49G Linux filesystem
+/dev/sda4  104855552 419430366 314574815  150G Linux filesystem
+
+
+Disk /dev/mapper/ubuntu--vg-ubuntu--lv: 49 GiB, 52609155072 bytes, 102752256 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+root@docker:/d# pvcreate /dev/sda
+sda   sda1  sda2  sda3  sda4
+root@docker:/d# pvcreate /dev/sda4
+  Physical volume &quot;/dev/sda4&quot; successfully created.
+root@docker:/d# vgdisplay
+  --- Volume group ---
+  VG Name               ubuntu-vg
+  System ID
+  Format                lvm2
+  Metadata Areas        1
+  Metadata Sequence No  3
+  VG Access             read/write
+  VG Status             resizable
+  MAX LV                0
+  Cur LV                1
+  Open LV               1
+  Max PV                0
+  Cur PV                1
+  Act PV                1
+  VG Size               &lt;49.00 GiB
+  PE Size               4.00 MiB
+  Total PE              12543
+  Alloc PE / Size       12543 / &lt;49.00 GiB
+  Free  PE / Size       0 / 0
+  VG UUID               FJI08W-C0Db-dXmu-WPyq-Zlr9-Lejq-xadlCk
+
+root@docker:/d# vgextend ubuntu-vg /dev/sda4
+  Volume group &quot;ubuntu-vg&quot; successfully extended
+root@docker:/d# pvscan
+  PV /dev/sda3   VG ubuntu-vg       lvm2 [&lt;49.00 GiB / 0    free]
+  PV /dev/sda4   VG ubuntu-vg       lvm2 [&lt;150.00 GiB / &lt;150.00 GiB free]
+  Total: 2 [198.99 GiB] / in use: 2 [198.99 GiB] / in no VG: 0 [0   ]
+root@docker:/d# lvextend /dev/ubuntu-vg/ubuntu-lv /dev/sda4
+  Size of logical volume ubuntu-vg/ubuntu-lv changed from &lt;49.00 GiB (12543 extents) to 198.99 GiB (50942 extents).
+  Logical volume ubuntu-vg/ubuntu-lv successfully resized.
+root@docker:/d# resize2fs /dev/ubuntu-vg/ubuntu-lv
+resize2fs 1.44.1 (24-Mar-2018)
+Filesystem at /dev/ubuntu-vg/ubuntu-lv is mounted on /; on-line resizing required
+old_desc_blocks = 7, new_desc_blocks = 25
+The filesystem on /dev/ubuntu-vg/ubuntu-lv is now 52164608 (4k) blocks long.
 </pre></div>
                 
                   
