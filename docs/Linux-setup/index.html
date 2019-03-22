@@ -1103,6 +1103,19 @@
     VMWare扩容磁盘 LVM在线扩容
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vmware" title="VMWare新添加一块硬盘扩容根目录" class="md-nav__link">
+    VMWare新添加一块硬盘扩容根目录
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
       
@@ -1619,6 +1632,19 @@
   <a href="#vmware-lvm" title="VMWare扩容磁盘 LVM在线扩容" class="md-nav__link">
     VMWare扩容磁盘 LVM在线扩容
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vmware" title="VMWare新添加一块硬盘扩容根目录" class="md-nav__link">
+    VMWare新添加一块硬盘扩容根目录
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2280,6 +2306,71 @@ resize2fs 1.44.1 (24-Mar-2018)
 Filesystem at /dev/ubuntu-vg/ubuntu-lv is mounted on /; on-line resizing required
 old_desc_blocks = 7, new_desc_blocks = 25
 The filesystem on /dev/ubuntu-vg/ubuntu-lv is now 52164608 (4k) blocks long.
+</pre></div>
+
+
+<h3 id="vmware">VMWare新添加一块硬盘扩容根目录<a class="headerlink" href="#vmware" title="Permanent link">&para;</a></h3>
+<p>参考这两篇：</p>
+<p><a href="https://www.cyberciti.biz/tips/vmware-add-a-new-hard-disk-without-rebooting-guest.html">https://www.cyberciti.biz/tips/vmware-add-a-new-hard-disk-without-rebooting-guest.html</a></p>
+<p><a href="https://www.unixmen.com/add-a-new-disk-to-lvm/">https://www.unixmen.com/add-a-new-disk-to-lvm/</a></p>
+<div class="codehilite"><pre><span></span>root@docker3:/d# for i in /sys/class/scsi_host/*; do echo &quot;- - -&quot; &gt; <span class="cp">${</span><span class="n">i</span><span class="cp">}</span>/scan; done
+root@docker3:/d# fdisk -l
+Disk /dev/sdb: 1 TiB, 1099511627776 bytes, 2147483648 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+root@docker3:/d# fdisk /dev/sdb
+
+Welcome to fdisk (util-linux 2.31.1).
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+Device does not contain a recognized partition table.
+Created a new DOS disklabel with disk identifier 0x3289a390.
+
+Command (m for help): n
+Partition type
+   p   primary (0 primary, 0 extended, 4 free)
+   e   extended (container for logical partitions)
+Select (default p):
+
+Using default response p.
+Partition number (1-4, default 1):
+First sector (2048-2147483647, default 2048):
+Last sector, +sectors or +size{K,M,G,T,P} (2048-2147483647, default 2147483647):
+
+Created a new partition 1 of type &#39;Linux&#39; and of size 1024 GiB.
+
+Command (m for help): t
+Selected partition 1
+Hex code (type L to list all codes): 8e
+Changed type of partition &#39;Linux&#39; to &#39;Linux LVM&#39;.
+
+Command (m for help): w
+The partition table has been altered.
+Calling ioctl() to re-read partition table.
+Syncing disks.
+
+root@docker3:/d# pvcreate /dev/sdb1
+  Physical volume &quot;/dev/sdb1&quot; successfully created.
+root@docker3:/d# vgextend ubuntu-vg /dev/sdb1
+  Volume group &quot;ubuntu-vg&quot; successfully extended
+root@docker3:/d# pvscan
+  PV /dev/sda3   VG ubuntu-vg       lvm2 [<span class="nt">&lt;199.00</span> <span class="err">GiB</span> <span class="err">/</span> <span class="err">0</span>    <span class="err">free]</span>
+  <span class="err">PV</span> <span class="err">/dev/sdb1</span>   <span class="err">VG</span> <span class="err">ubuntu-vg</span>       <span class="err">lvm2</span> <span class="err">[&lt;1024.00</span> <span class="err">GiB</span> <span class="err">/</span> <span class="err">&lt;1024.00</span> <span class="err">GiB</span> <span class="err">free]</span>
+  <span class="err">Total:</span> <span class="err">2</span> <span class="err">[1.19</span> <span class="err">TiB]</span> <span class="err">/</span> <span class="err">in</span> <span class="err">use:</span> <span class="err">2</span> <span class="err">[1.19</span> <span class="err">TiB]</span> <span class="err">/</span> <span class="err">in</span> <span class="err">no</span> <span class="err">VG:</span> <span class="err">0</span> <span class="err">[0</span>   <span class="err">]</span>
+<span class="err">root@docker3:/d#</span> <span class="err">lvextend</span> <span class="err">-l</span> <span class="err">+100%FREE</span> <span class="err">/dev/ubuntu-vg/ubuntu-lv</span>
+  <span class="err">Size</span> <span class="err">of</span> <span class="err">logical</span> <span class="err">volume</span> <span class="err">ubuntu-vg/ubuntu-lv</span> <span class="err">changed</span> <span class="err">from</span> <span class="err">&lt;199.00</span> <span class="err">GiB</span> <span class="err">(50943</span> <span class="err">extents)</span> <span class="err">to</span> <span class="err">1.19</span> <span class="err">TiB</span> <span class="err">(313086</span> <span class="err">extents).</span>
+  <span class="err">Logical</span> <span class="err">volume</span> <span class="err">ubuntu-vg/ubuntu-lv</span> <span class="err">successfully</span> <span class="err">resized.</span>
+<span class="err">root@docker3:/d#</span> <span class="err">resize2fs</span> <span class="err">/dev/ubuntu-vg/ubuntu-lv</span>
+<span class="err">resize2fs</span> <span class="err">1.44.1</span> <span class="err">(24-Mar-2018)</span>
+<span class="err">Filesystem</span> <span class="err">at</span> <span class="err">/dev/ubuntu-vg/ubuntu-lv</span> <span class="err">is</span> <span class="err">mounted</span> <span class="err">on</span> <span class="err">/;</span> <span class="err">on-line</span> <span class="err">resizing</span> <span class="err">required</span>
+<span class="na">old_desc_blocks =</span> <span class="err">25,</span> <span class="na">new_desc_blocks =</span> <span class="err">153</span>
+<span class="err">The</span> <span class="err">filesystem</span> <span class="err">on</span> <span class="err">/dev/ubuntu-vg/ubuntu-lv</span> <span class="err">is</span> <span class="err">now</span> <span class="err">320600064</span> <span class="err">(4k)</span> <span class="err">blocks</span> <span class="err">long.</span>
+
+<span class="err">root@docker3:/d#</span> <span class="err">df</span> <span class="err">-h</span>
+<span class="err">/dev/mapper/ubuntu--vg-ubuntu--lv</span>  <span class="err">1.2T</span>  <span class="err">170G</span>  <span class="err">986G</span>  <span class="err">15%</span> <span class="err">/</span>
 </pre></div>
                 
                   

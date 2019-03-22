@@ -772,3 +772,72 @@ Filesystem at /dev/ubuntu-vg/ubuntu-lv is mounted on /; on-line resizing require
 old_desc_blocks = 7, new_desc_blocks = 25
 The filesystem on /dev/ubuntu-vg/ubuntu-lv is now 52164608 (4k) blocks long.
 ```
+
+### VMWare新添加一块硬盘扩容根目录
+
+参考这两篇：
+
+https://www.cyberciti.biz/tips/vmware-add-a-new-hard-disk-without-rebooting-guest.html
+
+https://www.unixmen.com/add-a-new-disk-to-lvm/
+
+```
+root@docker3:/d# for i in /sys/class/scsi_host/*; do echo "- - -" > ${i}/scan; done
+root@docker3:/d# fdisk -l
+Disk /dev/sdb: 1 TiB, 1099511627776 bytes, 2147483648 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+root@docker3:/d# fdisk /dev/sdb
+
+Welcome to fdisk (util-linux 2.31.1).
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+Device does not contain a recognized partition table.
+Created a new DOS disklabel with disk identifier 0x3289a390.
+
+Command (m for help): n
+Partition type
+   p   primary (0 primary, 0 extended, 4 free)
+   e   extended (container for logical partitions)
+Select (default p):
+
+Using default response p.
+Partition number (1-4, default 1):
+First sector (2048-2147483647, default 2048):
+Last sector, +sectors or +size{K,M,G,T,P} (2048-2147483647, default 2147483647):
+
+Created a new partition 1 of type 'Linux' and of size 1024 GiB.
+
+Command (m for help): t
+Selected partition 1
+Hex code (type L to list all codes): 8e
+Changed type of partition 'Linux' to 'Linux LVM'.
+
+Command (m for help): w
+The partition table has been altered.
+Calling ioctl() to re-read partition table.
+Syncing disks.
+
+root@docker3:/d# pvcreate /dev/sdb1
+  Physical volume "/dev/sdb1" successfully created.
+root@docker3:/d# vgextend ubuntu-vg /dev/sdb1
+  Volume group "ubuntu-vg" successfully extended
+root@docker3:/d# pvscan
+  PV /dev/sda3   VG ubuntu-vg       lvm2 [<199.00 GiB / 0    free]
+  PV /dev/sdb1   VG ubuntu-vg       lvm2 [<1024.00 GiB / <1024.00 GiB free]
+  Total: 2 [1.19 TiB] / in use: 2 [1.19 TiB] / in no VG: 0 [0   ]
+root@docker3:/d# lvextend -l +100%FREE /dev/ubuntu-vg/ubuntu-lv
+  Size of logical volume ubuntu-vg/ubuntu-lv changed from <199.00 GiB (50943 extents) to 1.19 TiB (313086 extents).
+  Logical volume ubuntu-vg/ubuntu-lv successfully resized.
+root@docker3:/d# resize2fs /dev/ubuntu-vg/ubuntu-lv
+resize2fs 1.44.1 (24-Mar-2018)
+Filesystem at /dev/ubuntu-vg/ubuntu-lv is mounted on /; on-line resizing required
+old_desc_blocks = 25, new_desc_blocks = 153
+The filesystem on /dev/ubuntu-vg/ubuntu-lv is now 320600064 (4k) blocks long.
+
+root@docker3:/d# df -h
+/dev/mapper/ubuntu--vg-ubuntu--lv  1.2T  170G  986G  15% /
+```
