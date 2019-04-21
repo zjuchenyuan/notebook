@@ -539,6 +539,54 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#dnshttp-dnscdn" title="本地DNS不靠谱？用HTTP DNS访问正确的CDN节点" class="md-nav__link">
+    本地DNS不靠谱？用HTTP DNS访问正确的CDN节点
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#http-dns" title="HTTP DNS接入" class="md-nav__link">
+    HTTP DNS接入
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" title="泛域名解析" class="md-nav__link">
+    泛域名解析
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#https" title="申请泛域名的https证书" class="md-nav__link">
+    申请泛域名的https证书
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cdn" title="配置CDN" class="md-nav__link">
+    配置CDN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#js" title="前端JS" class="md-nav__link">
+    前端JS
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
     </ul>
@@ -996,6 +1044,54 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#dnshttp-dnscdn" title="本地DNS不靠谱？用HTTP DNS访问正确的CDN节点" class="md-nav__link">
+    本地DNS不靠谱？用HTTP DNS访问正确的CDN节点
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#http-dns" title="HTTP DNS接入" class="md-nav__link">
+    HTTP DNS接入
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" title="泛域名解析" class="md-nav__link">
+    泛域名解析
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#https" title="申请泛域名的https证书" class="md-nav__link">
+    申请泛域名的https证书
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cdn" title="配置CDN" class="md-nav__link">
+    配置CDN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#js" title="前端JS" class="md-nav__link">
+    前端JS
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
     </ul>
@@ -1064,6 +1160,86 @@ break: 打勾</p>
 <p>需要写一个config文件，具体参见官方文档</p>
 <p><a href="http://developer.qiniu.com/code/v6/tool/qshell.html"><a href="http://developer.qiniu.com/code/v6/tool/qshell.html">http://developer.qiniu.com/code/v6/tool/qshell.html</a></a></p>
 <p><a href="https://github.com/qiniu/qshell/wiki/qupload"><a href="https://github.com/qiniu/qshell/wiki/qupload">https://github.com/qiniu/qshell/wiki/qupload</a></a></p>
+<h2 id="dnshttp-dnscdn">本地DNS不靠谱？用HTTP DNS访问正确的CDN节点<a class="headerlink" href="#dnshttp-dnscdn" title="Permanent link">&para;</a></h2>
+<p>情形：用户的DNS不靠谱，不遵循CDN DNS的TTL设置，导致用户得到的节点IP已经过期失效，导致网站上的图片无法加载</p>
+<p>解决方案：使用<a href="https://help.aliyun.com/document_detail/30102.html">阿里云的HTTP DNS</a> (支持HTTPS请求)，网页端访问图片时如果出错替换为<strong>指定IP的CDN节点</strong></p>
+<h3 id="http-dns">HTTP DNS接入<a class="headerlink" href="#http-dns" title="Permanent link">&para;</a></h3>
+<p>按照文档操作即可： <a href="https://help.aliyun.com/document_detail/30113.html">https://help.aliyun.com/document_detail/30113.html</a></p>
+<p>注意到目前<code>https://203.107.1.33</code>会证书错误，改用<code>https://203.107.1.1</code>即可</p>
+<p>这个接口支持跨域请求：</p>
+<div class="codehilite"><pre><span></span>$.get(&quot;https://203.107.1.1/100000/d?host=www.aliyun.com&quot;,null,function(data){
+    var ip = data.ips[0];
+    console.log(ip);
+});
+</pre></div>
+
+
+<h3 id="_1">泛域名解析<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p>参考 <a href="https://sslip.io">sslip.io</a></p>
+<p>假设我们有已经备案的域名<code>example.com</code>，使用<code>xip.example.com</code>作为泛域名解析的域名，也就是说<code>140-205-34-3.xip.example.com</code>就会解析到<code>140.205.34.3</code></p>
+<p>只需要设置4条NS记录即可：</p>
+<div class="codehilite"><pre><span></span>ns-aws.nono.io
+ns-gce.nono.io
+ns-azure.nono.io
+ns-vultr.nono.io
+</pre></div>
+
+
+<h3 id="https">申请泛域名的https证书<a class="headerlink" href="#https" title="Permanent link">&para;</a></h3>
+<p>参见： <a href="https://py3.io/Nginx/#acmesh">https://py3.io/Nginx/#acmesh</a></p>
+<h3 id="cdn">配置CDN<a class="headerlink" href="#cdn" title="Permanent link">&para;</a></h3>
+<p>将泛域名绑定到CDN服务上，并提供申请到的HTTPS证书，开启HTTPS访问</p>
+<h3 id="js">前端JS<a class="headerlink" href="#js" title="Permanent link">&para;</a></h3>
+<p>下述代码出错时将把图片src的<code>www.aliyun.com</code>替换为<code>1-2-3-4.xip.example.com</code>，特点：</p>
+<ul>
+<li>只要一张CDN的图片已经出错就会开始替换所有坏图</li>
+<li>不会替换已经成功加载的图片</li>
+<li>使用localStorage缓存HTTP DNS的查询结果 缓存一周</li>
+<li>存储了DNS的TTL结果，如果TTL已经过期就再次查询（所以上面缓存一周其实没用，TTL一般就10分钟）</li>
+</ul>
+<p>参考： </p>
+<ul>
+<li><a href="https://stackoverflow.com/questions/736513/how-do-i-parse-a-url-into-hostname-and-path-in-javascript">https://stackoverflow.com/questions/736513/how-do-i-parse-a-url-into-hostname-and-path-in-javascript</a></li>
+<li><a href="https://stackoverflow.com/questions/92720/jquery-javascript-to-replace-broken-images">https://stackoverflow.com/questions/92720/jquery-javascript-to-replace-broken-images</a></li>
+</ul>
+<p>依赖lscache: <a href="https://github.com/pamelafox/lscache">https://github.com/pamelafox/lscache</a></p>
+<div class="codehilite"><pre><span></span><span class="kd">var</span> <span class="nx">cdnupdating</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">updatecdn</span><span class="p">(</span><span class="nx">cb</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">cdnupdating</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+    <span class="nx">cdnupdating</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="nx">$</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;https://203.107.1.1/100000/d?host=www.aliyun.com&quot;</span><span class="p">,</span><span class="kc">null</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span>
+        <span class="kd">var</span> <span class="nx">ip</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">ips</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+        <span class="kd">var</span> <span class="nx">domain</span> <span class="o">=</span> <span class="nx">ip</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\./g</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;.xip.example.com&quot;</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">ddl</span><span class="o">=</span><span class="k">new</span> <span class="nb">Date</span><span class="p">()</span><span class="o">/</span><span class="mi">1000</span> <span class="o">+</span> <span class="nx">data</span><span class="p">.</span><span class="nx">ttl</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">cdn</span> <span class="o">=</span> <span class="p">{</span><span class="nx">domain</span>:<span class="kt">domain</span><span class="p">,</span> <span class="nx">ddl</span>:<span class="kt">ddl</span><span class="p">};</span>
+        <span class="nx">lscache</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;cdn&#39;</span><span class="p">,</span> <span class="nx">cdn</span><span class="p">,</span> <span class="mi">604800</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">cb</span><span class="p">)</span> <span class="nx">cb</span><span class="p">(</span><span class="nx">cdn</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">fixbrokenimages</span><span class="p">(</span><span class="nx">cdn</span><span class="p">){</span>
+  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">cdn</span><span class="p">)</span> <span class="nx">cdn</span><span class="o">=</span><span class="nx">lscache</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;cdn&quot;</span><span class="p">);</span>
+  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">cdn</span> <span class="o">||</span> <span class="nx">cdn</span><span class="p">.</span><span class="nx">ddl</span> <span class="o">&lt;</span> <span class="o">+</span><span class="k">new</span> <span class="nb">Date</span><span class="p">()</span><span class="o">/</span><span class="mi">1000</span><span class="p">)</span> <span class="k">return</span> <span class="nx">updatecdn</span><span class="p">(</span><span class="nx">fixbrokenimages</span><span class="p">);</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;img[src*=&quot;www.aliyun.com&quot;]&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">complete</span> <span class="o">||</span> <span class="k">typeof</span> <span class="k">this</span><span class="p">.</span><span class="nx">naturalWidth</span> <span class="o">==</span> <span class="s2">&quot;undefined&quot;</span> <span class="o">||</span> <span class="k">this</span><span class="p">.</span><span class="nx">naturalWidth</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">src</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s2">&quot;www.aliyun.com&quot;</span><span class="p">,</span> <span class="nx">cdn</span><span class="p">.</span><span class="nx">domain</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">fixbrokenimages_timer</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">image_onerror</span><span class="p">(){</span>
+    <span class="c1">//console.log(&quot;image_onerror&quot;,this.src);</span>
+    <span class="k">if</span><span class="p">(</span><span class="sr">/.*www.aliyun.com.*/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">src</span><span class="p">)){</span>
+        <span class="nx">fixbrokenimages</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">fixbrokenimages_timer</span><span class="p">){</span>
+        <span class="nx">fixbrokenimages_timer</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(</span><span class="nx">fixbrokenimages</span> <span class="p">,</span> <span class="mi">1000</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;img[src*=&quot;www.aliyun.com&quot;]&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="nx">image_onerror</span><span class="p">);</span>
+</pre></div>
                 
                   
                 

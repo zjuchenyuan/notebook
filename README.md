@@ -103,6 +103,7 @@ My notebook about technology, for lookup and share
 >*    使用边缘规则实现upyun TOKEN反盗链功能
 >* ·Qiniu 七牛
 >*    使用qshell上传文件夹
+>> 本地DNS不靠谱？用HTTP DNS访问正确的CDN节点
 
 ## [cURL](cURL.md)
 >* 模拟浏览器请求

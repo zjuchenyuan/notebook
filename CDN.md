@@ -83,3 +83,102 @@ $WHEN($MATCH($_URI, '这里填URI匹配正则'),$OR($GT($_TIME, $SUB($_GET__upt,
 [http://developer.qiniu.com/code/v6/tool/qshell.html](http://developer.qiniu.com/code/v6/tool/qshell.html)
 
 [https://github.com/qiniu/qshell/wiki/qupload](https://github.com/qiniu/qshell/wiki/qupload)
+
+## 本地DNS不靠谱？用HTTP DNS访问正确的CDN节点
+
+情形：用户的DNS不靠谱，不遵循CDN DNS的TTL设置，导致用户得到的节点IP已经过期失效，导致网站上的图片无法加载
+
+解决方案：使用[阿里云的HTTP DNS](https://help.aliyun.com/document_detail/30102.html) (支持HTTPS请求)，网页端访问图片时如果出错替换为**指定IP的CDN节点**
+
+### HTTP DNS接入
+
+按照文档操作即可： https://help.aliyun.com/document_detail/30113.html
+
+注意到目前`https://203.107.1.33`会证书错误，改用`https://203.107.1.1`即可
+
+这个接口支持跨域请求：
+
+```
+$.get("https://203.107.1.1/100000/d?host=www.aliyun.com",null,function(data){
+    var ip = data.ips[0];
+    console.log(ip);
+});
+```
+
+### 泛域名解析
+
+参考 [sslip.io](https://sslip.io)
+
+假设我们有已经备案的域名`example.com`，使用`xip.example.com`作为泛域名解析的域名，也就是说`140-205-34-3.xip.example.com`就会解析到`140.205.34.3`
+
+只需要设置4条NS记录即可：
+
+```
+ns-aws.nono.io
+ns-gce.nono.io
+ns-azure.nono.io
+ns-vultr.nono.io
+```
+
+### 申请泛域名的https证书
+
+参见： https://py3.io/Nginx/#acmesh
+
+### 配置CDN
+
+将泛域名绑定到CDN服务上，并提供申请到的HTTPS证书，开启HTTPS访问
+
+### 前端JS
+
+下述代码出错时将把图片src的`www.aliyun.com`替换为`1-2-3-4.xip.example.com`，特点：
+
+- 只要一张CDN的图片已经出错就会开始替换所有坏图
+- 不会替换已经成功加载的图片
+- 使用localStorage缓存HTTP DNS的查询结果 缓存一周
+- 存储了DNS的TTL结果，如果TTL已经过期就再次查询（所以上面缓存一周其实没用，TTL一般就10分钟）
+
+参考： 
+
+- https://stackoverflow.com/questions/736513/how-do-i-parse-a-url-into-hostname-and-path-in-javascript
+- https://stackoverflow.com/questions/92720/jquery-javascript-to-replace-broken-images
+
+依赖lscache: https://github.com/pamelafox/lscache
+
+```
+var cdnupdating = false;
+
+function updatecdn(cb){
+    if(cdnupdating) return;
+    cdnupdating = true;
+    $.get("https://203.107.1.1/100000/d?host=www.aliyun.com",null,function(data){
+        var ip = data.ips[0];
+        var domain = ip.replace(/\./g, "-")+".xip.example.com";
+        var ddl=new Date()/1000 + data.ttl;
+        var cdn = {domain:domain, ddl:ddl};
+        lscache.set('cdn', cdn, 604800);
+        if(cb) cb(cdn);
+    });
+}
+
+function fixbrokenimages(cdn){
+  if(!cdn) cdn=lscache.get("cdn");
+  if(!cdn || cdn.ddl < +new Date()/1000) return updatecdn(fixbrokenimages);
+  $('img[src*="www.aliyun.com"]').each(function() {
+    if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
+      this.src = this.src.replace("www.aliyun.com", cdn.domain);
+    }
+  });
+}
+var fixbrokenimages_timer = null;
+function image_onerror(){
+    //console.log("image_onerror",this.src);
+    if(/.*www.aliyun.com.*/.test(this.src)){
+        fixbrokenimages();
+    }
+    if(!fixbrokenimages_timer){
+        fixbrokenimages_timer = setInterval(fixbrokenimages , 1000);
+    }
+}
+
+$('img[src*="www.aliyun.com"]').on('error', image_onerror);
+```
