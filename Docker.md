@@ -956,3 +956,20 @@ http://cdimage.ubuntu.com/ubuntu-base/releases/16.04/release/
 ```
 cat ubuntu-base-16.04.5-base-i386.tar.gz|docker import - ubuntu1604_32bit
 ```
+----
+
+## 找到/var/lib/docker中容器的数据存储目录
+
+使用[docker-backup](https://github.com/vincepare/docker-backup):
+
+```
+curl -Lo /usr/local/bin/docker-backup https://raw.githubusercontent.com/vincepare/docker-backup/master/docker-backup.sh && chmod +x /usr/local/bin/docker-backup
+
+docker-backup ls -w container
+```
+
+举个例子 Apache容器由于/tmp/httpd_lua_shm.1的存在跑不起来，试试直接删除容器内的这个文件
+
+```
+for i in `d ps -a|grep Exit|grep minutes|awk '{print $1}'`; do rm `docker-backup ls -w $i`/tmp/httpd_lua_shm.1; d start $i ; done
+```
