@@ -596,3 +596,46 @@ Blob文档：https://developer.mozilla.org/zh-CN/docs/Web/API/Blob
      a.click() // 模拟点击
      a.remove();
 ```
+
+
+-----
+
+## 爬取微信小程序 朵朵校友圈
+
+1. 在分身空间中安装微信，使用HttpCanary抓到wxapkg的url
+2. 用[https://gist.githubusercontent.com/Integ/bcac5c21de5ea35b63b3db2c725f07ad/raw/a4d5f24f4d0102ce864008a86fdcc6e7888205c0/unwxapkg.py](https://gist.githubusercontent.com/Integ/bcac5c21de5ea35b63b3db2c725f07ad/raw/a4d5f24f4d0102ce864008a86fdcc6e7888205c0/unwxapkg.py) 这个工具对小程序解包
+3. 搜索`duo_session`关键词，找到对应的util.js的addSign，用chrome开发人员工具格式化代码
+4. 看了看整段代码 挺复杂的，懒得用python改写，就保留原样js使用nodejs调用吧
+5. burpsuite验证确实可行
+
+假设你已经有了addSign方法 那么就提供个http服务给python爬虫调用吧：
+
+```
+var http = require("http");
+
+function start(port) {
+  function onRequest(request, response) {
+    var postData = "";
+    request.setEncoding("utf8");
+
+    request.addListener("data", function(postDataChunk) {
+      postData += postDataChunk;
+    });
+
+    request.addListener("end", function() {
+      //console.log(postData);
+      console.log("["+new Date().toLocaleString()+"]", request.connection.remoteAddress);
+      var data = JSON.parse(postData);
+      addSign(data)
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(JSON.stringify(data));
+      response.end();
+    });
+  }
+
+  http.createServer(onRequest).listen(port);
+  console.log("Server has started.");
+}
+
+start(8888);
+```
