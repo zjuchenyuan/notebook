@@ -673,3 +673,11 @@ fuzzer可以用rlimit的功能限制子进程：
     }
 #endif /* ifdef RLIMIT_CORE */
 ```
+
+-----
+
+## bash对文件乱序遍历
+
+```
+shuf filename|while read line; do python3 run.py "$line"; done
+```

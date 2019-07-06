@@ -1077,6 +1077,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#bash" title="bash对文件乱序遍历" class="md-nav__link">
+    bash对文件乱序遍历
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1515,6 +1522,13 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bash" title="bash对文件乱序遍历" class="md-nav__link">
+    bash对文件乱序遍历
+  </a>
   
 </li>
       
@@ -2021,6 +2035,12 @@ echo 0 &gt;/proc/sys/kernel/core_uses_pid
         <span class="n">PLOG_W</span><span class="p">(</span><span class="s">&quot;Couldn&#39;t enforce the RLIMIT_CORE resource limit, ignoring&quot;</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="cp">#endif </span><span class="cm">/* ifdef RLIMIT_CORE */</span><span class="cp"></span>
+</pre></div>
+
+
+<hr />
+<h2 id="bash">bash对文件乱序遍历<a class="headerlink" href="#bash" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span>shuf filename|while read line; do python3 run.py &quot;$line&quot;; done
 </pre></div>
                 
                   
