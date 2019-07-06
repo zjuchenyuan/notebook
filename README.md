@@ -279,6 +279,7 @@ My notebook about technology, for lookup and share
 >* 从二进制文件中提取片段
 >* redis匹配前缀删除大量键值
 >* 批量替换子目录特定后缀名文件内容
+>* coredump in fuzzing
 
 ## [Linux-backup](Linux-backup.md)
 >* 一个良好安全的备份计划至关重要

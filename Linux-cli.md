@@ -617,3 +617,59 @@ EVAL "local keys = redis.call('keys', ARGV[1]) \n for i=1,#keys,5000 do \n redis
 sed -i 's#cdnjs.cloudflare.com#cdnjs.loli.net#g' $(find -type f -name "*.html")
 sed -i 's#fonts.googleapis.com#fonts.loli.net#g' $(find -type f -name "*.html")
 ```
+
+----
+
+## coredump in fuzzing
+
+参考： http://man7.org/linux/man-pages/man5/core.5.html
+
+为啥afl要求我们`echo core >/proc/sys/kernel/core_pattern` 呢？ fuzzing时怎么避免产生coredump产生大量IO浪费时间？
+
+### core_pattern是啥
+
+这个文件`/proc/sys/kernel/core_pattern`是命名coredump文件的模板，比如改为`core`之后产生的coredump文件就叫做`core`
+
+另一个文件`/proc/sys/kernel/core_uses_pid` 如果是1的话，还会加上`.pid`
+
+### 怎么才能不产生coredump
+
+全局关闭：
+
+```
+echo >/proc/sys/kernel/core_pattern
+echo 0 >/proc/sys/kernel/core_uses_pid
+```
+
+还可以在当前目录`mkdir core`，有了同名文件夹就不会再写core文件了
+
+fuzzer可以用rlimit的功能限制子进程：
+
+文档说了`RLIMIT_CORE`这个限制，只要它是0就不会产生了，比如[AFL的代码](https://github.com/mirrorer/afl/blob/2fb5a3482ec27b593c57258baae7089ebdc89043/afl-fuzz.c)：
+
+```
+    /* Dumping cores is slow and can lead to anomalies if SIGKILL is delivered
+       before the dump is complete. */
+
+    r.rlim_max = r.rlim_cur = 0;
+
+    setrlimit(RLIMIT_CORE, &r); /* Ignore errors */
+```
+
+再比如[honggfuzz的代码](https://github.com/google/honggfuzz/blob/af7a92b9a644d1cc75b415351d9cb2a52eadefcf/subproc.c)（honggfuzz-1.7并没有考虑这个）：
+
+```
+/* in cmdline.c */
+ { { "rlimit_core", required_argument, NULL, 0x103 }, "Per process RLIMIT_CORE in MiB (default: 0 [no cores are produced])" },
+
+/* in subproc.c */
+#ifdef RLIMIT_CORE
+    const struct rlimit rl = {
+        .rlim_cur = run->global->exe.coreLimit * 1024ULL * 1024ULL,
+        .rlim_max = run->global->exe.coreLimit * 1024ULL * 1024ULL,
+    };
+    if (setrlimit(RLIMIT_CORE, &rl) == -1) {
+        PLOG_W("Couldn't enforce the RLIMIT_CORE resource limit, ignoring");
+    }
+#endif /* ifdef RLIMIT_CORE */
+```

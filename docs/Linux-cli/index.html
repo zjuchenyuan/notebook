@@ -1050,6 +1050,33 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#coredump-in-fuzzing" title="coredump in fuzzing" class="md-nav__link">
+    coredump in fuzzing
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core_pattern" title="core_pattern是啥" class="md-nav__link">
+    core_pattern是啥
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coredump" title="怎么才能不产生coredump" class="md-nav__link">
+    怎么才能不产生coredump
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
     </ul>
@@ -1461,6 +1488,33 @@
   <a href="#_14" title="批量替换子目录特定后缀名文件内容" class="md-nav__link">
     批量替换子目录特定后缀名文件内容
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coredump-in-fuzzing" title="coredump in fuzzing" class="md-nav__link">
+    coredump in fuzzing
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core_pattern" title="core_pattern是啥" class="md-nav__link">
+    core_pattern是啥
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coredump" title="怎么才能不产生coredump" class="md-nav__link">
+    怎么才能不产生coredump
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1924,6 +1978,49 @@ cryptsetup close 名称
 <p>例如本站编译脚本在mkdocs编译后对所有.html文件执行替换，改用国内CDN</p>
 <div class="codehilite"><pre><span></span>sed -i &#39;s#cdnjs.loli.net#cdnjs.loli.net#g&#39; $(find -type f -name &quot;*.html&quot;)
 sed -i &#39;s#fonts.loli.net#fonts.loli.net#g&#39; $(find -type f -name &quot;*.html&quot;)
+</pre></div>
+
+
+<hr />
+<h2 id="coredump-in-fuzzing">coredump in fuzzing<a class="headerlink" href="#coredump-in-fuzzing" title="Permanent link">&para;</a></h2>
+<p>参考： <a href="http://man7.org/linux/man-pages/man5/core.5.html">http://man7.org/linux/man-pages/man5/core.5.html</a></p>
+<p>为啥afl要求我们<code>echo core &gt;/proc/sys/kernel/core_pattern</code> 呢？ fuzzing时怎么避免产生coredump产生大量IO浪费时间？</p>
+<h3 id="core_pattern">core_pattern是啥<a class="headerlink" href="#core_pattern" title="Permanent link">&para;</a></h3>
+<p>这个文件<code>/proc/sys/kernel/core_pattern</code>是命名coredump文件的模板，比如改为<code>core</code>之后产生的coredump文件就叫做<code>core</code></p>
+<p>另一个文件<code>/proc/sys/kernel/core_uses_pid</code> 如果是1的话，还会加上<code>.pid</code></p>
+<h3 id="coredump">怎么才能不产生coredump<a class="headerlink" href="#coredump" title="Permanent link">&para;</a></h3>
+<p>全局关闭：</p>
+<div class="codehilite"><pre><span></span>echo &gt;/proc/sys/kernel/core_pattern
+echo 0 &gt;/proc/sys/kernel/core_uses_pid
+</pre></div>
+
+
+<p>还可以在当前目录<code>mkdir core</code>，有了同名文件夹就不会再写core文件了</p>
+<p>fuzzer可以用rlimit的功能限制子进程：</p>
+<p>文档说了<code>RLIMIT_CORE</code>这个限制，只要它是0就不会产生了，比如<a href="https://github.com/mirrorer/afl/blob/2fb5a3482ec27b593c57258baae7089ebdc89043/afl-fuzz.c">AFL的代码</a>：</p>
+<div class="codehilite"><pre><span></span>    /* Dumping cores is slow and can lead to anomalies if SIGKILL is delivered
+       before the dump is complete. */
+
+    r.rlim_max = r.rlim_cur = 0;
+
+    setrlimit(RLIMIT_CORE, &amp;r); /* Ignore errors */
+</pre></div>
+
+
+<p>再比如<a href="https://github.com/google/honggfuzz/blob/af7a92b9a644d1cc75b415351d9cb2a52eadefcf/subproc.c">honggfuzz的代码</a>（honggfuzz-1.7并没有考虑这个）：</p>
+<div class="codehilite"><pre><span></span><span class="cm">/* in cmdline.c */</span>
+ <span class="p">{</span> <span class="p">{</span> <span class="s">&quot;rlimit_core&quot;</span><span class="p">,</span> <span class="n">required_argument</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="mh">0x103</span> <span class="p">},</span> <span class="s">&quot;Per process RLIMIT_CORE in MiB (default: 0 [no cores are produced])&quot;</span> <span class="p">},</span>
+
+<span class="cm">/* in subproc.c */</span>
+<span class="cp">#ifdef RLIMIT_CORE</span>
+    <span class="k">const</span> <span class="k">struct</span> <span class="n">rlimit</span> <span class="n">rl</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="p">.</span><span class="n">rlim_cur</span> <span class="o">=</span> <span class="n">run</span><span class="o">-&gt;</span><span class="n">global</span><span class="o">-&gt;</span><span class="n">exe</span><span class="p">.</span><span class="n">coreLimit</span> <span class="o">*</span> <span class="mi">1024ULL</span> <span class="o">*</span> <span class="mi">1024ULL</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">rlim_max</span> <span class="o">=</span> <span class="n">run</span><span class="o">-&gt;</span><span class="n">global</span><span class="o">-&gt;</span><span class="n">exe</span><span class="p">.</span><span class="n">coreLimit</span> <span class="o">*</span> <span class="mi">1024ULL</span> <span class="o">*</span> <span class="mi">1024ULL</span><span class="p">,</span>
+    <span class="p">};</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">setrlimit</span><span class="p">(</span><span class="n">RLIMIT_CORE</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">rl</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">PLOG_W</span><span class="p">(</span><span class="s">&quot;Couldn&#39;t enforce the RLIMIT_CORE resource limit, ignoring&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="cp">#endif </span><span class="cm">/* ifdef RLIMIT_CORE */</span><span class="cp"></span>
 </pre></div>
                 
                   
