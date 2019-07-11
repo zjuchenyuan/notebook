@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         ZJU研究生选课助手
 // @namespace    http://grs.zju.edu.cn
-// @version      0.7.1
-// @description  在“全校开课情况查询”页面可以进入选课；整合查老师分数与评论显示；支持只显示特定校区课程；登录页面验证码自动识别；跳过验证码自动登录
+// @version      0.8
+// @description  在“全校开课情况查询”页面可以进入选课；整合查老师分数与评论显示；支持只显示特定校区课程；登录页面验证码自动识别；跳过验证码自动登录；自动课程评价
 // @author       zjuchenyuan
 // @match        http://grs.zju.edu.cn/*
 // @match        https://grs.zju.edu.cn/*
@@ -274,6 +274,7 @@ function quicklogin(xh,password){
         responseType:"json",
         onload: function (response) {
             var data = JSON.parse(response.responseText);
+            console.log(data);
             if(data.cli_cookie && data.cli_cookie.split("CASTGC=")[1]){
                 document.cookie = 'CASTGC=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
                 document.cookie = 'wsess=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
@@ -309,6 +310,9 @@ function quicklogin(xh,password){
             document.querySelector("#content > div:nth-child(2) > p:nth-child(1)").innerText="[grs_helper] 正在为您自动登录...";
             quicklogin(GM_getValue("xh"),GM_getValue("pwd"));
         }
+    }else if(document.location.pathname=="/py/page/student/jxzlpj.htm"){
+        $("input[type=hidden][value=]").each(function(_,x){x.value=4});
+        $("input[type=radio]").each((_,x)=>x.click());
     }
 })();
 
