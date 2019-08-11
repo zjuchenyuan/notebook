@@ -562,8 +562,6 @@ $(function(){$("img").waitForImages(function(){
 background-image: url(data:image/svg+xml;charset=utf-8,%3Csvg...);
 ```
 
-------
-
 ## a链接改用POST请求 jQuery
 
 参考OneIndex，用POST方法表示来自文件列表的点击可以显示网页，默认的GET请求则下载文件
@@ -599,8 +597,6 @@ Blob文档：https://developer.mozilla.org/zh-CN/docs/Web/API/Blob
      a.remove();
 ```
 
-
------
 
 ## 爬取微信小程序 朵朵校友圈
 
