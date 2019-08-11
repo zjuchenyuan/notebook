@@ -205,6 +205,7 @@ My notebook about technology, for lookup and share
 >* 使用InstantClick踩坑
 >* 用原生Javascript操作DOM节点
 >* 劫持动态图片加载 修改src属性
+>* 保持特定元素相对于窗口的位置不变
 
 ## [Jekyll](Jekyll.md)
 >* 碰到过的坑

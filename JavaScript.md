@@ -641,3 +641,35 @@ function start(port) {
 
 start(8888);
 ```
+
+
+## 保持特定元素相对于窗口的位置不变
+
+考虑这样一个场景：一个列表，每一项都可以点击来展开详情div，点击时同时隐藏其他的详情（同一时刻只显示一个）
+
+发现一个bug：特定情况下（不明原因），用户点击后页面位置发生了变化：前面的一个比较长的div隐藏后，当前的位置跳到了很下面的地方，需要手动翻回去，用户体验极差
+
+总而言之，进行一些页面DOM操作后，我们想保持特定元素**相对于窗口的位置**不变
+
+解决方案：在处理点击event时，先记录event.target相对于window的top位置，在详情div隐藏以及显示后再次记录top位置，这两个位置之间的差值就是需要滚动页面的多少
+
+当这个差值很小的时候，可以理解为允许的误差，实际没有可见的变化 无需操作
+
+```
+HTML:
+   onclick="handle_click(event)"
+
+JS:
+function fix_position(et, oldt){
+    var newt = et.getBoundingClientRect().top;
+    if(Math.abs(oldt-newt)<2) return;
+    $(window).scrollTop($(window).scrollTop()+newt-oldt);
+}
+
+function handle_click(event){
+    var et = event.target;
+    var oldt = et.getBoundingClientRect().top;
+    //...code for hide and show divs...
+    fix_position(et, oldt); //also include this line to callback function if using ajax
+}
+```
