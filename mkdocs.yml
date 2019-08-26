@@ -45,6 +45,9 @@ pages:
         - Jekyll: Jekyll.md
         - WindowsSoftware: WindowsSoftware.md
 
+    - Fuzzing:
+        - DFSan: dfsan.md
+
     - Linux:
             - Linux-backup: Linux-backup.md
             - Linux-setup: Linux-setup.md
