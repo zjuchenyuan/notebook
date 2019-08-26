@@ -1,0 +1,2507 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="我的技术笔记本~">
+      
+      
+      
+        <meta name="author" content="chenyuan">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.5.3">
+    
+    
+      
+        <title>Linux-setup - notebook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.aa3de92b.css">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      
+        <link rel="stylesheet" href="https://fonts.loli.net/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+      <link rel="stylesheet" href="https://fonts.loli.net/icon?family=Material+Icons">
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
+    <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+    
+      <a href="#linux" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../README/" title="notebook" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                notebook
+              </span>
+              <span class="md-header-nav__topic">
+                Linux-setup
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/zjuchenyuan/notebook/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="drawer">
+    <span class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </span>
+    notebook
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/zjuchenyuan/notebook/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../README/" title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Python
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Python
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Python/" title="Python" class="md-nav__link">
+      Python
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../gist/" title="Gist Python一些常用代码片段" class="md-nav__link">
+      Gist Python一些常用代码片段
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Programming Languages
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Programming Languages
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../BASH/" title="BASH" class="md-nav__link">
+      BASH
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../BAT/" title="BAT批处理" class="md-nav__link">
+      BAT批处理
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../C/" title="C语言" class="md-nav__link">
+      C语言
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4">
+    
+    <label class="md-nav__link" for="nav-3-4">
+      Java
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-4">
+        Java
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Java/" title="Java" class="md-nav__link">
+      Java
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../S2-045/" title="S2-045" class="md-nav__link">
+      S2-045
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../JavaScript/" title="JavaScript" class="md-nav__link">
+      JavaScript
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../PHP/" title="PHP" class="md-nav__link">
+      PHP
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Web
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Web
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../CDN/" title="CDN" class="md-nav__link">
+      CDN
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cURL/" title="cURL" class="md-nav__link">
+      cURL
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-3" type="checkbox" id="nav-4-3">
+    
+    <label class="md-nav__link" for="nav-4-3">
+      Favorites
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-3">
+        Favorites
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Favorites/" title="Favorites" class="md-nav__link">
+      Favorites
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../GithubProjectRecommendation/" title="Github Project Recommendation" class="md-nav__link">
+      Github Project Recommendation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Links/" title="更多链接" class="md-nav__link">
+      更多链接
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Flask/" title="Flask" class="md-nav__link">
+      Flask
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../MySQL/" title="MySQL" class="md-nav__link">
+      MySQL
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Nginx/" title="Nginx" class="md-nav__link">
+      Nginx
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../RabbitMQ/" title="RabbitMQ" class="md-nav__link">
+      RabbitMQ
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Development
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Development
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Developer/" title="Developer" class="md-nav__link">
+      Developer
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Docker/" title="Docker" class="md-nav__link">
+      Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Git/" title="Git" class="md-nav__link">
+      Git
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Jekyll/" title="Jekyll" class="md-nav__link">
+      Jekyll
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../WindowsSoftware/" title="WindowsSoftware" class="md-nav__link">
+      WindowsSoftware
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Fuzzing
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Fuzzing
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../dfsan/" title="DFSan" class="md-nav__link">
+      DFSan
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7" checked>
+    
+    <label class="md-nav__link" for="nav-7">
+      Linux
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        Linux
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Linux-backup/" title="Linux-backup" class="md-nav__link">
+      Linux-backup
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Linux-setup
+      </label>
+    
+    <a href="./" title="Linux-setup" class="md-nav__link md-nav__link--active">
+      Linux-setup
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="如何翻墙" class="md-nav__link">
+    如何翻墙
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shadowsocksprivoxyhttp-proxy" title="部署shadowsocks客户端，并部署Privoxy提供http proxy" class="md-nav__link">
+    部署shadowsocks客户端，并部署Privoxy提供http proxy
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ip" title="配置有线静态IP" class="md-nav__link">
+    配置有线静态IP
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dhcpiprtnetlink-answers-file-exists" title="配置为dhcp自动获取ip，解决RTNETLINK answers: File exists问题" class="md-nav__link">
+    配置为dhcp自动获取ip，解决RTNETLINK answers: File exists问题
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aptapt" title="配置apt源以加速国内环境下apt速度" class="md-nav__link">
+    配置apt源以加速国内环境下apt速度
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ip_1" title="单网卡获得多个IP" class="md-nav__link">
+    单网卡获得多个IP
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="锐速安装" class="md-nav__link">
+    锐速安装
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apt" title="解决apt依赖问题" class="md-nav__link">
+    解决apt依赖问题
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#note" title="Note" class="md-nav__link">
+    Note
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unixbench" title="UnixBench" class="md-nav__link">
+    UnixBench
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#io" title="硬盘IO性能测试" class="md-nav__link">
+    硬盘IO性能测试
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="清除内存缓存" class="md-nav__link">
+    清除内存缓存
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iptablesip" title="使用iptables封ip" class="md-nav__link">
+    使用iptables封ip
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ip_2" title="屏蔽单个IP" class="md-nav__link">
+    屏蔽单个IP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c" title="封C段" class="md-nav__link">
+    封C段
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b" title="封B段" class="md-nav__link">
+    封B段
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a" title="封A段" class="md-nav__link">
+    封A段
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" title="删除一条规则" class="md-nav__link">
+    删除一条规则
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ip_3" title="只允许特定IP访问某端口" class="md-nav__link">
+    只允许特定IP访问某端口
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rootscreen" title="无root权限使用screen" class="md-nav__link">
+    无root权限使用screen
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#screen" title="screen的用法" class="md-nav__link">
+    screen的用法
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" title="双网卡端口转发，暴露内网端口" class="md-nav__link">
+    双网卡端口转发，暴露内网端口
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="环境：" class="md-nav__link">
+    环境：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="实现方法：" class="md-nav__link">
+    实现方法：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="取消转发方法" class="md-nav__link">
+    取消转发方法
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" title="保护重要系统文件防止被删" class="md-nav__link">
+    保护重要系统文件防止被删
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" title="时区设置" class="md-nav__link">
+    时区设置
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cpu" title="查看CPU核心个数" class="md-nav__link">
+    查看CPU核心个数
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" title="非交互式添加用户" class="md-nav__link">
+    非交互式添加用户
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#openvpn" title="简单OpenVPN配置" class="md-nav__link">
+    简单OpenVPN配置
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#openvpn_1" title="安装openvpn:" class="md-nav__link">
+    安装openvpn:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" title="生成密钥" class="md-nav__link">
+    生成密钥
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" title="服务端配置" class="md-nav__link">
+    服务端配置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" title="客户端配置" class="md-nav__link">
+    客户端配置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker" title="在Docker中使用服务端" class="md-nav__link">
+    在Docker中使用服务端
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" title="时区时间设置" class="md-nav__link">
+    时区时间设置
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ext4" title="快速地格式化大分区ext4" class="md-nav__link">
+    快速地格式化大分区ext4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ca-mitmproxy" title="添加受信任的CA证书 mitmproxy" class="md-nav__link">
+    添加受信任的CA证书 mitmproxy
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inodebtrfs" title="明明还有大量空间却说没有？inode满了！挂载单个文件为btrfs分区" class="md-nav__link">
+    明明还有大量空间却说没有？inode满了！挂载单个文件为btrfs分区
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" title="问题现象" class="md-nav__link">
+    问题现象
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" title="解决方案" class="md-nav__link">
+    解决方案
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-inodes" title="1. 删文件 腾出部分inodes" class="md-nav__link">
+    1. 删文件 腾出部分inodes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-1tbsparse-file" title="2. 创建一个1TB的sparse file" class="md-nav__link">
+    2. 创建一个1TB的sparse file
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" title="3. 创建磁盘分区" class="md-nav__link">
+    3. 创建磁盘分区
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" title="4. 挂载分区" class="md-nav__link">
+    4. 挂载分区
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" title="5. 然后就可以搬运数据过去了" class="md-nav__link">
+    5. 然后就可以搬运数据过去了
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" title="一些查看空间的命令" class="md-nav__link">
+    一些查看空间的命令
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6" title="6. 卸载设备" class="md-nav__link">
+    6. 卸载设备
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_19" title="安全地拔出移动硬盘" class="md-nav__link">
+    安全地拔出移动硬盘
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iptables-127001" title="iptables 让监听在127.0.0.1上的端口可以公网访问" class="md-nav__link">
+    iptables 让监听在127.0.0.1上的端口可以公网访问
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vmware-lvm" title="VMWare扩容磁盘 LVM在线扩容" class="md-nav__link">
+    VMWare扩容磁盘 LVM在线扩容
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vmware" title="VMWare新添加一块硬盘扩容根目录" class="md-nav__link">
+    VMWare新添加一块硬盘扩容根目录
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Linux-SSH/" title="Linux-SSH" class="md-nav__link">
+      Linux-SSH
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Linux-cli/" title="Linux-cli" class="md-nav__link">
+      Linux-cli
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Linux-VirtualBox/" title="Linux-VirtualBox" class="md-nav__link">
+      Linux-VirtualBox
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Ubuntu/" title="Ubuntu" class="md-nav__link">
+      Ubuntu
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      My Projects
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        My Projects
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../zjugrshelper/" title="ZJU grs helper" class="md-nav__link">
+      ZJU grs helper
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="如何翻墙" class="md-nav__link">
+    如何翻墙
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shadowsocksprivoxyhttp-proxy" title="部署shadowsocks客户端，并部署Privoxy提供http proxy" class="md-nav__link">
+    部署shadowsocks客户端，并部署Privoxy提供http proxy
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ip" title="配置有线静态IP" class="md-nav__link">
+    配置有线静态IP
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dhcpiprtnetlink-answers-file-exists" title="配置为dhcp自动获取ip，解决RTNETLINK answers: File exists问题" class="md-nav__link">
+    配置为dhcp自动获取ip，解决RTNETLINK answers: File exists问题
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aptapt" title="配置apt源以加速国内环境下apt速度" class="md-nav__link">
+    配置apt源以加速国内环境下apt速度
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ip_1" title="单网卡获得多个IP" class="md-nav__link">
+    单网卡获得多个IP
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="锐速安装" class="md-nav__link">
+    锐速安装
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apt" title="解决apt依赖问题" class="md-nav__link">
+    解决apt依赖问题
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#note" title="Note" class="md-nav__link">
+    Note
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unixbench" title="UnixBench" class="md-nav__link">
+    UnixBench
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#io" title="硬盘IO性能测试" class="md-nav__link">
+    硬盘IO性能测试
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="清除内存缓存" class="md-nav__link">
+    清除内存缓存
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iptablesip" title="使用iptables封ip" class="md-nav__link">
+    使用iptables封ip
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ip_2" title="屏蔽单个IP" class="md-nav__link">
+    屏蔽单个IP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c" title="封C段" class="md-nav__link">
+    封C段
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b" title="封B段" class="md-nav__link">
+    封B段
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a" title="封A段" class="md-nav__link">
+    封A段
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" title="删除一条规则" class="md-nav__link">
+    删除一条规则
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ip_3" title="只允许特定IP访问某端口" class="md-nav__link">
+    只允许特定IP访问某端口
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rootscreen" title="无root权限使用screen" class="md-nav__link">
+    无root权限使用screen
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#screen" title="screen的用法" class="md-nav__link">
+    screen的用法
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" title="双网卡端口转发，暴露内网端口" class="md-nav__link">
+    双网卡端口转发，暴露内网端口
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="环境：" class="md-nav__link">
+    环境：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="实现方法：" class="md-nav__link">
+    实现方法：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="取消转发方法" class="md-nav__link">
+    取消转发方法
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" title="保护重要系统文件防止被删" class="md-nav__link">
+    保护重要系统文件防止被删
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" title="时区设置" class="md-nav__link">
+    时区设置
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cpu" title="查看CPU核心个数" class="md-nav__link">
+    查看CPU核心个数
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" title="非交互式添加用户" class="md-nav__link">
+    非交互式添加用户
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#openvpn" title="简单OpenVPN配置" class="md-nav__link">
+    简单OpenVPN配置
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#openvpn_1" title="安装openvpn:" class="md-nav__link">
+    安装openvpn:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" title="生成密钥" class="md-nav__link">
+    生成密钥
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" title="服务端配置" class="md-nav__link">
+    服务端配置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" title="客户端配置" class="md-nav__link">
+    客户端配置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker" title="在Docker中使用服务端" class="md-nav__link">
+    在Docker中使用服务端
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" title="时区时间设置" class="md-nav__link">
+    时区时间设置
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ext4" title="快速地格式化大分区ext4" class="md-nav__link">
+    快速地格式化大分区ext4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ca-mitmproxy" title="添加受信任的CA证书 mitmproxy" class="md-nav__link">
+    添加受信任的CA证书 mitmproxy
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inodebtrfs" title="明明还有大量空间却说没有？inode满了！挂载单个文件为btrfs分区" class="md-nav__link">
+    明明还有大量空间却说没有？inode满了！挂载单个文件为btrfs分区
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" title="问题现象" class="md-nav__link">
+    问题现象
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" title="解决方案" class="md-nav__link">
+    解决方案
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-inodes" title="1. 删文件 腾出部分inodes" class="md-nav__link">
+    1. 删文件 腾出部分inodes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-1tbsparse-file" title="2. 创建一个1TB的sparse file" class="md-nav__link">
+    2. 创建一个1TB的sparse file
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" title="3. 创建磁盘分区" class="md-nav__link">
+    3. 创建磁盘分区
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" title="4. 挂载分区" class="md-nav__link">
+    4. 挂载分区
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" title="5. 然后就可以搬运数据过去了" class="md-nav__link">
+    5. 然后就可以搬运数据过去了
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" title="一些查看空间的命令" class="md-nav__link">
+    一些查看空间的命令
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6" title="6. 卸载设备" class="md-nav__link">
+    6. 卸载设备
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_19" title="安全地拔出移动硬盘" class="md-nav__link">
+    安全地拔出移动硬盘
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iptables-127001" title="iptables 让监听在127.0.0.1上的端口可以公网访问" class="md-nav__link">
+    iptables 让监听在127.0.0.1上的端口可以公网访问
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vmware-lvm" title="VMWare扩容磁盘 LVM在线扩容" class="md-nav__link">
+    VMWare扩容磁盘 LVM在线扩容
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vmware" title="VMWare新添加一块硬盘扩容根目录" class="md-nav__link">
+    VMWare新添加一块硬盘扩容根目录
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/zjuchenyuan/notebook/edit/master/Linux-setup.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="linux">Linux系统配置<a class="headerlink" href="#linux" title="Permanent link">&para;</a></h1>
+<p>本文档为Linux服务器的配置方面的笔记，Linux相关笔记还有：</p>
+<p><a href="../Linux-cli/">Linux命令行操作技巧</a></p>
+<p><a href="../Linux-SSH/">SSH远程登录</a></p>
+<p><a href="../Linux-backup/">Linux备份</a></p>
+<p>TOC:</p>
+<hr />
+<h2 id="_1">如何翻墙<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="shadowsocksprivoxyhttp-proxy">部署shadowsocks客户端，并部署Privoxy提供http proxy<a class="headerlink" href="#shadowsocksprivoxyhttp-proxy" title="Permanent link">&para;</a></h2>
+<p>代码参见<a href="../code/ssprivoxy.txt">ssprivoxy.txt</a></p>
+<hr />
+<h2 id="ip">配置有线静态IP<a class="headerlink" href="#ip" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span>vim /etc/network/interfaces
+<span class="c1"># 写入以下内容，请自行替换xx部分</span>
+iface eth0 inet static
+ address <span class="m">10</span>.xx.xx.13 <span class="c1">#你需要设置的IP</span>
+ netmask <span class="m">255</span>.255.255.0 <span class="c1">#子网掩码</span>
+ network <span class="m">10</span>.xx.xx.0
+ broadcast <span class="m">10</span>.xx.xx.255
+ gateway <span class="m">10</span>.xx.xx.254 <span class="c1">#网关</span>
+ dns-nameservers <span class="m">10</span>.10.0.21 <span class="c1">#dns服务器</span>
+<span class="c1"># 按Esc, :wq退出保存</span>
+service networking restart
+ifconfig eth0 <span class="m">10</span>.xx.xx.13 netmask <span class="m">255</span>.255.255.0 up
+route add default eth0 <span class="c1">#路由配置也很重要，错误的路由将导致不能访问</span>
+route add default gw <span class="m">10</span>.xx.xx.254 dev eth0 <span class="c1">#这里设置为你的网关</span>
+</pre></div>
+
+
+<p>注意使用ifconfig进行ip的修改后，会丢失路由信息、额外的ip设置，需要重新配置route（执行上述两条route命令即可）</p>
+<h2 id="dhcpiprtnetlink-answers-file-exists">配置为dhcp自动获取ip，解决RTNETLINK answers: File exists问题<a class="headerlink" href="#dhcpiprtnetlink-answers-file-exists" title="Permanent link">&para;</a></h2>
+<p>之前已经配置过静态ip，现在要改为自动获取</p>
+<div class="codehilite"><pre><span></span>dhclient eth0
+</pre></div>
+
+
+<p>出现报错RTNETLINK answers: File exists，解决方案：</p>
+<div class="codehilite"><pre><span></span>ip addr flush dev eth0
+</pre></div>
+
+
+<h2 id="aptapt">配置apt源以加速国内环境下apt速度<a class="headerlink" href="#aptapt" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span>curl http://mirrors.163.com/.help/sources.list.trusty&gt;/etc/apt/sources.list
+</pre></div>
+
+
+<p>如果还未安装curl，先手动写入这两行：</p>
+<div class="codehilite"><pre><span></span><span class="k">deb</span> <span class="s">http://mirrors.163.com/ubuntu/</span> <span class="kp">trusty</span> <span class="kp">main</span> <span class="kp">restricted</span> <span class="kp">universe</span> <span class="kp">multiverse</span>
+<span class="k">deb</span> <span class="s">http://mirrors.163.com/ubuntu/</span> <span class="kp">trusty-security</span> <span class="kp">main</span> <span class="kp">restricted</span> <span class="kp">universe</span> <span class="kp">multiverse</span>
+</pre></div>
+
+
+<blockquote>
+<p>注：vim复制一行的命令为yy，粘贴为p</p>
+</blockquote>
+<p>或者通过sed替换：</p>
+<div class="codehilite"><pre><span></span>sed -i &#39;s/security.ubuntu.com/mirrors.zju.edu.cn/g&#39; /etc/apt/sources.list
+sed -i &#39;s/archive.ubuntu.com/mirrors.zju.edu.cn/g&#39; /etc/apt/sources.list
+</pre></div>
+
+
+<h2 id="ip_1">单网卡获得多个IP<a class="headerlink" href="#ip_1" title="Permanent link">&para;</a></h2>
+<p>ifconfig eth0:233 10.xx.xx.233 netmask 255.255.255.0 up</p>
+<hr />
+<h2 id="_2">锐速安装<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p><a href="http://来自：https://github.com">来自：https://github.com</a>/91yun/serverspeeder</p>
+<p>安装之前需要修改内核版本并重启：</p>
+<div class="codehilite"><pre><span></span>apt-get install linux-image-3.16.0-43-generic
+reboot
+</pre></div>
+
+
+<p>安装命令：# 此安装脚本会连接开发者的服务器以root权限执行远程指令，风险自负</p>
+<div class="codehilite"><pre><span></span>wget -N --no-check-certificate https://raw.githubusercontent.com/91yun/serverspeeder/master/serverspeeder-all.sh &amp;&amp; bash serverspeeder-all.sh
+</pre></div>
+
+
+<p>查看状态/关闭服务：</p>
+<div class="codehilite"><pre><span></span>service serverSpeeder stauts
+service serverSpeeder stop
+</pre></div>
+
+
+<hr />
+<h2 id="apt">解决apt依赖问题<a class="headerlink" href="#apt" title="Permanent link">&para;</a></h2>
+<p>问题描述：服务器为ubuntu14.04版本，某些不明操作后，无法用<code>apt-get</code>安装任何东西</p>
+<div class="codehilite"><pre><span></span>&gt; apt-get -f install
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+Correcting dependencies... failed.
+The following packages have unmet dependencies:
+ libatk1.0-0 : Depends: libglib2.0-0 <span class="o">(</span>&gt;<span class="o">=</span> <span class="m">2</span>.41.1<span class="o">)</span> but <span class="m">2</span>.40.0-2 is installed
+ libglib2.0-bin : Depends: libglib2.0-0 <span class="o">(=</span> <span class="m">2</span>.44.0-1ubuntu3<span class="o">)</span> but <span class="m">2</span>.40.0-2 is installed
+ libglib2.0-dev : Depends: libglib2.0-0 <span class="o">(=</span> <span class="m">2</span>.44.0-1ubuntu3<span class="o">)</span> but <span class="m">2</span>.40.0-2 is installed
+ libgtk2.0-0 : Depends: libglib2.0-0 <span class="o">(</span>&gt;<span class="o">=</span> <span class="m">2</span>.41.1<span class="o">)</span> but <span class="m">2</span>.40.0-2 is installed
+E: Error, pkgProblemResolver::Resolve generated breaks, this may be caused by held packages.
+E: Unable to correct dependencies
+</pre></div>
+
+
+<p>仔细看错误说明，libglib2.0-bin这个软件包要求libglib2.0-0的版本=2.44但是现有的安装版本为2.40</p>
+<p><a href="http://在ubuntu的软件包官网搜索咯：https://launchpad.net">在ubuntu的软件包官网搜索咯：https://launchpad.net</a>/ubuntu/</p>
+<p>发现2.44版本的是vivid才提供的，现在系统版本是trusty，自然apt-get装不了</p>
+<p>解决方案：</p>
+<p>找到报错信息需要的精确匹配的那个deb文件下载咯，例如这里就要下载这个版本的：</p>
+<p><a href="https://launchpad.net/ubuntu/vivid/amd64/libglib2.0-0/2.44.0-1ubuntu3">https://launchpad.net/ubuntu/vivid/amd64/libglib2.0-0/2.44.0-1ubuntu3</a></p>
+<p>得到deb文件后<code>dpkg -i 文件名</code></p>
+<h3 id="note">Note<a class="headerlink" href="#note" title="Permanent link">&para;</a></h3>
+<p>一般apt依赖冲突问题都是由于系统版本与需要的包的版本不一致导致的，检查一下/etc/apt/sources.list看看是否匹配系统版本咯</p>
+<p>用apt-get前检查一下sources.list，树莓派是版本8，是jessie不是wheezy!</p>
+<hr />
+<h2 id="unixbench">UnixBench<a class="headerlink" href="#unixbench" title="Permanent link">&para;</a></h2>
+<p>VPS性能测试工具，耗时较长，耐心等待</p>
+<div class="codehilite"><pre><span></span>curl https://codeload.github.com/kdlucas/byte-unixbench/zip/v5.1.3&gt;UnixBench.zip
+unzip UnixBench.zip
+<span class="nb">cd</span> byte-unixbench-5.1.3/UnixBench
+<span class="c1"># apt-get install build-essential</span>
+make
+screen -S ub
+./Run
+</pre></div>
+
+
+<p>参考数据，均为最低配置：主机屋1590.5；阿里云1470.4；腾讯云1156.0</p>
+<h3 id="io">硬盘IO性能测试<a class="headerlink" href="#io" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>dd if=/dev/zero of=test bs=64k count=4k oflag=dsync
+dd if=/dev/zero of=test bs=8k count=256k conv=fdatasync
+</pre></div>
+
+
+<hr />
+<h2 id="_3">清除内存缓存<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>使用<code>free -h</code>查看可用内存前可以执行这个命令，查看除去buffer后的可用内存</p>
+<div class="codehilite"><pre><span></span>sync
+echo 3 &gt; /proc/sys/vm/drop_caches
+</pre></div>
+
+
+<hr />
+<h2 id="iptablesip">使用iptables封ip<a class="headerlink" href="#iptablesip" title="Permanent link">&para;</a></h2>
+<h3 id="ip_2">屏蔽单个IP<a class="headerlink" href="#ip_2" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>iptables -I INPUT -s 123.45.6.7 -j DROP
+</pre></div>
+
+
+<h3 id="c">封C段<a class="headerlink" href="#c" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>iptables -I INPUT -s 123.45.6.0/24 -j DROP
+</pre></div>
+
+
+<h3 id="b">封B段<a class="headerlink" href="#b" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span> iptables -I INPUT -s 123.45.0.0/16 -j DROP
+</pre></div>
+
+
+<h3 id="a">封A段<a class="headerlink" href="#a" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>iptables -I INPUT -s 123.0.0.0/8 -j DROP
+</pre></div>
+
+
+<p>记得<strong>保存</strong>：</p>
+<div class="codehilite"><pre><span></span>service iptables save
+</pre></div>
+
+
+<h2 id="_4">删除一条规则<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>只要把上述的插入规则重写一次，将其中的-I改为-D即可</p>
+<div class="codehilite"><pre><span></span>iptables -D INPUT -s IP地址 -j DROP
+</pre></div>
+
+
+<p>如果懒得重写 你也可以先列举出规则所在的id，根据id删除：</p>
+<div class="codehilite"><pre><span></span>iptables -L --line-numbers
+</pre></div>
+
+
+<p>假设你想删除INPUT链的第3条规则：</p>
+<div class="codehilite"><pre><span></span>iptables -D INPUT 3
+</pre></div>
+
+
+<h2 id="ip_3">只允许特定IP访问某端口<a class="headerlink" href="#ip_3" title="Permanent link">&para;</a></h2>
+<p>iptables的插入次序很重要，先加入的会先匹配，所以拒绝策略应该最后加入</p>
+<p>以8888端口为例，只允许10.77.88.99这个IP 和 10.22.33.0/24 这个C段访问，其他来源的访问拒绝 返回connection refused</p>
+<div class="codehilite"><pre><span></span>iptables -A INPUT -s 10.77.88.99 -p tcp --dport 8888 -j ACCEPT
+iptables -A INPUT -s 10.22.33.0/24 -p tcp --dport 8888 -j ACCEPT
+iptables -A INPUT -p tcp --dport 8888 -j REJECT
+</pre></div>
+
+
+<hr />
+<h2 id="rootscreen">无root权限使用screen<a class="headerlink" href="#rootscreen" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><a href="https://www.gnu.org/software/screen/">https://www.gnu.org/software/screen/</a></p>
+</blockquote>
+<p>复制相同操作系统下的screen二进制文件，运行前指定环境变量</p>
+<div class="codehilite"><pre><span></span>mkdir -p $HOME/.screen
+export SCREENDIR=$HOME/.screen
+</pre></div>
+
+
+<hr />
+<h2 id="screen">screen的用法<a class="headerlink" href="#screen" title="Permanent link">&para;</a></h2>
+<p>列出存在的screen：</p>
+<div class="codehilite"><pre><span></span>screen -ls
+</pre></div>
+
+
+<p>创建一个名为name的screen：</p>
+<div class="codehilite"><pre><span></span>screen -S name
+</pre></div>
+
+
+<p>从screen脱离：</p>
+<div class="codehilite"><pre><span></span>按Ctrl+A后按d
+</pre></div>
+
+
+<p>重新连上名称为name的screen：</p>
+<div class="codehilite"><pre><span></span>screen -r name
+</pre></div>
+
+
+<p>创建一个screen的自启动，让后台进程获得tty</p>
+<div class="codehilite"><pre><span></span># 假设写好了一个/root/code.sh
+vim /etc/rc.local
+# 在最后加入一行，其中NAME替换为自己喜欢的名字
+screen -dmS NAME /root/code.sh
+</pre></div>
+
+
+<p>举个例子&ndash;监测外网能否ping通，如果不能重连zjuvpn：</p>
+<p><a href="../code/pingtest.sh">code/pingtest.sh</a></p>
+<hr />
+<h2 id="_5">双网卡端口转发，暴露内网端口<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>来自： <a href="https://yq.aliyun.com/wenzhang/show_25824">https://yq.aliyun.com/wenzhang/show_25824</a></p>
+</blockquote>
+<p>有两台机器，其中一台A 有内网和外网，B只有内网。</p>
+<p>目标： 在外网访问A机器的2121端口，就相当于连上了B机器的ftp(21)</p>
+<h3 id="_6">环境：<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>A机器外网IP为 1.2.3.4(eth1) 内网IP为 192.168.1.20 (eth0)</p>
+<p>B机器内网为 192.168.1.21</p>
+<h3 id="_7">实现方法：<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>首先在A机器上打开端口转发功能</p>
+<div class="codehilite"><pre><span></span>    echo 1 &gt; /proc/sys/net/ipv4/ip_forward
+    echo -e &quot;\nnet.ipv4.ip_forward = 1&quot;&gt;&gt;/etc/sysctl.conf
+    sysctl -p
+</pre></div>
+
+
+<p>然后在A机器上创建iptables规则</p>
+<div class="codehilite"><pre><span></span># 把访问外网2121端口的包转发到内网ftp服务器
+iptables -t nat -I PREROUTING -d 1.2.3.4 -p tcp --dport 2121 -j DNAT --to 192.168.1.21:21 
+
+# 把到内网ftp服务器的包回源到内网网卡上，不然包只能转到ftp服务器，而返回的包不能到达客户端
+iptables -t nat -I POSTROUTING -d 192.168.1.21 -p tcp --dport 21 -j SNAT --to 192.168.1.20 
+
+# 保存一下规则
+service iptables save
+</pre></div>
+
+
+<h3 id="_8">取消转发方法<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>iptables中把-I改为-D运行就是删除此条规则</p>
+<hr />
+<h2 id="_9">保护重要系统文件防止被删<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<p>使用+i标志位使得root用户也不能删除/bin, /sbin, /usr/sbin, /usr/bin, /usr/local/sbin, /usr/local/bin</p>
+<div class="codehilite"><pre><span></span>chattr -R +i /bin /sbin /usr/sbin /usr/bin /usr/local/sbin /usr/local/bin
+</pre></div>
+
+
+<p>设置后无法apt-get安装新软件，需要先取消标志位</p>
+<div class="codehilite"><pre><span></span>chattr -R -i /bin /sbin /usr/sbin /usr/bin /usr/local/sbin /usr/local/bin
+</pre></div>
+
+
+<hr />
+<h2 id="_10">时区设置<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span>cp /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
+ntpdate cn.pool.ntp.org
+</pre></div>
+
+
+<hr />
+<h2 id="cpu">查看CPU核心个数<a class="headerlink" href="#cpu" title="Permanent link">&para;</a></h2>
+<p>一般我会用 <code>top</code> 命令，按 <code>1</code> 就能看到每个CPU占用情况</p>
+<p>但当CPU太多的时候还是需要执行命令的：</p>
+<div class="codehilite"><pre><span></span># 查看物理CPU个数
+cat /proc/cpuinfo| grep &quot;physical id&quot;| sort| uniq| wc -l
+
+# 查看每个物理CPU中core的个数(即核数)
+cat /proc/cpuinfo| grep &quot;cpu cores&quot;| uniq
+
+# 查看逻辑CPU的个数
+cat /proc/cpuinfo| grep &quot;processor&quot;| wc -l
+</pre></div>
+
+
+<hr />
+<h2 id="_11">非交互式添加用户<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span>useradd username -m
+echo username:password|chpasswd
+</pre></div>
+
+
+<p>添加一个用户名为username的用户并创建home目录，并设置密码为password</p>
+<hr />
+<h2 id="openvpn">简单OpenVPN配置<a class="headerlink" href="#openvpn" title="Permanent link">&para;</a></h2>
+<p>一个最最简单的场景：只有一个服务器 一个客户端，在容器中用来给用户直接访问的一个内网IP</p>
+<p><a href="http://参考：https://openvpn.net">参考：https://openvpn.net</a>/index.php/open-source/documentation/miscellaneous/78-static-key-mini-howto.html</p>
+<h3 id="openvpn_1">安装openvpn:<a class="headerlink" href="#openvpn_1" title="Permanent link">&para;</a></h3>
+<p>Linux:</p>
+<div class="codehilite"><pre><span></span>apt-get install openvpn
+</pre></div>
+
+
+<p>Windows:</p>
+<p><a href="https://d.py3.io/openvpn.exe">openvpn.exe</a></p>
+<h3 id="_12">生成密钥<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>openvpn --genkey --secret static.key
+</pre></div>
+
+
+<p>用另外建立的安全通道(SSH)将static.key发给客户端</p>
+<h3 id="_13">服务端配置<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>ifconfig 10.8.0.1 10.8.0.2
+secret /static.key
+keepalive 10 60
+persist-key
+persist-tun
+proto udp
+port 1194
+dev tun0
+status /tmp/openvpn-status.log
+
+user nobody
+group nogroup
+</pre></div>
+
+
+<p>在 Ubuntu 中，如果要配置成系统服务的形式，将其保存到/etc/openvpn/myvpn.conf</p>
+<p>然后这样启动它：</p>
+<div class="codehilite"><pre><span></span>service openvpn@myvpn start
+</pre></div>
+
+
+<p>这样设置开机自启</p>
+<div class="codehilite"><pre><span></span>systemctl enable openvpn@myvpn.service
+</pre></div>
+
+
+<h3 id="_14">客户端配置<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>remote 这里是你的服务器IP 这里是你的服务器端口 udp
+dev tun
+ifconfig 10.8.0.2 10.8.0.1
+secret static.key
+</pre></div>
+
+
+<h3 id="docker">在Docker中使用服务端<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h3>
+<p><a href="http://参考：https://raw.githubusercontent.com">参考：https://raw.githubusercontent.com</a>/kylemanna/docker-openvpn/master/bin/ovpn_run</p>
+<p>运行容器的时候一定要给参数<code>--cap-add=NET_ADMIN</code></p>
+<p>另外还需要在容器中执行：</p>
+<div class="codehilite"><pre><span></span>mkdir -p /dev/net
+if [ ! -c /dev/net/tun ]; then
+    mknod /dev/net/tun c 10 200
+fi
+</pre></div>
+
+
+<hr />
+<h2 id="_15">时区时间设置<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h2>
+<p><a href="http://参考：http://liumissyou.blog.51cto.com">参考：http://liumissyou.blog.51cto.com</a>/4828343/1302050</p>
+<div class="codehilite"><pre><span></span>apt-get install tzdata
+cp /etc/localtime /etc/localtime.bak
+ln -svf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+echo &quot;TZ=&#39;Asia/Shanghai&#39;&quot;&gt;&gt;~/.bashrc
+</pre></div>
+
+
+<p>修改时间可以用：</p>
+<div class="codehilite"><pre><span></span>date -s &quot;2017-06-18 16:40:00&quot;
+</pre></div>
+
+
+<hr />
+<h2 id="ext4">快速地格式化大分区ext4<a class="headerlink" href="#ext4" title="Permanent link">&para;</a></h2>
+<p>Linux系统建议使用ext4分区格式，但直接mkfs.ext4 /dev/sda1就有很大的坑：会默认lazyinit在很长一段时间内占用IO</p>
+<blockquote>
+<p>参考：<a href="http://fibrevillage.com/storage/474-ext4-lazy-init"><a href="http://fibrevillage.com/storage/474-ext4-lazy-init">http://fibrevillage.com/storage/474-ext4-lazy-init</a></a></p>
+</blockquote>
+<p>正确格式化大硬盘的方法如下，这样不会跳过初始化磁盘的过程而且初始化过程很快：</p>
+<div class="codehilite"><pre><span></span>mkfs.ext4 /dev/sdXX -E lazy_itable_init=0,lazy_journal_init=0 -O sparse_super,large_file -m 0 -T largefile4
+</pre></div>
+
+
+<p>对应的<a href="http://manpages.ubuntu.com/manpages/precise/en/man8/mkfs.ext4.8.html">man文档</a></p>
+<hr />
+<h2 id="ca-mitmproxy">添加受信任的CA证书 mitmproxy<a class="headerlink" href="#ca-mitmproxy" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span>echo ~/.mitmproxy/mitmproxy-ca-cert.pem &gt;&gt; /etc/ssl/certs/ca-certificates.crt
+</pre></div>
+
+
+<hr />
+<h2 id="inodebtrfs">明明还有大量空间却说没有？inode满了！挂载单个文件为btrfs分区<a class="headerlink" href="#inodebtrfs" title="Permanent link">&para;</a></h2>
+<h3 id="_16">问题现象<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<p><code>df -h</code>显示还有很多空间，但<code>echo test&gt;test.txt</code>会显示<code>No space left on device</code></p>
+<p><a href="http://查到这个：https://wiki.gentoo.org">查到这个：https://wiki.gentoo.org</a>/wiki/Knowledge_Base:No_space_left_on_device_while_there_is_plenty_of_space_available</p>
+<p>使用<code>df -i</code>查看inodes占用情况，发现确实100%了</p>
+<h3 id="_17">解决方案<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
+<p>inodes上限在mkfs时就定下来了，不能改动，所以没救了。。。</p>
+<p>真没救了嘛？ 当然不是，虽然不能写入大量小文件，但还是可以写一个大文件的嘛，就想到挂载单个文件为btrfs分区</p>
+<h4 id="1-inodes">1. 删文件 腾出部分inodes<a class="headerlink" href="#1-inodes" title="Permanent link">&para;</a></h4>
+<p>删掉一些不用的小文件，也不用删太多</p>
+<h4 id="2-1tbsparse-file">2. 创建一个1TB的sparse file<a class="headerlink" href="#2-1tbsparse-file" title="Permanent link">&para;</a></h4>
+<p>参考: <a href="https://prefetch.net/blog/2009/07/05/creating-sparse-files-on-linux-hosts-with-dd/">https://prefetch.net/blog/2009/07/05/creating-sparse-files-on-linux-hosts-with-dd/</a></p>
+<p>使用dd命令，不将实际内容写入硬盘，能很快执行完成：</p>
+<div class="codehilite"><pre><span></span>dd if=/dev/zero of=filesystem.img bs=1 count=0 seek=1T
+</pre></div>
+
+
+<p>执行后ls -alh能看到文件大小为1T，使用du filesystem.img查看真实空间</p>
+<h4 id="3">3. 创建磁盘分区<a class="headerlink" href="#3" title="Permanent link">&para;</a></h4>
+<p><a href="http://参考：https://www.jamescoyle.net">参考：https://www.jamescoyle.net</a>/how-to/2096-use-a-file-as-a-linux-block-device</p>
+<p><a href="http://btrfs参考：https://btrfs.wiki.kernel.org">btrfs参考：https://btrfs.wiki.kernel.org</a>/index.php/Getting_started</p>
+<div class="codehilite"><pre><span></span>mkfs.btrfs filesystem.img
+</pre></div>
+
+
+<h4 id="4">4. 挂载分区<a class="headerlink" href="#4" title="Permanent link">&para;</a></h4>
+<p>首先找到一个空闲的loop设备：</p>
+<div class="codehilite"><pre><span></span>losetup -f
+</pre></div>
+
+
+<p>假设得到了/dev/loop0，然后mount挂载咯：</p>
+<div class="codehilite"><pre><span></span>sudo mount -o loop=/dev/loop0 /path/to/filesystem.img /mnt
+</pre></div>
+
+
+<h4 id="5">5. 然后就可以搬运数据过去了<a class="headerlink" href="#5" title="Permanent link">&para;</a></h4>
+<p>就用mv像往常一样搬咯</p>
+<h4 id="_18">一些查看空间的命令<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span># 查看磁盘文件占用空间
+du -h filesystem.img
+# 查看btrfs元数据占用空间
+btrfs filesystem df /mnt
+# 也是查看空间
+btrfs filesystem usage /mnt
+</pre></div>
+
+
+<h4 id="6">6. 卸载设备<a class="headerlink" href="#6" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span>sudo umount /mnt
+sudo losetup -d /dev/loop0
+</pre></div>
+
+
+<hr />
+<h2 id="_19">安全地拔出移动硬盘<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h2>
+<p>首先当然是<code>sudo umount /mnt</code>卸载挂载点咯，如何更安全一点呢？</p>
+<div class="codehilite"><pre><span></span>udisksctl power-off -b /dev/sdb
+</pre></div>
+
+
+<p>From: <a href="https://unix.stackexchange.com/questions/354138/safest-way-to-remove-usb-drive-on-linux">https://unix.stackexchange.com/questions/354138/safest-way-to-remove-usb-drive-on-linux</a></p>
+<hr />
+<h2 id="iptables-127001">iptables 让监听在127.0.0.1上的端口可以公网访问<a class="headerlink" href="#iptables-127001" title="Permanent link">&para;</a></h2>
+<p><a href="http://参考：https://unix.stackexchange.com">参考：https://unix.stackexchange.com</a>/questions/111433/iptables-redirect-outside-requests-to-127-0-0-1</p>
+<p>例如有监听在127.0.0.1:1234的应用，现在想通过ip:5678来访问</p>
+<div class="codehilite"><pre><span></span>iptables -t nat -I PREROUTING -p tcp --dport 5678 -j DNAT --to-destination 127.0.0.1:1234
+sysctl -w net.ipv4.conf.eth0.route_localnet=1
+</pre></div>
+
+
+<hr />
+<h2 id="vmware-lvm">VMWare扩容磁盘 LVM在线扩容<a class="headerlink" href="#vmware-lvm" title="Permanent link">&para;</a></h2>
+<p>参考： <a href="https://ma.ttias.be/increase-a-vmware-disk-size-vmdk-formatted-as-linux-lvm-without-rebooting/">https://ma.ttias.be/increase-a-vmware-disk-size-vmdk-formatted-as-linux-lvm-without-rebooting/</a></p>
+<p><a href="https://ubuntuforums.org/showthread.php?t=2277232">https://ubuntuforums.org/showthread.php?t=2277232</a></p>
+<p>修复<code>GPT PMBR size mismatch</code>用<code>parted -l</code>输入Fix即可，无需live cd</p>
+<div class="codehilite"><pre><span></span>root@docker:/d# parted -l
+Warning: Not all of the space available to /dev/sda appears to be used, you can
+fix the GPT to use all of the space (an extra 314572800 blocks) or continue with
+the current setting?
+Fix/Ignore? Fix
+Model: VMware Virtual disk (scsi)
+Disk /dev/sda: 215GB
+Sector size (logical/physical): 512B/512B
+Partition Table: gpt
+Disk Flags:
+
+Number  Start   End     Size    File system  Name  Flags
+ 1      1049kB  2097kB  1049kB                     bios_grub
+ 2      2097kB  1076MB  1074MB  ext4
+ 3      1076MB  53.7GB  52.6GB
+
+
+Model: Linux device-mapper (linear) (dm)
+Disk /dev/mapper/ubuntu--vg-ubuntu--lv: 52.6GB
+Sector size (logical/physical): 512B/512B
+Partition Table: loop
+Disk Flags:
+
+Number  Start  End     Size    File system  Flags
+ 1      0.00B  52.6GB  52.6GB  ext4
+
+
+Warning: Unable to open /dev/sr0 read-write (Read-only file system).  /dev/sr0 has been opened read-only.
+Model: NECVMWar VMware SATA CD00 (scsi)
+Disk /dev/sr0: 875MB
+Sector size (logical/physical): 2048B/2048B
+Partition Table: mac
+Disk Flags:
+
+Number  Start  End    Size    File system  Name   Flags
+ 1      2048B  6143B  4096B                Apple
+ 2      659MB  662MB  2523kB               EFI
+
+
+root@docker:/d# fdisk -l
+Disk /dev/loop0: 91 MiB, 95408128 bytes, 186344 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/sda: 200 GiB, 214748364800 bytes, 419430400 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: C6597B3B-17F0-482A-AF5D-6056F7788052
+
+Device       Start       End   Sectors Size Type
+/dev/sda1     2048      4095      2048   1M BIOS boot
+/dev/sda2     4096   2101247   2097152   1G Linux filesystem
+/dev/sda3  2101248 104855551 102754304  49G Linux filesystem
+
+
+Disk /dev/mapper/ubuntu--vg-ubuntu--lv: 49 GiB, 52609155072 bytes, 102752256 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+root@docker:/d# fdisk /dev/sda
+
+Welcome to fdisk (util-linux 2.31.1).
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+
+Command (m for help): n
+Partition number (4-128, default 4):
+First sector (104855552-419430366, default 104855552):
+Last sector, +sectors or +size{K,M,G,T,P} (104855552-419430366, default 419430366):
+
+Created a new partition 4 of type &#39;Linux filesystem&#39; and of size 150 GiB.
+
+Command (m for help): t
+Partition number (1-4, default 4): 4
+Partition type (type L to list all types): 8e
+
+Type of partition 4 is unchanged: Linux filesystem.
+
+Command (m for help): w
+The partition table has been altered.
+Syncing disks.
+
+root@docker:/d# partprobe -s
+/dev/sda: gpt partitions 1 2 3 4
+/dev/mapper/ubuntu--vg-ubuntu--lv: loop partitions 1
+Warning: Unable to open /dev/sr0 read-write (Read-only file system).  /dev/sr0 has been opened read-only.
+Warning: Unable to open /dev/sr0 read-write (Read-only file system).  /dev/sr0 has been opened read-only.
+Warning: Unable to open /dev/sr0 read-write (Read-only file system).  /dev/sr0 has been opened read-only.
+/dev/sr0: mac partitions 1 2
+root@docker:/d# fdisk -l
+Disk /dev/loop0: 91 MiB, 95408128 bytes, 186344 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/sda: 200 GiB, 214748364800 bytes, 419430400 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: C6597B3B-17F0-482A-AF5D-6056F7788052
+
+Device         Start       End   Sectors  Size Type
+/dev/sda1       2048      4095      2048    1M BIOS boot
+/dev/sda2       4096   2101247   2097152    1G Linux filesystem
+/dev/sda3    2101248 104855551 102754304   49G Linux filesystem
+/dev/sda4  104855552 419430366 314574815  150G Linux filesystem
+
+
+Disk /dev/mapper/ubuntu--vg-ubuntu--lv: 49 GiB, 52609155072 bytes, 102752256 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+root@docker:/d# pvcreate /dev/sda
+sda   sda1  sda2  sda3  sda4
+root@docker:/d# pvcreate /dev/sda4
+  Physical volume &quot;/dev/sda4&quot; successfully created.
+root@docker:/d# vgdisplay
+  --- Volume group ---
+  VG Name               ubuntu-vg
+  System ID
+  Format                lvm2
+  Metadata Areas        1
+  Metadata Sequence No  3
+  VG Access             read/write
+  VG Status             resizable
+  MAX LV                0
+  Cur LV                1
+  Open LV               1
+  Max PV                0
+  Cur PV                1
+  Act PV                1
+  VG Size               &lt;49.00 GiB
+  PE Size               4.00 MiB
+  Total PE              12543
+  Alloc PE / Size       12543 / &lt;49.00 GiB
+  Free  PE / Size       0 / 0
+  VG UUID               FJI08W-C0Db-dXmu-WPyq-Zlr9-Lejq-xadlCk
+
+root@docker:/d# vgextend ubuntu-vg /dev/sda4
+  Volume group &quot;ubuntu-vg&quot; successfully extended
+root@docker:/d# pvscan
+  PV /dev/sda3   VG ubuntu-vg       lvm2 [&lt;49.00 GiB / 0    free]
+  PV /dev/sda4   VG ubuntu-vg       lvm2 [&lt;150.00 GiB / &lt;150.00 GiB free]
+  Total: 2 [198.99 GiB] / in use: 2 [198.99 GiB] / in no VG: 0 [0   ]
+root@docker:/d# lvextend /dev/ubuntu-vg/ubuntu-lv /dev/sda4
+  Size of logical volume ubuntu-vg/ubuntu-lv changed from &lt;49.00 GiB (12543 extents) to 198.99 GiB (50942 extents).
+  Logical volume ubuntu-vg/ubuntu-lv successfully resized.
+root@docker:/d# resize2fs /dev/ubuntu-vg/ubuntu-lv
+resize2fs 1.44.1 (24-Mar-2018)
+Filesystem at /dev/ubuntu-vg/ubuntu-lv is mounted on /; on-line resizing required
+old_desc_blocks = 7, new_desc_blocks = 25
+The filesystem on /dev/ubuntu-vg/ubuntu-lv is now 52164608 (4k) blocks long.
+</pre></div>
+
+
+<h3 id="vmware">VMWare新添加一块硬盘扩容根目录<a class="headerlink" href="#vmware" title="Permanent link">&para;</a></h3>
+<p>参考这两篇：</p>
+<p><a href="https://www.cyberciti.biz/tips/vmware-add-a-new-hard-disk-without-rebooting-guest.html">https://www.cyberciti.biz/tips/vmware-add-a-new-hard-disk-without-rebooting-guest.html</a></p>
+<p><a href="https://www.unixmen.com/add-a-new-disk-to-lvm/">https://www.unixmen.com/add-a-new-disk-to-lvm/</a></p>
+<div class="codehilite"><pre><span></span>root@docker3:/d# for i in /sys/class/scsi_host/*; do echo &quot;- - -&quot; &gt; <span class="cp">${</span><span class="n">i</span><span class="cp">}</span>/scan; done
+root@docker3:/d# fdisk -l
+Disk /dev/sdb: 1 TiB, 1099511627776 bytes, 2147483648 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+root@docker3:/d# fdisk /dev/sdb
+
+Welcome to fdisk (util-linux 2.31.1).
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+Device does not contain a recognized partition table.
+Created a new DOS disklabel with disk identifier 0x3289a390.
+
+Command (m for help): n
+Partition type
+   p   primary (0 primary, 0 extended, 4 free)
+   e   extended (container for logical partitions)
+Select (default p):
+
+Using default response p.
+Partition number (1-4, default 1):
+First sector (2048-2147483647, default 2048):
+Last sector, +sectors or +size{K,M,G,T,P} (2048-2147483647, default 2147483647):
+
+Created a new partition 1 of type &#39;Linux&#39; and of size 1024 GiB.
+
+Command (m for help): t
+Selected partition 1
+Hex code (type L to list all codes): 8e
+Changed type of partition &#39;Linux&#39; to &#39;Linux LVM&#39;.
+
+Command (m for help): w
+The partition table has been altered.
+Calling ioctl() to re-read partition table.
+Syncing disks.
+
+root@docker3:/d# pvcreate /dev/sdb1
+  Physical volume &quot;/dev/sdb1&quot; successfully created.
+root@docker3:/d# vgextend ubuntu-vg /dev/sdb1
+  Volume group &quot;ubuntu-vg&quot; successfully extended
+root@docker3:/d# pvscan
+  PV /dev/sda3   VG ubuntu-vg       lvm2 [<span class="nt">&lt;199.00</span> <span class="err">GiB</span> <span class="err">/</span> <span class="err">0</span>    <span class="err">free]</span>
+  <span class="err">PV</span> <span class="err">/dev/sdb1</span>   <span class="err">VG</span> <span class="err">ubuntu-vg</span>       <span class="err">lvm2</span> <span class="err">[&lt;1024.00</span> <span class="err">GiB</span> <span class="err">/</span> <span class="err">&lt;1024.00</span> <span class="err">GiB</span> <span class="err">free]</span>
+  <span class="err">Total:</span> <span class="err">2</span> <span class="err">[1.19</span> <span class="err">TiB]</span> <span class="err">/</span> <span class="err">in</span> <span class="err">use:</span> <span class="err">2</span> <span class="err">[1.19</span> <span class="err">TiB]</span> <span class="err">/</span> <span class="err">in</span> <span class="err">no</span> <span class="err">VG:</span> <span class="err">0</span> <span class="err">[0</span>   <span class="err">]</span>
+<span class="err">root@docker3:/d#</span> <span class="err">lvextend</span> <span class="err">-l</span> <span class="err">+100%FREE</span> <span class="err">/dev/ubuntu-vg/ubuntu-lv</span>
+  <span class="err">Size</span> <span class="err">of</span> <span class="err">logical</span> <span class="err">volume</span> <span class="err">ubuntu-vg/ubuntu-lv</span> <span class="err">changed</span> <span class="err">from</span> <span class="err">&lt;199.00</span> <span class="err">GiB</span> <span class="err">(50943</span> <span class="err">extents)</span> <span class="err">to</span> <span class="err">1.19</span> <span class="err">TiB</span> <span class="err">(313086</span> <span class="err">extents).</span>
+  <span class="err">Logical</span> <span class="err">volume</span> <span class="err">ubuntu-vg/ubuntu-lv</span> <span class="err">successfully</span> <span class="err">resized.</span>
+<span class="err">root@docker3:/d#</span> <span class="err">resize2fs</span> <span class="err">/dev/ubuntu-vg/ubuntu-lv</span>
+<span class="err">resize2fs</span> <span class="err">1.44.1</span> <span class="err">(24-Mar-2018)</span>
+<span class="err">Filesystem</span> <span class="err">at</span> <span class="err">/dev/ubuntu-vg/ubuntu-lv</span> <span class="err">is</span> <span class="err">mounted</span> <span class="err">on</span> <span class="err">/;</span> <span class="err">on-line</span> <span class="err">resizing</span> <span class="err">required</span>
+<span class="na">old_desc_blocks =</span> <span class="err">25,</span> <span class="na">new_desc_blocks =</span> <span class="err">153</span>
+<span class="err">The</span> <span class="err">filesystem</span> <span class="err">on</span> <span class="err">/dev/ubuntu-vg/ubuntu-lv</span> <span class="err">is</span> <span class="err">now</span> <span class="err">320600064</span> <span class="err">(4k)</span> <span class="err">blocks</span> <span class="err">long.</span>
+
+<span class="err">root@docker3:/d#</span> <span class="err">df</span> <span class="err">-h</span>
+<span class="err">/dev/mapper/ubuntu--vg-ubuntu--lv</span>  <span class="err">1.2T</span>  <span class="err">170G</span>  <span class="err">986G</span>  <span class="err">15%</span> <span class="err">/</span>
+</pre></div>
+                
+                  
+                
+              
+              
+                
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../Linux-backup/" title="Linux-backup" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Linux-backup
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../Linux-SSH/" title="Linux-SSH" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Linux-SSH
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            <a href=http://www.miitbeian.gov.cn/>浙ICP备15043819号-2</a>&nbsp;&nbsp;<a target=_blank href=http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33010602007826><img src="/assets/images/beian.png" height=14px>浙公网安备 33010602007826号</p></a>
+          </div>
+        
+        powered by
+        <a href="http://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+  <div class="md-footer-social">
+    
+    <link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+      <a href="https://github.com/zjuchenyuan" class="md-footer-social__link fa fa-github-alt"></a>
+    
+      <a href="mailto: py3io.chenyuan@qiushi.ac.cn" class="md-footer-social__link fa fa-envelope"></a>
+    
+  </div>
+
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.f041762f.js"></script>
+      
+      <script>app.initialize({version:"0.17.2",url:{base:".."}})</script>
+      
+        <script src="../assets/js/instantclick.min.js"></script>
+      
+        <script src="../assets/js/index.js"></script>
+      
+    
+    
+      
+    
+  </body>
+</html>

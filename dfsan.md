@@ -86,7 +86,34 @@ cd /data/exiv2-trunk
 # now, we get our binary file: ./bin/exiv2, about 38MB
 ```
 
-### Compiling Exiv2 with DFSan, with -O0
+### Q&A
+
+#### Why docker image `zjuchenyuan/angora`
+
+Just to use already built-in clang-7, and two abi list files
+
+#### Why `-ldl -lrt -lpthread`
+
+It's required for cmake cxx, otherwise build error like `Host compiler appears to require libatomic, but cannot find it`
+
+#### Why compile expat and zlib
+
+exiv2 depends on these two libraries, and DFSan require their source code to be compiled with DFSan.
+
+Or, you can follow instructions here: https://github.com/AngoraFuzzer/Angora/issues/38, to create an abi list for libraries.
+
+```
+/angora/tools/gen_library_abilist.sh  /usr/lib/x86_64-linux-gnu/libz.so  discard >> /data/mylist.txt
+/angora/tools/gen_library_abilist.sh  /usr/lib/x86_64-linux-gnu/libexpat.so  discard >> /data/mylist.txt
+```
+
+#### Why `--disable-shared`
+
+This is to build a single binary file for easier fuzzing.
+
+#### Wanna debug? No optimization
+
+Compiling Exiv2 with DFSan, with -O0
 
 ```
 # let's continue our building process, use -O0 to facilitate debugging
@@ -96,4 +123,5 @@ make clean; find . -name '*.o' -delete
 make -j
 # now we get bin/exiv2, about 44MB
 ```
+
 
