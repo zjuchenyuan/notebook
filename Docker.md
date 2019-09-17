@@ -1051,3 +1051,29 @@ docker network connect macvlan_name container_name --ip 新的ip
 ```
 
 如果新的ip还是ping不了，试试重启容器
+
+## 获取2个月前退出的容器列表，以空格分隔
+
+```
+docker ps -a --format '{{.Names}} {{.Status}}'|grep "2 month"|awk '{print $1}'|tr '\r\n' ' '
+```
+
+## 获取容器的IP
+
+```
+# clean version
+docker inspect --format "{{.NetworkSettings.Networks.macvlan网络名称.IPAddress}}" 容器名称
+
+# dirty but quick version
+docker inspect 容器名称 | grep IP
+```
+
+## 容器内没有ping, ip？直接nsenter进去看看
+
+```
+nsenter --target `docker inspect --format '{{.State.Pid}}' 容器名称`  --net --pid /bin/bash
+```
+
+这是进入docker容器的namespace，但只切换网络和/proc，文件系统等还是使用主机的
+
+进入后bash似乎没变，这时可以ps看看进程列表变了就说明在容器里面了，然后可以愉快地ifconfig和ping了

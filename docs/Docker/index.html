@@ -1024,6 +1024,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#2" title="获取2个月前退出的容器列表，以空格分隔" class="md-nav__link">
+    获取2个月前退出的容器列表，以空格分隔
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ip_1" title="获取容器的IP" class="md-nav__link">
+    获取容器的IP
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ping-ipnsenter" title="容器内没有ping, ip？直接nsenter进去看看" class="md-nav__link">
+    容器内没有ping, ip？直接nsenter进去看看
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1662,6 +1683,27 @@
         <li class="md-nav__item">
   <a href="#dockermacvlan" title="搬运服务器后网段变化 直接修改Docker底层数据库和配置文件修复macvlan网络" class="md-nav__link">
     搬运服务器后网段变化 直接修改Docker底层数据库和配置文件修复macvlan网络
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" title="获取2个月前退出的容器列表，以空格分隔" class="md-nav__link">
+    获取2个月前退出的容器列表，以空格分隔
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ip_1" title="获取容器的IP" class="md-nav__link">
+    获取容器的IP
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ping-ipnsenter" title="容器内没有ping, ip？直接nsenter进去看看" class="md-nav__link">
+    容器内没有ping, ip？直接nsenter进去看看
   </a>
   
 </li>
@@ -2560,6 +2602,27 @@ docker network connect macvlan_name container_name --ip 新的ip
 
 
 <p>如果新的ip还是ping不了，试试重启容器</p>
+<h2 id="2">获取2个月前退出的容器列表，以空格分隔<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><span class="x">docker ps -a --format &#39;</span><span class="cp">{{</span><span class="nv">.Names</span><span class="cp">}}</span><span class="x"> </span><span class="cp">{{</span><span class="nv">.Status</span><span class="cp">}}</span><span class="x">&#39;|grep &quot;2 month&quot;|awk &#39;{print $1}&#39;|tr &#39;\r\n&#39; &#39; &#39;</span>
+</pre></div>
+
+
+<h2 id="ip_1">获取容器的IP<a class="headerlink" href="#ip_1" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><span class="x"># clean version</span>
+<span class="x">docker inspect --format &quot;</span><span class="cp">{{</span><span class="nv">.NetworkSettings.Networks.macvlan网络名称.IPAddress</span><span class="cp">}}</span><span class="x">&quot; 容器名称</span>
+
+<span class="x"># dirty but quick version</span>
+<span class="x">docker inspect 容器名称 | grep IP</span>
+</pre></div>
+
+
+<h2 id="ping-ipnsenter">容器内没有ping, ip？直接nsenter进去看看<a class="headerlink" href="#ping-ipnsenter" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><span class="x">nsenter --target `docker inspect --format &#39;</span><span class="cp">{{</span><span class="nv">.State.Pid</span><span class="cp">}}</span><span class="x">&#39; 容器名称`  --net --pid /bin/bash</span>
+</pre></div>
+
+
+<p>这是进入docker容器的namespace，但只切换网络和/proc，文件系统等还是使用主机的</p>
+<p>进入后bash似乎没变，这时可以ps看看进程列表变了就说明在容器里面了，然后可以愉快地ifconfig和ping了</p>
                 
                   
                 

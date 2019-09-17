@@ -145,6 +145,8 @@ My notebook about technology, for lookup and share
 >* 运行中的容器添加目录挂载
 >* Docker使用32位镜像
 >* 修改Docker底层文件修改macvlan变更网段
+>* 获取2个月前退出的容器列表，以空格分隔
+>* nsenter进入容器检查网络
 
 ## [Favorites](Favorites.md)
 >* Intel i386 手册 及 勘误
