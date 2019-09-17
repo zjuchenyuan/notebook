@@ -973,3 +973,81 @@ docker-backup ls -w container
 ```
 for i in `d ps -a|grep Exit|grep minutes|awk '{print $1}'`; do rm `docker-backup ls -w $i`/tmp/httpd_lua_shm.1; d start $i ; done
 ```
+
+------
+
+## 搬运服务器后网段变化 直接修改Docker底层数据库和配置文件修复macvlan网络
+
+需求：服务器机房搬迁，从10.214.10.x变为10.214.160.x，配置的macvlan容器就不能访问了
+
+Docker没有提供修改网络配置的方法，我们就直接改Docker的数据库和配置文件呗
+
+不这样直接改底层文件也是可以的，需要先disconnect旧的macvlan所有容器，然后删掉重建这个network，再一个个加回来
+
+网络配置的数据库在`/var/lib/docker/network/files/local-kv.db`，本质上是boltdb，需要使用docker的[libkv](github.com/docker/libkv)来进行访问
+
+注意到ip前缀的长度发生了变化，直接sed是不行的，会损坏数据库（如果长度没变可以直接sed），操作前记得备份
+
+参考 https://blog.qiqitori.com/?p=463
+
+加以修改，需要在`docker pull golang:1.8`中编译运行
+
+```
+package main
+
+import (
+    "time"
+    "log"
+    "strings"
+    "github.com/docker/libkv"
+    "github.com/docker/libkv/store"
+    "github.com/docker/libkv/store/boltdb"
+)
+
+func init() {
+    // Register boltdb store to libkv
+    boltdb.Register()
+}
+
+func main() {
+    client := "./local-kv.db" // ./ appears to be necessary
+
+    // Initialize a new store
+    kv, err := libkv.NewStore(
+        store.BOLTDB, // or "boltdb"
+        []string{client},
+        &store.Config{
+            Bucket: "libnetwork",
+            ConnectionTimeout: 10*time.Second,
+        },
+    )
+    if err != nil {
+        log.Fatalf("Cannot create store: %v", err)
+    }
+
+    pair, err := kv.List("docker/network")
+    for _, p := range pair {
+        println("key:", string(p.Key))
+        val := strings.Replace(string(p.Value), "10.214.10.", "10.214.160.", -1)
+        println("value:", val)
+        err = kv.Put(p.Key, []byte(val), nil)
+    }
+}
+```
+
+其中需要注意golang1.8的strings没有ReplaceAll方法；string转bytes数组用`[]byte(...)`即可；`println`不是fmt库的，是往stderr输出的
+
+除了网络数据库还需要修改容器的.json配置文件：`/var/lib/docker/containers/*/*.json`
+
+```
+sed -i 's/10.214.10./10.214.160./g' -r /var/lib/docker/containers/*/*.json
+```
+
+然后就能启动docker了，如果有容器的当前ip已经被其他设备占用，可以通过脱离网络再加入来修改ip
+
+```
+docker network disconnect macvlan_name container_name
+docker network connect macvlan_name container_name --ip 新的ip
+```
+
+如果新的ip还是ping不了，试试重启容器
