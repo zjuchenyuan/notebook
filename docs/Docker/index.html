@@ -2542,7 +2542,7 @@ docker-backup ls -w container
 <p>需求：服务器机房搬迁，从10.214.10.x变为10.214.160.x，配置的macvlan容器就不能访问了</p>
 <p>Docker没有提供修改网络配置的方法，我们就直接改Docker的数据库和配置文件呗</p>
 <p>不这样直接改底层文件也是可以的，需要先disconnect旧的macvlan所有容器，然后删掉重建这个network，再一个个加回来</p>
-<p>网络配置的数据库在<code>/var/lib/docker/network/files/local-kv.db</code>，本质上是boltdb，需要使用docker的<a href="../github.com/docker/libkv">libkv</a>来进行访问</p>
+<p>网络配置的数据库在<code>/var/lib/docker/network/files/local-kv.db</code>，本质上是boltdb，需要使用docker的<a href="https://github.com/docker/libkv">libkv</a>来进行访问</p>
 <p>注意到ip前缀的长度发生了变化，直接sed是不行的，会损坏数据库（如果长度没变可以直接sed），操作前记得备份</p>
 <p>参考 <a href="https://blog.qiqitori.com/?p=463">https://blog.qiqitori.com/?p=463</a></p>
 <p>加以修改，需要在<code>docker pull golang:1.8</code>中编译运行</p>
@@ -2591,7 +2591,7 @@ docker-backup ls -w container
 
 <p>其中需要注意golang1.8的strings没有ReplaceAll方法；string转bytes数组用<code>[]byte(...)</code>即可；<code>println</code>不是fmt库的，是往stderr输出的</p>
 <p>除了网络数据库还需要修改容器的.json配置文件：<code>/var/lib/docker/containers/*/*.json</code></p>
-<div class="codehilite"><pre><span></span>sed -i &#39;s/10.214.10./10.214.160./g&#39; -r /var/lib/docker/containers/*/*.json
+<div class="codehilite"><pre><span></span>sed -i &#39;s/10.214.10./10.214.160./g&#39; /var/lib/docker/containers/*/*.json
 </pre></div>
 
 
