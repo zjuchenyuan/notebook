@@ -681,3 +681,11 @@ fuzzer可以用rlimit的功能限制子进程：
 ```
 shuf filename|while read line; do python3 run.py "$line"; done
 ```
+
+## grep查找中文
+
+```
+ls /tmp/test | grep -P '[\p{Han}]' 
+```
+
+参考 https://www.regular-expressions.info/unicode.html#script

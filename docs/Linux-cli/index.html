@@ -1120,6 +1120,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#grep_1" title="grep查找中文" class="md-nav__link">
+    grep查找中文
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1564,6 +1571,13 @@
         <li class="md-nav__item">
   <a href="#bash" title="bash对文件乱序遍历" class="md-nav__link">
     bash对文件乱序遍历
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#grep_1" title="grep查找中文" class="md-nav__link">
+    grep查找中文
   </a>
   
 </li>
@@ -2078,6 +2092,14 @@ echo 0 &gt;/proc/sys/kernel/core_uses_pid
 <h2 id="bash">bash对文件乱序遍历<a class="headerlink" href="#bash" title="Permanent link">&para;</a></h2>
 <div class="codehilite"><pre><span></span>shuf filename|while read line; do python3 run.py &quot;$line&quot;; done
 </pre></div>
+
+
+<h2 id="grep_1">grep查找中文<a class="headerlink" href="#grep_1" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span>ls /tmp/test | grep -P &#39;[\p{Han}]&#39; 
+</pre></div>
+
+
+<p>参考 <a href="https://www.regular-expressions.info/unicode.html#script">https://www.regular-expressions.info/unicode.html#script</a></p>
                 
                   
                 
