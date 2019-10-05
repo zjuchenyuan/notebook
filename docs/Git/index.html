@@ -848,6 +848,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#git_2" title="git禁用压缩" class="md-nav__link">
+    git禁用压缩
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1288,6 +1295,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#git_2" title="git禁用压缩" class="md-nav__link">
+    git禁用压缩
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1593,6 +1607,11 @@ git pull tmp master
 
 
 <p>问题来了：如果A访问不了B怎么办呢？通过<code>git format-patch HEAD~2..HEAD --stdout&gt;patchfile</code>生成patch文件再发过去<code>git am patchfile</code>，但这样可能会改变commit id</p>
+<hr />
+<h2 id="git_2">git禁用压缩<a class="headerlink" href="#git_2" title="Permanent link">&para;</a></h2>
+<p>如二进制的仓库不想使用压缩，参考: <a href="https://stackoverflow.com/questions/11483288/how-to-disable-compression-in-git-server-side">https://stackoverflow.com/questions/11483288/how-to-disable-compression-in-git-server-side</a></p>
+<div class="codehilite"><pre><span></span>git config --add core.bigFileThreshold 1
+</pre></div>
                 
                   
                 

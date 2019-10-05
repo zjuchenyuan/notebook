@@ -385,3 +385,13 @@ git pull tmp master
 ```
 
 问题来了：如果A访问不了B怎么办呢？通过`git format-patch HEAD~2..HEAD --stdout>patchfile`生成patch文件再发过去`git am patchfile`，但这样可能会改变commit id
+
+-----
+
+## git禁用压缩
+
+如二进制的仓库不想使用压缩，参考: https://stackoverflow.com/questions/11483288/how-to-disable-compression-in-git-server-side
+
+```
+git config --add core.bigFileThreshold 1
+```
