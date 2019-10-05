@@ -1154,6 +1154,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#vmdklvm" title="挂载多个vmdk中的LVM分区" class="md-nav__link">
+    挂载多个vmdk中的LVM分区
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1681,6 +1688,13 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vmdklvm" title="挂载多个vmdk中的LVM分区" class="md-nav__link">
+    挂载多个vmdk中的LVM分区
+  </a>
   
 </li>
       
@@ -2408,6 +2422,47 @@ root@docker3:/d# pvscan
 <span class="err">root@docker3:/d#</span> <span class="err">df</span> <span class="err">-h</span>
 <span class="err">/dev/mapper/ubuntu--vg-ubuntu--lv</span>  <span class="err">1.2T</span>  <span class="err">170G</span>  <span class="err">986G</span>  <span class="err">15%</span> <span class="err">/</span>
 </pre></div>
+
+
+<hr />
+<h2 id="vmdklvm">挂载多个vmdk中的LVM分区<a class="headerlink" href="#vmdklvm" title="Permanent link">&para;</a></h2>
+<p>参考： <a href="https://superuser.com/questions/1376690/how-to-mount-an-lvm-volume-from-a-dd-raw-vmdk-image">https://superuser.com/questions/1376690/how-to-mount-an-lvm-volume-from-a-dd-raw-vmdk-image</a></p>
+<p>试过用windows的7z直接打开压缩包，只能看到LVM或者多个img文件，不能跳过解压步骤，所以还是在linux上挂载吧</p>
+<p>假设有三个vmdk文件需要挂载，得到的lvm是<code>/dev/ubuntu-vg/ubuntu-lv</code>，只读挂载到<code>/mnt</code></p>
+<p>需要<code>apt install -y kpartx</code></p>
+<p>挂载 mount.sh:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="ch">#!/bin/bash</span>
+kpartx -a -v disk1.vmdk
+kpartx -a -v disk2.vmdk
+kpartx -a -v disk3.vmdk
+sleep <span class="m">2</span>
+pvscan
+mount  -o ro /dev/ubuntu-vg/ubuntu-lv /mnt
+</pre></div>
+</td></tr></table>
+
+<p>取消挂载 umount.sh:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="ch">#!/bin/bash</span>
+umount /mnt
+lvchange -an /dev/ubuntu-vg/ubuntu-lv
+vgchange -an /dev/ubuntu-vg
+kpartx -d disk1.vmdk
+kpartx -d disk2.vmdk
+kpartx -d disk3.vmdk
+</pre></div>
+</td></tr></table>
                 
                   
                 

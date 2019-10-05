@@ -841,3 +841,39 @@ The filesystem on /dev/ubuntu-vg/ubuntu-lv is now 320600064 (4k) blocks long.
 root@docker3:/d# df -h
 /dev/mapper/ubuntu--vg-ubuntu--lv  1.2T  170G  986G  15% /
 ```
+
+----
+
+## 挂载多个vmdk中的LVM分区
+
+参考： https://superuser.com/questions/1376690/how-to-mount-an-lvm-volume-from-a-dd-raw-vmdk-image
+
+试过用windows的7z直接打开压缩包，只能看到LVM或者多个img文件，不能跳过解压步骤，所以还是在linux上挂载吧
+
+假设有三个vmdk文件需要挂载，得到的lvm是`/dev/ubuntu-vg/ubuntu-lv`，只读挂载到`/mnt`
+
+需要`apt install -y kpartx`
+
+挂载 mount.sh:
+
+```
+#!/bin/bash
+kpartx -a -v disk1.vmdk
+kpartx -a -v disk2.vmdk
+kpartx -a -v disk3.vmdk
+sleep 2
+pvscan
+mount  -o ro /dev/ubuntu-vg/ubuntu-lv /mnt
+```
+
+取消挂载 umount.sh:
+
+```
+#!/bin/bash
+umount /mnt
+lvchange -an /dev/ubuntu-vg/ubuntu-lv
+vgchange -an /dev/ubuntu-vg
+kpartx -d disk1.vmdk
+kpartx -d disk2.vmdk
+kpartx -d disk3.vmdk
+```
