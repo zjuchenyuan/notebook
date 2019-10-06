@@ -17,7 +17,7 @@
 
 * 不要在一个项目中混用.c和.cpp，将导致`ld`链接的时候函数找不到。因为编译.cpp的时候是C++的编译，由于要支持重载，编译器会自动修改函数名称，导致代码中同样名字的函数编译出来的.o文件里面函数名称是不同的，这样.c找不到.cpp的函数，自然无法链接
 
-* 注意指针的星号别少写：想一次写两个指针？不能写FILE* fp1,fp2;而是每个变量前面都要带上星号！正确写法：FILE *fp1,*fp2; char *s1,*s2;
+* 注意指针的星号别少写：想一次写两个指针？不能写`FILE* fp1,fp2;`而是每个变量前面都要带上星号！正确写法：`FILE *fp1,*fp2; char *s1,*s2;`
 
 ----
 
@@ -131,30 +131,30 @@ else return 子节点数组[当前下标++]
 
 ```
 class Node{
-	public:
-		Node();
-		void setChildNum(int num); //为子节点的指针的数组分配空间
-		void addOneChild(Node* child);
-		void setData(int data);
-		int getData();
-		void setParent(Node* parent);
-		Node* getParent();
-		Node* getCurrentChild(); //获得当前还没走过的子节点，并且把返回的子节点标记为走过了
-		bool hasChildToGo(); //这个节点是不是所有的子节点都完成了
-		bool isLeafNode(); //这个节点是不是叶节点
-	private:
-		//...省略咯...
+    public:
+        Node();
+        void setChildNum(int num); //为子节点的指针的数组分配空间
+        void addOneChild(Node* child);
+        void setData(int data);
+        int getData();
+        void setParent(Node* parent);
+        Node* getParent();
+        Node* getCurrentChild(); //获得当前还没走过的子节点，并且把返回的子节点标记为走过了
+        bool hasChildToGo(); //这个节点是不是所有的子节点都完成了
+        bool isLeafNode(); //这个节点是不是叶节点
+    private:
+        //...省略咯...
 };
 class Nodes{ //存储路径的Nodes
-	public:
-		void append(Node* x); //把节点加入路径
-		void pop(); //删掉最后加入的那个节点
-		int getSumData(); //路径上所有节点的data的和
-		int length(); //路径当前的长度
-		friend bool cmp(const Nodes& a,const Nodes&b); //用于对路径进行排序
-		friend ostream& operator<<(ostream& out,Nodes& x); 
-	private:
-		vector<Node*> data;
+    public:
+        void append(Node* x); //把节点加入路径
+        void pop(); //删掉最后加入的那个节点
+        int getSumData(); //路径上所有节点的data的和
+        int length(); //路径当前的长度
+        friend bool cmp(const Nodes& a,const Nodes&b); //用于对路径进行排序
+        friend ostream& operator<<(ostream& out,Nodes& x); 
+    private:
+        vector<Node*> data;
 };
 ```
 
@@ -234,7 +234,7 @@ struct {int len; char *str;} *p;
 
 #### 这就够了吗？
 
-p是一个指针，对指针使用->运算符之前必须要给指针一个空间(正确的值)，否则就会导致*null而炸掉23333
+p是一个指针，对指针使用->运算符之前必须要给指针一个空间(正确的值)，否则就会导致*null而段错误炸掉
 
 另外 这个struct没有名字，也就意味着无法给他赋值，不能被赋值的指针有什么用呢？
 
@@ -323,18 +323,18 @@ D选项 还是相同的道理 **不能把有内存空间的数组名称放到赋
 ```
 #include <stdio.h>
 int main(){
-	struct node{
-		char s[10];
-		int k;
-	} p[4];
-	p[1].s[2]='a';
-	printf("%c\n",p[1].s[2]);
-	(p+1)->s[2]='b';
-	printf("%c\n",p[1].s[2]);
-	*((p+1)->s + 2)='c';
-	printf("%c\n",p[1].s[2]);
-	*((char*)p+1*sizeof(struct node)+2)='d';
-	printf("%c",p[1].s[2]);
-	return 0;
+    struct node{
+        char s[10];
+        int k;
+    } p[4];
+    p[1].s[2]='a';
+    printf("%c\n",p[1].s[2]);
+    (p+1)->s[2]='b';
+    printf("%c\n",p[1].s[2]);
+    *((p+1)->s + 2)='c';
+    printf("%c\n",p[1].s[2]);
+    *((char*)p+1*sizeof(struct node)+2)='d';
+    printf("%c",p[1].s[2]);
+    return 0;
 }
 ```
