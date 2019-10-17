@@ -469,3 +469,115 @@ apt install -y nginx-extras
 ```
 header_filter_by_lua 'ngx.header["server"] = nil';
 ```
+
+----
+
+## 使用阿里云函数计算定时更新https证书
+
+为了减少对vps的依赖，逐步将一些在服务器上跑的任务迁移到更加可靠的函数计算
+
+这不是一个详细的教程，你还需要自行探索研究
+
+### 入口
+
+https://fc.console.aliyun.com
+
+关键词： [教程](https://promotion.aliyun.com/ntms/act/fc/doc.html) [定价 128MB是免费的](https://help.aliyun.com/document_detail/54301.html)  [定时触发器](https://help.aliyun.com/document_detail/68172.html) [日志服务](https://help.aliyun.com/learn/learningpath/log.html)
+
+### 代码框架
+
+Python3 先本地`git clone --depth 1 https://github.com/Neilpang/acme.sh`，再创建个index.py 把代码文件夹上传上去
+
+网页上在线编辑index.py不会丢失acme.sh文件夹（只会改动index.py），代码改动后就能直接运行看到结果（实时输出需要去日志服务搜索），还是挺好用的
+
+使用这个代码需要先创建一个可以访问OSS的AccessKey，填入`oss2.Auth`部分——将生成的https证书和私钥存储到OSS，将Key硬编码到代码中不是一个好习惯，这里就简单粗暴实现了
+
+域名验证方式用的是challenge-alias的dns验证，需要将`_acme-challenge.py3.io`设置CNAME到`_acme-challenge.chenyuan.me`。
+如果你还需要更多的子域名如`*.subdomain.py3.io`，那也要把`_acme-challenge.subdomain.py3.io`设置CNAME到`_acme-challenge.chenyuan.me`
+
+用的是cloudflare的API，需要提供`CF_Key`和`CF_Email`，你也可以使用[更多的API](https://github.com/Neilpang/acme.sh/wiki/dnsapi)
+
+定时器设置十五天执行一次，cron表达式为：`0 0 0 1,15 * *`
+
+你需要替换下面代码的REGION OSS地域, AK, SK 可以访问OSS的密钥, OSSNAME 使用的OSS名称, CF_Key cloudflare的API Key, CF_Email cloudflare的用户名邮箱, `chenyuan.me` 在cloudflare上托管的域名, `py3io_ATxx`申请得到的证书的名称 加入随机字符串避免被猜到, `["py3.io", "*.py3.io"]` 申请的域名列表
+
+```
+# -*- coding: utf-8 -*-
+import os
+import logging
+import random
+import os
+import oss2
+import io
+import time
+import string
+import json
+logger = logging.getLogger()
+endpoint = 'http://oss-cn-REGION-internal.aliyuncs.com' 
+auth = oss2.Auth('AK', 'SK')
+bucket = oss2.Bucket(auth, endpoint, 'OSSNAME')
+
+def getcert(name, domains):
+    global logger
+    try:
+        try:
+            lasttime = bucket.get_object_meta(name+".crt").last_modified 
+            if time.time() - lasttime <= 86400 * 60:
+                # do not recreate cert for 60 days
+                logger.info('Skip cert for '+name)
+                return
+        except:
+            pass
+        
+        logger.info('Getting cert for '+name)
+        domain_text = "-d '" + "' -d '".join(domains) + "'"
+        cmd = "CF_Key=xxx CF_Email=xxx@yyy.com ./acme.sh/acme.sh --issue --dns dns_cf "+domain_text+" --dnssleep 5 --fullchain-file /tmp/"+name+".crt --key-file /tmp/"+name+".key -f "
+        if name != "chenyuan.me":
+            cmd += "--challenge-alias chenyuan.me"
+        print("acme.sh --issue"+cmd.split("--issue")[1])
+        assert os.system(cmd)==0, "get cert failed"
+        bucket.put_object_from_file(name+".crt", "/tmp/"+name+".crt")
+        bucket.put_object_from_file(name+".key", "/tmp/"+name+".key")
+        logger.info('Done for '+name)
+    except Exception as e:
+        logger.exception("exception happend: "+ name)
+
+def handler(event, context):
+    getcert("py3io_ATxx", ["py3.io", "*.py3.io"])
+    return 'ok'
+```
+
+### 更多说明
+
+取得一个域名的证书大约需要1~2分钟，由于函数计算允许的最长超时是600秒，还有考虑网络因素（毕竟cloudflare和let's encrypt都在国外），
+是有可能失败的
+
+我采取的策略就很简单粗暴 每15天执行一遍，一个域名失败了不影响其他域名的尝试，60天内成功了的域名不会反复申请，总会成功的
+
+安全性：为了便于将证书部署到web服务器，OSS仓库是设置成公开读的，这样就可能泄露私钥文件（攻击者知道OSS名称，猜到文件名称），你可以用Referer限制来增加一点安全性
+
+### web服务器上的部署
+
+也是写一个定时任务咯 `0 0 0 3,17 * *`，每个月3号和17号用curl获取一下最新的证书
+
+如果nginx的配置原先就是错的，不会尝试更新证书
+
+如果更新证书后nginx无法启动（比如无法连上阿里云下载的文件为空或404），会回滚这个改动，保证nginx仍然可以启动
+
+你需要替换下面代码的NAME, OSSNAME, REGION 同上, Referer_STRING 在OSS设置的只允许这个Referer_STRING访问 不允许Referer为空 增加安全性
+
+```
+#!/bin/bash
+set -ex
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+cd /var/www
+NAME="py3io_ATxx"
+curl -o ${NAME}.crt.new https://OSSNAME.oss-cn-REGION.aliyuncs.com/${NAME}.crt -H "Referer: Referer_STRING"
+curl -o ${NAME}.key.new https://OSSNAME.oss-cn-REGION.aliyuncs.com/${NAME}.key -H "Referer: Referer_STRING"
+nginx -s reload
+mv ${NAME}.crt ${NAME}.crt.old
+mv ${NAME}.key ${NAME}.key.old
+mv ${NAME}.crt.new ${NAME}.crt
+mv ${NAME}.key.new ${NAME}.key
+nginx -s reload || (mv ${NAME}.crt.old ${NAME}.crt; mv ${NAME}.key.old ${NAME}.key)
+```

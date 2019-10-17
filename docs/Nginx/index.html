@@ -808,6 +808,47 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#https_1" title="使用阿里云函数计算定时更新https证书" class="md-nav__link">
+    使用阿里云函数计算定时更新https证书
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="入口" class="md-nav__link">
+    入口
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="代码框架" class="md-nav__link">
+    代码框架
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="更多说明" class="md-nav__link">
+    更多说明
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#web" title="web服务器上的部署" class="md-nav__link">
+    web服务器上的部署
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
     </ul>
@@ -1352,6 +1393,47 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#https_1" title="使用阿里云函数计算定时更新https证书" class="md-nav__link">
+    使用阿里云函数计算定时更新https证书
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="入口" class="md-nav__link">
+    入口
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="代码框架" class="md-nav__link">
+    代码框架
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="更多说明" class="md-nav__link">
+    更多说明
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#web" title="web服务器上的部署" class="md-nav__link">
+    web服务器上的部署
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
     </ul>
@@ -1757,6 +1839,107 @@ sudo chown -R nobody /data/weedfs
 <p>配置中添加：</p>
 <div class="codehilite"><pre><span></span>header_filter_by_lua &#39;ngx.header[&quot;server&quot;] = nil&#39;;
 </pre></div>
+
+
+<hr />
+<h2 id="https_1">使用阿里云函数计算定时更新https证书<a class="headerlink" href="#https_1" title="Permanent link">&para;</a></h2>
+<p>为了减少对vps的依赖，逐步将一些在服务器上跑的任务迁移到更加可靠的函数计算</p>
+<p>这不是一个详细的教程，你还需要自行探索研究</p>
+<h3 id="_4">入口<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p><a href="https://fc.console.aliyun.com">https://fc.console.aliyun.com</a></p>
+<p>关键词： <a href="https://promotion.aliyun.com/ntms/act/fc/doc.html">教程</a> <a href="https://help.aliyun.com/document_detail/54301.html">定价 128MB是免费的</a>  <a href="https://help.aliyun.com/document_detail/68172.html">定时触发器</a> <a href="https://help.aliyun.com/learn/learningpath/log.html">日志服务</a></p>
+<h3 id="_5">代码框架<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>Python3 先本地<code>git clone --depth 1 https://github.com/Neilpang/acme.sh</code>，再创建个index.py 把代码文件夹上传上去</p>
+<p>网页上在线编辑index.py不会丢失acme.sh文件夹（只会改动index.py），代码改动后就能直接运行看到结果（实时输出需要去日志服务搜索），还是挺好用的</p>
+<p>使用这个代码需要先创建一个可以访问OSS的AccessKey，填入<code>oss2.Auth</code>部分——将生成的https证书和私钥存储到OSS，将Key硬编码到代码中不是一个好习惯，这里就简单粗暴实现了</p>
+<p>域名验证方式用的是challenge-alias的dns验证，需要将<code>_acme-challenge.py3.io</code>设置CNAME到<code>_acme-challenge.chenyuan.me</code>。
+如果你还需要更多的子域名如<code>*.subdomain.py3.io</code>，那也要把<code>_acme-challenge.subdomain.py3.io</code>设置CNAME到<code>_acme-challenge.chenyuan.me</code></p>
+<p>用的是cloudflare的API，需要提供<code>CF_Key</code>和<code>CF_Email</code>，你也可以使用<a href="https://github.com/Neilpang/acme.sh/wiki/dnsapi">更多的API</a></p>
+<p>定时器设置十五天执行一次，cron表达式为：<code>0 0 0 1,15 * *</code></p>
+<p>你需要替换下面代码的REGION OSS地域, AK, SK 可以访问OSS的密钥, OSSNAME 使用的OSS名称, CF_Key cloudflare的API Key, CF_Email cloudflare的用户名邮箱, <code>chenyuan.me</code> 在cloudflare上托管的域名, <code>py3io_ATxx</code>申请得到的证书的名称 加入随机字符串避免被猜到, <code>["py3.io", "*.py3.io"]</code> 申请的域名列表</p>
+<div class="codehilite"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">oss2</span>
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">string</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
+<span class="n">endpoint</span> <span class="o">=</span> <span class="s1">&#39;http://oss-cn-REGION-internal.aliyuncs.com&#39;</span> 
+<span class="n">auth</span> <span class="o">=</span> <span class="n">oss2</span><span class="o">.</span><span class="n">Auth</span><span class="p">(</span><span class="s1">&#39;AK&#39;</span><span class="p">,</span> <span class="s1">&#39;SK&#39;</span><span class="p">)</span>
+<span class="n">bucket</span> <span class="o">=</span> <span class="n">oss2</span><span class="o">.</span><span class="n">Bucket</span><span class="p">(</span><span class="n">auth</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">,</span> <span class="s1">&#39;OSSNAME&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">getcert</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">domains</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">logger</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">lasttime</span> <span class="o">=</span> <span class="n">bucket</span><span class="o">.</span><span class="n">get_object_meta</span><span class="p">(</span><span class="n">name</span><span class="o">+</span><span class="s2">&quot;.crt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">last_modified</span> 
+            <span class="k">if</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">lasttime</span> <span class="o">&lt;=</span> <span class="mi">86400</span> <span class="o">*</span> <span class="mi">60</span><span class="p">:</span>
+                <span class="c1"># do not recreate cert for 60 days</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Skip cert for &#39;</span><span class="o">+</span><span class="n">name</span><span class="p">)</span>
+                <span class="k">return</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Getting cert for &#39;</span><span class="o">+</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">domain_text</span> <span class="o">=</span> <span class="s2">&quot;-d &#39;&quot;</span> <span class="o">+</span> <span class="s2">&quot;&#39; -d &#39;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">domains</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;&#39;&quot;</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="s2">&quot;CF_Key=xxx CF_Email=xxx@yyy.com ./acme.sh/acme.sh --issue --dns dns_cf &quot;</span><span class="o">+</span><span class="n">domain_text</span><span class="o">+</span><span class="s2">&quot; --dnssleep 5 --fullchain-file /tmp/&quot;</span><span class="o">+</span><span class="n">name</span><span class="o">+</span><span class="s2">&quot;.crt --key-file /tmp/&quot;</span><span class="o">+</span><span class="n">name</span><span class="o">+</span><span class="s2">&quot;.key -f &quot;</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;chenyuan.me&quot;</span><span class="p">:</span>
+            <span class="n">cmd</span> <span class="o">+=</span> <span class="s2">&quot;--challenge-alias chenyuan.me&quot;</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;acme.sh --issue&quot;</span><span class="o">+</span><span class="n">cmd</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;--issue&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;get cert failed&quot;</span>
+        <span class="n">bucket</span><span class="o">.</span><span class="n">put_object_from_file</span><span class="p">(</span><span class="n">name</span><span class="o">+</span><span class="s2">&quot;.crt&quot;</span><span class="p">,</span> <span class="s2">&quot;/tmp/&quot;</span><span class="o">+</span><span class="n">name</span><span class="o">+</span><span class="s2">&quot;.crt&quot;</span><span class="p">)</span>
+        <span class="n">bucket</span><span class="o">.</span><span class="n">put_object_from_file</span><span class="p">(</span><span class="n">name</span><span class="o">+</span><span class="s2">&quot;.key&quot;</span><span class="p">,</span> <span class="s2">&quot;/tmp/&quot;</span><span class="o">+</span><span class="n">name</span><span class="o">+</span><span class="s2">&quot;.key&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Done for &#39;</span><span class="o">+</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;exception happend: &quot;</span><span class="o">+</span> <span class="n">name</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">handler</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+    <span class="n">getcert</span><span class="p">(</span><span class="s2">&quot;py3io_ATxx&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;py3.io&quot;</span><span class="p">,</span> <span class="s2">&quot;*.py3.io&quot;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="s1">&#39;ok&#39;</span>
+</pre></div>
+
+
+<h3 id="_6">更多说明<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>取得一个域名的证书大约需要1~2分钟，由于函数计算允许的最长超时是600秒，还有考虑网络因素（毕竟cloudflare和let&rsquo;s encrypt都在国外），
+是有可能失败的</p>
+<p>我采取的策略就很简单粗暴 每15天执行一遍，一个域名失败了不影响其他域名的尝试，60天内成功了的域名不会反复申请，总会成功的</p>
+<p>安全性：为了便于将证书部署到web服务器，OSS仓库是设置成公开读的，这样就可能泄露私钥文件（攻击者知道OSS名称，猜到文件名称），你可以用Referer限制来增加一点安全性</p>
+<h3 id="web">web服务器上的部署<a class="headerlink" href="#web" title="Permanent link">&para;</a></h3>
+<p>也是写一个定时任务咯 <code>0 0 0 3,17 * *</code>，每个月3号和17号用curl获取一下最新的证书</p>
+<p>如果nginx的配置原先就是错的，不会尝试更新证书</p>
+<p>如果更新证书后nginx无法启动（比如无法连上阿里云下载的文件为空或404），会回滚这个改动，保证nginx仍然可以启动</p>
+<p>你需要替换下面代码的NAME, OSSNAME, REGION 同上, Referer_STRING 在OSS设置的只允许这个Referer_STRING访问 不允许Referer为空 增加安全性</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="nb">set</span> -ex
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span>/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+<span class="nb">cd</span> /var/www
+<span class="nv">NAME</span><span class="o">=</span><span class="s2">&quot;py3io_ATxx&quot;</span>
+curl -o <span class="si">${</span><span class="nv">NAME</span><span class="si">}</span>.crt.new https://OSSNAME.oss-cn-REGION.aliyuncs.com/<span class="si">${</span><span class="nv">NAME</span><span class="si">}</span>.crt -H <span class="s2">&quot;Referer: Referer_STRING&quot;</span>
+curl -o <span class="si">${</span><span class="nv">NAME</span><span class="si">}</span>.key.new https://OSSNAME.oss-cn-REGION.aliyuncs.com/<span class="si">${</span><span class="nv">NAME</span><span class="si">}</span>.key -H <span class="s2">&quot;Referer: Referer_STRING&quot;</span>
+nginx -s reload
+mv <span class="si">${</span><span class="nv">NAME</span><span class="si">}</span>.crt <span class="si">${</span><span class="nv">NAME</span><span class="si">}</span>.crt.old
+mv <span class="si">${</span><span class="nv">NAME</span><span class="si">}</span>.key <span class="si">${</span><span class="nv">NAME</span><span class="si">}</span>.key.old
+mv <span class="si">${</span><span class="nv">NAME</span><span class="si">}</span>.crt.new <span class="si">${</span><span class="nv">NAME</span><span class="si">}</span>.crt
+mv <span class="si">${</span><span class="nv">NAME</span><span class="si">}</span>.key.new <span class="si">${</span><span class="nv">NAME</span><span class="si">}</span>.key
+nginx -s reload <span class="o">||</span> <span class="o">(</span>mv <span class="si">${</span><span class="nv">NAME</span><span class="si">}</span>.crt.old <span class="si">${</span><span class="nv">NAME</span><span class="si">}</span>.crt<span class="p">;</span> mv <span class="si">${</span><span class="nv">NAME</span><span class="si">}</span>.key.old <span class="si">${</span><span class="nv">NAME</span><span class="si">}</span>.key<span class="o">)</span>
+</pre></div>
+</td></tr></table>
                 
                   
                 

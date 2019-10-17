@@ -322,6 +322,7 @@ My notebook about technology, for lookup and share
 >* Nginx允许列目录
 >* 安全地使用SeaweedFS作为图片反向代理服务器: 多上游切换，SeaweedFS Docker部署
 >* proxy_pass 动态代理
+>* 使用阿里云函数计算定时更新https证书
 
 ## [PHP](PHP.md)
 >* 显示错误信息
