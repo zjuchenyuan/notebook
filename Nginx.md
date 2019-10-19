@@ -581,3 +581,49 @@ mv ${NAME}.crt.new ${NAME}.crt
 mv ${NAME}.key.new ${NAME}.key
 nginx -s reload || (mv ${NAME}.crt.old ${NAME}.crt; mv ${NAME}.key.old ${NAME}.key)
 ```
+
+-----
+
+## 使用nfs存储Nginx日志
+
+考虑一个不稳定的存储介质 如树莓派，想简单地把日志存储到其他服务器上
+
+由于nfs可能由于网络hang，而Nginx在无法写日志的时候也无法提供web访问，
+所以我的做法是先写到本地，每个小时将新的log追加到nfs同名`.1`文件里
+
+用到的：nfs，Nginx SIGUSR1信号，定时任务
+
+服务端的nfs镜像： https://hub.docker.com/r/itsthenetwork/nfs-server-alpine/
+
+```
+docker run --restart=always -d --name nfs -v /data:/nfsshare --privileged --net=host -e SHARED_DIRECTORY=/nfsshare itsthenetwork/nfs-server-alpine
+```
+
+客户端（web服务器）：
+
+```
+mkdir /nfs
+mount SERVER_IP:/ /nfs
+```
+
+collectlog.sh写到/nfs里，如果nfs发生了hang，脚本也不会执行
+
+```
+#!/bin/bash
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+cd /var/log/nginx
+for i in *.log; do
+    mv $i ${i}.1;
+done
+kill -USR1 `cat /var/run/nginx.pid`
+sleep 1
+for i in *.log.1; do
+    cat $i >> /nfs/$i
+done
+```
+
+cron加入：每小时写入一次
+
+```
+0 * * * * /nfs/collectlog.sh
+```

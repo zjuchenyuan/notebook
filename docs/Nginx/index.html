@@ -849,6 +849,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#nfsnginx" title="使用nfs存储Nginx日志" class="md-nav__link">
+    使用nfs存储Nginx日志
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1434,6 +1441,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#nfsnginx" title="使用nfs存储Nginx日志" class="md-nav__link">
+    使用nfs存储Nginx日志
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1940,6 +1954,52 @@ mv <span class="si">${</span><span class="nv">NAME</span><span class="si">}</spa
 nginx -s reload <span class="o">||</span> <span class="o">(</span>mv <span class="si">${</span><span class="nv">NAME</span><span class="si">}</span>.crt.old <span class="si">${</span><span class="nv">NAME</span><span class="si">}</span>.crt<span class="p">;</span> mv <span class="si">${</span><span class="nv">NAME</span><span class="si">}</span>.key.old <span class="si">${</span><span class="nv">NAME</span><span class="si">}</span>.key<span class="o">)</span>
 </pre></div>
 </td></tr></table>
+
+<hr />
+<h2 id="nfsnginx">使用nfs存储Nginx日志<a class="headerlink" href="#nfsnginx" title="Permanent link">&para;</a></h2>
+<p>考虑一个不稳定的存储介质 如树莓派，想简单地把日志存储到其他服务器上</p>
+<p>由于nfs可能由于网络hang，而Nginx在无法写日志的时候也无法提供web访问，
+所以我的做法是先写到本地，每个小时将新的log追加到nfs同名<code>.1</code>文件里</p>
+<p>用到的：nfs，Nginx SIGUSR1信号，定时任务</p>
+<p>服务端的nfs镜像： <a href="https://hub.docker.com/r/itsthenetwork/nfs-server-alpine/">https://hub.docker.com/r/itsthenetwork/nfs-server-alpine/</a></p>
+<div class="codehilite"><pre><span></span>docker run --restart=always -d --name nfs -v /data:/nfsshare --privileged --net=host -e SHARED_DIRECTORY=/nfsshare itsthenetwork/nfs-server-alpine
+</pre></div>
+
+
+<p>客户端（web服务器）：</p>
+<div class="codehilite"><pre><span></span>mkdir /nfs
+mount SERVER_IP:/ /nfs
+</pre></div>
+
+
+<p>collectlog.sh写到/nfs里，如果nfs发生了hang，脚本也不会执行</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span>/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+<span class="nb">cd</span> /var/log/nginx
+<span class="k">for</span> i in *.log<span class="p">;</span> <span class="k">do</span>
+    mv <span class="nv">$i</span> <span class="si">${</span><span class="nv">i</span><span class="si">}</span>.1<span class="p">;</span>
+<span class="k">done</span>
+<span class="nb">kill</span> -USR1 <span class="sb">`</span>cat /var/run/nginx.pid<span class="sb">`</span>
+sleep <span class="m">1</span>
+<span class="k">for</span> i in *.log.1<span class="p">;</span> <span class="k">do</span>
+    cat <span class="nv">$i</span> &gt;&gt; /nfs/<span class="nv">$i</span>
+<span class="k">done</span>
+</pre></div>
+</td></tr></table>
+
+<p>cron加入：每小时写入一次</p>
+<div class="codehilite"><pre><span></span>0 * * * * /nfs/collectlog.sh
+</pre></div>
                 
                   
                 
