@@ -8,6 +8,8 @@ My notebook about technology, for lookup and share
 
 评论请使用: [Github Issue](https://github.com/zjuchenyuan/notebook/issues/1)
 
+[查看最近的更新](https://github.com/zjuchenyuan/notebook/commit/HEAD)
+
 ## [Python](Python.md)
 >* [语言勾勒QuickStart](https://py3.io/doc/python/quickstart.html)
 >* 设置pip源
@@ -240,6 +242,7 @@ My notebook about technology, for lookup and share
 >* 时区时间设置
 >* 快速地格式化大分区ext4
 >* 明明还有大量空间却说没有？inode满了！挂载单个文件为btrfs分区
+>* 扩容上述单文件btrfs磁盘 /dev/loop0扩容
 >* 安全地拔出移动硬盘
 >* 挂载多个vmdk中的LVM分区
 

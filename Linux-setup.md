@@ -578,6 +578,36 @@ sudo losetup -d /dev/loop0
 
 ----
 
+## 扩容上述单文件btrfs磁盘
+
+随着不停地写入数据，上面创建的1TB分区就要被写满了！但文件所在物理磁盘还有空间，我们可以这样给btrfs磁盘扩容：
+
+实际文件用truncate增加一个hole；losetup更新loop0的大小；使用btrfs命令给分区扩容
+
+truncate是一个危险的命令，为了避免手抖把空间写小了丢失数据，这里用`--reference`参数指定一个目标大小的文件，例如我们想扩容到1.5T=1536GB
+
+```
+dd if=/dev/zero of=temp bs=1 count=0 seek=1536G
+ls -alh # 确认文件大小
+truncate -r temp filesystem.img
+
+# 假设目前使用的是/dev/loop0
+# 你可以这样确认loop0确实是filesystem.img挂载的： losetup --list /dev/loop0
+losetup -c /dev/loop0
+
+# 确保目前btrfs分区是挂载着的，btrfs必须先mount才能resize
+# mount filesystem.img /mnt
+btrfs filesystem resize +500G /mnt
+```
+
+参考：
+
+- https://linux.die.net/man/1/truncate
+- https://askubuntu.com/questions/260620/resize-dev-loop0-and-increase-space
+- https://btrfs.wiki.kernel.org/index.php/UseCases#How_do_I_resize_a_partition.3F_.28shrink.2Fgrow.29
+
+----
+
 ## 安全地拔出移动硬盘
 
 首先当然是`sudo umount /mnt`卸载挂载点咯，如何更安全一点呢？
