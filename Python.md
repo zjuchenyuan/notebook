@@ -1321,3 +1321,21 @@ def getcookie(host):
 ```
 
 调用如`getcookie(".zhihu.com")`
+
+-----------
+
+## Win开发摆脱每次都要写的encoding=utf-8
+
+在Windows上写代码，目标部署环境为linux，本机运行的时候不想每次读写文件都要写`encoding="utf-8"`
+
+修改`C:\Python38\Lib\site.py`，末尾加上：
+
+```
+import _locale
+_locale._getdefaultlocale = (lambda *args: ['en_US', 'utf8'])
+```
+
+验证可以用：`python -c "print(open('x','w').encoding)"` 输出`utf8`而不是`cp936`即可
+
+参考： https://juejin.im/post/5bd2b6d5e51d45735c3c0453
+

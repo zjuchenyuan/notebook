@@ -46,6 +46,8 @@ My notebook about technology, for lookup and share
 >* Python3.5 open打开文件默认使用utf-8
 >* 使用sentry
 >* 解决命令行执行py文件没有sys.argv的问题
+>* Python获取Windows Chrome的Cookie
+>* Win开发摆脱每次都要写的encoding=utf-8
 
 ## [gist Python一些常用的代码片段](gist.md)
 >* 连接mysql插入、查询

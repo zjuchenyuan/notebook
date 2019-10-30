@@ -783,6 +783,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#winencodingutf-8" title="Win开发摆脱每次都要写的encoding=utf-8" class="md-nav__link">
+    Win开发摆脱每次都要写的encoding=utf-8
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1878,6 +1885,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#winencodingutf-8" title="Win开发摆脱每次都要写的encoding=utf-8" class="md-nav__link">
+    Win开发摆脱每次都要写的encoding=utf-8
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -2928,6 +2942,17 @@ pip install gmpy2
 
 
 <p>调用如<code>getcookie(".zhihu.com")</code></p>
+<hr />
+<h2 id="winencodingutf-8">Win开发摆脱每次都要写的encoding=utf-8<a class="headerlink" href="#winencodingutf-8" title="Permanent link">&para;</a></h2>
+<p>在Windows上写代码，目标部署环境为linux，本机运行的时候不想每次读写文件都要写<code>encoding="utf-8"</code></p>
+<p>修改<code>C:\Python38\Lib\site.py</code>，末尾加上：</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">_locale</span>
+<span class="n">_locale</span><span class="o">.</span><span class="n">_getdefaultlocale</span> <span class="o">=</span> <span class="p">(</span><span class="k">lambda</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;en_US&#39;</span><span class="p">,</span> <span class="s1">&#39;utf8&#39;</span><span class="p">])</span>
+</pre></div>
+
+
+<p>验证可以用：<code>python -c "print(open('x','w').encoding)"</code> 输出<code>utf8</code>而不是<code>cp936</code>即可</p>
+<p>参考： <a href="https://juejin.im/post/5bd2b6d5e51d45735c3c0453">https://juejin.im/post/5bd2b6d5e51d45735c3c0453</a></p>
                 
                   
                 
