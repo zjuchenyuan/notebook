@@ -292,6 +292,7 @@ My notebook about technology, for lookup and share
 >* 批量替换子目录特定后缀名文件内容
 >* coredump in fuzzing
 >* bash对文件乱序遍历
+>* grep正则提取特定内容
 
 ## [Linux-backup](Linux-backup.md)
 >* 一个良好安全的备份计划至关重要

@@ -689,3 +689,33 @@ ls /tmp/test | grep -P '[\p{Han}]'
 ```
 
 参考 https://www.regular-expressions.info/unicode.html#script
+
+-------
+
+## grep正则提取特定内容
+
+场景：fuzzing lava 测试集，做了30次重复（每次重复文件夹名称末尾为`_重复`），已经将crash运行得到的stdout和stderr存储为文件，想统计每次重复触发了多少bugid
+
+换句话说，已知当前文件夹下有一些可能被当成二进制的文本文件，包含`Successfully triggered bug 576, crashing now!`，我想将其中的576提取出来，然后对整个文件夹计数
+
+注意grep的时候一定要--text，不然会漏掉一些文件
+
+用到了grep的正则提取，前置判断用`(?<=文本)`，后置判断用`(?=文本)`，例如提取`aaa123bbb`中的123就可以：`echo aaa123bbb|grep -P '(?<=aaa)\d+(?=bbb)' -o`
+
+其中`-P`表示正则语法为Perl，`-o`表示只显示匹配
+
+参考： https://unix.stackexchange.com/questions/13466/can-grep-output-only-specified-groupings-that-match
+
+```
+for i in `seq 1 1 30`; do 
+    if [ -d *_${i}/ ]; then 
+        (cd *_${i}; 
+         echo $i `grep 'Successfully triggered bug' -r . --text \
+             | grep -P '(?<=bug )(\d+)(?=,)' -o \
+             |sort| uniq|wc -l` 
+        ); 
+    else 
+        echo ${i} 0; 
+    fi; 
+done
+```

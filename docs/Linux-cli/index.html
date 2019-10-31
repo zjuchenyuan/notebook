@@ -1127,6 +1127,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#grep_2" title="grep正则提取特定内容" class="md-nav__link">
+    grep正则提取特定内容
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1578,6 +1585,13 @@
         <li class="md-nav__item">
   <a href="#grep_1" title="grep查找中文" class="md-nav__link">
     grep查找中文
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#grep_2" title="grep正则提取特定内容" class="md-nav__link">
+    grep正则提取特定内容
   </a>
   
 </li>
@@ -2100,6 +2114,26 @@ echo 0 &gt;/proc/sys/kernel/core_uses_pid
 
 
 <p>参考 <a href="https://www.regular-expressions.info/unicode.html#script">https://www.regular-expressions.info/unicode.html#script</a></p>
+<hr />
+<h2 id="grep_2">grep正则提取特定内容<a class="headerlink" href="#grep_2" title="Permanent link">&para;</a></h2>
+<p>场景：fuzzing lava 测试集，做了30次重复（每次重复文件夹名称末尾为<code>_重复</code>），已经将crash运行得到的stdout和stderr存储为文件，想统计每次重复触发了多少bugid</p>
+<p>换句话说，已知当前文件夹下有一些可能被当成二进制的文本文件，包含<code>Successfully triggered bug 576, crashing now!</code>，我想将其中的576提取出来，然后对整个文件夹计数</p>
+<p>注意grep的时候一定要&ndash;text，不然会漏掉一些文件</p>
+<p>用到了grep的正则提取，前置判断用<code>(?&lt;=文本)</code>，后置判断用<code>(?=文本)</code>，例如提取<code>aaa123bbb</code>中的123就可以：<code>echo aaa123bbb|grep -P '(?&lt;=aaa)\d+(?=bbb)' -o</code></p>
+<p>其中<code>-P</code>表示正则语法为Perl，<code>-o</code>表示只显示匹配</p>
+<p>参考： <a href="https://unix.stackexchange.com/questions/13466/can-grep-output-only-specified-groupings-that-match">https://unix.stackexchange.com/questions/13466/can-grep-output-only-specified-groupings-that-match</a></p>
+<div class="codehilite"><pre><span></span>for i in `seq 1 1 30`; do 
+    if [ -d *_<span class="cp">${</span><span class="n">i</span><span class="cp">}</span>/ ]; then 
+        (cd *_<span class="cp">${</span><span class="n">i</span><span class="cp">}</span>; 
+         echo <span class="nv">$i</span> `grep &#39;Successfully triggered bug&#39; -r . --text \
+             | grep -P &#39;(?<span class="err">&lt;</span>=bug )(\d+)(?=,)&#39; -o \
+             |sort| uniq|wc -l` 
+        ); 
+    else 
+        echo <span class="cp">${</span><span class="n">i</span><span class="cp">}</span> 0; 
+    fi; 
+done
+</pre></div>
                 
                   
                 
