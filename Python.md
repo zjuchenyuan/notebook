@@ -1276,7 +1276,7 @@ def before_request_session():
 
 ## 解决命令行执行py文件没有sys.argv的问题
 
-这是由于打开方式没有把%*加上的原因，修改注册表
+这是由于打开方式没有把%*加上的原因，修改注册表 regedit
 
 ```
 HKEY_CLASSES_ROOT\Python.File\Shell\open\command

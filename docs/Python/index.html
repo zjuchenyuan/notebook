@@ -2907,7 +2907,7 @@ pip install gmpy2
 <p>尤其在循环中触发 会导致页面加载速度显著变慢</p>
 <p>对于已经知道会有异常产生也不关心的，就不要抓住这种异常来损害性能了 pass就好了</p>
 <h2 id="pysysargv">解决命令行执行py文件没有sys.argv的问题<a class="headerlink" href="#pysysargv" title="Permanent link">&para;</a></h2>
-<p>这是由于打开方式没有把%*加上的原因，修改注册表</p>
+<p>这是由于打开方式没有把%*加上的原因，修改注册表 regedit</p>
 <div class="codehilite"><pre><span></span>HKEY_CLASSES_ROOT\Python.File\Shell\open\command
 </pre></div>
 
