@@ -728,6 +728,8 @@ done
 
 注意到sort比较数字大小需要用`-h`或者`-V`，否则会出现`3>20`的比较结果（字符串比较）
 
+由于`[ "$num" -gt 5 ]`只支持num为整数的情况，所以用bc作浮点数大小判断，参考： https://stackoverflow.com/questions/8654051/how-to-compare-two-floating-point-numbers-in-bash
+
 用`grep -v`设置白名单：docker, perl
 
 ```

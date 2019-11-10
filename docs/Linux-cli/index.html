@@ -2154,6 +2154,7 @@ done
 <h2 id="kill">自动kill大内存的进程<a class="headerlink" href="#kill" title="Permanent link">&para;</a></h2>
 <p>列举所有进程，找出内存超过5%的，kill掉</p>
 <p>注意到sort比较数字大小需要用<code>-h</code>或者<code>-V</code>，否则会出现<code>3&gt;20</code>的比较结果（字符串比较）</p>
+<p>由于<code>[ "$num" -gt 5 ]</code>只支持num为整数的情况，所以用bc作浮点数大小判断，参考： <a href="https://stackoverflow.com/questions/8654051/how-to-compare-two-floating-point-numbers-in-bash">https://stackoverflow.com/questions/8654051/how-to-compare-two-floating-point-numbers-in-bash</a></p>
 <p>用<code>grep -v</code>设置白名单：docker, perl</p>
 <div class="codehilite"><pre><span></span>while true; do 
     LINE=$(ps aux|grep -v docker|grep -v perl|sort -k4 -h|tail -n 1); 
