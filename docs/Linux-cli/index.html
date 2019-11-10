@@ -1134,6 +1134,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#kill" title="自动kill大内存的进程" class="md-nav__link">
+    自动kill大内存的进程
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1592,6 +1599,13 @@
         <li class="md-nav__item">
   <a href="#grep_2" title="grep正则提取特定内容" class="md-nav__link">
     grep正则提取特定内容
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kill" title="自动kill大内存的进程" class="md-nav__link">
+    自动kill大内存的进程
   </a>
   
 </li>
@@ -2132,6 +2146,21 @@ echo 0 &gt;/proc/sys/kernel/core_uses_pid
     else 
         echo <span class="cp">${</span><span class="n">i</span><span class="cp">}</span> 0; 
     fi; 
+done
+</pre></div>
+
+
+<hr />
+<h2 id="kill">自动kill大内存的进程<a class="headerlink" href="#kill" title="Permanent link">&para;</a></h2>
+<p>列举所有进程，找出内存超过5%的，kill掉</p>
+<p>注意到sort比较数字大小需要用<code>-h</code>或者<code>-V</code>，否则会出现<code>3&gt;20</code>的比较结果（字符串比较）</p>
+<p>用<code>grep -v</code>设置白名单：docker, perl</p>
+<div class="codehilite"><pre><span></span>while true; do 
+    LINE=$(ps aux|grep -v docker|grep -v perl|sort -k4 -h|tail -n 1); 
+    (( $( echo &quot;`echo <span class="cp">${</span><span class="n">LINE</span><span class="cp">}</span>|awk &#39;{print $4}&#39;` &gt; 5&quot; |bc -l) )) <span class="err">&amp;&amp;</span> \
+        (echo <span class="nv">$LINE</span>; 
+        kill `echo <span class="cp">${</span><span class="n">LINE</span><span class="cp">}</span>|awk &#39;{print $2}&#39;`); 
+    sleep 5; 
 done
 </pre></div>
                 

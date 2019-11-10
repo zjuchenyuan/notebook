@@ -719,3 +719,24 @@ for i in `seq 1 1 30`; do
     fi; 
 done
 ```
+
+-----
+
+## 自动kill大内存的进程
+
+列举所有进程，找出内存超过5%的，kill掉
+
+注意到sort比较数字大小需要用`-h`或者`-V`，否则会出现`3>20`的比较结果（字符串比较）
+
+用`grep -v`设置白名单：docker, perl
+
+```
+while true; do 
+    LINE=$(ps aux|grep -v docker|grep -v perl|sort -k4 -h|tail -n 1); 
+    (( $( echo "`echo ${LINE}|awk '{print $4}'` > 5" |bc -l) )) && \
+        (echo $LINE; 
+        kill `echo ${LINE}|awk '{print $2}'`); 
+    sleep 5; 
+done
+```
+
