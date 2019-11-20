@@ -907,3 +907,32 @@ kpartx -d disk1.vmdk
 kpartx -d disk2.vmdk
 kpartx -d disk3.vmdk
 ```
+
+-----
+
+## 启用rc.local
+
+```
+nano /etc/systemd/system/rc-local.service
+printf '%s\n' '#!/bin/bash' 'exit 0' | sudo tee -a /etc/rc.local
+chmod +x /etc/rc.local
+systemctl enable rc-local
+```
+
+```
+[Unit]
+ Description=/etc/rc.local Compatibility
+ ConditionPathExists=/etc/rc.local
+
+[Service]
+ Type=forking
+ ExecStart=/etc/rc.local start
+ TimeoutSec=0
+ StandardOutput=tty
+ RemainAfterExit=yes
+ SysVStartPriority=99
+
+[Install]
+ WantedBy=multi-user.target
+```
+

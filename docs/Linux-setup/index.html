@@ -1168,6 +1168,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#rclocal" title="启用rc.local" class="md-nav__link">
+    启用rc.local
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1708,6 +1715,13 @@
         <li class="md-nav__item">
   <a href="#vmdklvm" title="挂载多个vmdk中的LVM分区" class="md-nav__link">
     挂载多个vmdk中的LVM分区
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rclocal" title="启用rc.local" class="md-nav__link">
+    启用rc.local
   </a>
   
 </li>
@@ -2502,6 +2516,31 @@ kpartx -d disk2.vmdk
 kpartx -d disk3.vmdk
 </pre></div>
 </td></tr></table>
+
+<hr />
+<h2 id="rclocal">启用rc.local<a class="headerlink" href="#rclocal" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span>nano /etc/systemd/system/rc-local.service
+printf &#39;%s\n&#39; &#39;#!/bin/bash&#39; &#39;exit 0&#39; | sudo tee -a /etc/rc.local
+chmod +x /etc/rc.local
+systemctl enable rc-local
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="k">[Unit]</span>
+ <span class="na">Description</span><span class="o">=</span><span class="s">/etc/rc.local Compatibility</span>
+<span class="s"> ConditionPathExists=/etc/rc.local</span>
+
+<span class="k">[Service]</span>
+ <span class="na">Type</span><span class="o">=</span><span class="s">forking</span>
+<span class="s"> ExecStart=/etc/rc.local start</span>
+<span class="s"> TimeoutSec=0</span>
+<span class="s"> StandardOutput=tty</span>
+<span class="s"> RemainAfterExit=yes</span>
+<span class="s"> SysVStartPriority=99</span>
+
+<span class="k">[Install]</span>
+ <span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span>
+</pre></div>
                 
                   
                 

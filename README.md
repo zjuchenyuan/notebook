@@ -247,6 +247,7 @@ My notebook about technology, for lookup and share
 >* 扩容上述单文件btrfs磁盘 /dev/loop0扩容
 >* 安全地拔出移动硬盘
 >* 挂载多个vmdk中的LVM分区
+>* 启用rc.local
 
 ## [Linux-SSH](Linux-SSH.md)
 >* 客户端不同服务器使用不同的id_rsa
