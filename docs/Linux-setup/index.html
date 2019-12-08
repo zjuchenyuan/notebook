@@ -2162,7 +2162,8 @@ echo &quot;TZ=&#39;Asia/Shanghai&#39;&quot;&gt;&gt;~/.bashrc
 <h4 id="2-1tbsparse-file">2. 创建一个1TB的sparse file<a class="headerlink" href="#2-1tbsparse-file" title="Permanent link">&para;</a></h4>
 <p>参考: <a href="https://prefetch.net/blog/2009/07/05/creating-sparse-files-on-linux-hosts-with-dd/">https://prefetch.net/blog/2009/07/05/creating-sparse-files-on-linux-hosts-with-dd/</a></p>
 <p>使用dd命令，不将实际内容写入硬盘，能很快执行完成：</p>
-<div class="codehilite"><pre><span></span>dd if=/dev/zero of=filesystem.img bs=1 count=0 seek=1T
+<div class="codehilite"><pre><span></span>NAME=&quot;filesystem&quot;
+dd if=/dev/zero of=<span class="cp">${</span><span class="n">NAME</span><span class="cp">}</span>.img bs=1 count=0 seek=1T
 </pre></div>
 
 
@@ -2170,18 +2171,12 @@ echo &quot;TZ=&#39;Asia/Shanghai&#39;&quot;&gt;&gt;~/.bashrc
 <h4 id="3">3. 创建磁盘分区<a class="headerlink" href="#3" title="Permanent link">&para;</a></h4>
 <p><a href="http://参考：https://www.jamescoyle.net">参考：https://www.jamescoyle.net</a>/how-to/2096-use-a-file-as-a-linux-block-device</p>
 <p><a href="http://btrfs参考：https://btrfs.wiki.kernel.org">btrfs参考：https://btrfs.wiki.kernel.org</a>/index.php/Getting_started</p>
-<div class="codehilite"><pre><span></span>mkfs.btrfs filesystem.img
+<div class="codehilite"><pre><span></span>mkfs.btrfs <span class="cp">${</span><span class="n">NAME</span><span class="cp">}</span>.img
 </pre></div>
 
 
 <h4 id="4">4. 挂载分区<a class="headerlink" href="#4" title="Permanent link">&para;</a></h4>
-<p>首先找到一个空闲的loop设备：</p>
-<div class="codehilite"><pre><span></span>losetup -f
-</pre></div>
-
-
-<p>假设得到了/dev/loop0，然后mount挂载咯：</p>
-<div class="codehilite"><pre><span></span>sudo mount -o loop=/dev/loop0 /path/to/filesystem.img /mnt
+<div class="codehilite"><pre><span></span>mount <span class="cp">${</span><span class="n">NAME</span><span class="cp">}</span>.img /mnt
 </pre></div>
 
 

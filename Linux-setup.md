@@ -525,7 +525,8 @@ inodes上限在mkfs时就定下来了，不能改动，所以没救了。。。
 使用dd命令，不将实际内容写入硬盘，能很快执行完成：
 
 ```
-dd if=/dev/zero of=filesystem.img bs=1 count=0 seek=1T
+NAME="filesystem"
+dd if=/dev/zero of=${NAME}.img bs=1 count=0 seek=1T
 ```
 
 执行后ls -alh能看到文件大小为1T，使用du filesystem.img查看真实空间
@@ -537,21 +538,13 @@ dd if=/dev/zero of=filesystem.img bs=1 count=0 seek=1T
 btrfs参考：https://btrfs.wiki.kernel.org/index.php/Getting_started
 
 ```
-mkfs.btrfs filesystem.img
+mkfs.btrfs ${NAME}.img
 ```
 
 #### 4. 挂载分区
 
-首先找到一个空闲的loop设备：
-
 ```
-losetup -f
-```
-
-假设得到了/dev/loop0，然后mount挂载咯：
-
-```
-sudo mount -o loop=/dev/loop0 /path/to/filesystem.img /mnt
+mount ${NAME}.img /mnt
 ```
 
 #### 5. 然后就可以搬运数据过去了
