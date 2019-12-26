@@ -396,18 +396,20 @@ AP这个类型是指针，指向的元素是 5字节大小的数组，
 再+2就是要跳过两个字节，得到答案"ONALAMB"
 
 举一反三：
+
 1. puts(((AP)a)[0])输出啥？假设没有调用defy(a)
-1. puts(((AP)a)[0])输出啥？假设已经做了defy(a)
-2. puts(((AP)a)[0]+3)输出啥？假设已经做了defy(a)
-3. defy(a)[2][1]+1是什么类型？值是多少？
-4. puts(&defy(a)[2][1])输出啥？
-5. defy(a)之后再puts(&defy(a)[2][1])输出啥？
+2. puts(((AP)a)[0])输出啥？假设已经做了defy(a)
+3. puts(((AP)a)[0]+3)输出啥？假设已经做了defy(a)
+4. defy(a)[2][1]+1是什么类型？值是多少？
+5. puts(&defy(a)[2][1])输出啥？
+6. defy(a)之后再puts(&defy(a)[2][1])输出啥？
 
 答案：
+
 1. FROG
-1. FROGASEALALIONALAMB
-2. GASEALALIONALAMB
-3. char类型 'B' 这个是char的'A'再加一
-4. AMBG
-5. 这是undefined behaviour，发生了数组越界读写
+2. FROGASEALALIONALAMB
+3. GASEALALIONALAMB
+4. char类型 'B' 这个是char的'A'再加一
+5. AMBG
+6. 发生了数组越界读写，这是undefined behaviour
 

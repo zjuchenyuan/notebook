@@ -1593,20 +1593,24 @@ D. p-&gt;s=&#39;a&#39;;
 <p>所以((AP)a)[2]的类型是<code>char*</code>，指向的是&rdquo;LIONA&rdquo;这个元素</p>
 <p>但是当我们把这个元素当成<code>char*</code>输出的时候，由于末尾没有<code>\0</code>，所以要继续输出，就是&rdquo;LIONALAMB&rdquo;</p>
 <p>再+2就是要跳过两个字节，得到答案&rdquo;ONALAMB&rdquo;</p>
-<p>举一反三：
-1. puts(((AP)a)[0])输出啥？假设没有调用defy(a)
-1. puts(((AP)a)[0])输出啥？假设已经做了defy(a)
-2. puts(((AP)a)[0]+3)输出啥？假设已经做了defy(a)
-3. defy(a)[2][1]+1是什么类型？值是多少？
-4. puts(&amp;defy(a)[2][1])输出啥？
-5. defy(a)之后再puts(&amp;defy(a)[2][1])输出啥？</p>
-<p>答案：
-1. FROG
-1. FROGASEALALIONALAMB
-2. GASEALALIONALAMB
-3. char类型 &lsquo;B&rsquo; 这个是char的&rsquo;A&rsquo;再加一
-4. AMBG
-5. 这是undefined behaviour，发生了数组越界读写</p>
+<p>举一反三：</p>
+<ol>
+<li>puts(((AP)a)[0])输出啥？假设没有调用defy(a)</li>
+<li>puts(((AP)a)[0])输出啥？假设已经做了defy(a)</li>
+<li>puts(((AP)a)[0]+3)输出啥？假设已经做了defy(a)</li>
+<li>defy(a)[2][1]+1是什么类型？值是多少？</li>
+<li>puts(&amp;defy(a)[2][1])输出啥？</li>
+<li>defy(a)之后再puts(&amp;defy(a)[2][1])输出啥？</li>
+</ol>
+<p>答案：</p>
+<ol>
+<li>FROG</li>
+<li>FROGASEALALIONALAMB</li>
+<li>GASEALALIONALAMB</li>
+<li>char类型 &lsquo;B&rsquo; 这个是char的&rsquo;A&rsquo;再加一</li>
+<li>AMBG</li>
+<li>发生了数组越界读写，这是undefined behaviour</li>
+</ol>
                 
                   
                 
