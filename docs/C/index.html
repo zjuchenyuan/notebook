@@ -532,6 +532,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#_18" title="数组的数组" class="md-nav__link">
+    数组的数组
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1237,6 +1244,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#_18" title="数组的数组" class="md-nav__link">
+    数组的数组
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1534,6 +1548,65 @@ D. p-&gt;s=&#39;a&#39;;
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
+
+
+<h3 id="_18">数组的数组<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h3>
+<p>题目：</p>
+<div class="codehilite"><pre><span></span> <span class="err">以下程序的输出结果是</span><span class="n">_________________</span><span class="err">。</span>
+    <span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+    <span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
+    <span class="k">typedef</span> <span class="kt">char</span> <span class="p">(</span><span class="o">*</span><span class="n">AP</span><span class="p">)[</span><span class="mi">5</span><span class="p">];</span>
+    <span class="n">AP</span> <span class="nf">defy</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span>
+    <span class="p">{</span>
+       <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+       <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">3</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+          <span class="n">p</span><span class="p">[</span><span class="n">strlen</span><span class="p">(</span><span class="n">p</span><span class="p">)]</span> <span class="o">=</span> <span class="sc">&#39;A&#39;</span><span class="p">;</span>
+       <span class="k">return</span> <span class="p">(</span><span class="n">AP</span><span class="p">)</span><span class="n">p</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="kt">void</span> <span class="nf">main</span><span class="p">()</span>
+    <span class="p">{</span>
+       <span class="kt">char</span> <span class="n">a</span><span class="p">[]</span><span class="o">=</span><span class="s">&quot;FROG</span><span class="se">\0</span><span class="s">SEAL</span><span class="se">\0</span><span class="s">LION</span><span class="se">\0</span><span class="s">LAMB&quot;</span><span class="p">;</span>
+       <span class="n">puts</span><span class="p">(</span> <span class="n">defy</span><span class="p">(</span><span class="n">a</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">2</span> <span class="p">);</span>
+    <span class="p">}</span>
+</pre></div>
+
+
+<p>解答：</p>
+<p>搞清楚指针的类型这个题目就很简单了，另外记住这个公式：</p>
+<div class="codehilite"><pre><span></span>x[i] = *(x+i)
+</pre></div>
+
+
+<p>p[strlen(p)] = &lsquo;A&rsquo;; 就是把\0的地方改成了字符A</p>
+<p>所以我们的a是这样子的：</p>
+<p>从一维数组来看a是 FROGASEALALIONALAMB</p>
+<p>从5字节char的数组的数组来看是 </p>
+<div class="codehilite"><pre><span></span>    &quot;FROGA&quot;, //虽然这里写的是字符串，但末尾没有\0
+    &quot;SEALA&quot;,
+    &quot;LIONA&quot;,
+    &quot;LAMB\0&quot;
+</pre></div>
+
+
+<p>defy(a)[1]就等价于<code>*(defy(a)+1)</code>，就是<code>*( ((AP)a) +1+1)</code>，就是((AP)a)[2]</p>
+<p>AP这个类型是指针，指向的元素是 5字节大小的数组，</p>
+<p>所以((AP)a)[2]的类型是<code>char*</code>，指向的是&rdquo;LIONA&rdquo;这个元素</p>
+<p>但是当我们把这个元素当成<code>char*</code>输出的时候，由于末尾没有<code>\0</code>，所以要继续输出，就是&rdquo;LIONALAMB&rdquo;</p>
+<p>再+2就是要跳过两个字节，得到答案&rdquo;ONALAMB&rdquo;</p>
+<p>举一反三：
+1. puts(((AP)a)[0])输出啥？假设没有调用defy(a)
+1. puts(((AP)a)[0])输出啥？假设已经做了defy(a)
+2. puts(((AP)a)[0]+3)输出啥？假设已经做了defy(a)
+3. defy(a)[2][1]+1是什么类型？值是多少？
+4. puts(&amp;defy(a)[2][1])输出啥？
+5. defy(a)之后再puts(&amp;defy(a)[2][1])输出啥？</p>
+<p>答案：
+1. FROG
+1. FROGASEALALIONALAMB
+2. GASEALALIONALAMB
+3. char类型 &lsquo;B&rsquo; 这个是char的&rsquo;A&rsquo;再加一
+4. AMBG
+5. 这是undefined behaviour，发生了数组越界读写</p>
                 
                   
                 

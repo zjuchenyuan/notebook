@@ -338,3 +338,76 @@ int main(){
     return 0;
 }
 ```
+
+### 数组的数组
+
+题目：
+
+```
+ 以下程序的输出结果是_________________。
+	#include <stdio.h>
+	#include <string.h>
+	typedef char (*AP)[5];
+	AP defy(char *p)
+	{
+	   int i;
+	   for(i=0; i<3; i++)
+	      p[strlen(p)] = 'A';
+	   return (AP)p + 1;
+	}
+	void main()
+	{
+	   char a[]="FROG\0SEAL\0LION\0LAMB";
+	   puts( defy(a)[1]+2 );
+	}
+```
+
+解答：
+
+搞清楚指针的类型这个题目就很简单了，另外记住这个公式：
+
+```
+x[i] = *(x+i)
+```
+
+p[strlen(p)] = 'A'; 就是把\0的地方改成了字符A
+
+所以我们的a是这样子的：
+
+从一维数组来看a是 FROGASEALALIONALAMB
+
+从5字节char的数组的数组来看是 
+
+```
+    "FROGA", //虽然这里写的是字符串，但末尾没有\0
+    "SEALA",
+    "LIONA",
+    "LAMB\0"
+```
+
+defy(a)[1]就等价于`*(defy(a)+1)`，就是`*( ((AP)a) +1+1)`，就是((AP)a)[2]
+
+AP这个类型是指针，指向的元素是 5字节大小的数组，
+
+所以((AP)a)[2]的类型是`char*`，指向的是"LIONA"这个元素
+
+但是当我们把这个元素当成`char*`输出的时候，由于末尾没有`\0`，所以要继续输出，就是"LIONALAMB"
+
+再+2就是要跳过两个字节，得到答案"ONALAMB"
+
+举一反三：
+1. puts(((AP)a)[0])输出啥？假设没有调用defy(a)
+1. puts(((AP)a)[0])输出啥？假设已经做了defy(a)
+2. puts(((AP)a)[0]+3)输出啥？假设已经做了defy(a)
+3. defy(a)[2][1]+1是什么类型？值是多少？
+4. puts(&defy(a)[2][1])输出啥？
+5. defy(a)之后再puts(&defy(a)[2][1])输出啥？
+
+答案：
+1. FROG
+1. FROGASEALALIONALAMB
+2. GASEALALIONALAMB
+3. char类型 'B' 这个是char的'A'再加一
+4. AMBG
+5. 这是undefined behaviour，发生了数组越界读写
+
