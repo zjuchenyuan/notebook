@@ -385,13 +385,13 @@ p[strlen(p)] = 'A'; 就是把\0的地方改成了字符A
     "LAMB\0"
 ```
 
-defy(a)[1]就等价于`*(defy(a)+1)`，就是`*( ((AP)a) +1+1)`，就是((AP)a)[2]
+defy(a)[1]就等价于`*(defy(a) +1)`，就是`*( ((AP)a)+1 +1)`，就是((AP)a)[2]
 
 AP这个类型是指针，指向的元素是 5字节大小的数组，
 
 所以((AP)a)[2]的类型是`char*`，指向的是"LIONA"这个元素
 
-但是当我们把这个元素当成`char*`输出的时候，由于末尾没有`\0`，所以要继续输出，就是"LIONALAMB"
+但是当我们把这个元素当成`char*`用puts输出的时候，由于末尾没有`\0`，所以要继续输出，就是"LIONALAMB"
 
 再+2就是要跳过两个字节，得到答案"ONALAMB"
 
@@ -410,6 +410,6 @@ AP这个类型是指针，指向的元素是 5字节大小的数组，
 2. FROGASEALALIONALAMB
 3. GASEALALIONALAMB
 4. char类型 'B' 这个是char的'A'再加一
-5. AMBG
+5. AMB
 6. 发生了数组越界读写，这是undefined behaviour
 

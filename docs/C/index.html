@@ -1588,10 +1588,10 @@ D. p-&gt;s=&#39;a&#39;;
 </pre></div>
 
 
-<p>defy(a)[1]就等价于<code>*(defy(a)+1)</code>，就是<code>*( ((AP)a) +1+1)</code>，就是((AP)a)[2]</p>
+<p>defy(a)[1]就等价于<code>*(defy(a) +1)</code>，就是<code>*( ((AP)a)+1 +1)</code>，就是((AP)a)[2]</p>
 <p>AP这个类型是指针，指向的元素是 5字节大小的数组，</p>
 <p>所以((AP)a)[2]的类型是<code>char*</code>，指向的是&rdquo;LIONA&rdquo;这个元素</p>
-<p>但是当我们把这个元素当成<code>char*</code>输出的时候，由于末尾没有<code>\0</code>，所以要继续输出，就是&rdquo;LIONALAMB&rdquo;</p>
+<p>但是当我们把这个元素当成<code>char*</code>用puts输出的时候，由于末尾没有<code>\0</code>，所以要继续输出，就是&rdquo;LIONALAMB&rdquo;</p>
 <p>再+2就是要跳过两个字节，得到答案&rdquo;ONALAMB&rdquo;</p>
 <p>举一反三：</p>
 <ol>
@@ -1608,7 +1608,7 @@ D. p-&gt;s=&#39;a&#39;;
 <li>FROGASEALALIONALAMB</li>
 <li>GASEALALIONALAMB</li>
 <li>char类型 &lsquo;B&rsquo; 这个是char的&rsquo;A&rsquo;再加一</li>
-<li>AMBG</li>
+<li>AMB</li>
 <li>发生了数组越界读写，这是undefined behaviour</li>
 </ol>
                 
