@@ -811,6 +811,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#bash_1" title="文件夹背景右键直接显示bash" class="md-nav__link">
+    文件夹背景右键直接显示bash
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1166,6 +1173,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#bash_1" title="文件夹背景右键直接显示bash" class="md-nav__link">
+    文件夹背景右键直接显示bash
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1293,6 +1307,16 @@ Await ($bluetooth.SetStateAsync($BluetoothStatus)) ([Windows.Devices.Radios.Radi
 
 
 <p>关闭就是Off</p>
+<hr />
+<h2 id="bash_1">文件夹背景右键直接显示bash<a class="headerlink" href="#bash_1" title="Permanent link">&para;</a></h2>
+<p>默认需要按住Shift右键才会显示</p>
+<p>HKEY_CLASSES_ROOT\Directory\Background\shell\WSL</p>
+<p>删除其中的Extended项即可，可能没有权限需要先获得所有权再给自己权限，<a href="https://www.ithome.com/html/win10/282909.htm">参考</a></p>
+<p>附上默认的command:</p>
+<div class="codehilite"><pre><span></span>wsl.exe --cd &quot;%V&quot;
+powershell.exe -noexit -command Set-Location -literalPath &#39;%V&#39;
+cmd.exe /s /k pushd &quot;%V&quot;
+</pre></div>
                 
                   
                 

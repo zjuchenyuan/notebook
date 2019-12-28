@@ -184,3 +184,21 @@ powershell -ExecutionPolicy Bypass -File ./b.ps1 -BluetoothStatus On
 ```
 
 关闭就是Off
+
+----
+
+## 文件夹背景右键直接显示bash
+
+默认需要按住Shift右键才会显示
+
+HKEY_CLASSES_ROOT\Directory\Background\shell\WSL
+
+删除其中的Extended项即可，可能没有权限需要先获得所有权再给自己权限，[参考](https://www.ithome.com/html/win10/282909.htm)
+
+附上默认的command:
+
+```
+wsl.exe --cd "%V"
+powershell.exe -noexit -command Set-Location -literalPath '%V'
+cmd.exe /s /k pushd "%V"
+```
