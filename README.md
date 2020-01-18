@@ -316,6 +316,7 @@ My notebook about technology, for lookup and share
 >* 解决 Too many open files 错误
 >* 解决ubuntu16.04上mysql被apt upgrade自动关闭的问题
 >* NULL转0
+>* 给MySQL增加一个slave做主从复制
 
 ## [Nginx](Nginx.md)
 >* Nginx思考题

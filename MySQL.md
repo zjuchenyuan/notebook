@@ -297,3 +297,75 @@ apt-get install -f
 select sum(IFNULL(score, 0)) from runs;
 ```
 
+----
+
+## 给MySQL增加一个slave做主从复制
+
+master启用binlog配置server-id；master用mysqldump导出数据库；slave导入，开始slave
+
+### master创建用户
+
+```
+GRANT REPLICATION SLAVE ON *.* TO 'slave_user'@'%' IDENTIFIED BY 'password';
+FLUSH PRIVILEGES;
+```
+
+### master启用binlog
+
+/etc/mysql/conf.d/master.cnf
+
+```
+[mysqld]
+server-id=1
+log-bin=mysql-bin.log
+innodb_flush_log_at_trx_commit=1
+sync_binlog=1
+```
+
+### 搬运数据库
+
+由于binlog是在已经有数据之后才开启的，而mysql不会自己执行全量同步，就只能靠手工搬运sql文件咯
+
+跨地域复制网速是限制因素，就用7z压缩了
+
+```
+mysqldump -h 127.0.0.1 -P 3306 -u root -p --opt --single-transaction --comments --hex-blob --dump-date --no-autocommit --all-databases --master-data | 7z a -si dbdump.sql.7z
+7z x -so dbdump.sql.7z | mysql -h 127.0.0.1 -u root -p
+```
+
+其中`--master-data`很重要，导出的时候就自动带上了master的信息，无需再手工记录
+
+`CHANGE MASTER TO MASTER_LOG_FILE='mysql-bin.000002', MASTER_LOG_POS=15410;`
+
+### 配置slave
+
+```
+server-id               = 2
+relay-log               = mysql-relay-bin.log
+log_bin                 = mysql-bin.log
+```
+
+```
+CHANGE MASTER TO MASTER_HOST='12.34.56.789',MASTER_USER='slave_user', MASTER_PASSWORD='password';
+START SLAVE;
+SHOW SLAVE STATUS\G
+```
+
+### Docker镜像
+
+https://github.com/bitnami/bitnami-docker-mysql
+
+但这个镜像也不会帮你自动完成mysqldump，但配置一个slave还是很省心的
+
+```
+docker run -it -v /srv/mysql-slave/my.cnf:/opt/bitnami/mysql/conf/my.cnf:ro -v /srv/mysql-slave/data:/bitnami/mysql/data \
+     --name mysql-slave -e MYSQL_REPLICATION_MODE=slave -e MYSQL_REPLICATION_USER=slave_user -e MYSQL_REPLICATION_PASSWORD=password \
+      -e MYSQL_MASTER_HOST=12.34.56.789 -e MYSQL_MASTER_PORT_NUMBER=3306 \
+      -e MYSQL_MASTER_ROOT_USER=slave_user -e MYSQL_MASTER_ROOT_PASSWORD=password \
+      bitnami/mysql:5.7
+```
+
+其中MYSQL_MASTER_ROOT_USER虽然人家说要root用户，实际上代码里只是用来select 1，所以用slave_user即可，参见我提的issue:
+
+https://github.com/bitnami/bitnami-docker-mysql/issues/87
+
