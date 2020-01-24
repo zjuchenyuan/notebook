@@ -587,6 +587,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#upyun-https" title="UPYUN https证书更新" class="md-nav__link">
+    UPYUN https证书更新
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upyun_1" title="UPYUN 表单上传怎么用" class="md-nav__link">
+    UPYUN 表单上传怎么用
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1128,6 +1142,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#upyun-https" title="UPYUN https证书更新" class="md-nav__link">
+    UPYUN https证书更新
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upyun_1" title="UPYUN 表单上传怎么用" class="md-nav__link">
+    UPYUN 表单上传怎么用
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1275,6 +1303,39 @@ ns-vultr.nono.io
 <span class="p">}</span>
 
 <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;img[src*=&quot;www.aliyun.com&quot;]&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="nx">image_onerror</span><span class="p">);</span>
+</pre></div>
+
+
+<hr />
+<h2 id="upyun-https">UPYUN https证书更新<a class="headerlink" href="#upyun-https" title="Permanent link">&para;</a></h2>
+<p>使用F12开发人员工具看的接口，用Python实现了一下，从手动一个个添加证书中解放出来</p>
+<p><a href="https://github.com/zjuchenyuan/EasyLogin/tree/master/examples/upyun/">https://github.com/zjuchenyuan/EasyLogin/tree/master/examples/upyun/</a></p>
+<hr />
+<h2 id="upyun_1">UPYUN 表单上传怎么用<a class="headerlink" href="#upyun_1" title="Permanent link">&para;</a></h2>
+<p>在功能配置-存储管理页面可以看到文件密钥，<a href="https://help.upyun.com/knowledge-base/form_api/#old-authorization">官方帮助文档</a>过于分散，这里整理一下必须的步骤</p>
+<p>需求：简单的允许上传一个固定文件名的文件，不要过期</p>
+<p>首先写一个上传策略policy，然后对它base64，和密钥用&amp;拼接后计算md5</p>
+<p>这个脚本将输出变量定义和curl命令，便于复制使用</p>
+<div class="codehilite"><pre><span></span><span class="nv">key</span><span class="o">=</span><span class="s1">&#39;AAA...AAA&#39;</span>
+<span class="nv">bucket</span><span class="o">=</span><span class="s1">&#39;demobucket&#39;</span>
+<span class="nv">filename</span><span class="o">=</span><span class="s1">&#39;img.jpg&#39;</span>
+
+<span class="nv">filepath</span><span class="o">=</span><span class="s2">&quot;/</span><span class="si">${</span><span class="nv">filename</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nv">policy</span><span class="o">=</span><span class="s1">&#39;{&quot;bucket&quot;:&quot;&#39;</span><span class="si">${</span><span class="nv">bucket</span><span class="si">}</span><span class="s1">&#39;&quot;,&quot;expiration&quot;:9999999999,&quot;save-key&quot;:&quot;&#39;</span><span class="si">${</span><span class="nv">filepath</span><span class="si">}</span><span class="s1">&#39;&quot;}&#39;</span>
+<span class="nv">b64_policy</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span> -n <span class="nv">$policy</span><span class="p">|</span>base64 -w0<span class="sb">`</span>
+
+<span class="nb">echo</span> <span class="nv">UPYUN_POLICY</span><span class="o">=</span><span class="si">${</span><span class="nv">b64_policy</span><span class="si">}</span>
+<span class="nb">echo</span> <span class="nv">UPYUN_SIGN</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> -n <span class="s2">&quot;</span><span class="si">${</span><span class="nv">b64_policy</span><span class="si">}</span><span class="s2">&amp;</span><span class="si">${</span><span class="nv">key</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">|</span>md5sum<span class="p">|</span>awk <span class="s1">&#39;{print $1}&#39;</span><span class="k">)</span>
+<span class="nb">echo</span> <span class="s2">&quot;curl https://v0.api.upyun.com/</span><span class="si">${</span><span class="nv">bucket</span><span class="si">}</span><span class="s2"> -F file=@</span><span class="si">${</span><span class="nv">filename</span><span class="si">}</span><span class="s2"> -F policy=\${UPYUN_POLICY} -F signature=\${UPYUN_SIGN}&quot;</span>
+</pre></div>
+
+
+<p>我也提供了一个脚本便于你快速调用：</p>
+<div class="codehilite"><pre><span></span>curl -O d.py3.io/up.sh
+sh up.sh key bucket filename
+
+# 触发上传只要继续丢给sh就行
+sh up.sh key bucket filename|sh
 </pre></div>
                 
                   

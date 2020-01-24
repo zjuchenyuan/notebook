@@ -12,6 +12,7 @@ My notebook about technology, for lookup and share
 
 ## [Python](Python.md)
 >* [语言勾勒QuickStart](https://py3.io/doc/python/quickstart.html)
+>* 安装pip
 >* 设置pip源
 >* 反弹shell 获得tty
 >* requests使用多IP请求

@@ -7,6 +7,13 @@
 
 ----
 
+## 安装pip
+
+```
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python get-pip.py
+```
+
 ## 设置pip源 - mirrors.aliyun.com
 
 如果只需要一次性安装个包（如Dockerfile）： 

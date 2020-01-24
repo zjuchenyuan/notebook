@@ -182,3 +182,47 @@ function image_onerror(){
 
 $('img[src*="www.aliyun.com"]').on('error', image_onerror);
 ```
+
+----
+
+## UPYUN https证书更新
+
+使用F12开发人员工具看的接口，用Python实现了一下，从手动一个个添加证书中解放出来
+
+https://github.com/zjuchenyuan/EasyLogin/tree/master/examples/upyun/
+
+----
+
+## UPYUN 表单上传怎么用
+
+在功能配置-存储管理页面可以看到文件密钥，[官方帮助文档](https://help.upyun.com/knowledge-base/form_api/#old-authorization)过于分散，这里整理一下必须的步骤
+
+需求：简单的允许上传一个固定文件名的文件，不要过期
+
+首先写一个上传策略policy，然后对它base64，和密钥用&拼接后计算md5
+
+这个脚本将输出变量定义和curl命令，便于复制使用
+
+```bash
+key='AAA...AAA'
+bucket='demobucket'
+filename='img.jpg'
+
+filepath="/${filename}"
+policy='{"bucket":"'${bucket}'","expiration":9999999999,"save-key":"'${filepath}'"}'
+b64_policy=`echo -n $policy|base64 -w0`
+
+echo UPYUN_POLICY=${b64_policy}
+echo UPYUN_SIGN=$(echo -n "${b64_policy}&${key}"|md5sum|awk '{print $1}')
+echo "curl https://v0.api.upyun.com/${bucket} -F file=@${filename} -F policy=\${UPYUN_POLICY} -F signature=\${UPYUN_SIGN}"
+```
+
+我也提供了一个脚本便于你快速调用：
+
+```
+curl -O d.py3.io/up.sh
+sh up.sh key bucket filename
+
+# 触发上传只要继续丢给sh就行
+sh up.sh key bucket filename|sh
+```
