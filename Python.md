@@ -1346,3 +1346,17 @@ _locale._getdefaultlocale = (lambda *args: ['en_US', 'utf8'])
 
 参考： https://juejin.im/post/5bd2b6d5e51d45735c3c0453
 
+---------
+
+## Ubuntu16.04安装Python3.7
+
+```
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys BA6932366A755776
+echo "deb http://ppa.launchpad.net/deadsnakes/ppa/ubuntu xenial main" > /etc/apt/sources.list.d/python.list
+apt update
+apt install python3.7-dev
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python get-pip.py
+```
+
+但是在ubuntu 14.04上从这个ppa源安装的python没有_ssl的库，无法使用pip很迷（解决方案就是开了一个docker ubuntu16.04的容器继续）
