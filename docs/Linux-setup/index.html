@@ -1175,6 +1175,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#apttranslation" title="apt禁用Translation" class="md-nav__link">
+    apt禁用Translation
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1722,6 +1729,13 @@
         <li class="md-nav__item">
   <a href="#rclocal" title="启用rc.local" class="md-nav__link">
     启用rc.local
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apttranslation" title="apt禁用Translation" class="md-nav__link">
+    apt禁用Translation
   </a>
   
 </li>
@@ -2535,6 +2549,14 @@ systemctl enable rc-local
 
 <span class="k">[Install]</span>
  <span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span>
+</pre></div>
+
+
+<hr />
+<h2 id="apttranslation">apt禁用Translation<a class="headerlink" href="#apttranslation" title="Permanent link">&para;</a></h2>
+<p>apt update的时候发现一堆翻译的条目，不想看到这些</p>
+<p>创建/etc/apt/apt.conf.d/99translations</p>
+<div class="codehilite"><pre><span></span><span class="nt">Acquire</span><span class="p">::</span><span class="nd">Languages</span> <span class="s2">&quot;none&quot;</span><span class="o">;</span>
 </pre></div>
                 
                   

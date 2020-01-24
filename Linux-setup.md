@@ -929,3 +929,14 @@ systemctl enable rc-local
  WantedBy=multi-user.target
 ```
 
+------
+
+## apt禁用Translation
+
+apt update的时候发现一堆翻译的条目，不想看到这些
+
+创建/etc/apt/apt.conf.d/99translations
+
+```
+Acquire::Languages "none";
+```
