@@ -41,6 +41,7 @@ pages:
     - Development:
         - Developer: Developer.md
         - Docker: Docker.md
+        - ETH: ETH.md
         - Git: Git.md
         - Jekyll: Jekyll.md
         - WindowsSoftware: WindowsSoftware.md

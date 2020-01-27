@@ -150,6 +150,12 @@ My notebook about technology, for lookup and share
 >* 获取2个月前退出的容器列表，以空格分隔
 >* nsenter进入容器检查网络
 
+## [ETH](ETH.md)
+>* 获取测试网络ropsten的ETH
+>* 生成一堆与MetaMask兼容的地址
+>* Python发起交易(Web3.py)
+>* 地址交易查询API
+
 ## [Favorites](Favorites.md)
 >* Intel i386 手册 及 勘误
 >* ASCII字符图案生成
