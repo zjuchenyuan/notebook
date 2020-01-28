@@ -2635,6 +2635,18 @@ docker network connect macvlan_name container_name --ip 新的ip
 
 <p>这是进入docker容器的namespace，但只切换网络和/proc，文件系统等还是使用主机的</p>
 <p>进入后bash似乎没变，这时可以ps看看进程列表变了就说明在容器里面了，然后可以愉快地ifconfig和ping了</p>
+<p>也可以使用ip命令指定netns的方式<code>ip netns exec 名称 命令</code></p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="nv">NAME</span><span class="o">=</span><span class="s2">&quot;container name&quot;</span>
+<span class="nv">ID</span><span class="o">=</span><span class="sb">`</span>docker inspect --format<span class="o">=</span><span class="s1">&#39;{{ .State.Pid }}&#39;</span> <span class="nv">$NAME</span><span class="sb">`</span>
+sudo ln -sf <span class="s2">&quot;/proc/</span><span class="nv">$ID</span><span class="s2">/ns/net&quot;</span> /var/run/netns/<span class="nv">$NAME</span>
+<span class="nb">exec</span> sudo ip netns <span class="nb">exec</span> <span class="nv">$NAME</span> <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>
+</pre></div>
+</td></tr></table>
                 
                   
                 

@@ -1077,3 +1077,13 @@ nsenter --target `docker inspect --format '{{.State.Pid}}' 容器名称`  --net 
 这是进入docker容器的namespace，但只切换网络和/proc，文件系统等还是使用主机的
 
 进入后bash似乎没变，这时可以ps看看进程列表变了就说明在容器里面了，然后可以愉快地ifconfig和ping了
+
+也可以使用ip命令指定netns的方式`ip netns exec 名称 命令`
+
+```
+#!/bin/bash
+NAME="container name"
+ID=`docker inspect --format='{{ .State.Pid }}' $NAME`
+sudo ln -sf "/proc/$ID/ns/net" /var/run/netns/$NAME
+exec sudo ip netns exec $NAME "$@"
+```
