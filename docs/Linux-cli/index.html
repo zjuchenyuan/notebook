@@ -1153,6 +1153,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#screen" title="screen自动操作以及获取当前屏幕内容" class="md-nav__link">
+    screen自动操作以及获取当前屏幕内容
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1618,6 +1625,13 @@
         <li class="md-nav__item">
   <a href="#kill" title="自动kill大内存的进程" class="md-nav__link">
     自动kill大内存的进程
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#screen" title="screen自动操作以及获取当前屏幕内容" class="md-nav__link">
+    screen自动操作以及获取当前屏幕内容
   </a>
   
 </li>
@@ -2176,6 +2190,17 @@ done
     sleep 5; 
 done
 </pre></div>
+
+
+<hr />
+<h2 id="screen">screen自动操作以及获取当前屏幕内容<a class="headerlink" href="#screen" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span>screen -dmS name /bin/bash
+screen -S name -p 0 -X stuff &quot;ls&quot;`echo -ne &#39;\r&#39;`
+screen -S name -p 0 -X hardcopy /tmp/test.txt
+</pre></div>
+
+
+<p>中文字符会有问题，待解决</p>
                 
                   
                 

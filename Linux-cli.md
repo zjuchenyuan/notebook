@@ -742,3 +742,16 @@ while true; do
 done
 ```
 
+------
+
+## screen自动操作以及获取当前屏幕内容
+
+
+```
+screen -dmS name /bin/bash
+screen -S name -p 0 -X stuff "ls"`echo -ne '\r'`
+screen -S name -p 0 -X hardcopy /tmp/test.txt
+```
+
+中文字符会有问题，待解决
+

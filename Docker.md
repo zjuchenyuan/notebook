@@ -1071,7 +1071,9 @@ docker inspect 容器名称 | grep IP
 ## 容器内没有ping, ip？直接nsenter进去看看
 
 ```
-nsenter --target `docker inspect --format '{{.State.Pid}}' 容器名称`  --net --pid /bin/bash
+netin(){
+    nsenter --target `docker inspect --format '{{.State.Pid}}' $1`  --net --pid /bin/bash
+}
 ```
 
 这是进入docker容器的namespace，但只切换网络和/proc，文件系统等还是使用主机的

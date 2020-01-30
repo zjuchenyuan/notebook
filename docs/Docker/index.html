@@ -2629,7 +2629,9 @@ docker network connect macvlan_name container_name --ip 新的ip
 
 
 <h2 id="ping-ipnsenter">容器内没有ping, ip？直接nsenter进去看看<a class="headerlink" href="#ping-ipnsenter" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><span class="x">nsenter --target `docker inspect --format &#39;</span><span class="cp">{{</span><span class="nv">.State.Pid</span><span class="cp">}}</span><span class="x">&#39; 容器名称`  --net --pid /bin/bash</span>
+<div class="codehilite"><pre><span></span><span class="x">netin(){</span>
+<span class="x">    nsenter --target `docker inspect --format &#39;</span><span class="cp">{{</span><span class="nv">.State.Pid</span><span class="cp">}}</span><span class="x">&#39; $1`  --net --pid /bin/bash</span>
+<span class="x">}</span>
 </pre></div>
 
 
