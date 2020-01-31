@@ -765,3 +765,13 @@ screen -S name -p 0 -X hardcopy /tmp/test.txt
 for i in *.c; do gcc $i -o out/${i%.*}; done
 ```
 
+-------
+
+## gdb自动化
+
+```
+echo -e "set pagination off\nset confirm off" > ~/.gdbinit
+```
+
+然后使用`gdb ./a.out -ex "r inputfile" -ex "bt" -ex "quit"`
+

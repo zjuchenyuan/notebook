@@ -1167,6 +1167,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#gdb" title="gdb自动化" class="md-nav__link">
+    gdb自动化
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1646,6 +1653,13 @@
         <li class="md-nav__item">
   <a href="#c" title="编译当前文件夹所有.c文件" class="md-nav__link">
     编译当前文件夹所有.c文件
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gdb" title="gdb自动化" class="md-nav__link">
+    gdb自动化
   </a>
   
 </li>
@@ -2220,6 +2234,15 @@ screen -S name -p 0 -X hardcopy /tmp/test.txt
 <p><code>${i%.*}</code> 去掉文件名的最后一个后缀</p>
 <div class="codehilite"><pre><span></span>for i in *.c; do gcc <span class="nv">$i</span> -o out/<span class="cp">${</span><span class="n">i</span><span class="o">%.*</span><span class="cp">}</span>; done
 </pre></div>
+
+
+<hr />
+<h2 id="gdb">gdb自动化<a class="headerlink" href="#gdb" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span>echo -e &quot;set pagination off\nset confirm off&quot; &gt; ~/.gdbinit
+</pre></div>
+
+
+<p>然后使用<code>gdb ./a.out -ex "r inputfile" -ex "bt" -ex "quit"</code></p>
                 
                   
                 

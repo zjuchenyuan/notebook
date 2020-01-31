@@ -304,6 +304,7 @@ My notebook about technology, for lookup and share
 >* grep正则提取特定内容
 >* 自动kill大内存的进程
 >* screen自动操作以及获取当前屏幕内容
+>* gdb自动化
 
 ## [Linux-backup](Linux-backup.md)
 >* 一个良好安全的备份计划至关重要
