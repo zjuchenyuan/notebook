@@ -940,3 +940,15 @@ apt update的时候发现一堆翻译的条目，不想看到这些
 ```
 Acquire::Languages "none";
 ```
+
+-------
+
+## 开机自启动wireguard
+
+```
+systemctl enable wg-quick@wg0.service
+systemctl daemon-reload
+service wg-quick@wg0 start
+service wg-quick@wg0 status
+```
+
