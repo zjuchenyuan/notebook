@@ -1045,6 +1045,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#varlibdocker_1" title="从/var/lib/docker提取容器开始时间" class="md-nav__link">
+    从/var/lib/docker提取容器开始时间
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1716,6 +1723,13 @@
         <li class="md-nav__item">
   <a href="#ping-ipnsenter" title="容器内没有ping, ip？直接nsenter进去看看" class="md-nav__link">
     容器内没有ping, ip？直接nsenter进去看看
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#varlibdocker_1" title="从/var/lib/docker提取容器开始时间" class="md-nav__link">
+    从/var/lib/docker提取容器开始时间
   </a>
   
 </li>
@@ -2649,6 +2663,39 @@ sudo ln -sf <span class="s2">&quot;/proc/</span><span class="nv">$ID</span><span
 <span class="nb">exec</span> sudo ip netns <span class="nb">exec</span> <span class="nv">$NAME</span> <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>
 </pre></div>
 </td></tr></table>
+
+<h2 id="varlibdocker_1">从/var/lib/docker提取容器开始时间<a class="headerlink" href="#varlibdocker_1" title="Permanent link">&para;</a></h2>
+<p>读取/var/lib/docker/containers/*/config.v2.json可以读到容器开始时间</p>
+<p>但使用同一个文件夹下hostname这个文件的时间戳更可靠，无需考虑时区换算不同服务器时间不同步等问题。计算文件产生的相对时间用os.path.getmtime(这个文件)减去这个时间戳即可。</p>
+<p>导入到mysql 完整代码： 执行的时候需要server name作为参数</p>
+<div class="codehilite"><pre><span></span><span class="s s-Atom">from</span> <span class="s s-Atom">bugid</span> <span class="s s-Atom">import</span> <span class="s s-Atom">runsql</span>
+<span class="s s-Atom">import</span> <span class="s s-Atom">os</span><span class="p">,</span><span class="s s-Atom">sys</span><span class="p">,</span><span class="s s-Atom">glob</span><span class="p">,</span><span class="s s-Atom">json</span>
+<span class="s s-Atom">import</span> <span class="s s-Atom">datetime</span>
+<span class="s s-Atom">import</span> <span class="s s-Atom">re</span>
+<span class="s s-Atom">server</span> <span class="o">=</span> <span class="s s-Atom">sys</span><span class="p">.</span><span class="s s-Atom">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="s s-Atom">os</span><span class="p">.</span><span class="nf">chdir</span><span class="p">(</span><span class="s2">&quot;/var/lib/docker/containers&quot;</span><span class="p">)</span>
+<span class="s s-Atom">sql</span> <span class="o">=</span> <span class="s2">&quot;replace into dockers(server, name, id, starttime, runningtime, memlimit) values &quot;</span>
+<span class="s s-Atom">sqlpending</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="s s-Atom">t</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="s s-Atom">for</span> <span class="s s-Atom">i</span> <span class="s s-Atom">in</span> <span class="s s-Atom">glob</span><span class="p">.</span><span class="nf">glob</span><span class="p">(</span><span class="s2">&quot;*/&quot;</span><span class="p">)</span><span class="s s-Atom">:</span>
+    <span class="s s-Atom">if</span> <span class="o">not</span> <span class="s s-Atom">os</span><span class="p">.</span><span class="s s-Atom">path</span><span class="p">.</span><span class="nf">exists</span><span class="p">(</span><span class="s s-Atom">i+</span><span class="s2">&quot;hostname&quot;</span><span class="p">)</span><span class="s s-Atom">:</span>
+        <span class="s s-Atom">#</span><span class="nf">print</span><span class="p">(</span><span class="s s-Atom">i</span><span class="p">)</span>
+        <span class="s s-Atom">continue</span>
+    <span class="s s-Atom">data</span> <span class="o">=</span> <span class="s s-Atom">json</span><span class="p">.</span><span class="nf">loads</span><span class="p">(</span><span class="nf">open</span><span class="p">(</span><span class="s s-Atom">i+</span><span class="s2">&quot;config.v2.json&quot;</span><span class="p">).</span><span class="nf">read</span><span class="p">())</span>
+    <span class="s s-Atom">name</span> <span class="o">=</span> <span class="s s-Atom">data</span><span class="p">[</span><span class="s2">&quot;Name&quot;</span><span class="p">]</span>
+    <span class="s s-Atom">starttime</span> <span class="o">=</span> <span class="s s-Atom">data</span><span class="p">[</span><span class="s2">&quot;State&quot;</span><span class="p">][</span><span class="s2">&quot;StartedAt&quot;</span><span class="p">]</span>
+    <span class="s s-Atom">endtime</span> <span class="o">=</span> <span class="s s-Atom">data</span><span class="p">[</span><span class="s2">&quot;State&quot;</span><span class="p">][</span><span class="s2">&quot;FinishedAt&quot;</span><span class="p">]</span>
+    <span class="s s-Atom">if</span> <span class="s s-Atom">endtime</span> <span class="p">!</span><span class="o">=</span> <span class="s2">&quot;0001-01-01T00:00:00Z&quot;</span><span class="s s-Atom">:</span>
+        <span class="s s-Atom">runningtime</span> <span class="o">=</span> <span class="p">(</span><span class="s s-Atom">datetime</span><span class="p">.</span><span class="s s-Atom">datetime</span><span class="p">.</span><span class="nf">strptime</span><span class="p">(</span><span class="s s-Atom">endtime</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;%Y-%m-%dT%H:%M:%S&quot;</span><span class="p">)</span> <span class="o">-</span> <span class="s s-Atom">datetime</span><span class="p">.</span><span class="s s-Atom">datetime</span><span class="p">.</span><span class="nf">strptime</span><span class="p">(</span><span class="s s-Atom">starttime</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;%Y-%m-%dT%H:%M:%S&quot;</span><span class="p">)).</span><span class="nf">total_seconds</span><span class="p">()</span>
+    <span class="nn">else</span><span class="p">:</span>
+        <span class="s s-Atom">runningtime</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="s s-Atom">memlimit</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="s s-Atom">json</span><span class="p">.</span><span class="nf">load</span><span class="p">(</span><span class="nf">open</span><span class="p">(</span><span class="s s-Atom">i+</span><span class="s2">&quot;hostconfig.json&quot;</span><span class="p">))[</span><span class="s2">&quot;Memory&quot;</span><span class="p">]</span><span class="o">/</span><span class="mi">1024</span><span class="o">/</span><span class="mi">1024</span><span class="p">)</span>
+    <span class="s s-Atom">sqlpending</span><span class="p">.</span><span class="nf">extend</span><span class="p">([</span><span class="s s-Atom">server</span><span class="p">,</span> <span class="s s-Atom">name</span><span class="p">[</span><span class="mi">1</span><span class="s s-Atom">:</span><span class="p">],</span> <span class="s s-Atom">i</span><span class="p">[:-</span><span class="mi">1</span><span class="p">],</span> <span class="nf">int</span><span class="p">(</span><span class="s s-Atom">os</span><span class="p">.</span><span class="s s-Atom">path</span><span class="p">.</span><span class="nf">getmtime</span><span class="p">(</span><span class="s s-Atom">i+</span><span class="s2">&quot;hostname&quot;</span><span class="p">)),</span> <span class="s s-Atom">runningtime</span><span class="p">,</span> <span class="s s-Atom">memlimit</span><span class="p">])</span>
+    <span class="s s-Atom">sql</span> <span class="s s-Atom">+=</span> <span class="s2">&quot;(%s, %s, %s, %s, %s, %s),&quot;</span>
+
+<span class="c1">#print(sqlpending)</span>
+<span class="nf">runsql</span><span class="p">(</span><span class="s s-Atom">sql</span><span class="p">[:-</span><span class="mi">1</span><span class="p">],</span> <span class="o">*</span><span class="s s-Atom">sqlpending</span><span class="p">)</span>
+</pre></div>
                 
                   
                 

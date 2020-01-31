@@ -1089,3 +1089,41 @@ ID=`docker inspect --format='{{ .State.Pid }}' $NAME`
 sudo ln -sf "/proc/$ID/ns/net" /var/run/netns/$NAME
 exec sudo ip netns exec $NAME "$@"
 ```
+
+## 从/var/lib/docker提取容器开始时间
+
+读取/var/lib/docker/containers/*/config.v2.json可以读到容器开始时间
+
+但使用同一个文件夹下hostname这个文件的时间戳更可靠，无需考虑时区换算不同服务器时间不同步等问题。计算文件产生的相对时间用os.path.getmtime(这个文件)减去这个时间戳即可。
+
+导入到mysql 完整代码： 执行的时候需要server name作为参数
+
+```
+from bugid import runsql
+import os,sys,glob,json
+import datetime
+import re
+server = sys.argv[1]
+os.chdir("/var/lib/docker/containers")
+sql = "replace into dockers(server, name, id, starttime, runningtime, memlimit) values "
+sqlpending = []
+t = 0
+for i in glob.glob("*/"):
+    if not os.path.exists(i+"hostname"):
+        #print(i)
+        continue
+    data = json.loads(open(i+"config.v2.json").read())
+    name = data["Name"]
+    starttime = data["State"]["StartedAt"]
+    endtime = data["State"]["FinishedAt"]
+    if endtime != "0001-01-01T00:00:00Z":
+        runningtime = (datetime.datetime.strptime(endtime.split(".")[0], "%Y-%m-%dT%H:%M:%S") - datetime.datetime.strptime(starttime.split(".")[0], "%Y-%m-%dT%H:%M:%S")).total_seconds()
+    else:
+        runningtime = -1
+    memlimit = int(json.load(open(i+"hostconfig.json"))["Memory"]/1024/1024)
+    sqlpending.extend([server, name[1:], i[:-1], int(os.path.getmtime(i+"hostname")), runningtime, memlimit])
+    sql += "(%s, %s, %s, %s, %s, %s),"
+
+#print(sqlpending)
+runsql(sql[:-1], *sqlpending)
+```
