@@ -1160,6 +1160,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#c" title="编译当前文件夹所有.c文件" class="md-nav__link">
+    编译当前文件夹所有.c文件
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1632,6 +1639,13 @@
         <li class="md-nav__item">
   <a href="#screen" title="screen自动操作以及获取当前屏幕内容" class="md-nav__link">
     screen自动操作以及获取当前屏幕内容
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c" title="编译当前文件夹所有.c文件" class="md-nav__link">
+    编译当前文件夹所有.c文件
   </a>
   
 </li>
@@ -2201,6 +2215,11 @@ screen -S name -p 0 -X hardcopy /tmp/test.txt
 
 
 <p>中文字符会有问题，待解决</p>
+<hr />
+<h2 id="c">编译当前文件夹所有.c文件<a class="headerlink" href="#c" title="Permanent link">&para;</a></h2>
+<p><code>${i%.*}</code> 去掉文件名的最后一个后缀</p>
+<div class="codehilite"><pre><span></span>for i in *.c; do gcc <span class="nv">$i</span> -o out/<span class="cp">${</span><span class="n">i</span><span class="o">%.*</span><span class="cp">}</span>; done
+</pre></div>
                 
                   
                 

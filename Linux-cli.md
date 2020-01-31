@@ -755,3 +755,13 @@ screen -S name -p 0 -X hardcopy /tmp/test.txt
 
 中文字符会有问题，待解决
 
+------
+
+## 编译当前文件夹所有.c文件
+
+`${i%.*}` 去掉文件名的最后一个后缀
+
+```
+for i in *.c; do gcc $i -o out/${i%.*}; done
+```
+
