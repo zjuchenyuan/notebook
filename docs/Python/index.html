@@ -3001,12 +3001,13 @@ pip install gmpy2
 <p>参考： <a href="https://juejin.im/post/5bd2b6d5e51d45735c3c0453">https://juejin.im/post/5bd2b6d5e51d45735c3c0453</a></p>
 <hr />
 <h2 id="ubuntu1604python37">Ubuntu16.04安装Python3.7<a class="headerlink" href="#ubuntu1604python37" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span>apt-key adv --keyserver keyserver.ubuntu.com --recv-keys BA6932366A755776
-echo &quot;deb http://ppa.launchpad.net/deadsnakes/ppa/ubuntu xenial main&quot; &gt; /etc/apt/sources.list.d/python.list
-apt update
-apt install python3.7-dev
-curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-python get-pip.py
+<p>并且设置为默认的python</p>
+<div class="codehilite"><pre><span></span>    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys BA6932366A755776 &amp;&amp;\
+    echo &quot;deb http://ppa.launchpad.net/deadsnakes/ppa/ubuntu xenial main&quot; &gt; /etc/apt/sources.list.d/python.list &amp;&amp;\
+    apt update &amp;&amp; apt install -y python3.7-dev &amp;&amp;\
+    update-alternatives --install /usr/bin/python python /usr/bin/python3.7 50 &amp;&amp;\
+    curl https://bootstrap.pypa.io/get-pip.py | python &amp;&amp;\
+    pip install -U setuptools
 </pre></div>
 
 
