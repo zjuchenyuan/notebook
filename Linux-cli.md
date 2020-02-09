@@ -775,3 +775,17 @@ echo -e "set pagination off\nset confirm off" > ~/.gdbinit
 
 然后使用`gdb ./a.out -ex "r inputfile" -ex "bt" -ex "quit"`
 
+
+-------
+
+## mktorrent制作种子torrent文件
+
+参考： https://community.seedboxes.cc/articles/how-to-create-a-torrent-via-the-command-line
+
+```
+sudo apt install mktorrent
+mktorrent -v -a "http://tracker.nexushd.org/announce.php" -p folder -o folder.torrent -l 24
+```
+
+其中`-l 24`的意思是每个分块为2**24=16MB，这是建议的最大的值
+

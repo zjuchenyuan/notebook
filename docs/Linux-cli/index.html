@@ -1174,6 +1174,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#mktorrenttorrent" title="mktorrent制作种子torrent文件" class="md-nav__link">
+    mktorrent制作种子torrent文件
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1660,6 +1667,13 @@
         <li class="md-nav__item">
   <a href="#gdb" title="gdb自动化" class="md-nav__link">
     gdb自动化
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mktorrenttorrent" title="mktorrent制作种子torrent文件" class="md-nav__link">
+    mktorrent制作种子torrent文件
   </a>
   
 </li>
@@ -2243,6 +2257,15 @@ screen -S name -p 0 -X hardcopy /tmp/test.txt
 
 
 <p>然后使用<code>gdb ./a.out -ex "r inputfile" -ex "bt" -ex "quit"</code></p>
+<hr />
+<h2 id="mktorrenttorrent">mktorrent制作种子torrent文件<a class="headerlink" href="#mktorrenttorrent" title="Permanent link">&para;</a></h2>
+<p>参考： <a href="https://community.seedboxes.cc/articles/how-to-create-a-torrent-via-the-command-line">https://community.seedboxes.cc/articles/how-to-create-a-torrent-via-the-command-line</a></p>
+<div class="codehilite"><pre><span></span>sudo apt install mktorrent
+mktorrent -v -a &quot;http://tracker.nexushd.org/announce.php&quot; -p folder -o folder.torrent -l 24
+</pre></div>
+
+
+<p>其中<code>-l 24</code>的意思是每个分块为2**24=16MB，这是建议的最大的值</p>
                 
                   
                 
