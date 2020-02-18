@@ -70,6 +70,8 @@ curl dict://www.dict.org/d:computer -v
 
 curl -OJ http://example.com/[1-100].jpg
 
+curl -o "#1.html" http://www.example.com/page/[1-20]
+
 ----
 
 ## wget在0b/s时自动重连

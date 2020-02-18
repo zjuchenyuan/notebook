@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ZJU研究生选课助手
 // @namespace    http://grs.zju.edu.cn
-// @version      0.8
+// @version      0.9
 // @description  在“全校开课情况查询”页面可以进入选课；整合查老师分数与评论显示；支持只显示特定校区课程；登录页面验证码自动识别；跳过验证码自动登录；自动课程评价
 // @author       zjuchenyuan
 // @match        http://grs.zju.edu.cn/*
@@ -14,11 +14,6 @@
 var CONFIG_XQ=null; //配置校区
 //var CONFIG_XQ = "玉泉"
 // 例如将上一行取消注释则表示只显示玉泉校区的课程
-
-/*TODO: 将@connect设置为chalaoshi.cn无效，
-    目前设置为任意域名(虽然实际上只要访问查老师这一个域名)，会要求用户授权，
-    咋修复啊Orz
-*/
 
 var bheight = unsafeWindow.bheight;
 var $ = unsafeWindow.$;
@@ -64,18 +59,15 @@ function re_findall(regex, text){
     return matches;
 }
 
-var PHONE_UA = "Mozilla/5.0 (iPhone 84; CPU iPhone OS 10_3_3 like Mac OS X) AppleWebKit/603.3.8 (KHTML, like Gecko) Version/10.0 MQQBrowser/7.8.0 Mobile/14G60 Safari/8536.25 MttCustomUA/2 QBWebViewType/1 WKType/1";
-
 function chalaoshi_search(teacher_name, callback, td){ //搜索查老师
     if(typeof(teacher_cache[teacher_name])!=="undefined") return callback(td, teacher_cache[teacher_name][0], teacher_cache[teacher_name][1], teacher_cache[teacher_name][2]);
     console.log("chalaoshi_search", teacher_name);
     GM_xmlhttpRequest({
-        url:"https://chalaoshi.cn/search?q="+encodeURIComponent(teacher_name),
+        url:"https://chalaoshi.qiushi.ac.cn/search?q="+encodeURIComponent(teacher_name),
         method:"GET",
-        headers:{"User-Agent": PHONE_UA},
         onload: function (response){
             var html = response.responseText;
-            var ids = re_findall(/teacher\/(\d+)\//g, html);
+            var ids = re_findall(/t\/(\d+)\//g, html);
             var scores = re_findall(/<h2>([^<]+)<\/h2>/g, html);
             var names = re_findall(/<h3>([^<]+)<\/h3>/g, html);
             callback(td, ids, scores, names);
@@ -92,9 +84,8 @@ function chalaoshi_page_extract(div, selector){
 
 function show_chalaoshi_page(id){ //显示查老师信息，获取基本信息及评论第一页显示
     GM_xmlhttpRequest({
-        url:"https://chalaoshi.cn/teacher/"+id+"/",
+        url:"https://chalaoshi.qiushi.ac.cn/t/"+id+"/",
         method:"GET",
-        headers:{"User-Agent": PHONE_UA},
         onload: function (response){
             var html = response.responseText;
             var div=document.createElement("div")
@@ -103,9 +94,8 @@ function show_chalaoshi_page(id){ //显示查老师信息，获取基本信息�
             var right = chalaoshi_page_extract(div, "div.right");
             var average_gpa = chalaoshi_page_extract(div, "div.main > div:nth-child(2) > div").replace(/\n\n/g,"\n").replace(/\n\n/g,"\n");
             GM_xmlhttpRequest({
-                url: "https://chalaoshi.cn/teacher/"+id+"/comment_list?page=0&order_by=rate",
+                url: "https://chalaoshi.qiushi.ac.cn/teacher/"+id+"/comment_list?page=0&order_by=rate",
                 method:"GET",
-                headers:{"User-Agent": PHONE_UA},
                 onload: function (response){
                     var tmp = response.responseText;
                     var html;
