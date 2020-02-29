@@ -226,3 +226,54 @@ sh up.sh key bucket filename
 # 触发上传只要继续丢给sh就行
 sh up.sh key bucket filename|sh
 ```
+
+-------
+
+## UPYUN省钱方案：缓存61秒 变为静态请求 
+
+虽然人家 [计费说明](https://www.upyun.com/price_instruction) 写的是
+
+> 动态请求是指回用户源站并且缓存时间小于 60 秒或者指定不缓存的请求。
+
+但从实际的访问日志来看，缓存60秒是不够的，必须缓存61秒才当成静态请求
+
+### 需要进行的代码变动 子域名+直接解析到源站+跨域请求+一个获取cookie的路由
+
+注意到我们把网页本身都缓存了，所以 **网页源代码本身不能有用户相关的内容**
+
+用户登录状态可以存在cookie里 指定domain的方式让子域名也能获取
+
+缓存61秒，一般用户还是能触发MISS，产生一次回源设置好cookie
+
+但如果用户访问的全部是缓存页面，前端代码需要先判断cookie是否存在，不存在就需要发起getsession请求来获取cookie再进行跨域请求
+
+这种跨域需要带上Cookie所以是withCredential的
+
+前端js:
+
+```
+function queryme(){
+    $.ajax({
+        url:"https://subdomain.www.example.com/uri",
+        success:function(data){
+            //...
+        },
+        xhrFields:{withCredentials:true}
+    })
+}
+(function(){
+    if(document.cookie.indexOf("user=")>=0){
+        queryme();
+    }else{
+        $.get("/getsession",null,queryme);
+    }
+})();
+```
+
+后端Nginx:
+
+```
+add_header 'Access-Control-Allow-Origin' 'https://www.example.com';
+add_header 'Access-Control-Allow-Credentials' 'true';
+```
+
