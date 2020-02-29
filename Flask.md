@@ -254,3 +254,28 @@ except: #PY2
     from BaseHTTPServer import BaseHTTPRequestHandler
 BaseHTTPRequestHandler.protocol_version = "HTTP/1.1"
 ```
+
+## 让render_template直接能使用当前所有变量
+
+一种直接的做法：注意顺序 局部变量优先于全局变量
+
+```
+targs = globals()
+targs.update(locals())
+render_template("x.html", **targs)
+```
+
+然而这样需要每个视图函数都写这三行，不够优雅
+
+不如试试：获取调用者的局部变量 https://stackoverflow.com/questions/6618795/get-locals-from-calling-namespace-in-python
+
+```
+import inspect
+def myrender_template(filename):
+    backframe = inspect.currentframe().f_back
+    targs = {}
+    targs.update(backframe.f_globals)
+    targs.update(backframe.f_locals)
+    return render_template(filename, **targs)
+```
+

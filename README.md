@@ -101,6 +101,8 @@ My notebook about technology, for lookup and share
 >*    使用upyun提供的webp功能节省流量
 >*    使用边缘规则修复改版导致的404问题
 >*    使用边缘规则实现upyun TOKEN反盗链功能
+>*    https证书更新的自动化脚本
+>*    表单上传bash快速调用
 >* ·Qiniu 七牛
 >*    使用qshell上传文件夹
 >* 本地DNS不靠谱？用HTTP DNS访问正确的CDN节点
@@ -172,6 +174,7 @@ My notebook about technology, for lookup and share
 >* 遇到性能瓶颈做profiling看函数耗时
 >* lazyload 延迟加载耗时的初始化操作
 >* 让app.run启动的服务器使用HTTP/1.1
+>* 让render_template直接能使用当前所有变量
 
 ## Fuzzing
 
