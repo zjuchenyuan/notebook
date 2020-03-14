@@ -1112,6 +1112,31 @@ i -P INPUT DROP # Drop everything we don't accept
 
 效果就是只有内网10.0.0.1-10.0.0.254的ip才能访问这个容器的IP，其他来源都不能ping通这个容器
 
+下面的bash脚本会自动对容器的所有IP段允许访问，并拒绝其他访问：
+
+其中的docker inspect命令可以获取容器拥有的所有IP
+
+```
+#!/bin/bash
+set -ex
+DOCKERNAME="xxx"
+NAME="xx"
+
+shopt -s expand_aliases
+sudo mkdir -p /var/run/netns
+ID=`docker inspect --format='{{ .State.Pid }}' ${DOCKERNAME}`
+sudo ln -sf "/proc/$ID/ns/net" /var/run/netns/${NAME}
+alias i="sudo ip netns exec ${NAME} iptables"
+i -F
+i -P FORWARD DROP # we aren't a router
+i -A INPUT -m state --state INVALID -j DROP
+i -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+i -A INPUT -i lo -j ACCEPT
+
+docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{"\n"}}{{end}}' ${DOCKERNAME}|xargs -i sudo ip netns exec ${NAME} iptables -A INPUT -s '{}/24' -j ACCEPT
+i -P INPUT DROP # Drop everything we don't accept
+```
+
 ## 从/var/lib/docker提取容器开始时间
 
 读取/var/lib/docker/containers/*/config.v2.json可以读到容器开始时间

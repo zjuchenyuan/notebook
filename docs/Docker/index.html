@@ -2696,6 +2696,46 @@ i -P INPUT DROP # Drop everything we don&#39;t accept
 
 
 <p>效果就是只有内网10.0.0.1-10.0.0.254的ip才能访问这个容器的IP，其他来源都不能ping通这个容器</p>
+<p>下面的bash脚本会自动对容器的所有IP段允许访问，并拒绝其他访问：</p>
+<p>其中的docker inspect命令可以获取容器拥有的所有IP</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="nb">set</span> -ex
+<span class="nv">DOCKERNAME</span><span class="o">=</span><span class="s2">&quot;xxx&quot;</span>
+<span class="nv">NAME</span><span class="o">=</span><span class="s2">&quot;xx&quot;</span>
+
+<span class="nb">shopt</span> -s expand_aliases
+sudo mkdir -p /var/run/netns
+<span class="nv">ID</span><span class="o">=</span><span class="sb">`</span>docker inspect --format<span class="o">=</span><span class="s1">&#39;{{ .State.Pid }}&#39;</span> <span class="si">${</span><span class="nv">DOCKERNAME</span><span class="si">}</span><span class="sb">`</span>
+sudo ln -sf <span class="s2">&quot;/proc/</span><span class="nv">$ID</span><span class="s2">/ns/net&quot;</span> /var/run/netns/<span class="si">${</span><span class="nv">NAME</span><span class="si">}</span>
+<span class="nb">alias</span> <span class="nv">i</span><span class="o">=</span><span class="s2">&quot;sudo ip netns exec </span><span class="si">${</span><span class="nv">NAME</span><span class="si">}</span><span class="s2"> iptables&quot;</span>
+i -F
+i -P FORWARD DROP <span class="c1"># we aren&#39;t a router</span>
+i -A INPUT -m state --state INVALID -j DROP
+i -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+i -A INPUT -i lo -j ACCEPT
+
+docker inspect --format<span class="o">=</span><span class="s1">&#39;{{range .NetworkSettings.Networks}}{{.IPAddress}}{{&quot;\n&quot;}}{{end}}&#39;</span> <span class="si">${</span><span class="nv">DOCKERNAME</span><span class="si">}</span><span class="p">|</span>xargs -i sudo ip netns <span class="nb">exec</span> <span class="si">${</span><span class="nv">NAME</span><span class="si">}</span> iptables -A INPUT -s <span class="s1">&#39;{}/24&#39;</span> -j ACCEPT
+i -P INPUT DROP <span class="c1"># Drop everything we don&#39;t accept</span>
+</pre></div>
+</td></tr></table>
+
 <h2 id="varlibdocker_1">从/var/lib/docker提取容器开始时间<a class="headerlink" href="#varlibdocker_1" title="Permanent link">&para;</a></h2>
 <p>读取/var/lib/docker/containers/*/config.v2.json可以读到容器开始时间</p>
 <p>但使用同一个文件夹下hostname这个文件的时间戳更可靠，无需考虑时区换算不同服务器时间不同步等问题。计算文件产生的相对时间用os.path.getmtime(这个文件)减去这个时间戳即可。</p>
