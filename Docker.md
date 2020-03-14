@@ -1085,10 +1085,32 @@ netin(){
 ```
 #!/bin/bash
 NAME="container name"
+mkdir -p /var/run/netns
 ID=`docker inspect --format='{{ .State.Pid }}' $NAME`
 sudo ln -sf "/proc/$ID/ns/net" /var/run/netns/$NAME
 exec sudo ip netns exec $NAME "$@"
 ```
+
+## 为macvlan的容器配置只允许IP段访问
+
+将容器暴露在整个内网还是不够安全，不如使用iptables只允许特定IP段访问这个容器的IP
+
+按上述操作之后，假设容器名称为name，那么我们可以先建立一个alias来快速iptables:
+
+参考： https://unix.stackexchange.com/questions/11851/iptables-allow-certain-ips-and-block-all-other-connection
+
+```
+alias i="sudo ip netns exec name iptables"
+i -P FORWARD DROP # we aren't a router
+i -A INPUT -m state --state INVALID -j DROP
+i -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+i -A INPUT -i lo -j ACCEPT
+i -A INPUT -s 10.0.0.1/24 -j ACCEPT
+i -A INPUT -s 172.19.0.1/24 -j ACCEPT
+i -P INPUT DROP # Drop everything we don't accept
+```
+
+效果就是只有内网10.0.0.1-10.0.0.254的ip才能访问这个容器的IP，其他来源都不能ping通这个容器
 
 ## 从/var/lib/docker提取容器开始时间
 

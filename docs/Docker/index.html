@@ -1046,6 +1046,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#macvlanip_1" title="为macvlan的容器配置只允许IP段访问" class="md-nav__link">
+    为macvlan的容器配置只允许IP段访问
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#varlibdocker_1" title="从/var/lib/docker提取容器开始时间" class="md-nav__link">
     从/var/lib/docker提取容器开始时间
   </a>
@@ -1723,6 +1730,13 @@
         <li class="md-nav__item">
   <a href="#ping-ipnsenter" title="容器内没有ping, ip？直接nsenter进去看看" class="md-nav__link">
     容器内没有ping, ip？直接nsenter进去看看
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#macvlanip_1" title="为macvlan的容器配置只允许IP段访问" class="md-nav__link">
+    为macvlan的容器配置只允许IP段访问
   </a>
   
 </li>
@@ -2656,14 +2670,32 @@ docker network connect macvlan_name container_name --ip 新的ip
 2
 3
 4
-5</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="ch">#!/bin/bash</span>
+5
+6</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="ch">#!/bin/bash</span>
 <span class="nv">NAME</span><span class="o">=</span><span class="s2">&quot;container name&quot;</span>
+mkdir -p /var/run/netns
 <span class="nv">ID</span><span class="o">=</span><span class="sb">`</span>docker inspect --format<span class="o">=</span><span class="s1">&#39;{{ .State.Pid }}&#39;</span> <span class="nv">$NAME</span><span class="sb">`</span>
 sudo ln -sf <span class="s2">&quot;/proc/</span><span class="nv">$ID</span><span class="s2">/ns/net&quot;</span> /var/run/netns/<span class="nv">$NAME</span>
 <span class="nb">exec</span> sudo ip netns <span class="nb">exec</span> <span class="nv">$NAME</span> <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>
 </pre></div>
 </td></tr></table>
 
+<h2 id="macvlanip_1">为macvlan的容器配置只允许IP段访问<a class="headerlink" href="#macvlanip_1" title="Permanent link">&para;</a></h2>
+<p>将容器暴露在整个内网还是不够安全，不如使用iptables只允许特定IP段访问这个容器的IP</p>
+<p>按上述操作之后，假设容器名称为name，那么我们可以先建立一个alias来快速iptables:</p>
+<p>参考： <a href="https://unix.stackexchange.com/questions/11851/iptables-allow-certain-ips-and-block-all-other-connection">https://unix.stackexchange.com/questions/11851/iptables-allow-certain-ips-and-block-all-other-connection</a></p>
+<div class="codehilite"><pre><span></span>alias i=&quot;sudo ip netns exec name iptables&quot;
+i -P FORWARD DROP # we aren&#39;t a router
+i -A INPUT -m state --state INVALID -j DROP
+i -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+i -A INPUT -i lo -j ACCEPT
+i -A INPUT -s 10.0.0.1/24 -j ACCEPT
+i -A INPUT -s 172.19.0.1/24 -j ACCEPT
+i -P INPUT DROP # Drop everything we don&#39;t accept
+</pre></div>
+
+
+<p>效果就是只有内网10.0.0.1-10.0.0.254的ip才能访问这个容器的IP，其他来源都不能ping通这个容器</p>
 <h2 id="varlibdocker_1">从/var/lib/docker提取容器开始时间<a class="headerlink" href="#varlibdocker_1" title="Permanent link">&para;</a></h2>
 <p>读取/var/lib/docker/containers/*/config.v2.json可以读到容器开始时间</p>
 <p>但使用同一个文件夹下hostname这个文件的时间戳更可靠，无需考虑时区换算不同服务器时间不同步等问题。计算文件产生的相对时间用os.path.getmtime(这个文件)减去这个时间戳即可。</p>
