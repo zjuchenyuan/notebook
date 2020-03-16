@@ -49,6 +49,10 @@ My notebook about technology, for lookup and share
 >* Win开发摆脱每次都要写的encoding=utf-8
 >* Ubuntu16.04安装Python3.7
 
+## [Python程序设计课程](PythonCourse.md)
+
+作业的常见错误
+
 ## [gist Python一些常用的代码片段](gist.md)
 >* 连接mysql插入、查询
 >* flask设置一堆静态目录

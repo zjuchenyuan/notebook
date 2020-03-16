@@ -16,6 +16,7 @@ pages:
     - Python: 
         - Python: Python.md
         - Gist Python一些常用代码片段: gist.md
+        - Course Python程序设计: PythonCourse.md
     - Programming Languages:
         - BASH: BASH.md
         - BAT批处理: BAT.md
