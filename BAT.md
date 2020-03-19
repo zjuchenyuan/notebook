@@ -287,3 +287,17 @@ VeraCrypt.exe /quit /silent /dismount z
 ```
 elevate powershell -Command "Set-MpPreference -DisableRealtimeMonitoring $true"
 ```
+
+---------
+
+## 命令行增加Windows防火墙规则阻断IP
+
+当然需要管理员权限的cmd，能一行搞定何必在繁琐的设置步骤中周旋
+
+参考 https://serverfault.com/questions/851922/blocking-ip-address-with-netsh-filter
+
+```
+netsh advfirewall firewall add rule name="IP Block" ^
+   dir=in interface=any action=block remoteip=198.51.100.108/32
+```
+

@@ -86,6 +86,7 @@ My notebook about technology, for lookup and share
 >* 命令行配置IP
 >* 命令行使用VeraCrypt
 >* 命令行临时关闭Windows Defender
+>* 命令行增加Windows防火墙规则阻断IP
 
 ## [C 语言](C.md)
 >* 关于Dev C++

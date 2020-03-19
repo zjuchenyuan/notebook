@@ -539,6 +539,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#windowsip" title="命令行增加Windows防火墙规则阻断IP" class="md-nav__link">
+    命令行增加Windows防火墙规则阻断IP
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1270,6 +1277,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#windowsip" title="命令行增加Windows防火墙规则阻断IP" class="md-nav__link">
+    命令行增加Windows防火墙规则阻断IP
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1504,6 +1518,15 @@ netsh interface ip set dns &quot;以太网&quot; dhcp
 <p>在管理员权限下powershell可以直接临时关闭Windows Defender的实时防护</p>
 <p>搭配elevate.exe使用即可在Win+R中快速关闭：</p>
 <div class="codehilite"><pre><span></span>elevate powershell -Command &quot;Set-MpPreference -DisableRealtimeMonitoring $true&quot;
+</pre></div>
+
+
+<hr />
+<h2 id="windowsip">命令行增加Windows防火墙规则阻断IP<a class="headerlink" href="#windowsip" title="Permanent link">&para;</a></h2>
+<p>当然需要管理员权限的cmd，能一行搞定何必在繁琐的设置步骤中周旋</p>
+<p>参考 <a href="https://serverfault.com/questions/851922/blocking-ip-address-with-netsh-filter">https://serverfault.com/questions/851922/blocking-ip-address-with-netsh-filter</a></p>
+<div class="codehilite"><pre><span></span>netsh advfirewall firewall add rule name=&quot;IP Block&quot; ^
+   dir=in interface=any action=block remoteip=198.51.100.108/32
 </pre></div>
                 
                   
