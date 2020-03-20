@@ -27,7 +27,7 @@ $ npm install eth-lightwallet@2.5.6
 
 var lightwallet = require("eth-lightwallet");
 var secretSeed = 从metamask复制
-var password = 随意设置一个密码，在内存中存储的加密后的私钥
+var password = 随意设置一个密码，在内存中存储的是使用这个密码加密后的私钥
 var hdPathString = "m/44'/60'/0'/0";
 var ks; 
 lightwallet.keystore.deriveKeyFromPassword(password, function (err, pwDerivedKey) {
@@ -42,7 +42,7 @@ lightwallet.keystore.deriveKeyFromPassword(password, function (err, pwDerivedKey
 
 ## Python发起交易(Web3.py)
 
-pip3 install web3，需要python3.7 （[在Ubuntu10.04上安装Python 3.7](https://py3.io/Python/#ubuntu1604python37)）
+pip3 install web3，需要python3.7 （[在Ubuntu16.04上安装Python 3.7](https://py3.io/Python/#ubuntu1604python37)）
 
 在infura.io注册，得到一个project id，设置为环境变量WEB3_INFURA_PROJECT_ID
 

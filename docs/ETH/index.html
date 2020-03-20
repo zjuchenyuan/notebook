@@ -990,7 +990,7 @@
 
 <span class="n">var</span> <span class="n">lightwallet</span> <span class="o">=</span> <span class="n">require</span><span class="p">(</span><span class="s">&quot;eth-lightwallet&quot;</span><span class="p">);</span>
 <span class="n">var</span> <span class="n">secretSeed</span> <span class="o">=</span> <span class="err">从</span><span class="n">metamask复制</span>
-<span class="n">var</span> <span class="n">password</span> <span class="o">=</span> <span class="err">随意设置一个密码，在内存中存储的加密后的私钥</span>
+<span class="n">var</span> <span class="n">password</span> <span class="o">=</span> <span class="err">随意设置一个密码，在内存中存储的是使用这个密码加密后的私钥</span>
 <span class="n">var</span> <span class="n">hdPathString</span> <span class="o">=</span> <span class="s">&quot;m/44&#39;/60&#39;/0&#39;/0&quot;</span><span class="p">;</span>
 <span class="n">var</span> <span class="n">ks</span><span class="p">;</span> 
 <span class="n">lightwallet</span><span class="p">.</span><span class="n">keystore</span><span class="p">.</span><span class="n">deriveKeyFromPassword</span><span class="p">(</span><span class="n">password</span><span class="p">,</span> <span class="n">function</span> <span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="n">pwDerivedKey</span><span class="p">)</span> <span class="p">{</span>
@@ -1005,7 +1005,7 @@
 
 
 <h2 id="pythonweb3py">Python发起交易(Web3.py)<a class="headerlink" href="#pythonweb3py" title="Permanent link">&para;</a></h2>
-<p>pip3 install web3，需要python3.7 （<a href="https://py3.io/Python/#ubuntu1604python37">在Ubuntu10.04上安装Python 3.7</a>）</p>
+<p>pip3 install web3，需要python3.7 （<a href="https://py3.io/Python/#ubuntu1604python37">在Ubuntu16.04上安装Python 3.7</a>）</p>
 <p>在infura.io注册，得到一个project id，设置为环境变量WEB3_INFURA_PROJECT_ID</p>
 <div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;WEB3_INFURA_PROJECT_ID&quot;</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;从infura.io复制&quot;</span>
