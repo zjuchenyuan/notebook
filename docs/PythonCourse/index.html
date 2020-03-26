@@ -1148,6 +1148,219 @@ Sum = 30
 
 <p>你考虑到最后一行正好凑满5个整数，你会多输出一个空行吗？</p>
 <p>另外这个题目暗含着 每行末尾不能有空格 的要求，你能用<code>end=' '</code>吗?</p>
+<hr />
+<h1 id="python-week3">Python Week3 答疑<a class="headerlink" href="#python-week3" title="Permanent link">&para;</a></h1>
+<h2 id="_16">学会自己造数据<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h2>
+<p>不要满足于题目给的样例，发挥主观能动性自己造数据看看，比如边界值（最大最小）、错误值</p>
+<h2 id="_17">注意输出格式对顺序的要求<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h2>
+<p>例如查验身份证的题目，输出格式的要求是：<strong>按照输入的顺序</strong>每行输出1个有问题的身份证号码</p>
+<p>那你就不能这么写两次循环，一遍输出前17位有非数字的，一遍输出校验位不对的，只能一次循环完成</p>
+<p>虽然两次循环逻辑上是对的，却没能满足题目的要求，就答案错误了；恰好题目的样例是先非数字错误再校验位错误，但这只是个样例，<strong>样例里的规律只要人家没说一律不算数的！</strong></p>
+<h2 id="_18">如何判断一个字符是整数？<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h2>
+<p>最简单的方式： x.isdigit()</p>
+<p>也可以： &lsquo;0&rsquo;&lt;=x&lt;=&lsquo;9&rsquo;</p>
+<p>不建议的方式： 48&lt;=ord(x)&lt;=57 你不是在写C语言，没必要转换为整数判断</p>
+<p>附带知识点：python里 <code>a&lt;x&lt;b</code>  等价于 <code>a&lt;x and x&lt;b</code> </p>
+<h2 id="_19">字符串比较大小是个坑<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h2>
+<p>这个东西是True还是False?</p>
+<div class="codehilite"><pre><span></span>&quot;2&quot;&gt;&quot;11&quot;
+</pre></div>
+
+
+<p>答案是True，震惊！2居然比11大？！ </p>
+<p>注意这是两个<strong>字符串之间的比较</strong>，字符串的比较规则是 <strong>逐字符比较，相同就继续比较，遇到一个不相同就得出最终的比较结论</strong>。</p>
+<p>这里比较第一个字符2和1，2是大于1的，ok比较完成 &ldquo;2&rdquo;&gt;&rdquo;11&rdquo;。</p>
+<p>同理 &ldquo;2&rdquo;&gt;&rdquo;199999999&rdquo;，无论9有多少个都不会参与比较。</p>
+<p>举一反三：max(&ldquo;8&rdquo;, &ldquo;9&rdquo;, &ldquo;10&rdquo;)是多少？</p>
+<p>当题目要求整数的排序的时候，一定要用int转成整数</p>
+<h2 id="sortsorted">区分.sort()和sorted<a class="headerlink" href="#sortsorted" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">sort</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>上述代码正确吗？会输出<code>1 2 3</code>嘛？</p>
+<p>.sort()返回的是None，不能用来迭代；这是一个原地排序，直接修改原数组，不会创建新的数组</p>
+<p>对于上述代码，你需要用sorted(x)；这不会修改原数组，而是创建了一个新的数组</p>
+<div class="codehilite"><pre><span></span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+
+
+<p>输出是<code>1 2 3 [3, 1, 2]</code>，可以看出使用sorted不会修改原来的x</p>
+<h2 id="_20">格式化字符串们<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h2>
+<h3 id="52f">&ldquo;%5.2f&rdquo;是啥意思<a class="headerlink" href="#52f" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="s2">&quot;</span><span class="si">%5.2f</span><span class="s2">&quot;</span><span class="o">%</span><span class="mf">1.2</span>
+<span class="s1">&#39; 1.20&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="s2">&quot;{:5.2f}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mf">1.2</span><span class="p">)</span>
+<span class="s1">&#39; 1.20&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="s2">&quot;{:&gt;5.2f}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mf">1.2</span><span class="p">)</span>
+<span class="s1">&#39; 1.20&#39;</span>
+</pre></div>
+
+
+<p>点就是小数点，点2就是小数点后保留两位小数，前面还有一个5是啥呢，表示整体不够5位就左边用空格补齐5位，注意上述输出左边是有一个空格的。</p>
+<p>如果用format，可以看出写法基本相同，这是右对齐用<code>&gt;</code></p>
+<div class="codehilite"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="s2">&quot;</span><span class="si">%-5.2f</span><span class="s2">&quot;</span><span class="o">%</span><span class="mf">1.2</span>
+<span class="s1">&#39;1.20 &#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="s2">&quot;{:&lt;5.2f}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mf">1.2</span><span class="p">)</span>
+<span class="s1">&#39;1.20 &#39;</span>
+</pre></div>
+
+
+<p>加了一个负号，变成了右边补空格；这是左对齐所以用<code>&lt;</code></p>
+<h3 id="_21">那我要居中怎么办<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="s2">&quot;{:^7s}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;xyz&quot;</span><span class="p">)</span>
+<span class="s1">&#39;  xyz  &#39;</span>
+</pre></div>
+
+
+<p>那就用^呗，这是按Shift+6按出来的符号</p>
+<h3 id="_22">格式化字符串想输出几个变量就要写几个<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="s2">&quot;{:d}{:&gt;6.1f}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fahr</span><span class="p">,</span> <span class="n">celsius</span><span class="p">)</span>
+</pre></div>
+
+
+<p>这里有两个变量要输出，所以要两个格式化字符串</p>
+<h2 id="thonny">Thonny的用法<a class="headerlink" href="#thonny" title="Permanent link">&para;</a></h2>
+<p>在上半部分写代码，改代码，按F5执行后 在下半部分Shell里输入用户的输入，查看输出</p>
+<p>不要在它的Shell里敲入代码，因为它不支持多条语句</p>
+<h2 id="_23">初始化能在循环体内吗？<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h2>
+<p>比如题目要求没有错误的身份证就输出All Passed!，下面的伪代码错在哪？</p>
+<div class="codehilite"><pre><span></span><span class="err">对每一个身份证</span><span class="p">:</span>
+    <span class="n">flag</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1">#1表示没错</span>
+    <span class="k">if</span> <span class="err">身份证错了</span><span class="p">:</span>
+        <span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">#只要有一个错了 flag置0</span>
+
+<span class="k">if</span> <span class="n">flag</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;All Passed!&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>flag=1是一个初始化语句，放在循环里面就会导致每次循环都进行初始化，就变成了只要最后一个身份证没错最后flag就是1，你会错误的输出All Passed!</p>
+<p><strong>变量的初始化需要在进入循环之前做完</strong></p>
+<h2 id="_24">学会拆分问题 大而化小<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h2>
+<p>题目要求实现aa+aaaa+&hellip;+aaa……a(n个a)求和</p>
+<p>拆分成两个问题：怎么得到n个a？ 怎么循环从2到n求和？</p>
+<p>不要把这两个问题混在一起思考，如果你不知道可以用字符串乘以整数，那你可以先假设有这么一个函数getna(n, a)，累加就是：</p>
+<div class="codehilite"><pre><span></span><span class="n">a</span><span class="o">=</span><span class="s1">&#39;5&#39;</span>
+<span class="n">n</span><span class="o">=</span><span class="mi">4</span> <span class="c1">#实际上需要input()，我们这里就直接写了 需要计算55+5555</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="n">getna</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+</pre></div>
+
+
+<p>然后我们再去实现getna这个函数，这个函数就干一件事情——输入a和n，输出aaa&hellip;a(n个a)这么一个整数</p>
+<p>输入a=&lsquo;5&rsquo;,n=4，输出5555</p>
+<p>这次我用循环乘法，可以看成<code>5 + 5*10 + 5*10*10 + 5*10*10*10</code> 每次循环都是5乘以一个数，这个数从1开始 每次循环后乘以10</p>
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">getna</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="c1"># 这里我们需要a也是一个整数</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="c1">#防御性编程，你不知道调用者是否给了需要的类型，反正转换一下不费事</span>
+    <span class="n">multiply</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="n">a</span><span class="o">*</span><span class="n">multiply</span>
+        <span class="n">multiply</span> <span class="o">*=</span> <span class="mi">10</span>
+    <span class="k">return</span> <span class="n">res</span>
+</pre></div>
+
+
+<p>测试一下自己对不对：</p>
+<div class="codehilite"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">getna</span><span class="p">(</span><span class="s2">&quot;5&quot;</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="mi">5555</span>
+</pre></div>
+
+
+<p>最后把两部分拼起来就行咯</p>
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">getna</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="c1"># 这里我们需要a也是一个整数</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="c1">#防御性编程，你不知道调用者是否给了需要的类型，反正转换一下不费事</span>
+    <span class="n">multiply</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="n">a</span><span class="o">*</span><span class="n">multiply</span>
+        <span class="n">multiply</span> <span class="o">*=</span> <span class="mi">10</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+<span class="n">a</span><span class="o">=</span><span class="s1">&#39;5&#39;</span>
+<span class="n">n</span><span class="o">=</span><span class="mi">4</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="n">getna</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</pre></div>
+
+
+<p>当然这个题目有简化做法：</p>
+<p>n个a这个整数用 字符串乘以数字得到字符串 再int转整数<code>int(str(a)*int(n))</code></p>
+<p>从2到n每次递增2，用range(2,n+1,2)</p>
+<p>本质上是一个列表求和，所以可以直接用sum函数，range返回的东西可以看成一个列表，<strong>列表转换成另一个列表用列表推导式就行</strong> 写法：[something(i) for i in &hellip;]</p>
+<div class="codehilite"><pre><span></span><span class="n">a</span><span class="o">=</span><span class="s1">&#39;5&#39;</span>
+<span class="n">n</span><span class="o">=</span><span class="mi">4</span>
+<span class="k">print</span><span class="p">(</span> <span class="nb">sum</span><span class="p">([</span> <span class="nb">int</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="p">])</span> <span class="p">)</span>
+</pre></div>
+
+
+<h2 id="andor">混在一起的and和or<a class="headerlink" href="#andor" title="Permanent link">&para;</a></h2>
+<p>and的优先级比or高</p>
+<div class="codehilite"><pre><span></span>x=5
+y=False
+z=False
+
+print(x or y and z)
+</pre></div>
+
+
+<p>这个等价于print(x or (y and z)) 先计算False and False是False，然后x or False因为x是真的 结果就是x</p>
+<p>输出5</p>
+<h3 id="a-and-b">a and b<a class="headerlink" href="#a-and-b" title="Permanent link">&para;</a></h3>
+<p>返回的只可能是a和b之间的一个，a是真的就返回b，a是假的就返回a</p>
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; 1 and 6
+6
+&gt;&gt;&gt; [] and 6
+[]
+</pre></div>
+
+
+<h3 id="a-or-b">a or b<a class="headerlink" href="#a-or-b" title="Permanent link">&para;</a></h3>
+<p>返回的只可能是a和b之间的一个，a是真的就返回a，a是假的就返回b</p>
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; 1 or 6
+1
+&gt;&gt;&gt; [].sort() or 6
+6
+</pre></div>
+
+
+<p>还记得上面说的.sort()返回None吗？ None是假的噢</p>
+<h3 id="_25">哪些东西是假的？<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h3>
+<p>0是假的，空的东西<code>'', [], {}</code>是假的，False是假的，None是假的，其他的都是真的</p>
+<p>搜索python False values可以搜到 <a href="https://docs.python.org/3/library/stdtypes.html">https://docs.python.org/3/library/stdtypes.html</a></p>
+<blockquote>
+<p>Any object can be tested for truth value, for use in an if or while condition or as operand of the Boolean operations below.</p>
+<p>By default, an object is considered true unless its class defines either a <strong>bool</strong>() method that returns False or a <strong>len</strong>() method that returns zero, when called with the object. 1 Here are most of the built-in objects considered false:</p>
+</blockquote>
+<ul>
+<li>
+<p>constants defined to be false: None and False.</p>
+</li>
+<li>
+<p>zero of any numeric type: 0, 0.0, 0j, Decimal(0), Fraction(0, 1)</p>
+</li>
+<li>
+<p>empty sequences and collections: &lsquo;&rsquo;, (), [], {}, set(), range(0)</p>
+</li>
+</ul>
+<blockquote>
+<p>Operations and built-in functions that have a Boolean result always return 0 or False for false and 1 or True for true, unless otherwise stated. (Important exception: the Boolean operations or and and always return one of their operands.)</p>
+</blockquote>
                 
                   
                 
