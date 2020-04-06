@@ -879,6 +879,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#githubssh-key" title="GitHub不同仓库使用不同ssh key" class="md-nav__link">
+    GitHub不同仓库使用不同ssh key
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1326,6 +1333,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#githubssh-key" title="GitHub不同仓库使用不同ssh key" class="md-nav__link">
+    GitHub不同仓库使用不同ssh key
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1635,6 +1649,23 @@ git pull tmp master
 <h2 id="git_2">git禁用压缩<a class="headerlink" href="#git_2" title="Permanent link">&para;</a></h2>
 <p>如二进制的仓库不想使用压缩，参考: <a href="https://stackoverflow.com/questions/11483288/how-to-disable-compression-in-git-server-side">https://stackoverflow.com/questions/11483288/how-to-disable-compression-in-git-server-side</a></p>
 <div class="codehilite"><pre><span></span>git config --add core.bigFileThreshold 1
+</pre></div>
+
+
+<hr />
+<h2 id="githubssh-key">GitHub不同仓库使用不同ssh key<a class="headerlink" href="#githubssh-key" title="Permanent link">&para;</a></h2>
+<p>GitHub要求不同仓库的deploy key不同，但ssh config只能为一个Host设置相同的key</p>
+<p>从<a href="https://gist.github.com/gubatron/d96594d982c5043be6d4">这里</a>发现了一个trick：*.github.com都是可以正常解析到github的，这样就得到了无数个Host</p>
+<p>快速使用：</p>
+<div class="codehilite"><pre><span></span>curl https://gist.githubusercontent.com/blvz/8eeebacae11011c25fc79eff12f49ae9/raw/6f2f7f3709a0fe852d8a3a5bb125325e3ffbc7d8/gh-deploy-clone.sh &gt; /usr/local/bin/gh-deploy-clone
+chmod +x /usr/local/bin/gh-deploy-clone
+gh-deploy-clone user/repo
+</pre></div>
+
+
+<p>会为这个repo创建一个ssh key放在<code>~/.ssh</code>目录下，同时修改<code>~/.ssh/config</code>，然后显示出公钥，需要手动添加到github，最后回车就会开始git clone</p>
+<p>如果是一个已经存在的仓库，最后一步不用回车Ctrl+C后:</p>
+<div class="codehilite"><pre><span></span>git remote set-url origin git@{repo}.github.com:{user}/{repo}.git
 </pre></div>
                 
                   

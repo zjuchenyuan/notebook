@@ -395,3 +395,28 @@ git pull tmp master
 ```
 git config --add core.bigFileThreshold 1
 ```
+
+------
+
+## GitHub不同仓库使用不同ssh key
+
+GitHub要求不同仓库的deploy key不同，但ssh config只能为一个Host设置相同的key
+
+从[这里](https://gist.github.com/gubatron/d96594d982c5043be6d4)发现了一个trick：*.github.com都是可以正常解析到github的，这样就得到了无数个Host
+
+快速使用：
+
+```
+curl https://gist.githubusercontent.com/blvz/8eeebacae11011c25fc79eff12f49ae9/raw/6f2f7f3709a0fe852d8a3a5bb125325e3ffbc7d8/gh-deploy-clone.sh > /usr/local/bin/gh-deploy-clone
+chmod +x /usr/local/bin/gh-deploy-clone
+gh-deploy-clone user/repo
+```
+
+会为这个repo创建一个ssh key放在`~/.ssh`目录下，同时修改`~/.ssh/config`，然后显示出公钥，需要手动添加到github，最后回车就会开始git clone
+
+如果是一个已经存在的仓库，最后一步不用回车Ctrl+C后:
+
+```
+git remote set-url origin git@{repo}.github.com:{user}/{repo}.git
+```
+
