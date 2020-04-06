@@ -1193,6 +1193,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#m3u8mp4" title="钉钉直播回放下载 m3u8转mp4" class="md-nav__link">
+    钉钉直播回放下载 m3u8转mp4
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1686,6 +1693,13 @@
         <li class="md-nav__item">
   <a href="#mktorrenttorrent" title="mktorrent制作种子torrent文件" class="md-nav__link">
     mktorrent制作种子torrent文件
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#m3u8mp4" title="钉钉直播回放下载 m3u8转mp4" class="md-nav__link">
+    钉钉直播回放下载 m3u8转mp4
   </a>
   
 </li>
@@ -2278,6 +2292,13 @@ mktorrent -v -a &quot;http://tracker.nexushd.org/announce.php&quot; -p folder -o
 
 
 <p>其中<code>-l 24</code>的意思是每个分块为2**24=16MB，这是建议的最大的值</p>
+<hr />
+<h2 id="m3u8mp4">钉钉直播回放下载 m3u8转mp4<a class="headerlink" href="#m3u8mp4" title="Permanent link">&para;</a></h2>
+<p>手机端用抓包软件 如HttpCanary，点开直播回放后会得到一个m3u8的地址，然后使用ffmpeg下载即可</p>
+<p><a href="http://参考：https://www.bilibili.com">参考：https://www.bilibili.com</a>/video/av99036702/</p>
+<p><a href="https://gist.github.com/tzmartin/fb1f4a8e95ef5fb79596bd4719671b5d">https://gist.github.com/tzmartin/fb1f4a8e95ef5fb79596bd4719671b5d</a></p>
+<div class="codehilite"><pre><span></span>ffmpeg -i http://dtliving-pre.alicdn.com/... -bsf:a aac_adtstoasc -vcodec copy -c copy name.mp4
+</pre></div>
                 
                   
                 

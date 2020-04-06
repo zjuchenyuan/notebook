@@ -789,3 +789,16 @@ mktorrent -v -a "http://tracker.nexushd.org/announce.php" -p folder -o folder.to
 
 其中`-l 24`的意思是每个分块为2**24=16MB，这是建议的最大的值
 
+-------
+
+## 钉钉直播回放下载 m3u8转mp4
+
+手机端用抓包软件 如HttpCanary，点开直播回放后会得到一个m3u8的地址，然后使用ffmpeg下载即可
+
+参考：https://www.bilibili.com/video/av99036702/
+
+https://gist.github.com/tzmartin/fb1f4a8e95ef5fb79596bd4719671b5d
+
+```
+ffmpeg -i http://dtliving-pre.alicdn.com/... -bsf:a aac_adtstoasc -vcodec copy -c copy name.mp4
+```
