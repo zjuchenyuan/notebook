@@ -45,6 +45,7 @@ pages:
         - ETH: ETH.md
         - Git: Git.md
         - Jekyll: Jekyll.md
+        - Paper Reading: PaperReading.md
         - WindowsSoftware: WindowsSoftware.md
 
     - Fuzzing:
