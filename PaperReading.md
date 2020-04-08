@@ -7,12 +7,13 @@ SP2020 [PDF](https://qingkaishi.github.io/public_pdfs/SP2020.pdf)
 一句话概括：改进QSYM混合fuzzing 缓存求解出来的取值范围用多边形表示 来更好的变异更快的求解
 
 单词与表达：
-sluggish 性能不行 太慢
-succinct 简洁的
-取得平衡 a sweet spot between ...
-obstruct 阻碍
-we followed the standard instructions in the previous paper 说自己的方法是按照别人建议的
-orthogonal 说别人的研究和自己的不冲突可以互补
+
+- sluggish 性能不行 太慢
+- succinct 简洁的
+- 取得平衡 a sweet spot between ...
+- obstruct 阻碍
+- we followed the standard instructions in the previous paper 说自己的方法是按照别人建议的
+- orthogonal 说别人的研究和自己的不冲突可以互补
 
 intro 第一段 介绍hybrid fuzzing很有用；第二段说现在的方法不行 提出问题不incremental 最后一句提However, intuitively应该可以这么做；之后举例子；核心的两点——用多边形的路径约束把种子变异转换成在一个多边形内取样、用约束降低约束求解复杂度减小可行解空间 从而加速约束求解；然后说自己测了一下 效果比state of art好10%~30%的coverage，在LAVA-M能多发现500+bugs，发现新的41个bug 拿到8个CVE
 
@@ -30,16 +31,18 @@ intro 第一段 介绍hybrid fuzzing很有用；第二段说现在的方法不�
 evaluation 三个RQ研究问题：1. 比现在最好的fuzzer能不能发现更多的bug；2.能不能更高的coverage；3. 变异方法的有效性
 
 实验用了两个afl，angora有-j 2，但T-Fuzz不支持 也就直接跑了
+
 选seed的方式：用AFL提供的seed，用人家代码里自带的测试样例
+
 重复10次
 
 比较了效果好之后讨论为啥没能发现LAVA-M的所有bug？说这是QSYM的问题 缺少对底层系统调用的建模如who用的x2nrealloc，不支持浮点数约束。但是这些限制不是这篇work要解决的问题，and we leave them as our future work.
 
-crash去重用的afl-cmin -C
+crash去重用的`afl-cmin -C`
 
-发现了T-Fuzz对大程序有scalability issues 所以就没有比较
+发现了T-Fuzz对大程序有scalability issues 所以就没有比较coverage
 
-比QSYM好，原因是qsym对每个branch只生成一个seed，这样会漏掉一些 覆盖到一个branch并不意味着就能触发漏洞
+比QSYM好，原因是qsym对每个branch只生成一个seed，这样会漏掉一些——覆盖到一个branch并不意味着就能触发漏洞
 
 The performance of constrained mutation：比较提出的constrained mutation和SMTSampler 看给定time buget分别3s 5s 10s的情况下能解出多少 计算平均时间的时候如果不能解决就按上限——超过95%的约束都能在3秒钟内搞定。总之，我们的方法比SMTSampler效率和有效性都强
 为啥呢？减少了约束求解器的调用、保证了均匀分布
@@ -56,17 +59,20 @@ related work 种子的优先选择和调度 是基于程序结构的 忽视了�
 一句话概括： 每个基本块第一个字节改成CC触发中断，不需要耗时地记录coverage了，发现新的基本块就能自动知道
 
 单词：
-tracking apparatuse插桩代码做的事情
-niche 合宜的小环境 这里似乎是受限的意思 As applications of directed fuzzing are generally niche, such as taint tracking [16] or patch testing [31], coverage-guided fuzzing’s wider scope makes it more popular among the fuzzing community [5], [6], [4], [3].
-narrow 区别不大 results in Section VI suggest that the performance gap is much narrower.
-convincingly 比其他人好 A12 excceds 0.71
-performance-taxing 耗时
-per-variant geometric mean分组计算均值
-deficit 引入的overhead: ... far outweighs the performance deficit from trimming and calibration tracing
-is not a technical challenge 没做的东西claim不难做
-graciously 感谢其他人
+
+- tracking apparatuse插桩代码做的事情
+- niche 合宜的小环境 这里似乎是受限的意思 As applications of directed fuzzing are generally niche, such as taint tracking [16] or patch testing [31], coverage-guided fuzzing’s wider scope makes it more popular among the fuzzing community [5], [6], [4], [3].
+- narrow 区别不大 results in Section VI suggest that the performance gap is much narrower.
+- convincingly 比其他人好 A12 excceds 0.71
+- performance-taxing 耗时
+- per-variant geometric mean分组计算均值
+- deficit 引入的overhead: ... far outweighs the performance deficit from trimming and calibration tracing
+- is not a technical challenge 没做的东西claim不难做
+- graciously 感谢其他人
 
 人家的idea：
+
+```
 把程序变成一个能自己报告有没有发现新的basic block的——在每个基本块开头变成0xCC（encode the current frontier），触发了中断说明有新的覆盖率，需要停下fork server去掉这个中断再继续跑
 做coverage-guided tracing
 人家的实验其实不是在做fuzzing，而是先跑afl-qemu收集24小时所有生成的seed（5个不同的test case datasets），再改了afl只跑run_target，看不同的设计下耗时的区别
@@ -78,12 +84,15 @@ graciously 感谢其他人
 选择的fuzz文件类型：dev开发，图片，压缩data archiving，网络network utilities，音频，文档，密码学cryptography，web开发
 timeout也是一个很重要的因素 如果timeout的文件太多 作者的优势就不明显了；实验设置为500ms的超时
 比较的baseline: 只fork server不进行任何插桩，这是最快的 overhead是相对于这个baseline而言的
-
+```
 
 后续要了解的：
+
+```
 Intel PT硬件辅助[11],[4],[12]的覆盖率 overhead更小，缺点：需要一个支持的CPU，解码CFG日志耗时，只支持x86
 Xuwen的优化操作系统的系统调用[61] fuzzer-agnostic operating primitives
 程序改写AFL-lafIntel [70] unrolls magic bytes into single comparisons at compile-time, but currently only supports white-box binaries.
+```
 
 三种覆盖率的计算方式：基本块，边，basic block path这一种没人做
 只记录basic block来推断边的信息，是有问题的：存在critical edges就不准确，需要先去掉critical edges才行 就是空的else也要当成一个块
@@ -106,29 +115,33 @@ CCS18 [PDF](https://www.cis.upenn.edu/~mhnaik/papers/ccs18.pdf)
 概括：把机器学习用到Program Debloating，基本方法是反复切片去掉，用Reinforcement Learning来减少编译测试的次数
 
 单词
-seldom if ever used by average users 一般用户不会用
-has led to its sparing use 导致没人用
-has been shown to suffice in the literature on ... 论文中已经提到
-mangle 搞乱程序
-sacrifice efficiency 说别人的不足的时候说牺牲了xxx
-tailored to C/C++ 只适合xxx
-myopic 短视的 Since the rules are myopic, C-Reduce generates a significant number of syntactically invalid candidates
-albeit 但是 albeit due to a different reason.
-presuming a general setting where such an analysis may not be available 举的例子可以很简单静态分析出来，说一般的情况下静态分析没用
-akin to ... 和xxx相同 插入语 because it not only avoids syntactic errors, akin to Perses, but it also learns to avoid semantic errors.
-Overall 一段话结束的时候总结
-large boilerplate code 一大段代码
-heed to 遵守 C-Reduce does not heed to common software engineering practices such as modularity and locality
-suffices in practice实际上是否足够 The reader may wonder whether a naive approach to program reduction based on runtime code coverage suffices in practice.
-empirically comfirmed 验证鲁棒性只能经验性地验证
-in this regard 在这个方面 We can mitigate the issue by combining the results of multiple static analyzers that possess different capabilities in this regard.
+
+- seldom if ever used by average users 一般用户不会用
+- has led to its sparing use 导致没人用
+- has been shown to suffice in the literature on ... 论文中已经提到
+- mangle 搞乱程序
+- sacrifice efficiency 说别人的不足的时候说牺牲了xxx
+- tailored to C/C++ 只适合xxx
+- myopic 短视的 Since the rules are myopic, C-Reduce generates a significant number of syntactically invalid candidates
+- albeit 但是 albeit due to a different reason.
+- presuming a general setting where such an analysis may not be available 举的例子可以很简单静态分析出来，说一般的情况下静态分析没用
+- akin to ... 和xxx相同 插入语 because it not only avoids syntactic errors, akin to Perses, but it also learns to avoid semantic errors.
+- Overall 一段话结束的时候总结
+- large boilerplate code 一大段代码
+- heed to 遵守 C-Reduce does not heed to common software engineering practices such as modularity and locality
+- suffices in practice实际上是否足够 The reader may wonder whether a naive approach to program reduction based on runtime code coverage suffices in practice.
+- empirically comfirmed 验证鲁棒性只能经验性地验证
+- in this regard 在这个方面 We can mitigate the issue by combining the results of multiple static analyzers that possess different capabilities in this regard.
 
 idea
+
+```
 程序的库和one-size-fits-all的开发方式导致了大量很少用/没用的代码
 前人的做法没考虑语义依赖 导致未初始化变量等语义错误 unaware of semantic dependencies between program elements (e.g., def-use relations of variables
 debloating 通过delta debugging 一步步去掉程序中能删的片段，用强化学习加速（决策树 马尔科夫决策过程），保证能过测试high-level specification，最后得到的二进制任何一个片段都不能再删（1-minimality）
 这个方法能扩展到大程序，避免现有工具超时的问题
 这个方法还可以降低攻击面 去掉可选功能中的漏洞，减少ROP gadget
+```
 
 想做到五点：
 最小；耗时短；鲁棒不引入新的漏洞；生成的代码可维护可扩展；通用
@@ -171,6 +184,8 @@ THREATS TO VALIDITY
 静态分析工具的unsoundness 不支持复杂的特性 如复杂的指针算术计算，未知语义的API调用导致的复杂控制流——结合多种静态分析工具
 
 更多方向
+
+```
 program reasoning 想知道是否引入了新的bug，包括静态分析 动态分析 fuzzing 运行时监控 验证
 静态分析工具：Sparrow [13]—a static analyzer for finding security bugs 可以检测bug，还能移除不可达代码
 程序debloating 粗粒度的Docker大容器拆解成多个小容器 需要动态分析应用行为[35]
@@ -181,6 +196,7 @@ program reasoning 想知道是否引入了新的bug，包括静态分析 动态�
 Program slicing 指定一个位置提取程序的一小部分 需要指定语义和依赖关系（challenging），也可能不能去掉漏洞 （这篇文章的方法更好）
 静态可达性分析 不能处理复杂的控制流如间接调用、复杂条件和指针算术
 动态可达性分析 这篇文章的方法更好
+```
 
 future work: 
 more expressive probabilistic models with efficient incremental learning, 
@@ -192,19 +208,21 @@ applying to debloat programs written in arbitrary languages such as binary.
 USENIX20 [PDF](https://www.usenix.org/system/files/sec20spring_gan_prepub.pdf)
 
 单词:
-is labor-intensive and requires lots of manual efforts 需要人工
-Head-to-Head Comparison 比较不同的work
-to draw conclusions as objective as possible 尽可能客观
-选被测程序的原因 We chose target applications considering several factors, including popularity, frequency of being tested, development activeness, and functionality diversity.
-选出来的类别包含 graphics processing libraries (e.g., libcaca and libsixel),
-shipping with 用afl-cmin的时候说the tool afl-cmin shipping with AFL
-确定fuzzing的时间 we test target applications for more time, until the fuzzers reach a relatively stable state (i.e., the order of fuzzers’ performance does not change anymore).
-Experiments showed that the fuzzers will get stable after testing these applications for 60 hours. So, we tested each application for 60 hours in our experiment.
-除了给平均结果 也给出maxinum number
-a steady and stronger growth trend
-大部分方面都更快 in a faster pace than QSYM in most subjects
+
+- is labor-intensive and requires lots of manual efforts 需要人工
+- Head-to-Head Comparison 比较不同的work
+- to draw conclusions as objective as possible 尽可能客观
+- 选被测程序的原因 We chose target applications considering several factors, including popularity, frequency of being tested, development activeness, and functionality diversity.
+- 选出来的类别包含 graphics processing libraries (e.g., libcaca and libsixel),
+- shipping with 用afl-cmin的时候说the tool afl-cmin shipping with AFL
+- 确定fuzzing的时间 we test target applications for more time, until the fuzzers reach a relatively stable state (i.e., the order of fuzzers’ performance does not change anymore).
+- Experiments showed that the fuzzers will get stable after testing these applications for 60 hours. So, we tested each application for 60 hours in our experiment.
+- 除了给平均结果 也给出maxinum number
+- a steady and stronger growth trend
+- 大部分方面都更快 in a faster pace than QSYM in most subjects
 
 idea:
+
 使用轻量级fuzzing-driven taint inference FTI
 有了taint之后用输入优先模型判断先探索哪个路径 变异哪些字节 怎么变异
 强调dataflow features： constraint conformance 变量的值与预期值的距离
@@ -258,6 +276,8 @@ FTI有没有用？ 实现一个基于DTA的镜像比较
 selective fuzzing 比较执行速度
 
 其他Paper:
+
+```
 DigFuzz[45] 用了符号执行 概率路径优先模型
 TaintInduce[46]可以自动推测出propagation rules
 ProFuzzer[42]也是一次变异一个字节 但只关注coverage变化 不能推断出污点的依赖关系 和FairFuzz[24]都能推断partial type of mutated bytes 但对这个分支是否已经到过是insensitive的
@@ -265,7 +285,7 @@ MutaFlow[26] 监测sink APIs的变化 参数是否被tainted
 REDQUEEN[4] 能处理direct copy但不能找到精确的位置 需要百次运行来获得a colorized version with higher entropy 再测一遍获得位置 整个过程太慢
 Intel-laf[1] 将长的比较分割成短的比较 但是带来更多语义相同的路径 不能处理非常量比较
 SYMFUZZ[8] 可以检测input bits之间的依赖 计算出optimal mutation ratio
-
+```
 
 
 
