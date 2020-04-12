@@ -1,5 +1,79 @@
 # Paper Reading
 
+## Fuzzing error-handling code using context-sensitive software fault injection
+
+USENIX2020 [PDF](https://www-users.cs.umn.edu/~kjlu/papers/fifuzz.pdf)
+
+表达：
+augment 说自己的fuzzer能有效补充增强现有的fuzzing技术
+and we are still waiting for the response of remaning ones 提交了bug等待回复
+This manual study is required for gaining the insights into building the automated static analysis 手工分析是有必要的
+
+错误处理的代码一些只能在偶然情况下触发 如内存不够 网络连接失败
+这篇文章的核心是SFI 上下文敏感的软件错误注入
+发现了317个alert 根据根本原因分成50个unique bugs
+
+error site 注入错误的位置 比如malloc
+现有的技术没考虑上下文（调用栈）注入错误那就一定会错 这样会错过一些bug
+
+方法：
+	1. 静态分析找error sites 运行时有可能出错的地方 只找库函数避免重复；找满足条件的函数调用：返回的是指针或整数、返回值会和NULL或者0比较，定义一个比较次数/总次数的阈值R=0.6
+	2. 运行被测程序 收集到达每个error site能有哪些calling context，以及当前的coverage
+	3. 创建错误序列 错误序列的每一个不是error site 而是error point <ErrorLoc, CallCtx> 其中CallCtx 是<CallLoc, FuncLoc>的数组 具体用哈希表存储
+	4. 变异错误序列 
+	5. 运行
+	6. 看看是否有新的coverage 循环
+
+
+
+同时变异错误序列和程序输入
+
+贡献：
+	* 做了两个手工分析：42%的错误处理代码都是处理偶然错误，其中很少能被现有的技术触发
+	* 基于上下文敏感的SFI的fuzzing基础 动态注入错误，考虑了调用关系
+	* FIFUZZ 第一个系统性考虑了不同调用关系的测试错误处理代码的fuzzing框架
+	* 测了9个C语言程序 发现了50个bug 和AFL AFLFast AFLSmart FairFuzz比较能发现很多别人发现不了的bug
+
+
+
+虽然错误偶然触发，但在adversarial setting下却可以稳定触发 如攻击者耗尽内存能可靠地让malloc返回NULL ；后面也提到攻击窗口太小的话 不能成功
+
+分析的软件：vim bision ffmpeg nasm catdoc clamav cflow gif2png+libpng openssl 每个选100个源代码看发现：
+42%偶然错误，70%检查返回值是不是表示错误
+
+看CVE发现fuzzing发现的CVE中31%和错误处理有关 但只有9%是偶然错误
+
+一次变异一个 如果没发现新的coverage就抛弃
+
+ASan引入了太大的runtime overhead 实验分两组 用asan和不用
+
+
+选vim一个程序来显示24小时内 有用的错误序列、程序输入分别随时间增长的曲线
+
+
+实验结果的表格：分asan和不用asan，产生了多少错误序列和input 多少有用，发现的bug的分类 三类：返回NULL，malloc失败，assert
+
+
+附录给50个随机选的alerts 程序、触发序列Error points、崩的源代码行号、错误类别、反馈修复状态
+
+发现的46个和错误处理相关的bug中 只有4个需要一个以上的bug注入 也就说大部分bug一个错误就能触发了；大部分bug都是因为被调用的函数正确处理了异常 但调用者没有——开发者经常由于复杂的调用在error propagation上犯错误
+
+和其他fuzzer比较 说自己的coverage更高
+
+自己没比人家强就说We believe that if我们也实现他们的fuzzing过程，那就会更好
+
+discussion:
+错误位置的提取 的 误报： 有些函数虽然经常跟0比较但不会返回错误 如strstr 通过分析定义和调用图检查是否真的能返回表示错误的错误值；函数的输入一定先转换成有效的数据 用符号执行来分析 对每个函数调用计算约束
+
+错误检测 的 漏报：为了避免重复注入只考虑了库函数，但有些开发者自己写的没调用任何库函数也能返回错误；coverage没到 FIFUZZ不能提供所有可能的程序输入和配置；用ASan的局限 但可以扩展用MSan UBSan TSan
+
+相关的paper:
+轻量级运行时监测：基于硬件的tracing [3, 31]， call-path inferring[42]
+用静态分析找错误处理的bug [28, 32, 33, 37, 53]
+PairCheck[9] 统计分析找资源acquire和release的pair，找错误处理中没有release
+
+最后conclusion最后一段说改进 减少误报；提高性能；其他编程语言 plan to test the program in other programming languages （such as C++ and Java）
+
 ## PANGOLIN: Incremental Hybrid Fuzzing with Polyhedral Path Abstraction
 
 SP2020 [PDF](https://qingkaishi.github.io/public_pdfs/SP2020.pdf)
