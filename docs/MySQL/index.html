@@ -1581,6 +1581,11 @@ FLUSH PRIVILEGES;
 </pre></div>
 
 
+<p>你也可以使用ssh和管道操作，就不用创建文件了：</p>
+<div class="codehilite"><pre><span></span>ssh master_server &quot;mysqldump -h 127.0.0.1 -P 3306 -u root -ppassword --opt --single-transaction --comments --hex-blob --dump-date --no-autocommit --all-databases --master-data |gzip&quot; | zcat | mysql -h 127.0.0.1 -u root -ppassword
+</pre></div>
+
+
 <p>其中<code>--master-data</code>很重要，导出的时候就自动带上了master的信息，无需再手工记录</p>
 <p><code>CHANGE MASTER TO MASTER_LOG_FILE='mysql-bin.000002', MASTER_LOG_POS=15410;</code></p>
 <h3 id="slave">配置slave<a class="headerlink" href="#slave" title="Permanent link">&para;</a></h3>
@@ -1599,7 +1604,11 @@ SHOW SLAVE STATUS\G
 <h3 id="docker">Docker镜像<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h3>
 <p><a href="https://github.com/bitnami/bitnami-docker-mysql">https://github.com/bitnami/bitnami-docker-mysql</a></p>
 <p>但这个镜像也不会帮你自动完成mysqldump，但配置一个slave还是很省心的</p>
-<div class="codehilite"><pre><span></span>docker run -it -v /srv/mysql-slave/my.cnf:/opt/bitnami/mysql/conf/my.cnf:ro -v /srv/mysql-slave/data:/bitnami/mysql/data \
+<p>注意权限配置，如果原本数据文件夹不存在，Docker创建的是root用户才能读写，导致容器直接退出，坑的地方在于没有报错信息</p>
+<div class="codehilite"><pre><span></span>mkdir -p /srv/mysql-slave/data
+chown 1001 /srv/mysql-slave/data -R
+
+docker run -it -v /srv/mysql-slave/my.cnf:/opt/bitnami/mysql/conf/my.cnf:ro -v /srv/mysql-slave/data:/bitnami/mysql/data \
      --name mysql-slave -e MYSQL_REPLICATION_MODE=slave -e MYSQL_REPLICATION_USER=slave_user -e MYSQL_REPLICATION_PASSWORD=password \
       -e MYSQL_MASTER_HOST=12.34.56.789 -e MYSQL_MASTER_PORT_NUMBER=3306 \
       -e MYSQL_MASTER_ROOT_USER=slave_user -e MYSQL_MASTER_ROOT_PASSWORD=password \
@@ -1607,8 +1616,17 @@ SHOW SLAVE STATUS\G
 </pre></div>
 
 
-<p>其中MYSQL_MASTER_ROOT_USER虽然人家说要root用户，实际上代码里只是用来select 1，所以用slave_user即可，参见我提的issue:</p>
-<p><a href="https://github.com/bitnami/bitnami-docker-mysql/issues/87">https://github.com/bitnami/bitnami-docker-mysql/issues/87</a></p>
+<p>其中MYSQL_MASTER_ROOT_USER虽然人家说要root用户，实际上代码里只是用来select 1，所以用slave_user即可，参见<a href="https://github.com/bitnami/bitnami-docker-mysql/issues/87">我提的issue</a></p>
+<p>容器启动后一般会由于master的binlog不完整执行sql失败（表不存在），需要继续操作：</p>
+<p>修改my.cnf在<code>[mysqld]</code>增加<code>skip-grant-tables</code> 注意复数，来保证slave可以连上进行操作</p>
+<p>然后执行sql语句<code>STOP SLAVE;</code> 再执行上述搬运数据库的操作，导入完成后<code>START SLAVE</code></p>
+<p>使用<code>show slave status;</code>查看slave状态</p>
+<p>另外，配合autossh和ssh的端口转发可以避免将mysql端口暴露在外：</p>
+<div class="codehilite"><pre><span></span><span class="n">autossh</span> <span class="o">-</span><span class="n">M</span> <span class="mi">0</span> <span class="o">-</span><span class="n">o</span> <span class="n">ServerAliveInterval</span><span class="o">=</span><span class="mi">30</span> <span class="o">-</span><span class="n">o</span> <span class="n">ServerAliveCountMax</span><span class="o">=</span><span class="mi">3</span> <span class="o">-</span><span class="n">L</span> <span class="mf">172.17.0.1</span><span class="o">:</span><span class="mi">3306</span><span class="o">:</span><span class="mf">127.0.0.1</span><span class="o">:</span><span class="mi">3306</span> <span class="n">user</span><span class="mf">@12.34.56.789</span>
+</pre></div>
+
+
+<p>相应地，slave配置的master地址改为172.17.0.1</p>
                 
                   
                 

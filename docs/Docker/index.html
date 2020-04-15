@@ -1071,6 +1071,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#ip_2" title="固定容器的IP" class="md-nav__link">
+    固定容器的IP
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ip-etchosts" title="获取容器IP 更新主机/etc/hosts" class="md-nav__link">
+    获取容器IP 更新主机/etc/hosts
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1768,6 +1782,20 @@
         <li class="md-nav__item">
   <a href="#varlibdocker_1" title="从/var/lib/docker提取容器开始时间" class="md-nav__link">
     从/var/lib/docker提取容器开始时间
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ip_2" title="固定容器的IP" class="md-nav__link">
+    固定容器的IP
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ip-etchosts" title="获取容器IP 更新主机/etc/hosts" class="md-nav__link">
+    获取容器IP 更新主机/etc/hosts
   </a>
   
 </li>
@@ -2792,6 +2820,43 @@ i -P INPUT DROP <span class="c1"># Drop everything we don&#39;t accept</span>
 <span class="c1">#print(sqlpending)</span>
 <span class="nf">runsql</span><span class="p">(</span><span class="s s-Atom">sql</span><span class="p">[:-</span><span class="mi">1</span><span class="p">],</span> <span class="o">*</span><span class="s s-Atom">sqlpending</span><span class="p">)</span>
 </pre></div>
+
+
+<h2 id="ip_2">固定容器的IP<a class="headerlink" href="#ip_2" title="Permanent link">&para;</a></h2>
+<p>参考： <a href="https://github.com/johnnian/Blog/issues/16">https://github.com/johnnian/Blog/issues/16</a></p>
+<p>默认的bridge网络不支持指定ip，需要再创建一个网络：</p>
+<div class="codehilite"><pre><span></span>docker network create --subnet=172.18.0.0/16 b
+</pre></div>
+
+
+<p>创建容器的时候可以<code>--network b --ip 172.18.0.2</code></p>
+<p>已经存在的容器需要用：</p>
+<div class="codehilite"><pre><span></span>docker network connect --ip 172.18.0.2 --alias <span class="cp">${</span><span class="n">name</span><span class="cp">}</span> b <span class="cp">${</span><span class="n">name</span><span class="cp">}</span>
+</pre></div>
+
+
+<p>不想改动docker的network还有个临时的办法：</p>
+<h2 id="ip-etchosts">获取容器IP 更新主机/etc/hosts<a class="headerlink" href="#ip-etchosts" title="Permanent link">&para;</a></h2>
+<p>需要先将当前的hosts文件复制为/etc/hosts.base</p>
+<p>其中bridge可能需要改成docker inspect输出的其他network名称</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="k">if</span> <span class="o">[[</span> <span class="nv">$EUID</span> -ne <span class="m">0</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+   <span class="nb">echo</span> <span class="s2">&quot;This script must be run as root&quot;</span>
+   <span class="nb">exit</span> <span class="m">1</span>
+<span class="k">fi</span>
+cp /etc/hosts.base /etc/hosts
+<span class="nb">echo</span> <span class="sb">`</span>docker inspect <span class="si">${</span><span class="nv">name</span><span class="si">}</span> --format <span class="s1">&#39;{{.NetworkSettings.Networks.bridge.IPAddress}}&#39;</span><span class="sb">`</span>  <span class="si">${</span><span class="nv">name</span><span class="si">}</span> &gt;&gt; /etc/hosts
+</pre></div>
+</td></tr></table>
+
+<p>另外 你还可以启动个dns服务的容器来解析容器hostname:</p>
+<p><a href="https://stackoverflow.com/questions/37242217/access-docker-container-from-host-using-containers-name/45071126#45071126">https://stackoverflow.com/questions/37242217/access-docker-container-from-host-using-containers-name/45071126#45071126</a></p>
                 
                   
                 

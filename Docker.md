@@ -1174,3 +1174,44 @@ for i in glob.glob("*/"):
 #print(sqlpending)
 runsql(sql[:-1], *sqlpending)
 ```
+
+## 固定容器的IP
+
+参考： https://github.com/johnnian/Blog/issues/16
+
+默认的bridge网络不支持指定ip，需要再创建一个网络：
+
+```
+docker network create --subnet=172.18.0.0/16 b
+```
+
+创建容器的时候可以`--network b --ip 172.18.0.2`
+
+已经存在的容器需要用：
+
+```
+docker network connect --ip 172.18.0.2 --alias ${name} b ${name}
+```
+
+不想改动docker的network还有个临时的办法：
+
+## 获取容器IP 更新主机/etc/hosts
+
+需要先将当前的hosts文件复制为/etc/hosts.base
+
+其中bridge可能需要改成docker inspect输出的其他network名称
+
+```
+#!/bin/bash
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run as root"
+   exit 1
+fi
+cp /etc/hosts.base /etc/hosts
+echo `docker inspect ${name} --format '{{.NetworkSettings.Networks.bridge.IPAddress}}'`  ${name} >> /etc/hosts
+```
+
+另外 你还可以启动个dns服务的容器来解析容器hostname:
+
+https://stackoverflow.com/questions/37242217/access-docker-container-from-host-using-containers-name/45071126#45071126
+
