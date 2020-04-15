@@ -333,6 +333,12 @@ mysqldump -h 127.0.0.1 -P 3306 -u root -p --opt --single-transaction --comments 
 7z x -so dbdump.sql.7z | mysql -h 127.0.0.1 -u root -p
 ```
 
+你也可以使用ssh和管道操作，就不用创建文件了：
+
+```
+ssh master_server "mysqldump -h 127.0.0.1 -P 3306 -u root -ppassword --opt --single-transaction --comments --hex-blob --dump-date --no-autocommit --all-databases --master-data |gzip" | zcat | mysql -h 127.0.0.1 -u root -ppassword
+```
+
 其中`--master-data`很重要，导出的时候就自动带上了master的信息，无需再手工记录
 
 `CHANGE MASTER TO MASTER_LOG_FILE='mysql-bin.000002', MASTER_LOG_POS=15410;`
@@ -357,7 +363,12 @@ https://github.com/bitnami/bitnami-docker-mysql
 
 但这个镜像也不会帮你自动完成mysqldump，但配置一个slave还是很省心的
 
+注意权限配置，如果原本数据文件夹不存在，Docker创建的是root用户才能读写，导致容器直接退出，坑的地方在于没有报错信息
+
 ```
+mkdir -p /srv/mysql-slave/data
+chown 1001 /srv/mysql-slave/data -R
+
 docker run -it -v /srv/mysql-slave/my.cnf:/opt/bitnami/mysql/conf/my.cnf:ro -v /srv/mysql-slave/data:/bitnami/mysql/data \
      --name mysql-slave -e MYSQL_REPLICATION_MODE=slave -e MYSQL_REPLICATION_USER=slave_user -e MYSQL_REPLICATION_PASSWORD=password \
       -e MYSQL_MASTER_HOST=12.34.56.789 -e MYSQL_MASTER_PORT_NUMBER=3306 \
@@ -365,7 +376,21 @@ docker run -it -v /srv/mysql-slave/my.cnf:/opt/bitnami/mysql/conf/my.cnf:ro -v /
       bitnami/mysql:5.7
 ```
 
-其中MYSQL_MASTER_ROOT_USER虽然人家说要root用户，实际上代码里只是用来select 1，所以用slave_user即可，参见我提的issue:
+其中MYSQL_MASTER_ROOT_USER虽然人家说要root用户，实际上代码里只是用来select 1，所以用slave_user即可，参见[我提的issue](https://github.com/bitnami/bitnami-docker-mysql/issues/87)
 
-https://github.com/bitnami/bitnami-docker-mysql/issues/87
+容器启动后一般会由于master的binlog不完整执行sql失败（表不存在），需要继续操作：
+
+修改my.cnf在`[mysqld]`增加`skip-grant-tables` 注意复数，来保证slave可以连上进行操作
+
+然后执行sql语句`STOP SLAVE;` 再执行上述搬运数据库的操作，导入完成后`START SLAVE`
+
+使用`show slave status;`查看slave状态
+
+另外，配合autossh和ssh的端口转发可以避免将mysql端口暴露在外：
+
+```
+autossh -M 0 -o ServerAliveInterval=30 -o ServerAliveCountMax=3 -L 172.17.0.1:3306:127.0.0.1:3306 user@12.34.56.789
+```
+
+相应地，slave配置的master地址改为172.17.0.1
 
