@@ -1,7 +1,5 @@
 # Python程序设计课程
 
-# Python HW1 常见错误
-
 ## 先本地测试能通过再提交
 
 PTA没有提供详细的报错，你都不知道错哪了怎么改，建议你试试本文提到的错误，记住错误信息下次遇到也就不慌了
@@ -167,7 +165,7 @@ s="Python语言简单易学"
 IndentationError: unexpected indent
 ```
 
-# Python HW2 常见错误
+-------
 
 ## print的用法
 
@@ -368,8 +366,6 @@ Sum = 30
 另外这个题目暗含着 每行末尾不能有空格 的要求，你能用`end=' '`吗?
 
 -----
-
-# Python Week3 答疑
 
 ## 学会自己造数据
 
@@ -639,3 +635,202 @@ print(x or y and z)
 - empty sequences and collections: '', (), [], {}, set(), range(0)
 
 >Operations and built-in functions that have a Boolean result always return 0 or False for false and 1 or True for true, unless otherwise stated. (Important exception: the Boolean operations or and and always return one of their operands.)
+
+-------
+
+## 行末到底要不要输出空格
+
+方法是**复制一下题目的输出样例**，看看到底最后有没有空格
+
+## 怎样做到末尾不输出空格
+
+如果可以输出空格，简单 循环里面print(item, end=' ')就行
+
+举个例子吧，题目要求我们输出1 2 3 ，末尾要有空格
+
+用print记得end参数要写上，否则就换行了
+
+```python
+for i in range(1, 4):
+    print(i, end=' ')
+```
+
+
+### 方案1：把要输出的东西暂时存到数组result里，最后`print(*result)`
+
+题目要求我们输出1 2 3，末尾不能有空格
+
+```python
+result=[]
+for i in range(1, 4):
+    result.append(i)
+print(*result)
+```
+
+这里用到了符号`*`，在调用函数的时候使用星号表示把这个数组拆开，数组的每个元素都作为函数的参数
+
+假设`result=[1,2,3]`，`print([1,2,3])`会输出`[1, 2, 3]` 两边有方框 不是我们要的
+
+试试`print(*[1,2,3])` 会输出`1 2 3` 它就等价于`print(1,2,3)` 
+
+看，列表的每个元素从数组的束缚中解脱出来，直接当成print的参数了！
+
+### 方案2：区分首元素和其后的元素
+
+比如要输出`1 2 3`，我们这么看待：`1/空格2/空格3`
+
+为啥这样看呢？为啥不看成是`1空格/2空格/3`呢？因为循环啥时候结束很可能是你不知道的，你就无法判断当前元素是不是最后一个。
+
+但是你一定知道哪个元素是第一个元素啊！
+
+```python
+isfirst=True
+for i in range(1, 4):
+    if isfirst: # 第一个元素
+        print(i, end='')
+        isfirst=False
+    else: # 后续的元素 先输出一个空格
+        print('', i, end='') #等价于print(' '+str(i), end='')
+```
+
+## 如何正确地换行 print('\n')是不行的
+
+上面我们都是在一行里输出，现在我们要开始下一行了，你很可能想`print('\n')`
+
+这个实际上是`print('\n', end='\n')` 因为你没有提供end参数，end就默认是一个换行，你自己又显示了个换行，那就是两个\n了！
+
+两个\n！先进入下一行，再进入下一行，不就显示了一个多余的空行了嘛！
+
+解决方案：`print()`多简单
+
+## 循环初始化 放在正确的位置
+
+循环依赖的变量的初始化——一定要在循环开始之前做！不能在外面循环之前做！
+
+```
+t=int(input())
+cnt=0
+lst=[] #储存结果，最后一起输出
+for i in range(t):
+    n=int(input())
+    mat=[]
+    for j in range(n):
+        mat.append(input().split())
+    for row in range(1,n):
+        for col in range(0,n-1):
+            if row>col and mat[row][col]=='0':
+                cnt+=1
+    if cnt==(n**2-n)/2:
+        str="YES"
+    else:
+        str="NO"
+    lst.append(str)
+for z in lst:
+    print(z)
+```
+
+例如这个判断上三角的，先看这代码的本质——循环里面有循环，外层循环（range t）是多个矩阵，内层循环（row和col）用来遍历矩阵
+
+那问题来了，内层循环的cnt作用在单个矩阵里面，不同矩阵之间不能相互干扰，也就是说cnt应该在进入row循环之前初始化！把cnt=0移动到第9行之前即可
+
+再打个比方，我们要计算多个班级分别的平均分，需要对班级内的每个学生累加到sum_score，那你就需要在 进入这个班级的循环后 对班级内每个学生遍历的循环前 对sum_score 进行初始化 sum_score=0；如果你提早做了，上个班级的总分就会加入到下个班级，不合适吧
+
+```
+n=int(input())
+data=[int(input()) for i in range(n)]
+a=2
+for i in data:
+    while a<i:
+        if i%a==0:
+            print('No')
+            break
+        a=a+1
+    else:
+        print('Yes')
+```
+
+这是另一个例子，判断素数，每个素数的判断应该是独立的，需要把a=2移动到`for i in data:`循环开始之后 `while a<i`循环开始之前
+
+简而言之：哪个循环负责这个变量，就在这个循环之前做初始化，保证外层循环互不干扰
+
+## 填空题别出现中文引号
+
+别以为别的题目文本里出现了中文引号你就能用，题目不严谨不代表你能不严谨
+
+## 怎么正确地判断素数
+
+如果你还不会，建议背下来标准答案：只要遇到需要判断素数的题目，先默写这个isPrime函数
+
+记忆口诀：1不是，2是，从2到(根号n) + 1
+
+```python
+import math
+def isPrime(n):
+    if n==1:
+        return False
+    if n == 2:
+        return True
+    for i in range(2, int(math.sqrt(n)+1)):
+        if n%i==0:
+            return False
+    return True
+```
+
+不要把素数判断的代码和其他代码混在一起，求求你写个函数吧！ 写了函数之后你可以自己调用函数去测试啊，如图所示，我写了之后就会自己构造一些数据去测试。 **测试  测试 测试**
+
+```
+>>> import math
+>>> def isPrime(n):
+...     if n==1:
+...         return False
+...     if n == 2:
+...         return True
+...     for i in range(2, int(math.sqrt(n)+1)):
+...         if n%i==0:
+...             return False
+...     return True
+...
+>>> isPrime(1)
+False
+>>> isPrime(2)
+True
+>>> isPrime(3)
+True
+>>> isPrime(4)
+False
+>>> isPrime(5)
+True
+>>> isPrime(6)
+False
+>>> isPrime(101)
+True
+>>> isPrime(100)
+False
+```
+
+
+## 运行超时怎么破？
+
+### 记住判断素数可以开根号啊！
+
+不要从2到n-1，根号n就行了
+
+### 题目给的上界一定会有测试点
+
+验证哥德巴赫猜想一题 
+
+题目说 输入在一行中给出一个(2, 2 000 000 000]范围内的偶数N。
+
+哇 好多0，数一数这是20亿啊，放一个这么大的上界在这里干啥啊？只是好看嘛？
+
+肯定是有一个测试点会输入这个20亿，你自己本地测试你的代码就一定要试试
+
+然后就发现你的程序好久没反应，就应该优化了
+
+### 想想怎么简化计算
+
+还是哥德巴赫猜想这个题目，你觉得需要求出小于N的所有素数嘛？然后在这个素数数组里求求和？
+
+当然这个方法没错，只是太慢了，要求出20亿以内的所有素数，这个太贵了（太耗时了，时间就是金钱啊）
+
+我们的目标只是给出一个N=p+q就行，只要从2开始找素数p，然后验证N-p也是素数即可
