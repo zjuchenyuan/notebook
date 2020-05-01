@@ -19,6 +19,13 @@ git commit -a -m "这次改了些啥？"
 git push
 ```
 
+更多的配置：
+
+```
+# 默认git pull --rebase
+git config --global pull.rebase true
+```
+
 ----
 
 ## 加速git clone
