@@ -279,3 +279,83 @@ def myrender_template(filename):
     return render_template(filename, **targs)
 ```
 
+------
+
+## 在Flask中正确地产生流式响应EventSource
+
+考虑我们需要向前端提供消息队列的消费者，比如收到广播后发给浏览器通知用户。当然我们可以用websocket，但这种场景（只有服务器给浏览器发）下只需要长连接的EventSource就行了。
+
+基础篇： https://stackoverflow.com/questions/12232304/how-to-implement-server-push-in-flask-framework
+
+```
+def queue_consumer():
+    conn = 创建连接() #连接到消息队列，创建 channel
+    for data in conn.读取数据():
+        yield b"data: "+data+b"\n\n"
+    关闭连接() # 怎么执行到？
+
+@app.route("/stream")
+def stream():
+    return Response(queue_consumer(), mimetype="text/event-stream")
+```
+
+这个的问题在于关闭连接不会执行到，在消息队列服务器上观察到channel一直没有释放，这肯定不行，我们需要在浏览器断开连接的时候自动释放conn等资源。
+
+读了 werkzeug 的源代码发现 Response 有 call_on_close 函数，在连接关闭的时候我们把生成器close即可触发yield的异常：
+
+```
+def queue_consumer():
+    conn = 创建连接() #连接到消息队列，创建 channel
+    try:
+        for data in conn.读取数据():
+            yield b"data: "+data+b"\n\n" #结束的时候会触发GeneratorExit异常
+    except:
+        pass
+    关闭连接()
+
+@app.route("/stream")
+def stream():
+    consumer = queue_consumer()
+    res = Response(consumer, mimetype="text/event-stream")
+    def onclose():
+        consumer.close()
+    res.call_on_close(onclose)
+    return res
+```
+
+这样还不够，发现无法使用g，以及Nginx默认缓存响应导致延迟，需要继续配置：
+
+```
+def queue_consumer():
+    conn = 创建连接() #连接到消息队列，创建 channel
+    try:
+        for data in conn.读取数据():
+            yield b"data: "+data+b"\n\n" #结束的时候会触发GeneratorExit异常
+    except:
+        pass
+    关闭连接()
+
+@app.route("/stream")
+def stream():
+    consumer = queue_consumer()
+    res = Response(stream_with_context(consumer), mimetype="text/event-stream")
+    def onclose():
+        consumer.close()
+    res.call_on_close(onclose)
+    res.headers["X-Accel-Buffering"] = "no"
+    res.headers["Cache-Control"] = "no-cache"
+    return res
+```
+
+这些Nginx配置你也可能需要加上：尤其是还有下一层反代的时候
+
+```
+uwsgi_pass_header "X-Accel-Buffering";
+uwsgi_read_timeout 120s;
+uwsgi_send_timeout 120s;
+
+proxy_http_version 1.1;
+proxy_set_header Connection "";
+proxy_pass_header "X-Accel-Buffering";
+```
+

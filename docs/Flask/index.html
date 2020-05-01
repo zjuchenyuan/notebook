@@ -648,6 +648,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#flaskeventsource" title="在Flask中正确地产生流式响应EventSource" class="md-nav__link">
+    在Flask中正确地产生流式响应EventSource
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1092,6 +1099,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#flaskeventsource" title="在Flask中正确地产生流式响应EventSource" class="md-nav__link">
+    在Flask中正确地产生流式响应EventSource
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -1356,6 +1370,78 @@ render_template(&quot;x.html&quot;, **targs)
     <span class="n">targs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">backframe</span><span class="o">.</span><span class="n">f_globals</span><span class="p">)</span>
     <span class="n">targs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">backframe</span><span class="o">.</span><span class="n">f_locals</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="o">**</span><span class="n">targs</span><span class="p">)</span>
+</pre></div>
+
+
+<hr />
+<h2 id="flaskeventsource">在Flask中正确地产生流式响应EventSource<a class="headerlink" href="#flaskeventsource" title="Permanent link">&para;</a></h2>
+<p>考虑我们需要向前端提供消息队列的消费者，比如收到广播后发给浏览器通知用户。当然我们可以用websocket，但这种场景（只有服务器给浏览器发）下只需要长连接的EventSource就行了。</p>
+<p>基础篇： <a href="https://stackoverflow.com/questions/12232304/how-to-implement-server-push-in-flask-framework">https://stackoverflow.com/questions/12232304/how-to-implement-server-push-in-flask-framework</a></p>
+<div class="codehilite"><pre><span></span>def queue_consumer():
+    conn = 创建连接() #连接到消息队列，创建 channel
+    for data in conn.读取数据():
+        yield b&quot;data: &quot;+data+b&quot;\n\n&quot;
+    关闭连接() # 怎么执行到？
+
+@app.route(&quot;/stream&quot;)
+def stream():
+    return Response(queue_consumer(), mimetype=&quot;text/event-stream&quot;)
+</pre></div>
+
+
+<p>这个的问题在于关闭连接不会执行到，在消息队列服务器上观察到channel一直没有释放，这肯定不行，我们需要在浏览器断开连接的时候自动释放conn等资源。</p>
+<p>读了 werkzeug 的源代码发现 Response 有 call_on_close 函数，在连接关闭的时候我们把生成器close即可触发yield的异常：</p>
+<div class="codehilite"><pre><span></span>def queue_consumer():
+    conn = 创建连接() #连接到消息队列，创建 channel
+    try:
+        for data in conn.读取数据():
+            yield b&quot;data: &quot;+data+b&quot;\n\n&quot; #结束的时候会触发GeneratorExit异常
+    except:
+        pass
+    关闭连接()
+
+@app.route(&quot;/stream&quot;)
+def stream():
+    consumer = queue_consumer()
+    res = Response(consumer, mimetype=&quot;text/event-stream&quot;)
+    def onclose():
+        consumer.close()
+    res.call_on_close(onclose)
+    return res
+</pre></div>
+
+
+<p>这样还不够，发现无法使用g，以及Nginx默认缓存响应导致延迟，需要继续配置：</p>
+<div class="codehilite"><pre><span></span>def queue_consumer():
+    conn = 创建连接() #连接到消息队列，创建 channel
+    try:
+        for data in conn.读取数据():
+            yield b&quot;data: &quot;+data+b&quot;\n\n&quot; #结束的时候会触发GeneratorExit异常
+    except:
+        pass
+    关闭连接()
+
+@app.route(&quot;/stream&quot;)
+def stream():
+    consumer = queue_consumer()
+    res = Response(stream_with_context(consumer), mimetype=&quot;text/event-stream&quot;)
+    def onclose():
+        consumer.close()
+    res.call_on_close(onclose)
+    res.headers[&quot;X-Accel-Buffering&quot;] = &quot;no&quot;
+    res.headers[&quot;Cache-Control&quot;] = &quot;no-cache&quot;
+    return res
+</pre></div>
+
+
+<p>这些Nginx配置你也可能需要加上：尤其是还有下一层反代的时候</p>
+<div class="codehilite"><pre><span></span>uwsgi_pass_header &quot;X-Accel-Buffering&quot;;
+uwsgi_read_timeout 120s;
+uwsgi_send_timeout 120s;
+
+proxy_http_version 1.1;
+proxy_set_header Connection &quot;&quot;;
+proxy_pass_header &quot;X-Accel-Buffering&quot;;
 </pre></div>
                 
                   
