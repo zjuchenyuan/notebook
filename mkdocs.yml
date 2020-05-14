@@ -63,16 +63,9 @@ pages:
         - ZJU grs helper: zjugrshelper.md
     
     
-extra:
-  social:
-    - type: 'github-alt'
-      link: 'https://github.com/zjuchenyuan'
-    - type: 'envelope'
-      link: 'mailto: py3io.chenyuan@qiushi.ac.cn'
  
 markdown_extensions:
   - admonition
-  - urlize
   - codehilite
   - smarty
   - sane_lists
