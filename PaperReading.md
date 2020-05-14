@@ -362,7 +362,34 @@ SYMFUZZ[8] 可以检测input bits之间的依赖 计算出optimal mutation ratio
 ```
 
 
+-----
 
+## VUzzer的变异操作
 
+https://github.com/vusec/vuzzer/blob/f6f7d593a0e76e86afb3c7af6d5186f897bab979/operators.py#L291
 
+这里我们分析一下vuzzer实现的变异操作，其所有operators为一个数组，每个元素都是一个函数
 
+同一个函数可以出现多次，排序后如下所示，我按照我的理解标注了功能：
+
+```
+add_random 选择一个随机位置 插入随机字符串
+add_random
+add_random
+change_bytes 根据TAINTMAP修改
+change_bytes
+change_random 选择一部分字节替换为随机字符串
+change_random
+change_random_full 选择一部分字节替换为随机字符串或从程序中提取出的magic bytes
+change_random_full
+double_fuzz 随机选择两种mutator
+eliminate_double_null 删去\0\0
+eliminate_null 将\0替换为A
+eliminate_random 随机删去一部分
+eliminate_random
+int_slide 将特定位置变为 \xFF\xFF\xFF\xFF 或 \x80\x00\x00\x00 或 \x00\x00\x00\x00
+lower_single_random 随机变异1~100次：每次选择一个随机字符变为其-1
+raise_single_random 随机变异1~100次：每次选择一个随机字符变为其+1
+single_change_random 随机变异1~100次：每次选择一个随机字符变为随机字符
+totally_random 生成一个长度在100~1000的字符串
+```
