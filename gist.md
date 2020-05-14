@@ -209,3 +209,69 @@ plaintext = aes.decrypt(base64.b64decode(encrypted_text)).decode()
 
 print(plaintext) # hello world
 ```
+
+------
+
+## Python画图 上方颜色，然后M*N个小图
+
+TODO: 增加一张示意图
+
+```
+import json
+import matplotlib.pyplot as plt 
+import seaborn as sns
+import matplotlib.gridspec as gridspec
+import gzip
+import pickle
+import os
+import shutil
+
+def plotmatrix(M, N, DATA, labels, colors, xlabel, ylabel, fontsize, sep):
+    """
+    M: how many rows, like 4
+    N: how many cols, like 5
+    DATA: [{
+        "name": "figure title", 
+        "lines":[ 
+            [[...], [...]],
+        ]
+    }]
+    labels: the label of lines, like [fuzzerA, fuzzerB]
+    colors: color of lines, like [red, blue]
+    xlabel: like "#Time (days)"
+    fontsize: 13
+    sep: (wspace, hspace) like (0.5, 0.5)
+    """
+    assert M*N >= len(DATA)
+    fig = plt.figure(figsize=(M*5,N*1.2))
+    outer = gridspec.GridSpec(2, 1, wspace=0.2, hspace=0.4, height_ratios= [1, 10])
+    inner = gridspec.GridSpecFromSubplotSpec(M,N,subplot_spec=outer[1], wspace=sep[0], hspace=sep[1])
+    
+    index = -1
+    for data in DATA:
+        index += 1
+        ax = plt.Subplot(fig, inner[index])
+        fig.add_subplot(ax)
+        plt.title(data["name"])
+        for i, line in enumerate(data["lines"]):
+            plt.plot(*line, label=labels[i], color=colors[i])
+            ax = plt.gca()
+            ax.title.set_fontsize(fontsize)
+            plt.xlabel(xlabel, fontsize=fontsize-2)
+            plt.ylabel(ylabel, fontsize=fontsize-2)
+    ax=plt.Subplot(fig, outer[0])
+    ax.set_ylabel('')
+    ax.set_xlabel('')
+    fig.add_subplot(ax)
+    ax = sns.boxplot(x=[0]*len(labels), y=[0]*len(labels), sym='', hue=labels, linewidth=0, palette=colors, ax=ax, boxprops={"linestyle":"None"})
+    ax.spines['right'].set_visible(False)
+    ax.spines['top'].set_visible(False)
+    ax.spines['left'].set_visible(False)
+    ax.spines['bottom'].set_visible(False)
+    plt.xticks([])
+    plt.yticks([])
+    handles, labels = ax.get_legend_handles_labels()
+    plt.legend(handles, labels, loc='center', ncol=8, fontsize=fontsize-1)
+    plt.show()
+```
+
