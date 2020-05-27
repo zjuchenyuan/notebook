@@ -802,3 +802,19 @@ https://gist.github.com/tzmartin/fb1f4a8e95ef5fb79596bd4719671b5d
 ```
 ffmpeg -i http://dtliving-pre.alicdn.com/... -bsf:a aac_adtstoasc -vcodec copy -c copy name.mp4
 ```
+
+-----
+
+## 黑色背景ls 目录深绿色看不清改个颜色
+
+Ubuntu系统编辑`~/.dircolors`: (其他系统`~/.dir_colors`)
+
+```
+DIR 01;36 
+```
+
+或者执行：
+
+```
+eval `dircolors | sed -e 's/;34:/;36:/'`
+```

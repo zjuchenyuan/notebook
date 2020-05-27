@@ -1233,6 +1233,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#ls" class="md-nav__link">
+    黑色背景ls 目录深绿色看不清改个颜色
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1742,6 +1749,13 @@
         <li class="md-nav__item">
   <a href="#m3u8mp4" class="md-nav__link">
     钉钉直播回放下载 m3u8转mp4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ls" class="md-nav__link">
+    黑色背景ls 目录深绿色看不清改个颜色
   </a>
   
 </li>
@@ -2344,6 +2358,18 @@ done
 <p>https://gist.github.com/tzmartin/fb1f4a8e95ef5fb79596bd4719671b5d</p>
 <div class="codehilite"><pre><span></span><code><span class="err">ffmpeg -i http://dtliving-pre.alicdn.com/... -bsf:a aac_adtstoasc -vcodec copy -c copy name.mp4</span>
 </code></pre></div>
+
+
+<hr />
+<h2 id="ls">黑色背景ls 目录深绿色看不清改个颜色<a class="headerlink" href="#ls" title="Permanent link">&para;</a></h2>
+<p>Ubuntu系统编辑<code>~/.dircolors</code>: (其他系统<code>~/.dir_colors</code>)</p>
+<div class="codehilite"><pre><span></span><code><span class="err">DIR 01;36 </span>
+</code></pre></div>
+
+
+<p>或者执行：</p>
+<div class="codehilite"><pre><span></span><code><span class="err">eval `dircolors | sed -e &#39;s/;34:/;36:/&#39;`</span>
+</code></pre></div>
                 
               
               
@@ -2416,7 +2442,26 @@ done
     
       <script src="../assets/javascripts/vendor.a0c4167b.min.js"></script>
       <script src="../assets/javascripts/bundle.fb26dd1d.min.js"></script>
-      <script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script>
+function dictZip(key_array, val_array) {
+  if (key_array.length === val_array.length) {
+    return key_array.reduce((acc, curr, index) => {
+      acc[curr] = val_array[index];
+      return acc;
+    }, {});
+  } else {
+    console.error("Wrong length");
+  }
+}
+var translations_keys=['clipboard.copy', 'clipboard.copied', 'search.config.lang', 'search.config.pipeline', 'search.config.separator', 'search.result.placeholder', 'search.result.none', 'search.result.one', 'search.result.other'];
+var translations_values=['Copy to clipboard', 'Copied to clipboard', 'en', 'trimmer, stopWordFilter', '[\\s\\-]+', 'Type to start searching', 'No matching documents', '1 matching document', '# matching documents'];
+translations = dictZip(translations_keys, translations_values);
+var s = document.createElement("script");
+s.id="__lang";
+s.type="application/json"
+s.innerHTML=JSON.stringify(translations);
+document.body.appendChild(s);
+</script> 
       
       <script>
         app = initialize({
