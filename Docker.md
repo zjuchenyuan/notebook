@@ -1215,3 +1215,61 @@ echo `docker inspect ${name} --format '{{.NetworkSettings.Networks.bridge.IPAddr
 
 https://stackoverflow.com/questions/37242217/access-docker-container-from-host-using-containers-name/45071126#45071126
 
+
+-----
+
+## Docker容器禁止主动联网 但对外提供web服务
+
+首先排除--network none，这样没有网卡怎么做端口映射
+
+下面假设容器名称为${CONTAINER}，容器启动的http服务端口为5000
+
+### 简单方案 直接删除默认路由
+
+nsenter --target `docker inspect --format '{{.State.Pid}}' ${CONTAINER}`  --net --pid route delete default
+
+好处在于访问网络的请求能迅速报错Network is unreachable，也不需要额外的容器参数配置
+
+但容器每次重启都需要重新执行
+
+### 复杂方案 创建个内部网络 Nginx转发
+
+docker的创建网络提供了`--internal`参数，意思是不允许这个网络访问外界，但是访问网络的请求不会立刻返回，效果像是一直丢包就没响应
+
+这里我们创建一个名为${CONTAINER}_nonet的网络，启动容器的时候指定这个网络并配置别名app
+
+然后还需要Nginx容器同时加入默认网络和这个网络来进行转发，Nginx容器一开始创建后的启动会报错反复重启（无法解析app），加入网络后即可正常启动
+
+```
+docker network create ${CONTAINER}_nonet --internal
+docker run --network ${CONTAINER}_nonet --network-alias app ...
+docker run --name ${CONTAINER}_nginx -d -v `pwd`/nginxconf:/etc/nginx/conf.d -p 20528:80 --restart=always nginx
+docker network connect ${CONTAINER}_nonet ${CONTAINER}_nginx --alias nginx
+```
+
+其中nginxconf文件夹里放一个default.conf:
+
+```
+server {
+    listen       80;
+    server_name  localhost;
+    location / {
+        proxy_pass http://app:5000;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
+```
+
+既然用了反向代理，应用层也需要配置一下IP相关的修复才能使日志显示访问者ip（而不是Nginx容器的IP），比如Flask 1.0需要：
+
+```
+from werkzeug.middleware.proxy_fix import ProxyFix
+app.wsgi_app = ProxyFix(app.wsgi_app)
+```
+
+这个方案有点复杂，但好处在于重启容器不需要额外配置，反正连不上网
+
+坏处在于访问网络的请求会一直卡住，应用层需要自己考虑超时
+
+你可以把这两种方案结合起来，保证即使忘了删默认路由也能保证不能联网
+

@@ -1094,6 +1094,33 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#docker-web" class="md-nav__link">
+    Docker容器禁止主动联网 但对外提供web服务
+  </a>
+  
+    <nav class="md-nav" aria-label="Docker容器禁止主动联网 但对外提供web服务">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    简单方案 直接删除默认路由
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nginx" class="md-nav__link">
+    复杂方案 创建个内部网络 Nginx转发
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1827,6 +1854,33 @@
   <a href="#ip-etchosts" class="md-nav__link">
     获取容器IP 更新主机/etc/hosts
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-web" class="md-nav__link">
+    Docker容器禁止主动联网 但对外提供web服务
+  </a>
+  
+    <nav class="md-nav" aria-label="Docker容器禁止主动联网 但对外提供web服务">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    简单方案 直接删除默认路由
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nginx" class="md-nav__link">
+    复杂方案 创建个内部网络 Nginx转发
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2890,6 +2944,46 @@ cp /etc/hosts.base /etc/hosts
 
 <p>另外 你还可以启动个dns服务的容器来解析容器hostname:</p>
 <p>https://stackoverflow.com/questions/37242217/access-docker-container-from-host-using-containers-name/45071126#45071126</p>
+<hr />
+<h2 id="docker-web">Docker容器禁止主动联网 但对外提供web服务<a class="headerlink" href="#docker-web" title="Permanent link">&para;</a></h2>
+<p>首先排除&ndash;network none，这样没有网卡怎么做端口映射</p>
+<p>下面假设容器名称为${CONTAINER}，容器启动的http服务端口为5000</p>
+<h3 id="_15">简单方案 直接删除默认路由<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<p>nsenter &ndash;target <code>docker inspect --format '{{.State.Pid}}' ${CONTAINER}</code>  &ndash;net &ndash;pid route delete default</p>
+<p>好处在于访问网络的请求能迅速报错Network is unreachable，也不需要额外的容器参数配置</p>
+<p>但容器每次重启都需要重新执行</p>
+<h3 id="nginx">复杂方案 创建个内部网络 Nginx转发<a class="headerlink" href="#nginx" title="Permanent link">&para;</a></h3>
+<p>docker的创建网络提供了<code>--internal</code>参数，意思是不允许这个网络访问外界，但是访问网络的请求不会立刻返回，效果像是一直丢包就没响应</p>
+<p>这里我们创建一个名为${CONTAINER}_nonet的网络，启动容器的时候指定这个网络并配置别名app</p>
+<p>然后还需要Nginx容器同时加入默认网络和这个网络来进行转发，Nginx容器一开始创建后的启动会报错反复重启（无法解析app），加入网络后即可正常启动</p>
+<div class="codehilite"><pre><span></span><code><span class="n">docker</span> <span class="n">network</span> <span class="k">create</span> <span class="err">${</span><span class="n">CONTAINER</span><span class="err">}</span><span class="n">_nonet</span> <span class="o">--</span><span class="n">internal</span>
+<span class="n">docker</span> <span class="n">run</span> <span class="o">--</span><span class="n">network</span> <span class="err">${</span><span class="n">CONTAINER</span><span class="err">}</span><span class="n">_nonet</span> <span class="o">--</span><span class="n">network</span><span class="o">-</span><span class="n">alias</span> <span class="n">app</span> <span class="p">...</span>
+<span class="n">docker</span> <span class="n">run</span> <span class="o">--</span><span class="n">name</span> <span class="err">${</span><span class="n">CONTAINER</span><span class="err">}</span><span class="n">_nginx</span> <span class="o">-</span><span class="n">d</span> <span class="o">-</span><span class="n">v</span> <span class="ss">`pwd`</span><span class="o">/</span><span class="n">nginxconf</span><span class="p">:</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">conf</span><span class="p">.</span><span class="n">d</span> <span class="o">-</span><span class="n">p</span> <span class="mi">20528</span><span class="p">:</span><span class="mi">80</span> <span class="o">--</span><span class="n">restart</span><span class="o">=</span><span class="n">always</span> <span class="n">nginx</span>
+<span class="n">docker</span> <span class="n">network</span> <span class="n">connect</span> <span class="err">${</span><span class="n">CONTAINER</span><span class="err">}</span><span class="n">_nonet</span> <span class="err">${</span><span class="n">CONTAINER</span><span class="err">}</span><span class="n">_nginx</span> <span class="o">--</span><span class="n">alias</span> <span class="n">nginx</span>
+</code></pre></div>
+
+
+<p>其中nginxconf文件夹里放一个default.conf:</p>
+<div class="codehilite"><pre><span></span><code><span class="err">server {</span>
+<span class="err">    listen       80;</span>
+<span class="err">    server_name  localhost;</span>
+<span class="err">    location / {</span>
+<span class="err">        proxy_pass http://app:5000;</span>
+<span class="err">        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span>
+<span class="err">    }</span>
+<span class="err">}</span>
+</code></pre></div>
+
+
+<p>既然用了反向代理，应用层也需要配置一下IP相关的修复才能使日志显示访问者ip（而不是Nginx容器的IP），比如Flask 1.0需要：</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">werkzeug.middleware.proxy_fix</span> <span class="kn">import</span> <span class="n">ProxyFix</span>
+<span class="n">app</span><span class="o">.</span><span class="n">wsgi_app</span> <span class="o">=</span> <span class="n">ProxyFix</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">wsgi_app</span><span class="p">)</span>
+</code></pre></div>
+
+
+<p>这个方案有点复杂，但好处在于重启容器不需要额外配置，反正连不上网</p>
+<p>坏处在于访问网络的请求会一直卡住，应用层需要自己考虑超时</p>
+<p>你可以把这两种方案结合起来，保证即使忘了删默认路由也能保证不能联网</p>
                 
               
               
