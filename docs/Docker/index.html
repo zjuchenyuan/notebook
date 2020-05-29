@@ -2949,7 +2949,10 @@ cp /etc/hosts.base /etc/hosts
 <p>首先排除&ndash;network none，这样没有网卡怎么做端口映射</p>
 <p>下面假设容器名称为${CONTAINER}，容器启动的http服务端口为5000</p>
 <h3 id="_15">简单方案 直接删除默认路由<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
-<p>nsenter &ndash;target <code>docker inspect --format '{{.State.Pid}}' ${CONTAINER}</code>  &ndash;net &ndash;pid route delete default</p>
+<div class="codehilite"><pre><span></span><code>nsenter --target `docker inspect --format &#39;{{.State.Pid}}&#39; <span class="cp">${</span><span class="n">CONTAINER</span><span class="cp">}</span>`  --net --pid route delete default
+</code></pre></div>
+
+
 <p>好处在于访问网络的请求能迅速报错Network is unreachable，也不需要额外的容器参数配置</p>
 <p>但容器每次重启都需要重新执行</p>
 <h3 id="nginx">复杂方案 创建个内部网络 Nginx转发<a class="headerlink" href="#nginx" title="Permanent link">&para;</a></h3>

@@ -1226,7 +1226,10 @@ https://stackoverflow.com/questions/37242217/access-docker-container-from-host-u
 
 ### 简单方案 直接删除默认路由
 
+```
 nsenter --target `docker inspect --format '{{.State.Pid}}' ${CONTAINER}`  --net --pid route delete default
+```
+
 
 好处在于访问网络的请求能迅速报错Network is unreachable，也不需要额外的容器参数配置
 
