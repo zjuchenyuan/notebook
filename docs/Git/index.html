@@ -1706,7 +1706,7 @@ ssb   4096R/42B317FD4BA89E7A <span class="m">2016</span>-03-10
 <hr />
 <h2 id="githubssh-key-ghclone">GitHub不同仓库使用不同ssh key: ghclone<a class="headerlink" href="#githubssh-key-ghclone" title="Permanent link">&para;</a></h2>
 <p>GitHub要求不同仓库的deploy key不同，但ssh config只能为一个Host设置相同的key</p>
-<p>从<a href="https://gist.github.com/gubatron/d96594d982c5043be6d4">这里</a>发现了一个trick：*.github.com都是可以正常解析到github的，这样就得到了无数个Host</p>
+<p>从<a href="https://gist.github.com/gubatron/d96594d982c5043be6d4">这里</a>发现了一个trick：<code>*.github.com</code>都是可以正常解析到github的，这样就得到了无数个Host</p>
 <p>快速使用：</p>
 <div class="codehilite"><pre><span></span><code><span class="err">curl https://d.py3.io/ghclone &gt; /usr/local/bin/ghclone</span>
 <span class="err">chmod +x /usr/local/bin/ghclone</span>
