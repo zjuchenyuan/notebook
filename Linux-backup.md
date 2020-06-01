@@ -39,3 +39,21 @@ rsync可以断点续传，不如就用rsync代替scp
 首先需要ssh-keygen生成id_rsa,把id_rsa.pub的内容复制到目标机器的~/.ssh/authorized_keys
 
 在需要使用scp -r的地方改为rsync -avz -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --progress
+
+----
+
+## tar备份整个系统
+
+比如通过远程ssh的方式下载到服务器的整个根目录打包：
+
+```
+ssh server tar -cvpz --one-file-system / > server_backup.tar.gz
+```
+
+其中：
+
+- c 创建
+- v 压缩时显示详情 当前处理的文件
+- p preserve-permissions保留权限信息
+- z 使用gzip压缩
+

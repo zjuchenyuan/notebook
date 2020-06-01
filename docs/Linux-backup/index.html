@@ -801,6 +801,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#tar" class="md-nav__link">
+    tar备份整个系统
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -954,6 +961,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#tar" class="md-nav__link">
+    tar备份整个系统
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1003,6 +1017,20 @@ zip -r -P 压缩密码 -m bakup<span class="nv">$d</span>.zip bakup<span class="
 <p>参考：<a href="https://www.digitalocean.com/community/tutorials/how-to-copy-files-with-rsync-over-ssh">https://www.digitalocean.com/community/tutorials/how-to-copy-files-with-rsync-over-ssh</a></p>
 <p>首先需要ssh-keygen生成id_rsa,把id_rsa.pub的内容复制到目标机器的~/.ssh/authorized_keys</p>
 <p>在需要使用scp -r的地方改为rsync -avz -e &ldquo;ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null&rdquo; &ndash;progress</p>
+<hr />
+<h2 id="tar">tar备份整个系统<a class="headerlink" href="#tar" title="Permanent link">&para;</a></h2>
+<p>比如通过远程ssh的方式下载到服务器的整个根目录打包：</p>
+<div class="codehilite"><pre><span></span><code><span class="err">ssh server tar -cvpz --one-file-system / &gt; server_backup.tar.gz</span>
+</code></pre></div>
+
+
+<p>其中：</p>
+<ul>
+<li>c 创建</li>
+<li>v 压缩时显示详情 当前处理的文件</li>
+<li>p preserve-permissions保留权限信息</li>
+<li>z 使用gzip压缩</li>
+</ul>
                 
               
               
