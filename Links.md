@@ -38,6 +38,8 @@
 
 [Jarvis OJ](https://www.jarvisoj.com/) -- jarvisoj.com
 
+[dnsbllookup](http://dnsbllookup.com/) -- dnsbllookup.com 查询ip是否在黑名单中 其中有两个已经域名过期总是返回Listed
+
 ## 安全资讯
 
 [FreeBuf](http://www.freebuf.com/) -- www.freebuf.com

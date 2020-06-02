@@ -1240,6 +1240,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#seafile" class="md-nav__link">
+    部署seafile客户端
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1756,6 +1763,13 @@
         <li class="md-nav__item">
   <a href="#ls" class="md-nav__link">
     黑色背景ls 目录深绿色看不清改个颜色
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seafile" class="md-nav__link">
+    部署seafile客户端
   </a>
   
 </li>
@@ -2370,6 +2384,27 @@ done
 <p>或者执行：</p>
 <div class="codehilite"><pre><span></span><code><span class="err">eval `dircolors | sed -e &#39;s/;34:/;36:/&#39;`</span>
 </code></pre></div>
+
+
+<hr />
+<h2 id="seafile">部署seafile客户端<a class="headerlink" href="#seafile" title="Permanent link">&para;</a></h2>
+<p>https://download.seafile.com/published/seafile-user-manual/syncing_client/install_linux_client.md</p>
+<div class="codehilite"><pre><span></span><code><span class="err">add-apt-repository -y ppa:seafile/seafile-client</span>
+<span class="err">apt update</span>
+<span class="err">apt install seafile-cli -y</span>
+<span class="err">mkdir ~/seafile</span>
+<span class="err">seaf-cli init -d ~/seafile</span>
+<span class="err">seaf-cli start # 重启后也需要自己手动启动</span>
+</code></pre></div>
+
+
+<p>在网页端创建/打开资料库后从url复制得到id</p>
+<p>客户端没有需要同步的文件时用download，有需要加入同步的数据用sync</p>
+<div class="codehilite"><pre><span></span><code><span class="err">seaf-cli download -l &quot;the id of the library&quot; -s  &quot;the url + port of server&quot; -d &quot;the folder which the library will be synced with&quot; -u &quot;username on server&quot; [-p &quot;password&quot;]</span>
+</code></pre></div>
+
+
+<p>登录用户名密码错误的时候报错是400，需要留意</p>
                 
               
               
