@@ -345,10 +345,13 @@ ssh master_server "mysqldump -h 127.0.0.1 -P 3306 -u root -ppassword --opt --sin
 
 ### 配置slave
 
+实际使用中很容易遇到duplicate key的问题，导致slave线程停住，配置直接忽略这个错误 [参考](https://www.ducea.com/2008/02/13/mysql-skip-duplicate-replication-errors/)
+
 ```
 server-id               = 2
 relay-log               = mysql-relay-bin.log
 log_bin                 = mysql-bin.log
+slave-skip-errors = 1062
 ```
 
 ```
