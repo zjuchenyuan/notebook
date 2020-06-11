@@ -219,4 +219,16 @@ https://github.com/billziss-gh/sshfs-win
 net use h: \\sshfs\root@ip!2222\..\
 ```
 
+----
 
+## 命令行windows时间同步
+
+参考： https://answers.microsoft.com/en-us/windows/forum/windows_10-other_settings/how-to-force-windows-10-time-to-synch-with-a-time/20f3b546-af38-42fb-a2d0-d4df13cc8f43
+
+```
+net start w32time
+w32tm /register
+w32tm /resync
+```
+
+同时，你可能想要将Windows Time服务设置为自动启动
