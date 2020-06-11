@@ -202,3 +202,21 @@ wsl.exe --cd "%V"
 powershell.exe -noexit -command Set-Location -literalPath '%V'
 cmd.exe /s /k pushd "%V"
 ```
+
+----
+
+## sshfs挂载远程目录
+
+https://github.com/billziss-gh/sshfs-win
+
+相比玄学的windows共享，还是ssh更加简单靠谱，只是有时候ssh.exe会CPU100%卡住，需要任务管理器kill
+
+使用前需要先让ssh开启密码验证，你可以使用`ssh -i /dev/null`去连接测试能否登录
+
+可以用多个`..\`挂载上级目录
+
+```
+net use h: \\sshfs\root@ip!2222\..\
+```
+
+
