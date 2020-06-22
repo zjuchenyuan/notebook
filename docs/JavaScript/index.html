@@ -666,6 +666,34 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#apost-jquery" class="md-nav__link">
+    a链接改用POST请求 jQuery
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blob" class="md-nav__link">
+    创建一个文件下载 Blob
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    爬取微信小程序 朵朵校友圈
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    保持特定元素相对于窗口的位置不变
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1442,6 +1470,34 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#apost-jquery" class="md-nav__link">
+    a链接改用POST请求 jQuery
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blob" class="md-nav__link">
+    创建一个文件下载 Blob
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    爬取微信小程序 朵朵校友圈
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    保持特定元素相对于窗口的位置不变
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1915,6 +1971,99 @@ function checkbox_onclick(){
 
 <p>注意encoder输出的内容还要加上<code>charset</code>，最终效果：</p>
 <div class="codehilite"><pre><span></span><code><span class="c">background-image: url(data:image/svg+xml;charset=utf-8,%3Csvg...);</span>
+</code></pre></div>
+
+
+<h2 id="apost-jquery">a链接改用POST请求 jQuery<a class="headerlink" href="#apost-jquery" title="Permanent link">&para;</a></h2>
+<p>参考OneIndex，用POST方法表示来自文件列表的点击可以显示网页，默认的GET请求则下载文件</p>
+<div class="codehilite"><pre><span></span><code>    $(&#39;.file a&#39;).each(function(){
+        $(this).on(&#39;click&#39;, function () {
+            var form = $(&#39;<span class="nt">&lt;form</span> <span class="na">target=</span><span class="s">_blank</span> <span class="na">method=</span><span class="s">post</span><span class="nt">&gt;&lt;/form&gt;</span>&#39;).attr(&#39;action&#39;, $(this).attr(&#39;href&#39;)).get(0);
+            $(document.body).append(form);
+            form.submit();
+            $(form).remove();
+            return false;
+        });
+    });
+</code></pre></div>
+
+
+<h2 id="blob">创建一个文件下载 Blob<a class="headerlink" href="#blob" title="Permanent link">&para;</a></h2>
+<p>参考OneIndex的<code>downall</code>方法</p>
+<p>Blob文档：https://developer.mozilla.org/zh-CN/docs/Web/API/Blob</p>
+<p>还可以看看这篇：https://juejin.im/post/59e35d0e6fb9a045030f1f35</p>
+<div class="codehilite"><pre><span></span><code><span class="err">     let blob = new Blob([&quot;文档内容&quot;], {</span>
+<span class="err">         type: &#39;text/plain&#39;</span>
+<span class="err">     }); // 构造Blob对象</span>
+<span class="err">     let a = document.createElement(&#39;a&#39;); // 伪造一个a对象</span>
+<span class="err">     a.href = window.URL.createObjectURL(blob); // 构造href属性为Blob对象生成的链接</span>
+<span class="err">     a.download = &quot;666.txt&quot;; // 文件名称，你可以根据你的需要构造</span>
+<span class="err">     a.click() // 模拟点击</span>
+<span class="err">     a.remove();</span>
+</code></pre></div>
+
+
+<h2 id="_8">爬取微信小程序 朵朵校友圈<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<ol>
+<li>在分身空间中安装微信，使用HttpCanary抓到wxapkg的url</li>
+<li>用<a href="https://gist.githubusercontent.com/Integ/bcac5c21de5ea35b63b3db2c725f07ad/raw/a4d5f24f4d0102ce864008a86fdcc6e7888205c0/unwxapkg.py">https://gist.githubusercontent.com/Integ/bcac5c21de5ea35b63b3db2c725f07ad/raw/a4d5f24f4d0102ce864008a86fdcc6e7888205c0/unwxapkg.py</a> 这个工具对小程序解包</li>
+<li>搜索<code>duo_session</code>关键词，找到对应的util.js的addSign，用chrome开发人员工具格式化代码</li>
+<li>看了看整段代码 挺复杂的，懒得用python改写，就保留原样js使用nodejs调用吧</li>
+<li>burpsuite验证确实可行</li>
+</ol>
+<p>假设你已经有了addSign方法 那么就提供个http服务给python爬虫调用吧：</p>
+<div class="codehilite"><pre><span></span><code><span class="n">var</span> <span class="n">http</span> <span class="o">=</span> <span class="n">require</span><span class="p">(</span><span class="ss">&quot;http&quot;</span><span class="p">);</span>
+
+<span class="k">function</span> <span class="k">start</span><span class="p">(</span><span class="n">port</span><span class="p">)</span> <span class="err">{</span>
+  <span class="k">function</span> <span class="n">onRequest</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span> <span class="err">{</span>
+    <span class="n">var</span> <span class="n">postData</span> <span class="o">=</span> <span class="ss">&quot;&quot;</span><span class="p">;</span>
+    <span class="n">request</span><span class="p">.</span><span class="n">setEncoding</span><span class="p">(</span><span class="ss">&quot;utf8&quot;</span><span class="p">);</span>
+
+    <span class="n">request</span><span class="p">.</span><span class="n">addListener</span><span class="p">(</span><span class="ss">&quot;data&quot;</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="n">postDataChunk</span><span class="p">)</span> <span class="err">{</span>
+      <span class="n">postData</span> <span class="o">+=</span> <span class="n">postDataChunk</span><span class="p">;</span>
+    <span class="err">}</span><span class="p">);</span>
+
+    <span class="n">request</span><span class="p">.</span><span class="n">addListener</span><span class="p">(</span><span class="ss">&quot;end&quot;</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="err">{</span>
+      <span class="o">//</span><span class="n">console</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="n">postData</span><span class="p">);</span>
+      <span class="n">console</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="ss">&quot;[&quot;</span><span class="o">+</span><span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="n">toLocaleString</span><span class="p">()</span><span class="o">+</span><span class="ss">&quot;]&quot;</span><span class="p">,</span> <span class="n">request</span><span class="p">.</span><span class="k">connection</span><span class="p">.</span><span class="n">remoteAddress</span><span class="p">);</span>
+      <span class="n">var</span> <span class="k">data</span> <span class="o">=</span> <span class="n">JSON</span><span class="p">.</span><span class="n">parse</span><span class="p">(</span><span class="n">postData</span><span class="p">);</span>
+      <span class="n">addSign</span><span class="p">(</span><span class="k">data</span><span class="p">)</span>
+      <span class="n">response</span><span class="p">.</span><span class="n">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="err">{</span><span class="ss">&quot;Content-Type&quot;</span><span class="p">:</span> <span class="ss">&quot;text/html&quot;</span><span class="err">}</span><span class="p">);</span>
+      <span class="n">response</span><span class="p">.</span><span class="k">write</span><span class="p">(</span><span class="n">JSON</span><span class="p">.</span><span class="n">stringify</span><span class="p">(</span><span class="k">data</span><span class="p">));</span>
+      <span class="n">response</span><span class="p">.</span><span class="k">end</span><span class="p">();</span>
+    <span class="err">}</span><span class="p">);</span>
+  <span class="err">}</span>
+
+  <span class="n">http</span><span class="p">.</span><span class="n">createServer</span><span class="p">(</span><span class="n">onRequest</span><span class="p">).</span><span class="k">listen</span><span class="p">(</span><span class="n">port</span><span class="p">);</span>
+  <span class="n">console</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="ss">&quot;Server has started.&quot;</span><span class="p">);</span>
+<span class="err">}</span>
+
+<span class="k">start</span><span class="p">(</span><span class="mi">8888</span><span class="p">);</span>
+</code></pre></div>
+
+
+<h2 id="_9">保持特定元素相对于窗口的位置不变<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<p>考虑这样一个场景：一个列表，每一项都可以点击来展开详情div，点击时同时隐藏其他的详情（同一时刻只显示一个）</p>
+<p>发现一个bug：特定情况下（不明原因），用户点击后页面位置发生了变化：前面的一个比较长的div隐藏后，当前的位置跳到了很下面的地方，需要手动翻回去，用户体验极差</p>
+<p>总而言之，进行一些页面DOM操作后，我们想保持特定元素<strong>相对于窗口的位置</strong>不变</p>
+<p>解决方案：在处理点击event时，先记录event.target相对于window的top位置，在详情div隐藏以及显示后再次记录top位置，这两个位置之间的差值就是需要滚动页面的多少</p>
+<p>当这个差值很小的时候，可以理解为允许的误差，实际没有可见的变化 无需操作</p>
+<div class="codehilite"><pre><span></span><code><span class="n">HTML</span><span class="o">:</span>
+   <span class="n">onclick</span><span class="o">=</span><span class="s2">&quot;handle_click(event)&quot;</span>
+
+<span class="n">JS</span><span class="o">:</span>
+<span class="kd">function </span><span class="nf">fix_position</span><span class="o">(</span><span class="err">et,</span> <span class="err">oldt</span><span class="o">){</span>
+    <span class="n">var</span> <span class="n">newt</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="na">getBoundingClientRect</span><span class="o">().</span><span class="n">top</span><span class="o">;</span>
+    <span class="k">if</span><span class="o">(</span><span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">oldt</span><span class="o">-</span><span class="n">newt</span><span class="o">)&lt;</span><span class="mi">2</span><span class="o">)</span> <span class="k">return</span><span class="o">;</span>
+    <span class="n">$</span><span class="o">(</span><span class="n">window</span><span class="o">).</span><span class="n">scrollTop</span><span class="o">(</span><span class="n">$</span><span class="o">(</span><span class="n">window</span><span class="o">).</span><span class="n">scrollTop</span><span class="o">()+</span><span class="n">newt</span><span class="o">-</span><span class="n">oldt</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kd">function </span><span class="nf">handle_click</span><span class="o">(</span><span class="err">event</span><span class="o">){</span>
+    <span class="n">var</span> <span class="n">et</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">target</span><span class="o">;</span>
+    <span class="n">var</span> <span class="n">oldt</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="na">getBoundingClientRect</span><span class="o">().</span><span class="n">top</span><span class="o">;</span>
+    <span class="c1">//...code for hide and show divs...</span>
+    <span class="n">fix_position</span><span class="o">(</span><span class="n">et</span><span class="o">,</span> <span class="n">oldt</span><span class="o">);</span> <span class="c1">//also include this line to callback function if using ajax</span>
+<span class="o">}</span>
 </code></pre></div>
                 
               

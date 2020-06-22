@@ -863,6 +863,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#sshfs" class="md-nav__link">
+    sshfs挂载远程目录
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows" class="md-nav__link">
+    命令行windows时间同步
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1246,6 +1260,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#sshfs" class="md-nav__link">
+    sshfs挂载远程目录
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows" class="md-nav__link">
+    命令行windows时间同步
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1386,6 +1414,28 @@
 <span class="err">powershell.exe -noexit -command Set-Location -literalPath &#39;%V&#39;</span>
 <span class="err">cmd.exe /s /k pushd &quot;%V&quot;</span>
 </code></pre></div>
+
+
+<hr />
+<h2 id="sshfs">sshfs挂载远程目录<a class="headerlink" href="#sshfs" title="Permanent link">&para;</a></h2>
+<p>https://github.com/billziss-gh/sshfs-win</p>
+<p>相比玄学的windows共享，还是ssh更加简单靠谱，只是有时候ssh.exe会CPU100%卡住，需要任务管理器kill</p>
+<p>使用前需要先让ssh开启密码验证，你可以使用<code>ssh -i /dev/null</code>去连接测试能否登录</p>
+<p>可以用多个<code>..\</code>挂载上级目录</p>
+<div class="codehilite"><pre><span></span><code><span class="err">net use h: \\sshfs\root@ip!2222\..\</span>
+</code></pre></div>
+
+
+<hr />
+<h2 id="windows">命令行windows时间同步<a class="headerlink" href="#windows" title="Permanent link">&para;</a></h2>
+<p>参考： https://answers.microsoft.com/en-us/windows/forum/windows_10-other_settings/how-to-force-windows-10-time-to-synch-with-a-time/20f3b546-af38-42fb-a2d0-d4df13cc8f43</p>
+<div class="codehilite"><pre><span></span><code><span class="err">net start w32time</span>
+<span class="err">w32tm /register</span>
+<span class="err">w32tm /resync</span>
+</code></pre></div>
+
+
+<p>同时，你可能想要将Windows Time服务设置为自动启动</p>
                 
               
               

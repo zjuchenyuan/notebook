@@ -1622,9 +1622,11 @@
 <p>其中<code>--master-data</code>很重要，导出的时候就自动带上了master的信息，无需再手工记录</p>
 <p><code>CHANGE MASTER TO MASTER_LOG_FILE='mysql-bin.000002', MASTER_LOG_POS=15410;</code></p>
 <h3 id="slave">配置slave<a class="headerlink" href="#slave" title="Permanent link">&para;</a></h3>
+<p>实际使用中很容易遇到duplicate key的问题，导致slave线程停住，配置直接忽略这个错误 <a href="https://www.ducea.com/2008/02/13/mysql-skip-duplicate-replication-errors/">参考</a></p>
 <div class="codehilite"><pre><span></span><code><span class="err">server-id               = 2</span>
 <span class="err">relay-log               = mysql-relay-bin.log</span>
 <span class="err">log_bin                 = mysql-bin.log</span>
+<span class="err">slave-skip-errors = 1062</span>
 </code></pre></div>
 
 

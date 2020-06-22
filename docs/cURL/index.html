@@ -503,6 +503,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#wget" class="md-nav__link">
+    wget限制单文件最大大小
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -982,6 +989,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#wget" class="md-nav__link">
+    wget限制单文件最大大小
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1066,6 +1080,13 @@ curl dict://www.dict.org/d:computer -v
 
 
 <p>其中-c表示断点续传，&ndash;tries=0表示无限次重试，&ndash;read-timeout指定20s无网络活动就认为出错(默认是15分钟)</p>
+<hr />
+<h2 id="wget">wget限制单文件最大大小<a class="headerlink" href="#wget" title="Permanent link">&para;</a></h2>
+<p>来源： https://yurichev.com/wget.html</p>
+<p>可以下载到<a href="https://yurichev.com/non-wiki-files/wget-1.18-limitsize/wget-1.18-limitsize-linux64.tar.bz2">二进制</a>直接用</p>
+<p>增加了<code>--limit-size</code>参数，比如批量下载一个ftp链接：</p>
+<div class="codehilite"><pre><span></span><code><span class="err">wget --limit-size=10g --restrict-file-names=nocontrol -nH --tries=0 --read-timeout=20 -m ftp://xxx </span>
+</code></pre></div>
                 
               
               
