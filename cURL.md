@@ -85,3 +85,17 @@ wget -c --tries=0 --read-timeout=20 [URL]
 ```
 
 其中-c表示断点续传，--tries=0表示无限次重试，--read-timeout指定20s无网络活动就认为出错(默认是15分钟)
+
+----
+
+## wget限制单文件最大大小
+
+来源： https://yurichev.com/wget.html
+
+可以下载到[二进制](https://yurichev.com/non-wiki-files/wget-1.18-limitsize/wget-1.18-limitsize-linux64.tar.bz2)直接用
+
+增加了`--limit-size`参数，比如批量下载一个ftp链接：
+
+```
+wget --limit-size=10g --restrict-file-names=nocontrol -nH --tries=0 --read-timeout=20 -m ftp://xxx 
+```
