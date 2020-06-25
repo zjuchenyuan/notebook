@@ -3,6 +3,8 @@
 
 ## 在bash脚本中使用alias
 
+@TAG alias
+
 加上这么一句：
 
 ```
@@ -11,7 +13,7 @@ shopt -s expand_aliases
 
 ## 判断命令行参数是否为空
 
-在python里可以用len(sys.argv)判断参数个数
+在python里可以用len(sys.argv)判断参数个数，bash里用中括号里的-z
 
 ```
 if [ -z "$1" ] && [ -z "$2" ]; then
@@ -19,7 +21,15 @@ if [ -z "$1" ] && [ -z "$2" ]; then
 fi
 ```
 
-## 写个for循环吧
+## for循环用seq生成数字列表
+
+@TAG seq
+
+注意终点是包含在内的，不同于Python的range
+
+- `seq 3`: 1 2 3
+- `seq 2 3`: 2 3
+- `seq 1 2 5`: 1 3 5
 
 ```
 for i in $(seq 1 $END); do echo $i; done
@@ -36,7 +46,7 @@ echo $((5+16#a+2#1010))
 ## 判断命令不存在再apt安装
 
 ```
-command -v aria2c >/dev/null 2>&1 || { apt update;     apt-get install -y aria2; }
+command -v aria2c >/dev/null 2>&1 || { apt update && apt install -y aria2; }
 ```
 
 如果有多个软件可能要安装，没必要每次都apt update，可以先装了再说 失败就apt update
@@ -48,7 +58,7 @@ command -v 7z >/dev/null 2>&1 || { apt update;  apt-get install -y p7zip; }
 
 ## 判断文件不存在
 
-注意]前面要有空格
+注意`]`前面要有空格
 
 ```
 if [ ! -f "somefile" ]; then
@@ -82,3 +92,4 @@ for filename in *.tar.7z; do
     mv $filename ./done/; 
 done
 ```
+

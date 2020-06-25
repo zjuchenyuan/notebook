@@ -1,17 +1,14 @@
-# 写在前面
+# BAT 批处理
 
-在没有接触到C和Python之前，我也常用BAT和一堆第三方的exe做事情
-
-年少无知的岁月呀~
-
-
-----
+也包含一些Windows命令行工具
 
 ## 快速打开cmd
 
 还在用Win+R cmd再用pushd命令？
 
 在资源管理器的地址栏输入cmd回车就能直接进入当前目录
+
+另外，不如直接[把cmd加入到鼠标右键](/WindowsSoftware/#bash)
 
 ----
 
@@ -37,15 +34,11 @@ echo a & echo b
 
     for /l %i in (1,1,9999999) do ...
 
-类似的Linux命令为：
-
-    for ((i=0; i<10; ++i))  do ...  done  
-
 ----
 
 ## 结束进程 taskkill
 
-> 当启动cmd窗口过多的时候，使用taskkill清理一下（一个个关掉也是很烦的呢）
+> 当启动cmd窗口过多的时候，使用taskkill批量关闭
 
     taskkill /f /im cmd.exe
     
@@ -71,7 +64,8 @@ echo a & echo b
 
     SleepX 10
     
-    REM等待5s，如果用户等不及可以按键，此时 not "%errorlevel%" == "0"
+等待5s，如果用户等不及可以按键，此时 not "%errorlevel%" == "0"
+
     SleepX -k 5
     
 ----
@@ -107,6 +101,7 @@ if exist DIRNAME\nul echo Yes!
 ## 创建硬链接mklink或者fsutil hardlink create
 
 Win7及以上：
+
 ```
 mklink /H Link Target
 ```
@@ -117,6 +112,7 @@ mklink /H /J Link Target
 ```
 
 WinXP只能用：
+
 ```
 fsutil hardlink create <new filename> <existing filename>
 ```
@@ -168,6 +164,8 @@ rundll32.exe powrProf.dll,SetSuspendState
 ----
 
 ## 快速进入系统代理设置
+
+@TAG 代理
 
 From: https://stackoverflow.com/questions/3648366/is-it-possible-to-launch-ies-proxy-settings-dialog-from-the-command-line
 
@@ -242,13 +240,13 @@ netsh interface ip set dns "以太网" dhcp
 
 ## 命令行使用VeraCrypt
 
-VeraCrypt是TrueCrypt代替者，其命令行使用方式：https://www.veracrypt.fr/en/Command%20Line%20Usage.html
+VeraCrypt是TrueCrypt代替者，其命令行使用方式： https://www.veracrypt.fr/en/Command%20Line%20Usage.html
 
 下载Portable版本即可，下载地址：https://www.veracrypt.fr/en/Downloads.html
 
 ### 创建一个加密盘
 
-不与用户交互所以指定/q /s，具体来说/q表示不显示主窗口，/s表示不显示任何交互窗口也不报错，注意使用这两个参数后即使出错也不会有任何提醒
+不与用户交互所以指定`/q /s`，具体来说/q表示不显示主窗口，/s表示不显示任何交互窗口也不报错，注意使用这两个参数后即使出错也不会有任何提醒
 
 文件名test.hc，大小100M，密码必须20个字符或以上，加密方式使用最快的Serpent，为了加速挂载过程指定/pim 1
 
@@ -256,7 +254,7 @@ VeraCrypt是TrueCrypt代替者，其命令行使用方式：https://www.veracryp
 "VeraCrypt Format.exe" /create test.hc /password testtesttesttesttest /hash sha512 /encryption serpent /filesystem FAT /size 100M /pim 1 /force /silent
 ```
 
-如果不指定/pim来降低迭代次数，挂载时需要耗时十秒以上无法接受，所以牺牲一点安全性来换取性能。关于PIM的文档：https://www.veracrypt.fr/en/Personal%20Iterations%20Multiplier%20(PIM).html
+如果不指定/pim来降低迭代次数，挂载时需要耗时十秒以上无法接受，所以牺牲一点安全性来换取性能。关于PIM的文档： https://www.veracrypt.fr/en/Personal%20Iterations%20Multiplier%20(PIM).html
 
 ### 挂载加密盘
 
@@ -288,9 +286,13 @@ VeraCrypt.exe /quit /silent /dismount z
 elevate powershell -Command "Set-MpPreference -DisableRealtimeMonitoring $true"
 ```
 
+这个似乎在最新的Windows 2004已经失效
+
 ---------
 
 ## 命令行增加Windows防火墙规则阻断IP
+
+@TAG 防火墙
 
 当然需要管理员权限的cmd，能一行搞定何必在繁琐的设置步骤中周旋
 
