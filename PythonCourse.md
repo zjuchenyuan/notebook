@@ -862,8 +862,8 @@ False
 - 类型：input()返回的是字符串，用int, float转换；用isinstance判断类型；哪些是False
 - 数字：除以0的异常，进制转换，判断素数，格式化输出，优先级
 - 字符串：len，upper，lower，strip，split，join
-- 列表：append，index，sorted(key=lambda i:-i)，数组的数组，分片，[::-1]，列表推导式
+- 列表：append，index，sorted(key=lambda i:-i)，数组的数组，分片，`[::-1]`，列表推导式
 - 字典：keys，items，update
-- 循环：range，for iin ...，while ...，变量初始化
+- 循环：range，for i in ...，while ...，变量初始化
 - 函数：传递一个列表？（引用传递）局部变量，全局变量
 - tuple；set；文件；类
