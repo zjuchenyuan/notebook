@@ -895,6 +895,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#git_3" class="md-nav__link">
+    启动一个临时的Git服务器 本地之间同步
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1382,6 +1389,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#git_3" class="md-nav__link">
+    启动一个临时的Git服务器 本地之间同步
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1718,6 +1732,27 @@ ssb   4096R/42B317FD4BA89E7A <span class="m">2016</span>-03-10
 <p>如果是一个已经存在的仓库，最后一步不用回车Ctrl+C后:</p>
 <div class="codehilite"><pre><span></span><code><span class="err">git remote set-url origin git@{repo}.github.com:{user}/{repo}.git</span>
 </code></pre></div>
+
+
+<h2 id="git_3">启动一个临时的Git服务器 本地之间同步<a class="headerlink" href="#git_3" title="Permanent link">&para;</a></h2>
+<p>场景： GitLab服务器宕机了，现在需要同步自己本地的修改到服务器上</p>
+<p>参考： https://datagrok.org/git/git-serve/</p>
+<div class="codehilite"><pre><span></span><code><span class="o">#</span> <span class="err">自己机器上（有更多</span><span class="n">commit的</span><span class="err">）</span>
+<span class="n">git</span> <span class="n">config</span> <span class="c1">--global alias.quickserve &quot;daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/&quot;</span>
+<span class="n">git</span> <span class="n">quickserve</span>
+
+<span class="o">#</span> <span class="err">服务器上（需要</span><span class="n">pull得到commit的</span><span class="err">）</span>
+<span class="n">git</span> <span class="n">remote</span> <span class="k">add</span> <span class="n">temp</span> <span class="n">git</span><span class="p">:</span><span class="o">//</span><span class="mi">192</span><span class="p">.</span><span class="mi">168</span><span class="p">.</span><span class="mi">1</span><span class="p">.</span><span class="mi">123</span><span class="o">/</span>
+<span class="n">git</span> <span class="n">pull</span> <span class="n">temp</span> <span class="n">master</span>
+</code></pre></div>
+
+
+<p>同步完成后就可以Ctrl+C关闭git服务了</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>git末尾的/不可缺省，不然报错fatal: No path specified. See &lsquo;man git-pull&rsquo; for valid url syntax
+git pull的分支名称master也不能省略</p>
+</div>
                 
               
               

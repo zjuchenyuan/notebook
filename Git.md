@@ -429,3 +429,25 @@ Done.
 git remote set-url origin git@{repo}.github.com:{user}/{repo}.git
 ```
 
+## 启动一个临时的Git服务器 本地之间同步
+
+场景： GitLab服务器宕机了，现在需要同步自己本地的修改到服务器上
+
+参考： https://datagrok.org/git/git-serve/
+
+```
+# 自己机器上（有更多commit的）
+git config --global alias.quickserve "daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/"
+git quickserve
+
+# 服务器上（需要pull得到commit的）
+git remote add temp git://192.168.1.123/
+git pull temp master
+```
+
+同步完成后就可以Ctrl+C关闭git服务了
+
+!!! note
+    git末尾的/不可缺省，不然报错fatal: No path specified. See 'man git-pull' for valid url syntax
+    git pull的分支名称master也不能省略
+
