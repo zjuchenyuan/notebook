@@ -6,19 +6,28 @@ docker save $IMAGE | 7z a -si $IMAGE.tar.7z
 7z x -so $IMAGE.tar.7z | docker load
 ```
 
+## 安装Docker
+
+```
+curl -fsSL https://get.docker.com -o get-docker.sh
+sh get-docker.sh --mirror Aliyun
+```
+
 ## myubuntu 基础镜像
+
+@TAG 时区 timezone 
 
 简单地将Docker当成虚拟机来使用的话，自然要准备个好用的基础镜像咯
 
-基于目前最新的ubuntu18.04，配置apt源、pip源、ssh允许密码登录
+基于目前最新的ubuntu18.04，配置apt源、pip源、时区、ssh允许密码登录
 
 Dockerfile:
 
 ```
 FROM ubuntu:18.04
-RUN sed -i 's/security.ubuntu.com/10.15.61.66/g' /etc/apt/sources.list && \
-    sed -i 's/archive.ubuntu.com/10.15.61.66/g' /etc/apt/sources.list # 修改apt源
-RUN apt update && apt install -y ssh curl wget net-tools iputils-ping netcat python3-pip python-pip nano vim tzdata screen
+RUN sed -i 's/security.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list && \
+    sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list # 修改apt源
+RUN apt update && apt install -y ssh curl wget net-tools iputils-ping netcat python3-pip python-pip nano vim tzdata screen psmisc
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime # 修改时区
 RUN mkdir -p ~/.pip && echo '[global]\nindex-url = http://pypi.doubanio.com/simple/\n[install]\ntrusted-host=pypi.doubanio.com\n'>  ~/.pip/pip.conf
 RUN sed -i 's/prohibit-password/yes/g' /etc/ssh/sshd_config && sed -i 's/#PermitRootLogin/PermitRootLogin/g' /etc/ssh/sshd_config # 允许root用户密码登录
@@ -95,7 +104,7 @@ sudo systemctl restart docker
 
 ### Docker旧版本卸载
 
-如果你的docker是使用apt-get install docker.io安装的，请先执行以下命令卸载：
+如果你的docker是使用apt-get install docker.io安装的，先执行以下命令卸载：
 
     apt-get remove docker.io
     apt-get autoremove
@@ -107,11 +116,15 @@ sudo systemctl restart docker
 
 ## 获得容器的ip
 
+@TAG getip
+
 ```
 alias getip="docker inspect  --format '{{.NetworkSettings.IPAddress}}' "
 
 getip 容器名称
 ```
+
+这种方案对macvlan的容器不适用，参见 获取macvlan容器的IP
 
 --------
 
@@ -189,6 +202,8 @@ apt-get install net-tools psmisc
 
 ## 设置容器低权限用户运行
 
+@TAG user 安全最佳实践
+
 在Dockerfile中加入
 
 ```
@@ -241,9 +256,9 @@ docker run -d --dns 114.114.114.114 --add-host example.com:1.2.3.4 容器名称
 
 ## 快速部署ftp
 
-vsftpd的配置真是让人头疼，不如`docker search ftp`一番，然后google一下找到对应的Docker Hub页面
+@TAG vsftpd
 
-https://hub.docker.com/r/stilliard/pure-ftpd/
+vsftpd的配置真是让人头疼，不如`docker search ftp`一番，然后google一下找到对应的[Docker Hub页面](https://hub.docker.com/r/stilliard/pure-ftpd/)
 
 使用步骤：
 
@@ -258,7 +273,9 @@ pure-pw useradd bob -f /etc/pure-ftpd/passwd/pureftpd.passwd -m -u ftpuser -d /d
 
 ## 快速部署wordpress
 
-想搭建一个自己的blog，选择玩一玩wordpress咯，这里记录一下完整的流程和遇到的问题及解决方案(Google在手 天下我有)
+@TAG sub_filter
+
+想搭建一个自己的blog，选择玩一玩wordpress咯，这里记录一下完整的流程和遇到的问题及解决方案
 
 技术相关： Docker Nginx HTTPS 
 
@@ -268,19 +285,18 @@ pure-pw useradd bob -f /etc/pure-ftpd/passwd/pureftpd.passwd -m -u ftpuser -d /d
 
 1. 前期准备:域名+vps
 
-注册域名 如果面向国内访问，还需要备案咯； 别忘了配置DNS解析；
+注册域名 如果面向国内访问，还需要备案咯；别忘了配置DNS解析
 
 买个vps服务器，建议选择香港vps
 
-{:start="2"}
-2. 安装Docker和Nginx，都是一条命令的事情
+2. 安装Docker和Nginx
 
 ```
-curl -sSL https://get.docker.com/ | sh
-apt-get install nginx
+curl -fsSL https://get.docker.com -o get-docker.sh
+sh get-docker.sh --mirror Aliyun
+apt-get install -y nginx
 ```
 
-{:start="3"}
 3. 启动一个mysql的镜像：
 
 ```
@@ -290,7 +306,6 @@ docker run --name mysql -e MYSQL_ROOT_PASSWORD=这里改成你想设置的密码
 docker run --name wp --link mysql:mysql -p 6666:80 -d wordpress
 ```
 
-{:start="4"}
 4. 域名https证书获取以及启用https访问，此部分具体见[Nginx.md](Nginx.md)中`获得Let's encrypt免费https证书`和`配置安全的https`部分
 
 5. 配置Nginx，完整配置如下：
@@ -329,9 +344,8 @@ server{
 
 建议还是把端口映射出来，在容器重启后容器的内网IP是会发生变化的，不适合将172.17.0.*这种IP写入nginx配置
 
-此时我选择了`docker rm -f 容器ID`强制删掉容器，再用加上了-p参数启动了一个
+此时我选择了`docker rm -f 容器ID`强制删掉容器，再加上-p参数后启动
 
-{:start="2"}
 2. 全站https
 
 虽然我的https.conf中定义了HSTS，浏览器也确实会把所有的请求都自动用https协议访问，但是还是由于form的action为http协议而警告不安全(在Chrome开发人员工具的Console看到)，也没有小绿锁显示。所以要保证服务器输出给浏览器的内容就是https的链接
@@ -346,7 +360,6 @@ server{
 
 http://stackoverflow.com/questions/31893211/http-sub-module-sub-filter-of-nginx-and-reverse-proxy-not-working
 
-{:start="3"}
 3. 由于在后台修改了Wordpress Address和Site Address改为https的链接，导致后台无法打开，重定向死循环
 
 解决方案是进入mysql容器手动修改，把进行的修改改回去
@@ -404,6 +417,18 @@ docker run --net=macvlan_network --ip=10.1.1.100 -d nginx
 
     万一发生这种虚拟机把主机的IP抢占的情况，在没有物理控制方法下不可轻易使用ifconfig修改主机IP，因为一旦使用ifconfig主机的route将被清空、当前主机的其他IP也会丢失，你就丢失远程访问的可能了（也许你可以写一个脚本自动恢复route稳妥一点）；但神奇的是即使主机route已经丢失，按照上述macvlan开出来的Docker容器仍然在线（也可以理解——容器的route并没有受到影响，类似于Virtualbox的桥接网卡方式）
 
+### 获取macvlan容器的IP
+
+@TAG getip
+
+```
+# clean version
+docker inspect --format "{{.NetworkSettings.Networks.macvlan网络名称.IPAddress}}" 容器名称
+
+# dirty but quick version
+docker inspect 容器名称 | grep IP
+```
+
 ### macvlan查看已经分配的IP
 
 由于主机和容器不能互通，所以主机如何得知目前已经分配的IP列表呢？用docker network inspect咯，然后用python处理一下输出格式
@@ -456,6 +481,8 @@ ip route add $TARGET_IP/32 dev $NAME
 
 ### give_container_ip.sh
 
+@TAG 端口转发
+
 ```
 #!/bin/bash
 set -ex
@@ -495,7 +522,7 @@ docker run -ti --net container:<containerid> nicolaka/netshoot tcpdump -i eth0 -
 docker run -ti --net container:f5fc -v /tmp/pcapfiles:/data nicolaka/netshoot tcpdump -i eth0 -n -s0 -w /data/nginx.pcap port 80
 ```
 
-[查看对应的tcpdump文档](http://explainshell.com/explain?cmd=tcpdump%20-i%20eth0%20-n%20-s0%20-w%20/data/nginx.pcap%20port%2080)
+[查看tcpdump参数解释explainshell](http://explainshell.com/explain?cmd=tcpdump%20-i%20eth0%20-n%20-s0%20-w%20/data/nginx.pcap%20port%2080)
 
 ----
 
@@ -513,15 +540,17 @@ docker run的时候忘了指定restart=always，除了commit后再正确地run�
 docker update --restart=always `docker ps -q`
 ```
 
-如果要取消这个自动重启，改为--restart=no即可
+如果要取消这个自动重启，改为`--restart=no`即可
 
 ----
 
 ## 快速部署samba
 
+@TAG share
+
 镜像地址：[dperson/samba](https://hub.docker.com/r/dperson/samba/)
 
-快速分享一个目录/data，用户名user密码badpassword：
+快速分享一个目录/data，用户名`user`密码`badpassword`：
 
 ```
 docker run -d -p 139:139 -p 445:445 --name samba -v /data:/data dperson/samba -u "user;badpassword" -s "data;/data;yes;no;no;all"
@@ -533,13 +562,16 @@ docker run -d -p 139:139 -p 445:445 --name samba -v /data:/data dperson/samba -u
 
 ----
 
-## [CTF]按需分配容器 过期自动销毁
+## 按需分配容器 过期自动销毁
+
+@TAG ctf xinetd
 
 有些题目需要给每个人单独的容器，为了节约资源还需要设置一个时间，过期后自动删除容器
 
 为了防止滥用还要引入Proof Of Work，回答正确后才分配容器
 
-该代码直接用的docker命令来创建容器，且需要root权限，注意使用上的安全风险
+!!! warning
+    该代码直接用的docker命令来创建容器，且需要root权限，注意使用上的安全风险
 
 代码如下：`utils.py`
 
@@ -653,7 +685,7 @@ service 题目名称
 
 容器A是web应用，需要访问redis的容器B，如果用docker inspect拿到现在容器B的IP写入到配置，一旦docker重启这个容器IP就会发生变化
 
-更好的方式是使用docker的自定义网络：创建网络-把redis加入网络-把app加入网络
+更好的方式是使用docker的自定义网络：创建网络，把redis加入网络，把app加入网络
 
 ```
 docker network create useredis
@@ -673,9 +705,9 @@ apt说可以更新，于是就更新了，然而却悲催地发现部分容器�
 docker start <container_name> returns "container <hash> already exists"
 ```
 
-Google找到了相关issue在这里→https://github.com/moby/moby/issues/36145
+Google找到了相关issue在[这里](https://github.com/moby/moby/issues/36145)
 
-不删容器重建、不回滚Docker的紧急解决方案为：
+不删容器重建、不回滚Docker的解决方案为：
 
 ```
 sudo docker-containerd-ctr --namespace moby --address /run/docker/containerd/docker-containerd.sock c rm `docker inspect --format '{{.Id}}' 无法启动的容器名称`
@@ -710,9 +742,10 @@ alias din=din
 
 ## 不使用docker pull也能下载到镜像
 
-**该脚本存在问题，下载到的镜像层无法导入，仍待研究**
+!!! warning ""
+    该脚本存在问题，下载到的镜像层可能无法导入，仍待研究
 
-github上官方有下载脚本：https://github.com/moby/moby/blob/master/contrib/download-frozen-image-v2.sh
+github上官方有下载脚本： https://github.com/moby/moby/blob/master/contrib/download-frozen-image-v2.sh
 
 使用的时候第一个参数是目录名称，第二个是镜像名称:latest，其中:tag是必须要写的
 
@@ -779,8 +812,9 @@ DOCKER_ROOT=/home/${u}/docker
 ## 配置使用Docker版本的Gitlab CI
 
 参考文档：
-官方教程 https://docs.gitlab.com/runner/
-高级配置 https://docs.gitlab.com/runner/configuration/advanced-configuration.html
+
+- 官方教程 https://docs.gitlab.com/runner/
+- 高级配置 https://docs.gitlab.com/runner/configuration/advanced-configuration.html
 
 人家这东西本质上是一个docker容器，但是把主机的docker sock传入到容器中，所以容器内可以创建容器
 
@@ -869,6 +903,8 @@ test:app:
 
 ## 为已经存在的容器创建临时端口映射 socat
 
+@TAG 端口转发
+
 出于学习目的，想快速地建立一下临时的Docker容器端口映射
 
 用socat咯：
@@ -911,7 +947,8 @@ docker stats --no-stream|sort -h -r -k 4,4
 
 Docker自身只允许在创建容器的时候指定-v进行目录挂载，怎么在不停止容器的情况下增加挂载呢？
 
-注意此方法在容器重启后即失效，需要重新挂载
+!!! warning ""
+    注意此方法在容器重启后即失效，需要重新挂载
 
 参考：https://medium.com/kokster/mount-volumes-into-a-running-container-65a967bee3b5
 
@@ -1056,16 +1093,6 @@ docker network connect macvlan_name container_name --ip 新的ip
 
 ```
 docker ps -a --format '{{.Names}} {{.Status}}'|grep "2 month"|awk '{print $1}'|tr '\r\n' ' '
-```
-
-## 获取容器的IP
-
-```
-# clean version
-docker inspect --format "{{.NetworkSettings.Networks.macvlan网络名称.IPAddress}}" 容器名称
-
-# dirty but quick version
-docker inspect 容器名称 | grep IP
 ```
 
 ## 容器内没有ping, ip？直接nsenter进去看看
@@ -1220,9 +1247,11 @@ https://stackoverflow.com/questions/37242217/access-docker-container-from-host-u
 
 ## Docker容器禁止主动联网 但对外提供web服务
 
-首先排除--network none，这样没有网卡怎么做端口映射
+@TAG 端口映射 ctf
 
-下面假设容器名称为${CONTAINER}，容器启动的http服务端口为5000
+首先排除`--network none`，这样没有网卡怎么做端口映射
+
+下面假设容器名称为`${CONTAINER}`，容器启动的http服务端口为5000
 
 ### 简单方案 直接删除默认路由
 
@@ -1230,8 +1259,7 @@ https://stackoverflow.com/questions/37242217/access-docker-container-from-host-u
 nsenter --target `docker inspect --format '{{.State.Pid}}' ${CONTAINER}`  --net --pid route delete default
 ```
 
-
-好处在于访问网络的请求能迅速报错Network is unreachable，也不需要额外的容器参数配置
+好处在于访问网络的请求能迅速报错`Network is unreachable`，也不需要额外的容器参数配置
 
 但容器每次重启都需要重新执行
 
@@ -1239,7 +1267,7 @@ nsenter --target `docker inspect --format '{{.State.Pid}}' ${CONTAINER}`  --net 
 
 docker的创建网络提供了`--internal`参数，意思是不允许这个网络访问外界，但是访问网络的请求不会立刻返回，效果像是一直丢包就没响应
 
-这里我们创建一个名为${CONTAINER}_nonet的网络，启动容器的时候指定这个网络并配置别名app
+这里我们创建一个名为`${CONTAINER}_nonet`的网络，启动容器的时候指定这个网络并配置别名app
 
 然后还需要Nginx容器同时加入默认网络和这个网络来进行转发，Nginx容器一开始创建后的启动会报错反复重启（无法解析app），加入网络后即可正常启动
 
