@@ -840,13 +840,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_9" class="md-nav__link">
-    一点额外的警告
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#macvlanip" class="md-nav__link">
     macvlan查看已经分配的IP
   </a>
@@ -893,7 +886,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_10" class="md-nav__link">
+  <a href="#_9" class="md-nav__link">
     修改正在运行的容器的重启策略
   </a>
   
@@ -971,14 +964,14 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_11" class="md-nav__link">
+  <a href="#_10" class="md-nav__link">
     第三步 注册以生成初始的配置信息
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#_12" class="md-nav__link">
+  <a href="#_11" class="md-nav__link">
     第四步 修改配置文件
   </a>
   
@@ -1011,14 +1004,14 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_13" class="md-nav__link">
+  <a href="#_12" class="md-nav__link">
     查看所有容器内存占用 并排序
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_14" class="md-nav__link">
+  <a href="#_13" class="md-nav__link">
     运行中的容器添加目录挂载
   </a>
   
@@ -1103,7 +1096,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_15" class="md-nav__link">
+  <a href="#_14" class="md-nav__link">
     简单方案 直接删除默认路由
   </a>
   
@@ -1603,13 +1596,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_9" class="md-nav__link">
-    一点额外的警告
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#macvlanip" class="md-nav__link">
     macvlan查看已经分配的IP
   </a>
@@ -1656,7 +1642,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_10" class="md-nav__link">
+  <a href="#_9" class="md-nav__link">
     修改正在运行的容器的重启策略
   </a>
   
@@ -1734,14 +1720,14 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_11" class="md-nav__link">
+  <a href="#_10" class="md-nav__link">
     第三步 注册以生成初始的配置信息
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#_12" class="md-nav__link">
+  <a href="#_11" class="md-nav__link">
     第四步 修改配置文件
   </a>
   
@@ -1774,14 +1760,14 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_13" class="md-nav__link">
+  <a href="#_12" class="md-nav__link">
     查看所有容器内存占用 并排序
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_14" class="md-nav__link">
+  <a href="#_13" class="md-nav__link">
     运行中的容器添加目录挂载
   </a>
   
@@ -1866,7 +1852,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_15" class="md-nav__link">
+  <a href="#_14" class="md-nav__link">
     简单方案 直接删除默认路由
   </a>
   
@@ -2223,9 +2209,11 @@ mv /var/lib/docker /home/
 
 
 <p>现在你可以访问 <code>http://10.1.1.100</code> 来看到nginx的欢迎页面了，你需要在内网另一台机器上访问（我的发现是主机和这样分配的容器是不互通的）</p>
-<h3 id="_9">一点额外的警告<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">可能的IP冲突</p>
 <p>启动容器时可以不指定ip让docker自动分配，警告：如果没有配置ip-range参数，有可能被分配的恰好是主机本身的IP，这种情况将导致主机丢失IP无法联网！</p>
 <p>万一发生这种虚拟机把主机的IP抢占的情况，在没有物理控制方法下不可轻易使用ifconfig修改主机IP，因为一旦使用ifconfig主机的route将被清空、当前主机的其他IP也会丢失，你就丢失远程访问的可能了（也许你可以写一个脚本自动恢复route稳妥一点）；但神奇的是即使主机route已经丢失，按照上述macvlan开出来的Docker容器仍然在线（也可以理解——容器的route并没有受到影响，类似于Virtualbox的桥接网卡方式）</p>
+</div>
 <h3 id="macvlanip">macvlan查看已经分配的IP<a class="headerlink" href="#macvlanip" title="Permanent link">&para;</a></h3>
 <p>由于主机和容器不能互通，所以主机如何得知目前已经分配的IP列表呢？用docker network inspect咯，然后用python处理一下输出格式</p>
 <p>下面这个命令列出了容器IP和容器名称：</p>
@@ -2313,7 +2301,7 @@ sudo iptables -t nat -I POSTROUTING -s <span class="sb">`</span>getip <span clas
 
 <p><a href="http://explainshell.com/explain?cmd=tcpdump%20-i%20eth0%20-n%20-s0%20-w%20/data/nginx.pcap%20port%2080">查看对应的tcpdump文档</a></p>
 <hr />
-<h2 id="_10">修改正在运行的容器的重启策略<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<h2 id="_9">修改正在运行的容器的重启策略<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
 <p>docker run的时候忘了指定restart=always，除了commit后再正确地run一遍之外有没有更加优雅的修改容器参数的方法呢？</p>
 <p>参考： https://stackoverflow.com/questions/26852321/docker-add-a-restart-policy-to-a-container-that-was-already-created</p>
 <p>在1.11版本后有了<code>docker update</code>这个命令，可以修改正在运行的容器的参数，如CPU限制、内存限制 和 重启策略</p>
@@ -2552,7 +2540,7 @@ DOCKER_ROOT=/home/<span class="cp">${</span><span class="n">u</span><span class=
 <h3 id="citoken">第二步 获取CI连接时需要的token<a class="headerlink" href="#citoken" title="Permanent link">&para;</a></h3>
 <p>在管理员界面 Overview下Runners点开即可看到 </p>
 <p>网址： /admin/runners</p>
-<h3 id="_11">第三步 注册以生成初始的配置信息<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<h3 id="_10">第三步 注册以生成初始的配置信息<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
 <p>参考https://docs.gitlab.com/runner/register/index.html#docker</p>
 <p>假设容器配置文件保存在/dockerfiles/gitlabrunner中，其中docker-image是默认跑任务的镜像</p>
 <div class="codehilite"><pre><span></span><code><span class="err">docker run --rm -t -i -v /dockerfiles/gitlabrunner:/etc/gitlab-runner --dns 10.0.0.1 gitlab/gitlab-runner  register  --non-interactive \</span>
@@ -2566,7 +2554,7 @@ DOCKER_ROOT=/home/<span class="cp">${</span><span class="n">u</span><span class=
 </code></pre></div>
 
 
-<h3 id="_12">第四步 修改配置文件<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<h3 id="_11">第四步 修改配置文件<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
 <p>参考高级配置 https://docs.gitlab.com/runner/configuration/advanced-configuration.html
 和 https://docs.gitlab.com/runner/executors/docker.html#how-pull-policies-work</p>
 <div class="codehilite"><pre><span></span><code><span class="err">cd /dockerfiles/gitlabrunner #你的配置文件目录</span>
@@ -2620,7 +2608,7 @@ DOCKER_ROOT=/home/<span class="cp">${</span><span class="n">u</span><span class=
 
 
 <hr />
-<h2 id="_13">查看所有容器内存占用 并排序<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
+<h2 id="_12">查看所有容器内存占用 并排序<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
 <p><code>docker stats</code>就能看到实时更新的结果，但并没有提供排序功能</p>
 <div class="codehilite"><pre><span></span><code><span class="err">docker stats --no-stream|sort -h -r -k 4,4</span>
 </code></pre></div>
@@ -2666,7 +2654,7 @@ DOCKER_ROOT=/home/<span class="cp">${</span><span class="n">u</span><span class=
 </tbody>
 </table>
 <hr />
-<h2 id="_14">运行中的容器添加目录挂载<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
+<h2 id="_13">运行中的容器添加目录挂载<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
 <p>Docker自身只允许在创建容器的时候指定-v进行目录挂载，怎么在不停止容器的情况下增加挂载呢？</p>
 <p>注意此方法在容器重启后即失效，需要重新挂载</p>
 <p>参考：https://medium.com/kokster/mount-volumes-into-a-running-container-65a967bee3b5</p>
@@ -2948,7 +2936,7 @@ cp /etc/hosts.base /etc/hosts
 <h2 id="docker-web">Docker容器禁止主动联网 但对外提供web服务<a class="headerlink" href="#docker-web" title="Permanent link">&para;</a></h2>
 <p>首先排除&ndash;network none，这样没有网卡怎么做端口映射</p>
 <p>下面假设容器名称为${CONTAINER}，容器启动的http服务端口为5000</p>
-<h3 id="_15">简单方案 直接删除默认路由<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<h3 id="_14">简单方案 直接删除默认路由<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code>nsenter --target `docker inspect --format &#39;{{.State.Pid}}&#39; <span class="cp">${</span><span class="n">CONTAINER</span><span class="cp">}</span>`  --net --pid route delete default
 </code></pre></div>
 
