@@ -232,3 +232,27 @@ w32tm /resync
 ```
 
 同时，你可能想要将Windows Time服务设置为自动启动
+
+-----
+
+## Windows激活
+
+查看激活信息：
+
+```
+slmgr.vbs /dli
+```
+
+设置kms服务器地址：
+
+```
+slmgr.vbs /skms 10.203.8.58
+slmgr.vbs /ato
+```
+
+查看过期时间：
+
+```
+slmgr.vbs /xpr
+```
+
