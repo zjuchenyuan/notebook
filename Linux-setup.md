@@ -952,3 +952,26 @@ service wg-quick@wg0 start
 service wg-quick@wg0 status
 ```
 
+------
+
+## 修复失败的do-release-upgrade
+
+参考： https://www.kingsware.de/2019/01/05/repair-a-damaged-package-system-after-ubuntu-dist-upgrade/
+
+可能的原因是使用了ppa源，而新的发行版里这些软件包已经进入官方源造成冲突
+
+```
+apt update
+apt upgrade
+apt dist-upgrade
+apt install -f
+dpkg --configure -a
+apt autoremove
+```
+
+如果你需要禁用ppa源，你可以直接去删除`/etc/apt/sources.list.d`的文件，或者：
+
+```
+add-apt-repository --remove ppa:PPA_REPOSITORY_NAME/PPA-NAME
+```
+

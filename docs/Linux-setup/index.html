@@ -1246,6 +1246,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#do-release-upgrade" class="md-nav__link">
+    修复失败的do-release-upgrade
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1816,6 +1823,13 @@
         <li class="md-nav__item">
   <a href="#wireguard" class="md-nav__link">
     开机自启动wireguard
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#do-release-upgrade" class="md-nav__link">
+    修复失败的do-release-upgrade
   </a>
   
 </li>
@@ -2649,6 +2663,24 @@ kpartx -d disk3.vmdk
 <span class="err">systemctl daemon-reload</span>
 <span class="err">service wg-quick@wg0 start</span>
 <span class="err">service wg-quick@wg0 status</span>
+</code></pre></div>
+
+
+<hr />
+<h2 id="do-release-upgrade">修复失败的do-release-upgrade<a class="headerlink" href="#do-release-upgrade" title="Permanent link">&para;</a></h2>
+<p>参考： https://www.kingsware.de/2019/01/05/repair-a-damaged-package-system-after-ubuntu-dist-upgrade/</p>
+<p>可能的原因是使用了ppa源，而新的发行版里这些软件包已经进入官方源造成冲突</p>
+<div class="codehilite"><pre><span></span><code><span class="err">apt update</span>
+<span class="err">apt upgrade</span>
+<span class="err">apt dist-upgrade</span>
+<span class="err">apt install -f</span>
+<span class="err">dpkg --configure -a</span>
+<span class="err">apt autoremove</span>
+</code></pre></div>
+
+
+<p>如果你需要禁用ppa源，你可以直接去删除<code>/etc/apt/sources.list.d</code>的文件，或者：</p>
+<div class="codehilite"><pre><span></span><code><span class="err">add-apt-repository --remove ppa:PPA_REPOSITORY_NAME/PPA-NAME</span>
 </code></pre></div>
                 
               
