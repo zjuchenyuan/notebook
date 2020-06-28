@@ -78,27 +78,6 @@ sed -i 's/archive.ubuntu.com/mirrors.zju.edu.cn/g' /etc/apt/sources.list
 ## 单网卡获得多个IP
 ifconfig eth0:233 10.xx.xx.233 netmask 255.255.255.0 up
 
-----
-
-## 锐速安装
-
-来自：https://github.com/91yun/serverspeeder
-
-安装之前需要修改内核版本并重启：
-
-    apt-get install linux-image-3.16.0-43-generic
-    reboot
-
-安装命令：# 此安装脚本会连接开发者的服务器以root权限执行远程指令，风险自负
-
-    wget -N --no-check-certificate https://raw.githubusercontent.com/91yun/serverspeeder/master/serverspeeder-all.sh && bash serverspeeder-all.sh
-    
-查看状态/关闭服务：
-
-    service serverSpeeder stauts
-    service serverSpeeder stop
-    
-----
 
 ## 解决apt依赖问题
 
@@ -137,7 +116,7 @@ https://launchpad.net/ubuntu/vivid/amd64/libglib2.0-0/2.44.0-1ubuntu3
 
 一般apt依赖冲突问题都是由于系统版本与需要的包的版本不一致导致的，检查一下/etc/apt/sources.list看看是否匹配系统版本咯
 
-用apt-get前检查一下sources.list，树莓派是版本8，是jessie不是wheezy!
+用apt-get前检查一下sources.list 看与当前`lsb-release -a`是否一致
 
 ----
 
@@ -275,6 +254,8 @@ iptables -A INPUT -p tcp --dport 8888 -j REJECT
 
 ## 双网卡端口转发，暴露内网端口
 
+@TAG 端口转发
+
 > 来自： https://yq.aliyun.com/wenzhang/show_25824
 
 有两台机器，其中一台A 有内网和外网，B只有内网。
@@ -332,15 +313,6 @@ chattr -R -i /bin /sbin /usr/sbin /usr/bin /usr/local/sbin /usr/local/bin
 
 ----
 
-## 时区设置
-
-```
-cp /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
-ntpdate cn.pool.ntp.org
-```
-
-----
-
 ## 查看CPU核心个数
 
 一般我会用 `top` 命令，按 `1` 就能看到每个CPU占用情况
@@ -364,10 +336,10 @@ cat /proc/cpuinfo| grep "processor"| wc -l
 
 ```
 useradd username -m
-echo username:password|chpasswd
+echo username:badpassword|chpasswd
 ```
 
-添加一个用户名为username的用户并创建home目录，并设置密码为password
+添加一个用户名为username的用户并创建home目录，并设置密码为badpassword
 
 ----
 
@@ -375,7 +347,7 @@ echo username:password|chpasswd
 
 一个最最简单的场景：只有一个服务器 一个客户端，在容器中用来给用户直接访问的一个内网IP
 
-参考：https://openvpn.net/index.php/open-source/documentation/miscellaneous/78-static-key-mini-howto.html
+参考： https://openvpn.net/index.php/open-source/documentation/miscellaneous/78-static-key-mini-howto.html
 
 ### 安装openvpn:
 
@@ -440,7 +412,7 @@ secret static.key
 
 ### 在Docker中使用服务端
 
-参考：https://raw.githubusercontent.com/kylemanna/docker-openvpn/master/bin/ovpn_run
+参考： https://raw.githubusercontent.com/kylemanna/docker-openvpn/master/bin/ovpn_run
 
 运行容器的时候一定要给参数`--cap-add=NET_ADMIN`
 
@@ -457,13 +429,16 @@ fi
 
 ## 时区时间设置
 
-参考：http://liumissyou.blog.51cto.com/4828343/1302050
+参考： http://liumissyou.blog.51cto.com/4828343/1302050
+
+设置为上海时区 UTC+8
 
 ```
 apt-get install tzdata
 cp /etc/localtime /etc/localtime.bak
 ln -svf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 echo "TZ='Asia/Shanghai'">>~/.bashrc
+ntpdate cn.pool.ntp.org
 ```
 
 修改时间可以用：
@@ -478,9 +453,9 @@ date -s "2017-06-18 16:40:00"
 
 Linux系统建议使用ext4分区格式，但直接mkfs.ext4 /dev/sda1就有很大的坑：会默认lazyinit在很长一段时间内占用IO
 
-> 参考：[http://fibrevillage.com/storage/474-ext4-lazy-init](http://fibrevillage.com/storage/474-ext4-lazy-init)
+> 参考： [http://fibrevillage.com/storage/474-ext4-lazy-init](http://fibrevillage.com/storage/474-ext4-lazy-init)
 
-正确格式化大硬盘的方法如下，这样不会跳过初始化磁盘的过程而且初始化过程很快：
+适用于存储少量大文件的格式化大硬盘的方法如下，这样不会跳过初始化磁盘的过程而且初始化过程很快：
 
 ```
 mkfs.ext4 /dev/sdXX -E lazy_itable_init=0,lazy_journal_init=0 -O sparse_super,large_file -m 0 -T largefile4
@@ -504,7 +479,7 @@ echo ~/.mitmproxy/mitmproxy-ca-cert.pem >> /etc/ssl/certs/ca-certificates.crt
 
 `df -h`显示还有很多空间，但`echo test>test.txt`会显示`No space left on device`
 
-查到这个：https://wiki.gentoo.org/wiki/Knowledge_Base:No_space_left_on_device_while_there_is_plenty_of_space_available
+查到这个： https://wiki.gentoo.org/wiki/Knowledge_Base:No_space_left_on_device_while_there_is_plenty_of_space_available
 
 使用`df -i`查看inodes占用情况，发现确实100%了
 
@@ -529,13 +504,13 @@ NAME="filesystem"
 dd if=/dev/zero of=${NAME}.img bs=1 count=0 seek=1T
 ```
 
-执行后ls -alh能看到文件大小为1T，使用du filesystem.img查看真实空间
+执行后ls -alh能看到文件大小为1T，使用`du filesystem.img`查看真实空间
 
 #### 3. 创建磁盘分区
 
-参考：https://www.jamescoyle.net/how-to/2096-use-a-file-as-a-linux-block-device
+参考： https://www.jamescoyle.net/how-to/2096-use-a-file-as-a-linux-block-device
 
-btrfs参考：https://btrfs.wiki.kernel.org/index.php/Getting_started
+btrfs参考： https://btrfs.wiki.kernel.org/index.php/Getting_started
 
 ```
 mkfs.btrfs ${NAME}.img
@@ -572,6 +547,8 @@ sudo losetup -d /dev/loop0
 ----
 
 ## 扩容上述单文件btrfs磁盘
+
+@TAG 安全最佳实践
 
 随着不停地写入数据，上面创建的1TB分区就要被写满了！但文件所在物理磁盘还有空间，我们可以这样给btrfs磁盘扩容：
 
@@ -615,7 +592,7 @@ From: https://unix.stackexchange.com/questions/354138/safest-way-to-remove-usb-d
 
 ## iptables 让监听在127.0.0.1上的端口可以公网访问
 
-参考：https://unix.stackexchange.com/questions/111433/iptables-redirect-outside-requests-to-127-0-0-1
+参考： https://unix.stackexchange.com/questions/111433/iptables-redirect-outside-requests-to-127-0-0-1
 
 例如有监听在127.0.0.1:1234的应用，现在想通过ip:5678来访问
 
@@ -627,6 +604,8 @@ sysctl -w net.ipv4.conf.eth0.route_localnet=1
 ----
 
 ## VMWare扩容磁盘 LVM在线扩容
+
+@TAG 虚拟机
 
 参考： https://ma.ttias.be/increase-a-vmware-disk-size-vmdk-formatted-as-linux-lvm-without-rebooting/
 
@@ -798,6 +777,8 @@ The filesystem on /dev/ubuntu-vg/ubuntu-lv is now 52164608 (4k) blocks long.
 
 ### VMWare新添加一块硬盘扩容根目录
 
+@TAG 虚拟机
+
 参考这两篇：
 
 https://www.cyberciti.biz/tips/vmware-add-a-new-hard-disk-without-rebooting-guest.html
@@ -868,6 +849,8 @@ root@docker3:/d# df -h
 ----
 
 ## 挂载多个vmdk中的LVM分区
+
+@TAG 虚拟机 离线操作
 
 参考： https://superuser.com/questions/1376690/how-to-mount-an-lvm-volume-from-a-dd-raw-vmdk-image
 
