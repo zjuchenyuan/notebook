@@ -12,11 +12,9 @@ My notebook about technology, for lookup and share
 >* [语言勾勒QuickStart](https://py3.io/doc/python/quickstart.html)
 >* 安装pip
 >* 设置pip源
->* 反弹shell 获得tty
 >* requests使用多IP请求
 >* [Python多线程模板](code/MultiThread_Template.py)
 >* http.server（BaseHTTPServer）并发性改善 不必修改库文件
->* 无root权限安装Python
 >* 中文输出乱码问题解决
 >* pycodestyle检查代码风格
 >* 生成随机字符串
@@ -24,15 +22,12 @@ My notebook about technology, for lookup and share
 >* 解决Python.h: No such file or directory
 >* 二进制字符串转普通字符串
 >* 十六进制字符串转bytes字符串
->* 用Python3写PAT心得
 >* 用requests进行post
->* 通过tkinter获取/修改剪贴板
 >* 符号数与无符号数转换
 >* 使用signal.SIGALRM在限定时间后退出进程
 >* 捕捉用户的Ctrl+C
 >* 使用signal.SIGALRM实现定时器
 >* 使用pdb进行调试
->* [机器学习-决策树](code/decisiontree.py)
 >* 使用Python开发阿里云函数计算后端服务
 >* 修复gbk编码的文件名
 >* Crack RSA! 破解短长度密钥的RSA加密
@@ -41,7 +36,6 @@ My notebook about technology, for lookup and share
 >* python selenium+Docker chrome headless爬复杂网页
 >* python transmissionrpc 上传种子 获取状态 增加tracker 修改torrent文件中的tracker
 >* uwsgi优雅重启
->* flask设置一堆静态目录
 >* Python3.5 open打开文件默认使用utf-8
 >* 使用sentry
 >* 解决命令行执行py文件没有sys.argv的问题
@@ -51,11 +45,10 @@ My notebook about technology, for lookup and share
 
 ## [Python程序设计课程](PythonCourse.md)
 
-作业的常见错误
+作业的常见错误，期末复习
 
 ## [gist Python一些常用的代码片段](gist.md)
 >* 连接mysql插入、查询
->* flask设置一堆静态目录
 >* 大小写不敏感字典
 >* print的时候顺带带上时间
 >* mpms多线程下每个线程单独变量
@@ -156,6 +149,9 @@ My notebook about technology, for lookup and share
 >* 获取2个月前退出的容器列表，以空格分隔
 >* nsenter进入容器检查网络
 >* 从/var/lib/docker提取容器开始时间
+>* 固定容器的IP
+>* Docker容器禁止主动联网 但对外提供web服务
+>* 私有registry的api
 
 ## [ETH](ETH.md)
 >* 获取测试网络ropsten的ETH
@@ -304,7 +300,6 @@ My notebook about technology, for lookup and share
 >* 使用wget代替scp传输文件夹 避免无谓的加密性能损失（适用于树莓派）
 >* 清除已经断开的sshd进程
 >* 批量替换文本
->* 使用cryptsetup挂载truecrypt分区
 >* 从二进制文件中提取片段
 >* redis匹配前缀删除大量键值
 >* 批量替换子目录特定后缀名文件内容
