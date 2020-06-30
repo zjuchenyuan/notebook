@@ -1121,6 +1121,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#registryapi" class="md-nav__link">
+    私有registry的api
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1881,6 +1888,13 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#registryapi" class="md-nav__link">
+    私有registry的api
+  </a>
   
 </li>
       
@@ -3023,6 +3037,10 @@ cp /etc/hosts.base /etc/hosts
 <p>这个方案有点复杂，但好处在于重启容器不需要额外配置，反正连不上网</p>
 <p>坏处在于访问网络的请求会一直卡住，应用层需要自己考虑超时</p>
 <p>你可以把这两种方案结合起来，即使忘了删默认路由也能保证不能联网</p>
+<h2 id="registryapi">私有registry的api<a class="headerlink" href="#registryapi" title="Permanent link">&para;</a></h2>
+<p>文档： https://docs.docker.com/registry/spec/api/</p>
+<p>列出所有镜像： <code>/v2/_catalog</code></p>
+<p>列出指定镜像的所有标签： <code>/v2/&lt;name&gt;/tags/list</code></p>
                 
               
               

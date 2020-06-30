@@ -1304,3 +1304,11 @@ app.wsgi_app = ProxyFix(app.wsgi_app)
 
 你可以把这两种方案结合起来，即使忘了删默认路由也能保证不能联网
 
+## 私有registry的api
+
+文档： https://docs.docker.com/registry/spec/api/
+
+列出所有镜像： `/v2/_catalog`
+
+列出指定镜像的所有标签： `/v2/<name>/tags/list`
+
