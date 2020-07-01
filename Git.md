@@ -458,16 +458,18 @@ git pull temp master
 
 自从GitHub被微软收购后，似乎就崩得更频繁了，为了在这种情况下仍然能读代码，不妨跑一下定时脚本，自动pull指定仓库push到其他git服务上（如自行部署gitea）。
 
-获取自己star过的所有仓库：需要`apt install -y jq`
+获取自己star过的所有仓库：（依赖`apt install -y jq`）
 
-```
+```bash
 for i in `seq 28`; do curl "https://api.github.com/users/zjuchenyuan/starred?page=${i}" >${i}.tmp; done
-cat *.tmp |jq '.[].full_name' -r > mystarts.txt
+cat *.tmp |jq '.[].full_name' -r > mystars.txt
 ```
 
 sync.sh: 
 
-从github clone或fetch对应的仓库然后push到自己的git服务上，这里使用bare避免checkout导致的更多空间占用
+从github clone或fetch对应的仓库，然后push到自己的git服务上，这里使用bare避免checkout导致的更多空间占用
+
+TODO: 注意到仍然是双份的空间占用（同步和gitea都存了），需要看看能不能直接从gitea的git存储发起fetch更新
 
 ```bash
 #!/bin/bash
@@ -499,7 +501,7 @@ ssh-keyscan 你的git服务地址 >> ~/.ssh/known_host
 ```
 
 !!! note
-    这个方案并不安全，容易遭受中间人攻击，你应该事先在安全的网络下获取正确的ssh key后直接将指纹写入known_host
+    这个方案并不安全，容易遭受中间人攻击，你应该事先在安全的网络下获取正确的ssh key后直接将指纹写入known_host。
     不过就算不自动化你也会自己回答yes，本质上一样hhh
 
 ## 部署gitea

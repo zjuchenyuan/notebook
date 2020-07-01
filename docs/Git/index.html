@@ -1798,14 +1798,15 @@ git pull的分支名称master也不能省略</p>
 <hr />
 <h2 id="githubstar">备份GitHub上自己star过的仓库<a class="headerlink" href="#githubstar" title="Permanent link">&para;</a></h2>
 <p>自从GitHub被微软收购后，似乎就崩得更频繁了，为了在这种情况下仍然能读代码，不妨跑一下定时脚本，自动pull指定仓库push到其他git服务上（如自行部署gitea）。</p>
-<p>获取自己star过的所有仓库：需要<code>apt install -y jq</code></p>
-<div class="codehilite"><pre><span></span><code>for i in `seq 28`; do curl &quot;https://api.github.com/users/zjuchenyuan/starred?page=<span class="cp">${</span><span class="n">i</span><span class="cp">}</span>&quot; &gt;<span class="cp">${</span><span class="n">i</span><span class="cp">}</span>.tmp; done
-cat *.tmp |jq &#39;.[].full_name&#39; -r &gt; mystarts.txt
+<p>获取自己star过的所有仓库：（依赖<code>apt install -y jq</code>）</p>
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> i in <span class="sb">`</span>seq <span class="m">28</span><span class="sb">`</span><span class="p">;</span> <span class="k">do</span> curl <span class="s2">&quot;https://api.github.com/users/zjuchenyuan/starred?page=</span><span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="s2">&quot;</span> &gt;<span class="si">${</span><span class="nv">i</span><span class="si">}</span>.tmp<span class="p">;</span> <span class="k">done</span>
+cat *.tmp <span class="p">|</span>jq <span class="s1">&#39;.[].full_name&#39;</span> -r &gt; mystars.txt
 </code></pre></div>
 
 
 <p>sync.sh: </p>
-<p>从github clone或fetch对应的仓库然后push到自己的git服务上，这里使用bare避免checkout导致的更多空间占用</p>
+<p>从github clone或fetch对应的仓库，然后push到自己的git服务上，这里使用bare避免checkout导致的更多空间占用</p>
+<p>TODO: 注意到仍然是双份的空间占用（同步和gitea都存了），需要看看能不能直接从gitea的git存储发起fetch更新</p>
 <div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 <span class="nv">u</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span> <span class="si">${</span><span class="nv">1</span><span class="si">}</span><span class="p">|</span>cut -d/ -f1<span class="sb">`</span>
 <span class="nv">n</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span> <span class="si">${</span><span class="nv">1</span><span class="si">}</span><span class="p">|</span>cut -d/ -f2<span class="sb">`</span>
@@ -1836,7 +1837,7 @@ cat *.tmp |jq &#39;.[].full_name&#39; -r &gt; mystarts.txt
 
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>这个方案并不安全，容易遭受中间人攻击，你应该事先在安全的网络下获取正确的ssh key后直接将指纹写入known_host
+<p>这个方案并不安全，容易遭受中间人攻击，你应该事先在安全的网络下获取正确的ssh key后直接将指纹写入known_host。
 不过就算不自动化你也会自己回答yes，本质上一样hhh</p>
 </div>
 <h2 id="gitea">部署gitea<a class="headerlink" href="#gitea" title="Permanent link">&para;</a></h2>
