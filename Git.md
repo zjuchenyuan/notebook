@@ -451,3 +451,73 @@ git pull temp master
     git末尾的/不可缺省，不然报错fatal: No path specified. See 'man git-pull' for valid url syntax
     git pull的分支名称master也不能省略
 
+
+----
+
+## 备份GitHub上自己star过的仓库
+
+自从GitHub被微软收购后，似乎就崩得更频繁了，为了在这种情况下仍然能读代码，不妨跑一下定时脚本，自动pull指定仓库push到其他git服务上（如自行部署gitea）。
+
+获取自己star过的所有仓库：需要`apt install -y jq`
+
+```
+for i in `seq 28`; do curl "https://api.github.com/users/zjuchenyuan/starred?page=${i}" >${i}.tmp; done
+cat *.tmp |jq '.[].full_name' -r > mystarts.txt
+```
+
+sync.sh: 
+
+从github clone或fetch对应的仓库然后push到自己的git服务上，这里使用bare避免checkout导致的更多空间占用
+
+```bash
+#!/bin/bash
+u=`echo ${1}|cut -d/ -f1`
+n=`echo ${1}|cut -d/ -f2`
+if [ -z "$u" ] || [ -z "$n" ]; then
+    echo Usage: $0 user/reponame
+    exit 1
+fi
+if [ -d "${u}_${n}" ]; then
+    cd "${u}_${n}"
+    git fetch --all
+    git push --all sync
+else
+    git clone https://github.com/${u}/${n} "${u}_${n}" --bare
+    cd "${u}_${n}"
+    git fetch --all
+    git remote add sync git@你的git服务地址:你的用户名/${u}_${n}.git
+    git push --all sync
+fi
+cd ..
+```
+
+## git clone和push避免输入ssh询问的yes
+
+```
+mkdir -p ~/.ssh
+ssh-keyscan 你的git服务地址 >> ~/.ssh/known_host
+```
+
+!!! note
+    这个方案并不安全，容易遭受中间人攻击，你应该事先在安全的网络下获取正确的ssh key后直接将指纹写入known_host
+    不过就算不自动化你也会自己回答yes，本质上一样hhh
+
+## 部署gitea
+
+https://hub.docker.com/r/gitea/gitea
+
+按照官方给出的docker-compose部署即可，安装时需要留心：smtp的host需要包含端口，登录用户名是完整的邮箱
+
+然后需要修改配置，允许用户在push一个不存在的仓库时自动创建，参见[这个issue](https://github.com/go-gitea/gitea/issues/8162) 和 [conf配置文档](https://docs.gitea.io/en-us/config-cheat-sheet/)
+
+需要在app.ini的`[repository]`一节中加入：
+
+```
+ENABLE_PUSH_CREATE_USER = true
+ENABLE_PUSH_CREATE_ORG = true
+```
+
+!!! warning "小心git bomb"
+    实际测试发现 对[git bomb](https://github.com/Katee/git-bomb)这种仓库 checkout就会占满全部内存
+    即使使用上述脚本只同步bare仓库，gitea会启动git show命令，仍然会炸内存（但似乎kill掉这个命令后网页显示也是正常的）
+

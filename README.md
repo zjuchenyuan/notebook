@@ -199,6 +199,7 @@ My notebook about technology, for lookup and share
 >* 用gpg给git提交签名
 >* 使用GitLab API存储数据备份文件 不占用本地空间
 >* GitHub不同仓库使用不同ssh key
+>* 备份GitHub上自己star过的仓库
 
 ## [Github Project Recommendation](GithubProjectRecommendation.md)
 >* 视频下载you-get
