@@ -825,13 +825,17 @@ eval `dircolors | sed -e 's/;34:/;36:/'`
 
 https://download.seafile.com/published/seafile-user-manual/syncing_client/install_linux_client.md
 
+需要注意seafile-cli已经加入boinc官方源，但版本与ppa源不匹配
+
 ```
+# apt install -y software-properties-common
 add-apt-repository -y ppa:seafile/seafile-client
 apt update
 apt install seafile-cli -y
 mkdir ~/seafile
 seaf-cli init -d ~/seafile
-seaf-cli start # 重启后也需要自己手动启动
+seaf-cli start
+# 重启后也需要自己手动启动
 ```
 
 在网页端创建/打开资料库后从url复制得到id
@@ -839,7 +843,11 @@ seaf-cli start # 重启后也需要自己手动启动
 客户端没有需要同步的文件时用download，有需要加入同步的数据用sync
 
 ```
-seaf-cli download -l "the id of the library" -s  "the url + port of server" -d "the folder which the library will be synced with" -u "username on server" [-p "password"]
+seaf-cli download -l "the id of the library"
+     -s "the url + port of server" 
+     -d "the folder which the library will be synced with" 
+     -u "username on server" 
+     [-p "password"]
 ```
 
 登录用户名密码错误的时候报错是400，需要留意

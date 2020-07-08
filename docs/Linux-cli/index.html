@@ -2389,18 +2389,25 @@ done
 <hr />
 <h2 id="seafile">部署seafile客户端<a class="headerlink" href="#seafile" title="Permanent link">&para;</a></h2>
 <p>https://download.seafile.com/published/seafile-user-manual/syncing_client/install_linux_client.md</p>
-<div class="codehilite"><pre><span></span><code><span class="err">add-apt-repository -y ppa:seafile/seafile-client</span>
+<p>需要注意seafile-cli已经加入boinc官方源，但版本与ppa源不匹配</p>
+<div class="codehilite"><pre><span></span><code><span class="err"># apt install -y software-properties-common</span>
+<span class="err">add-apt-repository -y ppa:seafile/seafile-client</span>
 <span class="err">apt update</span>
 <span class="err">apt install seafile-cli -y</span>
 <span class="err">mkdir ~/seafile</span>
 <span class="err">seaf-cli init -d ~/seafile</span>
-<span class="err">seaf-cli start # 重启后也需要自己手动启动</span>
+<span class="err">seaf-cli start</span>
+<span class="err"># 重启后也需要自己手动启动</span>
 </code></pre></div>
 
 
 <p>在网页端创建/打开资料库后从url复制得到id</p>
 <p>客户端没有需要同步的文件时用download，有需要加入同步的数据用sync</p>
-<div class="codehilite"><pre><span></span><code><span class="err">seaf-cli download -l &quot;the id of the library&quot; -s  &quot;the url + port of server&quot; -d &quot;the folder which the library will be synced with&quot; -u &quot;username on server&quot; [-p &quot;password&quot;]</span>
+<div class="codehilite"><pre><span></span><code><span class="err">seaf-cli download -l &quot;the id of the library&quot;</span>
+<span class="err">     -s &quot;the url + port of server&quot; </span>
+<span class="err">     -d &quot;the folder which the library will be synced with&quot; </span>
+<span class="err">     -u &quot;username on server&quot; </span>
+<span class="err">     [-p &quot;password&quot;]</span>
 </code></pre></div>
 
 
