@@ -1362,3 +1362,51 @@ _locale._getdefaultlocale = (lambda *args: ['en_US', 'utf8'])
 ```
 
 但是在ubuntu 14.04上从这个ppa源安装的python没有_ssl的库，无法使用pip很迷（解决方案就是开了一个docker ubuntu16.04的容器继续）
+
+----
+
+## 判断代码是否卡住，自动发送KeyboardInterrupt
+
+场景： 跑爬虫等依赖网络的代码，遇到网络不佳的时候一直卡住不再执行，增加timeout设置确实是一种方法，有没有不用改代码的方式呢？
+
+依赖： `apt install inotify-tools`
+
+watch.sh:
+
+```sh
+#!/bin/bash
+while true; do
+    inotifywait -e modify -t 100 $1
+    res=$?
+    if [ "$res" == "2" ]; then
+        echo "[`date`] Time Out!"
+        $2 || break
+    fi
+    sleep 60
+done
+```
+
+用法：
+
+```
+python -u run.py >& log.txt &
+ps #查看python进程的id, 假设为12345
+./watch.sh log.txt "kill -SIGINT 12345"
+```
+
+解释：python指定输出流不缓存，保证最新的print也能实时写入文件中
+
+然后使用inotifywait这个工具观察文件`$1`在100秒内有没有发生修改
+
+如果没有修改就执行用户提供的参数`$2`，这里是使用kill发送SIGINT信号
+
+在Linux里，用户按Ctrl+C就是BASH给当前前台的进程发送这个信号
+
+如果进程已经结束，那么kill会报错找不到进程，这时候我们就可以break跳出循环了
+
+如果发生了修改就歇一分钟后继续观察
+
+这个场景下允许延迟没必要一直观察，只要卡住的时候能发现即可（最迟160秒）
+
+当然爬虫代码需要处理异常，失败的时候继续下一次爬取或者重试即可
+
