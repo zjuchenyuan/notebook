@@ -397,3 +397,20 @@ autossh -M 0 -o ServerAliveInterval=30 -o ServerAliveCountMax=3 -L 172.17.0.1:33
 
 相应地，slave配置的master地址改为172.17.0.1
 
+------
+
+## 为什么MySQL表必须要有主键
+
+Learned from: https://federico-razzoli.com/why-mysql-tables-need-a-primary-key
+
+InnoDB中非主键的索引是额外存储的，使用索引查询先查到主键，再用主键查数据——没有主键的查询会慢一些
+
+没有主键也没有隐式主键（创建表的时候指定的NOT NULL UNIQUE列）会自动使用递增的row id作为主键，但递增需要全局锁`dict_sys->mutex`——多个表同时插入时性能下降
+
+在binlog中删除操作有主键只需要记录主键，没有主键需要记录所有内容——binlog更大
+
+从机执行binlog中的delete操作，每次操作都需要扫描全表——性能显著下降
+
+集群如Galera需要等待所有节点commit才会给客户端返回成功——用户感受到很高的延迟
+
+
