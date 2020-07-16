@@ -958,3 +958,28 @@ apt autoremove
 add-apt-repository --remove ppa:PPA_REPOSITORY_NAME/PPA-NAME
 ```
 
+----
+
+## 解决wireguard 内核模块编译失败
+
+报错信息 `error: ‘const struct ipv6_stub’ has no member named ‘ipv6_dst_lookup_flow’`
+
+查到这些链接： https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=959157
+
+官方已经给出了patch： https://git.zx2c4.com/wireguard-linux-compat/commit/?id=4602590adee92557847e61c8cd14445d35fbfa2e
+
+但是我已经从最新git下载，这个patch是已经打了的，还是同样的报错
+
+看patch发现这个改动就是在判断内核版本，如果符合特定版本就引入`ipv6_dst_lookup_flow`的#define语句
+
+但估计这个版本判断是不完备的，正好漏掉了当前的内核版本，所以解决方案很简单：强行把这个define加入即可
+
+```
+git clone https://git.zx2c4.com/wireguard-linux-compat
+cd wireguard-linux-compat/src
+echo "#define ipv6_dst_lookup_flow(a, b, c, d) ipv6_dst_lookup(a, b, &dst, c) + (void *)0 ?: dst" >> compat/compat.h
+make
+make install
+```
+
+

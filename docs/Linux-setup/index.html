@@ -1239,6 +1239,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#wireguard_1" class="md-nav__link">
+    解决wireguard 内核模块编译失败
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1802,6 +1809,13 @@
         <li class="md-nav__item">
   <a href="#do-release-upgrade" class="md-nav__link">
     修复失败的do-release-upgrade
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wireguard_1" class="md-nav__link">
+    解决wireguard 内核模块编译失败
   </a>
   
 </li>
@@ -2632,6 +2646,22 @@ kpartx -d disk3.vmdk
 
 <p>如果你需要禁用ppa源，你可以直接去删除<code>/etc/apt/sources.list.d</code>的文件，或者：</p>
 <div class="codehilite"><pre><span></span><code><span class="err">add-apt-repository --remove ppa:PPA_REPOSITORY_NAME/PPA-NAME</span>
+</code></pre></div>
+
+
+<hr />
+<h2 id="wireguard_1">解决wireguard 内核模块编译失败<a class="headerlink" href="#wireguard_1" title="Permanent link">&para;</a></h2>
+<p>报错信息 <code>error: ‘const struct ipv6_stub’ has no member named ‘ipv6_dst_lookup_flow’</code></p>
+<p>查到这些链接： https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=959157</p>
+<p>官方已经给出了patch： https://git.zx2c4.com/wireguard-linux-compat/commit/?id=4602590adee92557847e61c8cd14445d35fbfa2e</p>
+<p>但是我已经从最新git下载，这个patch是已经打了的，还是同样的报错</p>
+<p>看patch发现这个改动就是在判断内核版本，如果符合特定版本就引入<code>ipv6_dst_lookup_flow</code>的#define语句</p>
+<p>但估计这个版本判断是不完备的，正好漏掉了当前的内核版本，所以解决方案很简单：强行把这个define加入即可</p>
+<div class="codehilite"><pre><span></span><code><span class="err">git clone https://git.zx2c4.com/wireguard-linux-compat</span>
+<span class="err">cd wireguard-linux-compat/src</span>
+<span class="err">echo &quot;#define ipv6_dst_lookup_flow(a, b, c, d) ipv6_dst_lookup(a, b, &amp;dst, c) + (void *)0 ?: dst&quot; &gt;&gt; compat/compat.h</span>
+<span class="err">make</span>
+<span class="err">make install</span>
 </code></pre></div>
                 
               
