@@ -1410,3 +1410,139 @@ ps #查看python进程的id, 假设为12345
 
 当然爬虫代码需要处理异常，失败的时候继续下一次爬取或者重试即可
 
+----
+
+## 设置PYTHONSTARTUP环境变量 启动Python自动执行一些import
+
+经常启动Python当计算器用，但有些时候也需要执行quote之类的函数，每次都要手动import就很烦
+
+所以可以配置一个环境变量来让启动Python时自动执行这些import操作
+
+!!! Note
+    注意这个不会改变Python执行.py文件的行为，只在Python Interpreter中生效
+
+Windows在cmd里可以用setx设置环境变量，或者你也可以编辑注册表 `HKEY_CURRENT_USER\Environment`
+
+参考： http://www.dowdandassociates.com/blog/content/howto-set-an-environment-variable-in-windows-command-line-and-registry/
+
+```
+setx PYTHONSTARTUP d:\myshell\pyload.py
+```
+
+这个脚本需要快速加载，避免启动Python太慢，所以使用lazyload来把真正的import留到使用时：
+
+依赖： `pip install lazy_import`
+
+先简要概括一下这个脚本提供了些啥：
+
+```
+标准库：time, sys, os, json, pickle, csv, requests, np(numpy), plt(matplotlib.pyplot)
+对象：a是EasyLogin(), sess是requests.session()
+函数： 
+    pload(filename, default) 载入一个pickle文件
+    pdump(filename, data) 将data写入pickle文件
+    jload 用json读取文件
+    jload 用json写入文件
+    bd(b64_string) 解码base64字符串，返回str，自动补齐等号，不会Invalid base64-encoded string
+    hd(b16_string) hex decode 将hex字符串转为bytes
+    myprint 显示当前时间的print
+    md5 计算给定字符串的md5的32字节hex字符串
+    t() int(time.time())
+    d() 等价于date -d@xxx，将timestamp转为人类可读的格式，也支持毫秒的输入
+简写：
+    jl = json.loads
+    pp = pprint.pprint
+    sleep = time.sleep
+    leval = ast.literal_eval
+```
+
+```python
+import _locale
+_locale._getdefaultlocale = (lambda *args: ['en_US', 'utf8'])
+import time
+from time import sleep
+import sys
+import json
+import pickle
+
+def pload(filename, default=None, lib=pickle):
+    try:
+        res = lib.load(open(filename, "rb"))
+    except:
+        if default is None:
+            raise
+        return default
+    return res
+
+def pdump(filename, data, lib=pickle):
+    open(filename, "w"+("b" if lib==pickle else "")).write(lib.dumps(data))
+
+def jload(filename, default=None):
+    return pload(filename, default=default, lib=json)
+
+def jdump(filename, data):
+    return pdump(filename, data, lib=json)
+
+import os
+import csv
+
+from urllib.parse import quote, unquote
+from base64 import b64encode, b64decode, b16encode, b16decode
+
+def bd(b64_string):
+    b64_string += "=" * ((4 - len(b64_string) % 4) % 4)
+    return b64decode(b64_string).decode()
+
+jl=json.loads
+
+def hd(b16_string):
+    return b16decode(b16_string.upper())
+
+def myprint(*args, **kwargs):
+    args = list(args)
+    args[0] = "["+time.strftime("%Y-%m-%d %H:%M:%S")+"] "+str(args[0])
+    print(*args, **kwargs)
+
+import lazy_import
+requests = lazy_import.lazy_module("requests")
+numpy = np = lazy_import.lazy_module("numpy")
+plt = lazy_import.lazy_module("matplotlib.pyplot")
+el = EasyLogin = lazy_import.lazy_class("EasyLogin.EasyLogin")
+pp = pprint = lazy_import.lazy_function("pprint.pprint")
+leval = lazy_import.lazy_function("ast.literal_eval")
+
+import hashlib
+def _load_hashlib(name):
+    def f(s):
+        if isinstance(s, str):
+            s = bytes(s, "utf-8")
+        return getattr(hashlib, name)(s).hexdigest()
+    return f
+md5 = _load_hashlib("md5")
+sha1 = _load_hashlib("sha1")
+sha512 = _load_hashlib("sha512")
+
+class _A():
+    def __getattr__(self, name):
+        global a
+        a=el()
+        return getattr(a, name)
+a=_A()
+
+class _sess():
+    def __getattr__(self, name):
+        global sess
+        sess=requests.session()
+        return getattr(sess, name)
+sess=_sess()
+
+def t():
+    return int(time.time())
+
+from datetime import datetime, timedelta
+def d(ts):
+    ts = int(ts)
+    if len(str(ts))==13:
+        ts = ts//1000
+    return datetime.fromtimestamp(ts).strftime("%Y-%m-%d %H:%M:%S")
+```
