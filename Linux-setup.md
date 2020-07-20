@@ -467,8 +467,10 @@ mkfs.ext4 /dev/sdXX -E lazy_itable_init=0,lazy_journal_init=0 -O sparse_super,la
 
 ## 添加受信任的CA证书 mitmproxy
 
+@TAG mitm
+
 ```
-echo ~/.mitmproxy/mitmproxy-ca-cert.pem >> /etc/ssl/certs/ca-certificates.crt
+cat ~/.mitmproxy/mitmproxy-ca-cert.pem >> /etc/ssl/certs/ca-certificates.crt
 ```
 
 ----
