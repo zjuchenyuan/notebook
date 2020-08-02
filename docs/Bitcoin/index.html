@@ -1025,6 +1025,8 @@
 <p><strong>卖出1张看跌 做空</strong>：相当于按照现在的合约价格卖出btc手上拿着100USD，也就是借到了美元（然而并不能拿到美元），承诺未来会把这100美元买回btc，如果按预期真的跌了平仓时就能买到更多的btc。注意到买卖这个期货都是基于btc担保的，所以如果不加杠杆做空，就完全等价于卖出持有的btc，不存在爆仓风险，也就是说想真正做空（花人民币赌btc跌）必须上杠杆</p>
 <h2 id="_2">永续合约资金费率套利<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>期货合约的交易价格为啥会与现货(BTC/USDT)相差不大呢？因为存在每8个小时的结算机制，如果合约价格&gt;现货价格，说明多方占优，则多方向空方支付资金费，如0.01%（具体数值与价差相关）。<a href="https://huobiglobal.zendesk.com/hc/zh-cn/articles/900000106903">官方说明</a></p>
+<p>套利操作：先在法币交易用人民币买usdt，然后在币币交易买入10.1usdt的币（多买一点给扣手续费），立刻转入永续合约账户开始1倍做空一张，然后长期持有直到趋势反转（持续支付资金费）。</p>
+<p>不要看账户的收益率，这个单单是做空本身相当于持币的收益率，我们并没有持币，正确的收益计算应该是账户权益（币的数量）*当前币币交易价格</p>
 <p>历史数据查询： https://futures.huobi.com/zh-cn/swap/info/swap_fee/</p>
 <p>爬取一下历史数据：</p>
 <div class="codehilite"><pre><span></span><code><span class="n">coin</span><span class="o">=</span><span class="s2">&quot;BTC&quot;</span> <span class="c1">#可以改成ETH EOS LINK BCH BSV LTC XRP ETC TRX ADA ATOM IOTA NEO ONT XLM XMR DASH ZEC</span>
