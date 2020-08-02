@@ -6,7 +6,7 @@ pushd /mnt/d/Seafile/Developer/EasyLogin/examples/upyun/
 python3 upyun.py 'https://py3.io/@' &
 popd
 python3 code/upyun_purge.py &
-
+for i in *.md; do ln -f $i mdfiles/$i; done
 mkdocs build
 cd docs
 sed -i 's#https://fonts.googleapis.com/css#/assets/css/fonts.css#g' $(find -type f -name "*.html")

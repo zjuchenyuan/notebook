@@ -19,7 +19,7 @@
     
     
       
-        <title>说明 - notebook</title>
+        <title>Bitcoin - notebook</title>
       
     
     
@@ -52,7 +52,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#bitcoin" class="md-skip">
           Skip to content
         </a>
       
@@ -80,7 +80,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              说明
+              Bitcoin
             
           </span>
         </div>
@@ -724,10 +724,12 @@
       
       
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7" checked>
     
     <label class="md-nav__link" for="nav-7">
       Fun
@@ -749,11 +751,60 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../Bitcoin/" title="Bitcoin" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Bitcoin
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="Bitcoin" class="md-nav__link md-nav__link--active">
       Bitcoin
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    期货永续合约介绍
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    永续合约资金费率套利
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -932,8 +983,15 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    期货永续合约介绍
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
-    图床可用性监测+特性测试数据？
+    永续合约资金费率套利
   </a>
   
 </li>
@@ -950,7 +1008,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/zjuchenyuan/notebook/edit/master/Misson.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/zjuchenyuan/notebook/edit/master/Bitcoin.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
@@ -958,76 +1016,141 @@
                   
                 
                 
-                <h1 id="_1">说明<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>这个文件是我的Idea们，挖个坑待填</p>
-<p>有兴趣和我一起干或告知现有的技术，欢迎提issue或发送邮件：github@qiushi.ac.cn</p>
-<hr />
-<h2 id="_2">图床可用性监测+特性测试数据？<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p>现在我们已经有很多图床服务，但似乎并没有可用性监测数据，直接使用之前还需要自行测试是否有防盗链等特性，有没有这样一个图床测试服务来提供这些数据呢？</p>
-<p>例如这些图床上传代码：</p>
-<p>https://www.npmjs.com/package/upimg/v/0.1.8
-https://github.com/aimerforreimu/auxpi/tree/dev/server</p>
-<p>每天测一次上传服务可用性，每小时测一次 cdn 下载可靠性</p>
-<p>特性指标：</p>
-<p>可靠性：会不会 404、服务器跑路（如熊猫直播、360 云盘）、是否友好（引用自 npm upimg 包 0.1.8：由于某公司方面施压，upimg 将不维护以上列表外服务的可用性）</p>
-<p>易用性：特定语言下是否已经有开源代码实现上传功能 （例如腾讯云 cos 前端上传就没有后端语言的实现）</p>
-<p>前端可用：可否在其他网站上传，是否防盗链，是否可以跨域读取内容，访问频率限制，直接打开 url 是否强制下载</p>
-<p>后端可用：维护登录 cookie 是否容易（登录验证码），请求频率限制</p>
-<p>不止于图片：是否压缩图片，是否可以上传非图片二进制，单个文件最大大小</p>
-<p>安全：是否支持删除，传输 https，访问 https</p>
-<p>misc：生成 url 长度，是否限制国外访问，cdn 节点广度，是否被墙</p>
-<hr />
-<h1 id="deny404">Deny404<a class="headerlink" href="#deny404" title="Permanent link">&para;</a></h1>
-<p>360极速浏览器曾经有的网页快照功能，能不能用Chrome扩展实现</p>
-<p>要求在不引用任何外部资源的情况下展示出和原网页基本相同的效果</p>
-<p>生成文件尽量少，能push到github</p>
-<p>另外也需要全文检索</p>
-<p>入手：考虑复制网页文本+cutycapt保存图片</p>
-<p>目前的实现：印象笔记/Evernote的剪藏插件，然后用api导出 参见<a href="https://github.com/zjuchenyuan/evernote2ipfs">evernote2ipfs</a></p>
-<hr />
-<h1 id="easycrawler">EasyCrawler<a class="headerlink" href="#easycrawler" title="Permanent link">&para;</a></h1>
-<p>给出两三个网页url，自动diff分析网页内容所在的tag，得出从url→内容的算法</p>
-<p>甚至给出网站域名直接爬取全站并提取内容到数据库以便压缩存储</p>
-<p>入手：也许需要了解lxml</p>
-<hr />
-<h1 id="waf">WAF<a class="headerlink" href="#waf" title="Permanent link">&para;</a></h1>
-<p>开源的WAF? </p>
-<hr />
-<h1 id="_3">文件整理<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h1>
-<p>有了Everything找文件方便了一点</p>
-<p>windows下有没有对文件进行标记关键词、机密等级的explorer的扩展呢。。。</p>
-<p>机密文件要自动加密，需要google authenticator两步验证解密</p>
-<p>重要文件需要自动异地备份，并提醒使用移动硬盘离线备份+插入硬盘后自动备份需要备份的东西</p>
-<p>有没有Explorer右键扩展对文件进行标记tag的工具？</p>
-<p>标记为重要的文件自动采用多种存储方案进行备份+版本控制，支持自己外接硬盘（提醒）、上传到包括但不限于：</p>
-<ul>
-<li>不可靠：自己的硬盘、百度网盘</li>
-<li>免费的云盘服务：天翼云盘、坚果云、亿方云、奶牛快传、浙大云盘</li>
-<li>自建的云上存储：自己服务器(Seafile)、Google Drive、OneDrive</li>
-<li>商业化的对象存储：阿里OSS、腾讯云COS、又拍云、七牛、AWS S3、百度云</li>
-<li>也能存但不适合：邮件附件、Github、印象笔记</li>
-</ul>
-<p>备份的同时要支持文件加密存储</p>
-<p>标记为工作文件要支持手机端访问</p>
-<p>用户只要鼠标右键点一点，后台自动处理加密、传输的问题，并考虑单一服务不再可用的风险</p>
-<p>嗯。。。既要经济又要可靠似乎很麻烦23333？</p>
-<hr />
-<h1 id="_4">一站式获取所有我应该知道的信息<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h1>
-<p>也许就是如何推送到日历吧。。。win10有没有可编程的桌面小部件呢。。。</p>
-<p>有没有一个屏幕直接显示我所管理的所有服务器的状态的程序呢。。。</p>
-<p>也需要爬虫爬一下院网</p>
-<p>重要的提醒发个邮件通知自己</p>
-<hr />
-<h1 id="apifinished">基于浙大云盘做出上传分享API[Finished]<a class="headerlink" href="#apifinished" title="Permanent link">&para;</a></h1>
-<p>本idea已经实现：https://github.com/zjuchenyuan/EasyLogin/tree/master/examples/fangcloud</p>
-<p>每个人2T的存储空间怎么能错过。。。</p>
-<p>不过亿方云还没有给浙大云盘搞客户端，上传有点烦</p>
-<p>研究一下如何从team.zju.edu.cn开始登录上传分享下载一条龙的API实现</p>
-<hr />
-<h1 id="upyun-https-finished">upyun https 证书更新[Finished]<a class="headerlink" href="#upyun-https-finished" title="Permanent link">&para;</a></h1>
-<p>自动化更新证书 避免手动复制粘贴</p>
-<p>https://github.com/zjuchenyuan/EasyLogin/blob/master/examples/upyun/upyun.py</p>
-<hr />
+                <h1 id="bitcoin">Bitcoin<a class="headerlink" href="#bitcoin" title="Permanent link">&para;</a></h1>
+<p>我也来试水当个被割的韭菜了</p>
+<h2 id="_1">期货永续合约介绍<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>以火币的btc合约为例，交易单位最小是一张100 USD美元（其他币种都是10美元）</p>
+<p>交易都是基于btc担保，挣到的也是btc</p>
+<p><strong>买入1张看涨 做多</strong>：相当于按照现在的合约价格用100USD买入btc，也就是借到了币，期待比特币价格上涨；承诺未来会卖出btc平仓得到100USD返还，在平仓时如果真的涨了，那时需要卖出的btc就比当时开仓时的数量少，这个差异的部分就是挣到的btc；如果btc价格一直下跌，账户里所有的btc卖出都不够100USD就爆仓了（实际爆仓规则更复杂）</p>
+<p><strong>卖出1张看跌 做空</strong>：相当于按照现在的合约价格卖出btc手上拿着100USD，也就是借到了美元（然而并不能拿到美元），承诺未来会把这100美元买回btc，如果按预期真的跌了平仓时就能买到更多的btc。注意到买卖这个期货都是基于btc担保的，所以如果不加杠杆做空，就完全等价于卖出持有的btc，不存在爆仓风险，也就是说想真正做空（花人民币赌btc跌）必须上杠杆</p>
+<h2 id="_2">永续合约资金费率套利<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>期货合约的交易价格为啥会与现货(BTC/USDT)相差不大呢？因为存在每8个小时的结算机制，如果合约价格&gt;现货价格，说明多方占优，则多方向空方支付资金费，如0.01%（具体数值与价差相关）。<a href="https://huobiglobal.zendesk.com/hc/zh-cn/articles/900000106903">官方说明</a></p>
+<p>历史数据查询： https://futures.huobi.com/zh-cn/swap/info/swap_fee/</p>
+<p>爬取一下历史数据：</p>
+<div class="codehilite"><pre><span></span><code><span class="n">coin</span><span class="o">=</span><span class="s2">&quot;BTC&quot;</span> <span class="c1">#可以改成ETH EOS LINK BCH BSV LTC XRP ETC TRX ADA ATOM IOTA NEO ONT XLM XMR DASH ZEC</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="sb">`seq 1 4`</span><span class="p">;</span> <span class="n">do</span> <span class="n">curl</span> <span class="s2">&quot;https://futures.huobi.com/swap-order/x/v1/swap_funding_rate_page?contract_code=${coin}-USD&amp;page_index=${i}&amp;page_size=100&quot;</span> <span class="o">-</span><span class="n">H</span> <span class="s2">&quot;source:web&quot;</span> <span class="o">|</span> <span class="n">jq</span> <span class="o">-</span><span class="n">Mr</span> <span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">settle_logs</span><span class="p">[]</span><span class="o">.</span><span class="n">final_funding_rate</span><span class="p">;</span> <span class="n">done</span> <span class="o">&gt;</span> <span class="err">$</span><span class="p">{</span><span class="n">coin</span><span class="p">}</span><span class="n">feelog</span><span class="o">.</span><span class="n">txt</span> <span class="mi">2</span><span class="o">&gt;/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>
+<span class="n">python3</span> <span class="o">-</span><span class="n">c</span> <span class="s1">&#39;from decimal import Decimal;d=[Decimal(i) for i in open(&quot;&#39;</span><span class="err">$</span><span class="p">{</span><span class="n">coin</span><span class="p">}</span><span class="s1">&#39;feelog.txt&quot;)];print(&quot;&#39;</span><span class="err">$</span><span class="p">{</span><span class="n">coin</span><span class="p">}</span><span class="s1">&#39;&quot;,&quot;</span><span class="si">%.2f</span><span class="s1">&quot;%(sum(d)/len(d)*3*365*100))&#39;</span>
+</code></pre></div>
+
+
+<p>最早的一条记录是2020-03-25 20:00:00，目前是2020-08-02 20:00:00，一共130天，391次结算记录</p>
+<p>BTC年化收益7.16%，当然这个计算很有问题，实际上结算是按照当前btc价格换算增加了btc的持仓：比如假设现在资金费率0.01%，当前BTC/USDT价格为10000，持有1张做空在这次结算中会得到(100/10000)*0.01%=0.000001个BTC也就是当前对应0.01美元，但得到的是btc，如果btc后续大跌这0.000001btc值的美元也会降低，也就意味着实际收益会减少。</p>
+<p>对所有币种执行结果：（看起来ONT套利收益最高，不过只有34条结算记录不具有代表性）</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">#for coin in BTC ETH EOS LINK BCH BSV LTC XRP ETC TRX ADA ATOM IOTA NEO ONT XLM XMR DASH ZEC; do python3 -c &#39;from decimal import Decimal;d=[Decimal(i) for i in open(&quot;&#39;${coin}&#39;feelog.txt&quot;)];print(&quot;&#39;${coin}&#39;&quot;,&quot;%.2f&quot;%(sum(d)/len(d)*3*365*100),len(d))&#39;; done|sort -k2 -r -h</span>
+</code></pre></div>
+
+
+<table>
+<thead>
+<tr>
+<th>币种</th>
+<th>年化收益</th>
+<th>结算次数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ONT</td>
+<td>96.49</td>
+<td>34</td>
+</tr>
+<tr>
+<td>IOTA</td>
+<td>77.05</td>
+<td>34</td>
+</tr>
+<tr>
+<td>ATOM</td>
+<td>60.81</td>
+<td>34</td>
+</tr>
+<tr>
+<td>NEO</td>
+<td>56.38</td>
+<td>34</td>
+</tr>
+<tr>
+<td>XLM</td>
+<td>48.70</td>
+<td>34</td>
+</tr>
+<tr>
+<td>XMR</td>
+<td>39.93</td>
+<td>34</td>
+</tr>
+<tr>
+<td>ZEC</td>
+<td>34.49</td>
+<td>301</td>
+</tr>
+<tr>
+<td>BSV</td>
+<td>23.86</td>
+<td>352</td>
+</tr>
+<tr>
+<td>DASH</td>
+<td>19.79</td>
+<td>301</td>
+</tr>
+<tr>
+<td>LINK</td>
+<td>17.75</td>
+<td>322</td>
+</tr>
+<tr>
+<td>EOS</td>
+<td>17.62</td>
+<td>343</td>
+</tr>
+<tr>
+<td>BCH</td>
+<td>16.83</td>
+<td>352</td>
+</tr>
+<tr>
+<td>LTC</td>
+<td>16.11</td>
+<td>343</td>
+</tr>
+<tr>
+<td>TRX</td>
+<td>12.87</td>
+<td>331</td>
+</tr>
+<tr>
+<td>ETC</td>
+<td>12.41</td>
+<td>331</td>
+</tr>
+<tr>
+<td>XRP</td>
+<td>11.68</td>
+<td>343</td>
+</tr>
+<tr>
+<td>ETH</td>
+<td>10.01</td>
+<td>364</td>
+</tr>
+<tr>
+<td>BTC</td>
+<td>7.16</td>
+<td>391</td>
+</tr>
+<tr>
+<td>ADA</td>
+<td>-14.55</td>
+<td>301</td>
+</tr>
+</tbody>
+</table>
+<p>风险： From <a href="https://www.chainnode.com/post/391781">数字币套利简史（下）</a></p>
+<blockquote>
+<p>需要注意的是，资金费率的套利更加适合趋势上涨的行情，而且要留意行情的反转导致费率趋势的扭转，可能会套利失效；还有就是对于像18年的趋势下跌行情，虽然套利逻辑一样，但操作会更加复杂，因为这里面要涉及到永续合约+交割合约的组合对冲，占用币数也会翻倍，也就是说同样的币量套利年化收益率要打5折；所以，好好珍惜这来之不易的好行情吧。</p>
+</blockquote>
+<p>另外，如果btc持续上涨，在持仓中看到做空亏了百分之多少还是有点心痛的，这就需要良好的心理素质，套利相比于持币动辄一天10%的波动就挣不到多少钱hhh</p>
                 
               
               
@@ -1042,6 +1165,41 @@ https://github.com/aimerforreimu/auxpi/tree/dev/server</p>
       
         
 <footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../dfsan/" title="DFSan" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                DFSan
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../Linux-backup/" title="Linux-backup" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Linux-backup
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
