@@ -51,6 +51,9 @@ pages:
     - Fuzzing:
         - DFSan: dfsan.md
 
+    - Fun:
+        - Bitcoin: Bitcoin.md
+
     - Linux:
             - Linux-backup: Linux-backup.md
             - Linux-setup: Linux-setup.md

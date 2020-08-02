@@ -81,6 +81,10 @@ My notebook about technology, for lookup and share
 >* 命令行临时关闭Windows Defender
 >* 命令行增加Windows防火墙规则阻断IP
 
+## [Bitcoin](Bitcoin.md)
+>* 期货永续合约介绍
+>* 永续合约资金费率套利
+
 ## [C 语言](C.md)
 >* 关于Dev C++
 >* 输入的问题，建议用gets和sscanf
