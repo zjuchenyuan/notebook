@@ -84,6 +84,12 @@ for i,profit,length in data:
 |BTC|7.57%|392|
 |ADA|-15.08%|302|
 
+累计收益最高的：
+![ZEC](https://github.com/zjuchenyuan/arbitrage_notification/raw/master/plot/ZEC.png)
+
+最低的：
+![ADA](https://github.com/zjuchenyuan/arbitrage_notification/raw/master/plot/ADA.png)
+
 以上数据为2020年8月2日计算的结果
 
 风险： From [数字币套利简史（下）](https://www.chainnode.com/post/391781)
