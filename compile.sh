@@ -12,3 +12,4 @@ cd docs
 sed -i 's#https://fonts.googleapis.com/css#/assets/css/fonts.css#g' $(find -type f -name "*.html")
 cd ..
 cp assets/css/main.4b9ffd7b.min.css docs/assets/stylesheets/
+sed -i 's#https://d.py3.io/btc.html#<div id="realtimeprofit"></div><script>fetch("https://d.py3.io/btc.html").then(r=>r.text()).then(html=>document.getElementById("realtimeprofit").innerHTML=html)</script>#' docs/Bitcoin/index.html

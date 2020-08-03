@@ -84,10 +84,17 @@ for i,profit,length in data:
 |BTC|7.57%|392|
 |ADA|-15.08%|302|
 
-More: [收益推送](https://github.com/zjuchenyuan/arbitrage_notification)
+以上数据为2020年8月2日计算的结果
 
 风险： From [数字币套利简史（下）](https://www.chainnode.com/post/391781)
 
 >需要注意的是，资金费率的套利更加适合趋势上涨的行情，而且要留意行情的反转导致费率趋势的扭转，可能会套利失效；还有就是对于像18年的趋势下跌行情，虽然套利逻辑一样，但操作会更加复杂，因为这里面要涉及到永续合约+交割合约的组合对冲，占用币数也会翻倍，也就是说同样的币量套利年化收益率要打5折；所以，好好珍惜这来之不易的好行情吧。
 
 另外，如果btc持续上涨，在持仓中看到做空亏了百分之多少还是有点心痛的，这就需要良好的心理素质，套利相比于持币动辄一天10%的波动就挣不到多少钱hhh
+
+### 套利实时收益率
+
+以下为实时收益率数据（每天更新一次）：[Code](https://github.com/zjuchenyuan/arbitrage_notification)
+
+https://d.py3.io/btc.html
+
