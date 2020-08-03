@@ -1027,18 +1027,42 @@
 <p>期货合约的交易价格为啥会与现货(BTC/USDT)相差不大呢？因为存在每8个小时的结算机制，如果合约价格&gt;现货价格，说明多方占优，则多方向空方支付资金费，如0.01%（具体数值与价差相关）。<a href="https://huobiglobal.zendesk.com/hc/zh-cn/articles/900000106903">官方说明</a></p>
 <p>套利操作：先在法币交易用人民币买usdt，然后在币币交易买入10.1usdt的币（多买一点给扣手续费），立刻转入永续合约账户开始1倍做空一张，然后长期持有直到趋势反转（持续支付资金费）。</p>
 <p>不要看账户的收益率，这个单单是做空本身相当于持币的收益率，我们并没有持币，正确的收益计算应该是账户权益（币的数量）*当前币币交易价格</p>
-<p>历史数据查询： https://futures.huobi.com/zh-cn/swap/info/swap_fee/</p>
-<p>爬取一下历史数据：</p>
-<div class="codehilite"><pre><span></span><code><span class="n">coin</span><span class="o">=</span><span class="s2">&quot;BTC&quot;</span> <span class="c1">#可以改成ETH EOS LINK BCH BSV LTC XRP ETC TRX ADA ATOM IOTA NEO ONT XLM XMR DASH ZEC</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="sb">`seq 1 4`</span><span class="p">;</span> <span class="n">do</span> <span class="n">curl</span> <span class="s2">&quot;https://futures.huobi.com/swap-order/x/v1/swap_funding_rate_page?contract_code=${coin}-USD&amp;page_index=${i}&amp;page_size=100&quot;</span> <span class="o">-</span><span class="n">H</span> <span class="s2">&quot;source:web&quot;</span> <span class="o">|</span> <span class="n">jq</span> <span class="o">-</span><span class="n">Mr</span> <span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">settle_logs</span><span class="p">[]</span><span class="o">.</span><span class="n">final_funding_rate</span><span class="p">;</span> <span class="n">done</span> <span class="o">&gt;</span> <span class="err">$</span><span class="p">{</span><span class="n">coin</span><span class="p">}</span><span class="n">feelog</span><span class="o">.</span><span class="n">txt</span> <span class="mi">2</span><span class="o">&gt;/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>
-<span class="n">python3</span> <span class="o">-</span><span class="n">c</span> <span class="s1">&#39;from decimal import Decimal;d=[Decimal(i) for i in open(&quot;&#39;</span><span class="err">$</span><span class="p">{</span><span class="n">coin</span><span class="p">}</span><span class="s1">&#39;feelog.txt&quot;)];print(&quot;&#39;</span><span class="err">$</span><span class="p">{</span><span class="n">coin</span><span class="p">}</span><span class="s1">&#39;&quot;,&quot;</span><span class="si">%.2f</span><span class="s1">&quot;%(sum(d)/len(d)*3*365*100))&#39;</span>
-</code></pre></div>
+<p>历史数据查询： <a href="https://futures.huobi.com/zh-cn/swap/info/swap_fee/">资金费率</a> <a href="https://futures.huobi.com/zh-cn/swap/info/settlement/">结算价格</a></p>
+<p>爬取一下历史数据：（看起来ONT套利收益最高，不过上线时间不够长不具有代表性）</p>
+<p>计算收益率时已经考虑了币价波动对最后实际收益的影响：假设投入1USD，计算每次结算能收到多少币，累加后按最近一次结算价计算这些币值多少USD，除以结算次数乘以一年的结算次数即为年化收益</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">decimal</span> <span class="kn">import</span> <span class="n">Decimal</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">lru_cache</span>
 
+<span class="n">sess</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">session</span><span class="p">()</span>
 
-<p>最早的一条记录是2020-03-25 20:00:00，目前是2020-08-02 20:00:00，一共130天，391次结算记录</p>
-<p>BTC年化收益7.16%，当然这个计算很有问题，实际上结算是按照当前btc价格换算增加了btc的持仓：比如假设现在资金费率0.01%，当前BTC/USDT价格为10000，持有1张做空在这次结算中会得到(100/10000)*0.01%=0.000001个BTC也就是当前对应0.01美元，但得到的是btc，如果btc后续大跌这0.000001btc值的美元也会降低，也就意味着实际收益会减少。</p>
-<p>对所有币种执行结果：（看起来ONT套利收益最高，不过只有34条结算记录不具有代表性）</p>
-<div class="codehilite"><pre><span></span><code><span class="c1">#for coin in BTC ETH EOS LINK BCH BSV LTC XRP ETC TRX ADA ATOM IOTA NEO ONT XLM XMR DASH ZEC; do python3 -c &#39;from decimal import Decimal;d=[Decimal(i) for i in open(&quot;&#39;${coin}&#39;feelog.txt&quot;)];print(&quot;&#39;${coin}&#39;&quot;,&quot;%.2f&quot;%(sum(d)/len(d)*3*365*100),len(d))&#39;; done|sort -k2 -r -h</span>
+<span class="nd">@lru_cache</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">getdata</span><span class="p">(</span><span class="n">coin</span><span class="p">,</span> <span class="n">page</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">page</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">Decimal</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s1">&#39;final_funding_rate&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">sess</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://futures.huobi.com/swap-order/x/v1/swap_funding_rate_page?contract_code=&quot;</span><span class="o">+</span><span class="n">coin</span><span class="o">+</span><span class="s2">&quot;-USD&amp;page_index=&quot;</span><span class="o">+</span><span class="n">page</span><span class="o">+</span><span class="s2">&quot;&amp;page_size=100&quot;</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;source&quot;</span><span class="p">:</span><span class="s2">&quot;web&quot;</span><span class="p">})</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;settle_logs&quot;</span><span class="p">]]</span>
+    <span class="n">settle</span> <span class="o">=</span> <span class="p">[</span><span class="n">Decimal</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s2">&quot;instrument_info&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;settle_price&quot;</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">sess</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://futures.huobi.com/swap-order/x/v1/swap_delivery_detail?symbol=&quot;</span><span class="o">+</span><span class="n">coin</span><span class="o">+</span><span class="s2">&quot;&amp;page_index=&quot;</span><span class="o">+</span><span class="n">page</span><span class="o">+</span><span class="s2">&quot;&amp;page_size=100&quot;</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;source&quot;</span><span class="p">:</span><span class="s2">&quot;web&quot;</span><span class="p">})</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;delivery&quot;</span><span class="p">]]</span>
+    <span class="k">return</span> <span class="n">data</span><span class="p">,</span> <span class="n">settle</span>
+
+<span class="k">def</span> <span class="nf">calc_fullprofit</span><span class="p">(</span><span class="n">coin</span><span class="p">):</span>
+    <span class="n">data</span><span class="p">,</span> <span class="n">settle</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="n">page</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">getdata</span><span class="p">(</span><span class="n">coin</span><span class="p">)</span>
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">settle</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">page</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">getdata</span><span class="p">(</span><span class="n">coin</span><span class="p">,</span> <span class="n">page</span><span class="p">)</span>
+    <span class="n">profit_coin</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">k</span><span class="o">/</span><span class="n">settle</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">k</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">)])</span>
+    <span class="n">profit_usd</span> <span class="o">=</span> <span class="n">profit_coin</span><span class="o">*</span><span class="n">settle</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%.2f</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">profit_usd</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">*</span><span class="mi">3</span><span class="o">*</span><span class="mi">365</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;%&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="n">data</span><span class="o">=</span><span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="s2">&quot;BTC ETH EOS LINK BCH BSV LTC XRP ETC TRX ADA ATOM IOTA NEO ONT XLM XMR DASH ZEC&quot;</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">):</span>
+    <span class="n">profit</span><span class="p">,</span> <span class="n">length</span> <span class="o">=</span> <span class="n">calc_fullprofit</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">i</span><span class="p">,</span> <span class="n">profit</span><span class="p">,</span> <span class="n">length</span><span class="p">])</span>
+<span class="n">data</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">profit</span><span class="p">,</span><span class="n">length</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="n">i</span><span class="p">,</span> <span class="n">profit</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;|&quot;</span><span class="p">)</span>
 </code></pre></div>
 
 
@@ -1053,101 +1077,102 @@
 <tbody>
 <tr>
 <td>ONT</td>
-<td>96.49</td>
-<td>34</td>
+<td>88.71%</td>
+<td>35</td>
 </tr>
 <tr>
 <td>IOTA</td>
-<td>77.05</td>
-<td>34</td>
+<td>75.41%</td>
+<td>35</td>
 </tr>
 <tr>
 <td>ATOM</td>
-<td>60.81</td>
-<td>34</td>
+<td>58.47%</td>
+<td>35</td>
 </tr>
 <tr>
 <td>NEO</td>
-<td>56.38</td>
-<td>34</td>
-</tr>
-<tr>
-<td>XLM</td>
-<td>48.70</td>
-<td>34</td>
-</tr>
-<tr>
-<td>XMR</td>
-<td>39.93</td>
-<td>34</td>
+<td>52.32%</td>
+<td>35</td>
 </tr>
 <tr>
 <td>ZEC</td>
-<td>34.49</td>
-<td>301</td>
+<td>50.74%</td>
+<td>302</td>
 </tr>
 <tr>
-<td>BSV</td>
-<td>23.86</td>
-<td>352</td>
+<td>XLM</td>
+<td>50.36%</td>
+<td>35</td>
 </tr>
 <tr>
-<td>DASH</td>
-<td>19.79</td>
-<td>301</td>
+<td>XMR</td>
+<td>35.45%</td>
+<td>35</td>
 </tr>
 <tr>
 <td>LINK</td>
-<td>17.75</td>
-<td>322</td>
+<td>33.68%</td>
+<td>323</td>
 </tr>
 <tr>
-<td>EOS</td>
-<td>17.62</td>
-<td>343</td>
+<td>BSV</td>
+<td>26.32%</td>
+<td>353</td>
 </tr>
 <tr>
-<td>BCH</td>
-<td>16.83</td>
-<td>352</td>
+<td>DASH</td>
+<td>22.16%</td>
+<td>302</td>
 </tr>
 <tr>
 <td>LTC</td>
-<td>16.11</td>
-<td>343</td>
+<td>19.73%</td>
+<td>344</td>
 </tr>
 <tr>
-<td>TRX</td>
-<td>12.87</td>
-<td>331</td>
+<td>EOS</td>
+<td>19.45%</td>
+<td>344</td>
 </tr>
 <tr>
-<td>ETC</td>
-<td>12.41</td>
-<td>331</td>
+<td>BCH</td>
+<td>19.02%</td>
+<td>353</td>
 </tr>
 <tr>
 <td>XRP</td>
-<td>11.68</td>
-<td>343</td>
+<td>16.09%</td>
+<td>344</td>
+</tr>
+<tr>
+<td>TRX</td>
+<td>14.59%</td>
+<td>332</td>
 </tr>
 <tr>
 <td>ETH</td>
-<td>10.01</td>
-<td>364</td>
+<td>14.22%</td>
+<td>365</td>
+</tr>
+<tr>
+<td>ETC</td>
+<td>13.29%</td>
+<td>332</td>
 </tr>
 <tr>
 <td>BTC</td>
-<td>7.16</td>
-<td>391</td>
+<td>7.57%</td>
+<td>392</td>
 </tr>
 <tr>
 <td>ADA</td>
-<td>-14.55</td>
-<td>301</td>
+<td>-15.08%</td>
+<td>302</td>
 </tr>
 </tbody>
 </table>
+<p>More: <a href="https://github.com/zjuchenyuan/arbitrage_notification">收益推送</a></p>
 <p>风险： From <a href="https://www.chainnode.com/post/391781">数字币套利简史（下）</a></p>
 <blockquote>
 <p>需要注意的是，资金费率的套利更加适合趋势上涨的行情，而且要留意行情的反转导致费率趋势的扭转，可能会套利失效；还有就是对于像18年的趋势下跌行情，虽然套利逻辑一样，但操作会更加复杂，因为这里面要涉及到永续合约+交割合约的组合对冲，占用币数也会翻倍，也就是说同样的币量套利年化收益率要打5折；所以，好好珍惜这来之不易的好行情吧。</p>

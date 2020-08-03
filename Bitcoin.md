@@ -20,48 +20,71 @@
 
 不要看账户的收益率，这个单单是做空本身相当于持币的收益率，我们并没有持币，正确的收益计算应该是账户权益（币的数量）*当前币币交易价格
 
-历史数据查询： https://futures.huobi.com/zh-cn/swap/info/swap_fee/
+历史数据查询： [资金费率](https://futures.huobi.com/zh-cn/swap/info/swap_fee/) [结算价格](https://futures.huobi.com/zh-cn/swap/info/settlement/)
 
-爬取一下历史数据：
+爬取一下历史数据：（看起来ONT套利收益最高，不过上线时间不够长不具有代表性）
 
-```
-coin="BTC" #可以改成ETH EOS LINK BCH BSV LTC XRP ETC TRX ADA ATOM IOTA NEO ONT XLM XMR DASH ZEC
-for i in `seq 1 4`; do curl "https://futures.huobi.com/swap-order/x/v1/swap_funding_rate_page?contract_code=${coin}-USD&page_index=${i}&page_size=100" -H "source:web" | jq -Mr .data.settle_logs[].final_funding_rate; done > ${coin}feelog.txt 2>/dev/null
-python3 -c 'from decimal import Decimal;d=[Decimal(i) for i in open("'${coin}'feelog.txt")];print("'${coin}'","%.2f"%(sum(d)/len(d)*3*365*100))'
-```
+计算收益率时已经考虑了币价波动对最后实际收益的影响：假设投入1USD，计算每次结算能收到多少币，累加后按最近一次结算价计算这些币值多少USD，除以结算次数乘以一年的结算次数即为年化收益
 
-最早的一条记录是2020-03-25 20:00:00，目前是2020-08-02 20:00:00，一共130天，391次结算记录
+```python
+import requests, os, sys, time
+from decimal import Decimal
+from functools import lru_cache
 
-BTC年化收益7.16%，当然这个计算很有问题，实际上结算是按照当前btc价格换算增加了btc的持仓：比如假设现在资金费率0.01%，当前BTC/USDT价格为10000，持有1张做空在这次结算中会得到(100/10000)*0.01%=0.000001个BTC也就是当前对应0.01美元，但得到的是btc，如果btc后续大跌这0.000001btc值的美元也会降低，也就意味着实际收益会减少。
+sess = requests.session()
 
-对所有币种执行结果：（看起来ONT套利收益最高，不过只有34条结算记录不具有代表性）
+@lru_cache()
+def getdata(coin, page=1):
+    page = str(page)
+    data = [Decimal(i['final_funding_rate']) for i in sess.get("https://futures.huobi.com/swap-order/x/v1/swap_funding_rate_page?contract_code="+coin+"-USD&page_index="+page+"&page_size=100", headers={"source":"web"}).json()["data"]["settle_logs"]]
+    settle = [Decimal(i["instrument_info"][0]["settle_price"]) for i in sess.get("https://futures.huobi.com/swap-order/x/v1/swap_delivery_detail?symbol="+coin+"&page_index="+page+"&page_size=100", headers={"source":"web"}).json()["data"]["delivery"]]
+    return data, settle
 
-```
-#for coin in BTC ETH EOS LINK BCH BSV LTC XRP ETC TRX ADA ATOM IOTA NEO ONT XLM XMR DASH ZEC; do python3 -c 'from decimal import Decimal;d=[Decimal(i) for i in open("'${coin}'feelog.txt")];print("'${coin}'","%.2f"%(sum(d)/len(d)*3*365*100),len(d))'; done|sort -k2 -r -h
+def calc_fullprofit(coin):
+    data, settle = [], []
+    page = 1
+    x = getdata(coin)
+    while len(x[0]):
+        data.extend(x[0])
+        settle.extend(x[1])
+        page+=1
+        x = getdata(coin, page)
+    profit_coin = sum([k/settle[i] for i,k in enumerate(data)])
+    profit_usd = profit_coin*settle[0]
+    return "%.2f"%(profit_usd/len(data)*3*365*100) + "%", len(data)
+
+data=[]
+for i in "BTC ETH EOS LINK BCH BSV LTC XRP ETC TRX ADA ATOM IOTA NEO ONT XLM XMR DASH ZEC".split(" "):
+    profit, length = calc_fullprofit(i)
+    data.append([i, profit, length])
+data.sort(key=lambda i:i[1], reverse=True)
+for i,profit,length in data:
+    print("",i, profit, length,"", sep="|")
 ```
 
 |币种|年化收益|结算次数|
 |---|---|---|
-|ONT|96.49|34|
-|IOTA|77.05|34|
-|ATOM|60.81|34|
-|NEO|56.38|34|
-|XLM|48.70|34|
-|XMR|39.93|34|
-|ZEC|34.49|301|
-|BSV|23.86|352|
-|DASH|19.79|301|
-|LINK|17.75|322|
-|EOS|17.62|343|
-|BCH|16.83|352|
-|LTC|16.11|343|
-|TRX|12.87|331|
-|ETC|12.41|331|
-|XRP|11.68|343|
-|ETH|10.01|364|
-|BTC|7.16|391|
-|ADA|-14.55|301
+|ONT|88.71%|35|
+|IOTA|75.41%|35|
+|ATOM|58.47%|35|
+|NEO|52.32%|35|
+|ZEC|50.74%|302|
+|XLM|50.36%|35|
+|XMR|35.45%|35|
+|LINK|33.68%|323|
+|BSV|26.32%|353|
+|DASH|22.16%|302|
+|LTC|19.73%|344|
+|EOS|19.45%|344|
+|BCH|19.02%|353|
+|XRP|16.09%|344|
+|TRX|14.59%|332|
+|ETH|14.22%|365|
+|ETC|13.29%|332|
+|BTC|7.57%|392|
+|ADA|-15.08%|302|
 
+More: [收益推送](https://github.com/zjuchenyuan/arbitrage_notification)
 
 风险： From [数字币套利简史（下）](https://www.chainnode.com/post/391781)
 
