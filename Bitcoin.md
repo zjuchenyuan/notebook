@@ -85,10 +85,12 @@ for i,profit,length in data:
 |ADA|-15.08%|302|
 
 累计收益最高的：
-![ZEC](https://github.com/zjuchenyuan/arbitrage_notification/raw/master/plot/ZEC.png)
 
-最低的：
-![ADA](https://github.com/zjuchenyuan/arbitrage_notification/raw/master/plot/ADA.png)
+![ZEC](https://d.py3.io/ZEC.png)
+
+最低的ADA：
+
+![ADA](https://d.py3.io/ADA.png)
 
 以上数据为2020年8月2日计算的结果
 
@@ -96,7 +98,7 @@ for i,profit,length in data:
 
 >需要注意的是，资金费率的套利更加适合趋势上涨的行情，而且要留意行情的反转导致费率趋势的扭转，可能会套利失效；还有就是对于像18年的趋势下跌行情，虽然套利逻辑一样，但操作会更加复杂，因为这里面要涉及到永续合约+交割合约的组合对冲，占用币数也会翻倍，也就是说同样的币量套利年化收益率要打5折；所以，好好珍惜这来之不易的好行情吧。
 
-交易期间手速慢会导致买入现货价格高于做空价格，导致额外的成本损耗；持有期间的最大风险在于美元贬值的风险，例如USDT 7.1买入，最后6.9卖出，即为28.2‰亏损
+交易期间手速慢或交易不活跃会导致买入现货价格高于做空价格，导致额外的成本损耗；持有期间的最大风险在于美元贬值的风险，例如USDT 7.1买入，最后6.9卖出，即为28.2‰亏损
 
 另外，如果btc持续上涨，在持仓中看到做空亏了百分之多少还是有点心痛的，这就需要良好的心理素质，套利相比于持币动辄一天10%的波动就挣不到多少钱hhh
 
