@@ -1055,7 +1055,7 @@
 <p>不要看账户的收益率，这个单单是做空本身相当于持币的收益率，我们并没有持币，正确的收益计算应该是账户权益（币的数量）*当前币币交易价格</p>
 <p>历史数据查询： <a href="https://futures.huobi.com/zh-cn/swap/info/swap_fee/">资金费率</a> <a href="https://futures.huobi.com/zh-cn/swap/info/settlement/">结算价格</a></p>
 <p>爬取一下历史数据：（看起来ONT套利收益最高，不过上线时间不够长不具有代表性）</p>
-<p>计算收益率时已经考虑了币价波动对最后实际收益的影响：假设投入1USD，计算每次结算能收到多少币，累加后按最近一次结算价计算这些币值多少USD，除以结算次数乘以一年的结算次数即为年化收益</p>
+<p><strong>计算收益率</strong>时不能简单对单次收益率求和，应该考虑币价波动对最后实际收益的影响：假设投入1USD，计算每次结算能收到多少币，累加后按最近一次结算价计算这些币值多少USD，除以结算次数乘以一年的结算次数即为年化收益</p>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">time</span>
 <span class="kn">from</span> <span class="nn">decimal</span> <span class="kn">import</span> <span class="n">Decimal</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">lru_cache</span>
@@ -1207,9 +1207,13 @@
 <blockquote>
 <p>需要注意的是，资金费率的套利更加适合趋势上涨的行情，而且要留意行情的反转导致费率趋势的扭转，可能会套利失效；还有就是对于像18年的趋势下跌行情，虽然套利逻辑一样，但操作会更加复杂，因为这里面要涉及到永续合约+交割合约的组合对冲，占用币数也会翻倍，也就是说同样的币量套利年化收益率要打5折；所以，好好珍惜这来之不易的好行情吧。</p>
 </blockquote>
+<p>交易期间手速慢会导致买入现货价格高于做空价格，导致额外的成本损耗；持有期间的最大风险在于美元贬值的风险，例如USDT 7.1买入，最后6.9卖出，即为28.2‰亏损</p>
 <p>另外，如果btc持续上涨，在持仓中看到做空亏了百分之多少还是有点心痛的，这就需要良好的心理素质，套利相比于持币动辄一天10%的波动就挣不到多少钱hhh</p>
 <h3 id="_3">套利实时收益率<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>以下为实时收益率数据（每天更新一次）：<a href="https://github.com/zjuchenyuan/arbitrage_notification">Code</a></p>
+<p>预测收益：下一次结算收益（确定值）+下下次结算收益（预估值，随价差波动），单位为千分之</p>
+<p>昨日收益：最近三次结算的累计收益</p>
+<p>7日年化：最近21次结算平均收益 具体计算见上文<strong>计算收益率</strong></p>
 <p><div id="realtimeprofit"></div><script>fetch("https://d.py3.io/btc.html?_t="+new Date().getTime()).then(r=>r.text()).then(html=>document.getElementById("realtimeprofit").innerHTML=html)</script></p>
                 
               
