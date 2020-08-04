@@ -115,16 +115,17 @@ for i,profit,length in data:
 https://d.py3.io/btc.html
 
 <script>
-    function triggerrefresh(){    
-        fetch("https://api.py3.io/trigger_btc_refresh").then(function(response) {
-            if (!response.ok) {
-                throw Error(response.statusText);
-            }
-            return response;
-        }).then(function(response) {
-            alert("已触发更新，请等待1分钟后刷新页面")
-        }).catch(function(error) {
-            alert("触发更新失败，请稍后再来")
-        });
-    }
+function triggerrefresh(){    
+    fetch("https://api.py3.io/trigger_btc_refresh").then(function(response) {
+        if (!response.ok) {
+            throw Error(response.statusText);
+        }
+        return response;
+    }).then(function(response) {
+        alert("已触发更新，请等待1分钟后刷新页面")
+    }).catch(function(error) {
+        alert("触发更新失败，请稍后再来")
+    });
+}
+if(/refresh/.test(location.href)) triggerrefresh();
 </script>
