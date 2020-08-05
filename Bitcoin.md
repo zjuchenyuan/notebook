@@ -115,6 +115,28 @@ for i,profit,length in data:
 https://d.py3.io/btc.html
 
 <script>
+function tdsortn(a,b,n){if(parseFloat(a.querySelector("td:nth-child("+n+")").textContent) > parseFloat(b.querySelector("td:nth-child("+n+")").textContent) ) return 1; else return -1;}
+function tablebodysort(tbody, n, order){
+    var mylist=Array.prototype.slice.call(tbody.querySelectorAll("tr"), 0);
+    var sortList = Array.prototype.sort.bind(mylist);
+    tbody.innerHTML="";
+    for(var i of sortList(function(a,b){return order*tdsortn(a,b,n)}))
+        tbody.appendChild(i)
+}
+var rememerclick={};
+function tablesort_onclick(e){
+    var n = Array.from(e.target.parentElement.children).map((element, index)=>({element,index})).filter(({element})=>element==e.target)[0].index+1
+    var tbody = document.querySelector("#realtimeprofit > table > tbody");
+    var order = rememerclick[n]?(rememerclick[n]==1?-1:1):1;
+    tablebodysort(tbody, n, order);
+    rememerclick[n] = order;
+}
+function registeronclick(){
+    for (var i of Array.prototype.slice.call(document.querySelectorAll("#realtimeprofit > table > thead > tr > th"),1)){
+        i.onclick = tablesort_onclick;
+        i.style["cursor"]="pointer";
+    }
+}
 function triggerrefresh(){    
     fetch("https://api.py3.io/trigger_btc_refresh").then(function(response) {
         if (!response.ok) {
