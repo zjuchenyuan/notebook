@@ -172,10 +172,17 @@ if(/refresh/.test(location.href)) triggerrefresh();
 .headcol {
   position: sticky;
   position: -webkit-sticky;
+  background-color: white;
   width: 3rem;
   min-width: 3rem;
   max-width: 3rem;
   left: 0px;
 }
-
+th.headcol {
+  background-color: #757575!important;
+}
+.md-typeset table:not([class]) tr:hover .headcol{
+  background-color: #f6f6f6;
+}
+  
 </style>
