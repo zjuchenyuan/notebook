@@ -789,28 +789,22 @@
       
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
-    期货永续合约介绍
+    套利实时收益率
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
-    永续合约资金费率套利
-  </a>
-  
-    <nav class="md-nav" aria-label="永续合约资金费率套利">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    套利实时收益率
+    期货永续合约介绍
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    永续合约资金费率套利
+  </a>
   
 </li>
       
@@ -997,28 +991,22 @@
       
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
-    期货永续合约介绍
+    套利实时收益率
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
-    永续合约资金费率套利
-  </a>
-  
-    <nav class="md-nav" aria-label="永续合约资金费率套利">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    套利实时收益率
+    期货永续合约介绍
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    永续合约资金费率套利
+  </a>
   
 </li>
       
@@ -1044,12 +1032,18 @@
                 
                 <h1 id="bitcoin">Bitcoin<a class="headerlink" href="#bitcoin" title="Permanent link">&para;</a></h1>
 <p>我也来试水当个被割的韭菜了</p>
-<h2 id="_1">期货永续合约介绍<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="_1">套利实时收益率<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p>以下为实时收益率数据（每天更新一次）：<a href="https://github.com/zjuchenyuan/arbitrage_notification">Code</a></p>
+<p>预测收益：下一次结算收益（确定值）+下下次结算收益（预估值，随价差波动），单位为千分之</p>
+<p>昨日收益：最近三次结算的累计收益</p>
+<p>7日年化：最近21次结算平均收益 具体计算见上文<strong>计算收益率</strong></p>
+<p><div id="realtimeprofit"></div><script>function loadbtctable(){fetch("https://d.py3.io/btc.html?_t="+new Date().getTime()).then(r=>r.text()).then(function(html){document.getElementById("realtimeprofit").innerHTML=html; registeronclick();})}loadbtctable();</script></p>
+<h2 id="_2">期货永续合约介绍<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>以火币的btc合约为例，交易单位最小是一张100 USD美元（其他币种都是10美元）</p>
 <p>交易都是基于btc担保，挣到的也是btc</p>
 <p><strong>买入1张看涨 做多</strong>：相当于按照现在的合约价格用100USD买入btc，也就是借到了币，期待比特币价格上涨；承诺未来会卖出btc平仓得到100USD返还，在平仓时如果真的涨了，那时需要卖出的btc就比当时开仓时的数量少，这个差异的部分就是挣到的btc；如果btc价格一直下跌，账户里所有的btc卖出都不够100USD就爆仓了（实际爆仓规则更复杂）</p>
 <p><strong>卖出1张看跌 做空</strong>：相当于按照现在的合约价格卖出btc手上拿着100USD，也就是借到了美元（然而并不能拿到美元），承诺未来会把这100美元买回btc，如果按预期真的跌了平仓时就能买到更多的btc。注意到买卖这个期货都是基于btc担保的，所以如果不加杠杆做空，就完全等价于卖出持有的btc，不存在爆仓风险，也就是说想真正做空（花人民币赌btc跌）必须上杠杆</p>
-<h2 id="_2">永续合约资金费率套利<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="_3">永续合约资金费率套利<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>这本质上是一个套期保值的操作，是套利，不是高频交易策略，建仓后无需操作，只需要观察是否趋势反转决定平仓时机，例如当七日年化收益为负时平仓卖出</p>
 <p>期货合约的交易价格为啥会与现货(BTC/USDT)相差不大呢？因为存在每8个小时的结算机制，如果合约价格&gt;现货价格，说明多方占优，则多方向空方支付资金费，如0.01%（具体数值与价差相关）。<a href="https://huobiglobal.zendesk.com/hc/zh-cn/articles/900000106903">官方说明</a></p>
 <p>套利操作：用usdt买入币种，立刻下空单无杠杆做空相同数量——这样我们一买一卖相当于没有买入，资产净值不受币价波动影响，只是做空收取资金费</p>
@@ -1211,12 +1205,6 @@
 </blockquote>
 <p>交易期间手速慢或交易不活跃会导致买入现货价格高于做空价格，导致额外的成本损耗；持有期间的最大风险在于美元贬值的风险，例如USDT 7.1买入，最后6.9卖出，即为28.2‰亏损</p>
 <p>另外，如果btc持续上涨，在持仓中看到做空亏了百分之多少还是有点心痛的，这就需要良好的心理素质，套利相比于持币动辄一天10%的波动就挣不到多少钱hhh</p>
-<h3 id="_3">套利实时收益率<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
-<p>以下为实时收益率数据（每天更新一次）：<a href="https://github.com/zjuchenyuan/arbitrage_notification">Code</a></p>
-<p>预测收益：下一次结算收益（确定值）+下下次结算收益（预估值，随价差波动），单位为千分之</p>
-<p>昨日收益：最近三次结算的累计收益</p>
-<p>7日年化：最近21次结算平均收益 具体计算见上文<strong>计算收益率</strong></p>
-<p><div id="realtimeprofit"></div><script>function loadbtctable(){fetch("https://d.py3.io/btc.html?_t="+new Date().getTime()).then(r=>r.text()).then(function(html){document.getElementById("realtimeprofit").innerHTML=html; registeronclick();})}loadbtctable();</script></p>
 <script>
 function myparseFloat(text){
     var res = parseFloat(text);
@@ -1258,6 +1246,7 @@ function triggerrefresh(){
         }
         return response;
     }).then(function(response) {
+        alert("更新成功");
         loadbtctable();
     }).catch(function(error) {
         alert("触发更新失败，请稍后再来")

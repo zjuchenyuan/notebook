@@ -2,6 +2,18 @@
 
 我也来试水当个被割的韭菜了
 
+### 套利实时收益率
+
+以下为实时收益率数据（每天更新一次）：[Code](https://github.com/zjuchenyuan/arbitrage_notification)
+
+预测收益：下一次结算收益（确定值）+下下次结算收益（预估值，随价差波动），单位为千分之
+
+昨日收益：最近三次结算的累计收益
+
+7日年化：最近21次结算平均收益 具体计算见上文**计算收益率**
+
+https://d.py3.io/btc.html
+
 ## 期货永续合约介绍
 
 以火币的btc合约为例，交易单位最小是一张100 USD美元（其他币种都是10美元）
@@ -106,18 +118,6 @@ for i,profit,length in data:
 
 另外，如果btc持续上涨，在持仓中看到做空亏了百分之多少还是有点心痛的，这就需要良好的心理素质，套利相比于持币动辄一天10%的波动就挣不到多少钱hhh
 
-### 套利实时收益率
-
-以下为实时收益率数据（每天更新一次）：[Code](https://github.com/zjuchenyuan/arbitrage_notification)
-
-预测收益：下一次结算收益（确定值）+下下次结算收益（预估值，随价差波动），单位为千分之
-
-昨日收益：最近三次结算的累计收益
-
-7日年化：最近21次结算平均收益 具体计算见上文**计算收益率**
-
-https://d.py3.io/btc.html
-
 <script>
 function myparseFloat(text){
     var res = parseFloat(text);
@@ -159,6 +159,7 @@ function triggerrefresh(){
         }
         return response;
     }).then(function(response) {
+        alert("更新成功");
         loadbtctable();
     }).catch(function(error) {
         alert("触发更新失败，请稍后再来")
