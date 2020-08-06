@@ -169,4 +169,13 @@ if(/refresh/.test(location.href)) triggerrefresh();
 </script>
 <style>
 .md-grid{max-width:69rem;}
+.headcol {
+  position: sticky;
+  position: -webkit-sticky;
+  width: 3rem;
+  min-width: 3rem;
+  max-width: 3rem;
+  left: 0px;
+}
+
 </style>
