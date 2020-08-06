@@ -167,3 +167,6 @@ function triggerrefresh(){
 }
 if(/refresh/.test(location.href)) triggerrefresh();
 </script>
+<style>
+.md-grid{max-width:69rem;}
+</style>
