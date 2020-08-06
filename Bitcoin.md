@@ -141,7 +141,7 @@ function tablebodysort(tbody, n, order){
 var rememerclick={};
 function tablesort_onclick(e){
     var n = Array.from(e.target.parentElement.children).map((element, index)=>({element,index})).filter(({element})=>element==e.target)[0].index+1
-    var tbody = document.querySelector("#realtimeprofit > table > tbody");
+    var tbody = document.querySelector("#realtimeprofittbody");
     var order = rememerclick[n]==1?-1:1;
     tablebodysort(tbody, n, order);
     rememerclick[n] = order;
