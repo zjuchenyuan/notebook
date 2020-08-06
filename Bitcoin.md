@@ -119,7 +119,18 @@ for i,profit,length in data:
 https://d.py3.io/btc.html
 
 <script>
-function tdsortn(a,b,n){if(parseFloat(a.querySelector("td:nth-child("+n+")").textContent) > parseFloat(b.querySelector("td:nth-child("+n+")").textContent) ) return 1; else return -1;}
+function myparseFloat(text){
+    var res = parseFloat(text);
+    if(text.endswith("亿")) return res*100000000;
+    if(text.endswith("万")) return res*10000;
+    return res;
+}
+function tdsortn(a,b,n){
+    if(myparseFloat(a.querySelector("td:nth-child("+n+")").textContent) > myparseFloat(b.querySelector("td:nth-child("+n+")").textContent) ) 
+        return 1; 
+    else 
+        return -1;
+}
 function tablebodysort(tbody, n, order){
     var mylist=Array.prototype.slice.call(tbody.querySelectorAll("tr"), 0);
     var sortList = Array.prototype.sort.bind(mylist);
