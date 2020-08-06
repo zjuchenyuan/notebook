@@ -1220,8 +1220,8 @@
 <script>
 function myparseFloat(text){
     var res = parseFloat(text);
-    if(text.endswith("亿")) return res*100000000;
-    if(text.endswith("万")) return res*10000;
+    if(text.endsWith("亿")) return res*100000000;
+    if(text.endsWith("万")) return res*10000;
     return res;
 }
 function tdsortn(a,b,n){
