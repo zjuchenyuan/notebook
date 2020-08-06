@@ -159,7 +159,7 @@ function triggerrefresh(){
         }
         return response;
     }).then(function(response) {
-        alert("已触发更新，请等待1分钟后刷新页面")
+        loadbtctable();
     }).catch(function(error) {
         alert("触发更新失败，请稍后再来")
     });

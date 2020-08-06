@@ -1216,7 +1216,7 @@
 <p>预测收益：下一次结算收益（确定值）+下下次结算收益（预估值，随价差波动），单位为千分之</p>
 <p>昨日收益：最近三次结算的累计收益</p>
 <p>7日年化：最近21次结算平均收益 具体计算见上文<strong>计算收益率</strong></p>
-<p><div id="realtimeprofit"></div><script>fetch("https://d.py3.io/btc.html?_t="+new Date().getTime()).then(r=>r.text()).then(function(html){document.getElementById("realtimeprofit").innerHTML=html; registeronclick();})</script></p>
+<p><div id="realtimeprofit"></div><script>function loadbtctable(){fetch("https://d.py3.io/btc.html?_t="+new Date().getTime()).then(r=>r.text()).then(function(html){document.getElementById("realtimeprofit").innerHTML=html; registeronclick();})}loadbtctable();</script></p>
 <script>
 function myparseFloat(text){
     var res = parseFloat(text);
@@ -1258,7 +1258,7 @@ function triggerrefresh(){
         }
         return response;
     }).then(function(response) {
-        alert("已触发更新，请等待1分钟后刷新页面")
+        loadbtctable();
     }).catch(function(error) {
         alert("触发更新失败，请稍后再来")
     });
