@@ -135,14 +135,14 @@ function tablebodysort(tbody, n, order){
     var mylist=Array.prototype.slice.call(tbody.querySelectorAll("tr"), 0);
     var sortList = Array.prototype.sort.bind(mylist);
     tbody.innerHTML="";
-    for(var i of sortList(function(a,b){return order*tdsortn(a,b,n)}))
+    for(var i of sortList(function(a,b){return -order*tdsortn(a,b,n)}))
         tbody.appendChild(i)
 }
 var rememerclick={};
 function tablesort_onclick(e){
     var n = Array.from(e.target.parentElement.children).map((element, index)=>({element,index})).filter(({element})=>element==e.target)[0].index+1
     var tbody = document.querySelector("#realtimeprofit > table > tbody");
-    var order = rememerclick[n]?(rememerclick[n]==1?-1:1):1;
+    var order = rememerclick[n]==1?-1:1;
     tablebodysort(tbody, n, order);
     rememerclick[n] = order;
 }
