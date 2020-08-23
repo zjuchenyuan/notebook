@@ -1225,7 +1225,7 @@ function tablebodysort(tbody, n, order){
     for(var i of sortList(function(a,b){return -order*tdsortn(a,b,n)}))
         tbody.appendChild(i)
 }
-var rememerclick={};
+var rememerclick={2:1};
 function tablesort_onclick(e){
     var n = Array.from(e.target.parentElement.children).map((element, index)=>({element,index})).filter(({element})=>element==e.target)[0].index+1
     var tbody = document.querySelector("#realtimeprofittbody");
