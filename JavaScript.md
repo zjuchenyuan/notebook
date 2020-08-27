@@ -669,3 +669,50 @@ function handle_click(event){
     fix_position(et, oldt); //also include this line to callback function if using ajax
 }
 ```
+
+
+## Tampermonkey自动填充用户名密码表单，并通过前端的表单检查
+
+感谢[@CoolSpring](https://github.com/CoolSpring8)的解决方案： https://v2ex.com/t/701749
+
+现代化的前端做了表单检查，直接对input赋值不能通过检查，需要调用被重载的setter函数：
+
+```js
+function mytype(input, value){
+    var nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
+    nativeInputValueSetter.call(input, value);
+    input.dispatchEvent(new Event('input', {bubbles: true}));
+}
+```
+
+用法：
+
+```
+    mytype(document.querySelectorAll("input")[0], USERNAME);
+    mytype(document.querySelectorAll("input")[1], PASSWORD);
+```
+
+## 使用browserify将npm包打包成浏览器能用的js文件
+
+浏览器不支持require，怎么在浏览器里使用一个npm包呢？ [browserify](http://browserify.org/)
+
+示例：我想在tampermonkey里使用[user-event](https://github.com/testing-library/user-event)这个npm包，
+用来完整地模拟用户的交互，这个其实是上一个问题的笨重版本的解决方案
+
+```
+# 先安装目标库、browserify和terser
+cnpm install @testing-library/user-event @testing-library/dom --save-dev
+cnpm i -g browserify terser
+
+# 写一个main.js导入这个库，导出到window里
+var userEvent = require('@testing-library/user-event');
+window.userEvent = userEvent.default;
+
+# 执行打包
+browserify main.js | terser --compress --mangle > bundle.js
+
+# 在tampermonkey里使用
+// @require      上传到cdn后的js地址
+userEvent.type(document.querySelectorAll("input")[0], USERNAME);
+```
+

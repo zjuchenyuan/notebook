@@ -232,6 +232,8 @@ My notebook about technology, for lookup and share
 >* 用原生Javascript操作DOM节点
 >* 劫持动态图片加载 修改src属性
 >* 保持特定元素相对于窗口的位置不变
+>* Tampermonkey自动填充用户名密码表单，并通过前端的表单检查
+>* 使用browserify将npm包打包成浏览器能用的js文件
 
 ## [Jekyll](Jekyll.md)
 >* 碰到过的坑

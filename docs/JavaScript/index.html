@@ -694,6 +694,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#tampermonkey" class="md-nav__link">
+    Tampermonkey自动填充用户名密码表单，并通过前端的表单检查
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#browserifynpmjs" class="md-nav__link">
+    使用browserify将npm包打包成浏览器能用的js文件
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1540,6 +1554,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#tampermonkey" class="md-nav__link">
+    Tampermonkey自动填充用户名密码表单，并通过前端的表单检查
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#browserifynpmjs" class="md-nav__link">
+    使用browserify将npm包打包成浏览器能用的js文件
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2106,6 +2134,44 @@ function checkbox_onclick(){
     <span class="c1">//...code for hide and show divs...</span>
     <span class="n">fix_position</span><span class="o">(</span><span class="n">et</span><span class="o">,</span> <span class="n">oldt</span><span class="o">);</span> <span class="c1">//also include this line to callback function if using ajax</span>
 <span class="o">}</span>
+</code></pre></div>
+
+
+<h2 id="tampermonkey">Tampermonkey自动填充用户名密码表单，并通过前端的表单检查<a class="headerlink" href="#tampermonkey" title="Permanent link">&para;</a></h2>
+<p>感谢<a href="https://github.com/CoolSpring8">@CoolSpring</a>的解决方案： https://v2ex.com/t/701749</p>
+<p>现代化的前端做了表单检查，直接对input赋值不能通过检查，需要调用被重载的setter函数：</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">function</span> <span class="nx">mytype</span><span class="p">(</span><span class="nx">input</span><span class="p">,</span> <span class="nx">value</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">nativeInputValueSetter</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">getOwnPropertyDescriptor</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">HTMLInputElement</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">).</span><span class="nx">set</span><span class="p">;</span>
+    <span class="nx">nativeInputValueSetter</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">input</span><span class="p">,</span> <span class="nx">value</span><span class="p">);</span>
+    <span class="nx">input</span><span class="p">.</span><span class="nx">dispatchEvent</span><span class="p">(</span><span class="k">new</span> <span class="nx">Event</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">bubbles</span><span class="o">:</span> <span class="kc">true</span><span class="p">}));</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>用法：</p>
+<div class="codehilite"><pre><span></span><code><span class="err">    mytype(document.querySelectorAll(&quot;input&quot;)[0], USERNAME);</span>
+<span class="err">    mytype(document.querySelectorAll(&quot;input&quot;)[1], PASSWORD);</span>
+</code></pre></div>
+
+
+<h2 id="browserifynpmjs">使用browserify将npm包打包成浏览器能用的js文件<a class="headerlink" href="#browserifynpmjs" title="Permanent link">&para;</a></h2>
+<p>浏览器不支持require，怎么在浏览器里使用一个npm包呢？ <a href="http://browserify.org/">browserify</a></p>
+<p>示例：我想在tampermonkey里使用<a href="https://github.com/testing-library/user-event">user-event</a>这个npm包，
+用来完整地模拟用户的交互，这个其实是上一个问题的笨重版本的解决方案</p>
+<div class="codehilite"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="n">先安装目标库</span><span class="err">、</span><span class="n">browserify和terser</span><span class="w"></span>
+<span class="n">cnpm</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="nv">@testing</span><span class="o">-</span><span class="n">library</span><span class="o">/</span><span class="k">user</span><span class="o">-</span><span class="n">event</span><span class="w"> </span><span class="nv">@testing</span><span class="o">-</span><span class="n">library</span><span class="o">/</span><span class="n">dom</span><span class="w"> </span><span class="c1">--save-dev</span>
+<span class="n">cnpm</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="n">g</span><span class="w"> </span><span class="n">browserify</span><span class="w"> </span><span class="n">terser</span><span class="w"></span>
+
+<span class="err">#</span><span class="w"> </span><span class="n">写一个main</span><span class="p">.</span><span class="n">js导入这个库</span><span class="err">，</span><span class="n">导出到window里</span><span class="w"></span>
+<span class="nf">var</span><span class="w"> </span><span class="n">userEvent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">require</span><span class="p">(</span><span class="s1">&#39;@testing-library/user-event&#39;</span><span class="p">);</span><span class="w"></span>
+<span class="k">window</span><span class="p">.</span><span class="n">userEvent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">userEvent</span><span class="p">.</span><span class="k">default</span><span class="p">;</span><span class="w"></span>
+
+<span class="err">#</span><span class="w"> </span><span class="n">执行打包</span><span class="w"></span>
+<span class="n">browserify</span><span class="w"> </span><span class="n">main</span><span class="p">.</span><span class="n">js</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">terser</span><span class="w"> </span><span class="c1">--compress --mangle &gt; bundle.js</span>
+
+<span class="err">#</span><span class="w"> </span><span class="n">在tampermonkey里使用</span><span class="w"></span>
+<span class="o">//</span><span class="w"> </span><span class="nv">@require</span><span class="w">      </span><span class="n">上传到cdn后的js地址</span><span class="w"></span>
+<span class="n">userEvent</span><span class="p">.</span><span class="n">type</span><span class="p">(</span><span class="n">document</span><span class="p">.</span><span class="n">querySelectorAll</span><span class="p">(</span><span class="ss">&quot;input&quot;</span><span class="p">)</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">USERNAME</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
                 
               
