@@ -933,6 +933,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    屏幕截图
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    优雅的关机
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vrde" class="md-nav__link">
+    开启vrde远程桌面
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1080,6 +1101,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    屏幕截图
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    优雅的关机
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vrde" class="md-nav__link">
+    开启vrde远程桌面
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1179,6 +1221,25 @@
 <h2 id="_8">运行条件下关闭远程控制<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
 <p>系统安装好了，SSH开了，SSH的端口映射可以连上去了，就可以关掉远程控制了</p>
 <div class="codehilite"><pre><span></span><code><span class="err">VBoxManage controlvm 虚拟机名称 vrde off</span>
+</code></pre></div>
+
+
+<h2 id="_9">屏幕截图<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="err">VBoxManage controlvm &lt;vm name&gt; screenshotpng /tmp/&lt;filename&gt;.png</span>
+</code></pre></div>
+
+
+<h2 id="_10">优雅的关机<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="err">vboxmanage controlvm 虚拟机名称 poweroff soft</span>
+</code></pre></div>
+
+
+<h2 id="vrde">开启vrde远程桌面<a class="headerlink" href="#vrde" title="Permanent link">&para;</a></h2>
+<p>似乎需要先关机才能操作</p>
+<div class="codehilite"><pre><span></span><code><span class="err">VBoxManage modifyvm &quot;VM name&quot; --vrdeextpack default</span>
+<span class="err">VBoxManage modifyvm &quot;VM name&quot; --vrde on</span>
+<span class="err">VBoxManage modifyvm &quot;VM name&quot; --vrdeport 3391</span>
+<span class="err">VBoxManage modifyvm &quot;VM name&quot; --vrdeaddress 0.0.0.0</span>
 </code></pre></div>
                 
               

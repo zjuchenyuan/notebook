@@ -98,3 +98,26 @@ VBoxManage controlvm 虚拟机名称 natpf1 ssh,tcp,,10022,,22
 ```
 VBoxManage controlvm 虚拟机名称 vrde off
 ```
+
+## 屏幕截图
+
+```
+VBoxManage controlvm <vm name> screenshotpng /tmp/<filename>.png
+```
+
+## 优雅的关机
+
+```
+vboxmanage controlvm 虚拟机名称 poweroff soft
+```
+
+## 开启vrde远程桌面
+
+似乎需要先关机才能操作
+
+```
+VBoxManage modifyvm "VM name" --vrdeextpack default
+VBoxManage modifyvm "VM name" --vrde on
+VBoxManage modifyvm "VM name" --vrdeport 3391
+VBoxManage modifyvm "VM name" --vrdeaddress 0.0.0.0
+```
