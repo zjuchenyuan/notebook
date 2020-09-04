@@ -12,6 +12,8 @@
 
 7日年化：最近21次结算平均收益 具体计算见上文**计算收益率**
 
+<a onclick="showfull()">显示全部</a> <a onclick="showwatch1()">关注1</a> <a onclick="showwatch2()">关注2</a> <a onclick="showwatch3()">关注3</a> 
+
 https://d.py3.io/btc.html
 
 ## 期货永续合约介绍
@@ -151,6 +153,8 @@ function registeronclick(){
         i.onclick = tablesort_onclick;
         i.style["cursor"]="pointer";
     }
+    var tab=localStorage.getItem("watchtab");
+    if(tab){eval(tab+"()")}
 }
 function triggerrefresh(){    
     fetch("https://api.py3.io/trigger_btc_refresh").then(function(response) {
@@ -166,6 +170,16 @@ function triggerrefresh(){
     });
 }
 if(/refresh/.test(location.href)) triggerrefresh();
+function showfull(){
+    localStorage.setItem("watchtab","showfull");
+    document.querySelector("#realtimeprofittbody").querySelectorAll("tr").forEach(i=>i.style.display="")
+}
+function showtrs(coins){
+    document.querySelector("#realtimeprofittbody").querySelectorAll("tr").forEach(i=>i.style.display=(coins.indexOf(i.querySelector(".headcol").innerText.trim())==-1?"none":""))
+}
+function showwatch1(){localStorage.setItem("watchtab","showwatch1");return showtrs(["ALGO","ATOM","BCH","BSV","BTC","BTM","DOGE","DOT","EOS","IOST","IOTA","JST","LTC","MKR","NEO","OMG","ONT","REN","THETA","VET","XMR","XTZ","ZEC","ZRX"])}
+function showwatch2(){localStorage.setItem("watchtab","showwatch2");return showtrs(["IOTA","ONT","XMR","ZEC"])}
+function showwatch3(){localStorage.setItem("watchtab","showwatch3");return showtrs(["ATOM","BTM","DOT","IOST","IOTA","ONT","XTZ"])}
 </script>
 <style>
 .md-grid{max-width:69rem;}
