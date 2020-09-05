@@ -177,7 +177,7 @@ function showfull(){
 function showtrs(coins){
     document.querySelector("#realtimeprofittbody").querySelectorAll("tr").forEach(i=>i.style.display=(coins.indexOf(i.querySelector(".headcol").innerText.trim())==-1?"none":""))
 }
-function showwatch1(){localStorage.setItem("watchtab","showwatch1");return showtrs(["ALGO","ATOM","BCH","BSV","BTC","BTM","DOGE","DOT","EOS","IOST","IOTA","JST","LTC","MKR","NEO","OMG","ONT","REN","THETA","VET","XMR","XTZ","ZEC","ZRX"])}
+function showwatch1(){localStorage.setItem("watchtab","showwatch1");return showtrs(["ALGO","ATOM","BCH","BSV","BTC","BTM","DOGE","DOT","EOS","IOST","IOTA","LTC","MKR","OMG","ONT","REN","THETA","VET","XMR","XTZ","ZEC","ZRX"])}
 function showwatch2(){localStorage.setItem("watchtab","showwatch2");return showtrs(["IOTA","ONT","XMR","ZEC"])}
 function showwatch3(){localStorage.setItem("watchtab","showwatch3");return showtrs(["ATOM","BTM","DOT","IOST","IOTA","ONT","XTZ"])}
 </script>
