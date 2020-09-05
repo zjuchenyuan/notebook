@@ -155,6 +155,7 @@ function registeronclick(){
     }
     var tab=localStorage.getItem("watchtab");
     if(tab){eval(tab+"()")}
+    rememerclick={2:1};
 }
 function triggerrefresh(){    
     fetch("https://api.py3.io/trigger_btc_refresh").then(function(response) {
