@@ -199,5 +199,7 @@ th.headcol {
 .md-typeset table:not([class]) tr:hover .headcol{
   background-color: #f6f6f6;
 }
-  
+.md-typeset table:not([class]) th{
+  min-width: 2rem;
+}
 </style>
