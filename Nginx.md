@@ -627,3 +627,77 @@ cron加入：每小时写入一次
 ```
 0 * * * * /nfs/collectlog.sh
 ```
+
+-----
+
+## 使用openresty Lua编程实现hook跳转
+
+需求：有多个网站用户访问之前需要带上authtoken，没有这个Cookie则先跳转到登录界面
+
+使用openresty来方便地写Lua：
+
+安装参考 https://openresty.org/cn/linux-packages.html
+
+```
+sudo apt-get -y install --no-install-recommends wget gnupg ca-certificates
+wget -O - https://openresty.org/package/pubkey.gpg | sudo apt-key add -
+echo "deb http://openresty.org/package/ubuntu $(lsb_release -sc) main" \
+    | sudo tee /etc/apt/sources.list.d/openresty.list
+sudo apt-get update
+sudo apt-get -y install openresty
+```
+
+可能你会喜欢原来的nginx的目录设置，做个软链接呗：
+
+```
+ln -s /usr/local/openresty/nginx/logs /var/log/nginx
+alias nginx=openresty
+```
+
+快速入门： https://openresty.org/cn/getting-started.html
+
+就是content_by_lua_block里面直接写lua代码即可
+
+```
+http {
+    server {
+        listen 8080;
+        location / {
+            default_type text/html;
+            content_by_lua_block {
+                ngx.say("<p>hello, world</p>")
+            }
+        }
+    }
+}
+```
+
+想知道ngx有哪些方法，看这个文档： https://github.com/openresty/lua-nginx-module#ngxarg
+
+例如获取http GET的a参数：`ngx.var.arg_a`, 请求的Host参数：`ngx.var.http_host`
+
+获取Cookie: 使用https://github.com/cloudflare/lua-resty-cookie
+
+先执行：`wget -O /etc/openresty/cookie.lua https://github.com/cloudflare/lua-resty-cookie/raw/master/lib/resty/cookie.lua`
+
+在http中加入: `lua_package_path "/etc/openresty/?.lua;;";`
+
+```
+local ck = require "cookie"
+local cookie, err = ck:new()
+if not cookie then
+    ngx.log(ngx.ERR, err)
+    return
+end
+#然后即可使用cookie:get("authtoken")
+```
+
+想使用rewrite_by_lua_file则需要把文件放在/usr/local/openresty/nginx
+
+结束当前脚本继续后续请求处理 用`ngx.exit(0)`
+
+结束整个请求 用`ngx.exit(200)`
+
+跳转用 `ngx.redirect("https://py3.io")`
+
+Lua的三目运算： `a and b or c`
