@@ -701,3 +701,30 @@ end
 跳转用 `ngx.redirect("https://py3.io")`
 
 Lua的三目运算： `a and b or c`
+
+-----
+
+## 不同子域名反代到不同端口
+
+你可以复制粘贴多个server块，但使用map是一个更优雅的方案
+
+```
+http {
+    map $subdomain $subdomain_port {
+        subdomain1 12345;
+        subdomain2 54321;
+        default 1;
+    }
+    server {
+        listen 80;
+        server_name ~^(?P<subdomain>.+?)\.2020\.actf\.lol$;
+        location / {
+            proxy_pass http://127.0.0.1:$subdomain_port;
+            proxy_redirect off;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+        }
+    }
+}
+```
+

@@ -878,6 +878,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    不同子域名反代到不同端口
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1570,6 +1577,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    不同子域名反代到不同端口
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2183,6 +2197,27 @@ sleep <span class="m">1</span>
 <p>结束整个请求 用<code>ngx.exit(200)</code></p>
 <p>跳转用 <code>ngx.redirect("https://py3.io")</code></p>
 <p>Lua的三目运算： <code>a and b or c</code></p>
+<hr />
+<h2 id="_7">不同子域名反代到不同端口<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>你可以复制粘贴多个server块，但使用map是一个更优雅的方案</p>
+<div class="codehilite"><pre><span></span><code><span class="err">http {</span>
+<span class="err">    map $subdomain $subdomain_port {</span>
+<span class="err">        subdomain1 12345;</span>
+<span class="err">        subdomain2 54321;</span>
+<span class="err">        default 1;</span>
+<span class="err">    }</span>
+<span class="err">    server {</span>
+<span class="err">        listen 80;</span>
+<span class="err">        server_name ~^(?P&lt;subdomain&gt;.+?)\.2020\.actf\.lol$;</span>
+<span class="err">        location / {</span>
+<span class="err">            proxy_pass http://127.0.0.1:$subdomain_port;</span>
+<span class="err">            proxy_redirect off;</span>
+<span class="err">            proxy_set_header Host $host;</span>
+<span class="err">            proxy_set_header X-Real-IP $remote_addr;</span>
+<span class="err">        }</span>
+<span class="err">    }</span>
+<span class="err">}</span>
+</code></pre></div>
                 
               
               
