@@ -728,3 +728,13 @@ http {
 }
 ```
 
+## Nginx配置文件格式化
+
+直接用vi改了配置文件后，很容易不注意缩进，有没有一个自动prettify的工具呢
+
+还真有： https://github.com/1connect/nginx-config-formatter
+
+```
+wget https://raw.githubusercontent.com/1connect/nginx-config-formatter/master/nginxfmt.py
+python3 nginxfmt.py /etc/nginx/nginx.conf
+```

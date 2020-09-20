@@ -885,6 +885,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#nginx_4" class="md-nav__link">
+    Nginx配置文件格式化
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1584,6 +1591,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#nginx_4" class="md-nav__link">
+    Nginx配置文件格式化
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2217,6 +2231,14 @@ sleep <span class="m">1</span>
 <span class="err">        }</span>
 <span class="err">    }</span>
 <span class="err">}</span>
+</code></pre></div>
+
+
+<h2 id="nginx_4">Nginx配置文件格式化<a class="headerlink" href="#nginx_4" title="Permanent link">&para;</a></h2>
+<p>直接用vi改了配置文件后，很容易不注意缩进，有没有一个自动prettify的工具呢</p>
+<p>还真有： https://github.com/1connect/nginx-config-formatter</p>
+<div class="codehilite"><pre><span></span><code><span class="err">wget https://raw.githubusercontent.com/1connect/nginx-config-formatter/master/nginxfmt.py</span>
+<span class="err">python3 nginxfmt.py /etc/nginx/nginx.conf</span>
 </code></pre></div>
                 
               
