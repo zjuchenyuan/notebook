@@ -200,6 +200,6 @@ th.headcol {
   background-color: #f6f6f6;
 }
 .md-typeset table:not([class]) th{
-  min-width: 3rem;
+  min-width: 4rem;
 }
 </style>
