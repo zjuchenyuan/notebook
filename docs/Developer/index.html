@@ -717,6 +717,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#atoutgoing" class="md-nav__link">
+    支持被at的(outgoing)钉钉机器人
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1142,6 +1149,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#atoutgoing" class="md-nav__link">
+    支持被at的(outgoing)钉钉机器人
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1476,6 +1490,21 @@
 <p>你真正的职责是当你有空free了，你应该让其他人也轻松free，如果你有能力power，你的职责就是为其他人赋能empower</p>
 <p>自学不意味着当一个编译器的fuzzer随机尝试，而是学文档tutorial，从书籍学算法——自学只是说你完全掌控自己的学习过程，但仍然依赖其他人的工作</p>
 <p>你也应该写博客 这里有一些建议https://jvns.ca/blog/2016/05/22/how-do-you-write-blog-posts/</p>
+<hr />
+<h2 id="atoutgoing">支持被at的(outgoing)钉钉机器人<a class="headerlink" href="#atoutgoing" title="Permanent link">&para;</a></h2>
+<p>需要自己注册一个企业，管理员才能创建这种机器人，机器人只能在内部群使用</p>
+<p>文档： https://ding-doc.dingtalk.com/doc#/serverapi2/elzz1p</p>
+<p>其中缺失了关于atDingtalkIds的描述，需要看这个： https://juejin.im/post/6844903922029576205</p>
+<p>需要注意的地方有：修改服务器回调通知地址和修改上线的时候，钉钉就会验证服务器是否正常，你可以<code>while true; nc -lp 8888 &lt; tmp.txt; done</code> 死循环提供个正常的http服务</p>
+<p>POST发来的数据里面有临时的url可以发消息，还有senderId是发送者id用来在atDingtalkIds中使用</p>
+<p>收到的POST内容：</p>
+<div class="codehilite"><pre><span></span><code><span class="err">{&quot;conversationId&quot;:&quot;cidoAgtPbnu9MyulIyt0kpNYg==&quot;,&quot;atUsers&quot;:[{&quot;dingtalkId&quot;:&quot;$:LWCP_v1:$Jh2MBlTKQnC/tN4tDTZB3eOIi+xOatMW&quot;}],&quot;chatbotCorpId&quot;:&quot;dingb1d0b0ca51cxxxxxx&quot;,&quot;chatbotUserId&quot;:&quot;$:LWCP_v1:$Jh2MBlTKQnC/tN4tDTZB3eOIi+xOatMW&quot;,&quot;msgId&quot;:&quot;msgWjYj1k8LPNOBBy+jxNKwQw==&quot;,&quot;senderNick&quot;:&quot;发送者姓名&quot;,&quot;isAdmin&quot;:false,&quot;senderStaffId&quot;:&quot;2665036700000000&quot;,&quot;sessionWebhookExpiredTime&quot;:1600622026555,&quot;createAt&quot;:1600616626487,&quot;senderCorpId&quot;:&quot;dingb1d0b0ca51c029b24ac5d6980000000&quot;,&quot;conversationType&quot;:&quot;2&quot;,&quot;senderId&quot;:&quot;$:LWCP_v1:$9gY0EpfG9gA0e4xnPjDHugeGB0JtdCJV&quot;,&quot;conversationTitle&quot;:&quot;群组标题&quot;,&quot;isInAtList&quot;:true,&quot;sessionWebhook&quot;:&quot;https://oapi.dingtalk.com/robot/sendBySession?session=b28f49899ea1cba0d256673d66ffe386&quot;,&quot;text&quot;:{&quot;content&quot;:&quot; 1+1&quot;},&quot;msgtype&quot;:&quot;text&quot;}</span>
+</code></pre></div>
+
+
+<p>回复发送者一个666：</p>
+<div class="codehilite"><pre><span></span><code><span class="err">curl https://oapi.dingtalk.com/robot/sendBySession?session=b28f49899ea1cba0d256673d66ffe386 -H &quot;Content-Type: application/json&quot; --data &#39;{&quot;msgtype&quot;:&quot;text&quot;, &quot;text&quot;:{&quot;content&quot;:&quot;666&quot;}, &quot;at&quot;:{&quot;atDingtalkIds&quot;:[&quot;$:LWCP_v1:$9gY0EpfG9gA0e4xnPjDHugeGB0JtdCJV&quot;]}}&#39;</span>
+</code></pre></div>
                 
               
               

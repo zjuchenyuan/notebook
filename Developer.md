@@ -335,3 +335,30 @@ chrome://cache/
 自学不意味着当一个编译器的fuzzer随机尝试，而是学文档tutorial，从书籍学算法——自学只是说你完全掌控自己的学习过程，但仍然依赖其他人的工作
 
 你也应该写博客 这里有一些建议https://jvns.ca/blog/2016/05/22/how-do-you-write-blog-posts/
+
+-----
+
+## 支持被at的(outgoing)钉钉机器人
+
+需要自己注册一个企业，管理员才能创建这种机器人，机器人只能在内部群使用
+
+文档： https://ding-doc.dingtalk.com/doc#/serverapi2/elzz1p
+
+其中缺失了关于atDingtalkIds的描述，需要看这个： https://juejin.im/post/6844903922029576205
+
+需要注意的地方有：修改服务器回调通知地址和修改上线的时候，钉钉就会验证服务器是否正常，你可以`while true; nc -lp 8888 < tmp.txt; done` 死循环提供个正常的http服务
+
+POST发来的数据里面有临时的url可以发消息，还有senderId是发送者id用来在atDingtalkIds中使用
+
+收到的POST内容：
+
+```
+{"conversationId":"cidoAgtPbnu9MyulIyt0kpNYg==","atUsers":[{"dingtalkId":"$:LWCP_v1:$Jh2MBlTKQnC/tN4tDTZB3eOIi+xOatMW"}],"chatbotCorpId":"dingb1d0b0ca51cxxxxxx","chatbotUserId":"$:LWCP_v1:$Jh2MBlTKQnC/tN4tDTZB3eOIi+xOatMW","msgId":"msgWjYj1k8LPNOBBy+jxNKwQw==","senderNick":"发送者姓名","isAdmin":false,"senderStaffId":"2665036700000000","sessionWebhookExpiredTime":1600622026555,"createAt":1600616626487,"senderCorpId":"dingb1d0b0ca51c029b24ac5d6980000000","conversationType":"2","senderId":"$:LWCP_v1:$9gY0EpfG9gA0e4xnPjDHugeGB0JtdCJV","conversationTitle":"群组标题","isInAtList":true,"sessionWebhook":"https://oapi.dingtalk.com/robot/sendBySession?session=b28f49899ea1cba0d256673d66ffe386","text":{"content":" 1+1"},"msgtype":"text"}
+```
+
+回复发送者一个666：
+
+```
+curl https://oapi.dingtalk.com/robot/sendBySession?session=b28f49899ea1cba0d256673d66ffe386 -H "Content-Type: application/json" --data '{"msgtype":"text", "text":{"content":"666"}, "at":{"atDingtalkIds":["$:LWCP_v1:$9gY0EpfG9gA0e4xnPjDHugeGB0JtdCJV"]}}'
+```
+
