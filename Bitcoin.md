@@ -178,9 +178,12 @@ function showfull(){
 function showtrs(coins){
     document.querySelector("#realtimeprofittbody").querySelectorAll("tr").forEach(i=>i.style.display=(coins.indexOf(i.querySelector(".headcol").innerText.trim())==-1?"none":""))
 }
-function showwatch1(){localStorage.setItem("watchtab","showwatch1");return showtrs(["ATOM","BTC","BTM","DOGE","DOT","IOST","IOTA","MKR","ONT","REN","THETA","WAVES","VET","XMR","XTZ","ZEC"])}
-function showwatch2(){localStorage.setItem("watchtab","showwatch2");return showtrs(["IOTA","ONT","XMR","ZEC"])}
-function showwatch3(){localStorage.setItem("watchtab","showwatch3");return showtrs(["ATOM","BTM","DOT","IOST","IOTA","ONT","XTZ"])}
+function hidetrs(coins){
+    document.querySelector("#realtimeprofittbody").querySelectorAll("tr").forEach(i=>i.style.display=(coins.indexOf(i.querySelector(".headcol").innerText.trim())==-1?"":"none"))
+}
+function showwatch1(){localStorage.setItem("watchtab","showwatch1");return hidetrs(["JST","REN","SUN","YFI","TRX","LEND"])}
+function showwatch2(){localStorage.setItem("watchtab","showwatch2");return showtrs(['DOT', 'ETC', 'WAVES', 'IOST', 'ZEC', 'BTM', 'ATOM'])}
+function showwatch3(){localStorage.setItem("watchtab","showwatch3");return showtrs(["XTZ","DOGE","CRV","THETA","SUSHI","BSV","VET","MKR"])}
 </script>
 <style>
 .md-grid{max-width:69rem;}
