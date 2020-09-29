@@ -984,4 +984,17 @@ make
 make install
 ```
 
+--------
+
+## LUKS
+
+教程： https://www.cyberciti.biz/security/howto-linux-hard-disk-encryption-with-luks-cryptsetup-command/
+
+### 验证密钥是否正确
+
+```
+cryptsetup luksDump 设备
+cryptsetup luksOpen --test-passphrase --key-slot 0 设备 && echo ok
+cryptsetup luksOpen --test-passphrase --key-file 密钥文件 --key-slot 1 设备 && echo ok
+```
 
