@@ -321,6 +321,8 @@ My notebook about technology, for lookup and share
 ## [Linux-backup](Linux-backup.md)
 >* 一个良好安全的备份计划至关重要
 >* 用rsync代替scp
+>* 使用rsync像time machine一样全盘备份
+>* rsync备份安卓手机
 
 ## [MySQL](MySQL.md)
 >* 查看表结构 desc
