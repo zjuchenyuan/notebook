@@ -795,6 +795,74 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#pythonmongodb" class="md-nav__link">
+    Python使用MongoDB
+  </a>
+  
+    <nav class="md-nav" aria-label="Python使用MongoDB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#server" class="md-nav__link">
+    安装server
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    增删查改
+  </a>
+  
+    <nav class="md-nav" aria-label="增删查改">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    查询
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    批量增加
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    删除
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#join" class="md-nav__link">
+    多表join查询
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    随机采样
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2013,6 +2081,74 @@
   <a href="#pythonstartup-pythonimport" class="md-nav__link">
     设置PYTHONSTARTUP环境变量 启动Python自动执行一些import
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pythonmongodb" class="md-nav__link">
+    Python使用MongoDB
+  </a>
+  
+    <nav class="md-nav" aria-label="Python使用MongoDB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#server" class="md-nav__link">
+    安装server
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    增删查改
+  </a>
+  
+    <nav class="md-nav" aria-label="增删查改">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    查询
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    批量增加
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    删除
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#join" class="md-nav__link">
+    多表join查询
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    随机采样
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -3255,6 +3391,71 @@ http://127.0.0.1:6666/wd/hub/static/resource/hub.html</p>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ts</span><span class="p">))</span><span class="o">==</span><span class="mi">13</span><span class="p">:</span>
         <span class="n">ts</span> <span class="o">=</span> <span class="n">ts</span><span class="o">//</span><span class="mi">1000</span>
     <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+
+<hr />
+<h2 id="pythonmongodb">Python使用MongoDB<a class="headerlink" href="#pythonmongodb" title="Permanent link">&para;</a></h2>
+<p>爬取数据ajax接口返回的是json数据，懒得转换成mysql的表示，直接丢给mongo呗</p>
+<p>可视化客户端使用官方的<a href="https://www.mongodb.com/try/download/compass">Compass</a></p>
+<h3 id="server">安装server<a class="headerlink" href="#server" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">docker run -d --name mongo -e MONGO_INITDB_ROOT_USERNAME=adminusername -e MONGO_INITDB_ROOT_PASSWORD=password -v /srv/mongo:/data/db -p 27017:27017 mongo</span>
+</code></pre></div>
+
+
+<p>安装后的连接字符串是：<code>mongodb://adminusername:password@ip:27017</code></p>
+<h3 id="_15">增删查改<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<h4 id="_16">查询<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h4>
+<p>嵌套的格式用.表示 例如<code>{"a.b": "1"}</code>可以查到文档<code>{a:{b:"1"}}</code></p>
+<p>Python代码：</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pymongo</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">pymongo</span><span class="o">.</span><span class="n">MongoClient</span><span class="p">(</span><span class="s2">&quot;mongodb://adminusername:password@127.0.0.1:27017&quot;</span><span class="p">)</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">database_name</span><span class="o">.</span><span class="n">table_name</span>
+<span class="k">print</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="nb">id</span><span class="p">}))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">count_documents</span><span class="p">({}))</span>
+</code></pre></div>
+
+
+<h4 id="_17">批量增加<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h4>
+<p>insert ignore into 忽略已经存在的：</p>
+<div class="codehilite"><pre><span></span><code><span class="k">try</span><span class="o">:</span>
+    <span class="n">table</span><span class="o">.</span><span class="na">insert_many</span><span class="o">(</span><span class="n">data</span><span class="o">,</span> <span class="n">ordered</span><span class="o">=</span><span class="n">False</span><span class="o">)</span>
+<span class="n">except</span> <span class="n">pymongo</span><span class="o">.</span><span class="na">errors</span><span class="o">.</span><span class="na">BulkWriteError</span><span class="o">:</span>
+    <span class="n">pass</span>
+</code></pre></div>
+
+
+<p>replace into 覆盖已经存在的：使用upcert不存在时插入</p>
+<div class="codehilite"><pre><span></span><code><span class="err">for item in data:</span>
+<span class="err">    # 你很可能需要自己定义_id</span>
+<span class="err">    # item[&quot;_id&quot;] = &quot;_&quot;.join([...])</span>
+<span class="err">    # pprint(item)</span>
+<span class="err">    table.update({&#39;_id&#39;:item[&quot;_id&quot;]}, item, True)</span>
+</code></pre></div>
+
+
+<h4 id="_18">删除<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h4>
+<p>类似的有函数：delete_one, delete_many</p>
+<h3 id="join">多表join查询<a class="headerlink" href="#join" title="Permanent link">&para;</a></h3>
+<p>table中文档里有一个属性idB，对应tableB的_id，使用<code>$lookup</code>做join操作，无论有没有查到都会返回新的文档，没查到时dst属性为空数组</p>
+<p>所以可以用<code>$match</code>继续筛选查到的内容；然后统计数量，注意到$count在没有结果的时候不返回内容，需要单独处理</p>
+<div class="codehilite"><pre><span></span><code><span class="err">def howmany():</span>
+<span class="err">    pipeline = [</span>
+<span class="err">        {&quot;$match&quot;: {&quot;idB&quot;: {&quot;$exists&quot;: True}}}, </span>
+<span class="err">        {&quot;$lookup&quot;: {&quot;from&quot;: &#39;tableB&#39;, &quot;localField&quot;: &#39;idB&#39;, &quot;foreignField&quot;: &#39;_id&#39;, &quot;as&quot;: &#39;dst&#39;}},</span>
+<span class="err">        {&quot;$match&quot;: {&quot;dst&quot;: {&quot;$size&quot;: 1}}},</span>
+<span class="err">        {&quot;$count&quot;: &quot;cnt&quot;}</span>
+<span class="err">    ]</span>
+<span class="err">    data = list(table.aggregate(pipeline))</span>
+<span class="err">    if not data:</span>
+<span class="err">        return 0</span>
+<span class="err">    return data[0][&quot;cnt&quot;]</span>
+</code></pre></div>
+
+
+<h3 id="_19">随机采样<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
+<p>pipeline中使用：但是注意可能会有重复的元素 需要自己去重</p>
+<div class="codehilite"><pre><span></span><code><span class="err">{&quot;$sample&quot;: {&quot;size&quot;:10}}</span>
 </code></pre></div>
                 
               

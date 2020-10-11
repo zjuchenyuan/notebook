@@ -1546,3 +1546,90 @@ def d(ts):
         ts = ts//1000
     return datetime.fromtimestamp(ts).strftime("%Y-%m-%d %H:%M:%S")
 ```
+
+----
+
+## Python使用MongoDB
+
+爬取数据ajax接口返回的是json数据，懒得转换成mysql的表示，直接丢给mongo呗
+
+可视化客户端使用官方的[Compass](https://www.mongodb.com/try/download/compass)
+
+### 安装server
+
+```
+docker run -d --name mongo -e MONGO_INITDB_ROOT_USERNAME=adminusername -e MONGO_INITDB_ROOT_PASSWORD=password -v /srv/mongo:/data/db -p 27017:27017 mongo
+```
+
+安装后的连接字符串是：`mongodb://adminusername:password@ip:27017`
+
+### 增删查改
+
+#### 查询
+
+嵌套的格式用.表示 例如`{"a.b": "1"}`可以查到文档`{a:{b:"1"}}`
+
+Python代码：
+
+```
+import pymongo
+client = pymongo.MongoClient("mongodb://adminusername:password@127.0.0.1:27017")
+table = client.database_name.table_name
+print(table.find_one({"_id": id}))
+print(table.count_documents({}))
+```
+
+#### 批量增加
+
+insert ignore into 忽略已经存在的：
+
+```
+try:
+    table.insert_many(data, ordered=False)
+except pymongo.errors.BulkWriteError:
+    pass
+```
+
+replace into 覆盖已经存在的：使用upcert不存在时插入
+
+```
+for item in data:
+    # 你很可能需要自己定义_id
+    # item["_id"] = "_".join([...])
+    # pprint(item)
+    table.update({'_id':item["_id"]}, item, True)
+```
+
+#### 删除
+
+类似的有函数：delete_one, delete_many
+
+### 多表join查询
+
+table中文档里有一个属性idB，对应tableB的_id，使用`$lookup`做join操作，无论有没有查到都会返回新的文档，没查到时dst属性为空数组
+
+所以可以用`$match`继续筛选查到的内容；然后统计数量，注意到$count在没有结果的时候不返回内容，需要单独处理
+
+```
+def howmany():
+    pipeline = [
+        {"$match": {"idB": {"$exists": True}}}, 
+        {"$lookup": {"from": 'tableB', "localField": 'idB', "foreignField": '_id', "as": 'dst'}},
+        {"$match": {"dst": {"$size": 1}}},
+        {"$count": "cnt"}
+    ]
+    data = list(table.aggregate(pipeline))
+    if not data:
+        return 0
+    return data[0]["cnt"]
+```
+
+### 随机采样
+
+pipeline中使用：但是注意可能会有重复的元素 需要自己去重
+
+```
+{"$sample": {"size":10}}
+```
+
+

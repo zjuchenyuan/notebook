@@ -42,6 +42,7 @@ My notebook about technology, for lookup and share
 >* Python获取Windows Chrome的Cookie
 >* Win开发摆脱每次都要写的encoding=utf-8
 >* Ubuntu16.04安装Python3.7
+>* Python使用MongoDB 增删查改 批量覆盖插入 多表join 随机采样
 
 ## [Python程序设计课程](PythonCourse.md)
 
