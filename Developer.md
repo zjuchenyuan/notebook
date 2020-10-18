@@ -362,3 +362,20 @@ POST发来的数据里面有临时的url可以发消息，还有senderId是发�
 curl https://oapi.dingtalk.com/robot/sendBySession?session=b28f49899ea1cba0d256673d66ffe386 -H "Content-Type: application/json" --data '{"msgtype":"text", "text":{"content":"666"}, "at":{"atDingtalkIds":["$:LWCP_v1:$9gY0EpfG9gA0e4xnPjDHugeGB0JtdCJV"]}}'
 ```
 
+-----
+
+## Go语言
+
+### 安装
+
+```
+wget -q https://golang.org/dl/go1.15.3.linux-amd64.tar.gz &&\
+    tar -C /usr/local -xzf go1.15.3.linux-amd64.tar.gz
+export PATH=$PATH:/usr/local/go/bin
+```
+
+### 提取build失败缺失的库安装
+
+```
+go build |&  grep cannot |cut -d'"' -f2|xargs go get
+```

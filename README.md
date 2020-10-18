@@ -121,6 +121,9 @@ My notebook about technology, for lookup and share
 >* 保持技术精进
 >* 如何明智地向程序员提问
 >* 使用chrome缓存找到被删的qq空间的图片
+>* 为什么我喜欢写博客？
+>* 支持被at的(outgoing)钉钉机器人
+>* Go语言-安装 安装缺失库
 
 ## [Docker](Docker.md)
 >* myubuntu 基础镜像

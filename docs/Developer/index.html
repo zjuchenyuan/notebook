@@ -702,6 +702,33 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#go" class="md-nav__link">
+    Go语言
+  </a>
+  
+    <nav class="md-nav" aria-label="Go语言">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    安装
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build" class="md-nav__link">
+    提取build失败缺失的库安装
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1116,6 +1143,33 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#go" class="md-nav__link">
+    Go语言
+  </a>
+  
+    <nav class="md-nav" aria-label="Go语言">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    安装
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build" class="md-nav__link">
+    提取build失败缺失的库安装
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1461,6 +1515,20 @@
 
 <p>回复发送者一个666：</p>
 <div class="codehilite"><pre><span></span><code><span class="err">curl https://oapi.dingtalk.com/robot/sendBySession?session=b28f49899ea1cba0d256673d66ffe386 -H &quot;Content-Type: application/json&quot; --data &#39;{&quot;msgtype&quot;:&quot;text&quot;, &quot;text&quot;:{&quot;content&quot;:&quot;666&quot;}, &quot;at&quot;:{&quot;atDingtalkIds&quot;:[&quot;$:LWCP_v1:$9gY0EpfG9gA0e4xnPjDHugeGB0JtdCJV&quot;]}}&#39;</span>
+</code></pre></div>
+
+
+<hr />
+<h2 id="go">Go语言<a class="headerlink" href="#go" title="Permanent link">&para;</a></h2>
+<h3 id="_12">安装<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="n">wget</span> <span class="o">-</span><span class="n">q</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">golang</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">dl</span><span class="o">/</span><span class="n">go1</span><span class="o">.</span><span class="mf">15.3</span><span class="o">.</span><span class="n">linux</span><span class="o">-</span><span class="n">amd64</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span> <span class="o">&amp;&amp;</span>\
+    <span class="n">tar</span> <span class="o">-</span><span class="n">C</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span> <span class="o">-</span><span class="n">xzf</span> <span class="n">go1</span><span class="o">.</span><span class="mf">15.3</span><span class="o">.</span><span class="n">linux</span><span class="o">-</span><span class="n">amd64</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+<span class="k">export</span> <span class="n">PATH</span><span class="o">=$</span><span class="n">PATH</span><span class="p">:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">go</span><span class="o">/</span><span class="n">bin</span>
+</code></pre></div>
+
+
+<h3 id="build">提取build失败缺失的库安装<a class="headerlink" href="#build" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">go build |&amp;  grep cannot |cut -d&#39;&quot;&#39; -f2|xargs go get</span>
 </code></pre></div>
                 
               
