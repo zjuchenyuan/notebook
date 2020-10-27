@@ -183,7 +183,7 @@ function hidetrs(coins){
 }
 function showwatch1(){localStorage.setItem("watchtab","showwatch1");return hidetrs(["JST","REN","SUN","YFI","TRX","LEND"])}
 function showwatch2(){localStorage.setItem("watchtab","showwatch2");return showtrs(['DOT', 'WAVES', 'IOST', 'ZEC', 'ATOM', 'MKR', 'XTZ'])}
-function showwatch3(){localStorage.setItem("watchtab","showwatch3");return showtrs(['ANKR', 'STORJ', 'VET', 'ETC', 'ONT'])}
+function showwatch3(){localStorage.setItem("watchtab","showwatch3");return showtrs(['ANKR', 'BTM', 'STORJ', 'CRV', 'VET', 'ETC', 'ONT'])}
 </script>
 <style>
 .md-grid{max-width:69rem;}
