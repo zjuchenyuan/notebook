@@ -890,6 +890,10 @@ kpartx -d disk3.vmdk
 
 ## 启用rc.local
 
+参考 https://www.linuxbabe.com/linux-server/how-to-enable-etcrc-local-with-systemd
+
+确认有没有启用rc.local: `systemctl status rc-local.service`如果有绿色的`Active: active (exited)`出现就是已经启用
+
 ```
 nano /etc/systemd/system/rc-local.service
 printf '%s\n' '#!/bin/bash' 'exit 0' | sudo tee -a /etc/rc.local
