@@ -1002,7 +1002,8 @@
                 
                 
                 <h1 id="jekyll">Jekyll<a class="headerlink" href="#jekyll" title="Permanent link">&para;</a></h1>
-<p>目前本站使用 <code>Github Pages</code>，采用<code>Jekyll</code>转换md为html，所以有必要记录一下折腾Jekyll的过程咯</p>
+<p>目前本站使用 <code>Github Pages</code>，~~采用<code>Jekyll</code>转换md为html~~，所以有必要记录一下折腾Jekyll的过程咯</p>
+<p>更新：目前已经不再使用Jekyll，改用mkdocs</p>
 <h2 id="_1">碰到过的坑<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
@@ -1012,7 +1013,7 @@
 <p>本地编译通过了，但Github就是不认，于是干脆把编译好的html作为Github Pages</p>
 </li>
 <li>
-<p>转换的时候遇到两个大括号之间的东西会自动用Liquid渲染，导致有一条Docker的笔记就丢了东西并抛出了Warning，之前本着不折腾的原则(就是懒)，直接写了个<a href="compile.sh">compile.sh</a>在jekyll编译过后用py替换了一下(真不优雅23333)；现在发现了解决方案，参见<a href="./">本页md文件</a></p>
+<p>转换的时候遇到两个大括号之间的东西会自动用Liquid渲染，导致有一条Docker的笔记就丢了东西并抛出了Warning，之前本着不折腾的原则(就是懒)，直接写了个compile.sh在jekyll编译过后用py替换了一下(真不优雅23333)；现在发现了解决方案，参见<a href="./">本页md文件</a></p>
 </li>
 </ol>
 <h2 id="_2">配置代码高亮并显示行号<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
