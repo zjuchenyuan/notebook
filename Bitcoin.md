@@ -1,5 +1,11 @@
 # Bitcoin
 
+<script>
+function showwatch1(){localStorage.setItem("watchtab","showwatch1");return hidetrs(["JST","REN","SUN","YFI","TRX","LEND"])}
+function showwatch2(){localStorage.setItem("watchtab","showwatch2");return showtrs(['IOST','DOT','WAVES','ZEC','BTM','ANKR','ATOM','MKR','XTZ'])}
+function showwatch3(){localStorage.setItem("watchtab","showwatch3");return showtrs(['QTUM','STORJ','VET','ONT','ETC','uFIL'])}
+</script>
+
 我也来试水当个被割的韭菜了
 
 ### 套利实时收益率
@@ -181,9 +187,6 @@ function showtrs(coins){
 function hidetrs(coins){
     document.querySelector("#realtimeprofittbody").querySelectorAll("tr").forEach(i=>i.style.display=(coins.indexOf(i.querySelector(".headcol").innerText.trim())==-1?"":"none"))
 }
-function showwatch1(){localStorage.setItem("watchtab","showwatch1");return hidetrs(["JST","REN","SUN","YFI","TRX","LEND"])}
-function showwatch2(){localStorage.setItem("watchtab","showwatch2");return showtrs(['DOT', 'WAVES', 'IOST', 'ZEC', 'ATOM', 'MKR', 'XTZ'])}
-function showwatch3(){localStorage.setItem("watchtab","showwatch3");return showtrs(['ANKR', 'BTM', 'STORJ', 'CRV', 'VET', 'ETC', 'ONT'])}
 </script>
 <style>
 .md-grid{max-width:69rem;}
