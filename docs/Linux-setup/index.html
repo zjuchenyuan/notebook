@@ -2630,6 +2630,8 @@ kpartx -d disk3.vmdk
 
 <hr />
 <h2 id="rclocal">启用rc.local<a class="headerlink" href="#rclocal" title="Permanent link">&para;</a></h2>
+<p>参考 https://www.linuxbabe.com/linux-server/how-to-enable-etcrc-local-with-systemd</p>
+<p>确认有没有启用rc.local: <code>systemctl status rc-local.service</code>如果有绿色的<code>Active: active (exited)</code>出现就是已经启用</p>
 <div class="codehilite"><pre><span></span><code><span class="err">nano /etc/systemd/system/rc-local.service</span>
 <span class="err">printf &#39;%s\n&#39; &#39;#!/bin/bash&#39; &#39;exit 0&#39; | sudo tee -a /etc/rc.local</span>
 <span class="err">chmod +x /etc/rc.local</span>

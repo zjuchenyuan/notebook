@@ -729,6 +729,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#idea20202-30" class="md-nav__link">
+    IDEA2020.2 30天后重新试用
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1170,6 +1177,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#idea20202-30" class="md-nav__link">
+    IDEA2020.2 30天后重新试用
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1530,6 +1544,23 @@
 <h3 id="build">提取build失败缺失的库安装<a class="headerlink" href="#build" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code><span class="err">go build |&amp;  grep cannot |cut -d&#39;&quot;&#39; -f2|xargs go get</span>
 </code></pre></div>
+
+
+<hr />
+<h2 id="idea20202-30">IDEA2020.2 30天后重新试用<a class="headerlink" href="#idea20202-30" title="Permanent link">&para;</a></h2>
+<p>参考： http://scz.617.cn:8/windows/202010261152.txt</p>
+<p>regedit找到HKCU\SOFTWARE\JavaSoft\Prefs\jetbrains\idea，其中会有目录包含evlsprt3\202，删掉这个目录里面的evlsprt和evlsprt2</p>
+<p>然后删除这些目录：</p>
+<div class="codehilite"><pre><span></span><code><span class="err">rd /s /q &quot;%APPDATA%\JetBrains\IntelliJIdea2020.2\eval&quot;</span>
+<span class="err">del &quot;%APPDATA%\JetBrains\PermanentDeviceId&quot;</span>
+<span class="err">del &quot;%APPDATA%\JetBrains\PermanentUserId&quot;</span>
+<span class="err">del &quot;%APPDATA%\JetBrains\bl&quot;</span>
+<span class="err">del &quot;%APPDATA%\JetBrains\crl&quot;</span>
+</code></pre></div>
+
+
+<p>编辑&rdquo;%APPDATA%\JetBrains\IntelliJIdea2020.2\options\other.xml&rdquo;</p>
+<p>删除包含evlsprt.202或evlsprt2.202的行</p>
                 
               
               

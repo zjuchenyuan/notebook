@@ -379,3 +379,25 @@ export PATH=$PATH:/usr/local/go/bin
 ```
 go build |&  grep cannot |cut -d'"' -f2|xargs go get
 ```
+
+----
+
+## IDEA2020.2 30天后重新试用
+
+参考： http://scz.617.cn:8/windows/202010261152.txt
+
+regedit找到HKCU\SOFTWARE\JavaSoft\Prefs\jetbrains\idea，其中会有目录包含evlsprt3\202，删掉这个目录里面的evlsprt和evlsprt2
+
+然后删除这些目录：
+
+```
+rd /s /q "%APPDATA%\JetBrains\IntelliJIdea2020.2\eval"
+del "%APPDATA%\JetBrains\PermanentDeviceId"
+del "%APPDATA%\JetBrains\PermanentUserId"
+del "%APPDATA%\JetBrains\bl"
+del "%APPDATA%\JetBrains\crl"
+```
+
+编辑"%APPDATA%\JetBrains\IntelliJIdea2020.2\options\other.xml"
+
+删除包含evlsprt.202或evlsprt2.202的行
