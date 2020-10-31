@@ -2,7 +2,7 @@
 
 在dblp搜索结果中高亮显示安全顶会和CCF分类+方向
 
-安装Tampermonkey后点击安装： [https://blog.chenyuan.me/code/ccfbadge.user.js](https://blog.chenyuan.me/code/ccfbadge.user.js)
+安装 Chrome插件[Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo) 后点击安装： [https://blog.chenyuan.me/code/ccfbadge.user.js](https://blog.chenyuan.me/code/ccfbadge.user.js)
 
 效果：
 
@@ -10,8 +10,8 @@
 
 ## 数据处理过程
 
-- 下载官方目录PDF： https://www.ccf.org.cn/Academic_Evaluation/By_category/
-- 转换成Excel: https://smallpdf.com/pdf-to-excel
+- 下载官方目录PDF: [https://www.ccf.org.cn/Academic_Evaluation/By_category/](https://www.ccf.org.cn/Academic_Evaluation/By_category/)
+- 转换成Excel: [https://smallpdf.com/pdf-to-excel](https://smallpdf.com/pdf-to-excel)
 - Python读取excel处理：部分dblp有链接但pdf中不是dblp链接的需要手工更正，asiaccs的链接需要与ccs区分
 
 ```

@@ -973,13 +973,13 @@
                 
                 <h1 id="ccf-badge">CCF Badge<a class="headerlink" href="#ccf-badge" title="Permanent link">&para;</a></h1>
 <p>在dblp搜索结果中高亮显示安全顶会和CCF分类+方向</p>
-<p>安装Tampermonkey后点击安装： <a href="https://blog.chenyuan.me/code/ccfbadge.user.js">https://blog.chenyuan.me/code/ccfbadge.user.js</a></p>
+<p>安装 Chrome插件<a href="https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo">Tampermonkey</a> 后点击安装： <a href="https://blog.chenyuan.me/code/ccfbadge.user.js">https://blog.chenyuan.me/code/ccfbadge.user.js</a></p>
 <p>效果：</p>
 <p><img alt="" src="/assets/img/ccfbadge.png" /></p>
 <h2 id="_1">数据处理过程<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <ul>
-<li>下载官方目录PDF： https://www.ccf.org.cn/Academic_Evaluation/By_category/</li>
-<li>转换成Excel: https://smallpdf.com/pdf-to-excel</li>
+<li>下载官方目录PDF: <a href="https://www.ccf.org.cn/Academic_Evaluation/By_category/">https://www.ccf.org.cn/Academic_Evaluation/By_category/</a></li>
+<li>转换成Excel: <a href="https://smallpdf.com/pdf-to-excel">https://smallpdf.com/pdf-to-excel</a></li>
 <li>Python读取excel处理：部分dblp有链接但pdf中不是dblp链接的需要手工更正，asiaccs的链接需要与ccs区分</li>
 </ul>
 <div class="codehilite"><pre><span></span><code><span class="s s-Atom">import</span> <span class="s s-Atom">xlrd</span><span class="p">,</span> <span class="s s-Atom">json</span>
