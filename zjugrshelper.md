@@ -42,7 +42,7 @@ _谁能教教我为啥用`@connect chalaoshi.cn`就是不行啊_
 
     可见`开课号`现在可以点击，找到你想选的课程，即可进入选课
 
-4. 在选课列表中显示[查老师网站](https://chalaoshi.cn)上的评分数据（如果有多条数据则都显示）
+4. 在选课列表中显示[查老师网站](https://chalaoshi.soobb.com)上的评分数据（如果有多条数据则都显示）
 
     ![](https://py3.io/assets/img/grshelper_note3.png)
 
