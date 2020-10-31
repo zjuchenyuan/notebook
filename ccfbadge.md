@@ -6,6 +6,8 @@
 
 效果：
 
+[https://dblp.org/search?q=use-after-free](https://dblp.org/search?q=use-after-free)
+
 ![](/assets/img/ccfbadge.png)
 
 ## 数据处理过程
