@@ -880,6 +880,8 @@
     
     <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
     
+      
+    
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
         CCF Badge
@@ -894,6 +896,8 @@
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -902,8 +906,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#ccf-badge" class="md-nav__link">
-    CCF Badge
+  <a href="#_1" class="md-nav__link">
+    数据处理过程
   </a>
   
 </li>
@@ -934,6 +938,8 @@
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -942,8 +948,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#ccf-badge" class="md-nav__link">
-    CCF Badge
+  <a href="#_1" class="md-nav__link">
+    数据处理过程
   </a>
   
 </li>
@@ -965,12 +971,66 @@
                   </a>
                 
                 
-                  <h1>CCF Badge</h1>
-                
-                <h2 id="ccf-badge">CCF Badge<a class="headerlink" href="#ccf-badge" title="Permanent link">&para;</a></h2>
+                <h1 id="ccf-badge">CCF Badge<a class="headerlink" href="#ccf-badge" title="Permanent link">&para;</a></h1>
+<p>在dblp搜索结果中高亮显示安全顶会和CCF分类+方向</p>
 <p>安装Tampermonkey后点击安装： <a href="https://blog.chenyuan.me/code/ccfbadge.user.js">https://blog.chenyuan.me/code/ccfbadge.user.js</a></p>
 <p>效果：</p>
 <p><img alt="" src="/assets/img/ccfbadge.png" /></p>
+<h2 id="_1">数据处理过程<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>下载官方目录PDF： https://www.ccf.org.cn/Academic_Evaluation/By_category/</li>
+<li>转换成Excel: https://smallpdf.com/pdf-to-excel</li>
+<li>Python读取excel处理：部分dblp有链接但pdf中不是dblp链接的需要手工更正，asiaccs的链接需要与ccs区分</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="s s-Atom">import</span> <span class="s s-Atom">xlrd</span><span class="p">,</span> <span class="s s-Atom">json</span>
+<span class="s s-Atom">from</span> <span class="s s-Atom">pprint</span> <span class="s s-Atom">import</span> <span class="s s-Atom">pprint</span>
+<span class="s s-Atom">wb</span><span class="o">=</span><span class="s s-Atom">xlrd</span><span class="p">.</span><span class="nf">open_workbook</span><span class="p">(</span><span class="s2">&quot;中国计算机学会推荐国际学术会议和期刊目录-2019-converted.xlsx&quot;</span><span class="p">)</span>
+<span class="s s-Atom">type</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="s s-Atom">allccf</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="s s-Atom">for</span> <span class="s s-Atom">sid</span> <span class="s s-Atom">in</span> <span class="nf">range</span><span class="p">(</span><span class="s s-Atom">wb</span><span class="p">.</span><span class="s s-Atom">nsheets</span><span class="p">)</span><span class="s s-Atom">:</span>
+    <span class="s s-Atom">s</span> <span class="o">=</span> <span class="s s-Atom">wb</span><span class="p">.</span><span class="nf">sheet_by_index</span><span class="p">(</span><span class="s s-Atom">sid</span><span class="p">)</span>
+    <span class="s s-Atom">data</span> <span class="o">=</span> <span class="p">[</span><span class="nf">tuple</span><span class="p">([</span><span class="s s-Atom">s</span><span class="p">.</span><span class="nf">cell_value</span><span class="p">(</span><span class="s s-Atom">i</span><span class="p">,</span><span class="s s-Atom">j</span><span class="p">)</span> <span class="s s-Atom">for</span> <span class="s s-Atom">j</span> <span class="s s-Atom">in</span> <span class="nf">range</span><span class="p">(</span><span class="s s-Atom">s</span><span class="p">.</span><span class="s s-Atom">ncols</span><span class="p">)])</span> <span class="s s-Atom">for</span> <span class="s s-Atom">i</span> <span class="s s-Atom">in</span> <span class="nf">range</span><span class="p">(</span><span class="s s-Atom">s</span><span class="p">.</span><span class="s s-Atom">nrows</span><span class="p">)]</span>
+    <span class="s s-Atom">for</span> <span class="s s-Atom">i</span><span class="p">,</span><span class="s s-Atom">line</span> <span class="s s-Atom">in</span> <span class="nf">enumerate</span><span class="p">(</span><span class="s s-Atom">data</span><span class="p">)</span><span class="s s-Atom">:</span>
+        <span class="s s-Atom">if</span> <span class="s s-Atom">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="s s-Atom">==</span><span class="s2">&quot;序号&quot;</span><span class="s s-Atom">:</span>
+            <span class="s s-Atom">abc</span> <span class="o">=</span> <span class="s s-Atom">data</span><span class="p">[</span><span class="s s-Atom">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">].</span><span class="nf">split</span><span class="p">(</span><span class="s2">&quot;、&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">].</span><span class="nf">replace</span><span class="p">(</span><span class="s2">&quot;类&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">).</span><span class="nf">strip</span><span class="p">()</span>
+            <span class="s s-Atom">if</span> <span class="s s-Atom">i</span><span class="o">-</span><span class="mi">2</span><span class="o">&gt;=</span><span class="mi">0</span><span class="s s-Atom">:</span>
+                <span class="s s-Atom">type</span> <span class="o">=</span> <span class="s s-Atom">data</span><span class="p">[</span><span class="s s-Atom">i</span><span class="o">-</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">].</span><span class="nf">split</span><span class="p">(</span><span class="s2">&quot;\n&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="nf">strip</span><span class="p">().</span><span class="nf">strip</span><span class="p">(</span><span class="s2">&quot;（(）)&quot;</span><span class="p">).</span><span class="nf">replace</span><span class="p">(</span><span class="s2">&quot;／&quot;</span><span class="p">,</span><span class="s2">&quot;/&quot;</span><span class="p">).</span><span class="nf">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nf">replace</span><span class="p">(</span><span class="s2">&quot;计算机&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="s s-Atom">table</span> <span class="o">=</span> <span class="s s-Atom">data</span><span class="p">[</span><span class="s s-Atom">i</span><span class="o">+</span><span class="mi">1</span><span class="s s-Atom">:</span><span class="p">]</span>
+    <span class="s s-Atom">newtable</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="s s-Atom">for</span> <span class="s s-Atom">i</span> <span class="s s-Atom">in</span> <span class="nn">table</span><span class="p">:</span>
+        <span class="s s-Atom">if</span> <span class="o">not</span> <span class="nf">any</span><span class="p">([</span><span class="nf">str</span><span class="p">(</span><span class="s s-Atom">j</span><span class="p">).</span><span class="nf">strip</span><span class="p">()</span> <span class="s s-Atom">for</span> <span class="s s-Atom">j</span> <span class="s s-Atom">in</span> <span class="s s-Atom">i</span><span class="p">])</span><span class="s s-Atom">:</span>
+            <span class="s s-Atom">continue</span>
+        <span class="s s-Atom">id</span><span class="p">,</span> <span class="s s-Atom">simple</span><span class="p">,</span> <span class="s s-Atom">full</span><span class="p">,</span> <span class="s s-Atom">publisher</span><span class="p">,</span> <span class="s s-Atom">url</span> <span class="o">=</span> <span class="p">[</span><span class="nf">str</span><span class="p">(</span><span class="s s-Atom">j</span><span class="p">).</span><span class="nf">replace</span><span class="p">(</span><span class="s2">&quot;\n&quot;</span><span class="p">,</span><span class="s2">&quot; &quot;</span><span class="p">).</span><span class="nf">replace</span><span class="p">(</span><span class="s2">&quot;  &quot;</span><span class="p">,</span><span class="s2">&quot; &quot;</span><span class="p">)</span> <span class="s s-Atom">for</span> <span class="s s-Atom">j</span> <span class="s s-Atom">in</span> <span class="s s-Atom">i</span><span class="p">[:-</span><span class="mi">1</span><span class="p">]]</span> <span class="s s-Atom">#</span> <span class="s s-Atom">remove</span> <span class="s s-Atom">last</span> <span class="s s-Atom">empty</span> <span class="s s-Atom">column</span>
+        <span class="s s-Atom">#</span><span class="nf">print</span><span class="p">(</span><span class="s s-Atom">i</span><span class="p">)</span>
+        <span class="s s-Atom">url</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;Performance Evaluation: An International Journal&quot;</span><span class="s s-Atom">:</span><span class="s2">&quot;https://dblp.uni-trier.de/db/journals/pe&quot;</span><span class="p">,</span>
+            <span class="s s-Atom">&#39;Journal of Electronic Testing-Theory and Applications&#39;:</span> <span class="s2">&quot;https://dblp.uni-trier.de/db/journals/et&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Hot Chips: A Symposium on High Performance Chips&quot;</span><span class="s s-Atom">:</span> <span class="s2">&quot;https://dblp.uni-trier.de/db/conf/hotchips/index.html&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ACM Transactions on Privacy and Security&quot;</span><span class="s s-Atom">:</span><span class="s2">&quot;https://dblp.org/db/journals/tissec/&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Computer Law and Security Review&quot;</span><span class="s s-Atom">:</span><span class="s2">&quot;https://dblp.org/db/journals/clsr/&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;IFIP WG 11.9 International Conference on Digital Forensics&quot;</span><span class="s s-Atom">:</span><span class="s2">&quot;https://dblp.org/db/conf/ifip11-9/&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Computer Animation and Virtual Worlds&quot;</span><span class="s s-Atom">:</span><span class="s2">&quot;https://dblp.org/db/journals/jvca/index.html&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;IET Computer Vision&quot;</span><span class="s s-Atom">:</span><span class="s2">&quot;https://dblp.org/db/journals/iet-cvi/index.html&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;IET Signal Processing&quot;</span><span class="s s-Atom">:</span><span class="s2">&quot;https://dblp.org/db/journals/iet-spr/index.html&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;International Conference on Collaborative Computing: Networking, Applications and Worksharing&quot;</span><span class="s s-Atom">:</span><span class="s2">&quot;https://dblp.org/db/conf/colcom/index.html&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Asia Conference on Computer and Communications Security&quot;</span><span class="s s-Atom">:</span> <span class="s2">&quot;https://dblp.org/db/conf/asiaccs/index.html&quot;</span><span class="p">,</span>
+        <span class="p">}.</span><span class="nf">get</span><span class="p">(</span><span class="s s-Atom">full</span><span class="p">,</span> <span class="s s-Atom">url</span><span class="p">)</span>
+        <span class="s s-Atom">if</span> <span class="s2">&quot;dblp&quot;</span> <span class="o">not</span> <span class="s s-Atom">in</span> <span class="nn">url</span><span class="p">:</span>
+            <span class="s s-Atom">#</span><span class="nf">print</span><span class="p">([</span><span class="s s-Atom">id</span><span class="p">,</span> <span class="s s-Atom">simple</span><span class="p">,</span> <span class="s s-Atom">full</span><span class="p">,</span> <span class="s s-Atom">publisher</span><span class="p">,</span> <span class="s s-Atom">url</span><span class="p">])</span>
+            <span class="s s-Atom">pass</span>
+        <span class="nn">else</span><span class="p">:</span>
+            <span class="s s-Atom">url</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="s s-Atom">url</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="mi">4</span><span class="s s-Atom">:</span><span class="mi">6</span><span class="p">])</span>
+            <span class="s s-Atom">#</span><span class="nf">print</span><span class="p">(</span><span class="s s-Atom">url</span><span class="p">)</span>
+        <span class="s s-Atom">newtable</span><span class="p">.</span><span class="nf">append</span><span class="p">([</span><span class="s s-Atom">id</span><span class="p">,</span> <span class="s s-Atom">simple</span><span class="p">,</span> <span class="s s-Atom">full</span><span class="p">,</span> <span class="s s-Atom">publisher</span><span class="p">,</span> <span class="s s-Atom">url</span><span class="p">])</span>
+        <span class="s s-Atom">if</span> <span class="s s-Atom">url</span> <span class="s s-Atom">in</span> <span class="nn">allccf</span><span class="p">:</span>
+            <span class="s s-Atom">#</span><span class="nf">print</span><span class="p">(</span><span class="s s-Atom">i</span><span class="p">,</span> <span class="s s-Atom">allccf</span><span class="p">[</span><span class="s s-Atom">url</span><span class="p">])</span> <span class="s s-Atom">#</span> <span class="s s-Atom">we</span> <span class="s s-Atom">find</span> <span class="s s-Atom">that</span> <span class="s s-Atom">aisaccs</span> <span class="s s-Atom">link</span> <span class="o">is</span> <span class="s s-Atom">wrong</span>
+            <span class="s s-Atom">assert</span> <span class="s s-Atom">allccf</span><span class="p">[</span><span class="s s-Atom">url</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s s-Atom">abc</span> <span class="s s-Atom">#</span> <span class="s s-Atom">same</span> <span class="s s-Atom">item</span> <span class="s s-Atom">in</span> <span class="s s-Atom">different</span> <span class="s s-Atom">categories</span><span class="p">,</span> <span class="s s-Atom">should</span> <span class="s s-Atom">be</span> <span class="s s-Atom">same</span> <span class="s s-Atom">in</span> <span class="nv">ABC</span>
+            <span class="s s-Atom">allccf</span><span class="p">[</span><span class="s s-Atom">url</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s s-Atom">allccf</span><span class="p">[</span><span class="s s-Atom">url</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="s s-Atom">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="s s-Atom">type</span><span class="p">,</span> <span class="s s-Atom">abc</span><span class="p">)</span>
+        <span class="nn">else</span><span class="p">:</span>
+            <span class="s s-Atom">allccf</span><span class="p">[</span><span class="s s-Atom">url</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s s-Atom">type</span><span class="p">,</span> <span class="s s-Atom">abc</span><span class="p">)</span>
+    <span class="s s-Atom">#</span><span class="nf">print</span><span class="p">(</span><span class="s s-Atom">type</span><span class="p">,</span> <span class="s s-Atom">abc</span><span class="p">,</span> <span class="p">[</span><span class="s s-Atom">i</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="s s-Atom">for</span> <span class="s s-Atom">i</span> <span class="s s-Atom">in</span> <span class="s s-Atom">newtable</span><span class="p">])</span>
+<span class="nf">open</span><span class="p">(</span><span class="s2">&quot;ccf.json&quot;</span><span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">).</span><span class="nf">write</span><span class="p">(</span><span class="s s-Atom">json</span><span class="p">.</span><span class="nf">dumps</span><span class="p">(</span><span class="s s-Atom">allccf</span><span class="p">))</span>
+</code></pre></div>
                 
               
               
