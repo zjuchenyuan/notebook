@@ -401,3 +401,91 @@ del "%APPDATA%\JetBrains\crl"
 编辑"%APPDATA%\JetBrains\IntelliJIdea2020.2\options\other.xml"
 
 删除包含evlsprt.202或evlsprt2.202的行
+
+----
+
+## 树莓派到手后配置
+
+一款新的树莓派4到手，默认为英国键盘布局不能输入@#符号，显示分辨率不够1080p，以及有线网络和无线网络优先级需要调整
+
+### 修改键盘布局
+
+查到有教程说`sudo raspi-config`里可以修改键盘布局，实测发现改了之后只敲了一次@之后又被改回去了，还是得修改输入法：
+
+参考 https://jingyan.baidu.com/article/3aed632e29dfd87011809169.html
+
+```
+sudo apt install fcitx
+reboot
+```
+
+右上角有输入法图标 管理键盘 删掉英国 加上英语(美国)即可
+
+### 显示分辨率修改
+
+参考 https://www.ncnynl.com/archives/201607/226.html
+
+树莓派有两种hdmi输出模式，1是CEA电视，2是DMT电脑显示器
+
+查看当前显示器支持的分辨率们：
+
+```
+tvservice -m CEA
+tvservice -m DMT
+```
+
+实际上显示出来的并不一定完整，还需要自己多测试：例如设置为 640x480   60Hz
+
+```
+tvservice -e "DMT 4"
+```
+
+建议在终端里先敲这个命令 当显示不出来的时候可以按↑回车改回一个正常显示，不至于重启
+
+完整的列表在上述参考链接中有了，可以自己多试试，切换分辨率后记得移动鼠标 不然不会显示
+
+但是我希望的分辨率 1920x1080 60Hz不在DMT列表中，这就需要自定义分辨率了
+
+修改`/boot/config.txt`，添加：
+
+```
+hdmi_cvt=1920 1080 60 3
+hdmi_group=2
+hdmi_mode=87
+hdmi_drive=2
+```
+
+其中hdmi_cvt的解释： https://www.raspberrypi.org/documentation/configuration/config-txt/video.md
+
+其中最后一个3是sdtv_aspect 长宽比 我这里是16:9 所以填了3
+
+修改后重启即可，似乎目前树莓派也学聪明了，即使config.txt里配置了错误的值显示不出来，也会自动回退到720p保证显示
+
+### 调整无线网络和有线网络的优先级
+
+我希望外网访问(default路由)走wifi，内网访问(10.0.0.0/8)走有线，但默认联网后有线也会占据default路由而且优先级比无线高（跃点数小）
+
+两个网络都是使用dhcp获取IP，所以可以在dhcp的配置文件里配置metric
+
+参考： https://raspberrypi.stackexchange.com/a/50951
+
+编辑`/etc/dhcpcd.conf`
+
+```
+interface wlan0
+metric 200
+
+interface eth0
+metric 300
+```
+
+然后编辑dhcp的hook自动执行route命令：
+
+参考 https://wiki.archlinux.org/index.php/dhcpcd#DHCP_static_route.28s.29
+
+编辑`/etc/dhcpcd.exit-hook`
+
+```
+route add -net 10.0.0.0/8 gw <网关ip> dev eth0
+```
+
