@@ -1,9 +1,9 @@
 # Bitcoin
 
 <script>
-function showwatch1(){localStorage.setItem("watchtab","showwatch1");return hidetrs(["JST","REN","SUN","YFI","TRX","LEND"])}
-function showwatch2(){localStorage.setItem("watchtab","showwatch2");return showtrs(['IOST','DOT','WAVES','ZEC','BTM','ANKR','ATOM','MKR','XTZ'])}
-function showwatch3(){localStorage.setItem("watchtab","showwatch3");return showtrs(['QTUM','STORJ','VET','ONT','ETC','uFIL'])}
+function showwatch1(){localStorage.setItem("watchtab","showwatch1");return hidetrs(["JST","REN","SUN","YFI","TRX","LEND","WAVES"])}
+function showwatch2(){localStorage.setItem("watchtab","showwatch2");return showtrs(['DOT','MKR','BTM','IOST','ZEC','KSM','ANKR','ATOM','XTZ'])}
+function showwatch3(){localStorage.setItem("watchtab","showwatch3");return showtrs(['QTUM','STORJ','ONT','ETC','CRV'])}
 </script>
 
 我也来试水当个被割的韭菜了

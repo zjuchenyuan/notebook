@@ -863,6 +863,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#pyenvpython" class="md-nav__link">
+    使用pyenv编译安装不同版本的Python
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2161,6 +2168,13 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pyenvpython" class="md-nav__link">
+    使用pyenv编译安装不同版本的Python
+  </a>
   
 </li>
       
@@ -3468,6 +3482,32 @@ http://127.0.0.1:6666/wd/hub/static/resource/hub.html</p>
 <h3 id="_19">随机采样<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
 <p>pipeline中使用：但是注意可能会有重复的元素 需要自己去重</p>
 <div class="codehilite"><pre><span></span><code><span class="err">{&quot;$sample&quot;: {&quot;size&quot;:10}}</span>
+</code></pre></div>
+
+
+<hr />
+<h2 id="pyenvpython">使用pyenv编译安装不同版本的Python<a class="headerlink" href="#pyenvpython" title="Permanent link">&para;</a></h2>
+<p>想自己维护一个完整的虚拟环境，方便的安装各种版本，用<a href="https://github.com/pyenv/pyenv">pyenv</a>呗</p>
+<p>安装：</p>
+<div class="codehilite"><pre><span></span><code><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">pyenv</span><span class="o">/</span><span class="n">pyenv</span><span class="o">.</span><span class="n">git</span> <span class="o">~/.</span><span class="n">pyenv</span>
+<span class="n">echo</span> <span class="s1">&#39;export PYENV_ROOT=&quot;$HOME/.pyenv&quot;&#39;</span> <span class="o">&gt;&gt;</span> <span class="o">~/.</span><span class="n">bash_profile</span>
+<span class="n">echo</span> <span class="s1">&#39;export PATH=&quot;$PYENV_ROOT/bin:$PATH&quot;&#39;</span> <span class="o">&gt;&gt;</span> <span class="o">~/.</span><span class="n">bash_profile</span>
+<span class="n">echo</span> <span class="o">-</span><span class="n">e</span> <span class="s1">&#39;if command -v pyenv 1&gt;/dev/null 2&gt;&amp;1; then</span><span class="se">\n</span><span class="s1">  eval &quot;$(pyenv init -)&quot;</span><span class="se">\n</span><span class="s1">fi&#39;</span> <span class="o">&gt;&gt;</span> <span class="o">~/.</span><span class="n">bash_profile</span>
+</code></pre></div>
+
+
+<p>然后就能编译安装特定版本的Python了，以3.7.0为例：使用我提供的www.python.org的镜像</p>
+<div class="codehilite"><pre><span></span><code><span class="err">apt install -y libffi-dev libgnutls28-dev</span>
+<span class="err">cd ~/.pyenv/plugins</span>
+<span class="err">sed -i &#39;s#www.python.org#py.py3.io#g&#39; $(grep www.python.org -r . -l)</span>
+<span class="err">pyenv install -v 3.7.0</span>
+<span class="err">pyenv global 3.7.0</span>
+</code></pre></div>
+
+
+<p>之后使用如果遇到密码学库的问题：</p>
+<div class="codehilite"><pre><span></span><code><span class="err">pip uninstall pycrypto pycryptodome</span>
+<span class="err">pip install pycryptodome</span>
 </code></pre></div>
                 
               

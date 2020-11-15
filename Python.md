@@ -1632,4 +1632,34 @@ pipeline中使用：但是注意可能会有重复的元素 需要自己去重
 {"$sample": {"size":10}}
 ```
 
+----
 
+## 使用pyenv编译安装不同版本的Python
+
+想自己维护一个完整的虚拟环境，方便的安装各种版本，用[pyenv](https://github.com/pyenv/pyenv)呗
+
+安装：
+
+```
+git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bash_profile
+echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bash_profile
+echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.bash_profile
+```
+
+然后就能编译安装特定版本的Python了，以3.7.0为例：使用我提供的www.python.org的镜像
+
+```
+apt install -y libffi-dev libgnutls28-dev
+cd ~/.pyenv/plugins
+sed -i 's#www.python.org#py.py3.io#g' $(grep www.python.org -r . -l)
+pyenv install -v 3.7.0
+pyenv global 3.7.0
+```
+
+之后使用如果遇到密码学库的问题：
+
+```
+pip uninstall pycrypto pycryptodome
+pip install pycryptodome
+```
