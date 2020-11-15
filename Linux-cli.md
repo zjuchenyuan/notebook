@@ -851,3 +851,16 @@ seaf-cli download -l "the id of the library"
 ```
 
 登录用户名密码错误的时候报错是400，需要留意
+
+
+----
+
+# pcregrep正则提取
+
+例如我们要提取some.htm中所有href属性中的html，使用普通的grep不能只提取单独的group。这里我们用pcregrep可以指定`-o`参数，还可以多次指定连续输出
+
+```
+# apt install -y pcregrep
+pcregrep -o1 'href="([^\.]*\.htm)"' some.htm
+```
+

@@ -2423,6 +2423,12 @@ done
 
 
 <p>登录用户名密码错误的时候报错是400，需要留意</p>
+<hr />
+<h1 id="pcregrep">pcregrep正则提取<a class="headerlink" href="#pcregrep" title="Permanent link">&para;</a></h1>
+<p>例如我们要提取some.htm中所有href属性中的html，使用普通的grep不能只提取单独的group。这里我们用pcregrep可以指定<code>-o</code>参数，还可以多次指定连续输出</p>
+<div class="codehilite"><pre><span></span><code><span class="err"># apt install -y pcregrep</span>
+<span class="err">pcregrep -o1 &#39;href=&quot;([^\.]*\.htm)&quot;&#39; some.htm</span>
+</code></pre></div>
                 
               
               
