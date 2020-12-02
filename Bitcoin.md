@@ -4,7 +4,8 @@
 function showwatch1(){localStorage.setItem("watchtab","showwatch1");return hidetrs(["JST","REN","SUN","YFI","TRX","LEND","WAVES"])}
 function showwatch2(){localStorage.setItem("watchtab","showwatch2");return showtrs(['DOT','MKR','BTM','IOST','ZEC','KSM','ATOM','XTZ','bETH','bTRX','bDOT','bFIL'])}
 function showwatch3(){localStorage.setItem("watchtab","showwatch3");return showtrs(['QTUM','STORJ','ONT','ETC','LTC','bETC'])}
-function showwatch4(){localStorage.setItem("watchtab","showwatch4");return show_binance()}
+function showwatch4(){localStorage.setItem("watchtab","showwatch4");return show_prefix("b")}
+function showwatch5(){localStorage.setItem("watchtab","showwatch5");return show_prefix("o")}
 </script>
 
 我也来试水当个被割的韭菜了
@@ -19,7 +20,7 @@ function showwatch4(){localStorage.setItem("watchtab","showwatch4");return show_
 
 7日年化：最近21次结算平均收益 具体计算见上文**计算收益率**
 
-<a onclick="showfull()">显示全部</a> <a onclick="showwatch1()">关注1</a> <a onclick="showwatch2()">关注2</a> <a onclick="showwatch3()">关注3</a> <a onclick="showwatch3()">关注3</a> <a onclick="showwatch4()">币安</a> 
+<a onclick="showfull()">显示全部</a> <a onclick="showwatch1()">关注1</a> <a onclick="showwatch2()">关注2</a> <a onclick="showwatch3()">关注3</a> <a onclick="showwatch3()">关注3</a> <a onclick="showwatch4()">币安</a> <a onclick="showwatch4()">OKex</a> 
 
 https://d.py3.io/btc.html
 
@@ -188,8 +189,8 @@ function showtrs(coins){
 function hidetrs(coins){
     document.querySelector("#realtimeprofittbody").querySelectorAll("tr").forEach(i=>i.style.display=(coins.indexOf(i.querySelector(".headcol").innerText.trim())==-1?"":"none"))
 }
-function show_binance(){
-    document.querySelector("#realtimeprofittbody").querySelectorAll("tr").forEach(i=>i.style.display=(i.querySelector(".headcol").innerText.trim().startsWith("b")?"":"none"))
+function show_prefix(prefix){
+    document.querySelector("#realtimeprofittbody").querySelectorAll("tr").forEach(i=>i.style.display=(i.querySelector(".headcol").innerText.trim().startsWith(prefix)?"":"none"))
 }
 </script>
 <style>
