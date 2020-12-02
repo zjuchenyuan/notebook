@@ -20,7 +20,7 @@ function showwatch5(){localStorage.setItem("watchtab","showwatch5");return show_
 
 7日年化：最近21次结算平均收益 具体计算见上文**计算收益率**
 
-<a onclick="showfull()">显示全部</a> <a onclick="showwatch1()">关注1</a> <a onclick="showwatch2()">关注2</a> <a onclick="showwatch3()">关注3</a> <a onclick="showwatch3()">关注3</a> <a onclick="showwatch4()">币安</a> <a onclick="showwatch4()">OKex</a> 
+<a onclick="showfull()">显示全部</a> <a onclick="showwatch1()">关注1</a> <a onclick="showwatch2()">关注2</a> <a onclick="showwatch3()">关注3</a> <a onclick="showwatch3()">关注3</a> <a onclick="showwatch4()">币安</a> <a onclick="showwatch5()">OKex</a> 
 
 https://d.py3.io/btc.html
 
