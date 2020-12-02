@@ -1,0 +1,120 @@
+{
+  "main": {
+    "id": "e43062274b77c03d",
+    "type": "split",
+    "children": [
+      {
+        "id": "1eaadc21132037db",
+        "type": "leaf",
+        "active": true,
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "kennyloggings ccs2020.md",
+            "mode": "preview"
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "59e06e768b99b5b3",
+    "type": "split",
+    "children": [
+      {
+        "id": "beead66f77e28fdc",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "92f14f398aef53af",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "83ddeff6fd82cdd1",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "123945014ca1fb02",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "842a03467707b10a",
+    "type": "split",
+    "children": [
+      {
+        "id": "f8a0a53d6ecd0855",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "0a9305f3399c9618",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "kennyloggings ccs2020.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "f98aa5a4a4011b68",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {}
+            }
+          },
+          {
+            "id": "1e312e851bdb0470",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "kennyloggings ccs2020.md"
+              }
+            }
+          }
+        ],
+        "currentTab": 2
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "lastOpenFiles": [
+    "kennyloggings ccs2020.md",
+    "images/Pasted image 20201202205654.png",
+    "ccs2020.md"
+  ]
+}
