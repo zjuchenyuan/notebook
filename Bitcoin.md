@@ -1,11 +1,25 @@
 # Bitcoin
 
 <script>
-function showwatch1(){localStorage.setItem("watchtab","showwatch1");return hidetrs(["JST","REN","SUN","YFI","TRX","LEND","WAVES"])}
+function showwatch1(){
+    localStorage.setItem("watchtab","showwatch1");
+    tablebodysort(document.querySelector("#realtimeprofittbody"), 6, 1);
+    var idx=1;
+    document.querySelector("#realtimeprofittbody").querySelectorAll("tr").forEach(function (i){
+        var text = i.querySelector(".headcol").innerText.trim();
+        if(text.startsWith("u")||idx>10||i.querySelector("td:nth-child(2)").textContent.indexOf("-")==0||i.querySelector("td:nth-child(3)").textContent.indexOf("-")==0||i.querySelector("td:nth-child(4)").textContent.indexOf("-")==0||i.querySelector("td:nth-child(5)").textContent.indexOf("-")==0){
+            i.style.display="none";
+            return
+        }
+        i.style.display="";
+        idx+=1;
+    })
+}
 function showwatch2(){localStorage.setItem("watchtab","showwatch2");return showtrs(['DOT','MKR','BTM','IOST','ZEC','KSM','ATOM','XTZ','bETH','bTRX','bDOT','bFIL'])}
 function showwatch3(){localStorage.setItem("watchtab","showwatch3");return showtrs(['QTUM','STORJ','ONT','ETC','LTC','bETC'])}
-function showwatch4(){localStorage.setItem("watchtab","showwatch4");return show_prefix("b")}
-function showwatch5(){localStorage.setItem("watchtab","showwatch5");return show_prefix("o")}
+function showwatch_huobi(){localStorage.setItem("watchtab","showwatch_huobi");document.querySelector("#realtimeprofittbody").querySelectorAll("tr").forEach(i=>i.style.display=((i.querySelector(".headcol").innerText.trim().startsWith("b")||i.querySelector(".headcol").innerText.trim().startsWith("o")||i.querySelector(".headcol").innerText.trim().startsWith("u"))?"none":""))}
+function showwatch_binance(){localStorage.setItem("watchtab","showwatch_binance");return show_prefix("b")}
+function showwatch_okex(){localStorage.setItem("watchtab","showwatch_okex");return show_prefix("o")}
 </script>
 
 我也来试水当个被割的韭菜了
@@ -20,7 +34,7 @@ function showwatch5(){localStorage.setItem("watchtab","showwatch5");return show_
 
 7日年化：最近21次结算平均收益 具体计算见上文**计算收益率**
 
-<a onclick="showfull()">显示全部</a> <a onclick="showwatch1()">关注1</a> <a onclick="showwatch2()">关注2</a> <a onclick="showwatch3()">关注3</a> <a onclick="showwatch3()">关注3</a> <a onclick="showwatch4()">币安</a> <a onclick="showwatch5()">OKex</a> 
+<a onclick="showfull()">显示全部</a> <a onclick="showwatch1()">关注1</a> <a onclick="showwatch2()">关注2</a> <a onclick="showwatch3()">关注3</a> <a onclick="showwatch_huobi()">火币</a> <a onclick="showwatch_binance()">币安</a> <a onclick="showwatch_okex()">OKex</a> 
 
 https://d.py3.io/btc.html
 
