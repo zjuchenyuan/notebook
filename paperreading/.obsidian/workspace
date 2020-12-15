@@ -4,15 +4,12 @@
     "type": "split",
     "children": [
       {
-        "id": "1eaadc21132037db",
+        "id": "4fb59c4e49abd5f4",
         "type": "leaf",
         "active": true,
         "state": {
-          "type": "markdown",
-          "state": {
-            "file": "kennyloggings ccs2020.md",
-            "mode": "source"
-          }
+          "type": "empty",
+          "state": {}
         }
       }
     ],
@@ -77,7 +74,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "kennyloggings ccs2020.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -99,9 +95,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "kennyloggings ccs2020.md"
-              }
+              "state": {}
             }
           }
         ],
