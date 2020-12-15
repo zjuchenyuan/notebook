@@ -489,3 +489,23 @@ metric 300
 route add -net 10.0.0.0/8 gw <网关ip> dev eth0
 ```
 
+----
+
+## 修改Electron应用
+
+想让这个Electron应用浏览器打开自定义的页面，但人家没提供F12（虽然最后发现也没啥用Orz
+
+参考： [吾爱破解-Electron跨平台程序破解的一般思路](https://www.52pojie.cn/thread-563895-1-1.html)
+
+```
+npm install asar -g
+# 在resources目录可以找到app.asar，这样解包：
+asar e app.asar tmp
+
+# 修改后重新打包：
+asar p tmp/ app.asar
+```
+
+具体的修改挺简单，找到入口的electron.js
+
+注释掉new BrowserWindow的titleBarStyle: 'hidden', removeMenu() 修改.loadURL(url)

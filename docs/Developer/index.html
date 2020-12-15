@@ -770,6 +770,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#electron" class="md-nav__link">
+    修改Electron应用
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1264,6 +1271,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#electron" class="md-nav__link">
+    修改Electron应用
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1699,6 +1713,23 @@
 <p>编辑<code>/etc/dhcpcd.exit-hook</code></p>
 <div class="codehilite"><pre><span></span><code><span class="err">route add -net 10.0.0.0/8 gw &lt;网关ip&gt; dev eth0</span>
 </code></pre></div>
+
+
+<hr />
+<h2 id="electron">修改Electron应用<a class="headerlink" href="#electron" title="Permanent link">&para;</a></h2>
+<p>想让这个Electron应用浏览器打开自定义的页面，但人家没提供F12（虽然最后发现也没啥用Orz</p>
+<p>参考： <a href="https://www.52pojie.cn/thread-563895-1-1.html">吾爱破解-Electron跨平台程序破解的一般思路</a></p>
+<div class="codehilite"><pre><span></span><code><span class="n">npm</span> <span class="n">install</span> <span class="n">asar</span> <span class="o">-</span><span class="k">g</span>
+<span class="o">#</span> <span class="err">在</span><span class="n">resources目录可以找到app</span><span class="p">.</span><span class="n">asar</span><span class="err">，这样解包：</span>
+<span class="n">asar</span> <span class="n">e</span> <span class="n">app</span><span class="p">.</span><span class="n">asar</span> <span class="n">tmp</span>
+
+<span class="o">#</span> <span class="err">修改后重新打包：</span>
+<span class="n">asar</span> <span class="n">p</span> <span class="n">tmp</span><span class="o">/</span> <span class="n">app</span><span class="p">.</span><span class="n">asar</span>
+</code></pre></div>
+
+
+<p>具体的修改挺简单，找到入口的electron.js</p>
+<p>注释掉new BrowserWindow的titleBarStyle: &lsquo;hidden&rsquo;, removeMenu() 修改.loadURL(url)</p>
                 
               
               
