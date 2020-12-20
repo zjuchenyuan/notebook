@@ -1002,3 +1002,16 @@ cryptsetup luksOpen --test-passphrase --key-slot 0 设备 && echo ok
 cryptsetup luksOpen --test-passphrase --key-file 密钥文件 --key-slot 1 设备 && echo ok
 ```
 
+--------
+
+## ntp的替代 使用http更新时间
+
+在ntp服务器访问不了的时候，我们也可以使用http协议的Date字段来获取时间
+
+参考： https://superuser.com/questions/307158/how-to-use-ntpdate-behind-a-proxy
+
+```
+#!/bin/bash
+date -s "$(curl -i  "http://www.google.com/" 2>/dev/null | grep -E '^[[:space:]]*[dD]ate:' | sed 's/^[[:space:]]*[dD]ate:[[:space:]]*//' | head -1l | awk '{print $1, $3, $2,  $5 ,"GMT", $4 }' | sed 's/,//')"
+```
+

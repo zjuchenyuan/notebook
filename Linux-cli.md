@@ -855,7 +855,7 @@ seaf-cli download -l "the id of the library"
 
 ----
 
-# pcregrep正则提取
+## pcregrep正则提取
 
 例如我们要提取some.htm中所有href属性中的html，使用普通的grep不能只提取单独的group。这里我们用pcregrep可以指定`-o`参数，还可以多次指定连续输出
 
@@ -864,3 +864,18 @@ seaf-cli download -l "the id of the library"
 pcregrep -o1 'href="([^\.]*\.htm)"' some.htm
 ```
 
+-----
+
+## 管道关闭缓冲
+
+参考：https://harttle.land/2020/06/06/tail-f-pipe.html
+
+grep 添加 `--line-buffered`，sed 添加 `-u`，awk 调 `fflush()`。
+
+Shell 里可以通过 [ -t 1 ] 来判断 stdout（文件描述符 1） 是否是 TTY。 [More](https://rosettacode.org/wiki/Check_output_device_is_a_terminal)
+
+例子：
+
+```
+tail -f log.txt | grep --line-buffered Error | sed -u 's/harttle//' | awk '${print $1; fflush()}' | grep ENOENT
+```
