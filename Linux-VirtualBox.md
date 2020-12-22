@@ -121,3 +121,13 @@ VBoxManage modifyvm "VM name" --vrde on
 VBoxManage modifyvm "VM name" --vrdeport 3391
 VBoxManage modifyvm "VM name" --vrdeaddress 0.0.0.0
 ```
+
+
+## 从硬盘+快照vdi文件恢复
+
+假设备份的时候只复制了硬盘vdi文件和Snapshots的vdi文件，而忘记了备份vbox文件，如何恢复快照关系呢
+
+找到 https://superuser.com/questions/1224554/recreate-virtualbox-machine-with-snapshots ，思路是创建个新的虚拟机 从base vdi开始打快照->编辑vbox将新的Snapshot指向下一个快照->继续打快照重复
+
+其中就需要我们搞清楚快照的依赖关系，看文件修改的时间戳差不多可以知道，但如果没有这种信息也不必按照人家说的一个个加载尝试，可以使用[这篇](https://superuser.com/questions/437767/how-to-merge-arbitrary-snapshot-into-base-vdi-in-virtualbox)说到的`VBoxManage internalcommands dumphdinfo`来查看每个快照文件的parent是谁。
+
