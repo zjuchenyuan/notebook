@@ -1663,3 +1663,20 @@ pyenv global 3.7.0
 pip uninstall pycrypto pycryptodome
 pip install pycryptodome
 ```
+
+----
+
+## 发送钉钉消息
+
+群聊加入机器人 关键词设置为一定会出现的字符如`.。[`，获取url后调用时只需要传入token部分
+
+```
+import requests
+def dingsend(token, text):
+    data = {
+        "msgtype" : "text" ,
+        "text" : { "content" : text },
+        "isAtAll" : False 
+    }
+    return requests.post("https://oapi.dingtalk.com/robot/send?access_token="+token, json=data)
+```

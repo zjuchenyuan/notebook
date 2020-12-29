@@ -870,6 +870,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    发送钉钉消息
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2174,6 +2181,13 @@
         <li class="md-nav__item">
   <a href="#pyenvpython" class="md-nav__link">
     使用pyenv编译安装不同版本的Python
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    发送钉钉消息
   </a>
   
 </li>
@@ -3508,6 +3522,20 @@ http://127.0.0.1:6666/wd/hub/static/resource/hub.html</p>
 <p>之后使用如果遇到密码学库的问题：</p>
 <div class="codehilite"><pre><span></span><code><span class="err">pip uninstall pycrypto pycryptodome</span>
 <span class="err">pip install pycryptodome</span>
+</code></pre></div>
+
+
+<hr />
+<h2 id="_20">发送钉钉消息<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h2>
+<p>群聊加入机器人 关键词设置为一定会出现的字符如<code>.。[</code>，获取url后调用时只需要传入token部分</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="k">def</span> <span class="nf">dingsend</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;msgtype&quot;</span> <span class="p">:</span> <span class="s2">&quot;text&quot;</span> <span class="p">,</span>
+        <span class="s2">&quot;text&quot;</span> <span class="p">:</span> <span class="p">{</span> <span class="s2">&quot;content&quot;</span> <span class="p">:</span> <span class="n">text</span> <span class="p">},</span>
+        <span class="s2">&quot;isAtAll&quot;</span> <span class="p">:</span> <span class="bp">False</span> 
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;https://oapi.dingtalk.com/robot/send?access_token=&quot;</span><span class="o">+</span><span class="n">token</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
 </code></pre></div>
                 
               
