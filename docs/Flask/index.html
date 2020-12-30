@@ -640,6 +640,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#flaskcookie" class="md-nav__link">
+    Flask跨域Cookie
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1150,6 +1157,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#flaskcookie" class="md-nav__link">
+    Flask跨域Cookie
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1486,6 +1500,33 @@
 <span class="n">proxy_http_version</span> <span class="mi">1</span><span class="p">.</span><span class="mi">1</span><span class="p">;</span>
 <span class="n">proxy_set_header</span> <span class="k">Connection</span> <span class="ss">&quot;&quot;</span><span class="p">;</span>
 <span class="n">proxy_pass_header</span> <span class="ss">&quot;X-Accel-Buffering&quot;</span><span class="p">;</span>
+</code></pre></div>
+
+
+<hr />
+<h2 id="flaskcookie">Flask跨域Cookie<a class="headerlink" href="#flaskcookie" title="Permanent link">&para;</a></h2>
+<p>当我们的网站能被跨域访问的时候，要注意cookie的设置，加上<code>SameSite=None; Secure</code></p>
+<p>参考:</p>
+<ul>
+<li>https://stackoverflow.com/questions/56828663/how-to-explicitly-set-samesite-none-on-a-flask-response</li>
+<li>https://github.com/pallets/werkzeug/issues/1549</li>
+<li>https://stackoverflow.com/questions/62992831/python-session-samesite-none-not-being-set</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="err">resp.set_cookie(&#39;cross-site-cookie&#39;, &#39;bar&#39;, samesite=&#39;None&#39;, secure=True)</span>
+<span class="err">resp.headers.add(&#39;Set-Cookie&#39;,&#39;cross-site-cookie=bar; SameSite=None; Secure&#39;)</span>
+</code></pre></div>
+
+
+<p>Flask的session cookie也要跨域的话：</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">session</span>
+<span class="kn">from</span> <span class="nn">flask.sessions</span> <span class="kn">import</span> <span class="n">SecureCookieSessionInterface</span>
+
+<span class="n">session_cookie</span> <span class="o">=</span> <span class="n">SecureCookieSessionInterface</span><span class="p">()</span><span class="o">.</span><span class="n">get_signing_serializer</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+<span class="nd">@app.after_request</span>
+<span class="k">def</span> <span class="nf">cookies</span><span class="p">(</span><span class="n">response</span><span class="p">):</span>
+    <span class="n">same_cookie</span> <span class="o">=</span> <span class="n">session_cookie</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">session</span><span class="p">))</span>
+    <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;Set-Cookie&quot;</span><span class="p">,</span> <span class="n">f</span><span class="s2">&quot;session={same_cookie}; Secure; HttpOnly; SameSite=None; Path=/;&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">response</span>
 </code></pre></div>
                 
               

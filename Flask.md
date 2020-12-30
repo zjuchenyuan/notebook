@@ -359,3 +359,34 @@ proxy_set_header Connection "";
 proxy_pass_header "X-Accel-Buffering";
 ```
 
+----
+
+## Flask跨域Cookie
+
+当我们的网站能被跨域访问的时候，要注意cookie的设置，加上`SameSite=None; Secure`
+
+参考:
+
+- https://stackoverflow.com/questions/56828663/how-to-explicitly-set-samesite-none-on-a-flask-response
+- https://github.com/pallets/werkzeug/issues/1549
+- https://stackoverflow.com/questions/62992831/python-session-samesite-none-not-being-set
+
+```
+resp.set_cookie('cross-site-cookie', 'bar', samesite='None', secure=True)
+resp.headers.add('Set-Cookie','cross-site-cookie=bar; SameSite=None; Secure')
+```
+
+Flask的session cookie也要跨域的话：
+
+```
+from flask import session
+from flask.sessions import SecureCookieSessionInterface
+
+session_cookie = SecureCookieSessionInterface().get_signing_serializer(app)
+@app.after_request
+def cookies(response):
+    same_cookie = session_cookie.dumps(dict(session))
+    response.headers.add("Set-Cookie", f"session={same_cookie}; Secure; HttpOnly; SameSite=None; Path=/;")
+    return response
+```
+
