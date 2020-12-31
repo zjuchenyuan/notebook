@@ -15,8 +15,8 @@ function showwatch1(){
         idx+=1;
     })
 }
-function showwatch2(){localStorage.setItem("watchtab","showwatch2");return showtrs(['DOT','BTM','XRP','IOST','KSM','ZEC','bETH','bTRX','bDOT','oCRV','oONT','oIOST'])}
-function showwatch3(){localStorage.setItem("watchtab","showwatch3");return showtrs(['BCH','QTUM','STORJ','ONT','ETC','LTC','bETC'])}
+function showwatch2(){localStorage.setItem("watchtab","showwatch2");return showtrs(['DOT','BTM','IOST','KSM','ZEC','BCH','QTUM','STORJ','ONT','ETC','LTC','bETH','bTRX','bDOT','bETC','oONT','oIOST','oDOT'])}
+function showwatch3(){localStorage.setItem("watchtab","showwatch3");return showtrs(['LTC', 'oETH', 'oATOM', 'oDASH', 'oDOT', 'oIOST', 'bLTC', 'bDOT', 'bETH'])}
 function showwatch_huobi(){localStorage.setItem("watchtab","showwatch_huobi");document.querySelector("#realtimeprofittbody").querySelectorAll("tr").forEach(i=>i.style.display=((i.querySelector(".headcol").innerText.trim().startsWith("b")||i.querySelector(".headcol").innerText.trim().startsWith("o")||i.querySelector(".headcol").innerText.trim().startsWith("u"))?"none":""))}
 function showwatch_binance(){localStorage.setItem("watchtab","showwatch_binance");return show_prefix("b")}
 function showwatch_okex(){localStorage.setItem("watchtab","showwatch_okex");return show_prefix("o")}
