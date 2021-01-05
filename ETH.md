@@ -202,7 +202,7 @@ WEB3_ENDPOINT='https://bsc-dataseed.binance.org/'
 callfunction(contract_address, "pendingCake(uint256,address)", "0"*64+addrtoarg(my_address), "latest", usecache=False)/10**18
 ```
 
-第二个问题：获取CAKE的价值 可以在这里看到(https://pancakeswap.info/token/0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82) 当前CAKE的价值显示为$0.64
+第二个问题：获取CAKE的价值 可以在[pancakeswap.info的token页面](https://pancakeswap.info/token/0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82)看到 当前CAKE的价值显示为$0.64
 
 通过仔细翻流量+F12看前端js+学GraphQL的写法，发现这个图查询可以一次返回两个内容：
 
@@ -260,9 +260,9 @@ callfunction(contract_address, "pendingCake(uint256,address)", "0"*64+addrtoarg(
 }
 ```
 
-将其中的ethPrice(实际上是BNB的价格)和derivedETH乘起来就是我们需要的价格了，算出来是$0.6375
+将其中的`ethPrice`(实际上是BNB的价格)和`derivedETH`乘起来就是我们需要的价格了，算出来是`$0.6375`
 
-然后合在一起就好了，通用一点还需要调用合约`userInfo(uint256,address)`查询自己的持仓，然后合在一起：
+通用一点还需要调用合约`userInfo(uint256,address)`查询自己的持仓，最后合在一起：
 
 ```
 (自己的持仓+pendingpendingCake)*derivedETH*ethPrice
