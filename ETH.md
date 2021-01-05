@@ -124,7 +124,7 @@ def timestamp2blockid(ts, retry=3):
 
 首先我们需要了解eth_call的data 前4个字节就是函数签名的哈希，哈希算法是keccak_sha3取前4个字节
 
-这东西叫做ABI， 文档： https://solidity.readthedocs.io/en/v0.5.3/abi-spec.html
+这东西叫做ABI， 文档： [https://solidity.readthedocs.io/en/v0.5.3/abi-spec.html](https://solidity.readthedocs.io/en/v0.5.3/abi-spec.html)
 
 例如balanceOf函数只接受一个地址作为参数，它的签名就是`balanceOf(address)`，哈希是`70a08231`，你可以观察metamask后台发送的流量就可以确认这一点
 
@@ -139,19 +139,28 @@ def function_hash(func_str):
 有了函数哈希后 再拼接函数调用参数就能发起eth_call了，比如我们需要把地址在左边补0补齐到64字节（也就是256bit）
 
 ```
+import requests
+sess = requests.session()
+sess.headers.update({"Content-Type":"application/json"})
+WEB3_ENDPOINT = "" #change to your infura.io project url
+
 def addrtoarg(addr):
     return addr.lower().rjust(64, "0")
 
-WEB3_ENDPOINT = ""
+cache={}
 def callfunction(addr, func_str, args_str, blockid, returnint=True, usecache=False):
     cachekey = "_".join(("callfunction", addr, func_str, args_str, str(blockid)))
-    if usecache and cachekey in cache:
+    try:
+        height = hex(int(blockid))
+    except:
+        height = blockid
+    if usecache and cachekey in cache and blockid!="latest":
         res = cache[cachekey]
     else:
         data = {
             "id":1, "jsonrpc":"2.0",
             "method":"eth_call",
-            "params":[{"data": "0x"+function_hash(func_str)+args_str, "to": addr,}, hex(int(blockid))]
+            "params":[{"data": "0x"+function_hash(func_str)+args_str, "to": addr,}, height]
         }
         x = sess.post(WEB3_ENDPOINT, json=data)
         print(x.json())
@@ -175,3 +184,86 @@ def eth_blockNumber():
 
 调用很简单：`mybalance = callfunction(contract_address, "balanceOfUnderlying(address)", addrtoarg(my_address), eth_blockNumber())`
 
+-----
+
+## 实例：获取Cake持仓价值
+
+!!! warning 风险警示
+    本文不作为投资建议，本项目合约代码2020/11/05也出过[漏洞导致挖矿奖励代币超发](https://www.cailu.net/article/13144343855663958.html)
+
+币安智能链上有个抄了Uniswap的[pancakeswap](https://pancakeswap.finance/pools), 网页上当前(2021/01/06)显示质押CAKE的年化228%，那当然是尝试一下咯，于是自然有了需求：计算自己持仓CAKE的实时价值，持仓包含质押奖励的部分
+
+那么实现这个需求就需要解决两个问题：如何获取自己的CAKE奖励数量，如何获取CAKE的价格信息
+
+第一个问题好解决，按照上面调用合约即可，合约调用需要两个参数，即使不知道函数选择器和函数参数怎么写，也可以让etherscan来帮我们调用[合约](https://bscscan.com/address/0x73feaa1ee314f8c655e354234017be2193c9e24e#readContract) 看流量即可
+
+```
+WEB3_ENDPOINT='https://bsc-dataseed.binance.org/'
+callfunction(contract_address, "pendingCake(uint256,address)", "0"*64+addrtoarg(my_address), "latest", usecache=False)/10**18
+```
+
+第二个问题：获取CAKE的价值 可以在这里看到(https://pancakeswap.info/token/0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82) 当前CAKE的价值显示为$0.64
+
+通过仔细翻流量+F12看前端js+学GraphQL的写法，发现这个图查询可以一次返回两个内容：
+
+[https://api.bscgraph.org/subgraphs/name/wowswap/graphql](https://api.bscgraph.org/subgraphs/name/wowswap/graphql)
+
+```
+{
+  tokens(where: {id: "0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82"}) {
+    id
+    name
+    symbol
+    derivedETH
+    tradeVolume
+    tradeVolumeUSD
+    untrackedVolumeUSD
+    totalLiquidity
+    txCount
+    __typename
+  }
+  bundles(where: {id: 1}) {
+    id
+    ethPrice
+    __typename
+  }
+}
+```
+
+查询到：
+
+```
+{
+  "data": {
+    "bundles": [
+      {
+        "__typename": "Bundle",
+        "ethPrice": "40.4164616943543110107673755202366",
+        "id": "1"
+      }
+    ],
+    "tokens": [
+      {
+        "__typename": "Token",
+        "derivedETH": "0.01577253120396104706816941010842497",
+        "id": "0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82",
+        "name": "PancakeSwap Token",
+        "symbol": "Cake",
+        "totalLiquidity": "17457173.064252540875767782",
+        "tradeVolume": "529331425.317628506590140745",
+        "tradeVolumeUSD": "270335080.4687124727090581348114777",
+        "txCount": "659265",
+        "untrackedVolumeUSD": "331587403.3835248774831009549837749"
+      }
+    ]
+  }
+}
+```
+
+将其中的ethPrice(实际上是BNB的价格)和derivedETH乘起来就是我们需要的价格了，算出来是$0.6375
+
+然后合在一起就好了，通用一点还需要调用合约`userInfo(uint256,address)`查询自己的持仓，然后合在一起：
+
+```
+(自己的持仓+pendingpendingCake)*derivedETH*ethPrice
+```
