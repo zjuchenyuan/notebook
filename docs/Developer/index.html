@@ -777,6 +777,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#cloudflare" class="md-nav__link">
+    Cloudflare免费账户 获取访问日志
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1278,6 +1285,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#cloudflare" class="md-nav__link">
+    Cloudflare免费账户 获取访问日志
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1730,6 +1744,49 @@
 
 <p>具体的修改挺简单，找到入口的electron.js</p>
 <p>注释掉new BrowserWindow的titleBarStyle: &lsquo;hidden&rsquo;, removeMenu() 修改.loadURL(url)</p>
+<hr />
+<h2 id="cloudflare">Cloudflare免费账户 获取访问日志<a class="headerlink" href="#cloudflare" title="Permanent link">&para;</a></h2>
+<p>原始日志只对付费的企业版开放，难道我们就没有方法获取访问日志来分析流量嘛？</p>
+<p>看到防火墙的拦截日志，又发现“绕过”这个action也会记录日志，那我们就可以创建一个绕过本身就没有启用的防护，就能记录所有流量了。但注意这个防火墙日志是抽样记录的。</p>
+<p>看F12 Network发现人家查询接口用的是GraphQL，然后发现需要通过introspection才能知道有哪些可用的字段</p>
+<p>cloudflare的文档：https://developers.cloudflare.com/analytics/graphql-api/getting-started/querying-basics</p>
+<p>实际的introspection请求：https://stackoverflow.com/questions/34199982/how-to-query-all-the-graphql-type-fields-without-writing-a-long-query</p>
+<p>查询限制：一次分页可以获取最大10000条记录，filter必须有内容，时间跨度一次不能超过24小时</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timezone</span><span class="p">,</span><span class="n">datetime</span><span class="p">,</span><span class="n">timedelta</span>
+<span class="n">sess</span><span class="o">=</span><span class="n">requests</span><span class="o">.</span><span class="n">session</span><span class="p">()</span>
+<span class="kn">from</span> <span class="nn">config</span> <span class="kn">import</span> <span class="n">headers</span>
+
+<span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="n">ts</span><span class="p">):</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%SZ&quot;</span><span class="p">)</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="p">(</span><span class="n">ts</span><span class="o">-</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%SZ&quot;</span><span class="p">)</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">sess</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;https://api.cloudflare.com/client/v4/graphql&quot;</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span> <span class="s1">&#39;{&quot;operationName&quot;:&quot;ActivityLogQuery&quot;,&quot;variables&quot;:{&quot;zoneTag&quot;:&quot;8a4335a74373cec7fd053241dc3e3f41&quot;,&quot;filter&quot;:{&quot;datetime_geq&quot;:&quot;&#39;</span><span class="o">+</span><span class="n">start</span><span class="o">+</span><span class="s1">&#39;&quot;,&quot;datetime_leq&quot;:&quot;&#39;</span><span class="o">+</span><span class="n">end</span><span class="o">+</span><span class="s1">&#39;&quot;},&quot;limit&quot;:10000,&quot;activityFilter&quot;:{&quot;datetime_geq&quot;:&quot;&#39;</span><span class="o">+</span><span class="n">start</span><span class="o">+</span><span class="s1">&#39;&quot;,&quot;datetime_leq&quot;:&quot;&#39;</span><span class="o">+</span><span class="n">end</span><span class="o">+</span><span class="s1">&#39;&quot;}},&quot;query&quot;:&quot;query ActivityLogQuery($zoneTag: string, $filter: FirewallEventsAdaptiveGroupsFilter_InputObject, $activityFilter: FirewallEventsAdaptiveFilter_InputObject, $limit: int64</span><span class="se">\\</span><span class="s1">u0021) { viewer { zones(filter: {zoneTag: $zoneTag}) { total: firewallEventsAdaptiveByTimeGroups(limit: 1, filter: $filter) { count avg { sampleInterval __typename } __typename } activity: firewallEventsAdaptive(filter: $activityFilter, limit: $limit, orderBy: [datetime_DESC, rayName_DESC, matchIndex_ASC]) { action clientASNDescription clientAsn clientCountryName clientIP clientRequestHTTPHost clientRequestHTTPMethodName clientRequestHTTPProtocol clientRequestPath clientRequestQuery datetime rayName ruleId source userAgent matchIndex metadata { key value __typename } sampleInterval originResponseStatus edgeResponseStatus clientRefererScheme clientRefererHost clientRefererPath clientRefererQuery clientIPClass  __typename } __typename } __typename }}&quot;}&#39;</span><span class="p">)</span>
+    <span class="c1">#print(x.json())</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;viewer&quot;</span><span class="p">][</span><span class="s1">&#39;zones&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;activity&#39;</span><span class="p">]</span>
+
+
+<span class="n">logformat</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span> <span class="s1">&#39;clientIP&#39;</span><span class="p">,</span> <span class="s1">&#39;clientIPClass&#39;</span><span class="p">,</span> <span class="s1">&#39;edgeResponseStatus&#39;</span><span class="p">,</span> <span class="s1">&#39;originResponseStatus&#39;</span><span class="p">,</span> <span class="s1">&#39;clientRequestHTTPMethodName&#39;</span><span class="p">,</span> <span class="s1">&#39;clientRequestPath&#39;</span><span class="p">,</span> <span class="s1">&#39;clientRequestQuery&#39;</span><span class="p">,</span> <span class="s1">&#39;clientRequestHTTPProtocol&#39;</span><span class="p">,</span> <span class="s1">&#39;clientRefererScheme&#39;</span><span class="p">,</span> <span class="s1">&#39;clientRefererHost&#39;</span><span class="p">,</span> <span class="s1">&#39;clientRefererPath&#39;</span><span class="p">,</span> <span class="s1">&#39;clientRefererQuery&#39;</span><span class="p">,</span> <span class="s1">&#39;userAgent&#39;</span><span class="p">,</span> <span class="s1">&#39;action&#39;</span><span class="p">,</span> <span class="s1">&#39;clientASNDescription&#39;</span><span class="p">,</span> <span class="s1">&#39;clientAsn&#39;</span><span class="p">,</span> <span class="s1">&#39;clientCountryName&#39;</span><span class="p">,</span> <span class="s1">&#39;clientRequestHTTPHost&#39;</span><span class="p">,</span>  <span class="s1">&#39;matchIndex&#39;</span><span class="p">,</span> <span class="s1">&#39;ruleId&#39;</span><span class="p">,</span> <span class="s1">&#39;sampleInterval&#39;</span><span class="p">,</span> <span class="s1">&#39;source&#39;</span><span class="p">,</span> <span class="s1">&#39;rayName&#39;</span><span class="p">]</span>
+<span class="n">fp</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s2">&quot;access.log&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">tz</span><span class="o">=</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span>
+<span class="n">knownrays</span><span class="o">=</span><span class="nb">set</span><span class="p">()</span>
+<span class="n">data</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">while</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">==</span><span class="mi">10000</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">fetch</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">i</span><span class="p">[</span><span class="s1">&#39;rayName&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">knownrays</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">logformat</span><span class="p">)</span>
+        <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">last</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">knownrays</span><span class="o">.</span><span class="n">update</span><span class="p">([</span><span class="n">i</span><span class="p">[</span><span class="s1">&#39;rayName&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data</span> <span class="k">if</span> <span class="n">i</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">last</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">last</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">],</span> <span class="s2">&quot;len(knownrays)=&quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">knownrays</span><span class="p">))</span>
+    <span class="n">ts</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">last</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">],</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%SZ&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+
+<p>然后就能分析例如访问最多的IP: <code>cut -d$'\t' -f2 access.log|sort|uniq -c|sort -hr|head -n 30</code></p>
                 
               
               

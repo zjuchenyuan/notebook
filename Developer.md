@@ -509,3 +509,56 @@ asar p tmp/ app.asar
 具体的修改挺简单，找到入口的electron.js
 
 注释掉new BrowserWindow的titleBarStyle: 'hidden', removeMenu() 修改.loadURL(url)
+
+------
+
+## Cloudflare免费账户 获取访问日志
+
+原始日志只对付费的企业版开放，难道我们就没有方法获取访问日志来分析流量嘛？
+
+看到防火墙的拦截日志，又发现“绕过”这个action也会记录日志，那我们就可以创建一个绕过本身就没有启用的防护，就能记录所有流量了。但注意这个防火墙日志是抽样记录的。
+
+看F12 Network发现人家查询接口用的是GraphQL，然后发现需要通过introspection才能知道有哪些可用的字段
+
+cloudflare的文档：https://developers.cloudflare.com/analytics/graphql-api/getting-started/querying-basics
+
+实际的introspection请求：https://stackoverflow.com/questions/34199982/how-to-query-all-the-graphql-type-fields-without-writing-a-long-query
+
+
+查询限制：一次分页可以获取最大10000条记录，filter必须有内容，时间跨度一次不能超过24小时
+
+```python
+import requests
+from pprint import pprint
+from datetime import timezone,datetime,timedelta
+sess=requests.session()
+from config import headers
+
+def fetch(ts):
+    res = []
+    end = ts.strftime("%Y-%m-%dT%H:%M:%SZ")
+    start = (ts-timedelta(days=1)).strftime("%Y-%m-%dT%H:%M:%SZ")
+    x=sess.post("https://api.cloudflare.com/client/v4/graphql", headers=headers, data= '{"operationName":"ActivityLogQuery","variables":{"zoneTag":"8a4335a74373cec7fd053241dc3e3f41","filter":{"datetime_geq":"'+start+'","datetime_leq":"'+end+'"},"limit":10000,"activityFilter":{"datetime_geq":"'+start+'","datetime_leq":"'+end+'"}},"query":"query ActivityLogQuery($zoneTag: string, $filter: FirewallEventsAdaptiveGroupsFilter_InputObject, $activityFilter: FirewallEventsAdaptiveFilter_InputObject, $limit: int64\\u0021) { viewer { zones(filter: {zoneTag: $zoneTag}) { total: firewallEventsAdaptiveByTimeGroups(limit: 1, filter: $filter) { count avg { sampleInterval __typename } __typename } activity: firewallEventsAdaptive(filter: $activityFilter, limit: $limit, orderBy: [datetime_DESC, rayName_DESC, matchIndex_ASC]) { action clientASNDescription clientAsn clientCountryName clientIP clientRequestHTTPHost clientRequestHTTPMethodName clientRequestHTTPProtocol clientRequestPath clientRequestQuery datetime rayName ruleId source userAgent matchIndex metadata { key value __typename } sampleInterval originResponseStatus edgeResponseStatus clientRefererScheme clientRefererHost clientRefererPath clientRefererQuery clientIPClass  __typename } __typename } __typename }}"}')
+    #print(x.json())
+    return x.json()["data"]["viewer"]['zones'][0]['activity']
+
+
+logformat = ['datetime', 'clientIP', 'clientIPClass', 'edgeResponseStatus', 'originResponseStatus', 'clientRequestHTTPMethodName', 'clientRequestPath', 'clientRequestQuery', 'clientRequestHTTPProtocol', 'clientRefererScheme', 'clientRefererHost', 'clientRefererPath', 'clientRefererQuery', 'userAgent', 'action', 'clientASNDescription', 'clientAsn', 'clientCountryName', 'clientRequestHTTPHost',  'matchIndex', 'ruleId', 'sampleInterval', 'source', 'rayName']
+fp=open("access.log", "w")
+ts = datetime.now(tz=timezone.utc)
+knownrays=set()
+data = None
+while data is None or len(data)==10000:
+    data = fetch(ts)
+    for i in data:
+        if i['rayName'] in knownrays:
+            continue
+        line = "\t".join(str(i[j]) for j in logformat)
+        fp.write(line+"\n")
+    last = data[-1]
+    knownrays.update([i['rayName'] for i in data if i['datetime']==last['datetime']])
+    print(last['datetime'], "len(knownrays)=",len(knownrays))
+    ts = datetime.strptime(last['datetime'], "%Y-%m-%dT%H:%M:%SZ")
+```
+
+然后就能分析例如访问最多的IP: `cut -d$'\t' -f2 access.log|sort|uniq -c|sort -hr|head -n 30`
