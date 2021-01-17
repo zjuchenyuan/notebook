@@ -523,3 +523,19 @@ ENABLE_PUSH_CREATE_ORG = true
     实际测试发现 对[git bomb](https://github.com/Katee/git-bomb)这种仓库 checkout就会占满全部内存
     即使使用上述脚本只同步bare仓库，gitea会启动git show命令，仍然会炸内存（但似乎kill掉这个命令后网页显示也是正常的）
 
+----
+
+## Git查询特定commit时间
+
+https://stackoverflow.com/questions/3814926/git-commit-date
+
+获取时间戳：`git show -s --format=%ct COMMIT_ID`
+
+----
+
+## GitHub查询所有releases
+
+https://docs.github.com/en/rest/reference/repos#releases
+
+https://api.github.com/repos/octocat/hello-world/releases?per_page=100&page=1
+

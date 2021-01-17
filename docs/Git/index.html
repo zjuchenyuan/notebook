@@ -901,6 +901,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#gitcommit" class="md-nav__link">
+    Git查询特定commit时间
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#githubreleases" class="md-nav__link">
+    GitHub查询所有releases
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1452,6 +1466,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#gitcommit" class="md-nav__link">
+    Git查询特定commit时间
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#githubreleases" class="md-nav__link">
+    GitHub查询所有releases
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1866,6 +1894,14 @@ cat *.tmp <span class="p">|</span>jq <span class="s1">&#39;.[].full_name&#39;</s
 <p>实际测试发现 对<a href="https://github.com/Katee/git-bomb">git bomb</a>这种仓库 checkout就会占满全部内存
 即使使用上述脚本只同步bare仓库，gitea会启动git show命令，仍然会炸内存（但似乎kill掉这个命令后网页显示也是正常的）</p>
 </div>
+<hr />
+<h2 id="gitcommit">Git查询特定commit时间<a class="headerlink" href="#gitcommit" title="Permanent link">&para;</a></h2>
+<p>https://stackoverflow.com/questions/3814926/git-commit-date</p>
+<p>获取时间戳：<code>git show -s --format=%ct COMMIT_ID</code></p>
+<hr />
+<h2 id="githubreleases">GitHub查询所有releases<a class="headerlink" href="#githubreleases" title="Permanent link">&para;</a></h2>
+<p>https://docs.github.com/en/rest/reference/repos#releases</p>
+<p>https://api.github.com/repos/octocat/hello-world/releases?per_page=100&amp;page=1</p>
                 
               
               
