@@ -8,8 +8,11 @@
         "type": "leaf",
         "active": true,
         "state": {
-          "type": "empty",
-          "state": {}
+          "type": "markdown",
+          "state": {
+            "file": "ProFuzzBench Arxiv.md",
+            "mode": "source"
+          }
         }
       }
     ],
@@ -74,6 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "ProFuzzBench Arxiv.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -87,7 +91,9 @@
             "type": "leaf",
             "state": {
               "type": "tag",
-              "state": {}
+              "state": {
+                "sortOrder": "frequency"
+              }
             }
           },
           {
@@ -95,7 +101,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "ProFuzzBench Arxiv.md"
+              }
             }
           }
         ],
@@ -107,8 +115,14 @@
     "collapsed": true
   },
   "lastOpenFiles": [
+    "ProFuzzBench Arxiv.md",
+    "images/Pasted image 20210117010835.png",
+    "images%2FPasted%20image%2020210117010835.png.md",
     "kennyloggings ccs2020.md",
+    "images/Pasted image 20201202205754.png",
     "images/Pasted image 20201202205654.png",
+    "ProFuzzBench targets.jpg.md",
+    "Untitled.md",
     "ccs2020.md"
   ]
 }

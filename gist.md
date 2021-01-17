@@ -277,3 +277,24 @@ def plotmatrix(M, N, DATA, labels, colors, xlabel, ylabel, fontsize, sep):
     plt.show()
 ```
 
+----
+
+## 从一系列zip文件中提取C代码
+
+```
+from zipfile import ZipFile
+import os
+for i in os.listdir():
+    print(i)
+    z = ZipFile(i)
+    files = [i.filename for i in z.filelist if i.filename.lower().endswith(".c") or i.filename.lower().endswith(".cpp")]
+    files = [i for i in files if "StdAfx" not in i]
+    print(files)
+    contents = b""
+    for f in files:
+        c = z.open(f).read()
+        if c in contents:
+            continue
+        contents += c
+    open("../output/"+i.split(".")[0]+".asm", "wb").write(contents)
+```
