@@ -15,8 +15,8 @@ function showwatch1(){
         idx+=1;
     })
 }
-function showwatch2(){localStorage.setItem("watchtab","showwatch2");return showtrs(['DOT','BTM','IOST','KSM','ZEC','BCH','QTUM','STORJ','ONT','ETC','LTC','bETH','bEGLD','bDOT','bETC','oONT','oIOST','oDOT'])}
-function showwatch3(){localStorage.setItem("watchtab","showwatch3");return showtrs(['KSM','LTC','DOT','ZEC','BSV','UNI', 'oETH', 'oATOM', 'oDASH', 'oDOT', 'oIOST', 'oYFI', 'bETH', 'bLINK', 'bBNB', 'bDOT', 'bLTC'])}
+function showwatch2(){localStorage.setItem("watchtab","showwatch2");return showtrs(['DOT','BTM','KSM','IOST','ZEC','BCH','QTUM','ONT','LTC','bETH','bEGLD','bDOT','oATOM','oCRV','oIOST','oONT'])}
+function showwatch3(){localStorage.setItem("watchtab","showwatch3");return showtrs(['KSM','LTC','DOT','ZEC','BSV','UNI', 'oETH', 'oATOM', 'oDASH', 'oDOT', 'oIOST', 'oXMR', 'oYFI', 'bETH', 'bBNB', 'bDOT', 'bLTC'])}
 function showwatch_huobi(){localStorage.setItem("watchtab","showwatch_huobi");document.querySelector("#realtimeprofittbody").querySelectorAll("tr").forEach(i=>i.style.display=((i.querySelector(".headcol").innerText.trim().startsWith("b")||i.querySelector(".headcol").innerText.trim().startsWith("o")||i.querySelector(".headcol").innerText.trim().startsWith("u"))?"none":""))}
 function showwatch_binance(){localStorage.setItem("watchtab","showwatch_binance");return show_prefix("b")}
 function showwatch_okex(){localStorage.setItem("watchtab","showwatch_okex");return show_prefix("o")}
@@ -102,37 +102,6 @@ for i,profit,length in data:
     print("",i, profit, length,"", sep="|")
 ```
 
-|币种|年化收益|结算次数|
-|---|---|---|
-|ONT|88.71%|35|
-|IOTA|75.41%|35|
-|ATOM|58.47%|35|
-|NEO|52.32%|35|
-|ZEC|50.74%|302|
-|XLM|50.36%|35|
-|XMR|35.45%|35|
-|LINK|33.68%|323|
-|BSV|26.32%|353|
-|DASH|22.16%|302|
-|LTC|19.73%|344|
-|EOS|19.45%|344|
-|BCH|19.02%|353|
-|XRP|16.09%|344|
-|TRX|14.59%|332|
-|ETH|14.22%|365|
-|ETC|13.29%|332|
-|BTC|7.57%|392|
-|ADA|-15.08%|302|
-
-累计收益最高的：
-
-![ZEC](https://d.py3.io/ZEC.png)
-
-最低的ADA：
-
-![ADA](https://d.py3.io/ADA.png)
-
-以上数据为2020年8月2日计算的结果
 
 风险： From [数字币套利简史（下）](https://www.chainnode.com/post/391781)
 
@@ -178,7 +147,7 @@ function registeronclick(){
     var tab=localStorage.getItem("watchtab");
     if(tab){eval(tab+"()")}
     rememerclick={2:1};
-    document.querySelectorAll("#realtimeprofittbody>tr>td").forEach(function(i){if(i.innerText.startsWith("-")){i.style.backgroundColor="#c0ff90"}})
+    document.querySelectorAll("#realtimeprofittbody>tr>td").forEach(function(i){if(i.innerText.trim().startsWith("-")){i.style.backgroundColor="#c0ff90"}})
 }
 function triggerrefresh(){    
     fetch("https://api.py3.io/trigger_btc_refresh").then(function(response) {
