@@ -16,7 +16,7 @@ function showwatch1(){
     })
 }
 function showwatch2(){localStorage.setItem("watchtab","showwatch2");return showtrs(['DOT','BTM','KSM','IOST','ZEC','BCH','QTUM','ONT','LTC','bETH','bEGLD','bDOT','oATOM','oCRV','oIOST','oONT'])}
-function showwatch3(){localStorage.setItem("watchtab","showwatch3");return showtrs(['KSM','LTC','DOT','ZEC','BSV','UNI', 'oETH', 'oATOM', 'oDASH', 'oDOT', 'oIOST', 'oXMR', 'oYFI', 'bETH', 'bBNB', 'bDOT', 'bLTC'])}
+function showwatch3(){localStorage.setItem("watchtab","showwatch3");return showtrs(['KSM','DOGE','LTC','DOT','AAVE','IOST','ZEC','BSV','NEAR', 'oETH', 'oATOM', 'oDASH', 'oDOT', 'oIOST', 'oXMR', 'oYFI', 'bEGLD', 'bETH', 'bBNB', 'bDOT', 'bLTC'])}
 function showwatch_huobi(){localStorage.setItem("watchtab","showwatch_huobi");document.querySelector("#realtimeprofittbody").querySelectorAll("tr").forEach(i=>i.style.display=((i.querySelector(".headcol").innerText.trim().startsWith("b")||i.querySelector(".headcol").innerText.trim().startsWith("o")||i.querySelector(".headcol").innerText.trim().startsWith("u"))?"none":""))}
 function showwatch_binance(){localStorage.setItem("watchtab","showwatch_binance");return show_prefix("b")}
 function showwatch_okex(){localStorage.setItem("watchtab","showwatch_okex");return show_prefix("o")}
@@ -110,6 +110,95 @@ for i,profit,length in data:
 交易期间手速慢或交易不活跃会导致买入现货价格高于做空价格，导致额外的成本损耗；持有期间的最大风险在于美元贬值的风险，例如USDT 7.1买入，最后6.9卖出，即为28.2‰亏损
 
 另外，如果btc持续上涨，在持仓中看到做空亏了百分之多少还是有点心痛的，这就需要良好的心理素质，套利相比于持币动辄一天10%的波动就挣不到多少钱hhh
+
+------
+
+## 套利+网格交易
+
+上述能被选出的资金费率高的套利币种，往往也是涨幅巨大的币种，可能还不如简单持币赚得更多，于是可以尝试更稳妥网格。网格的一个缺点在于资金利用率低，等着抄底买入的资金是闲置的，自然想到可以把上述资金费率套利结合起来，还没买入的部分就等量做空，优点在于：
+- 还没买入的抄底资金能赚取资金费率，不完全闲置
+- 没有usdt暴雷风险，币本位永续合约挂钩的是美元而不是usdt
+- 手续费低，火币现货交易千2，币安合约交易maker只有万1.5
+
+调用币安python sdk自动挂单，代码逻辑是：
+获取当前所有的挂单，比对配置的价格数组，找到缺失的价格们。
+这些缺失的价格是因为挂单成交导致的，需要补上。
+最新成交的那一单价格定为p，p本身是不能补单的（刚突破的网格本身再补上就是白交手续费）。
+小于p的缺失价格需要补上buy，大于的补上sell。
+
+在行情剧烈波动的时候，可能一分钟就会成交多次订单需要及时补单，就遇到了具体编码的挑战：
+
+### 如何获取最新的成交订单？
+
+订单号排序？不行，orderId只是按下单时间递增，orderId最大并不一定最先成交
+
+获取当前最新价格，比较哪个缺失价格离最新价格更近？在行情剧烈波动时不可靠
+
+获取历史所有订单，按updateTime排序？实测发现这个api有两个问题：
+- 多个订单updateTime相同，无法排序区分
+- 数据延迟，最新成交的订单并不一定出现
+
+解决方案是：
+- 获取最新成交的成交记录，从中提取包含的orderId，再查询订单。不排除这个REST API也存在数据延迟的问题
+- 使用websocket
+
+### 币安Python SDK没有币本位合约接口
+
+现在代码已经有更新补上了REST API的缺失，但websocket订阅账户变动的代码还是得自己来：
+
+```
+    def futures_stream_get_listen_key(self):
+        res = self._request_futures_api("post", "listenKey", True, data={})
+        return res['listenKey']
+```
+
+```
+    def start_websocket(self, handle_order):
+        def process_message(msg):
+            global conn_key
+            if msg['e'] not in ['ACCOUNT_UPDATE'] and not (msg['e']=='ORDER_TRADE_UPDATE' and msg['o']['X']=='NEW'):
+                myprint("message:", msg['e'], msg)
+            if msg['e'] == 'error':
+                bm.stop_socket(conn_key)
+                bm.close()
+                reactor.stop()
+                print("socket stopped, exit now!")
+                exit()
+            elif msg['e']=='ORDER_TRADE_UPDATE':
+                o = msg['o']
+                if o['X']!='FILLED':
+                    return
+                order = {"price":o['p'], "orderId":o['i'], "side":o["S"], "symbol":o["s"], "clientOrderId":o["c"]}
+                return handle_order(order)
+        
+        client = self.client
+        client.stream_get_listen_key = client.futures_stream_get_listen_key
+        client.FUTURES_URL = client.FUTURES_URL.replace("fapi", "dapi")
+        bm = BinanceSocketManager(client)
+        bm.STREAM_URL = "wss://dstream.binance.com/"
+        conn_key = bm.start_user_socket(process_message)
+        bm.start()
+```
+
+上述代码直接魔改BinanceSocketManager的常数定义来实现对币本位合约API的调用，订阅账户变动消息，只处理ORDER_TRADE_UPDATE中FILLED的订单
+
+### 各种异常处理
+
+避免重复下单: 下单时指定包含价格信息的newClientOrderId，重复下单自然会失败，避免相同的订单重复下单，但这个保护只针对还在挂单的订单，相同的clientorderid如果前述订单已经成交，不会阻止新的提交。保护的报错：APIError(code=-4015): Client order id is not valid.
+
+已经重复下单：需要比对当前价格与定义好的网格数组，判断当前应该的仓位是多少，然后使用市价单或者额外在相邻网格下单保证仓位的正确性。例如买入是靠平仓做空实现的，这是种reduceOnly的订单，必须有足够多的做空仓位才能买，否则报错：APIError(code=-2022): ReduceOnly Order is rejected.
+
+已经下的订单状态变成“已过期”：这种还是因为已经发生了超买/超卖，保证金不足，官方说明：
+> https://www.binance.com/zh-CN/support/faq/360039707291
+> 保证金审核不过（针对于止盈止损单）：止盈止损单中需要设置触发价和成交价（市价止盈止损单中，可以根据不同需要设置根据标记价格或最新价格触发），系统会进行两次保证金审核，分别在下单前和成交前。订单触发之后，系统会立即进行第二次保证金审核，若当前发生了亏损或划转出了保证金，导致可用保证金不足，此时订单状态会显示已过期。
+
+保证金不足：直接把杠杆倍数变成2可以避免这个问题，即使加杠杆也不会出现强平价格。
+
+服务器网络不可靠：在其他地区的服务器同时跑轮询，即使单个服务器挂掉，也有其他服务器靠轮询补上订单，但注意分布式后日志收集是个新的难点
+
+listenKeyExpired：收到这种类型的消息需要重新连接
+
+
 
 <script>
 function myparseFloat(text){
