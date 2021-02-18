@@ -676,6 +676,19 @@
     根据函数名调用合约
   </a>
   
+    <nav class="md-nav" aria-label="根据函数名调用合约">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    更复杂的参数类型
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1037,6 +1050,19 @@
     根据函数名调用合约
   </a>
   
+    <nav class="md-nav" aria-label="根据函数名调用合约">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    更复杂的参数类型
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1224,6 +1250,16 @@
 
 
 <p>调用很简单：<code>mybalance = callfunction(contract_address, "balanceOfUnderlying(address)", addrtoarg(my_address), eth_blockNumber())</code></p>
+<h3 id="_2">更复杂的参数类型<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>对于string这种可变长度类型，还是使用python包<code>eth-abi</code>吧，例如：</p>
+<p>NFT-Hero里随机数用的blockhashMgr到底是什么合约呢：</p>
+<p>https://github.com/nfthero/SuperHero/blob/c87346f36efb09667ad8f0eeaf8df04a710bbecd/Package.sol#L87</p>
+<p>就想要查询一下members这个字典，其类型是<code>mapping(string =&gt; address) public members</code>，也就意味着可以调用<code>members(string)</code>这个函数进行查询：</p>
+<div class="codehilite"><pre><span></span><code><span class="err">&gt;&gt;&gt; callfunction(&quot;https://http-mainnet-node.huobichain.com/&quot;, &quot;0x42C1aC2AeAEc52E1cc9dC8057b089FA91fa84FC7&quot;, &quot;members(string)&quot;, base64.b16encode(eth_abi.encode_abi([&quot;string&quot;], [&quot;blockhashMgr&quot;])).decode().lower(), &quot;latest&quot;, False)</span>
+<span class="err">&#39;0x0000000000000000000000003e259bfe720093abb26a2c3fe57670259b2ebea2&#39;</span>
+</code></pre></div>
+
+
 <hr />
 <h2 id="cake">实例：获取Cake持仓价值<a class="headerlink" href="#cake" title="Permanent link">&para;</a></h2>
 <div class="admonition warning 风险警示">

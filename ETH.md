@@ -184,6 +184,21 @@ def eth_blockNumber():
 
 调用很简单：`mybalance = callfunction(contract_address, "balanceOfUnderlying(address)", addrtoarg(my_address), eth_blockNumber())`
 
+### 更复杂的参数类型
+
+对于string这种可变长度类型，还是使用python包`eth-abi`吧，例如：
+
+NFT-Hero里随机数用的blockhashMgr到底是什么合约呢：
+
+https://github.com/nfthero/SuperHero/blob/c87346f36efb09667ad8f0eeaf8df04a710bbecd/Package.sol#L87
+
+就想要查询一下members这个字典，其类型是`mapping(string => address) public members`，也就意味着可以调用`members(string)`这个函数进行查询：
+
+```
+>>> callfunction("https://http-mainnet-node.huobichain.com/", "0x42C1aC2AeAEc52E1cc9dC8057b089FA91fa84FC7", "members(string)", base64.b16encode(eth_abi.encode_abi(["string"], ["blockhashMgr"])).decode().lower(), "latest", False)
+'0x0000000000000000000000003e259bfe720093abb26a2c3fe57670259b2ebea2'
+```
+
 -----
 
 ## 实例：获取Cake持仓价值
