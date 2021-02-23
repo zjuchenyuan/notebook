@@ -1312,3 +1312,24 @@ app.wsgi_app = ProxyFix(app.wsgi_app)
 
 列出指定镜像的所有标签： `/v2/<name>/tags/list`
 
+------
+
+## 配置docker pull使用代理
+
+官方文档： [https://docs.docker.com/config/daemon/systemd/#httphttps-proxy](https://docs.docker.com/config/daemon/systemd/#httphttps-proxy)
+
+```
+mkdir -p /etc/systemd/system/docker.service.d
+vi /etc/systemd/system/docker.service.d/http-proxy.conf
+systemctl daemon-reload
+systemctl restart docker
+systemctl show --property=Environment docker
+```
+
+```
+[Service]
+Environment="HTTP_PROXY=http://proxy.example.com:80"
+Environment="HTTPS_PROXY=https://proxy.example.com:443"
+Environment="NO_PROXY=localhost,127.0.0.1,docker-registry.example.com,.corp"
+```
+

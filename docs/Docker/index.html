@@ -1106,6 +1106,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#docker-pull_1" class="md-nav__link">
+    配置docker pull使用代理
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1908,6 +1915,13 @@
         <li class="md-nav__item">
   <a href="#registryapi" class="md-nav__link">
     私有registry的api
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-pull_1" class="md-nav__link">
+    配置docker pull使用代理
   </a>
   
 </li>
@@ -3052,6 +3066,22 @@ cp /etc/hosts.base /etc/hosts
 <p>文档： https://docs.docker.com/registry/spec/api/</p>
 <p>列出所有镜像： <code>/v2/_catalog</code></p>
 <p>列出指定镜像的所有标签： <code>/v2/&lt;name&gt;/tags/list</code></p>
+<hr />
+<h2 id="docker-pull_1">配置docker pull使用代理<a class="headerlink" href="#docker-pull_1" title="Permanent link">&para;</a></h2>
+<p>官方文档： <a href="https://docs.docker.com/config/daemon/systemd/#httphttps-proxy">https://docs.docker.com/config/daemon/systemd/#httphttps-proxy</a></p>
+<div class="codehilite"><pre><span></span><code><span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">systemd</span><span class="o">/</span><span class="n">system</span><span class="o">/</span><span class="n">docker</span><span class="o">.</span><span class="n">service</span><span class="o">.</span><span class="n">d</span>
+<span class="n">vi</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">systemd</span><span class="o">/</span><span class="n">system</span><span class="o">/</span><span class="n">docker</span><span class="o">.</span><span class="n">service</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">http</span><span class="o">-</span><span class="n">proxy</span><span class="o">.</span><span class="n">conf</span>
+<span class="n">systemctl</span> <span class="n">daemon</span><span class="o">-</span><span class="n">reload</span>
+<span class="n">systemctl</span> <span class="n">restart</span> <span class="n">docker</span>
+<span class="n">systemctl</span> <span class="n">show</span> <span class="o">--</span><span class="n">property</span><span class="o">=</span><span class="n">Environment</span> <span class="n">docker</span>
+</code></pre></div>
+
+
+<div class="codehilite"><pre><span></span><code><span class="k">[Service]</span>
+<span class="na">Environment</span><span class="o">=</span><span class="s">&quot;HTTP_PROXY=http://proxy.example.com:80&quot;</span>
+<span class="na">Environment</span><span class="o">=</span><span class="s">&quot;HTTPS_PROXY=https://proxy.example.com:443&quot;</span>
+<span class="na">Environment</span><span class="o">=</span><span class="s">&quot;NO_PROXY=localhost,127.0.0.1,docker-registry.example.com,.corp&quot;</span>
+</code></pre></div>
                 
               
               
