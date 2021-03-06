@@ -15,8 +15,8 @@ function showwatch1(){
         idx+=1;
     })
 }
-function showwatch2(){localStorage.setItem("watchtab","showwatch2");return showtrs(['DOT','BTM','KSM','IOST','ZEC','BCH','QTUM','ONT','LTC','bETH','bEGLD','bDOT','oATOM','oCRV','oIOST','oONT'])}
-function showwatch3(){localStorage.setItem("watchtab","showwatch3");return showtrs(['KSM','DOGE','LTC','DOT','AAVE','IOST','ZEC','BSV','NEAR', 'oETH', 'oATOM', 'oDASH', 'oDOT', 'oIOST', 'oXMR', 'oYFI', 'bEGLD', 'bETH', 'bBNB', 'bDOT', 'bLTC'])}
+function showwatch2(){localStorage.setItem("watchtab","showwatch2");return showtrs(['DOT','IOST','DOGE','GRT','NEAR','BTM','KSM','QTUM','ZEC','BCH','ONT','LTC','AAVE','oCRV','bEGLD','bDOT','bETH','bDOGE'])}
+function showwatch3(){localStorage.setItem("watchtab","showwatch3");return showtrs(['KSM','DOGE','IOST','LTC','DOT','AAVE','ZEC','BSV','GRT','NEAR', 'oATOM', 'oDOT', 'bEGLD', 'bETH', 'bDOGE', 'bDOT', 'bLTC'])}
 function showwatch_huobi(){localStorage.setItem("watchtab","showwatch_huobi");document.querySelector("#realtimeprofittbody").querySelectorAll("tr").forEach(i=>i.style.display=((i.querySelector(".headcol").innerText.trim().startsWith("b")||i.querySelector(".headcol").innerText.trim().startsWith("o")||i.querySelector(".headcol").innerText.trim().startsWith("u"))?"none":""))}
 function showwatch_binance(){localStorage.setItem("watchtab","showwatch_binance");return show_prefix("b")}
 function showwatch_okex(){localStorage.setItem("watchtab","showwatch_okex");return show_prefix("o")}
