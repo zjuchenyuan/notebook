@@ -256,3 +256,11 @@ slmgr.vbs /ato
 slmgr.vbs /xpr
 ```
 
+-----
+
+## 查看BitLocker加密进度
+
+新的win10里不会在UI显示加密进度，只能靠管理员权限的命令行查询：
+
+manage-bde -status
+
