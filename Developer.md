@@ -520,9 +520,9 @@ asar p tmp/ app.asar
 
 看F12 Network发现人家查询接口用的是GraphQL，然后发现需要通过introspection才能知道有哪些可用的字段
 
-cloudflare的文档：https://developers.cloudflare.com/analytics/graphql-api/getting-started/querying-basics
+cloudflare的文档： https://developers.cloudflare.com/analytics/graphql-api/getting-started/querying-basics
 
-实际的introspection请求：https://stackoverflow.com/questions/34199982/how-to-query-all-the-graphql-type-fields-without-writing-a-long-query
+实际的introspection请求：[https://stackoverflow.com/questions/34199982/how-to-query-all-the-graphql-type-fields-without-writing-a-long-query](https://stackoverflow.com/a/44289026)
 
 
 查询限制：一次分页可以获取最大10000条记录，filter必须有内容，时间跨度一次不能超过24小时
@@ -562,3 +562,23 @@ while data is None or len(data)==10000:
 ```
 
 然后就能分析例如访问最多的IP: `cut -d$'\t' -f2 access.log|sort|uniq -c|sort -hr|head -n 30`
+
+----
+
+## shodan 搜索开放特定端口的ip列表
+
+这个需求只需要使用faucet即可，免费
+
+举个例子：搜索3389的中国ip：
+
+[https://beta.shodan.io/search/facet?query=port%3A3389+country%3Acn&facet=ip](https://beta.shodan.io/search/facet?query=port%3A3389+country%3Acn&facet=ip)
+
+也可以使用shodan的python包来查询，需要注册一个账号得到api key：
+
+```
+import shodan
+x=shodan.Shodan("APIKEY")
+data=x.search("port:3389 country:cn", facets=['ip:10000'])
+iplist=([i["value"] for i in data["facets"]["ip"]])
+```
+

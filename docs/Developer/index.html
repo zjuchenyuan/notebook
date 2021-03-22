@@ -784,6 +784,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#shodan-ip" class="md-nav__link">
+    shodan 搜索开放特定端口的ip列表
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1292,6 +1299,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#shodan-ip" class="md-nav__link">
+    shodan 搜索开放特定端口的ip列表
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1749,8 +1763,8 @@
 <p>原始日志只对付费的企业版开放，难道我们就没有方法获取访问日志来分析流量嘛？</p>
 <p>看到防火墙的拦截日志，又发现“绕过”这个action也会记录日志，那我们就可以创建一个绕过本身就没有启用的防护，就能记录所有流量了。但注意这个防火墙日志是抽样记录的。</p>
 <p>看F12 Network发现人家查询接口用的是GraphQL，然后发现需要通过introspection才能知道有哪些可用的字段</p>
-<p>cloudflare的文档：https://developers.cloudflare.com/analytics/graphql-api/getting-started/querying-basics</p>
-<p>实际的introspection请求：https://stackoverflow.com/questions/34199982/how-to-query-all-the-graphql-type-fields-without-writing-a-long-query</p>
+<p>cloudflare的文档： https://developers.cloudflare.com/analytics/graphql-api/getting-started/querying-basics</p>
+<p>实际的introspection请求：<a href="https://stackoverflow.com/a/44289026">https://stackoverflow.com/questions/34199982/how-to-query-all-the-graphql-type-fields-without-writing-a-long-query</a></p>
 <p>查询限制：一次分页可以获取最大10000条记录，filter必须有内容，时间跨度一次不能超过24小时</p>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
@@ -1787,6 +1801,17 @@
 
 
 <p>然后就能分析例如访问最多的IP: <code>cut -d$'\t' -f2 access.log|sort|uniq -c|sort -hr|head -n 30</code></p>
+<hr />
+<h2 id="shodan-ip">shodan 搜索开放特定端口的ip列表<a class="headerlink" href="#shodan-ip" title="Permanent link">&para;</a></h2>
+<p>这个需求只需要使用faucet即可，免费</p>
+<p>举个例子：搜索3389的中国ip：</p>
+<p><a href="https://beta.shodan.io/search/facet?query=port%3A3389+country%3Acn&amp;facet=ip">https://beta.shodan.io/search/facet?query=port%3A3389+country%3Acn&amp;facet=ip</a></p>
+<p>也可以使用shodan的python包来查询，需要注册一个账号得到api key：</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">shodan</span>
+<span class="n">x</span><span class="o">=</span><span class="n">shodan</span><span class="o">.</span><span class="n">Shodan</span><span class="p">(</span><span class="s2">&quot;APIKEY&quot;</span><span class="p">)</span>
+<span class="n">data</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;port:3389 country:cn&quot;</span><span class="p">,</span> <span class="n">facets</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ip:10000&#39;</span><span class="p">])</span>
+<span class="n">iplist</span><span class="o">=</span><span class="p">([</span><span class="n">i</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;facets&quot;</span><span class="p">][</span><span class="s2">&quot;ip&quot;</span><span class="p">]])</span>
+</code></pre></div>
                 
               
               
