@@ -915,6 +915,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#git-diff" class="md-nav__link">
+    git diff显示修改后行号
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1480,6 +1487,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#git-diff" class="md-nav__link">
+    git diff显示修改后行号
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1902,6 +1916,32 @@ cat *.tmp <span class="p">|</span>jq <span class="s1">&#39;.[].full_name&#39;</s
 <h2 id="githubreleases">GitHub查询所有releases<a class="headerlink" href="#githubreleases" title="Permanent link">&para;</a></h2>
 <p>https://docs.github.com/en/rest/reference/repos#releases</p>
 <p>https://api.github.com/repos/octocat/hello-world/releases?per_page=100&amp;page=1</p>
+<hr />
+<h2 id="git-diff">git diff显示修改后行号<a class="headerlink" href="#git-diff" title="Permanent link">&para;</a></h2>
+<p>参考： <a href="https://stackoverflow.com/questions/8259851/using-git-diff-how-can-i-get-added-and-modified-lines-numbers">https://stackoverflow.com/questions/8259851/using-git-diff-how-can-i-get-added-and-modified-lines-numbers</a></p>
+<div class="codehilite"><pre><span></span><code>diff-lines() {
+    local path=
+    local line=
+    while read; do
+        esc=$&#39;\033&#39;
+        if [[ <span class="nv">$REPLY</span> =~ ---\ (a/)?.* ]]; then
+            continue
+        elif [[ <span class="nv">$REPLY</span> =~ \+\+\+\ (b/)?([^[:blank:]<span class="nv">$esc</span>]+).* ]]; then
+            path=<span class="cp">${</span><span class="n">BASH_REMATCH</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="cp">}</span>
+        elif [[ <span class="nv">$REPLY</span> =~ @@\ -[0-9]+(,[0-9]+)?\ \+([0-9]+)(,[0-9]+)?\ @@.* ]]; then
+            line=<span class="cp">${</span><span class="n">BASH_REMATCH</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="cp">}</span>
+        elif [[ <span class="nv">$REPLY</span> =~ ^(<span class="nv">$esc</span>\[[0-9;]+m)*([\ +-]) ]]; then
+            echo &quot;<span class="nv">$path</span>:<span class="nv">$line</span>:<span class="nv">$REPLY</span>&quot;
+            if [[ <span class="cp">${</span><span class="n">BASH_REMATCH</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="cp">}</span> != - ]]; then
+                ((line++))
+            fi
+        fi
+    done
+}
+</code></pre></div>
+
+
+<p>用法：<code>git diff commit^ commit -U0|diff-lines</code></p>
                 
               
               

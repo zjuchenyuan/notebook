@@ -1083,8 +1083,8 @@ function showwatch1(){
         idx+=1;
     })
 }
-function showwatch2(){localStorage.setItem("watchtab","showwatch2");return showtrs(['DOT','IOST','DOGE','GRT','NEAR','BTM','KSM','QTUM','ZEC','BCH','ONT','LTC','AAVE','oCRV','bEGLD','bDOT','bETH','bDOGE'])}
-function showwatch3(){localStorage.setItem("watchtab","showwatch3");return showtrs(['KSM','DOGE','IOST','LTC','DOT','AAVE','ZEC','BSV','GRT','NEAR', 'oATOM', 'oDOT', 'bEGLD', 'bETH', 'bDOGE', 'bDOT', 'bLTC'])}
+function showwatch2(){localStorage.setItem("watchtab","showwatch2");return showtrs(['DOT','IOST','NEAR','BTM','DOGE','GRT','KSM','QTUM','ZEC','BCH','ONT','FIL','LTC','AAVE','IOTA','FIL','KSM','IOST','STORJ','BTM','oCRV','bEGLD','bBNB','bETH','bDOGE'])}
+function showwatch3(){localStorage.setItem("watchtab","showwatch3");return showtrs(['KSM','DOGE','IOST','LTC','DOT','AAVE','ZEC','BSV','GRT','NEAR', 'oATOM', 'oCRV', 'bEGLD', 'bETH', 'bDOGE', 'bDOT', 'bLTC','bFIL'])}
 function showwatch_huobi(){localStorage.setItem("watchtab","showwatch_huobi");document.querySelector("#realtimeprofittbody").querySelectorAll("tr").forEach(i=>i.style.display=((i.querySelector(".headcol").innerText.trim().startsWith("b")||i.querySelector(".headcol").innerText.trim().startsWith("o")||i.querySelector(".headcol").innerText.trim().startsWith("u"))?"none":""))}
 function showwatch_binance(){localStorage.setItem("watchtab","showwatch_binance");return show_prefix("b")}
 function showwatch_okex(){localStorage.setItem("watchtab","showwatch_okex");return show_prefix("o")}
@@ -1231,6 +1231,7 @@ function showwatch_okex(){localStorage.setItem("watchtab","showwatch_okex");retu
 <p><strong>保证金不足</strong>：直接把杠杆倍数变成2可以避免这个问题，即使加杠杆也不会出现强平价格。</p>
 <p><strong>服务器网络不可靠</strong>：在其他地区的服务器同时跑轮询，即使单个服务器挂掉，也有其他服务器靠轮询补上订单，但注意分布式后日志收集是个新的难点</p>
 <p><strong>listenKeyExpired</strong>：收到这种类型的消息需要重新连接，也可以主动轮询的时候调用futures_stream_get_listen_key对现有的Listen Key进行刷新</p>
+<hr />
 <script>
 function myparseFloat(text){
     var res = parseFloat(text);

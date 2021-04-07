@@ -15,8 +15,8 @@ function showwatch1(){
         idx+=1;
     })
 }
-function showwatch2(){localStorage.setItem("watchtab","showwatch2");return showtrs(['DOT','IOST','DOGE','GRT','NEAR','BTM','KSM','QTUM','ZEC','BCH','ONT','LTC','AAVE','oCRV','bEGLD','bDOT','bETH','bDOGE'])}
-function showwatch3(){localStorage.setItem("watchtab","showwatch3");return showtrs(['KSM','DOGE','IOST','LTC','DOT','AAVE','ZEC','BSV','GRT','NEAR', 'oATOM', 'oDOT', 'bEGLD', 'bETH', 'bDOGE', 'bDOT', 'bLTC'])}
+function showwatch2(){localStorage.setItem("watchtab","showwatch2");return showtrs(['DOT','IOST','NEAR','BTM','DOGE','GRT','KSM','QTUM','ZEC','BCH','ONT','FIL','LTC','AAVE','IOTA','FIL','KSM','IOST','STORJ','BTM','oCRV','bEGLD','bBNB','bETH','bDOGE'])}
+function showwatch3(){localStorage.setItem("watchtab","showwatch3");return showtrs(['KSM','DOGE','IOST','LTC','DOT','AAVE','ZEC','BSV','GRT','NEAR', 'oATOM', 'oCRV', 'bEGLD', 'bETH', 'bDOGE', 'bDOT', 'bLTC','bFIL'])}
 function showwatch_huobi(){localStorage.setItem("watchtab","showwatch_huobi");document.querySelector("#realtimeprofittbody").querySelectorAll("tr").forEach(i=>i.style.display=((i.querySelector(".headcol").innerText.trim().startsWith("b")||i.querySelector(".headcol").innerText.trim().startsWith("o")||i.querySelector(".headcol").innerText.trim().startsWith("u"))?"none":""))}
 function showwatch_binance(){localStorage.setItem("watchtab","showwatch_binance");return show_prefix("b")}
 function showwatch_okex(){localStorage.setItem("watchtab","showwatch_okex");return show_prefix("o")}
@@ -207,6 +207,7 @@ client.py里stream_get_listen_key附近加上：
 
 **listenKeyExpired**：收到这种类型的消息需要重新连接，也可以主动轮询的时候调用futures_stream_get_listen_key对现有的Listen Key进行刷新
 
+----
 
 <script>
 function myparseFloat(text){

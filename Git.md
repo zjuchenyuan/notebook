@@ -539,3 +539,32 @@ https://docs.github.com/en/rest/reference/repos#releases
 
 https://api.github.com/repos/octocat/hello-world/releases?per_page=100&page=1
 
+----
+
+## git diff显示修改后行号
+
+参考： [https://stackoverflow.com/questions/8259851/using-git-diff-how-can-i-get-added-and-modified-lines-numbers](https://stackoverflow.com/questions/8259851/using-git-diff-how-can-i-get-added-and-modified-lines-numbers)
+
+```
+diff-lines() {
+    local path=
+    local line=
+    while read; do
+        esc=$'\033'
+        if [[ $REPLY =~ ---\ (a/)?.* ]]; then
+            continue
+        elif [[ $REPLY =~ \+\+\+\ (b/)?([^[:blank:]$esc]+).* ]]; then
+            path=${BASH_REMATCH[2]}
+        elif [[ $REPLY =~ @@\ -[0-9]+(,[0-9]+)?\ \+([0-9]+)(,[0-9]+)?\ @@.* ]]; then
+            line=${BASH_REMATCH[2]}
+        elif [[ $REPLY =~ ^($esc\[[0-9;]+m)*([\ +-]) ]]; then
+            echo "$path:$line:$REPLY"
+            if [[ ${BASH_REMATCH[2]} != - ]]; then
+                ((line++))
+            fi
+        fi
+    done
+}
+```
+
+用法：`git diff commit^ commit -U0|diff-lines`
