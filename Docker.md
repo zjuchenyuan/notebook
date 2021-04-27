@@ -1333,3 +1333,17 @@ Environment="HTTPS_PROXY=https://proxy.example.com:443"
 Environment="NO_PROXY=localhost,127.0.0.1,docker-registry.example.com,.corp"
 ```
 
+-----
+
+## 配置docker daemon退出时不自动关闭容器
+
+参考： [https://docs.docker.com/config/containers/live-restore/](https://docs.docker.com/config/containers/live-restore/)
+
+```
+# vi /etc/docker/daemon.json
+{
+  "live-restore": true
+}
+# systemctl reload docker
+```
+
