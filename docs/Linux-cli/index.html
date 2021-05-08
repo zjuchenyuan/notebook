@@ -1269,6 +1269,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    等待特定进程结束
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1812,6 +1819,13 @@
         <li class="md-nav__item">
   <a href="#_15" class="md-nav__link">
     管道关闭缓冲
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    等待特定进程结束
   </a>
   
 </li>
@@ -2466,6 +2480,16 @@ done
 <p>Shell 里可以通过 [ -t 1 ] 来判断 stdout（文件描述符 1） 是否是 TTY。 <a href="https://rosettacode.org/wiki/Check_output_device_is_a_terminal">More</a></p>
 <p>例子：</p>
 <div class="codehilite"><pre><span></span><code>tail -f log.txt | grep --line-buffered Error | sed -u &#39;s/harttle//&#39; | awk &#39;<span class="cp">${</span><span class="nb">print</span> <span class="err">$</span><span class="mi">1</span><span class="p">;</span> <span class="n">fflush</span><span class="p">()</span><span class="cp">}</span>&#39; | grep ENOENT
+</code></pre></div>
+
+
+<hr />
+<h2 id="_16">等待特定进程结束<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h2>
+<p>例如并行启动编译进程，希望等待所有gcc结束：</p>
+<div class="codehilite"><pre><span></span><code><span class="err">while [ &quot;`pgrep -c gcc`&quot; -gt 0 ]; do </span>
+<span class="err">    echo cnt: `pgrep -c gcc`</span>
+<span class="err">    sleep 10; </span>
+<span class="err">done</span>
 </code></pre></div>
                 
               

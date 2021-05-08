@@ -879,3 +879,18 @@ Shell 里可以通过 [ -t 1 ] 来判断 stdout（文件描述符 1） 是否是
 ```
 tail -f log.txt | grep --line-buffered Error | sed -u 's/harttle//' | awk '${print $1; fflush()}' | grep ENOENT
 ```
+
+-----
+
+## 等待特定进程结束
+
+例如并行启动编译进程，希望等待所有gcc结束：
+
+```
+while [ "`pgrep -c gcc`" -gt 0 ]; do 
+    echo cnt: `pgrep -c gcc`
+    sleep 10; 
+done
+```
+
+
