@@ -15,8 +15,8 @@ function showwatch1(){
         idx+=1;
     })
 }
-function showwatch2(){localStorage.setItem("watchtab","showwatch2");return showtrs(['DOT','IOST','NEAR','BTM','DOGE','GRT','KSM','QTUM','ZEC','BCH','ONT','FIL','LTC','AAVE','IOTA','FIL','KSM','IOST','STORJ','BTM','oCRV','bEGLD','bBNB','bETH','bDOGE'])}
-function showwatch3(){localStorage.setItem("watchtab","showwatch3");return showtrs(['KSM','DOGE','IOST','LTC','DOT','AAVE','ZEC','BSV','GRT','NEAR', 'oATOM', 'oCRV', 'bEGLD', 'bETH', 'bDOGE', 'bDOT', 'bLTC','bFIL'])}
+function showwatch2(){localStorage.setItem("watchtab","showwatch2");return showtrs(['DOT','IOST','DOGE','BTM','NEAR','KSM','ZEC','GRT','BCH','ONT','FIL','LTC','AAVE','SHIB','oETH','bXLM','bLTC','bETH','bDOGE'])}
+function showwatch3(){localStorage.setItem("watchtab","showwatch3");return showtrs(['KSM','DOGE','IOST','DOT','LTC','AAVE','ZEC','BSV','NEAR', 'oATOM', 'oCRV', 'bETH', 'bDOGE', 'bDOT', 'bLTC'])}
 function showwatch_huobi(){localStorage.setItem("watchtab","showwatch_huobi");document.querySelector("#realtimeprofittbody").querySelectorAll("tr").forEach(i=>i.style.display=((i.querySelector(".headcol").innerText.trim().startsWith("b")||i.querySelector(".headcol").innerText.trim().startsWith("o")||i.querySelector(".headcol").innerText.trim().startsWith("u"))?"none":""))}
 function showwatch_binance(){localStorage.setItem("watchtab","showwatch_binance");return show_prefix("b")}
 function showwatch_okex(){localStorage.setItem("watchtab","showwatch_okex");return show_prefix("o")}
@@ -193,7 +193,7 @@ client.py里stream_get_listen_key附近加上：
 
 **避免重复下单**: 下单时指定包含价格信息的newClientOrderId，重复下单自然会失败，避免相同的订单重复下单`APIError(code=-4015): Client order id is not valid.`，但这个保护只针对还在挂单的订单，相同的clientorderid如果前述订单已经成交，不会阻止新的提交。
 
-**已经重复下单**：需要比对当前价格与定义好的网格数组，判断当前应该的仓位是多少，然后使用市价单或者额外在相邻网格下单保证仓位的正确性。例如买入是靠平仓做空实现的，这是种reduceOnly的订单，必须有足够多的做空仓位才能买，否则报错：`APIError(code=-2022): ReduceOnly Order is rejected.`
+**已经重复下单**：需要比对当前价格与定义好的网格数组，判断当前应该的仓位是多少，然后使用市价单或者额外在相邻网格下单保证仓位的正确性，注意极端行情下自动补仓依据的仓位价值可能有误。例如买入是靠平仓做空实现的，这是种reduceOnly的订单，必须有足够多的做空仓位才能买，否则报错：`APIError(code=-2022): ReduceOnly Order is rejected.`
 
 已经下的**订单状态变成“已过期”**：这种还是因为已经发生了超买/超卖，保证金不足，官方说明：
 
@@ -206,8 +206,6 @@ client.py里stream_get_listen_key附近加上：
 **服务器网络不可靠**：在其他地区的服务器同时跑轮询，即使单个服务器挂掉，也有其他服务器靠轮询补上订单，但注意分布式后日志收集是个新的难点
 
 **listenKeyExpired**：收到这种类型的消息需要重新连接，也可以主动轮询的时候调用futures_stream_get_listen_key对现有的Listen Key进行刷新
-
-----
 
 <script>
 function myparseFloat(text){
@@ -296,3 +294,46 @@ th.headcol {
   min-width: 4rem;
 }
 </style>
+
+----------
+
+## 获取交易所价格信息
+
+在统计资产时对价格实时性没有要求，可以缓存60秒；用法：`print(HUOBI_Price.btc)`，返回的是字符串类型
+
+```
+class class_CEXPRICE():
+    def __init__(self):
+        self.updatetime = -1
+    def __getattr__(self, token):
+        if time.time()-self.updatetime>=60:
+            print("fetch", self, end="", flush=True)
+            self.data = self.fetchprice()
+            print()
+            self.updatetime = time.time()
+        return self.handleprice(token)
+
+class class_HUOBI_Price(class_CEXPRICE):
+    def fetchprice(self):
+        return sess.get("https://api.huobi.pro/market/tickers", timeout=5).json()["data"]
+    def handleprice(self, token):
+        return [i for i in self.data if i["symbol"]==token.lower()+"usdt"][0]["close"]
+HUOBI_Price=class_HUOBI_Price()
+
+class class_BINANCE_Price(class_CEXPRICE):
+    def fetchprice(self):
+        return sess.get("https://api.binance.com/api/v3/ticker/price", timeout=5).json()
+    def handleprice(self, token):
+        if "busd" not in token.lower():
+            token = token.lower()+"usdt"
+        return [i for i in self.data if i["symbol"]==token.upper()][0]["price"]
+BINANCE_Price=class_BINANCE_Price()
+
+class class_MXC_Price(class_CEXPRICE):
+    def fetchprice(self):
+        return sess.get("https://www.mxc.com/open/api/v2/market/ticker", timeout=5).json()["data"]
+    def handleprice(self, token):
+        return [i for i in self.data if i["symbol"]==token.upper()+"_USDT"][0]["last"]
+MXC_Price = class_MXC_Price()
+```
+
