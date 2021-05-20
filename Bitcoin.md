@@ -15,8 +15,9 @@ function showwatch1(){
         idx+=1;
     })
 }
-function showwatch2(){localStorage.setItem("watchtab","showwatch2");return showtrs(['DOT','IOST','DOGE','BTM','NEAR','KSM','ZEC','GRT','BCH','ONT','FIL','LTC','AAVE','SHIB','oETH','bXLM','bLTC','bETH','bDOGE'])}
-function showwatch3(){localStorage.setItem("watchtab","showwatch3");return showtrs(['KSM','DOGE','IOST','DOT','LTC','AAVE','ZEC','BSV','NEAR', 'oATOM', 'oCRV', 'bETH', 'bDOGE', 'bDOT', 'bLTC'])}
+function showwatch2(){localStorage.setItem("watchtab","showwatch2");return showtrs(['DOT','IOST','DOGE','BTM','NEAR','KSM','ZEC','BCH','ONT','FIL','LTC','AAVE','SHIB','oETH','bXLM','bLTC','bETH','bDOGE'])}
+function showwatch3(){localStorage.setItem("watchtab","showwatch3");return showtrs(['KSM','DOGE','IOST','DOT','LTC','AAVE','ZEC','BSV','NEAR', 'oATOM', 'bETH', 'bDOGE', 'bDOT', 'bLTC'])}
+function showwatch4(){localStorage.setItem("watchtab","showwatch4");return showtrs(['KSM','FIL', 'ONT'])}
 function showwatch_huobi(){localStorage.setItem("watchtab","showwatch_huobi");document.querySelector("#realtimeprofittbody").querySelectorAll("tr").forEach(i=>i.style.display=((i.querySelector(".headcol").innerText.trim().startsWith("b")||i.querySelector(".headcol").innerText.trim().startsWith("o")||i.querySelector(".headcol").innerText.trim().startsWith("u"))?"none":""))}
 function showwatch_binance(){localStorage.setItem("watchtab","showwatch_binance");return show_prefix("b")}
 function showwatch_okex(){localStorage.setItem("watchtab","showwatch_okex");return show_prefix("o")}
@@ -34,7 +35,7 @@ function showwatch_okex(){localStorage.setItem("watchtab","showwatch_okex");retu
 
 7日年化：最近21次结算平均收益 具体计算见上文**计算收益率**
 
-<a onclick="showfull()">显示全部</a> <a onclick="showwatch1()">关注1</a> <a onclick="showwatch2()">关注2</a> <a onclick="showwatch3()">关注3</a> <a onclick="showwatch_huobi()">火币</a> <a onclick="showwatch_binance()">币安</a> <a onclick="showwatch_okex()">OKex</a> 
+<a onclick="showfull()">显示全部</a> <a onclick="showwatch1()">关注1</a> <a onclick="showwatch2()">关注2</a> <a onclick="showwatch3()">关注3</a> <a onclick="showwatch4()">关注4</a> <a onclick="showwatch_huobi()">火币</a> <a onclick="showwatch_binance()">币安</a> <a onclick="showwatch_okex()">OKex</a> 
 
 https://d.py3.io/btc.html
 
