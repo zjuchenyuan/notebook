@@ -1097,9 +1097,9 @@ function showwatch1(){
         idx+=1;
     })
 }
-function showwatch2(){localStorage.setItem("watchtab","showwatch2");return showtrs(['DOT','ICP','XCH','KSM','BCH','COMP','FIL','bETH','hBAKE','hBNB','hFIL'])}
-function showwatch3(){localStorage.setItem("watchtab","showwatch3");return showtrs(['KSM','DOT','AAVE','BSV','DOGE', 'bETH', 'bDOGE', 'bDOT', 'bLTC'])}
-function showwatch4(){localStorage.setItem("watchtab","showwatch4");return showtrs(['KSM','FIL'])}
+function showwatch2(){localStorage.setItem("watchtab","showwatch2");return showtrs(['CRV','XCH','ICP','SHIB','FIL','KSM','BCH','COMP','hBNB'])}
+function showwatch3(){localStorage.setItem("watchtab","showwatch3");return showtrs(['KSM','DOT','XCH','BSV','DOGE'])}
+function showwatch4(){localStorage.setItem("watchtab","showwatch4");return showtrs(['KSM','FIL','XCH'])}
 function showwatch_huobi(){localStorage.setItem("watchtab","showwatch_huobi");document.querySelector("#realtimeprofittbody").querySelectorAll("tr").forEach(function(i){
     var c = i.querySelector(".headcol").innerText.trim()[0]
     i.style.display=(c==c.toLowerCase()?"none":"")
