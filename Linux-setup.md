@@ -1015,3 +1015,24 @@ cryptsetup luksOpen --test-passphrase --key-file 密钥文件 --key-slot 1 设�
 date -s "$(curl -i  "http://www.google.com/" 2>/dev/null | grep -E '^[[:space:]]*[dD]ate:' | sed 's/^[[:space:]]*[dD]ate:[[:space:]]*//' | head -1l | awk '{print $1, $3, $2,  $5 ,"GMT", $4 }' | sed 's/,//')"
 ```
 
+--------
+
+## 使用rsync备份全盘
+
+参考：
+
+- 主要参数来自 https://github.com/laurent22/rsync-time-backup
+- https://ostechnix.com/backup-entire-linux-system-using-rsync/
+- 不要跨过mount边界用`-xx` https://superuser.com/questions/626141/rsync-recursive-on-same-mount-only
+- 显示进度用`--info=progress2` https://www.cyberciti.biz/faq/show-progress-during-file-transfer/
+
+```
+rsync --info=progress2 -D --numeric-ids --links --hard-links --itemize-changes --times --recursive --perms --owner --group --stats --human-readable -xx / /target/
+```
+
+小文件太多不建议使用rsync-time-backup，会产生大量的硬链接，占据大量btrfs metadata空间
+
+备份过程中显示的理解： https://unix.stackexchange.com/questions/215271/understanding-the-output-of-info-progress2-from-rsync
+
+- `xfr#495` 表示当前正在传输第495个文件
+- `ir-chk=1020/3825` 已经知道有3825个文件，其中1020个需要检查目标位置的文件是否一致
