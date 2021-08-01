@@ -91,6 +91,14 @@ touch /nas/hostname/backup.marker
 
 好处是不用自己构造rsync各种复杂的参数，备份的效果是每次备份都会产生一个文件夹，但上次备份时已经存在的文件只会做硬链接
 
+### rsync备份到非root用户的目标机器上
+
+参考： https://serverfault.com/questions/755753/preserve-ownership-with-rsync-without-root
+
+全盘备份希望能保留文件的属性，如果目标位置没有root用户则不能直接保留，rsync提供了`--fake-super`这个选项
+
+这个`--fake-super`选项启用后，rsync会把属性以特殊拓展属性的方式存储，恢复的时候rsync会利用这个属性进行恢复
+
 ## rsync备份安卓手机
 
 参考： http://ptspts.blogspot.com/2015/03/how-to-use-rsync-over-adb-on-android.html
