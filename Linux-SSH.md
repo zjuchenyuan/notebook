@@ -102,3 +102,23 @@ Ubuntu 默认登录后会显示Welcome to Ubuntu等多少软件包可以升级�
 编辑这两个文件：`/etc/pam.d/login`, `/etc/pam.d/sshd`，找到其中包含`pam_motd`的行，注释掉之后 `service ssh reload`
 
 以后再登录ssh就不用等待了
+
+## ssh config里直接指定端口转发
+
+### 在本地访问远程
+
+```
+LocalForward 5901 computer.myHost.edu:5901
+```
+
+等价于`-L 5901:computer.myHost.edu:5901`，将远程的5901端口映射到本地
+
+### 在远程访问本地
+
+```
+RemoteForward 1234 127.0.0.1:3421
+```
+
+这样等价于`-R 1234:127.0.0.1:3421`，让远程服务器可以通过访问127.0.0.1:1234来访问到客户端的3421
+
+如果需要允许这个转发的1234端口对外提供访问，还需要修改服务器的sshd_config，设置`GatewayPorts yes`

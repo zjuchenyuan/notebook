@@ -854,6 +854,33 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#ssh-config" class="md-nav__link">
+    ssh config里直接指定端口转发
+  </a>
+  
+    <nav class="md-nav" aria-label="ssh config里直接指定端口转发">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    在本地访问远程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    在远程访问本地
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1010,6 +1037,33 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#ssh-config" class="md-nav__link">
+    ssh config里直接指定端口转发
+  </a>
+  
+    <nav class="md-nav" aria-label="ssh config里直接指定端口转发">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    在本地访问远程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    在远程访问本地
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1099,6 +1153,20 @@
 <p>禁用方法如下：From: https://ubuntuforums.org/showthread.php?t=1449020</p>
 <p>编辑这两个文件：<code>/etc/pam.d/login</code>, <code>/etc/pam.d/sshd</code>，找到其中包含<code>pam_motd</code>的行，注释掉之后 <code>service ssh reload</code></p>
 <p>以后再登录ssh就不用等待了</p>
+<h2 id="ssh-config">ssh config里直接指定端口转发<a class="headerlink" href="#ssh-config" title="Permanent link">&para;</a></h2>
+<h3 id="_1">在本地访问远程<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">LocalForward 5901 computer.myHost.edu:5901</span>
+</code></pre></div>
+
+
+<p>等价于<code>-L 5901:computer.myHost.edu:5901</code>，将远程的5901端口映射到本地</p>
+<h3 id="_2">在远程访问本地<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">RemoteForward 1234 127.0.0.1:3421</span>
+</code></pre></div>
+
+
+<p>这样等价于<code>-R 1234:127.0.0.1:3421</code>，让远程服务器可以通过访问127.0.0.1:1234来访问到客户端的3421</p>
+<p>如果需要允许这个转发的1234端口对外提供访问，还需要修改服务器的sshd_config，设置<code>GatewayPorts yes</code></p>
                 
               
               
