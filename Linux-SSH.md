@@ -105,6 +105,8 @@ Ubuntu 默认登录后会显示Welcome to Ubuntu等多少软件包可以升级�
 
 ## ssh config里直接指定端口转发
 
+参考： https://www.ssh.com/academy/ssh/tunneling/example
+
 ### 在本地访问远程
 
 ```

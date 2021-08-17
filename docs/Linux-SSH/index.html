@@ -1154,6 +1154,7 @@
 <p>编辑这两个文件：<code>/etc/pam.d/login</code>, <code>/etc/pam.d/sshd</code>，找到其中包含<code>pam_motd</code>的行，注释掉之后 <code>service ssh reload</code></p>
 <p>以后再登录ssh就不用等待了</p>
 <h2 id="ssh-config">ssh config里直接指定端口转发<a class="headerlink" href="#ssh-config" title="Permanent link">&para;</a></h2>
+<p>参考： https://www.ssh.com/academy/ssh/tunneling/example</p>
 <h3 id="_1">在本地访问远程<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code><span class="err">LocalForward 5901 computer.myHost.edu:5901</span>
 </code></pre></div>
