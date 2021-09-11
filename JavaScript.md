@@ -716,3 +716,20 @@ browserify main.js | terser --compress --mangle > bundle.js
 userEvent.type(document.querySelectorAll("input")[0], USERNAME);
 ```
 
+## Ubuntu安装nodejs
+
+```
+curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
+curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | tee /usr/share/keyrings/yarnkey.gpg >/dev/null
+echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | tee /etc/apt/sources.list.d/yarn.list
+apt update && apt install -y nodejs yarn
+
+yarn config set registry https://registry.npm.taobao.org -g
+yarn config set disturl https://npm.taobao.org/dist -g
+yarn config set electron_mirror https://npm.taobao.org/mirrors/electron/ -g
+yarn config set sass_binary_site https://npm.taobao.org/mirrors/node-sass/ -g
+yarn config set phantomjs_cdnurl https://npm.taobao.org/mirrors/phantomjs/ -g
+yarn config set chromedriver_cdnurl https://cdn.npm.taobao.org/dist/chromedriver -g
+yarn config set operadriver_cdnurl https://cdn.npm.taobao.org/dist/operadriver -g
+yarn config set fse_binary_host_mirror https://npm.taobao.org/mirrors/fsevents -g
+```
