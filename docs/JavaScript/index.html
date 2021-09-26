@@ -698,6 +698,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#ubuntunodejs" class="md-nav__link">
+    Ubuntu安装nodejs
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1540,6 +1547,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#ubuntunodejs" class="md-nav__link">
+    Ubuntu安装nodejs
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2141,6 +2155,23 @@ function checkbox_onclick(){
 <span class="c1"># 在tampermonkey里使用</span>
 <span class="o">//</span> <span class="err">@</span><span class="n">require</span>      <span class="err">上传到</span><span class="n">cdn后的js地址</span>
 <span class="n">userEvent</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">querySelectorAll</span><span class="p">(</span><span class="s2">&quot;input&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">USERNAME</span><span class="p">);</span>
+</code></pre></div>
+
+
+<h2 id="ubuntunodejs">Ubuntu安装nodejs<a class="headerlink" href="#ubuntunodejs" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="n">curl</span> <span class="o">-</span><span class="n">fsSL</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">deb</span><span class="p">.</span><span class="n">nodesource</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">setup_16</span><span class="p">.</span><span class="n">x</span> <span class="o">|</span> <span class="n">bash</span> <span class="o">-</span>
+<span class="n">curl</span> <span class="o">-</span><span class="n">sL</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">dl</span><span class="p">.</span><span class="n">yarnpkg</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">debian</span><span class="o">/</span><span class="n">pubkey</span><span class="p">.</span><span class="n">gpg</span> <span class="o">|</span> <span class="n">gpg</span> <span class="c1">--dearmor | tee /usr/share/keyrings/yarnkey.gpg &gt;/dev/null</span>
+<span class="n">echo</span> <span class="ss">&quot;deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main&quot;</span> <span class="o">|</span> <span class="n">tee</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">sources</span><span class="p">.</span><span class="n">list</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">yarn</span><span class="p">.</span><span class="n">list</span>
+<span class="n">apt</span> <span class="k">update</span> <span class="o">&amp;&amp;</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">nodejs</span> <span class="n">yarn</span>
+
+<span class="n">yarn</span> <span class="n">config</span> <span class="k">set</span> <span class="n">registry</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">registry</span><span class="p">.</span><span class="n">npm</span><span class="p">.</span><span class="n">taobao</span><span class="p">.</span><span class="n">org</span> <span class="o">-</span><span class="k">g</span>
+<span class="n">yarn</span> <span class="n">config</span> <span class="k">set</span> <span class="n">disturl</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">npm</span><span class="p">.</span><span class="n">taobao</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">dist</span> <span class="o">-</span><span class="k">g</span>
+<span class="n">yarn</span> <span class="n">config</span> <span class="k">set</span> <span class="n">electron_mirror</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">npm</span><span class="p">.</span><span class="n">taobao</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">mirrors</span><span class="o">/</span><span class="n">electron</span><span class="o">/</span> <span class="o">-</span><span class="k">g</span>
+<span class="n">yarn</span> <span class="n">config</span> <span class="k">set</span> <span class="n">sass_binary_site</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">npm</span><span class="p">.</span><span class="n">taobao</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">mirrors</span><span class="o">/</span><span class="n">node</span><span class="o">-</span><span class="n">sass</span><span class="o">/</span> <span class="o">-</span><span class="k">g</span>
+<span class="n">yarn</span> <span class="n">config</span> <span class="k">set</span> <span class="n">phantomjs_cdnurl</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">npm</span><span class="p">.</span><span class="n">taobao</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">mirrors</span><span class="o">/</span><span class="n">phantomjs</span><span class="o">/</span> <span class="o">-</span><span class="k">g</span>
+<span class="n">yarn</span> <span class="n">config</span> <span class="k">set</span> <span class="n">chromedriver_cdnurl</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">cdn</span><span class="p">.</span><span class="n">npm</span><span class="p">.</span><span class="n">taobao</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">dist</span><span class="o">/</span><span class="n">chromedriver</span> <span class="o">-</span><span class="k">g</span>
+<span class="n">yarn</span> <span class="n">config</span> <span class="k">set</span> <span class="n">operadriver_cdnurl</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">cdn</span><span class="p">.</span><span class="n">npm</span><span class="p">.</span><span class="n">taobao</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">dist</span><span class="o">/</span><span class="n">operadriver</span> <span class="o">-</span><span class="k">g</span>
+<span class="n">yarn</span> <span class="n">config</span> <span class="k">set</span> <span class="n">fse_binary_host_mirror</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">npm</span><span class="p">.</span><span class="n">taobao</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">mirrors</span><span class="o">/</span><span class="n">fsevents</span> <span class="o">-</span><span class="k">g</span>
 </code></pre></div>
                 
               

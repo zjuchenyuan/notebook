@@ -319,6 +319,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    在一批文本中查找可能的密钥
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1052,6 +1059,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    在一批文本中查找可能的密钥
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1344,6 +1358,29 @@
         <span class="n">contents</span> <span class="o">+=</span> <span class="n">c</span>
     <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;../output/&quot;</span><span class="o">+</span><span class="n">i</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;.asm&quot;</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span>
 </code></pre></div>
+
+
+<hr />
+<h2 id="_2">在一批文本中查找可能的密钥<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>密钥字符串一般为随机字符串，而非英文单词，根据这一特征，我们可以使用去除常见英文单词后的信息熵这一特征来找出可能的密钥字符串</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">password_strength</span> <span class="kn">import</span> <span class="n">PasswordStats</span>
+<span class="n">commonwords</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;google-10000-english.txt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">readlines</span><span class="p">())</span>
+<span class="k">def</span> <span class="nf">text_entropy</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;[^a-zA-Z]&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">commonwords</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">text</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="n">PasswordStats</span><span class="p">(</span><span class="n">text</span><span class="p">)</span><span class="o">.</span><span class="n">strength</span><span class="p">()</span>
+</code></pre></div>
+
+
+<p>参考：</p>
+<ul>
+<li>https://pypi.org/project/password-strength/</li>
+<li>https://github.com/first20hours/google-10000-english/</li>
+</ul>
                 
               
               

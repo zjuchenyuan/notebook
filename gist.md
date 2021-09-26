@@ -298,3 +298,28 @@ for i in os.listdir():
         contents += c
     open("../output/"+i.split(".")[0]+".asm", "wb").write(contents)
 ```
+----
+
+## 在一批文本中查找可能的密钥
+
+密钥字符串一般为随机字符串，而非英文单词，根据这一特征，我们可以使用去除常见英文单词后的信息熵这一特征来找出可能的密钥字符串
+
+```
+import re
+from password_strength import PasswordStats
+commonwords = set(i.strip() for i in open("google-10000-english.txt").readlines())
+def text_entropy(text):
+    for word in re.split('[^a-zA-Z]', text):
+        if word in commonwords:
+            text = text.replace(word, "")
+    if not text:
+        return 0
+    return PasswordStats(text).strength()
+
+```
+
+参考：
+
+- https://pypi.org/project/password-strength/
+- https://github.com/first20hours/google-10000-english/
+
