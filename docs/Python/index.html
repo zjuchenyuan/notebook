@@ -877,6 +877,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#mitmproxy" class="md-nav__link">
+    使用mitmproxy
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2188,6 +2195,13 @@
         <li class="md-nav__item">
   <a href="#_20" class="md-nav__link">
     发送钉钉消息
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mitmproxy" class="md-nav__link">
+    使用mitmproxy
   </a>
   
 </li>
@@ -3536,6 +3550,69 @@ http://127.0.0.1:6666/wd/hub/static/resource/hub.html</p>
         <span class="s2">&quot;isAtAll&quot;</span> <span class="p">:</span> <span class="bp">False</span> 
     <span class="p">}</span>
     <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;https://oapi.dingtalk.com/robot/send?access_token=&quot;</span><span class="o">+</span><span class="n">token</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+</code></pre></div>
+
+
+<hr />
+<h2 id="mitmproxy">使用mitmproxy<a class="headerlink" href="#mitmproxy" title="Permanent link">&para;</a></h2>
+<p>python3 -m pip install mitmproxy</p>
+<p>参考： https://stackoverflow.com/questions/51893788/using-mitmproxy-inside-python-script</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">mitmproxy.options</span> <span class="kn">import</span> <span class="n">Options</span>
+<span class="kn">from</span> <span class="nn">mitmproxy.proxy.config</span> <span class="kn">import</span> <span class="n">ProxyConfig</span>
+<span class="kn">from</span> <span class="nn">mitmproxy.proxy.server</span> <span class="kn">import</span> <span class="n">ProxyServer</span>
+<span class="kn">from</span> <span class="nn">mitmproxy.tools.dump</span> <span class="kn">import</span> <span class="n">DumpMaster</span>
+
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="k">class</span> <span class="nc">Addon</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flow</span><span class="p">):</span>
+        <span class="n">flow</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;count&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flow</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">flow</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;count&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num</span><span class="p">)</span>
+
+
+<span class="c1"># see source mitmproxy/master.py for details</span>
+<span class="k">def</span> <span class="nf">loop_in_thread</span><span class="p">(</span><span class="n">loop</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+    <span class="n">asyncio</span><span class="o">.</span><span class="n">set_event_loop</span><span class="p">(</span><span class="n">loop</span><span class="p">)</span>  <span class="c1"># This is the key.</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">run_loop</span><span class="p">(</span><span class="n">loop</span><span class="o">.</span><span class="n">run_forever</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="n">Options</span><span class="p">(</span><span class="n">listen_host</span><span class="o">=</span><span class="s1">&#39;0.0.0.0&#39;</span><span class="p">,</span> <span class="n">listen_port</span><span class="o">=</span><span class="mi">8080</span><span class="p">,</span> <span class="n">http2</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">DumpMaster</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="n">with_termlog</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">with_dumper</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">ProxyConfig</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">server</span> <span class="o">=</span> <span class="n">ProxyServer</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">addons</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Addon</span><span class="p">())</span>
+
+    <span class="c1"># run mitmproxy in backgroud, especially integrated with other server</span>
+    <span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span> <span class="n">target</span><span class="o">=</span><span class="n">loop_in_thread</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">loop</span><span class="p">,</span><span class="n">m</span><span class="p">)</span> <span class="p">)</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+    <span class="c1"># Other servers, such as a web server, might be started then.</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;going to shutdown mitmproxy&#39;</span><span class="p">)</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
+</code></pre></div>
+
+
+<p>安装proxychains:</p>
+<div class="codehilite"><pre><span></span><code><span class="err">apt install proxychains4</span>
+</code></pre></div>
+
+
+<p>修改/etc/proxychains.conf，最后一行改成<code>http 127.0.0.1 8080</code></p>
+<p>添加信任：参考 https://superuser.com/questions/437330/how-do-you-add-a-certificate-authority-ca-to-ubuntu</p>
+<div class="codehilite"><pre><span></span><code><span class="err">cp ~/.mitmproxy/mitmproxy-ca-cert.pem /usr/local/share/ca-certificates/mitm.crt</span>
+<span class="err">update-ca-certificates</span>
 </code></pre></div>
                 
               
