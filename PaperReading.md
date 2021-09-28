@@ -393,3 +393,109 @@ raise_single_random 随机变异1~100次：每次选择一个随机字符变为�
 single_change_random 随机变异1~100次：每次选择一个随机字符变为随机字符
 totally_random 生成一个长度在100~1000的字符串
 ```
+
+----
+
+## Leaky Images: Targeted Privacy Attacks in the Web
+
+[Usenix19](https://www.usenix.org/conference/usenixsecurity19/presentation/staicu) [PDF](https://www.usenix.org/system/files/sec19-staicu.pdf)
+
+攻击者可以知道用户在google,onedrive,dropbox的登录身份，通过特定分享一个图片看能否成功加载
+
+在intro里就给出一个吸引人的例子：用来去匿名化审稿人——收集所有committe的邮箱分享图片，论文中给个攻击者网站的链接
+
+表格1比较相关的攻击：追踪像素、社交媒体指纹（是否登录）、CSRF（有副作用）、本文Leaky images
+
+比较：谁能攻击？ 攻击者能实现啥？ 用途场景
+
+所有网站都能发起攻击，可以准确找出受害者，定向的fine-grained去匿名化
+
+研究了250个最流行网站的30个 找到8个网站有漏洞 手工找 共享的图片能通过一个link加载 且只有特定用户能访问（基于cookie的访问控制）
+
+贡献：
+
+- 新的攻击 定向隐私攻击滥用图片共享服务来确定受害者是否正在访问攻击者的网站
+- 讨论了攻击的各个变种 可以攻击aim at单个用户 一群用户 不同服务之间link用户 以及不需要js的
+- 展示8个流行网站存在问题 让第三方网站能定位他们的用户
+- 提出多种缓解问题的方案并讨论优缺点
+
+Table2 shows a two-dimensional matrix 根据是否鉴权+URL是公开、不同用户相同、不同用户不同来区分，只有需要鉴权+公开url 和 需要鉴权+url对攻击者可知 才能做Leaky image攻击
+
+讨论部分：在方法一节中就讨论related work，比较追踪像素、指纹、定向攻击vs大规模追踪。定向攻击据说对高价值受害者越来越流行[37]
+
+现实measurement的讨论 Our study of ... in real-world sites enables several observations.
+
+- Leaky images是普遍的 prevalent
+- 受害者甚至不会注意到被共享了一个图片
+- 受害者不能unshare
+- 图片共享服务使用了多种实现策略的混合 use a diverse mix of implementation strategies
+- 不同网站攻击面不同 varies from site to site
+
+表达：
+
+仅仅需要 involve nothing more than ...
+
+证明现实存在能影响今天最流行网站 Section 4 shows that these cases occur in practice, and that they affect some of today's most popular websites.
+
+为了理解最流行网站受影响的程度 To understand to what extent popular websites are affected by the privacy problem discussed in this paper
+
+第一且最重要的The first and perhaps most important observation is that ...
+
+希望能促进以后更自动化的研究 We hope that our results will spur future work on more automated analyses that identify leaky images
+
+讨论每个解决方案不足
+
+The drawback of this fix is that ...
+
+On the downside, implementing this defense may ...
+
+However, this mitigation cannot defend against ...
+
+require the developers to be aware of the vulnerability in the first place. 事先就知道这个漏洞的存在
+
+和GDPR很搭，要求设计上默认保护 would be in the spirit of the newly adopted European Union's Genearl Data Protection Regulation which requires data protection by design and by default.
+
+需要更多研究来深入分析可用性+兼容性+部署开销，to aid the browser vendors to take an informed decision, future work should perform an in-depth analysis of all these defenses in terms of usability, compatibility and deployment cost, in the style of ... [9], and possibly propose additional solutions.
+
+补充了一种新的攻击Leaky images adds a privacy-related attack to the set of existing targeted attacks.
+
+厂商修复说明问题很重要 This feedback shows that the problem we identified is important to practitioners.
+
+我们的论文帮助提高开发者和研究者的意识以后避免这个问题 Our paper helps raising awareness among developers and researchers to avoid this privacy issue in the future.
+
+技术：
+
+不用onload也可以去检查已经加载的图片的宽高
+
+用<object data="...">嵌套加载 在外面的失败就会加载里面的，这个方案不需要js
+
+图片分享服务能分享给一批用户，把每个受害者编码成bit vector，每个bit关联一个图 encode each victim with a bit vector and to associate each bit with one shared image
+
+这个攻击假设了用户已经在浏览器登录，Skype大部分用户都是通过电脑手机的client，所以这个攻击的影响有限 hence the impact of this attack is limited to the web users
+
+根本原因 js和图片都不受同源策略影响
+
+缓解措施：
+
+服务端：这些方法都要求开发者首先就意识到这种攻击的存在
+
+禁用基于cookie的鉴权，不同用户url不同 不足：链接的私密性可以被comrpmised如不安全的通道，浏览器的侧信道或者直接让用户以不安全的方式处理链接
+
+更严格的cookie鉴权，不同用户url不同 不足：实现可能困难要维护用户和url的映射，而且增加了新的访问控制性能损耗
+
+用CSRF的方式 检查origin头 不足：不能防御信任域的攻击 Facebook之前都允许用户设置html代码
+
+浏览器：
+
+默认不使用cookie加载第三方图片
+
+只有当浏览器确定鉴权与否不影响加载图片的内容 扩展就是默认禁止 用csp扩展来允许双重加载
+
+类似于ShareMeNot[32] 实现默认阻止第三方图片请求 除非用户显式同意
+
+浏览器做information flow control 保证图片是否加载成功的信息不发给服务器 但这个侧信道太多
+
+高级用户：
+
+图片共享服务商应该提供用户更多控制，例如应该决定谁有权限共享给他，以及当前被共享的列表 但大部分用户不关心while the majority of the users are unlikely to take advantage of such fine-grained controls.
+
