@@ -344,3 +344,22 @@ class class_MXC_Price(class_CEXPRICE):
 MXC_Price = class_MXC_Price()
 ```
 
+-----
+
+## terra地址转为以太坊地址
+
+依赖库：`pip3 install bech32`
+
+```
+import bech32
+words = bech32.bech32_decode(terra_addr)[1]
+ethaddr = "".join([hex(i)[2:].rjust(2,"0") for i in bech32.convertbits(words,5,8,False)])
+```
+
+**反过来就是**
+
+```
+words = [int(ethaddr[i:i+2], 16) for i in range(0,40,2)]
+terra_addr = bech32.bech32_encode("terra", bech32.convertbits(words, 8, 5, False))
+```
+
