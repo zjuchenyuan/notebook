@@ -1431,7 +1431,12 @@ setx PYTHONSTARTUP d:\myshell\pyload.py
 
 这个脚本需要快速加载，避免启动Python太慢，所以使用lazyload来把真正的import留到使用时：
 
-依赖： `pip install lazy_import`
+依赖： PYTHONUTF8=1使得windows的python读写文件默认也使用UTF8
+
+```
+set PYTHONUTF8=1
+pip install lazy_import
+```
 
 先简要概括一下这个脚本提供了些啥：
 
