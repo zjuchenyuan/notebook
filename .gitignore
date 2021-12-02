@@ -1,3 +1,5 @@
+venv/
+*.status
 docs/sitemap.xml.gz
 Gemfile.lock
 .jekyll-metadata
