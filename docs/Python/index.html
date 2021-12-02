@@ -3334,7 +3334,12 @@ http://127.0.0.1:6666/wd/hub/static/resource/hub.html</p>
 
 
 <p>这个脚本需要快速加载，避免启动Python太慢，所以使用lazyload来把真正的import留到使用时：</p>
-<p>依赖： <code>pip install lazy_import</code></p>
+<p>依赖： PYTHONUTF8=1使得windows的python读写文件默认也使用UTF8</p>
+<div class="codehilite"><pre><span></span><code><span class="err">set PYTHONUTF8=1</span>
+<span class="err">pip install lazy_import</span>
+</code></pre></div>
+
+
 <p>先简要概括一下这个脚本提供了些啥：</p>
 <div class="codehilite"><pre><span></span><code><span class="err">标准库：</span><span class="n">time</span><span class="p">,</span> <span class="n">sys</span><span class="p">,</span> <span class="n">os</span><span class="p">,</span> <span class="n">json</span><span class="p">,</span> <span class="n">pickle</span><span class="p">,</span> <span class="n">csv</span><span class="p">,</span> <span class="n">requests</span><span class="p">,</span> <span class="n">np</span><span class="p">(</span><span class="n">numpy</span><span class="p">),</span> <span class="n">plt</span><span class="p">(</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">pyplot</span><span class="p">)</span>
 <span class="err">对象：</span><span class="n">a是EasyLogin</span><span class="p">(),</span> <span class="n">sess是requests</span><span class="o">.</span><span class="n">session</span><span class="p">()</span>
