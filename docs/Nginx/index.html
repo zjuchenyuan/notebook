@@ -1631,55 +1631,49 @@
 </li>
 </ol>
 <h2 id="post">普通资源允许POST<a class="headerlink" href="#post" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="n">error_page</span> <span class="mi">405</span> <span class="o">=</span><span class="mi">200</span> <span class="mi">@405</span><span class="p">;</span>
+<div class="codehilite"><pre><span></span><code><span class="n">error_page</span><span class="w"> </span><span class="mi">405</span><span class="w"> </span><span class="o">=</span><span class="mi">200</span><span class="w"> </span><span class="mi">@405</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
-
 
 <h2 id="php">不带后缀的文件当成php执行<a class="headerlink" href="#php" title="Permanent link">&para;</a></h2>
 <p>这里的思路是用反向代理的方式简单实现</p>
-<div class="codehilite"><pre><span></span><code><span class="err">location /path/something {</span>
-<span class="err">    proxy_pass http://yourdomain/path/something.php;</span>
-<span class="err">    proxy_method GET;</span>
-<span class="err">}</span>
+<div class="codehilite"><pre><span></span><code><span class="nt">location</span> <span class="o">/</span><span class="nt">path</span><span class="o">/</span><span class="nt">something</span> <span class="p">{</span>
+    <span class="err">proxy_pass</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">yourdomain</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">something</span><span class="o">.</span><span class="n">php</span><span class="p">;</span>
+    <span class="err">proxy_method</span> <span class="err">GET</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div>
-
 
 <p>顺带拒绝掉对php后缀的猜测：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">location = /path/something.php {</span>
-<span class="err">    if ($remote_addr != &#39;服务器自身IP&#39;) {</span>
-<span class="err">        return 404;</span>
-<span class="err">    }</span>
-<span class="err">    include fastcgi.conf;</span>
-<span class="err">}</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">location</span> <span class="o">=</span> <span class="o">/</span><span class="nv">path</span><span class="o">/</span><span class="nv">something</span>.<span class="nv">php</span> {
+    <span class="k">if</span> <span class="ss">(</span>$<span class="nv">remote_addr</span> <span class="o">!=</span> <span class="s1">&#39;</span><span class="s">服务器自身IP</span><span class="s1">&#39;</span><span class="ss">)</span> {
+        <span class="k">return</span> <span class="mi">404</span><span class="c1">;</span>
+    }
+    <span class="k">include</span> <span class="nv">fastcgi</span>.<span class="nv">conf</span><span class="c1">;</span>
+}
 </code></pre></div>
-
 
 <h2 id="httphttps">http跳转到https<a class="headerlink" href="#httphttps" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="err">location /{</span>
-<span class="err">    rewrite ^ https://$host$request_uri? permanent;</span>
-<span class="err">}</span>
+<div class="codehilite"><pre><span></span><code><span class="nt">location</span> <span class="o">/</span><span class="p">{</span>
+    <span class="err">rewrite</span> <span class="err">^</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="err">$</span><span class="n">host</span><span class="err">$</span><span class="n">request_uri</span><span class="o">?</span> <span class="n">permanent</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div>
-
 
 <h2 id="lets-encrypthttps">获得Let&rsquo;s encrypt免费https证书<a class="headerlink" href="#lets-encrypthttps" title="Permanent link">&para;</a></h2>
 <p>为简化操作，我写了一个更加方便的<a href="../code/getcert.py">getcert.py</a></p>
 <h3 id="_1">使用方法：<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
 <h4 id="_2">第一步：<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
 <p>配置相应网站的nginx conf中的server里面，加入这个：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">    location /.well-known/acme-challenge {</span>
-<span class="err">        alias 保存密钥的目录;</span>
-<span class="err">        try_files $uri =404;</span>
-<span class="err">    }</span>
+<div class="codehilite"><pre><span></span><code>    location /.well-known/acme-challenge {
+        alias 保存密钥的目录;
+        try_files $uri =404;
+    }
 </code></pre></div>
-
 
 <p>记得运行后 <code>nginx -s reload</code></p>
 <h4 id="getcertpy">第二步，运行我的getcert.py（创建私钥并提交申请）：<a class="headerlink" href="#getcertpy" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><code><span class="err">pushd 上述保存密钥的目录</span>
-<span class="err">wget https://raw.githubusercontent.com/zjuchenyuan/notebook/master/code/getcert.py</span>
-<span class="err">./getcert.py 文件名称 该证书包含的域名列表</span>
+<div class="codehilite"><pre><span></span><code>pushd 上述保存密钥的目录
+wget https://raw.githubusercontent.com/zjuchenyuan/notebook/master/code/getcert.py
+./getcert.py 文件名称 该证书包含的域名列表
 </code></pre></div>
-
 
 <p>例如这样就能获得一张涵盖zjusec.com三个子域名的证书：<code>./getcert.py zjusec zjusec.com,www.zjusec.com,web.zjusec.com</code></p>
 <p>具体来说，这个脚本会自动下载需要的acme_tiny.py和Let&rsquo;s Encrypt的中间证书，调用openssl创建账号私钥和站点私钥，最终产生 <strong>名称.crt</strong> <strong>名称.key</strong>。</p>
@@ -1692,24 +1686,21 @@
 <p>需要拿到能用于a.com和*.a.com的证书，先配置CNAME（参考：https://github.com/Neilpang/acme.sh/wiki/DNS-alias-mode）</p>
 <p>_acme-challenge.a.com   =&gt;   _acme-challenge.b.com</p>
 <p>执行命令咯：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">CF_Key=xxx CF_Email=xxx@example.com /root/acme.sh/acme.sh --issue --dns dns_cf -d &#39;*.a.com&#39; --challenge-alias b.com -d a.com --dnssleep 10 --fullchain-file /root/acom.crt --key-file /root/acom.key -f</span>
+<div class="codehilite"><pre><span></span><code><span class="n">CF_Key</span><span class="o">=</span><span class="n">xxx</span><span class="w"> </span><span class="n">CF_Email</span><span class="o">=</span><span class="n">xxx</span><span class="nv">@example</span><span class="p">.</span><span class="n">com</span><span class="w"> </span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">acme</span><span class="p">.</span><span class="n">sh</span><span class="o">/</span><span class="n">acme</span><span class="p">.</span><span class="n">sh</span><span class="w"> </span><span class="c1">--issue --dns dns_cf -d &#39;*.a.com&#39; --challenge-alias b.com -d a.com --dnssleep 10 --fullchain-file /root/acom.crt --key-file /root/acom.key -f</span>
 </code></pre></div>
-
 
 <p>解释：前面两个是配置环境变量，使用cloudflare所以指定&ndash;dns dns_cf，然后-d &hellip; &ndash;challenge-alias &hellip; -d &hellip; 指定域名和验证用的域名，&ndash;dnssleep 10等待10秒DNS生效（默认120秒没必要），&ndash;fullchain-file和&ndash;key-file 指定生成后把证书文件和密钥文件拷贝到哪</p>
 <h2 id="https">配置安全的https<a class="headerlink" href="#https" title="Permanent link">&para;</a></h2>
 <p>此处参考<a href="https://z.codes/ssl-lab-a-plus-configuration-for-nginx/">https://z.codes/ssl-lab-a-plus-configuration-for-nginx/</a></p>
 <p>首先从PPA安装nginx, 这样可以保证最新版</p>
-<div class="codehilite"><pre><span></span><code><span class="err">add-apt-repository ppa:nginx/stable</span>
-<span class="err">apt update</span>
-<span class="err">apt install nginx</span>
+<div class="codehilite"><pre><span></span><code>add-apt-repository ppa:nginx/stable
+apt update
+apt install nginx
 </code></pre></div>
-
 
 <p>创建DH随机质数：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">openssl dhparam -out /etc/ssl/dhparams.pem 2048</span>
+<div class="codehilite"><pre><span></span><code>openssl dhparam -out /etc/ssl/dhparams.pem 2048
 </code></pre></div>
-
 
 <p>创建/etc/nginx/https.conf：</p>
 <div class="codehilite"><pre><span></span><code><span class="n">listen</span><span class="w"> </span><span class="mi">443</span><span class="w"> </span><span class="n">ssl</span><span class="w"> </span><span class="n">http2</span><span class="p">;</span><span class="w"></span>
@@ -1737,43 +1728,38 @@
 <span class="k">include</span><span class="w"> </span><span class="n">mime</span><span class="p">.</span><span class="n">types</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
 
-
 <p>为需要启用https的站点，在/etc/nginx/sites-enabled/中写入conf文件</p>
-<div class="codehilite"><pre><span></span><code><span class="err">server {</span>
-<span class="err">    listen 443;</span>
-<span class="err">    server_name 域名1 域名2;</span>
-<span class="err">    access_log /tmp/access.log;</span>
-<span class="err">    error_log /tmp/error.log;</span>
-<span class="err">    ssl_certificate 密钥目录/名称.crt;</span>
-<span class="err">    ssl_certificate_key 密钥目录/名称.key;</span>
-<span class="err">    include https.conf</span>
-<span class="err">    其他配置。。。</span>
-<span class="err">}</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">server</span> {
+    <span class="nv">listen</span> <span class="mi">443</span><span class="c1">;</span>
+    <span class="nv">server_name</span> 域名<span class="mi">1</span> 域名<span class="mi">2</span><span class="c1">;</span>
+    <span class="nv">access_log</span> <span class="o">/</span><span class="nv">tmp</span><span class="o">/</span><span class="nv">access</span>.<span class="nv">log</span><span class="c1">;</span>
+    <span class="nv">error_log</span> <span class="o">/</span><span class="nv">tmp</span><span class="o">/</span><span class="nv">error</span>.<span class="nv">log</span><span class="c1">;</span>
+    <span class="nv">ssl_certificate</span> 密钥目录<span class="o">/</span>名称.<span class="nv">crt</span><span class="c1">;</span>
+    <span class="nv">ssl_certificate_key</span> 密钥目录<span class="o">/</span>名称.<span class="nv">key</span><span class="c1">;</span>
+    <span class="k">include</span> <span class="nv">https</span>.<span class="nv">conf</span>
+    其他配置。。。
+}
 </code></pre></div>
-
 
 <h2 id="js">反向代理之替换网页、JS中的文本<a class="headerlink" href="#js" title="Permanent link">&para;</a></h2>
 <p>使用模块ngx_http_substitutions_filter_module，见Github: https://github.com/yaoweibin/ngx_http_substitutions_filter_module</p>
 <p>需要重新编译nginx，Tip: <code>nginx -V</code>命令可以显示当前版本的nginx的编译参数</p>
 <p>编译后就可以用啦，举个例子：微信的公众号文章页面为了节省用户流量，图片是把页面滚动至所在位置才加载的，代码上的差异就是img标签本应是src的改成了data-src，这里我们要做一个微信的反向代理网站，把data-src替换成src，则可以直接加载所有图片（唔。。。其实还不够，还需要考虑防盗链的问题）；并且设置MIME类型包含Javascript</p>
-<div class="codehilite"><pre><span></span><code><span class="err">        subs_filter 需要替换掉的内容 替换后的文本;</span>
-<span class="err">        subs_filter data-src src;</span>
-<span class="err">        subs_filter_types application/x-javascript text/javascript appliation/x-javascript;</span>
+<div class="codehilite"><pre><span></span><code>        subs_filter 需要替换掉的内容 替换后的文本;
+        subs_filter data-src src;
+        subs_filter_types application/x-javascript text/javascript appliation/x-javascript;
 </code></pre></div>
-
 
 <h2 id="git">禁止git目录访问<a class="headerlink" href="#git" title="Permanent link">&para;</a></h2>
 <p>在server块中添加：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">location ~ /\. {</span>
-<span class="err">    return 404;</span>
-<span class="err">}</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">location</span> <span class="o">~</span> <span class="o">/</span>\. {
+    <span class="k">return</span> <span class="mi">404</span><span class="c1">;</span>
+}
 </code></pre></div>
-
 
 <p>相应的Apache可以在httpd.conf中添加：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">RedirectMatch 404 /\.git</span>
+<div class="codehilite"><pre><span></span><code>RedirectMatch 404 /\.git
 </code></pre></div>
-
 
 <h2 id="rootalias">root与alias的区别<a class="headerlink" href="#rootalias" title="Permanent link">&para;</a></h2>
 <p>From: http://stackoverflow.com/questions/10631933/nginx-static-file-serving-confusion-with-root-alias</p>
@@ -1784,7 +1770,6 @@
         <span class="p">}</span>
 </code></pre></div>
 
-
 <p>如果我们这么写，那么访问static目录下的a.jpg就会去找/var/www/app/static/static目录下的a.jpg，如果没有这个static/static就会404</p>
 <p>解决方法有两种：</p>
 <p>如果location中的static就是真实目录，root中就不要写static了</p>
@@ -1794,7 +1779,6 @@
         <span class="p">}</span>
 </code></pre></div>
 
-
 <p>或者用alias就不会再加上location的部分：</p>
 <div class="codehilite"><pre><span></span><code>        <span class="n">location</span> <span class="o">/</span><span class="k">static</span><span class="o">/</span> <span class="p">{</span>
                 <span class="n">alias</span> <span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">app</span><span class="o">/</span><span class="k">static</span><span class="o">/</span><span class="p">;</span>
@@ -1802,36 +1786,31 @@
         <span class="p">}</span>
 </code></pre></div>
 
-
 <hr />
 <h2 id="bash-on-win10nginx">在bash on win10上使用Nginx<a class="headerlink" href="#bash-on-win10nginx" title="Permanent link">&para;</a></h2>
 <p>与Linux中安装类似，只要<code>apt-get install nginx</code>即可，但可能会发现nginx并不正常工作，日志中是这样的：</p>
 <div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">alert</span><span class="o">]</span><span class="w"> </span><span class="mi">79</span><span class="n">#0</span><span class="err">:</span><span class="w"> </span><span class="n">ioctl</span><span class="p">(</span><span class="n">FIOASYNC</span><span class="p">)</span><span class="w"> </span><span class="n">failed</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="n">spawning</span><span class="w"> </span><span class="ss">&quot;worker process&quot;</span><span class="w"> </span><span class="p">(</span><span class="mi">22</span><span class="err">:</span><span class="w"> </span><span class="n">Invalid</span><span class="w"> </span><span class="n">argument</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 
-
 <p>解决方案：在/etc/nginx/nginx.conf中添加一行：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">master_process off;</span>
+<div class="codehilite"><pre><span></span><code>master_process off;
 </code></pre></div>
-
 
 <hr />
 <h2 id="ip">使上一级服务知道用户IP<a class="headerlink" href="#ip" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="err">proxy_set_header realip $remote_addr;</span>
+<div class="codehilite"><pre><span></span><code>proxy_set_header realip $remote_addr;
 </code></pre></div>
-
 
 <p>这样设置后，Nginx反向代理上一级服务会加上realip这个头，从而传递用户真实的IP（如果是代理则是代理的IP）</p>
 <hr />
 <h2 id="nginx_2">Nginx允许列目录<a class="headerlink" href="#nginx_2" title="Permanent link">&para;</a></h2>
 <p>加上<code>autoindex on</code>即可，后两项是为了 显示服务器时间而不是GMT时间 以及 以kB,MB,GB为单位显示大小而不是确切的字节数</p>
-<div class="codehilite"><pre><span></span><code><span class="err">location / {</span>
-<span class="err">    autoindex on;</span>
-<span class="err">    autoindex_localtime on;</span>
-<span class="err">    autoindex_exact_size off;</span>
-<span class="err">}</span>
+<div class="codehilite"><pre><span></span><code>location / {
+    autoindex on;
+    autoindex_localtime on;
+    autoindex_exact_size off;
+}
 </code></pre></div>
-
 
 <hr />
 <h2 id="seaweedfs">安全地使用SeaweedFS作为图片反向代理服务器<a class="headerlink" href="#seaweedfs" title="Permanent link">&para;</a></h2>
@@ -1841,28 +1820,26 @@
 <h3 id="nginx_3">Nginx配置<a class="headerlink" href="#nginx_3" title="Permanent link">&para;</a></h3>
 <h4 id="httpupstream">在http段中添加upstream<a class="headerlink" href="#httpupstream" title="Permanent link">&para;</a></h4>
 <p>注意把B服务器设置为backup 不要参与默认负载均衡</p>
-<div class="codehilite"><pre><span></span><code><span class="err">upstream up {</span>
-<span class="err">        server weedfs:8888;</span>
-<span class="err">        server 127.0.0.1:80 backup;</span>
-<span class="err">}</span>
+<div class="codehilite"><pre><span></span><code><span class="nt">upstream</span> <span class="nt">up</span> <span class="p">{</span>
+        <span class="err">server</span> <span class="n">weedfs</span><span class="p">:</span><span class="mi">8888</span><span class="p">;</span>
+        <span class="err">server</span> <span class="err">127.0.0.1:80</span> <span class="err">backup</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div>
-
 
 <h4 id="server">server段配置<a class="headerlink" href="#server" title="Permanent link">&para;</a></h4>
 <p>我希望访问<code>/images/hhh.jpg</code>实际访问<code>http://weedfs:8888/my_images/hhh.jpg</code></p>
 <p>关键就是<code>proxy_next_upstream</code></p>
-<div class="codehilite"><pre><span></span><code><span class="err">location /images/ {</span>
-<span class="err">        rewrite ^/images(/.*)$ /my_images$1 break;</span>
-<span class="err">        proxy_pass http://up;</span>
-<span class="err">        proxy_next_upstream http_404;</span>
-<span class="err">        proxy_hide_header Content-Type;</span>
-<span class="err">        add_header Content-Type image/jpeg;</span>
-<span class="err">        limit_except GET {</span>
-<span class="err">                deny all;</span>
-<span class="err">        }</span>
+<div class="codehilite"><pre><span></span><code><span class="nt">location</span> <span class="o">/</span><span class="nt">images</span><span class="o">/</span> <span class="p">{</span>
+        <span class="err">rewrite</span> <span class="err">^/images(/.*)$</span> <span class="err">/my_images$1</span> <span class="err">break</span><span class="p">;</span>
+        <span class="err">proxy_pass</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">up</span><span class="p">;</span>
+        <span class="err">proxy_next_upstream</span> <span class="err">http_404</span><span class="p">;</span>
+        <span class="err">proxy_hide_header</span> <span class="err">Content-Type</span><span class="p">;</span>
+        <span class="err">add_header</span> <span class="err">Content-Type</span> <span class="err">image/jpeg</span><span class="p">;</span>
+        <span class="err">limit_except</span> <span class="err">GET</span> <span class="err">{</span>
+                <span class="err">deny</span> <span class="err">all</span><span class="p">;</span>
+        <span class="p">}</span>
 <span class="err">}</span>
 </code></pre></div>
-
 
 <p>在seaweedfs返回404的时候会继续请求<code>http://127.0.0.1/my_images/hhh.jpg</code></p>
 <p>这种rewrite是不会修改POST的url的。。。就很迷，另外允许用户POST上传也是不安全的，这里就直接禁止了非GET方法</p>
@@ -1879,7 +1856,6 @@
 <span class="p">}</span>
 </code></pre></div>
 
-
 <p>这样配置的效果是POST <code>/upload_images/</code>相当于在POST <code>http://weedfs:8888/my_images/</code></p>
 <p>与前述的GET配置是相同的后端路径，上传的文件（如<code>/123.jpg</code>）就传到了weedfs的<code>http://weedfs:8888/my_images/123.jpg</code>能通过<code>/images/123.jpg</code>访问到</p>
 <h4 id="proxy_passdns">配置proxy_pass使用的DNS服务器<a class="headerlink" href="#proxy_passdns" title="Permanent link">&para;</a></h4>
@@ -1895,27 +1871,23 @@
 <span class="na">dir</span> <span class="o">=</span> <span class="s">&quot;/data/filer/&quot;</span>
 </code></pre></div>
 
-
 <p><code>Dockerfile</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">FROM chrislusf/seaweedfs</span>
-<span class="err">COPY filer.toml /etc/seaweedfs/filer.toml</span>
+<div class="codehilite"><pre><span></span><code>FROM chrislusf/seaweedfs
+COPY filer.toml /etc/seaweedfs/filer.toml
 </code></pre></div>
-
 
 <h4 id="_3">启动命令<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><code><span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">dit</span> <span class="c1">--name weedfs --restart=always --user nobody -v /data/weedfs:/data myweed -log_dir=/data/logs/ server -dir /data -filer=true -filer.disableDirListing -volume.publicUrl=weedfs.py3.io</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">docker</span> <span class="nv">run</span> <span class="o">-</span><span class="nv">dit</span> <span class="o">--</span><span class="nv">name</span> <span class="nv">weedfs</span> <span class="o">--</span><span class="nv">restart</span><span class="o">=</span><span class="nv">always</span> <span class="o">--</span><span class="nv">user</span> <span class="nv">nobody</span> <span class="o">-</span><span class="nv">v</span> <span class="o">/</span><span class="nv">data</span><span class="o">/</span><span class="nv">weedfs</span>:<span class="o">/</span><span class="nv">data</span> <span class="nv">myweed</span> <span class="o">-</span><span class="nv">log_dir</span><span class="o">=/</span><span class="nv">data</span><span class="o">/</span><span class="nv">logs</span><span class="o">/</span> <span class="nv">server</span> <span class="o">-</span><span class="nv">dir</span> <span class="o">/</span><span class="nv">data</span> <span class="o">-</span><span class="nv">filer</span><span class="o">=</span><span class="nv">true</span> <span class="o">-</span><span class="nv">filer</span>.<span class="nv">disableDirListing</span> <span class="o">-</span><span class="nv">volume</span>.<span class="nv">publicUrl</span><span class="o">=</span><span class="nv">weedfs</span>.<span class="nv">py3</span>.<span class="nv">io</span>
 
-<span class="n">docker</span> <span class="n">network</span> <span class="k">connect</span> <span class="n">useweed</span> <span class="n">weedfs</span> <span class="c1">--alias weedfs</span>
+<span class="nv">docker</span> <span class="nv">network</span> <span class="k">connect</span> <span class="nv">useweed</span> <span class="nv">weedfs</span> <span class="o">--</span><span class="nv">alias</span> <span class="nv">weedfs</span>
 </code></pre></div>
-
 
 <p>建议在测试的时候不要用<code>-filer.disableDirListing</code>选项，可以列目录来看看到底上传到哪了：<code>curl  -H "Accept: application/json" "http://weedfs:8888/my_images/?pretty=y"</code></p>
 <p>另外注意启动前创建文件夹和配置权限：（不要以为人家会给你创建目录）</p>
-<div class="codehilite"><pre><span></span><code><span class="err">mkdir -p /data/weedfs/logs/</span>
-<span class="err">mkdir -p /data/weedfs/filer/</span>
-<span class="err">sudo chown -R nobody /data/weedfs</span>
+<div class="codehilite"><pre><span></span><code>mkdir -p /data/weedfs/logs/
+mkdir -p /data/weedfs/filer/
+sudo chown -R nobody /data/weedfs
 </code></pre></div>
-
 
 <h3 id="b">B服务器的实现<a class="headerlink" href="#b" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code><span class="n">TARGET_SERVER</span> <span class="o">=</span> <span class="s2">&quot;http://images.example.com/&quot;</span>
@@ -1927,13 +1899,12 @@
 <span class="n">sess</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">session</span><span class="p">()</span>
 <span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
-<span class="nd">@app.route</span><span class="p">(</span><span class="s2">&quot;/my_images/&lt;name&gt;&quot;</span><span class="p">)</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/my_images/&lt;name&gt;&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">handler</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">TARGET_SERVER</span><span class="o">+</span><span class="n">name</span><span class="p">)</span>
     <span class="n">sess</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">WEEDFS_FILER_ENDPOINT</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;filename&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">content</span><span class="p">)))])</span>
     <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="n">mimetype</span><span class="o">=</span><span class="s2">&quot;image/jpeg&quot;</span><span class="p">)</span> 
 </code></pre></div>
-
 
 <h4 id="pythonpyseaweed">顺便附上Python库pyseaweed的使用<a class="headerlink" href="#pythonpyseaweed" title="Permanent link">&para;</a></h4>
 <p>pip install pyseaweed</p>
@@ -1941,14 +1912,13 @@
 <div class="codehilite"><pre><span></span><code><span class="n">publicurl</span> <span class="o">=</span> <span class="s2">&quot;http://localhost:8080/&quot;</span>
 
 <span class="kn">from</span> <span class="nn">pyseaweed</span> <span class="kn">import</span> <span class="n">WeedFS</span>
-<span class="n">w</span> <span class="o">=</span> <span class="n">WeedFS</span><span class="p">(</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span> <span class="mi">9333</span><span class="p">,</span> <span class="n">use_session</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">WeedFS</span><span class="p">(</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span> <span class="mi">9333</span><span class="p">,</span> <span class="n">use_session</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="c1"># 上传 也支持传入流</span>
 <span class="n">fid</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">upload_file</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 
 <span class="c1"># 下载 得到对象字节</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">_conn</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">publicurl</span><span class="o">+</span><span class="n">fid</span><span class="p">)</span><span class="o">.</span><span class="n">content</span>
 </code></pre></div>
-
 
 <h2 id="proxy_pass">proxy_pass 动态代理<a class="headerlink" href="#proxy_pass" title="Permanent link">&para;</a></h2>
 <p>效果：访问<code>/www.example.com/</code> 反向代理到<code>http://www.example.com</code>，并支持一次跳转</p>
@@ -1964,18 +1934,15 @@
 <span class="err">}</span><span class="w"></span>
 </code></pre></div>
 
-
 <hr />
 <h2 id="nginxserver">Nginx隐藏Server头 简单方式<a class="headerlink" href="#nginxserver" title="Permanent link">&para;</a></h2>
 <p>参考： https://serverfault.com/questions/214242/can-i-hide-all-server-os-info</p>
-<div class="codehilite"><pre><span></span><code><span class="err">apt install -y nginx-extras</span>
+<div class="codehilite"><pre><span></span><code>apt install -y nginx-extras
 </code></pre></div>
-
 
 <p>配置中添加：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">header_filter_by_lua &#39;ngx.header[&quot;server&quot;] = nil&#39;;</span>
+<div class="codehilite"><pre><span></span><code>header_filter_by_lua &#39;ngx.header[&quot;server&quot;] = nil&#39;;
 </code></pre></div>
-
 
 <hr />
 <h2 id="https_1">使用阿里云函数计算定时更新https证书<a class="headerlink" href="#https_1" title="Permanent link">&para;</a></h2>
@@ -2025,7 +1992,7 @@
         <span class="n">cmd</span> <span class="o">=</span> <span class="s2">&quot;CF_Key=xxx CF_Email=xxx@yyy.com ./acme.sh/acme.sh --issue --dns dns_cf &quot;</span><span class="o">+</span><span class="n">domain_text</span><span class="o">+</span><span class="s2">&quot; --dnssleep 5 --fullchain-file /tmp/&quot;</span><span class="o">+</span><span class="n">name</span><span class="o">+</span><span class="s2">&quot;.crt --key-file /tmp/&quot;</span><span class="o">+</span><span class="n">name</span><span class="o">+</span><span class="s2">&quot;.key -f &quot;</span>
         <span class="k">if</span> <span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;chenyuan.me&quot;</span><span class="p">:</span>
             <span class="n">cmd</span> <span class="o">+=</span> <span class="s2">&quot;--challenge-alias chenyuan.me&quot;</span>
-        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;acme.sh --issue&quot;</span><span class="o">+</span><span class="n">cmd</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;--issue&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;acme.sh --issue&quot;</span><span class="o">+</span><span class="n">cmd</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;--issue&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
         <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;get cert failed&quot;</span>
         <span class="n">bucket</span><span class="o">.</span><span class="n">put_object_from_file</span><span class="p">(</span><span class="n">name</span><span class="o">+</span><span class="s2">&quot;.crt&quot;</span><span class="p">,</span> <span class="s2">&quot;/tmp/&quot;</span><span class="o">+</span><span class="n">name</span><span class="o">+</span><span class="s2">&quot;.crt&quot;</span><span class="p">)</span>
         <span class="n">bucket</span><span class="o">.</span><span class="n">put_object_from_file</span><span class="p">(</span><span class="n">name</span><span class="o">+</span><span class="s2">&quot;.key&quot;</span><span class="p">,</span> <span class="s2">&quot;/tmp/&quot;</span><span class="o">+</span><span class="n">name</span><span class="o">+</span><span class="s2">&quot;.key&quot;</span><span class="p">)</span>
@@ -2038,7 +2005,6 @@
     <span class="k">return</span> <span class="s1">&#39;ok&#39;</span>
 </code></pre></div>
 
-
 <h3 id="_6">更多说明<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
 <p>取得一个域名的证书大约需要1~2分钟，由于函数计算允许的最长超时是600秒，还有考虑网络因素（毕竟cloudflare和let&rsquo;s encrypt都在国外），
 是有可能失败的</p>
@@ -2049,19 +2015,7 @@
 <p>如果nginx的配置原先就是错的，不会尝试更新证书</p>
 <p>如果更新证书后nginx无法启动（比如无法连上阿里云下载的文件为空或404），会回滚这个改动，保证nginx仍然可以启动</p>
 <p>你需要替换下面代码的NAME, OSSNAME, REGION 同上, Referer_STRING 在OSS设置的只允许这个Referer_STRING访问 不允许Referer为空 增加安全性</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 <span class="nb">set</span> -ex
 <span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span>/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 <span class="nb">cd</span> /var/www
@@ -2075,7 +2029,6 @@ mv <span class="si">${</span><span class="nv">NAME</span><span class="si">}</spa
 mv <span class="si">${</span><span class="nv">NAME</span><span class="si">}</span>.key.new <span class="si">${</span><span class="nv">NAME</span><span class="si">}</span>.key
 nginx -s reload <span class="o">||</span> <span class="o">(</span>mv <span class="si">${</span><span class="nv">NAME</span><span class="si">}</span>.crt.old <span class="si">${</span><span class="nv">NAME</span><span class="si">}</span>.crt<span class="p">;</span> mv <span class="si">${</span><span class="nv">NAME</span><span class="si">}</span>.key.old <span class="si">${</span><span class="nv">NAME</span><span class="si">}</span>.key<span class="o">)</span>
 </code></pre></div>
-</td></tr></table>
 
 <hr />
 <h2 id="nfsnginx">使用nfs存储Nginx日志<a class="headerlink" href="#nfsnginx" title="Permanent link">&para;</a></h2>
@@ -2084,65 +2037,49 @@ nginx -s reload <span class="o">||</span> <span class="o">(</span>mv <span class
 所以我的做法是先写到本地，每个小时将新的log追加到nfs同名<code>.1</code>文件里</p>
 <p>用到的：nfs，Nginx SIGUSR1信号，定时任务</p>
 <p>服务端的nfs镜像： https://hub.docker.com/r/itsthenetwork/nfs-server-alpine/</p>
-<div class="codehilite"><pre><span></span><code><span class="err">docker run --restart=always -d --name nfs -v /data:/nfsshare --privileged --net=host -e SHARED_DIRECTORY=/nfsshare itsthenetwork/nfs-server-alpine</span>
+<div class="codehilite"><pre><span></span><code>docker run --restart=always -d --name nfs -v /data:/nfsshare --privileged --net=host -e SHARED_DIRECTORY=/nfsshare itsthenetwork/nfs-server-alpine
 </code></pre></div>
-
 
 <p>客户端（web服务器）：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">mkdir /nfs</span>
-<span class="err">mount SERVER_IP:/ /nfs</span>
+<div class="codehilite"><pre><span></span><code>mkdir /nfs
+mount SERVER_IP:/ /nfs
 </code></pre></div>
 
-
 <p>collectlog.sh写到/nfs里，如果nfs发生了hang，脚本也不会执行</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 <span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span>/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 <span class="nb">cd</span> /var/log/nginx
-<span class="k">for</span> i in *.log<span class="p">;</span> <span class="k">do</span>
+<span class="k">for</span> i <span class="k">in</span> *.log<span class="p">;</span> <span class="k">do</span>
     mv <span class="nv">$i</span> <span class="si">${</span><span class="nv">i</span><span class="si">}</span>.1<span class="p">;</span>
 <span class="k">done</span>
 <span class="nb">kill</span> -USR1 <span class="sb">`</span>cat /var/run/nginx.pid<span class="sb">`</span>
 sleep <span class="m">1</span>
-<span class="k">for</span> i in *.log.1<span class="p">;</span> <span class="k">do</span>
+<span class="k">for</span> i <span class="k">in</span> *.log.1<span class="p">;</span> <span class="k">do</span>
     cat <span class="nv">$i</span> &gt;&gt; /nfs/<span class="nv">$i</span>
 <span class="k">done</span>
 </code></pre></div>
-</td></tr></table>
 
 <p>cron加入：每小时写入一次</p>
-<div class="codehilite"><pre><span></span><code><span class="err">0 * * * * /nfs/collectlog.sh</span>
+<div class="codehilite"><pre><span></span><code><span class="mf">0</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">/</span><span class="n">nfs</span><span class="o">/</span><span class="n">collectlog</span><span class="mf">.</span><span class="n">sh</span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="openresty-luahook">使用openresty Lua编程实现hook跳转<a class="headerlink" href="#openresty-luahook" title="Permanent link">&para;</a></h2>
 <p>需求：有多个网站用户访问之前需要带上authtoken，没有这个Cookie则先跳转到登录界面</p>
 <p>使用openresty来方便地写Lua：</p>
 <p>安装参考 https://openresty.org/cn/linux-packages.html</p>
-<div class="codehilite"><pre><span></span><code><span class="err">sudo apt-get -y install --no-install-recommends wget gnupg ca-certificates</span>
-<span class="err">wget -O - https://openresty.org/package/pubkey.gpg | sudo apt-key add -</span>
-<span class="err">echo &quot;deb http://openresty.org/package/ubuntu $(lsb_release -sc) main&quot; \</span>
-<span class="err">    | sudo tee /etc/apt/sources.list.d/openresty.list</span>
-<span class="err">sudo apt-get update</span>
-<span class="err">sudo apt-get -y install openresty</span>
+<div class="codehilite"><pre><span></span><code>sudo apt-get -y install --no-install-recommends wget gnupg ca-certificates
+wget -O - https://openresty.org/package/pubkey.gpg | sudo apt-key add -
+echo &quot;deb http://openresty.org/package/ubuntu $(lsb_release -sc) main&quot; \
+    | sudo tee /etc/apt/sources.list.d/openresty.list
+sudo apt-get update
+sudo apt-get -y install openresty
 </code></pre></div>
-
 
 <p>可能你会喜欢原来的nginx的目录设置，做个软链接呗：</p>
 <div class="codehilite"><pre><span></span><code><span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">openresty</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">logs</span> <span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="nb">log</span><span class="o">/</span><span class="n">nginx</span>
 <span class="n">alias</span> <span class="n">nginx</span><span class="o">=</span><span class="n">openresty</span>
 </code></pre></div>
-
 
 <p>快速入门： https://openresty.org/cn/getting-started.html</p>
 <p>就是content_by_lua_block里面直接写lua代码即可</p>
@@ -2159,21 +2096,19 @@ sleep <span class="m">1</span>
 }
 </code></pre></div>
 
-
 <p>想知道ngx有哪些方法，看这个文档： https://github.com/openresty/lua-nginx-module#ngxarg</p>
 <p>例如获取http GET的a参数：<code>ngx.var.arg_a</code>, 请求的Host参数：<code>ngx.var.http_host</code></p>
 <p>获取Cookie: 使用https://github.com/cloudflare/lua-resty-cookie</p>
 <p>先执行：<code>wget -O /etc/openresty/cookie.lua https://github.com/cloudflare/lua-resty-cookie/raw/master/lib/resty/cookie.lua</code></p>
 <p>在http中加入: <code>lua_package_path "/etc/openresty/?.lua;;";</code></p>
-<div class="codehilite"><pre><span></span><code><span class="err">local ck = require &quot;cookie&quot;</span>
-<span class="err">local cookie, err = ck:new()</span>
-<span class="err">if not cookie then</span>
-<span class="err">    ngx.log(ngx.ERR, err)</span>
-<span class="err">    return</span>
-<span class="err">end</span>
-<span class="err">#然后即可使用cookie:get(&quot;authtoken&quot;)</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">local</span> <span class="nv">ck</span> <span class="o">=</span> <span class="nv">require</span> <span class="s2">&quot;</span><span class="s">cookie</span><span class="s2">&quot;</span>
+<span class="nv">local</span> <span class="nv">cookie</span>, <span class="nv">err</span> <span class="o">=</span> <span class="nv">ck</span>:<span class="nv">new</span><span class="ss">()</span>
+<span class="k">if</span> <span class="nv">not</span> <span class="nv">cookie</span> <span class="k">then</span>
+    <span class="nv">ngx</span>.<span class="nv">log</span><span class="ss">(</span><span class="nv">ngx</span>.<span class="nv">ERR</span>, <span class="nv">err</span><span class="ss">)</span>
+    <span class="k">return</span>
+<span class="k">end</span>
+#然后即可使用<span class="nv">cookie</span>:<span class="nv">get</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">authtoken</span><span class="s2">&quot;</span><span class="ss">)</span>
 </code></pre></div>
-
 
 <p>想使用rewrite_by_lua_file则需要把文件放在/usr/local/openresty/nginx</p>
 <p>结束当前脚本继续后续请求处理 用<code>ngx.exit(0)</code></p>
@@ -2183,31 +2118,30 @@ sleep <span class="m">1</span>
 <hr />
 <h2 id="_7">不同子域名反代到不同端口<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
 <p>你可以复制粘贴多个server块，但使用map是一个更优雅的方案</p>
-<div class="codehilite"><pre><span></span><code><span class="err">http {</span>
-<span class="err">    map $subdomain $subdomain_port {</span>
-<span class="err">        subdomain1 12345;</span>
-<span class="err">        subdomain2 54321;</span>
-<span class="err">        default 1;</span>
-<span class="err">    }</span>
-<span class="err">    server {</span>
-<span class="err">        listen 80;</span>
-<span class="err">        server_name ~^(?P&lt;subdomain&gt;.+?)\.2020\.actf\.lol$;</span>
-<span class="err">        location / {</span>
-<span class="err">            proxy_pass http://127.0.0.1:$subdomain_port;</span>
-<span class="err">            proxy_redirect off;</span>
-<span class="err">            proxy_set_header Host $host;</span>
-<span class="err">            proxy_set_header X-Real-IP $remote_addr;</span>
-<span class="err">        }</span>
-<span class="err">    }</span>
+<div class="codehilite"><pre><span></span><code><span class="nt">http</span> <span class="p">{</span>
+    <span class="err">map</span> <span class="err">$subdomain</span> <span class="err">$subdomain_port</span> <span class="err">{</span>
+        <span class="err">subdomain1</span> <span class="err">12345</span><span class="p">;</span>
+        <span class="err">subdomain2</span> <span class="err">54321</span><span class="p">;</span>
+        <span class="err">default</span> <span class="err">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nt">server</span> <span class="p">{</span>
+        <span class="err">listen</span> <span class="err">80</span><span class="p">;</span>
+        <span class="err">server_name</span> <span class="err">~^(?P&lt;subdomain&gt;.+?)\.2020\.actf\.lol$</span><span class="p">;</span>
+        <span class="err">location</span> <span class="err">/</span> <span class="err">{</span>
+            <span class="err">proxy_pass</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">127.0.0.1</span><span class="o">:</span><span class="err">$</span><span class="n">subdomain_port</span><span class="p">;</span>
+            <span class="err">proxy_redirect</span> <span class="err">off</span><span class="p">;</span>
+            <span class="err">proxy_set_header</span> <span class="err">Host</span> <span class="err">$host</span><span class="p">;</span>
+            <span class="err">proxy_set_header</span> <span class="err">X-Real-IP</span> <span class="err">$remote_addr</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="err">}</span>
 <span class="err">}</span>
 </code></pre></div>
-
 
 <h2 id="nginx_4">Nginx配置文件格式化<a class="headerlink" href="#nginx_4" title="Permanent link">&para;</a></h2>
 <p>直接用vi改了配置文件后，很容易不注意缩进，有没有一个自动prettify的工具呢</p>
 <p>还真有： https://github.com/1connect/nginx-config-formatter</p>
-<div class="codehilite"><pre><span></span><code><span class="err">wget https://raw.githubusercontent.com/1connect/nginx-config-formatter/master/nginxfmt.py</span>
-<span class="err">python3 nginxfmt.py /etc/nginx/nginx.conf</span>
+<div class="codehilite"><pre><span></span><code>wget https://raw.githubusercontent.com/1connect/nginx-config-formatter/master/nginxfmt.py
+python3 nginxfmt.py /etc/nginx/nginx.conf
 </code></pre></div>
                 
               

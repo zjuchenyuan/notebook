@@ -582,3 +582,13 @@ data=x.search("port:3389 country:cn", facets=['ip:10000'])
 iplist=([i["value"] for i in data["facets"]["ip"]])
 ```
 
+## 找到 /var/lib/docker/overlay2 对应的容器
+
+硬盘空间不够，可能是docker占用了太多空间
+
+参考 https://fabianlee.org/2021/04/08/docker-determining-container-responsible-for-largest-overlay-directories/
+
+```
+ncdu /var/lib/docker/overlay2 #查看哪些目录占据空间最大
+docker inspect $(docker ps -qa) | jq -r 'map([.Name, .GraphDriver.Data.MergedDir]) | .[] | "\(.[0])\t\(.[1])"' > docker-mappings.txt
+```

@@ -1084,32 +1084,29 @@
                 <h1 id="ssh">SSH<a class="headerlink" href="#ssh" title="Permanent link">&para;</a></h1>
 <h2 id="id_rsa">客户端不同服务器使用不同的id_rsa<a class="headerlink" href="#id_rsa" title="Permanent link">&para;</a></h2>
 <p>修改<code>.ssh/config</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">Host</span> <span class="n">myshortname</span> <span class="n">realname</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span>
-    <span class="n">HostName</span> <span class="n">realname</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span>
-    <span class="n">IdentityFile</span> <span class="o">~/</span><span class="p">.</span><span class="n">ssh</span><span class="o">/</span><span class="n">realname_rsa</span> <span class="o">#</span> <span class="n">private</span> <span class="k">key</span> <span class="k">for</span> <span class="n">realname</span>
-    <span class="k">User</span> <span class="n">remoteusername</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">Host</span> <span class="nv">myshortname</span> <span class="nv">realname</span>.<span class="nv">example</span>.<span class="nv">com</span>
+    <span class="nv">HostName</span> <span class="nv">realname</span>.<span class="nv">example</span>.<span class="nv">com</span>
+    <span class="nv">IdentityFile</span> <span class="o">~/</span>.<span class="nv">ssh</span><span class="o">/</span><span class="nv">realname_rsa</span> # <span class="nv">private</span> <span class="nv">key</span> <span class="k">for</span> <span class="nv">realname</span>
+    <span class="nv">User</span> <span class="nv">remoteusername</span>
 
-<span class="k">Host</span> <span class="n">aliyun</span>
-    <span class="n">HostName</span> <span class="mi">1</span><span class="p">.</span><span class="mi">2</span><span class="p">.</span><span class="mi">3</span><span class="p">.</span><span class="mi">4</span>
-    <span class="n">IdentityFile</span> <span class="o">~/</span><span class="p">.</span><span class="n">ssh</span><span class="o">/</span><span class="n">realname2_rsa</span>
-    <span class="n">Port</span> <span class="mi">10022</span>
-    <span class="k">User</span> <span class="n">root</span>
+<span class="nv">Host</span> <span class="nv">aliyun</span>
+    <span class="nv">HostName</span> <span class="mi">1</span>.<span class="mi">2</span>.<span class="mi">3</span>.<span class="mi">4</span>
+    <span class="nv">IdentityFile</span> <span class="o">~/</span>.<span class="nv">ssh</span><span class="o">/</span><span class="nv">realname2_rsa</span>
+    <span class="nv">Port</span> <span class="mi">10022</span>
+    <span class="nv">User</span> <span class="nv">root</span>
 </code></pre></div>
-
 
 <p>然后就能ssh aliyun这样访问1.2.3.4:10022的ssh了，不用修改/etc/hosts</p>
 <h2 id="sshd">换个端口开启一个临时的sshd<a class="headerlink" href="#sshd" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="err">which sshd</span>
-<span class="err">/usr/sbin/sshd -oPort=2333</span>
+<div class="codehilite"><pre><span></span><code>which sshd
+/usr/sbin/sshd -oPort=2333
 </code></pre></div>
-
 
 <h2 id="ssh_1">ssh反向代理<a class="headerlink" href="#ssh_1" title="Permanent link">&para;</a></h2>
 <p>参见：http://www.tuicool.com/articles/UVRNfi</p>
 <p>将本机的22端口转发至外网服务器的2222端口：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">ssh -b 0.0.0.0 -L 2222:127.0.0.1:22 user@ip</span>
+<div class="codehilite"><pre><span></span><code><span class="n">ssh</span><span class="w"> </span><span class="o">-</span><span class="n">b</span><span class="w"> </span><span class="mf">0.0.0.0</span><span class="w"> </span><span class="o">-</span><span class="n">L</span><span class="w"> </span><span class="mi">2222</span><span class="err">:</span><span class="mf">127.0.0.1</span><span class="err">:</span><span class="mi">22</span><span class="w"> </span><span class="k">user</span><span class="nv">@ip</span><span class="w"></span>
 </code></pre></div>
-
 
 <p>注意在运行前需要设置免密码登录以及修改外网服务器的sshd_config，加入GatewayPorts  yes</p>
 <hr />
@@ -1118,30 +1115,26 @@
 <p>注意在确定两步登录能成功之前，保持一个SSH连接以免配置出错无法再控制服务器</p>
 <p>第零步，确保自己知道root密码还能物理登录服务器</p>
 <p>第一步，安装Google Authenticator这个包</p>
-<div class="codehilite"><pre><span></span><code><span class="err">apt-get install -y libpam-google-authenticator</span>
+<div class="codehilite"><pre><span></span><code>apt-get install -y libpam-google-authenticator
 </code></pre></div>
-
 
 <p>第二步，修改/etc/pam.d/sshd</p>
 <p>在顶部（在@include common-auth之前）添加这一行：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">auth sufficient pam_google_authenticator.so</span>
+<div class="codehilite"><pre><span></span><code>auth sufficient pam_google_authenticator.so
 </code></pre></div>
-
 
 <p>第三步，修改/etc/ssh/sshd_config</p>
 <p>不存在则添加，存在但不同就修改，顺序无关</p>
-<div class="codehilite"><pre><span></span><code><span class="err">PubkeyAuthentication yes</span>
-<span class="err">AuthenticationMethods publickey,keyboard-interactive</span>
-<span class="err">ChallengeResponseAuthentication yes</span>
-<span class="err">PasswordAuthentication no</span>
-<span class="err">UsePAM yes</span>
+<div class="codehilite"><pre><span></span><code>PubkeyAuthentication yes
+AuthenticationMethods publickey,keyboard-interactive
+ChallengeResponseAuthentication yes
+PasswordAuthentication no
+UsePAM yes
 </code></pre></div>
-
 
 <p>第四步，创建一个密钥</p>
-<div class="codehilite"><pre><span></span><code><span class="err">google-authenticator</span>
+<div class="codehilite"><pre><span></span><code>google-authenticator
 </code></pre></div>
-
 
 <p>对问题均回答y或者自行决定咯~</p>
 <p>第五步，重启服务以生效</p>
@@ -1156,15 +1149,13 @@
 <h2 id="ssh-config">ssh config里直接指定端口转发<a class="headerlink" href="#ssh-config" title="Permanent link">&para;</a></h2>
 <p>参考： https://www.ssh.com/academy/ssh/tunneling/example</p>
 <h3 id="_1">在本地访问远程<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="err">LocalForward 5901 computer.myHost.edu:5901</span>
+<div class="codehilite"><pre><span></span><code>LocalForward 5901 computer.myHost.edu:5901
 </code></pre></div>
-
 
 <p>等价于<code>-L 5901:computer.myHost.edu:5901</code>，将远程的5901端口映射到本地</p>
 <h3 id="_2">在远程访问本地<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="err">RemoteForward 1234 127.0.0.1:3421</span>
+<div class="codehilite"><pre><span></span><code>RemoteForward 1234 127.0.0.1:3421
 </code></pre></div>
-
 
 <p>这样等价于<code>-R 1234:127.0.0.1:3421</code>，让远程服务器可以通过访问127.0.0.1:1234来访问到客户端的3421</p>
 <p>如果需要允许这个转发的1234端口对外提供访问，还需要修改服务器的sshd_config，设置<code>GatewayPorts yes</code></p>

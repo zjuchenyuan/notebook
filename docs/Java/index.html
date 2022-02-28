@@ -1184,17 +1184,16 @@
 <p>From: http://stackoverflow.com/questions/8080649/do-i-have-to-close-fileoutputstream-which-is-wrapped-by-printstream</p>
 <p>在Java7中引入了ARM(自动资源管理)，并不需要手动释放资源</p>
 <p>以下这种把变量声明放到try后的括号里面，不对资源手动释放的写法是可以的，没有任何错误</p>
-<div class="codehilite"><pre><span></span><code><span class="err">public static void main(String args[]) throws IOException { </span>
-<span class="err">    try (PrintStream ps = new PrintStream(new FileOutputStream(&quot;myfile.txt&quot;))) {</span>
-<span class="err">        ps.println(&quot;This data is written to a file:&quot;);</span>
-<span class="err">        System.out.println(&quot;Write successfully&quot;);</span>
-<span class="err">    } catch (IOException e) {</span>
-<span class="err">        System.err.println(&quot;Error in writing to file&quot;);</span>
-<span class="err">        throw e;</span>
-<span class="err">    }</span>
+<div class="codehilite"><pre><span></span><code><span class="nt">public</span> <span class="nt">static</span> <span class="nt">void</span> <span class="nt">main</span><span class="o">(</span><span class="nt">String</span> <span class="nt">args</span><span class="cp">[]</span><span class="o">)</span> <span class="nt">throws</span> <span class="nt">IOException</span> <span class="p">{</span> 
+    <span class="err">try</span> <span class="err">(PrintStream</span> <span class="err">ps</span> <span class="err">=</span> <span class="err">new</span> <span class="err">PrintStream(new</span> <span class="err">FileOutputStream(&quot;myfile.txt&quot;)))</span> <span class="err">{</span>
+        <span class="err">ps.println(&quot;This</span> <span class="err">data</span> <span class="err">is</span> <span class="err">written</span> <span class="err">to</span> <span class="err">a</span> <span class="n">file</span><span class="p">:</span><span class="s2">&quot;);</span>
+<span class="s2">        System.out.println(&quot;</span><span class="n">Write</span> <span class="n">successfully</span><span class="s2">&quot;);</span>
+<span class="s2">    } catch (IOException e) {</span>
+<span class="s2">        System.err.println(&quot;</span><span class="n">Error</span> <span class="n">in</span> <span class="n">writing</span> <span class="kc">to</span> <span class="n">file</span><span class="err">&quot;</span><span class="p">);</span>
+        <span class="err">throw</span> <span class="err">e</span><span class="p">;</span>
+    <span class="p">}</span>
 <span class="err">}</span>
 </code></pre></div>
-
 
 <p>普通的try-catch是不够的，需要在finally中释放资源：</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">public</span> <span class="nt">static</span> <span class="nt">void</span> <span class="nt">main</span><span class="o">(</span><span class="nt">String</span> <span class="nt">args</span><span class="cp">[]</span><span class="o">)</span> <span class="nt">throws</span> <span class="nt">IOException</span> <span class="p">{</span> 
@@ -1212,7 +1211,6 @@
     <span class="p">}</span>
 <span class="err">}</span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="jvm">JVM启动时的内存参数<a class="headerlink" href="#jvm" title="Permanent link">&para;</a></h2>

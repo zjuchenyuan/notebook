@@ -1525,12 +1525,10 @@ git commit -a -m <span class="s2">&quot;这次改了些啥？&quot;</span>
 git push
 </code></pre></div>
 
-
 <p>更多的配置：</p>
-<div class="codehilite"><pre><span></span><code><span class="err"># 默认git pull --rebase</span>
-<span class="err">git config --global pull.rebase true</span>
+<div class="codehilite"><pre><span></span><code># 默认git pull --rebase
+git config --global pull.rebase true
 </code></pre></div>
-
 
 <hr />
 <h2 id="git-clone">加速git clone<a class="headerlink" href="#git-clone" title="Permanent link">&para;</a></h2>
@@ -1540,7 +1538,6 @@ git push
 <span class="n">git</span> <span class="n">clone</span> <span class="o">--</span><span class="n">depth</span> <span class="mi">1</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">zjuchenyuan</span><span class="o">/</span><span class="n">notebook</span>
 </code></pre></div>
 
-
 <hr />
 <h2 id="git-push">git push加速<a class="headerlink" href="#git-push" title="Permanent link">&para;</a></h2>
 <p>代码参见<a href="/code/ssgit.txt">code/ssgit.txt</a></p>
@@ -1548,41 +1545,37 @@ git push
 <h2 id="git-push_1">git push免密码<a class="headerlink" href="#git-push_1" title="Permanent link">&para;</a></h2>
 <p>参照http://blog.csdn.net/chfe007/article/details/43388041</p>
 <p>首先生成自己的ssh密钥，不要修改生成的文件位置</p>
-<div class="codehilite"><pre><span></span><code><span class="err">ssh-keygen -t rsa -b 4096</span>
+<div class="codehilite"><pre><span></span><code>ssh-keygen -t rsa -b 4096
 </code></pre></div>
-
 
 <p>然后把<code>~/.ssh/id_rsa.pub</code>的内容设置到github中，<a href="https://github.com/settings/keys">网页端操作</a>；建议顺带启用两步验证</p>
 <p>新手还告诉git自己是谁：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">git config --global user.email &quot;你的邮箱&quot;</span>
-<span class="err">git config --global user.name &quot;你的用户名&quot;</span>
+<div class="codehilite"><pre><span></span><code>git config --global user.email &quot;你的邮箱&quot;
+git config --global user.name &quot;你的用户名&quot;
 </code></pre></div>
-
 
 <p>如果当前仓库是https的，改为git方式：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">git remote set-url origin git@github.com:用户名/仓库名称.git</span>
+<div class="codehilite"><pre><span></span><code><span class="n">git</span><span class="w"> </span><span class="n">remote</span><span class="w"> </span><span class="k">set</span><span class="o">-</span><span class="n">url</span><span class="w"> </span><span class="n">origin</span><span class="w"> </span><span class="n">git</span><span class="nv">@github</span><span class="p">.</span><span class="nl">com</span><span class="p">:</span><span class="n">用户名</span><span class="o">/</span><span class="n">仓库名称</span><span class="p">.</span><span class="n">git</span><span class="w"></span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="bash">bash别名设置<a class="headerlink" href="#bash" title="Permanent link">&para;</a></h2>
 <p>通过修改~/.bashrc来设置别名，让git的日常使用更简单：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">func_g(){</span>
-<span class="err">  git add .</span>
-<span class="err">  git commit -a -m &quot;$1&quot;</span>
-<span class="err">  git push</span>
-<span class="err">}</span>
-<span class="err">alias g=func_g</span>
-<span class="err">alias gs=&#39;git status &#39;</span>
-<span class="err">alias ga=&#39;git add &#39;</span>
-<span class="err">alias gb=&#39;git branch &#39;</span>
-<span class="err">alias gc=&#39;git commit&#39;</span>
-<span class="err">alias gd=&#39;git diff&#39;</span>
-<span class="err">alias go=&#39;git checkout &#39;</span>
-<span class="err">alias gp=&#39;git push&#39;</span>
-<span class="err">alias gl=&quot;git log --all --pretty=format:&#39;%h %ad | %s%d [%an]&#39; --graph --date=short&quot;</span>
+<div class="codehilite"><pre><span></span><code><span class="n">func_g</span><span class="p">()</span><span class="err">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">git</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
+<span class="w">  </span><span class="n">git</span><span class="w"> </span><span class="k">commit</span><span class="w"> </span><span class="o">-</span><span class="n">a</span><span class="w"> </span><span class="o">-</span><span class="n">m</span><span class="w"> </span><span class="ss">&quot;$1&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="n">git</span><span class="w"> </span><span class="n">push</span><span class="w"></span>
+<span class="err">}</span><span class="w"></span>
+<span class="k">alias</span><span class="w"> </span><span class="n">g</span><span class="o">=</span><span class="n">func_g</span><span class="w"></span>
+<span class="k">alias</span><span class="w"> </span><span class="n">gs</span><span class="o">=</span><span class="s1">&#39;git status &#39;</span><span class="w"></span>
+<span class="k">alias</span><span class="w"> </span><span class="n">ga</span><span class="o">=</span><span class="s1">&#39;git add &#39;</span><span class="w"></span>
+<span class="k">alias</span><span class="w"> </span><span class="n">gb</span><span class="o">=</span><span class="s1">&#39;git branch &#39;</span><span class="w"></span>
+<span class="k">alias</span><span class="w"> </span><span class="n">gc</span><span class="o">=</span><span class="s1">&#39;git commit&#39;</span><span class="w"></span>
+<span class="k">alias</span><span class="w"> </span><span class="n">gd</span><span class="o">=</span><span class="s1">&#39;git diff&#39;</span><span class="w"></span>
+<span class="k">alias</span><span class="w"> </span><span class="k">go</span><span class="o">=</span><span class="s1">&#39;git checkout &#39;</span><span class="w"></span>
+<span class="k">alias</span><span class="w"> </span><span class="n">gp</span><span class="o">=</span><span class="s1">&#39;git push&#39;</span><span class="w"></span>
+<span class="k">alias</span><span class="w"> </span><span class="n">gl</span><span class="o">=</span><span class="ss">&quot;git log --all --pretty=format:&#39;%h %ad | %s%d [%an]&#39; --graph --date=short&quot;</span><span class="w"></span>
 </code></pre></div>
-
 
 <p><img alt="gl的效果" src="https://raw.githubusercontent.com/zjuchenyuan/notebook/master/download/img/gl.jpg" /></p>
 <p>完成一次提交，现在只需要<code>g "提交信息"</code></p>
@@ -1590,10 +1583,9 @@ git push
 <h2 id="bashdirty">设置bash中的自动完成与dirty提示<a class="headerlink" href="#bashdirty" title="Permanent link">&para;</a></h2>
 <p>此部分内容来自Udacity 如何使用 Git 和 GitHub 课程</p>
 <p>下载需要的文件</p>
-<div class="codehilite"><pre><span></span><code><span class="err">curl -O https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash</span>
-<span class="err">curl -O https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh</span>
+<div class="codehilite"><pre><span></span><code>curl -O https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
+curl -O https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
 </code></pre></div>
-
 
 <p>在<code>~/.bashrc</code>末尾添加：</p>
 <div class="codehilite"><pre><span></span><code><span class="n">source</span> <span class="o">~/</span><span class="n">git</span><span class="o">-</span><span class="n">completion</span><span class="o">.</span><span class="n">bash</span>
@@ -1605,7 +1597,6 @@ git push
 <span class="k">export</span> <span class="n">GIT_PS1_SHOWDIRTYSTATE</span><span class="o">=</span><span class="mi">1</span>
 <span class="k">export</span> <span class="n">PS1</span><span class="o">=</span><span class="s2">&quot;$purple\u$green\$(__git_ps1) \w</span><span class="se">\a</span><span class="s2"> $ $reset&quot;</span>
 </code></pre></div>
-
 
 <p>效果如图，如果出现了未提交的修改，会自动显示出*表示dirty：</p>
 <p><img alt="setgit.jpg" src="../download/img/setgit.jpg" /></p>
@@ -1621,15 +1612,14 @@ git push
 <p>其中commit_id可以从<code>git log</code>获得</p>
 <h3 id="git-reset-hard">恢复git reset &ndash;hard删除的文件<a class="headerlink" href="#git-reset-hard" title="Permanent link">&para;</a></h3>
 <p>git的历史是不能用命令修改的，丢失的commit用reflog可以找回，除非git已经把它当成垃圾删除（30天）</p>
-<div class="codehilite"><pre><span></span><code><span class="err">git stash save</span>
-<span class="err">git reflog # 查看丢失的那个commit的id</span>
-<span class="err">git checkout 那个commitid</span>
-<span class="err">git branch recover # 创建recover分支</span>
-<span class="err">git checkout master # 回到master</span>
-<span class="err">git merge recover # 合并recover到master</span>
-<span class="err">git branch -d recover # 合并完成后就可以删了</span>
+<div class="codehilite"><pre><span></span><code>git stash save
+git reflog # 查看丢失的那个commit的id
+git checkout 那个commitid
+git branch recover # 创建recover分支
+git checkout master # 回到master
+git merge recover # 合并recover到master
+git branch -d recover # 合并完成后就可以删了
 </code></pre></div>
-
 
 <hr />
 <h2 id="_3">你可能会问的一些问题<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
@@ -1651,23 +1641,20 @@ git push
 <h3 id="aliba">忽略*.a文件但不想忽略lib.a<a class="headerlink" href="#aliba" title="Permanent link">&para;</a></h3>
 <p>文档查看：<code>git gitignore --help</code></p>
 <p>!表示负向选择，在.gitignore中添加：</p>
-<div class="codehilite"><pre><span></span><code><span class="o">*</span><span class="p">.</span><span class="n">a</span>
-<span class="sx">!lib.a</span>
+<div class="codehilite"><pre><span></span><code><span class="o">*</span><span class="p">.</span><span class="n">a</span><span class="w"></span>
+<span class="sx">!lib.a</span><span class="w"></span>
 </code></pre></div>
-
 
 <h3 id="commit">commit补上忘掉的文件<a class="headerlink" href="#commit" title="Permanent link">&para;</a></h3>
 <p>如果发现上次commit漏了文件，不应该新加commit而是应该用amend，否则可能上CI就挂</p>
-<div class="codehilite"><pre><span></span><code><span class="err">git add forgotten.txt</span>
-<span class="err">git commit --amend</span>
+<div class="codehilite"><pre><span></span><code>git add forgotten.txt
+git commit --amend
 </code></pre></div>
-
 
 <h3 id="_4">查出此行代码的最后修改者<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>github提供的blame功能更好看，显示每行代码的作者和来源于哪次commit</p>
-<div class="codehilite"><pre><span></span><code><span class="err">git blame filename</span>
+<div class="codehilite"><pre><span></span><code>git blame filename
 </code></pre></div>
-
 
 <h3 id="commit_1">文件一次性改太多了，拆成多次commit<a class="headerlink" href="#commit_1" title="Permanent link">&para;</a></h3>
 <p>让每次commit保持在比较小的改动，不要在一个commit中出现两个不那么相关的修改</p>
@@ -1680,21 +1667,18 @@ git push
 <p>有时候我们不想让git追踪一些个人相关的文件，例如config中修改Debug=True，此时如果去修改.gitignore造成的影响是全局的，并且需要从git中删除这个文件；手动避开add config很烦，有没有更好的方法，让git忽略掉config文件的修改呢？</p>
 <p>方法是修改<code>.git/info/exclude</code>文件，这个文件的语法规则与.gitignore一样</p>
 <p>如果已经造成了修改，还需要执行以下命令：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">git update-index --assume-unchanged [&lt;file&gt;...]</span>
+<div class="codehilite"><pre><span></span><code>git update-index --assume-unchanged [&lt;file&gt;...]
 </code></pre></div>
-
 
 <h3 id="branchpushgit-push-u">本地创建branch后push操作git push -u<a class="headerlink" href="#branchpushgit-push-u" title="Permanent link">&para;</a></h3>
 <p>From: http://stackoverflow.com/questions/2765421/how-do-i-push-a-new-local-branch-to-a-remote-git-repository-and-track-it-too</p>
 <p>执行了一些修改引入新功能，但还不能工作，决定建立一个dev分支：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">git checkout -b dev</span>
+<div class="codehilite"><pre><span></span><code>git checkout -b dev
 </code></pre></div>
-
 
 <p>现在再执行<code>git add</code>，<code>git commit</code>后，需要把新的分支push给远程服务器：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">git push -u origin dev</span>
+<div class="codehilite"><pre><span></span><code>git push -u origin dev
 </code></pre></div>
-
 
 <hr />
 <h2 id="gpggit">用gpg给git提交签名<a class="headerlink" href="#gpggit" title="Permanent link">&para;</a></h2>
@@ -1702,22 +1686,19 @@ git push
 <p>下述以ubuntu16.04（其实是bash on win10）讲解整个过程</p>
 <h3 id="gpg2">安装gpg2<a class="headerlink" href="#gpg2" title="Permanent link">&para;</a></h3>
 <p>查看gpg版本：<code>gpg --version</code>发现版本是<code>gpg (GnuPG) 1.4.20</code>，而教程要求要2以上，所以先要安装gpg2，并告诉git我们要使用gpg2：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">apt install -y gpg2</span>
-<span class="err">git config --global gpg.program gpg2</span>
+<div class="codehilite"><pre><span></span><code>apt install -y gpg2
+git config --global gpg.program gpg2
 </code></pre></div>
-
 
 <h3 id="key">创建一个新的key<a class="headerlink" href="#key" title="Permanent link">&para;</a></h3>
 <p>这里github给出的命令有问题，google发现参数改了</p>
-<div class="codehilite"><pre><span></span><code><span class="err">gpg2 --full-gen-key</span>
+<div class="codehilite"><pre><span></span><code>gpg2 --full-gen-key
 </code></pre></div>
-
 
 <p>回车选择RSA and RSA，然后输入密钥大小输入4096，然后回车永不过期，确认y，然后输入自己的名字和邮箱 注意这里邮箱要和git commit用到的邮箱一致</p>
 <h3 id="key-github">导出key的公钥 在github设置中提交<a class="headerlink" href="#key-github" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="err">gpg2 --list-secret-keys --keyid-format LONG</span>
+<div class="codehilite"><pre><span></span><code>gpg2 --list-secret-keys --keyid-format LONG
 </code></pre></div>
-
 
 <p>如下输出中，我们需要的是3AA5C34371567BD2这一串 就是sec那一行的4096R/后面的东西</p>
 <div class="codehilite"><pre><span></span><code>$ gpg2 --list-secret-keys --keyid-format LONG
@@ -1728,37 +1709,32 @@ uid                          Hubot
 ssb   4096R/42B317FD4BA89E7A <span class="m">2016</span>-03-10
 </code></pre></div>
 
-
 <p>然后得到公钥：</p>
 <div class="codehilite"><pre><span></span><code><span class="n">gpg2</span> <span class="o">--</span><span class="n">armor</span> <span class="o">--</span><span class="k">export</span> <span class="mi">3</span><span class="n">AA5C34371567BD2</span>
 </code></pre></div>
-
 
 <p>复制屏幕上输出的一大串，打开下面的网页 粘贴提交</p>
 <p>https://github.com/settings/gpg/new</p>
 <h3 id="gitgpg">配置git使用gpg签名<a class="headerlink" href="#gitgpg" title="Permanent link">&para;</a></h3>
 <p>告诉git默认使用这个key：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">git config --global user.signingkey 3AA5C34371567BD2</span>
-<span class="err">git config --global commit.gpgsign true</span>
+<div class="codehilite"><pre><span></span><code>git config --global user.signingkey 3AA5C34371567BD2
+git config --global commit.gpgsign true
 </code></pre></div>
-
 
 <p>执行 建议将这一行写入~/.bashrc：</p>
 <div class="codehilite"><pre><span></span><code><span class="k">export</span> <span class="n">GPG_TTY</span><span class="o">=$</span><span class="p">(</span><span class="n">tty</span><span class="p">)</span>
 </code></pre></div>
-
 
 <p>然后就是正常的git add .，git commit -m &ldquo;message&rdquo;咯</p>
 <p>gpg-agent会在后台运行，默认10分钟内不需要再次输入密码</p>
 <h3 id="gpg">修改gpg要求再次输入密码的时间限制<a class="headerlink" href="#gpg" title="Permanent link">&para;</a></h3>
 <p>10分钟的默认限制还是太短了，对于安全性要求不高的情景（比如自己的开源代码push到github），不妨设置为密码一直有效，直到gpg-agent重启</p>
 <p>下面的设置将限制改到1年，当然gpg-agent重启还是要再次输入密码的：</p>
-<div class="codehilite"><pre><span></span><code><span class="n">vi</span> <span class="o">~/</span><span class="p">.</span><span class="n">gnupg</span><span class="o">/</span><span class="n">gpg</span><span class="o">-</span><span class="n">agent</span><span class="p">.</span><span class="n">conf</span>
+<div class="codehilite"><pre><span></span><code>vi ~/.gnupg/gpg-agent.conf
 
-<span class="k">default</span><span class="o">-</span><span class="k">cache</span><span class="o">-</span><span class="n">ttl</span> <span class="mi">34560000</span>
-<span class="k">max</span><span class="o">-</span><span class="k">cache</span><span class="o">-</span><span class="n">ttl</span> <span class="mi">34560000</span>
+default-cache-ttl 34560000
+max-cache-ttl 34560000
 </code></pre></div>
-
 
 <h2 id="gitlab-api">使用GitLab API存储数据备份文件 不占用本地空间<a class="headerlink" href="#gitlab-api" title="Permanent link">&para;</a></h2>
 <p>这里的需求是定时任务生成snapshot文件，打算传至免费存储作为备份，不想占用服务器硬盘去存储这个文件，也不想花钱买存储服务</p>
@@ -1788,46 +1764,41 @@ ssb   4096R/42B317FD4BA89E7A <span class="m">2016</span>-03-10
                 <span class="s1">&#39;encoding&#39;</span><span class="p">:</span> <span class="s1">&#39;base64&#39;</span><span class="p">}]</span>
 <span class="p">}</span>
 <span class="n">c</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">commits</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="gitgit-pull">在git服务器无法连接时点对点git pull<a class="headerlink" href="#gitgit-pull" title="Permanent link">&para;</a></h2>
 <p>情景：客户端A和B使用gitlab服务器S，然后某天S无法连上了，但A和B之间可以直接通讯。B上开发了新代码，想让A获取到这个更新，如何最方便简单地在A上同步B上的代码更新呢？</p>
 <p>解决方案：用python开个简单的http服务器然后添加http的remote进行pull，注意先要让git解压pack文件</p>
-<div class="codehilite"><pre><span></span><code><span class="err">git update-server-info</span>
-<span class="err">python3 -m http.server 6666</span>
-<span class="err">git remote add tmp http://ip-b:6666/.git/</span>
-<span class="err">git pull tmp master</span>
+<div class="codehilite"><pre><span></span><code>git update-server-info
+python3 -m http.server 6666
+git remote add tmp http://ip-b:6666/.git/
+git pull tmp master
 </code></pre></div>
-
 
 <p>问题来了：如果A访问不了B怎么办呢？通过<code>git format-patch HEAD~2..HEAD --stdout&gt;patchfile</code>生成patch文件再发过去<code>git am patchfile</code>，但这样可能会改变commit id</p>
 <hr />
 <h2 id="git_2">git禁用压缩<a class="headerlink" href="#git_2" title="Permanent link">&para;</a></h2>
 <p>如二进制的仓库不想使用压缩，参考: https://stackoverflow.com/questions/11483288/how-to-disable-compression-in-git-server-side</p>
-<div class="codehilite"><pre><span></span><code><span class="err">git config --add core.bigFileThreshold 1</span>
+<div class="codehilite"><pre><span></span><code>git config --add core.bigFileThreshold 1
 </code></pre></div>
-
 
 <hr />
 <h2 id="githubssh-key-ghclone">GitHub不同仓库使用不同ssh key: ghclone<a class="headerlink" href="#githubssh-key-ghclone" title="Permanent link">&para;</a></h2>
 <p>GitHub要求不同仓库的deploy key不同，但ssh config只能为一个Host设置相同的key</p>
 <p>从<a href="https://gist.github.com/gubatron/d96594d982c5043be6d4">这里</a>发现了一个trick：<code>*.github.com</code>都是可以正常解析到github的，这样就得到了无数个Host</p>
 <p>快速使用：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">curl https://d.py3.io/ghclone &gt; /usr/local/bin/ghclone</span>
-<span class="err">chmod +x /usr/local/bin/ghclone</span>
-<span class="err">ghclone user/repo</span>
+<div class="codehilite"><pre><span></span><code>curl https://d.py3.io/ghclone &gt; /usr/local/bin/ghclone
+chmod +x /usr/local/bin/ghclone
+ghclone user/repo
 </code></pre></div>
-
 
 <p>会为这个repo创建一个ssh key放在<code>~/.ssh</code>目录下，同时修改<code>~/.ssh/config</code>，然后显示出公钥，需要手动添加到github，最后回车就会开始git clone</p>
 <p>Done.</p>
 <p>如果是一个已经存在的仓库，最后一步不用回车Ctrl+C后:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">git remote set-url origin git@{repo}.github.com:{user}/{repo}.git</span>
+<div class="codehilite"><pre><span></span><code>git remote set-url origin git@{repo}.github.com:{user}/{repo}.git
 </code></pre></div>
-
 
 <h2 id="git_3">启动一个临时的Git服务器 本地之间同步<a class="headerlink" href="#git_3" title="Permanent link">&para;</a></h2>
 <p>场景： GitLab服务器宕机了，现在需要同步自己本地的修改到服务器上</p>
@@ -1841,7 +1812,6 @@ ssb   4096R/42B317FD4BA89E7A <span class="m">2016</span>-03-10
 <span class="n">git</span> <span class="n">pull</span> <span class="n">temp</span> <span class="k">master</span>
 </code></pre></div>
 
-
 <p>同步完成后就可以Ctrl+C关闭git服务了</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1852,10 +1822,9 @@ git pull的分支名称master也不能省略</p>
 <h2 id="githubstar">备份GitHub上自己star过的仓库<a class="headerlink" href="#githubstar" title="Permanent link">&para;</a></h2>
 <p>自从GitHub被微软收购后，似乎就崩得更频繁了，为了在这种情况下仍然能读代码，不妨跑一下定时脚本，自动pull指定仓库push到其他git服务上（如自行部署gitea）。</p>
 <p>获取自己star过的所有仓库：（依赖<code>apt install -y jq</code>）</p>
-<div class="codehilite"><pre><span></span><code><span class="k">for</span> i in <span class="sb">`</span>seq <span class="m">28</span><span class="sb">`</span><span class="p">;</span> <span class="k">do</span> curl <span class="s2">&quot;https://api.github.com/users/zjuchenyuan/starred?page=</span><span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="s2">&quot;</span> &gt;<span class="si">${</span><span class="nv">i</span><span class="si">}</span>.tmp<span class="p">;</span> <span class="k">done</span>
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> i <span class="k">in</span> <span class="sb">`</span>seq <span class="m">28</span><span class="sb">`</span><span class="p">;</span> <span class="k">do</span> curl <span class="s2">&quot;https://api.github.com/users/zjuchenyuan/starred?page=</span><span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="s2">&quot;</span> &gt;<span class="si">${</span><span class="nv">i</span><span class="si">}</span>.tmp<span class="p">;</span> <span class="k">done</span>
 cat *.tmp <span class="p">|</span>jq <span class="s1">&#39;.[].full_name&#39;</span> -r &gt; mystars.txt
 </code></pre></div>
-
 
 <p>sync.sh: </p>
 <p>从github clone或fetch对应的仓库，然后push到自己的git服务上，这里使用bare避免checkout导致的更多空间占用</p>
@@ -1881,12 +1850,10 @@ cat *.tmp <span class="p">|</span>jq <span class="s1">&#39;.[].full_name&#39;</s
 <span class="nb">cd</span> ..
 </code></pre></div>
 
-
 <h2 id="git-clonepushsshyes">git clone和push避免输入ssh询问的yes<a class="headerlink" href="#git-clonepushsshyes" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="err">mkdir -p ~/.ssh</span>
-<span class="err">ssh-keyscan 你的git服务地址 &gt;&gt; ~/.ssh/known_host</span>
+<div class="codehilite"><pre><span></span><code>mkdir -p ~/.ssh
+ssh-keyscan 你的git服务地址 &gt;&gt; ~/.ssh/known_host
 </code></pre></div>
-
 
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1898,10 +1865,9 @@ cat *.tmp <span class="p">|</span>jq <span class="s1">&#39;.[].full_name&#39;</s
 <p>按照官方给出的docker-compose部署即可，安装时需要留心：smtp的host需要包含端口，登录用户名是完整的邮箱</p>
 <p>然后需要修改配置，允许用户在push一个不存在的仓库时自动创建，参见<a href="https://github.com/go-gitea/gitea/issues/8162">这个issue</a> 和 <a href="https://docs.gitea.io/en-us/config-cheat-sheet/">conf配置文档</a></p>
 <p>需要在app.ini的<code>[repository]</code>一节中加入：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">ENABLE_PUSH_CREATE_USER = true</span>
-<span class="err">ENABLE_PUSH_CREATE_ORG = true</span>
+<div class="codehilite"><pre><span></span><code>ENABLE_PUSH_CREATE_USER = true
+ENABLE_PUSH_CREATE_ORG = true
 </code></pre></div>
-
 
 <div class="admonition warning">
 <p class="admonition-title">小心git bomb</p>
@@ -1939,7 +1905,6 @@ cat *.tmp <span class="p">|</span>jq <span class="s1">&#39;.[].full_name&#39;</s
     done
 }
 </code></pre></div>
-
 
 <p>用法：<code>git diff commit^ commit -U0|diff-lines</code></p>
                 

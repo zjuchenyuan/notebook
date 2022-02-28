@@ -1147,26 +1147,24 @@ PairCheck[9] 统计分析找资源acquire和release的pair，找错误处理中�
 <li>graciously 感谢其他人</li>
 </ul>
 <p>人家的idea：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">把程序变成一个能自己报告有没有发现新的basic block的——在每个基本块开头变成0xCC（encode the current frontier），触发了中断说明有新的覆盖率，需要停下fork server去掉这个中断再继续跑</span>
-<span class="err">做coverage-guided tracing</span>
-<span class="err">人家的实验其实不是在做fuzzing，而是先跑afl-qemu收集24小时所有生成的seed（5个不同的test case datasets），再改了afl只跑run_target，看不同的设计下耗时的区别</span>
-<span class="err">去掉噪音用的trimmed-mean denoising 去掉最大最小33%</span>
-<span class="err">实验是5个dataset,每个重复8次 </span>
-<span class="err">基于afl-dyninst实现，但是这玩意性能不行 所以跑的oracle程序fork server还是用afl-as插的</span>
-<span class="err">在tracer记录块的覆盖率的时候，一个块可能执行多次很大的overhead，于是搞了个全局的hashmap，和fork server共享 之后的进程就知道哪些才是unique-covered basic blocks</span>
-<span class="err">不懂的地方：为啥会尝试对同一个地方多次unmodify?  We observe that even coverage-increasing test cases often have significant overlaps in coverage. This causes UnTracer to attempt unmodifying many already-unmodified basic blocks, resulting in high overhead.</span>
-<span class="err">选择的fuzz文件类型：dev开发，图片，压缩data archiving，网络network utilities，音频，文档，密码学cryptography，web开发</span>
-<span class="err">timeout也是一个很重要的因素 如果timeout的文件太多 作者的优势就不明显了；实验设置为500ms的超时</span>
-<span class="c">比较的baseline: 只fork server不进行任何插桩，这是最快的 overhead是相对于这个baseline而言的</span>
+<div class="codehilite"><pre><span></span><code>把程序变成一个能自己报告有没有发现新的basic block的——在每个基本块开头变成0xCC（encode the current frontier），触发了中断说明有新的覆盖率，需要停下fork server去掉这个中断再继续跑
+做coverage-guided tracing
+人家的实验其实不是在做fuzzing，而是先跑afl-qemu收集24小时所有生成的seed（5个不同的test case datasets），再改了afl只跑run_target，看不同的设计下耗时的区别
+去掉噪音用的trimmed-mean denoising 去掉最大最小33%
+实验是5个dataset,每个重复8次 
+基于afl-dyninst实现，但是这玩意性能不行 所以跑的oracle程序fork server还是用afl-as插的
+在tracer记录块的覆盖率的时候，一个块可能执行多次很大的overhead，于是搞了个全局的hashmap，和fork server共享 之后的进程就知道哪些才是unique-covered basic blocks
+不懂的地方：为啥会尝试对同一个地方多次unmodify?  We observe that even coverage-increasing test cases often have significant overlaps in coverage. This causes UnTracer to attempt unmodifying many already-unmodified basic blocks, resulting in high overhead.
+选择的fuzz文件类型：dev开发，图片，压缩data archiving，网络network utilities，音频，文档，密码学cryptography，web开发
+timeout也是一个很重要的因素 如果timeout的文件太多 作者的优势就不明显了；实验设置为500ms的超时
+比较的baseline: 只fork server不进行任何插桩，这是最快的 overhead是相对于这个baseline而言的
 </code></pre></div>
-
 
 <p>后续要了解的：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">Intel PT硬件辅助[11],[4],[12]的覆盖率 overhead更小，缺点：需要一个支持的CPU，解码CFG日志耗时，只支持x86</span>
-<span class="err">Xuwen的优化操作系统的系统调用[61] fuzzer-agnostic operating primitives</span>
-<span class="err">程序改写AFL-lafIntel [70] unrolls magic bytes into single comparisons at compile-time, but currently only supports white-box binaries.</span>
+<div class="codehilite"><pre><span></span><code>Intel PT硬件辅助[11],[4],[12]的覆盖率 overhead更小，缺点：需要一个支持的CPU，解码CFG日志耗时，只支持x86
+Xuwen的优化操作系统的系统调用[61] fuzzer-agnostic operating primitives
+程序改写AFL-lafIntel [70] unrolls magic bytes into single comparisons at compile-time, but currently only supports white-box binaries.
 </code></pre></div>
-
 
 <p>三种覆盖率的计算方式：基本块，边，basic block path这一种没人做
 只记录basic block来推断边的信息，是有问题的：存在critical edges就不准确，需要先去掉critical edges才行 就是空的else也要当成一个块
@@ -1205,7 +1203,6 @@ PairCheck[9] 统计分析找资源acquire和release的pair，找错误处理中�
 <span class="err">这个方法还可以降低攻击面</span> <span class="err">去掉可选功能中的漏洞，减少</span><span class="n">ROP</span> <span class="n">gadget</span>
 </code></pre></div>
 
-
 <p>想做到五点：
 最小；耗时短；鲁棒不引入新的漏洞；生成的代码可维护可扩展；通用
 比静态分析动态coverage的都小；其他人超时我们都行；用静态分析工具和AFL测3天可以反馈loop；保留了modularity and locality；方法通用 和编程语言、规范无关</p>
@@ -1233,18 +1230,17 @@ feedback process 跑AFL的时候崩了 发现是罕见的情况 把这种测试�
 测试样例不完整may not be exhaustive enough 使用基于语法的fuzzer
 静态分析工具的unsoundness 不支持复杂的特性 如复杂的指针算术计算，未知语义的API调用导致的复杂控制流——结合多种静态分析工具</p>
 <p>更多方向</p>
-<div class="codehilite"><pre><span></span><code><span class="err">program reasoning 想知道是否引入了新的bug，包括静态分析 动态分析 fuzzing 运行时监控 验证</span>
-<span class="err">静态分析工具：Sparrow [13]—a static analyzer for finding security bugs 可以检测bug，还能移除不可达代码</span>
-<span class="err">程序debloating 粗粒度的Docker大容器拆解成多个小容器 需要动态分析应用行为[35]</span>
-<span class="err">更细粒度的有做Java [28]和Android [27]应用的 ；有避免载入不会用到的函数的[34] （函数级别的依赖分析）</span>
-<span class="err">另一个正交的方向：检测和减少运行时内存膨胀 [9,33,40-43]</span>
-<span class="err">输入样例的最小化 场景是测试编译器/解释器，产生能crash的更小的程序 不考虑安全性可读性</span>
-<span class="err">有工作考虑了语法的正确性[23,32,37] 但没考虑语义正确性</span>
-<span class="err">Program slicing 指定一个位置提取程序的一小部分 需要指定语义和依赖关系（challenging），也可能不能去掉漏洞 （这篇文章的方法更好）</span>
-<span class="err">静态可达性分析 不能处理复杂的控制流如间接调用、复杂条件和指针算术</span>
-<span class="err">动态可达性分析 这篇文章的方法更好</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">program</span> <span class="nv">reasoning</span> 想知道是否引入了新的<span class="nv">bug</span>，包括静态分析 动态分析 <span class="nv">fuzzing</span> 运行时监控 验证
+静态分析工具：<span class="nv">Sparrow</span> [<span class="mi">13</span>]—<span class="nv">a</span> <span class="nv">static</span> <span class="nv">analyzer</span> <span class="k">for</span> <span class="nv">finding</span> <span class="nv">security</span> <span class="nv">bugs</span> 可以检测<span class="nv">bug</span>，还能移除不可达代码
+程序<span class="nv">debloating</span> 粗粒度的<span class="nv">Docker</span>大容器拆解成多个小容器 需要动态分析应用行为[<span class="mi">35</span>]
+更细粒度的有做<span class="nv">Java</span> [<span class="mi">28</span>]和<span class="nv">Android</span> [<span class="mi">27</span>]应用的 ；有避免载入不会用到的函数的[<span class="mi">34</span>] （函数级别的依赖分析）
+另一个正交的方向：检测和减少运行时内存膨胀 [<span class="mi">9</span>,<span class="mi">33</span>,<span class="mi">40</span><span class="o">-</span><span class="mi">43</span>]
+输入样例的最小化 场景是测试编译器<span class="o">/</span>解释器，产生能<span class="nv">crash</span>的更小的程序 不考虑安全性可读性
+有工作考虑了语法的正确性[<span class="mi">23</span>,<span class="mi">32</span>,<span class="mi">37</span>] 但没考虑语义正确性
+<span class="nv">Program</span> <span class="nv">slicing</span> 指定一个位置提取程序的一小部分 需要指定语义和依赖关系（<span class="nv">challenging</span>），也可能不能去掉漏洞 （这篇文章的方法更好）
+静态可达性分析 不能处理复杂的控制流如间接调用、复杂条件和指针算术
+动态可达性分析 这篇文章的方法更好
 </code></pre></div>
-
 
 <p>future work: 
 more expressive probabilistic models with efficient incremental learning, 
@@ -1303,42 +1299,40 @@ FTI有没有用？ 实现一个基于DTA的镜像比较
 各个不同部分对结果的贡献 去掉优先策略，去掉conformance进化 三者比较
 selective fuzzing 比较执行速度</p>
 <p>其他Paper:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">DigFuzz[45] 用了符号执行 概率路径优先模型</span>
-<span class="err">TaintInduce[46]可以自动推测出propagation rules</span>
-<span class="err">ProFuzzer[42]也是一次变异一个字节 但只关注coverage变化 不能推断出污点的依赖关系 和FairFuzz[24]都能推断partial type of mutated bytes 但对这个分支是否已经到过是insensitive的</span>
-<span class="err">MutaFlow[26] 监测sink APIs的变化 参数是否被tainted</span>
-<span class="err">REDQUEEN[4] 能处理direct copy但不能找到精确的位置 需要百次运行来获得a colorized version with higher entropy 再测一遍获得位置 整个过程太慢</span>
-<span class="err">Intel-laf[1] 将长的比较分割成短的比较 但是带来更多语义相同的路径 不能处理非常量比较</span>
-<span class="err">SYMFUZZ[8] 可以检测input bits之间的依赖 计算出optimal mutation ratio</span>
+<div class="codehilite"><pre><span></span><code>DigFuzz[45] 用了符号执行 概率路径优先模型
+TaintInduce[46]可以自动推测出propagation rules
+ProFuzzer[42]也是一次变异一个字节 但只关注coverage变化 不能推断出污点的依赖关系 和FairFuzz[24]都能推断partial type of mutated bytes 但对这个分支是否已经到过是insensitive的
+MutaFlow[26] 监测sink APIs的变化 参数是否被tainted
+REDQUEEN[4] 能处理direct copy但不能找到精确的位置 需要百次运行来获得a colorized version with higher entropy 再测一遍获得位置 整个过程太慢
+Intel-laf[1] 将长的比较分割成短的比较 但是带来更多语义相同的路径 不能处理非常量比较
+SYMFUZZ[8] 可以检测input bits之间的依赖 计算出optimal mutation ratio
 </code></pre></div>
-
 
 <hr />
 <h2 id="vuzzer">VUzzer的变异操作<a class="headerlink" href="#vuzzer" title="Permanent link">&para;</a></h2>
 <p>https://github.com/vusec/vuzzer/blob/f6f7d593a0e76e86afb3c7af6d5186f897bab979/operators.py#L291</p>
 <p>这里我们分析一下vuzzer实现的变异操作，其所有operators为一个数组，每个元素都是一个函数</p>
 <p>同一个函数可以出现多次，排序后如下所示，我按照我的理解标注了功能：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">add_random 选择一个随机位置 插入随机字符串</span>
-<span class="err">add_random</span>
-<span class="err">add_random</span>
-<span class="err">change_bytes 根据TAINTMAP修改</span>
-<span class="err">change_bytes</span>
-<span class="err">change_random 选择一部分字节替换为随机字符串</span>
-<span class="err">change_random</span>
-<span class="err">change_random_full 选择一部分字节替换为随机字符串或从程序中提取出的magic bytes</span>
-<span class="err">change_random_full</span>
-<span class="err">double_fuzz 随机选择两种mutator</span>
-<span class="err">eliminate_double_null 删去\0\0</span>
-<span class="err">eliminate_null 将\0替换为A</span>
-<span class="err">eliminate_random 随机删去一部分</span>
-<span class="err">eliminate_random</span>
-<span class="err">int_slide 将特定位置变为 \xFF\xFF\xFF\xFF 或 \x80\x00\x00\x00 或 \x00\x00\x00\x00</span>
-<span class="err">lower_single_random 随机变异1~100次：每次选择一个随机字符变为其-1</span>
-<span class="err">raise_single_random 随机变异1~100次：每次选择一个随机字符变为其+1</span>
-<span class="err">single_change_random 随机变异1~100次：每次选择一个随机字符变为随机字符</span>
-<span class="err">totally_random 生成一个长度在100~1000的字符串</span>
+<div class="codehilite"><pre><span></span><code>add_random 选择一个随机位置 插入随机字符串
+add_random
+add_random
+change_bytes 根据TAINTMAP修改
+change_bytes
+change_random 选择一部分字节替换为随机字符串
+change_random
+change_random_full 选择一部分字节替换为随机字符串或从程序中提取出的magic bytes
+change_random_full
+double_fuzz 随机选择两种mutator
+eliminate_double_null 删去\0\0
+eliminate_null 将\0替换为A
+eliminate_random 随机删去一部分
+eliminate_random
+int_slide 将特定位置变为 \xFF\xFF\xFF\xFF 或 \x80\x00\x00\x00 或 \x00\x00\x00\x00
+lower_single_random 随机变异1~100次：每次选择一个随机字符变为其-1
+raise_single_random 随机变异1~100次：每次选择一个随机字符变为其+1
+single_change_random 随机变异1~100次：每次选择一个随机字符变为随机字符
+totally_random 生成一个长度在100~1000的字符串
 </code></pre></div>
-
 
 <hr />
 <h2 id="leaky-images-targeted-privacy-attacks-in-the-web">Leaky Images: Targeted Privacy Attacks in the Web<a class="headerlink" href="#leaky-images-targeted-privacy-attacks-in-the-web" title="Permanent link">&para;</a></h2>

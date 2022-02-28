@@ -1184,9 +1184,8 @@
                 <h1 id="flask">Flask 备忘<a class="headerlink" href="#flask" title="Permanent link">&para;</a></h1>
 <p>常用的一些操作，自己总结的，便于查阅</p>
 <h2 id="app_root">应用根目录APP_ROOT<a class="headerlink" href="#app_root" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="err">APP_ROOT = os.path.dirname(os.path.abspath(__file__))</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">APP_ROOT</span> <span class="o">=</span> <span class="nv">os</span>.<span class="nv">path</span>.<span class="k">dirname</span><span class="ss">(</span><span class="nv">os</span>.<span class="nv">path</span>.<span class="nv">abspath</span><span class="ss">(</span><span class="nv">__file__</span><span class="ss">))</span>
 </code></pre></div>
-
 
 <h2 id="approuteintpost">app.route里的int和POST<a class="headerlink" href="#approuteintpost" title="Permanent link">&para;</a></h2>
 <div class="codehilite"><pre><span></span><code><span class="nv">@app</span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="ss">&quot;/list/&lt;int:boardid&gt;&quot;</span><span class="p">)</span><span class="w"></span>
@@ -1196,7 +1195,6 @@
 <span class="n">post_param</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">int</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">form</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="ss">&quot;post_param&quot;</span><span class="p">,</span><span class="ss">&quot;0&quot;</span><span class="p">))</span><span class="w"></span>
 <span class="err">#</span><span class="w"> </span><span class="n">get参数用request</span><span class="p">.</span><span class="n">args</span><span class="w"></span>
 </code></pre></div>
-
 
 <h2 id="render_template">render_template引入所有全局变量+局部变量<a class="headerlink" href="#render_template" title="Permanent link">&para;</a></h2>
 <div class="codehilite"><pre><span></span><code><span class="nf">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">str</span><span class="w"></span>
@@ -1211,7 +1209,6 @@
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">render_template</span><span class="p">(</span><span class="ss">&quot;template.html&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">targs</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 
-
 <h2 id="_1">添加多个静态目录<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span><span class="p">,</span> <span class="n">Blueprint</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">redirect</span>
 <span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
@@ -1221,46 +1218,43 @@
     <span class="n">app</span><span class="o">.</span><span class="n">register_blueprint</span><span class="p">(</span><span class="n">blueprint</span><span class="p">)</span>
 </code></pre></div>
 
-
 <h2 id="gisphone">判断是否手机访问 g.isphone<a class="headerlink" href="#gisphone" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="err">@app.before_request</span>
-<span class="err">def before_request():</span>
-<span class="err">    ua = request.user_agent.string.lower()</span>
-<span class="err">    for mobileua in &quot;android|fennec|iemobile|iphone|opera mini|opera mobi|mobile&quot;.split(&quot;|&quot;):</span>
-<span class="err">        if mobileua in ua:</span>
-<span class="err">            g.isphone = True</span>
-<span class="err">            break</span>
-<span class="err">    else:</span>
-<span class="err">        g.isphone = False</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">@app</span><span class="p">.</span><span class="n">before_request</span><span class="w"></span>
+<span class="n">def</span><span class="w"> </span><span class="n">before_request</span><span class="p">()</span><span class="err">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">ua</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">request</span><span class="p">.</span><span class="n">user_agent</span><span class="p">.</span><span class="n">string</span><span class="p">.</span><span class="nf">lower</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">mobileua</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="ss">&quot;android|fennec|iemobile|iphone|opera mini|opera mobi|mobile&quot;</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="ss">&quot;|&quot;</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">mobileua</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nl">ua</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="n">g</span><span class="p">.</span><span class="n">isphone</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">True</span><span class="w"></span>
+<span class="w">            </span><span class="k">break</span><span class="w"></span>
+<span class="w">    </span><span class="k">else</span><span class="err">:</span><span class="w"></span>
+<span class="w">        </span><span class="n">g</span><span class="p">.</span><span class="n">isphone</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">False</span><span class="w"></span>
 </code></pre></div>
-
 
 <h2 id="get">限制特定get整数参数的取值<a class="headerlink" href="#get" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="err">def limit_param(param_name, default_value, minvalue, maxvalue):</span>
-<span class="err">    &quot;&quot;&quot;</span>
-<span class="err">    example: p = limit_param(&quot;p&quot;, 1, 1, 5)</span>
-<span class="err">    &quot;&quot;&quot;</span>
-<span class="err">    if maxvalue&lt;minvalue:</span>
-<span class="err">        maxvalue = minvalue</span>
-<span class="err">    try:</span>
-<span class="err">        data = int(request.args.get(param_name, default_value))</span>
-<span class="err">    except:</span>
-<span class="err">        data = default_value</span>
-<span class="err">    if data&lt;minvalue:</span>
-<span class="err">        data = minvalue</span>
-<span class="err">    elif data &gt; maxvalue:</span>
-<span class="err">        data = maxvalue</span>
-<span class="err">    return data</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">def</span> <span class="nv">limit_param</span><span class="ss">(</span><span class="nv">param_name</span>, <span class="nv">default_value</span>, <span class="nv">minvalue</span>, <span class="nv">maxvalue</span><span class="ss">)</span>:
+    <span class="s2">&quot;&quot;&quot;</span>
+    <span class="nv">example</span>: <span class="nv">p</span> <span class="o">=</span> <span class="nv">limit_param</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">p</span><span class="s2">&quot;</span>, <span class="mi">1</span>, <span class="mi">1</span>, <span class="mi">5</span><span class="ss">)</span>
+    <span class="s2">&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nv">maxvalue</span><span class="o">&lt;</span><span class="nv">minvalue</span>:
+        <span class="nv">maxvalue</span> <span class="o">=</span> <span class="nv">minvalue</span>
+    <span class="nv">try</span>:
+        <span class="nv">data</span> <span class="o">=</span> <span class="nv">int</span><span class="ss">(</span><span class="nv">request</span>.<span class="nv">args</span>.<span class="nv">get</span><span class="ss">(</span><span class="nv">param_name</span>, <span class="nv">default_value</span><span class="ss">))</span>
+    <span class="nv">except</span>:
+        <span class="nv">data</span> <span class="o">=</span> <span class="nv">default_value</span>
+    <span class="k">if</span> <span class="nv">data</span><span class="o">&lt;</span><span class="nv">minvalue</span>:
+        <span class="nv">data</span> <span class="o">=</span> <span class="nv">minvalue</span>
+    <span class="nv">elif</span> <span class="nv">data</span> <span class="o">&gt;</span> <span class="nv">maxvalue</span>:
+        <span class="nv">data</span> <span class="o">=</span> <span class="nv">maxvalue</span>
+    <span class="k">return</span> <span class="nv">data</span>
 </code></pre></div>
-
 
 <h2 id="decorator">要求登录的decorator<a class="headerlink" href="#decorator" title="Permanent link">&para;</a></h2>
 <p>用法: <code>@require_login()</code> 注意使用时添加到<code>@app.route</code>行的后面</p>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">functools</span>
 <span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">session</span><span class="p">,</span> <span class="n">abort</span><span class="p">,</span> <span class="n">redirect</span>
-<span class="k">def</span> <span class="nf">require_login</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;login first&quot;</span><span class="p">,</span> <span class="n">jumptologin</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">require_login</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;login first&quot;</span><span class="p">,</span> <span class="n">jumptologin</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">real_decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
-        <span class="nd">@functools.wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+        <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
         <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
             <span class="k">if</span> <span class="s2">&quot;username&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">session</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">jumptologin</span><span class="p">:</span>
@@ -1274,7 +1268,6 @@
         <span class="k">return</span> <span class="n">wrapper</span>
     <span class="k">return</span> <span class="n">real_decorator</span>
 </code></pre></div>
-
 
 <h2 id="import">import引入列表<a class="headerlink" href="#import" title="Permanent link">&para;</a></h2>
 <div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span><span class="p">,</span> <span class="n">Blueprint</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">redirect</span><span class="p">,</span> <span class="n">Markup</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">abort</span><span class="p">,</span> <span class="n">Response</span><span class="p">,</span> <span class="n">make_response</span><span class="p">,</span> <span class="n">send_file</span><span class="p">,</span> <span class="n">jsonify</span>
@@ -1294,34 +1287,31 @@
 <span class="kn">import</span> <span class="nn">json</span>
 </code></pre></div>
 
-
 <h2 id="requesturl">request怎么拿到url的各个部分<a class="headerlink" href="#requesturl" title="Permanent link">&para;</a></h2>
 <p>来自https://stackoverflow.com/questions/15974730/how-do-i-get-the-different-parts-of-a-flask-requests-url</p>
 <p>request:</p>
 <p><code>curl -XGET http://127.0.0.1:5000/alert/dingding/test?x=y</code></p>
 <p>then:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">request</span><span class="p">.</span><span class="k">method</span><span class="p">:</span>              <span class="k">GET</span>
-<span class="n">request</span><span class="p">.</span><span class="n">url</span><span class="p">:</span>                 <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mi">127</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="p">:</span><span class="mi">5000</span><span class="o">/</span><span class="n">alert</span><span class="o">/</span><span class="n">dingding</span><span class="o">/</span><span class="n">test</span><span class="o">?</span><span class="n">x</span><span class="o">=</span><span class="n">y</span>
-<span class="n">request</span><span class="p">.</span><span class="n">base_url</span><span class="p">:</span>            <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mi">127</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="p">:</span><span class="mi">5000</span><span class="o">/</span><span class="n">alert</span><span class="o">/</span><span class="n">dingding</span><span class="o">/</span><span class="n">test</span>
-<span class="n">request</span><span class="p">.</span><span class="n">url_charset</span><span class="p">:</span>         <span class="n">utf</span><span class="o">-</span><span class="mi">8</span>
-<span class="n">request</span><span class="p">.</span><span class="n">url_root</span><span class="p">:</span>            <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mi">127</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="p">:</span><span class="mi">5000</span><span class="o">/</span>
-<span class="n">str</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">url_rule</span><span class="p">):</span>       <span class="o">/</span><span class="n">alert</span><span class="o">/</span><span class="n">dingding</span><span class="o">/</span><span class="n">test</span>
-<span class="n">request</span><span class="p">.</span><span class="n">host_url</span><span class="p">:</span>            <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mi">127</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="p">:</span><span class="mi">5000</span><span class="o">/</span>
-<span class="n">request</span><span class="p">.</span><span class="k">host</span><span class="p">:</span>                <span class="mi">127</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="p">:</span><span class="mi">5000</span>
-<span class="n">request</span><span class="p">.</span><span class="n">script_root</span><span class="p">:</span>
-<span class="n">request</span><span class="p">.</span><span class="n">path</span><span class="p">:</span>                <span class="o">/</span><span class="n">alert</span><span class="o">/</span><span class="n">dingding</span><span class="o">/</span><span class="n">test</span>
-<span class="n">request</span><span class="p">.</span><span class="n">full_path</span><span class="p">:</span>           <span class="o">/</span><span class="n">alert</span><span class="o">/</span><span class="n">dingding</span><span class="o">/</span><span class="n">test</span><span class="o">?</span><span class="n">x</span><span class="o">=</span><span class="n">y</span>
+<div class="codehilite"><pre><span></span><code>request.method:              GET
+request.url:                 http://127.0.0.1:5000/alert/dingding/test?x=y
+request.base_url:            http://127.0.0.1:5000/alert/dingding/test
+request.url_charset:         utf-8
+request.url_root:            http://127.0.0.1:5000/
+str(request.url_rule):       /alert/dingding/test
+request.host_url:            http://127.0.0.1:5000/
+request.host:                127.0.0.1:5000
+request.script_root:
+request.path:                /alert/dingding/test
+request.full_path:           /alert/dingding/test?x=y
 
-<span class="n">request</span><span class="p">.</span><span class="n">args</span><span class="p">:</span>                <span class="n">ImmutableMultiDict</span><span class="p">([(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">)])</span>
-<span class="n">request</span><span class="p">.</span><span class="n">args</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">):</span>       <span class="n">y</span>
+request.args:                ImmutableMultiDict([(&#39;x&#39;, &#39;y&#39;)])
+request.args.get(&#39;x&#39;):       y
 </code></pre></div>
-
 
 <h2 id="request">request其他的部分<a class="headerlink" href="#request" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="err">request.get_data()    POST内容 bytes类型</span>
-<span class="err">request.endpoint      处理这个请求的函数名称</span>
+<div class="codehilite"><pre><span></span><code>request.get_data()    POST内容 bytes类型
+request.endpoint      处理这个请求的函数名称
 </code></pre></div>
-
 
 <hr />
 <h2 id="profiling">遇到性能瓶颈做profiling看函数耗时<a class="headerlink" href="#profiling" title="Permanent link">&para;</a></h2>
@@ -1331,14 +1321,7 @@
 <li>先安装python3对应的uwsgi：<code>apt install uwsgi-plugin-python3</code></li>
 <li>写一个python脚本包装app，如<code>profiler_app.py</code>：</li>
 </ol>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4
-5
-6
-7
-8</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="ch">#!/usr/bin/python3</span>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/usr/bin/python3</span>
 <span class="kn">from</span> <span class="nn">app</span> <span class="kn">import</span> <span class="n">app</span>
 <span class="kn">from</span> <span class="nn">dozer</span> <span class="kn">import</span> <span class="n">Profiler</span>
 <span class="n">appx</span> <span class="o">=</span> <span class="n">Profiler</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">profile_path</span><span class="o">=</span><span class="s2">&quot;/tmp/profiles&quot;</span><span class="p">)</span>
@@ -1347,7 +1330,6 @@
     <span class="kn">import</span> <span class="nn">os</span>
     <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;uwsgi -w profiler_app:appx --http :80&quot;</span><span class="p">)</span>
 </code></pre></div>
-</td></tr></table>
 
 <ol start="3">
 <li>别忘记<code>mkdir /tmp/profiles</code> 然后就可以启动了<code>python3 profiler_app.py</code></li>
@@ -1368,19 +1350,18 @@
     <span class="n">id_str</span> <span class="o">=</span> <span class="n">threadname</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;worker&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;core&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">id_str</span><span class="p">)</span>
 
-<span class="n">HAS_INITED</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="n">HAS_INITED</span> <span class="o">=</span> <span class="kc">False</span>
 
-<span class="nd">@app.route</span><span class="p">(</span><span class="s2">&quot;/lazyinit&quot;</span><span class="p">)</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/lazyinit&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">lazyinit</span><span class="p">():</span>
     <span class="n">workerid</span> <span class="o">=</span> <span class="n">get_workerid</span><span class="p">()</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">HAS_INITED</span><span class="p">:</span> <span class="c1"># skip init if has already initialized</span>
         <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># do real init code...</span>
-        <span class="n">HAS_INITED</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="n">HAS_INITED</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">workerid</span><span class="p">)</span>
 </code></pre></div>
-
 
 <p>这是反复请求的代码，重复请求最多100次，直到所有4个进程都已经触发，其中uwsgi的workerid是从1开始计数的</p>
 <div class="codehilite"><pre><span></span><code><span class="n">MAX_TRIES</span> <span class="o">=</span> <span class="mi">100</span>
@@ -1388,15 +1369,14 @@
 
 <span class="kn">import</span> <span class="nn">requests</span>
 <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">status</span> <span class="o">=</span> <span class="p">[</span><span class="bp">False</span><span class="p">]</span><span class="o">*</span><span class="n">PROCESS_COUNT</span>
+<span class="n">status</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span><span class="p">]</span><span class="o">*</span><span class="n">PROCESS_COUNT</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">MAX_TRIES</span><span class="p">):</span>
     <span class="nb">id</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;http://127.0.0.1/lazyinit?id=&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span><span class="o">.</span><span class="n">text</span>
     <span class="nb">id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
-    <span class="n">status</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">status</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">status</span><span class="p">):</span>
         <span class="k">break</span>
 </code></pre></div>
-
 
 <h2 id="apprunhttp11">让app.run启动的服务器使用HTTP/1.1<a class="headerlink" href="#apprunhttp11" title="Permanent link">&para;</a></h2>
 <p>就是这个问题： https://www.reddit.com/r/flask/comments/634i5u/make_flask_return_header_response_with_http11/</p>
@@ -1410,14 +1390,12 @@
 <span class="n">BaseHTTPRequestHandler</span><span class="o">.</span><span class="n">protocol_version</span> <span class="o">=</span> <span class="s2">&quot;HTTP/1.1&quot;</span>
 </code></pre></div>
 
-
 <h2 id="render_template_1">让render_template直接能使用当前所有变量<a class="headerlink" href="#render_template_1" title="Permanent link">&para;</a></h2>
 <p>一种直接的做法：注意顺序 局部变量优先于全局变量</p>
-<div class="codehilite"><pre><span></span><code><span class="err">targs = globals()</span>
-<span class="err">targs.update(locals())</span>
-<span class="err">render_template(&quot;x.html&quot;, **targs)</span>
+<div class="codehilite"><pre><span></span><code>targs = globals()
+targs.update(locals())
+render_template(&quot;x.html&quot;, **targs)
 </code></pre></div>
-
 
 <p>然而这样需要每个视图函数都写这三行，不够优雅</p>
 <p>不如试试：获取调用者的局部变量 https://stackoverflow.com/questions/6618795/get-locals-from-calling-namespace-in-python</p>
@@ -1429,7 +1407,6 @@
     <span class="n">targs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">backframe</span><span class="o">.</span><span class="n">f_locals</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="o">**</span><span class="n">targs</span><span class="p">)</span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="flaskeventsource">在Flask中正确地产生流式响应EventSource<a class="headerlink" href="#flaskeventsource" title="Permanent link">&para;</a></h2>
@@ -1445,7 +1422,6 @@
 <span class="n">def</span><span class="w"> </span><span class="n">stream</span><span class="p">()</span><span class="err">:</span><span class="w"></span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">queue_consumer</span><span class="p">(),</span><span class="w"> </span><span class="n">mimetype</span><span class="o">=</span><span class="ss">&quot;text/event-stream&quot;</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
-
 
 <p>这个的问题在于关闭连接不会执行到，在消息队列服务器上观察到channel一直没有释放，这肯定不行，我们需要在浏览器断开连接的时候自动释放conn等资源。</p>
 <p>读了 werkzeug 的源代码发现 Response 有 call_on_close 函数，在连接关闭的时候我们把生成器close即可触发yield的异常：</p>
@@ -1467,7 +1443,6 @@
 <span class="w">    </span><span class="n">res</span><span class="p">.</span><span class="n">call_on_close</span><span class="p">(</span><span class="n">onclose</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">res</span><span class="w"></span>
 </code></pre></div>
-
 
 <p>这样还不够，发现无法使用g，以及Nginx默认缓存响应导致延迟，需要继续配置：</p>
 <div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">queue_consumer</span><span class="p">()</span><span class="err">:</span><span class="w"></span>
@@ -1491,17 +1466,15 @@
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">res</span><span class="w"></span>
 </code></pre></div>
 
-
 <p>这些Nginx配置你也可能需要加上：尤其是还有下一层反代的时候</p>
-<div class="codehilite"><pre><span></span><code><span class="n">uwsgi_pass_header</span> <span class="ss">&quot;X-Accel-Buffering&quot;</span><span class="p">;</span>
-<span class="n">uwsgi_read_timeout</span> <span class="mi">120</span><span class="n">s</span><span class="p">;</span>
-<span class="n">uwsgi_send_timeout</span> <span class="mi">120</span><span class="n">s</span><span class="p">;</span>
+<div class="codehilite"><pre><span></span><code>uwsgi_pass_header &quot;X-Accel-Buffering&quot;;
+uwsgi_read_timeout 120s;
+uwsgi_send_timeout 120s;
 
-<span class="n">proxy_http_version</span> <span class="mi">1</span><span class="p">.</span><span class="mi">1</span><span class="p">;</span>
-<span class="n">proxy_set_header</span> <span class="k">Connection</span> <span class="ss">&quot;&quot;</span><span class="p">;</span>
-<span class="n">proxy_pass_header</span> <span class="ss">&quot;X-Accel-Buffering&quot;</span><span class="p">;</span>
+proxy_http_version 1.1;
+proxy_set_header Connection &quot;&quot;;
+proxy_pass_header &quot;X-Accel-Buffering&quot;;
 </code></pre></div>
-
 
 <hr />
 <h2 id="flaskcookie">Flask跨域Cookie<a class="headerlink" href="#flaskcookie" title="Permanent link">&para;</a></h2>
@@ -1512,20 +1485,19 @@
 <li>https://github.com/pallets/werkzeug/issues/1549</li>
 <li>https://stackoverflow.com/questions/62992831/python-session-samesite-none-not-being-set</li>
 </ul>
-<div class="codehilite"><pre><span></span><code><span class="err">resp.set_cookie(&#39;cross-site-cookie&#39;, &#39;bar&#39;, samesite=&#39;None&#39;, secure=True)</span>
-<span class="err">resp.headers.add(&#39;Set-Cookie&#39;,&#39;cross-site-cookie=bar; SameSite=None; Secure&#39;)</span>
+<div class="codehilite"><pre><span></span><code>resp.set_cookie(&#39;cross-site-cookie&#39;, &#39;bar&#39;, samesite=&#39;None&#39;, secure=True)
+resp.headers.add(&#39;Set-Cookie&#39;,&#39;cross-site-cookie=bar; SameSite=None; Secure&#39;)
 </code></pre></div>
-
 
 <p>Flask的session cookie也要跨域的话：</p>
 <div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">session</span>
 <span class="kn">from</span> <span class="nn">flask.sessions</span> <span class="kn">import</span> <span class="n">SecureCookieSessionInterface</span>
 
 <span class="n">session_cookie</span> <span class="o">=</span> <span class="n">SecureCookieSessionInterface</span><span class="p">()</span><span class="o">.</span><span class="n">get_signing_serializer</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
-<span class="nd">@app.after_request</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">after_request</span>
 <span class="k">def</span> <span class="nf">cookies</span><span class="p">(</span><span class="n">response</span><span class="p">):</span>
     <span class="n">same_cookie</span> <span class="o">=</span> <span class="n">session_cookie</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">session</span><span class="p">))</span>
-    <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;Set-Cookie&quot;</span><span class="p">,</span> <span class="n">f</span><span class="s2">&quot;session={same_cookie}; Secure; HttpOnly; SameSite=None; Path=/;&quot;</span><span class="p">)</span>
+    <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;Set-Cookie&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;session=</span><span class="si">{</span><span class="n">same_cookie</span><span class="si">}</span><span class="s2">; Secure; HttpOnly; SameSite=None; Path=/;&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">response</span>
 </code></pre></div>
                 

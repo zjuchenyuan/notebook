@@ -1816,19 +1816,17 @@
 <p>PTA没有提供详细的报错，你都不知道错哪了怎么改，建议你试试本文提到的错误，记住错误信息下次遇到也就不慌了</p>
 <p>本地Python跑成功再提交提高效率，省点时间</p>
 <h2 id="_2">全角的符号<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="err">a=int（input（））</span>
-<span class="err">b=int（input（））</span>
-<span class="err">print(a+b)</span>
+<div class="codehilite"><pre><span></span><code>a=int（input（））
+b=int（input（））
+print(a+b)
 </code></pre></div>
-
 
 <p>报错：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">  File &quot;&lt;stdin&gt;&quot;, line 1</span>
-<span class="err">    a=int（input（））</span>
-<span class="err">                 ^</span>
-<span class="c">SyntaxError: invalid character in identifier</span>
+<div class="codehilite"><pre><span></span><code>  File &quot;&lt;stdin&gt;&quot;, line 1
+    a=int（input（））
+                 ^
+SyntaxError: invalid character in identifier
 </code></pre></div>
-
 
 <p>看出<code>(</code>与<code>（</code>的区别了嘛，Python语言的括号要求半角的括号</p>
 <p><strong>解决方案： 关掉中文输入法！</strong></p>
@@ -1839,30 +1837,28 @@
 <p>用法是<code>map(目标函数，列表)</code></p>
 <p>返回 列表每个元素调用目标函数的结果的<strong>迭代器 iterator</strong>，再用list可以得到列表</p>
 <p>举个例子题目要在一行中输入多个整数</p>
-<div class="codehilite"><pre><span></span><code><span class="o">#</span> <span class="n">map实际上返回的是迭代器</span><span class="err">，被读到的时候才会真正调用目标函数，想得到列表还需要用</span><span class="n">list</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="k">input</span><span class="p">().</span><span class="n">split</span><span class="p">())</span>
-<span class="mi">222</span> <span class="mi">444</span>
-<span class="o">&lt;</span><span class="k">map</span> <span class="k">object</span> <span class="k">at</span> <span class="mi">0</span><span class="n">x000001D87FB4DAC8</span><span class="o">&gt;</span>
+<div class="codehilite"><pre><span></span><code># map实际上返回的是迭代器，被读到的时候才会真正调用目标函数，想得到列表还需要用list
+&gt;&gt;&gt; map(int, input().split())
+222 444
+&lt;map object at 0x000001D87FB4DAC8&gt;
 
-<span class="o">&gt;&gt;&gt;</span> <span class="n">list</span><span class="p">(</span><span class="k">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="k">input</span><span class="p">().</span><span class="n">split</span><span class="p">()))</span>
-<span class="mi">222</span> <span class="mi">444</span>
-<span class="p">[</span><span class="mi">222</span><span class="p">,</span> <span class="mi">444</span><span class="p">]</span>
+&gt;&gt;&gt; list(map(int, input().split()))
+222 444
+[222, 444]
 
-<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="k">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="k">input</span><span class="p">().</span><span class="n">split</span><span class="p">())</span>
-<span class="mi">333</span> <span class="mi">555</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span>
-<span class="mi">333</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span>
-<span class="mi">555</span>
+&gt;&gt;&gt; a, b = map(int, input().split())
+333 555
+&gt;&gt;&gt; a
+333
+&gt;&gt;&gt; b
+555
 </code></pre></div>
-
 
 <h2 id="_3">不要输出任何多余的提示信息<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="err">A=int(input(&#39;被加数&#39;))</span>
-<span class="err">B=int(input(&#39;加数&#39;))</span>
-<span class="err">print(A+B)</span>
+<div class="codehilite"><pre><span></span><code>A=int(input(&#39;被加数&#39;))
+B=int(input(&#39;加数&#39;))
+print(A+B)
 </code></pre></div>
-
 
 <p>PTA判题就是判断你程序的输出是否 <strong>和标准答案完全一致 完全一致 完全一致</strong></p>
 <p>题目没有要求你输出<code>被加数</code>这种提示信息，你就啥也别输出，不要画蛇添足！ </p>
@@ -1870,92 +1866,79 @@
 <h2 id="input_1">input函数返回的是字符串<a class="headerlink" href="#input_1" title="Permanent link">&para;</a></h2>
 <p>别忘了把字符串转成你需要的类型，比如int()</p>
 <p>字符串加字符串是拼接， 字符串不能和整数相加</p>
-<div class="codehilite"><pre><span></span><code><span class="err">&gt;&gt;&gt; &quot;1&quot;+&quot;2&quot;</span>
-<span class="err">&#39;12&#39;</span>
-<span class="err">&gt;&gt;&gt; 1+2</span>
-<span class="err">3</span>
-<span class="err">&gt;&gt;&gt; &quot;1&quot;+2</span>
-<span class="err">Traceback (most recent call last):</span>
-<span class="err">  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span>
-<span class="c">TypeError: can only concatenate str (not &quot;int&quot;) to str</span>
+<div class="codehilite"><pre><span></span><code>&gt;&gt;&gt; &quot;1&quot;+&quot;2&quot;
+&#39;12&#39;
+&gt;&gt;&gt; 1+2
+3
+&gt;&gt;&gt; &quot;1&quot;+2
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+TypeError: can only concatenate str (not &quot;int&quot;) to str
 </code></pre></div>
-
 
 <h2 id="int-c">注意类型转换的int是要调用的 和C语言不一样<a class="headerlink" href="#int-c" title="Permanent link">&para;</a></h2>
 <p>这是C语言的语法，Python不支持</p>
-<div class="codehilite"><pre><span></span><code><span class="err">sum = (int)x + (int)y</span>
+<div class="codehilite"><pre><span></span><code>sum = (int)x + (int)y
 </code></pre></div>
-
 
 <p>应该写：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">sum = int(x) + int(y)</span>
+<div class="codehilite"><pre><span></span><code>sum = int(x) + int(y)
 </code></pre></div>
-
 
 <p>另外 不建议命名为sum，因为sum本身是Python的内置函数 你赋值了就不能再调用原来的sum函数了</p>
 <p>如果你覆盖了sum之后再去调用sum函数 会报错</p>
-<div class="codehilite"><pre><span></span><code><span class="err">&gt;&gt;&gt; sum=1</span>
-<span class="err">&gt;&gt;&gt; sum([1,2])</span>
-<span class="err">Traceback (most recent call last):</span>
-<span class="err">  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span>
-<span class="c">TypeError: &#39;int&#39; object is not callable</span>
+<div class="codehilite"><pre><span></span><code>&gt;&gt;&gt; sum=1
+&gt;&gt;&gt; sum([1,2])
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+TypeError: &#39;int&#39; object is not callable
 </code></pre></div>
-
 
 <p>你还可以这么做：用map和列表推导式</p>
-<div class="codehilite"><pre><span></span><code><span class="err">s = sum(map(int, [x,y]))</span>
-<span class="err">s = sum([int(i) for i in [x,y]])</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">s</span> <span class="o">=</span> <span class="nv">sum</span><span class="ss">(</span><span class="nv">map</span><span class="ss">(</span><span class="nv">int</span>, [<span class="nv">x</span>,<span class="nv">y</span>]<span class="ss">))</span>
+<span class="nv">s</span> <span class="o">=</span> <span class="nv">sum</span><span class="ss">(</span>[<span class="nv">int</span><span class="ss">(</span><span class="nv">i</span><span class="ss">)</span> <span class="k">for</span> <span class="nv">i</span> <span class="nv">in</span> [<span class="nv">x</span>,<span class="nv">y</span>]]<span class="ss">)</span>
 </code></pre></div>
-
 
 <h2 id="_4">注意括号的匹配<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="err">a,b,c=map(int,(input().split())</span>
+<div class="codehilite"><pre><span></span><code>a,b,c=map(int,(input().split())
 </code></pre></div>
-
 
 <p>多了一个(， 细心一点即可 报错：</p>
 <div class="codehilite"><pre><span></span><code><span class="n">SyntaxError</span><span class="o">:</span> <span class="n">unexpected</span> <span class="n">EOF</span> <span class="k">while</span> <span class="n">parsing</span>
 </code></pre></div>
 
-
 <h2 id="_5">方法是需要调用的<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="err">a,b,c=input().split</span>
+<div class="codehilite"><pre><span></span><code>a,b,c=input().split
 </code></pre></div>
-
 
 <p>末尾少了() 报错：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">Traceback (most recent call last):</span>
-<span class="err">  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span>
-<span class="c">TypeError: cannot unpack non-iterable builtin_function_or_method object</span>
+<div class="codehilite"><pre><span></span><code>Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+TypeError: cannot unpack non-iterable builtin_function_or_method object
 </code></pre></div>
-
 
 <h2 id="_6">注意缩进 不能有多余空格<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="err">s=&quot;Python语言简单易学&quot;  </span>
-<span class="err">     print(s)</span>
+<div class="codehilite"><pre><span></span><code>s=&quot;Python语言简单易学&quot;  
+     print(s)
 </code></pre></div>
-
 
 <p>第二行多了前面的空格，会报错：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">  File &quot;&lt;stdin&gt;&quot;, line 1</span>
-<span class="err">    print(s)</span>
-<span class="err">    ^</span>
-<span class="c">IndentationError: unexpected indent</span>
+<div class="codehilite"><pre><span></span><code>  File &quot;&lt;stdin&gt;&quot;, line 1
+    print(s)
+    ^
+IndentationError: unexpected indent
 </code></pre></div>
-
 
 <hr />
 <h2 id="print">print的用法<a class="headerlink" href="#print" title="Permanent link">&para;</a></h2>
 <p>错误示例：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">print(sum = s)</span>
+<div class="codehilite"><pre><span></span><code>print(sum = s)
 </code></pre></div>
-
 
 <p>你要站在语言开发者的角度思考，你括号里sum表示的是字面意思上的&rdquo;sum&rdquo;字符串呢还是内置的sum函数呢？语言的设计要保证没有歧义</p>
 <p>正确的写法：需要原样输出的都要加上引号！</p>
 <div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;sum =&quot;</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
 </code></pre></div>
-
 
 <p>这个题目要求等号两边有空格，如果没有注意到这一点会<strong>格式错误</strong></p>
 <p>print可以接受不定数量的参数，在输出的时候<strong>每个参数之间会加上空格</strong>，所以上述字符串里等号<strong>右边是不写空格</strong>的</p>
@@ -1963,7 +1946,6 @@
 <p>上述写法可以替换成：</p>
 <div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span> <span class="sa">f</span><span class="s2">&quot;sum = </span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">&quot;</span> <span class="p">)</span>
 </code></pre></div>
-
 
 <p>注意到字符串引号前面的f，说明这个字符串是一个模板，Python遇到这个字符串会自动把s的值填进去。</p>
 <p>f-string在Python3.7里面引入，PTA是支持的，如果你的Python版本低于3.7，你可以用这些通用的写法（只是不够美观了）：</p>
@@ -1973,17 +1955,14 @@
 <span class="c1"># 如果用在函数里，你可能想输出全局变量，未完待续</span>
 </code></pre></div>
 
-
 <h3 id="_7">注意引号括号的匹配，尤其是变得复杂的时候<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
 <p>错误示例 看看引号的结束位置</p>
-<div class="codehilite"><pre><span></span><code><span class="err">print(f&#39;f({x:.1f}) = {1/x:.1f&#39;})</span>
+<div class="codehilite"><pre><span></span><code>print(f&#39;f({x:.1f}) = {1/x:.1f&#39;})
 </code></pre></div>
-
 
 <p>正确的写法是</p>
 <div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;f(</span><span class="si">{</span><span class="n">x</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">) = </span><span class="si">{</span><span class="mi">1</span><span class="o">/</span><span class="n">x</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </code></pre></div>
-
 
 <h2 id="forifelse">for,if,else右边都要有分号，每个分号的下一行增加缩进<a class="headerlink" href="#forifelse" title="Permanent link">&para;</a></h2>
 <p>错误示例</p>
@@ -1998,7 +1977,6 @@
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;cost = </span><span class="si">%.2f</span><span class="s2">&quot;</span> <span class="o">%</span>  <span class="n">cost</span><span class="p">)</span>
 </code></pre></div>
 
-
 <p>elif里面的print没有缩进，else必须和elif和if平级，之间的代码必须更多缩进</p>
 <p>修改方法：去掉上面的print或者两处print都增加缩进</p>
 <h2 id="_8">继续强调 不要出现中文括号<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
@@ -2010,12 +1988,10 @@
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Invalid Value!&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-
 <p>Python的if也不需要括号，直接写就行</p>
 <div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="n">x</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Invalid Value!&quot;</span><span class="p">)</span>
 </code></pre></div>
-
 
 <h2 id="return-0">不要出现return 0<a class="headerlink" href="#return-0" title="Permanent link">&para;</a></h2>
 <p>如果你一定要让程序立刻退出，用<code>exit(0)</code>，效果等价于C语言main函数里<code>return 0;</code></p>
@@ -2026,9 +2002,8 @@
 <p>你需要<code>float(input())</code></p>
 <h3 id="_10">看清题目输入的格式<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
 <p>比如题目输入的例子是这样的</p>
-<div class="codehilite"><pre><span></span><code><span class="err">  1,  5</span>
+<div class="codehilite"><pre><span></span><code>  1,  5
 </code></pre></div>
-
 
 <p>你就不能用 <code>a,b=input().split()</code></p>
 <p>而应该 <code>a,b=input().split(',')</code></p>
@@ -2042,7 +2017,6 @@ Invalid.</p>
 <div class="codehilite"><pre><span></span><code><span class="n">cost</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Invalid Value!&quot;</span> <span class="k">if</span> <span class="n">m</span><span class="o">&lt;</span><span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;cost = &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">format</span><span class="p">(</span><span class="mf">0.53</span> <span class="o">*</span> <span class="n">cost</span> <span class="o">+</span> <span class="p">(</span><span class="mi">0</span> <span class="k">if</span> <span class="n">cost</span> <span class="o">&lt;=</span> <span class="mi">50</span> <span class="k">else</span> <span class="mf">0.05</span> <span class="o">*</span> <span class="p">(</span><span class="n">cost</span><span class="o">-</span><span class="mi">50</span><span class="p">)),</span><span class="s1">&#39;.2f&#39;</span><span class="p">)))</span>
 </code></pre></div>
-
 
 <p>代码是给人看的，这种写法不容易看出哪里出错了，老老实实写if呗</p>
 <p>这个错误是未定义的m</p>
@@ -2068,19 +2042,17 @@ Invalid.</p>
 <span class="ne">TypeError</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span> <span class="nb">object</span> <span class="n">cannot</span> <span class="n">be</span> <span class="n">interpreted</span> <span class="k">as</span> <span class="n">an</span> <span class="n">integer</span>
 </code></pre></div>
 
-
 <h2 id="join">字符串的join 需要每个元素都是字符串<a class="headerlink" href="#join" title="Permanent link">&para;</a></h2>
 <p>你不能<code>",".join([1,2,3])</code> 会报错：<code>TypeError: sequence item 0: expected str instance, int found</code></p>
 <p>你可以先转换成str： <code>",".join([str(i) for i in [1,2,3]])</code></p>
 <h2 id="_15">注意边缘情况<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h2>
 <p>题目说的 输出格式 要认真体会</p>
 <p>首先顺序输出从A到B的所有整数，每5个数字占一行，每个数字占5个字符宽度，向右对齐。最后在一行中按Sum = X的格式输出全部数字的和X。</p>
-<div class="codehilite"><pre><span></span><code><span class="err">   -3   -2   -1    0    1</span>
-<span class="err">    2    3    4    5    6</span>
-<span class="err">    7    8</span>
-<span class="err">Sum = 30</span>
+<div class="codehilite"><pre><span></span><code>   -3   -2   -1    0    1
+    2    3    4    5    6
+    7    8
+Sum = 30
 </code></pre></div>
-
 
 <p>你考虑到最后一行正好凑满5个整数，你会多输出一个空行吗？</p>
 <p>另外这个题目暗含着 每行末尾不能有空格 的要求，你能用<code>end=' '</code>吗?</p>
@@ -2098,9 +2070,8 @@ Invalid.</p>
 <p>附带知识点：python里 <code>a&lt;x&lt;b</code>  等价于 <code>a&lt;x and x&lt;b</code> </p>
 <h2 id="_19">字符串比较大小是个坑<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h2>
 <p>这个东西是True还是False?</p>
-<div class="codehilite"><pre><span></span><code><span class="err">&quot;2&quot;&gt;&quot;11&quot;</span>
+<div class="codehilite"><pre><span></span><code>&quot;2&quot;&gt;&quot;11&quot;
 </code></pre></div>
-
 
 <p>答案是True，震惊！2居然比11大？！ </p>
 <p>注意这是两个<strong>字符串之间的比较</strong>，字符串的比较规则是 <strong>逐字符比较，相同就继续比较，遇到一个不相同就得出最终的比较结论</strong>。</p>
@@ -2114,7 +2085,6 @@ Invalid.</p>
     <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
 </code></pre></div>
 
-
 <p>上述代码正确吗？会输出<code>1 2 3</code>嘛？</p>
 <p>.sort()返回的是None，不能用来迭代；这是一个原地排序，直接修改原数组，不会创建新的数组</p>
 <p>对于上述代码，你需要用sorted(x)；这不会修改原数组，而是创建了一个新的数组</p>
@@ -2124,7 +2094,6 @@ Invalid.</p>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </code></pre></div>
-
 
 <p>输出是<code>1 2 3 [3, 1, 2]</code>，可以看出使用sorted不会修改原来的x</p>
 <h2 id="_20">格式化字符串们<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h2>
@@ -2137,7 +2106,6 @@ Invalid.</p>
 <span class="s1">&#39; 1.20&#39;</span>
 </code></pre></div>
 
-
 <p>点就是小数点，点2就是小数点后保留两位小数，前面还有一个5是啥呢，表示整体不够5位就左边用空格补齐5位，注意上述输出左边是有一个空格的。</p>
 <p>如果用format，可以看出写法基本相同，这是右对齐用<code>&gt;</code></p>
 <div class="codehilite"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="s2">&quot;</span><span class="si">%-5.2f</span><span class="s2">&quot;</span><span class="o">%</span><span class="mf">1.2</span>
@@ -2146,19 +2114,16 @@ Invalid.</p>
 <span class="s1">&#39;1.20 &#39;</span>
 </code></pre></div>
 
-
 <p>加了一个负号，变成了右边补空格；这是左对齐所以用<code>&lt;</code></p>
 <h3 id="_21">那我要居中怎么办<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="s2">&quot;</span><span class="si">{:^7s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;xyz&quot;</span><span class="p">)</span>
 <span class="s1">&#39;  xyz  &#39;</span>
 </code></pre></div>
 
-
 <p>那就用^呗，这是按Shift+6按出来的符号</p>
 <h3 id="_22">格式化字符串想输出几个变量就要写几个<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code><span class="s2">&quot;</span><span class="si">{:d}{:&gt;6.1f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fahr</span><span class="p">,</span> <span class="n">celsius</span><span class="p">)</span>
 </code></pre></div>
-
 
 <p>这里有两个变量要输出，所以要两个格式化字符串</p>
 <h2 id="thonny">Thonny的用法<a class="headerlink" href="#thonny" title="Permanent link">&para;</a></h2>
@@ -2175,7 +2140,6 @@ Invalid.</p>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;All Passed!&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-
 <p>flag=1是一个初始化语句，放在循环里面就会导致每次循环都进行初始化，就变成了只要最后一个身份证没错最后flag就是1，你会错误的输出All Passed!</p>
 <p><strong>变量的初始化需要在进入循环之前做完</strong></p>
 <h2 id="_24">学会拆分问题 大而化小<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h2>
@@ -2189,7 +2153,6 @@ Invalid.</p>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
     <span class="n">s</span> <span class="o">+=</span> <span class="n">getna</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
 </code></pre></div>
-
 
 <p>然后我们再去实现getna这个函数，这个函数就干一件事情——输入a和n，输出aaa&hellip;a(n个a)这么一个整数</p>
 <p>输入a=&lsquo;5&rsquo;,n=4，输出5555</p>
@@ -2205,12 +2168,10 @@ Invalid.</p>
     <span class="k">return</span> <span class="n">res</span>
 </code></pre></div>
 
-
 <p>测试一下自己对不对：</p>
 <div class="codehilite"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">getna</span><span class="p">(</span><span class="s2">&quot;5&quot;</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
 <span class="mi">5555</span>
 </code></pre></div>
-
 
 <p>最后把两部分拼起来就行咯</p>
 <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">getna</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
@@ -2233,7 +2194,6 @@ Invalid.</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 </code></pre></div>
 
-
 <p>当然这个题目有简化做法：</p>
 <p>n个a这个整数用 字符串乘以数字得到字符串 再int转整数<code>int(str(a)*int(n))</code></p>
 <p>从2到n每次递增2，用range(2,n+1,2)</p>
@@ -2243,36 +2203,32 @@ Invalid.</p>
 <span class="nb">print</span><span class="p">(</span> <span class="nb">sum</span><span class="p">([</span> <span class="nb">int</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="p">])</span> <span class="p">)</span>
 </code></pre></div>
 
-
 <h2 id="andor">混在一起的and和or<a class="headerlink" href="#andor" title="Permanent link">&para;</a></h2>
 <p>and的优先级比or高</p>
-<div class="codehilite"><pre><span></span><code><span class="n">x</span><span class="o">=</span><span class="mi">5</span>
-<span class="n">y</span><span class="o">=</span><span class="k">False</span>
-<span class="n">z</span><span class="o">=</span><span class="k">False</span>
+<div class="codehilite"><pre><span></span><code>x=5
+y=False
+z=False
 
-<span class="n">print</span><span class="p">(</span><span class="n">x</span> <span class="k">or</span> <span class="n">y</span> <span class="k">and</span> <span class="n">z</span><span class="p">)</span>
+print(x or y and z)
 </code></pre></div>
-
 
 <p>这个等价于print(x or (y and z)) 先计算False and False是False，然后x or False因为x是真的 结果就是x</p>
 <p>输出5</p>
 <h3 id="a-and-b">a and b<a class="headerlink" href="#a-and-b" title="Permanent link">&para;</a></h3>
 <p>返回的只可能是a和b之间的一个，a是真的就返回b，a是假的就返回a</p>
-<div class="codehilite"><pre><span></span><code><span class="err">&gt;&gt;&gt; 1 and 6</span>
-<span class="err">6</span>
-<span class="err">&gt;&gt;&gt; [] and 6</span>
-<span class="err">[]</span>
+<div class="codehilite"><pre><span></span><code>&gt;&gt;&gt; 1 and 6
+6
+&gt;&gt;&gt; [] and 6
+[]
 </code></pre></div>
-
 
 <h3 id="a-or-b">a or b<a class="headerlink" href="#a-or-b" title="Permanent link">&para;</a></h3>
 <p>返回的只可能是a和b之间的一个，a是真的就返回a，a是假的就返回b</p>
-<div class="codehilite"><pre><span></span><code><span class="err">&gt;&gt;&gt; 1 or 6</span>
-<span class="err">1</span>
-<span class="err">&gt;&gt;&gt; [].sort() or 6</span>
-<span class="err">6</span>
+<div class="codehilite"><pre><span></span><code>&gt;&gt;&gt; 1 or 6
+1
+&gt;&gt;&gt; [].sort() or 6
+6
 </code></pre></div>
-
 
 <p>还记得上面说的.sort()返回None吗？ None是假的噢</p>
 <h3 id="_25">哪些东西是假的？<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h3>
@@ -2307,7 +2263,6 @@ Invalid.</p>
     <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
 </code></pre></div>
 
-
 <h3 id="1resultprintresult">方案1：把要输出的东西暂时存到数组result里，最后<code>print(*result)</code><a class="headerlink" href="#1resultprintresult" title="Permanent link">&para;</a></h3>
 <p>题目要求我们输出1 2 3，末尾不能有空格</p>
 <div class="codehilite"><pre><span></span><code><span class="n">result</span><span class="o">=</span><span class="p">[]</span>
@@ -2315,7 +2270,6 @@ Invalid.</p>
     <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="o">*</span><span class="n">result</span><span class="p">)</span>
 </code></pre></div>
-
 
 <p>这里用到了符号<code>*</code>，在调用函数的时候使用星号表示把这个数组拆开，数组的每个元素都作为函数的参数</p>
 <p>假设<code>result=[1,2,3]</code>，<code>print([1,2,3])</code>会输出<code>[1, 2, 3]</code> 两边有方框 不是我们要的</p>
@@ -2333,7 +2287,6 @@ Invalid.</p>
     <span class="k">else</span><span class="p">:</span> <span class="c1"># 后续的元素 先输出一个空格</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="c1">#等价于print(&#39; &#39;+str(i), end=&#39;&#39;)</span>
 </code></pre></div>
-
 
 <h2 id="printn">如何正确地换行 print(&lsquo;\n&rsquo;)是不行的<a class="headerlink" href="#printn" title="Permanent link">&para;</a></h2>
 <p>上面我们都是在一行里输出，现在我们要开始下一行了，你很可能想<code>print('\n')</code></p>
@@ -2363,23 +2316,21 @@ Invalid.</p>
 <span class="w">    </span><span class="k">print</span><span class="p">(</span><span class="n">z</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 
-
 <p>例如这个判断上三角的，先看这代码的本质——循环里面有循环，外层循环（range t）是多个矩阵，内层循环（row和col）用来遍历矩阵</p>
 <p>那问题来了，内层循环的cnt作用在单个矩阵里面，不同矩阵之间不能相互干扰，也就是说cnt应该在进入row循环之前初始化！把cnt=0移动到第9行之前即可</p>
 <p>再打个比方，我们要计算多个班级分别的平均分，需要对班级内的每个学生累加到sum_score，那你就需要在 进入这个班级的循环后 对班级内每个学生遍历的循环前 对sum_score 进行初始化 sum_score=0；如果你提早做了，上个班级的总分就会加入到下个班级，不合适吧</p>
-<div class="codehilite"><pre><span></span><code><span class="err">n=int(input())</span>
-<span class="err">data=[int(input()) for i in range(n)]</span>
-<span class="err">a=2</span>
-<span class="err">for i in data:</span>
-<span class="err">    while a&lt;i:</span>
-<span class="err">        if i%a==0:</span>
-<span class="err">            print(&#39;No&#39;)</span>
-<span class="err">            break</span>
-<span class="err">        a=a+1</span>
-<span class="err">    else:</span>
-<span class="err">        print(&#39;Yes&#39;)</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">n</span><span class="o">=</span><span class="nv">int</span><span class="ss">(</span><span class="nv">input</span><span class="ss">())</span>
+<span class="nv">data</span><span class="o">=</span>[<span class="nv">int</span><span class="ss">(</span><span class="nv">input</span><span class="ss">())</span> <span class="k">for</span> <span class="nv">i</span> <span class="nv">in</span> <span class="nv">range</span><span class="ss">(</span><span class="nv">n</span><span class="ss">)</span>]
+<span class="nv">a</span><span class="o">=</span><span class="mi">2</span>
+<span class="k">for</span> <span class="nv">i</span> <span class="nv">in</span> <span class="nv">data</span>:
+    <span class="k">while</span> <span class="nv">a</span><span class="o">&lt;</span><span class="nv">i</span>:
+        <span class="k">if</span> <span class="nv">i</span><span class="o">%</span><span class="nv">a</span><span class="o">==</span><span class="mi">0</span>:
+            <span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">No</span><span class="s1">&#39;</span><span class="ss">)</span>
+            <span class="k">break</span>
+        <span class="nv">a</span><span class="o">=</span><span class="nv">a</span><span class="o">+</span><span class="mi">1</span>
+    <span class="k">else</span>:
+        <span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">Yes</span><span class="s1">&#39;</span><span class="ss">)</span>
 </code></pre></div>
-
 
 <p>这是另一个例子，判断素数，每个素数的判断应该是独立的，需要把a=2移动到<code>for i in data:</code>循环开始之后 <code>while a&lt;i</code>循环开始之前</p>
 <p>简而言之：哪个循环负责这个变量，就在这个循环之前做初始化，保证外层循环互不干扰</p>
@@ -2400,37 +2351,35 @@ Invalid.</p>
     <span class="k">return</span> <span class="kc">True</span>
 </code></pre></div>
 
-
 <p>不要把素数判断的代码和其他代码混在一起，求求你写个函数吧！ 写了函数之后你可以自己调用函数去测试啊，如图所示，我写了之后就会自己构造一些数据去测试。 <strong>测试  测试 测试</strong></p>
 <div class="codehilite"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">math</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">isPrime</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
 <span class="o">...</span>     <span class="k">if</span> <span class="n">n</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
-<span class="o">...</span>         <span class="k">return</span> <span class="bp">False</span>
+<span class="o">...</span>         <span class="k">return</span> <span class="kc">False</span>
 <span class="o">...</span>     <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-<span class="o">...</span>         <span class="k">return</span> <span class="bp">True</span>
+<span class="o">...</span>         <span class="k">return</span> <span class="kc">True</span>
 <span class="o">...</span>     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)):</span>
 <span class="o">...</span>         <span class="k">if</span> <span class="n">n</span><span class="o">%</span><span class="n">i</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
-<span class="o">...</span>             <span class="k">return</span> <span class="bp">False</span>
-<span class="o">...</span>     <span class="k">return</span> <span class="bp">True</span>
+<span class="o">...</span>             <span class="k">return</span> <span class="kc">False</span>
+<span class="o">...</span>     <span class="k">return</span> <span class="kc">True</span>
 <span class="o">...</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">isPrime</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="bp">False</span>
+<span class="kc">False</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">isPrime</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="bp">True</span>
+<span class="kc">True</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">isPrime</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="bp">True</span>
+<span class="kc">True</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">isPrime</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-<span class="bp">False</span>
+<span class="kc">False</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">isPrime</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-<span class="bp">True</span>
+<span class="kc">True</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">isPrime</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
-<span class="bp">False</span>
+<span class="kc">False</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">isPrime</span><span class="p">(</span><span class="mi">101</span><span class="p">)</span>
-<span class="bp">True</span>
+<span class="kc">True</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">isPrime</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
-<span class="bp">False</span>
+<span class="kc">False</span>
 </code></pre></div>
-
 
 <h2 id="_31">运行超时怎么破？<a class="headerlink" href="#_31" title="Permanent link">&para;</a></h2>
 <h3 id="_32">记住判断素数可以开根号啊！<a class="headerlink" href="#_32" title="Permanent link">&para;</a></h3>

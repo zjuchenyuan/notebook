@@ -1371,9 +1371,8 @@
 <p>发现自己经常需要在当前路径下打开bash，之前我都是在地址栏输入bash回车 但这样的副作用是不能再方便地复制当前路径了</p>
 <p>现在我将bash添加到右键菜单 只需鼠标点击两次即可打开bash</p>
 <p>regedit定位到</p>
-<div class="codehilite"><pre><span></span><code><span class="err">计算机\HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Directory\background\shell\</span>
+<div class="codehilite"><pre><span></span><code>计算机\HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Directory\background\shell\
 </code></pre></div>
-
 
 <p>新建项bash 再在bash中新建项command 修改command的默认为<code>bash</code></p>
 <p>顺带可以把在此处打开命令窗口给显示出来：同一个文件夹里面有个cmd 但还有一些其他项 删掉即可</p>
@@ -1415,9 +1414,8 @@
 <hr />
 <h2 id="bash-on-win10">Bash On Win10<a class="headerlink" href="#bash-on-win10" title="Permanent link">&para;</a></h2>
 <h3 id="mount">mount挂载其他分区<a class="headerlink" href="#mount" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="err">mount -t drvfs D: /mnt/d</span>
+<div class="codehilite"><pre><span></span><code>mount -t drvfs D: /mnt/d
 </code></pre></div>
-
 
 <hr />
 <h2 id="vmware-vcenter-converter">VMware vCenter Converter<a class="headerlink" href="#vmware-vcenter-converter" title="Permanent link">&para;</a></h2>
@@ -1450,11 +1448,9 @@
 <span class="n">Await</span><span class="w"> </span><span class="p">(</span><span class="err">$</span><span class="n">bluetooth</span><span class="p">.</span><span class="n">SetStateAsync</span><span class="p">(</span><span class="err">$</span><span class="n">BluetoothStatus</span><span class="p">))</span><span class="w"> </span><span class="p">(</span><span class="o">[</span><span class="n">Windows.Devices.Radios.RadioAccessStatus</span><span class="o">]</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">Out</span><span class="o">-</span><span class="k">Null</span><span class="w"></span>
 </code></pre></div>
 
-
 <p>开启蓝牙：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">powershell -ExecutionPolicy Bypass -File ./b.ps1 -BluetoothStatus On</span>
+<div class="codehilite"><pre><span></span><code>powershell -ExecutionPolicy Bypass -File ./b.ps1 -BluetoothStatus On
 </code></pre></div>
-
 
 <p>关闭就是Off</p>
 <hr />
@@ -1463,11 +1459,10 @@
 <p>HKEY_CLASSES_ROOT\Directory\Background\shell\WSL</p>
 <p>删除其中的Extended项即可，可能没有权限需要先获得所有权再给自己权限，<a href="https://www.ithome.com/html/win10/282909.htm">参考</a></p>
 <p>附上默认的command:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">wsl.exe --cd &quot;%V&quot;</span>
-<span class="err">powershell.exe -noexit -command Set-Location -literalPath &#39;%V&#39;</span>
-<span class="err">cmd.exe /s /k pushd &quot;%V&quot;</span>
+<div class="codehilite"><pre><span></span><code>wsl.exe --cd &quot;%V&quot;
+powershell.exe -noexit -command Set-Location -literalPath &#39;%V&#39;
+cmd.exe /s /k pushd &quot;%V&quot;
 </code></pre></div>
-
 
 <hr />
 <h2 id="sshfs">sshfs挂载远程目录<a class="headerlink" href="#sshfs" title="Permanent link">&para;</a></h2>
@@ -1475,37 +1470,32 @@
 <p>相比玄学的windows共享，还是ssh更加简单靠谱，只是有时候ssh.exe会CPU100%卡住，需要任务管理器kill</p>
 <p>使用前需要先让ssh开启密码验证，你可以使用<code>ssh -i /dev/null</code>去连接测试能否登录</p>
 <p>可以用多个<code>..\</code>挂载上级目录</p>
-<div class="codehilite"><pre><span></span><code><span class="err">net use h: \\sshfs\root@ip!2222\..\</span>
+<div class="codehilite"><pre><span></span><code><span class="n">net</span><span class="w"> </span><span class="k">use</span><span class="w"> </span><span class="nl">h</span><span class="p">:</span><span class="w"> </span><span class="err">\\</span><span class="n">sshfs</span><span class="err">\</span><span class="n">root</span><span class="nv">@ip</span><span class="err">!</span><span class="mi">2222</span><span class="err">\</span><span class="p">..</span><span class="err">\</span><span class="w"></span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="windows">命令行windows时间同步<a class="headerlink" href="#windows" title="Permanent link">&para;</a></h2>
 <p>参考： https://answers.microsoft.com/en-us/windows/forum/windows_10-other_settings/how-to-force-windows-10-time-to-synch-with-a-time/20f3b546-af38-42fb-a2d0-d4df13cc8f43</p>
-<div class="codehilite"><pre><span></span><code><span class="err">net start w32time</span>
-<span class="err">w32tm /register</span>
-<span class="err">w32tm /resync</span>
+<div class="codehilite"><pre><span></span><code><span class="n">net</span> <span class="n">start</span> <span class="n">w32time</span>
+<span class="n">w32tm</span> <span class="o">/</span><span class="n">register</span>
+<span class="n">w32tm</span> <span class="o">/</span><span class="n">resync</span>
 </code></pre></div>
-
 
 <p>同时，你可能想要将Windows Time服务设置为自动启动</p>
 <hr />
 <h2 id="windows_1">Windows激活<a class="headerlink" href="#windows_1" title="Permanent link">&para;</a></h2>
 <p>查看激活信息：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">slmgr.vbs /dli</span>
+<div class="codehilite"><pre><span></span><code>slmgr.vbs /dli
 </code></pre></div>
-
 
 <p>设置kms服务器地址：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">slmgr.vbs /skms 10.203.8.58</span>
-<span class="err">slmgr.vbs /ato</span>
+<div class="codehilite"><pre><span></span><code>slmgr.vbs /skms 10.203.8.58
+slmgr.vbs /ato
 </code></pre></div>
-
 
 <p>查看过期时间：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">slmgr.vbs /xpr</span>
+<div class="codehilite"><pre><span></span><code>slmgr.vbs /xpr
 </code></pre></div>
-
 
 <hr />
 <h2 id="bitlocker">查看BitLocker加密进度<a class="headerlink" href="#bitlocker" title="Permanent link">&para;</a></h2>

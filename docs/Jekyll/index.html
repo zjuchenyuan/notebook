@@ -1039,7 +1039,6 @@ public class HelloWorld {
 <span class="p">{%</span><span class="w"> </span><span class="nt">endhighlight</span><span class="w"> </span><span class="p">%}</span>
 </code></pre></div>
 
-
 <p>效果如下：(由于现在已经不再使用Jekyll，所以看不出了23333）</p>
 <p>{% highlight java linenos %}
 public class HelloWorld {
@@ -1055,36 +1054,33 @@ public class HelloWorld {
 </ul>
 </blockquote>
 <p>在执行build或serve时，会给出这样的Warning:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">GitHub Metadata: No GitHub API authentication could be found. Some fields may be missing or have incorrect data.</span>
+<div class="codehilite"><pre><span></span><code>GitHub Metadata: No GitHub API authentication could be found. Some fields may be missing or have incorrect data.
 </code></pre></div>
-
 
 <p>解决方法详细版请见上述链接，简要版：在Github的设置中得到一个能访问公开repo的token，用以下命令配置环境变量，其中abc123改为自己的token</p>
 <div class="codehilite"><pre><span></span><code><span class="nb">export</span> <span class="nv">JEKYLL_GITHUB_TOKEN</span><span class="o">=</span><span class="s1">&#39;abc123&#39;</span>
 </code></pre></div>
 
-
 <h2 id="markdown">解决Markdown有序列表被文字间隔的问题<a class="headerlink" href="#markdown" title="Permanent link">&para;</a></h2>
 <p>参考： http://stackoverflow.com/questions/18088955/markdown-continue-numbered-list</p>
 <p>在写3. 之前加入相应的编号控制：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">{:start=&quot;3&quot;}</span>
+<div class="codehilite"><pre><span></span><code>{:start=&quot;3&quot;}
 </code></pre></div>
-
 
 <hr />
 <h1 id="jekyll_1">安装Jekyll<a class="headerlink" href="#jekyll_1" title="Permanent link">&para;</a></h1>
 <p>搜索jekyll发现官网<a href="https://jekyllrb.com/">https://jekyllrb.com/</a></p>
 <p>安装过程一点都不简单， 我的系统环境：ubuntu16.04 on win10</p>
 <p>安装命令参考官网及<a href="https://gems.ruby-china.org/">国内镜像 Ruby China</a>，还踩了<a href="https://stackoverflow.com/questions/4304438/gem-install-failed-to-build-gem-native-extension-cant-find-header-files">坑1</a>, <a href="https://github.com/flapjack/omnibus-flapjack/issues/72">坑2</a></p>
-<div class="codehilite"><pre><span></span><code><span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">ruby</span> <span class="n">ruby</span><span class="o">-</span><span class="n">dev</span> <span class="n">zlib1g</span><span class="o">-</span><span class="n">dev</span> <span class="n">nodejs</span> <span class="o">#</span> <span class="err">其中</span><span class="n">zlib是安装依赖nokogiri</span><span class="err">（这个依赖编译特别慢）所必须的，其中</span><span class="n">nodejs是需要的javascript运行环境</span>
-<span class="n">gem</span> <span class="k">update</span> <span class="c1">--system # 这里请翻墙一下</span>
-<span class="n">gem</span> <span class="n">sources</span> <span class="c1">--add https://gems.ruby-china.org/ --remove https://rubygems.org/</span>
-<span class="n">gem</span> <span class="n">install</span> <span class="n">jekyll</span> <span class="n">bundler</span>
+<div class="codehilite"><pre><span></span><code>apt install -y ruby ruby-dev zlib1g-dev nodejs # 其中zlib是安装依赖nokogiri（这个依赖编译特别慢）所必须的，其中nodejs是需要的javascript运行环境
+gem update --system # 这里请翻墙一下
+gem sources --add https://gems.ruby-china.org/ --remove https://rubygems.org/
+gem install jekyll bundler
 
-<span class="o">#</span> <span class="err">配置</span><span class="n">github</span><span class="o">-</span><span class="n">pages所需的Gemfile</span><span class="err">，也使用国内镜像源</span>
-<span class="n">echo</span> <span class="ss">&quot;&quot;&quot;source &#39;https://gems.ruby-china.org&#39;</span>
-<span class="ss">gem &#39;github-pages&#39;, group: :jekyll_plugins&quot;&quot;&quot;</span><span class="o">&gt;</span><span class="n">Gemfile</span>
-<span class="n">bundle</span> <span class="n">install</span> <span class="o">#</span> <span class="err">耐心等待编译</span>
+# 配置github-pages所需的Gemfile，也使用国内镜像源
+echo &quot;&quot;&quot;source &#39;https://gems.ruby-china.org&#39;
+gem &#39;github-pages&#39;, group: :jekyll_plugins&quot;&quot;&quot;&gt;Gemfile
+bundle install # 耐心等待编译
 </code></pre></div>
                 
               

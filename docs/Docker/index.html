@@ -1965,12 +1965,10 @@
 <span class="mi">7</span><span class="n">z</span> <span class="n">x</span> <span class="o">-</span><span class="n">so</span> <span class="o">$</span><span class="n">IMAGE</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="mi">7</span><span class="n">z</span> <span class="o">|</span> <span class="n">docker</span> <span class="nb">load</span>
 </code></pre></div>
 
-
 <h2 id="docker">安装Docker<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="err">curl -fsSL https://get.docker.com -o get-docker.sh</span>
-<span class="err">sh get-docker.sh --mirror Aliyun</span>
+<div class="codehilite"><pre><span></span><code>curl -fsSL https://get.docker.com -o get-docker.sh
+sh get-docker.sh --mirror Aliyun
 </code></pre></div>
-
 
 <h2 id="myubuntu">myubuntu 基础镜像<a class="headerlink" href="#myubuntu" title="Permanent link">&para;</a></h2>
 <p>@TAG 时区 timezone </p>
@@ -1990,41 +1988,33 @@
 <span class="n">CMD</span><span class="w"> </span><span class="o">/</span><span class="n">run</span><span class="p">.</span><span class="n">sh</span><span class="w"></span>
 </code></pre></div>
 
-
 <p>run.sh:</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 service ssh start
 <span class="c1"># 在容器内安装了mysql等之后可以在run.sh这里添加相应的启动命令</span>
 sleep infinity
 </code></pre></div>
-</td></tr></table>
 
 <p>build命令：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">docker build -t myubuntu18 .</span>
+<div class="codehilite"><pre><span></span><code>docker build -t myubuntu18 .
 </code></pre></div>
-
 
 <h2 id="install">Install 安装<a class="headerlink" href="#install" title="Permanent link">&para;</a></h2>
 <p>建议参见<a href="https://github.com/zjuchenyuan/notebook/blob/master/code/ssprivoxy.txt">如何翻墙</a>，部署http proxy</p>
 <p>安装之前，建议修改apt源</p>
 <p>安装之前，或许要对内核升级，如果执行安装脚本发出了对aufs的警告，请先看下面的 <em>解决aufs的问题</em></p>
 <p>安装命令： </p>
-<div class="codehilite"><pre><span></span><code><span class="err">curl -fsSL get.docker.com -o get-docker.sh</span>
-<span class="err">sh get-docker.sh --mirror Aliyun</span>
+<div class="codehilite"><pre><span></span><code>curl -fsSL get.docker.com -o get-docker.sh
+sh get-docker.sh --mirror Aliyun
 </code></pre></div>
-
 
 <p>其中最后一步的apt-get install docker-engine耗时较长，看起来很像卡死，需要耐心等待</p>
 <p>安装后执行docker version，没有报错即可</p>
 <h3 id="aufs">解决aufs的问题<a class="headerlink" href="#aufs" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="err">apt-get install lxc wget bsdtar curl</span>
-<span class="err">apt-get install linux-image-extra-$(uname -r)</span>
-<span class="err">modprobe aufs</span>
+<div class="codehilite"><pre><span></span><code>apt-get install lxc wget bsdtar curl
+apt-get install linux-image-extra-$(uname -r)
+modprobe aufs
 </code></pre></div>
-
 
 <hr />
 <h2 id="_2">加速镜像下载<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
@@ -2043,7 +2033,6 @@ sleep infinity
 <span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">restart</span> <span class="n">docker</span>
 </code></pre></div>
 
-
 <p>另外你也可以使用USTC的镜像源：参考 https://lug.ustc.edu.cn/wiki/mirrors/help/docker</p>
 <hr />
 <h3 id="docker_1">Docker旧版本卸载<a class="headerlink" href="#docker_1" title="Permanent link">&para;</a></h3>
@@ -2052,7 +2041,6 @@ sleep infinity
 <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">autoremove</span>
 <span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">docker</span>
 </code></pre></div>
-
 
 <p>然后就可以执行安装命令了</p>
 <hr />
@@ -2063,31 +2051,26 @@ sleep infinity
 <span class="x">getip 容器名称</span>
 </code></pre></div>
 
-
 <p>这种方案对macvlan的容器不适用，参见 获取macvlan容器的IP</p>
 <hr />
 <h2 id="_4">导出导入<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <h3 id="-save">搬运镜像&ndash;save导出镜像<a class="headerlink" href="#-save" title="Permanent link">&para;</a></h3>
 <p>由于网络带宽(流量)往往是瓶颈资源，所以产生更小的压缩文件很有必要，这里我们可以生成 tar.7z 文件：<code>apt-get install -y p7zip-full</code></p>
-<div class="codehilite"><pre><span></span><code><span class="err">docker save 镜像名称 | 7z a -si 导出文件名.tar.7z</span>
+<div class="codehilite"><pre><span></span><code>docker save 镜像名称 | 7z a -si 导出文件名.tar.7z
 </code></pre></div>
-
 
 <p>这是生成tar.gz文件：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">docker save 镜像名称 | gzip &gt;导出文件名.tar.gz</span>
+<div class="codehilite"><pre><span></span><code>docker save 镜像名称 | gzip &gt;导出文件名.tar.gz
 </code></pre></div>
-
 
 <h3 id="-load">搬运镜像&ndash;load载入镜像<a class="headerlink" href="#-load" title="Permanent link">&para;</a></h3>
 <p>如果是 tar.7z 文件，需要调用 7z 命令解压：</p>
 <div class="codehilite"><pre><span></span><code><span class="mi">7</span><span class="n">z</span> <span class="n">x</span> <span class="o">-</span><span class="n">so</span> <span class="err">文件名</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="mi">7</span><span class="n">z</span> <span class="o">|</span> <span class="n">docker</span> <span class="nb">load</span>
 </code></pre></div>
 
-
 <p>如果是 tar.gz 文件，可以直接载入：</p>
 <div class="codehilite"><pre><span></span><code><span class="n">docker</span> <span class="nb">load</span> <span class="o">&lt;</span> <span class="err">文件名</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
 </code></pre></div>
-
 
 <h3 id="export">Export导出容器 并不常用<a class="headerlink" href="#export" title="Permanent link">&para;</a></h3>
 <p>直接导出容器并不常用，建议<code>docker commit 容器名称 保存成的镜像名称</code>，然后导出镜像</p>
@@ -2095,20 +2078,17 @@ sleep infinity
 <div class="codehilite"><pre><span></span><code><span class="n">docker</span> <span class="k">export</span> <span class="err">容器的名称或</span><span class="n">ID</span> <span class="o">|</span> <span class="n">gzip</span> <span class="o">&gt;</span><span class="err">导出文件名</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
 </code></pre></div>
 
-
 <h3 id="import">Import导入容器<a class="headerlink" href="#import" title="Permanent link">&para;</a></h3>
 <p>虽然上一步我们压缩了，但docker可以直接import，不需要用gunzip</p>
-<div class="codehilite"><pre><span></span><code><span class="n">docker</span> <span class="kn">import</span> <span class="err">文件名</span>
+<div class="codehilite"><pre><span></span><code><span class="n">docker</span> <span class="kn">import</span> <span class="nn">文件名</span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="iptables-failed-no-chiantargetmatch-by-that-name">解决iptables failed - No chian/target/match by that name<a class="headerlink" href="#iptables-failed-no-chiantargetmatch-by-that-name" title="Permanent link">&para;</a></h2>
 <p>如果docker安装的时候没有自动把需要的规则链加上，可以手动添加</p>
-<div class="codehilite"><pre><span></span><code><span class="err">iptables -t nat -N DOCKER</span>
-<span class="err">iptables -t filter -N DOCKER</span>
+<div class="codehilite"><pre><span></span><code>iptables -t nat -N DOCKER
+iptables -t filter -N DOCKER
 </code></pre></div>
-
 
 <p>附：如果需要删除链条，可以用<code>iptables-save</code>导出后手动编辑后<code>iptables-restore</code></p>
 <hr />
@@ -2122,40 +2102,34 @@ mv /var/lib/docker /home/
 <span class="nb">echo</span> -e <span class="s2">&quot;\nDOCKER_OPTS=\&quot;--graph=&#39;/home/docker&#39;\&quot;&quot;</span> &gt;&gt; /etc/default/docker
 </code></pre></div>
 
-
 <hr />
 <h2 id="debianifconfigkillall">解决debian等容器没有ifconfig,killall的问题<a class="headerlink" href="#debianifconfigkillall" title="Permanent link">&para;</a></h2>
 <div class="codehilite"><pre><span></span><code><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">net</span><span class="o">-</span><span class="n">tools</span> <span class="n">psmisc</span>
 </code></pre></div>
 
-
 <hr />
 <h2 id="_5">设置容器低权限用户运行<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <p>@TAG user 安全最佳实践</p>
 <p>在Dockerfile中加入</p>
-<div class="codehilite"><pre><span></span><code><span class="err">User nobody</span>
+<div class="codehilite"><pre><span></span><code>User nobody
 </code></pre></div>
-
 
 <p>容器运行后exec进去默认是nobody用户，并不能su啥的，这时候exec需要带参数-u表示用指定用户身份进入容器：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">docker exec -i -t -u root 容器名称 /bin/bash</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">docker</span> <span class="k">exec</span> <span class="o">-</span><span class="nv">i</span> <span class="o">-</span><span class="nv">t</span> <span class="o">-</span><span class="nv">u</span> <span class="nv">root</span> 容器名称 <span class="o">/</span><span class="nv">bin</span><span class="o">/</span><span class="nv">bash</span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="etcresolvconfetchosts">设置容器/etc/resolv.conf和/etc/hosts<a class="headerlink" href="#etcresolvconfetchosts" title="Permanent link">&para;</a></h2>
 <p>在容器中这两个文件是以mount形式挂载的，不能unmount；即使进行修改，容器重启后修改就丢失了</p>
 <p>其实这两个文件应该在容器创建的时候指定参数<code>--dns</code>和<code>--add-host</code>来加以控制：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">docker run -d --dns 114.114.114.114 --add-host example.com:1.2.3.4 容器名称</span>
+<div class="codehilite"><pre><span></span><code>docker run -d --dns 114.114.114.114 --add-host example.com:1.2.3.4 容器名称
 </code></pre></div>
-
 
 <hr />
 <h2 id="_6">容器限制参数设置<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <p>当容器是开放给不可信域的时候(如部署一个CTF的pwn题目)，虽然容器逃逸0-day我也没办法，但限制一下容器资源占用防止搅屎也是很有必要的</p>
-<div class="codehilite"><pre><span></span><code><span class="err">--cpu-shares 512 --cpu-period=100000 --cpu-quota=50000 --memory 104857600 --ulimit=nofile=65536 --pids-limit=200 --blkio-weight=512 --restart=&quot;always&quot;</span>
+<div class="codehilite"><pre><span></span><code>--cpu-shares 512 --cpu-period=100000 --cpu-quota=50000 --memory 104857600 --ulimit=nofile=65536 --pids-limit=200 --blkio-weight=512 --restart=&quot;always&quot;
 </code></pre></div>
-
 
 <p>效果简介：如上配置最多占用 50% 单个 CPU ，最多占用100MB物理内存，容器内进程数目最多200个</p>
 <p><code>--cpu-shares</code>表示相对利用占比，不设置的默认值为1024，单个CPU是1024，只有当容器试图占用100%的CPU时才会体现作用，举个例子：</p>
@@ -2172,12 +2146,11 @@ mv /var/lib/docker /home/
 <p>@TAG vsftpd</p>
 <p>vsftpd的配置真是让人头疼，不如<code>docker search ftp</code>一番，然后google一下找到对应的<a href="https://hub.docker.com/r/stilliard/pure-ftpd/">Docker Hub页面</a></p>
 <p>使用步骤：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">docker run -d --name ftpd_server -p 21:21 -p 30000-30009:30000-30009 -e &quot;PUBLICHOST=localhost&quot; -v /path/to/the_ftp_directory:/data stilliard/pure-ftpd:hardened</span>
-<span class="err">docker exec -it ftpd_server /bin/bash</span>
-<span class="err">#进入容器后创建用户</span>
-<span class="err">pure-pw useradd bob -f /etc/pure-ftpd/passwd/pureftpd.passwd -m -u ftpuser -d /data</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">docker</span> <span class="nv">run</span> <span class="o">-</span><span class="nv">d</span> <span class="o">--</span><span class="nv">name</span> <span class="nv">ftpd_server</span> <span class="o">-</span><span class="nv">p</span> <span class="mi">21</span>:<span class="mi">21</span> <span class="o">-</span><span class="nv">p</span> <span class="mi">30000</span><span class="o">-</span><span class="mi">30009</span>:<span class="mi">30000</span><span class="o">-</span><span class="mi">30009</span> <span class="o">-</span><span class="nv">e</span> <span class="s2">&quot;</span><span class="s">PUBLICHOST=localhost</span><span class="s2">&quot;</span> <span class="o">-</span><span class="nv">v</span> <span class="o">/</span><span class="nv">path</span><span class="o">/</span><span class="nv">to</span><span class="o">/</span><span class="nv">the_ftp_directory</span>:<span class="o">/</span><span class="nv">data</span> <span class="nv">stilliard</span><span class="o">/</span><span class="nv">pure</span><span class="o">-</span><span class="nv">ftpd</span>:<span class="nv">hardened</span>
+<span class="nv">docker</span> <span class="k">exec</span> <span class="o">-</span><span class="nv">it</span> <span class="nv">ftpd_server</span> <span class="o">/</span><span class="nv">bin</span><span class="o">/</span><span class="nv">bash</span>
+#进入容器后创建用户
+<span class="nv">pure</span><span class="o">-</span><span class="nv">pw</span> <span class="nv">useradd</span> <span class="nv">bob</span> <span class="o">-</span><span class="nv">f</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">pure</span><span class="o">-</span><span class="nv">ftpd</span><span class="o">/</span><span class="nv">passwd</span><span class="o">/</span><span class="nv">pureftpd</span>.<span class="nv">passwd</span> <span class="o">-</span><span class="nv">m</span> <span class="o">-</span><span class="nv">u</span> <span class="nv">ftpuser</span> <span class="o">-</span><span class="nv">d</span> <span class="o">/</span><span class="nv">data</span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="wordpress">快速部署wordpress<a class="headerlink" href="#wordpress" title="Permanent link">&para;</a></h2>
@@ -2194,21 +2167,19 @@ mv /var/lib/docker /home/
 <ol start="2">
 <li>安装Docker和Nginx</li>
 </ol>
-<div class="codehilite"><pre><span></span><code><span class="err">curl -fsSL https://get.docker.com -o get-docker.sh</span>
-<span class="err">sh get-docker.sh --mirror Aliyun</span>
-<span class="err">apt-get install -y nginx</span>
+<div class="codehilite"><pre><span></span><code>curl -fsSL https://get.docker.com -o get-docker.sh
+sh get-docker.sh --mirror Aliyun
+apt-get install -y nginx
 </code></pre></div>
-
 
 <ol start="3">
 <li>启动一个mysql的镜像：</li>
 </ol>
-<div class="codehilite"><pre><span></span><code><span class="err"># Google搜索关键词 &quot;docker mysql&quot;</span>
-<span class="err">docker run --name mysql -e MYSQL_ROOT_PASSWORD=这里改成你想设置的密码 -d mysql</span>
-<span class="err"># Google搜索关键词 &quot;docker wordpress&quot;</span>
-<span class="err">docker run --name wp --link mysql:mysql -p 6666:80 -d wordpress</span>
+<div class="codehilite"><pre><span></span><code># Google搜索关键词 &quot;docker mysql&quot;
+docker run --name mysql -e MYSQL_ROOT_PASSWORD=这里改成你想设置的密码 -d mysql
+# Google搜索关键词 &quot;docker wordpress&quot;
+docker run --name wp --link mysql:mysql -p 6666:80 -d wordpress
 </code></pre></div>
-
 
 <ol start="4">
 <li>
@@ -2245,7 +2216,6 @@ mv /var/lib/docker /home/
 <span class="p">}</span>
 </code></pre></div>
 
-
 <h3 id="_8">遇到的坑<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
 <ol>
 <li>docker run的时候忘记-p参数</li>
@@ -2270,9 +2240,8 @@ mv /var/lib/docker /home/
 <hr />
 <h2 id="dockerfile-apt-get">Dockerfile 中的 apt-get<a class="headerlink" href="#dockerfile-apt-get" title="Permanent link">&para;</a></h2>
 <p>为了让 apt-get 顺利静默执行，需要配置环境变量防止交互：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">DEBIAN_FRONTEND=noninteractive apt-get install -y ...</span>
+<div class="codehilite"><pre><span></span><code><span class="n">DEBIAN_FRONTEND</span><span class="o">=</span><span class="n">noninteractive</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="p">...</span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="dockerip">让Docker容器得到内网IP<a class="headerlink" href="#dockerip" title="Permanent link">&para;</a></h2>
@@ -2288,11 +2257,10 @@ mv /var/lib/docker /home/
 <p>做法也很简单，首先创建一个Macvlan类型的docker网络，然后在创建容器的时候加入这个网络并指定IP/不指定则自动分配</p>
 <p>例子：主机（网卡eth0）的IP为10.1.1.2，网关为10.1.1.1，主机所处的IP段是10.1.1.1/24，在该网段内主机可以任意获得IP，我们希望容器分配在10.1.1.65~10.1.1.126之间 （即 10.1.1.64/26）</p>
 <p>附： <a href="http://jodies.de/ipcalc?host=10.1.1.64&amp;mask1=26&amp;mask2=">这是一个输入Network 10.1.1.64/26转换为HostMin 10.1.1.65~ HostMax 10.1.1.126的计算器</a></p>
-<div class="codehilite"><pre><span></span><code><span class="n">docker</span> <span class="n">network</span> <span class="k">create</span> <span class="o">-</span><span class="n">d</span> <span class="n">macvlan</span> <span class="o">-</span><span class="n">o</span> <span class="n">macvlan_mode</span><span class="o">=</span><span class="n">bridge</span> <span class="o">-</span><span class="n">o</span> <span class="n">parent</span><span class="o">=</span><span class="n">eth0</span> <span class="c1">--subnet=10.1.1.0/24 --ip-range=10.1.1.64/26 --gateway=10.1.1.1 macvlan_network</span>
+<div class="codehilite"><pre><span></span><code>docker network create -d macvlan -o macvlan_mode=bridge -o parent=eth0 --subnet=10.1.1.0/24 --ip-range=10.1.1.64/26 --gateway=10.1.1.1 macvlan_network
 
-<span class="n">docker</span> <span class="n">run</span> <span class="c1">--net=macvlan_network --ip=10.1.1.100 -d nginx</span>
+docker run --net=macvlan_network --ip=10.1.1.100 -d nginx
 </code></pre></div>
-
 
 <p>现在你可以访问 <code>http://10.1.1.100</code> 来看到nginx的欢迎页面了，你需要在内网另一台机器上访问（我的发现是主机和这样分配的容器是不互通的）</p>
 <div class="admonition warning">
@@ -2309,34 +2277,30 @@ mv /var/lib/docker /home/
 <span class="x">docker inspect 容器名称 | grep IP</span>
 </code></pre></div>
 
-
 <h3 id="macvlanip_1">macvlan查看已经分配的IP<a class="headerlink" href="#macvlanip_1" title="Permanent link">&para;</a></h3>
 <p>由于主机和容器不能互通，所以主机如何得知目前已经分配的IP列表呢？用docker network inspect咯，然后用python处理一下输出格式</p>
 <p>下面这个命令列出了容器IP和容器名称：</p>
-<div class="codehilite"><pre><span></span><code><span class="n">docker</span> <span class="n">network</span> <span class="n">inspect</span> <span class="n">macvlan_bridge</span> <span class="o">--</span><span class="n">format</span> <span class="s">&quot;{{range .Containers}}{{.IPv4Address}}@{{.Name}},,,{{end}}&quot;</span> <span class="o">|</span> <span class="n">python3</span> <span class="o">-</span><span class="n">c</span> <span class="err">&#39;</span><span class="n">print</span><span class="p">(</span><span class="n">input</span><span class="p">().</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;/24@&quot;</span><span class="p">,</span><span class="s">&quot;</span><span class="se">\t</span><span class="s">&quot;</span><span class="p">).</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;,,,&quot;</span><span class="p">,</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">),</span><span class="n">end</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="err">&#39;</span><span class="o">|</span><span class="n">sort</span>
+<div class="codehilite"><pre><span></span><code><span class="n">docker</span><span class="w"> </span><span class="n">network</span><span class="w"> </span><span class="n">inspect</span><span class="w"> </span><span class="n">macvlan_bridge</span><span class="w"> </span><span class="o">--</span><span class="n">format</span><span class="w"> </span><span class="s">&quot;{{range .Containers}}{{.IPv4Address}}@{{.Name}},,,{{end}}&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">python3</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="err">&#39;</span><span class="n">print</span><span class="p">(</span><span class="n">input</span><span class="p">().</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;/24@&quot;</span><span class="p">,</span><span class="s">&quot;</span><span class="se">\t</span><span class="s">&quot;</span><span class="p">).</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;,,,&quot;</span><span class="p">,</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">),</span><span class="n">end</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="err">&#39;</span><span class="o">|</span><span class="n">sort</span><span class="w"></span>
 </code></pre></div>
-
 
 <p>如果只需要IP列表：</p>
 <div class="codehilite"><pre><span></span><code><span class="x">docker network inspect macvlan_bridge --format &quot;</span><span class="cp">{{</span><span class="nv">range</span> <span class="nv">.Containers</span><span class="cp">}}{{</span><span class="nv">.IPv4Address</span><span class="cp">}}</span><span class="x">,</span><span class="cp">{{</span><span class="nv">end</span><span class="cp">}}</span><span class="x">&quot; | python3 -c &#39;print(input().replace(&quot;/24,&quot;,&quot;\n&quot;),end=&quot;&quot;)&#39;|sort</span>
 </code></pre></div>
 
-
 <h3 id="macvlan">主机访问macvlan的容器<a class="headerlink" href="#macvlan" title="Permanent link">&para;</a></h3>
 <p>由于内核限制并不支持host直接使用上述指定的ip访问容器，而docker network connect让容器再加入一个网络又会改变容器的默认路由，但我就是想让主机能访问到容器，咋办哩？</p>
 <p>参考：http://blog.oddbit.com/2018/03/12/using-docker-macvlan-networks/</p>
 <p>想访问的容器IP为10.1.1.66，这种方法需要让主机再获得一个IP，例如10.1.1.3。注意这种配置是不持久的，重启后丢失</p>
-<div class="codehilite"><pre><span></span><code><span class="n">DEVICE_NAME</span><span class="o">=</span><span class="ss">&quot;eth0&quot;</span>
-<span class="n">NAME</span><span class="o">=</span><span class="ss">&quot;mynet-shim&quot;</span>
-<span class="n">HOST_GETIP</span><span class="o">=</span><span class="ss">&quot;10.1.1.3&quot;</span>
-<span class="n">TARGET_IP</span><span class="o">=</span><span class="ss">&quot;10.1.1.66&quot;</span>
+<div class="codehilite"><pre><span></span><code>DEVICE_NAME=&quot;eth0&quot;
+NAME=&quot;mynet-shim&quot;
+HOST_GETIP=&quot;10.1.1.3&quot;
+TARGET_IP=&quot;10.1.1.66&quot;
 
-<span class="n">ip</span> <span class="n">link</span> <span class="k">add</span> <span class="err">$</span><span class="n">NAME</span> <span class="n">link</span> <span class="err">$</span><span class="n">DEVICE_NAME</span> <span class="k">type</span> <span class="n">macvlan</span>  <span class="k">mode</span> <span class="n">bridge</span>
-<span class="n">ip</span> <span class="n">addr</span> <span class="k">add</span> <span class="err">$</span><span class="n">HOST_GETIP</span><span class="o">/</span><span class="mi">32</span> <span class="n">dev</span> <span class="err">$</span><span class="n">NAME</span>
-<span class="n">ip</span> <span class="n">link</span> <span class="k">set</span> <span class="err">$</span><span class="n">NAME</span> <span class="n">up</span>
-<span class="n">ip</span> <span class="n">route</span> <span class="k">add</span> <span class="err">$</span><span class="n">TARGET_IP</span><span class="o">/</span><span class="mi">32</span> <span class="n">dev</span> <span class="err">$</span><span class="n">NAME</span>
+ip link add $NAME link $DEVICE_NAME type macvlan  mode bridge
+ip addr add $HOST_GETIP/32 dev $NAME
+ip link set $NAME up
+ip route add $TARGET_IP/32 dev $NAME
 </code></pre></div>
-
 
 <hr />
 <h2 id="iptablesdockerip">使用iptables端口转发让Docker容器得到内网IP<a class="headerlink" href="#iptablesdockerip" title="Permanent link">&para;</a></h2>
@@ -2347,23 +2311,7 @@ mv /var/lib/docker /home/
 <p>记得修改下面的IPPREFIX和ETH0变量！</p>
 <h3 id="give_container_ipsh">give_container_ip.sh<a class="headerlink" href="#give_container_ipsh" title="Permanent link">&para;</a></h3>
 <p>@TAG 端口转发</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 <span class="nb">set</span> -ex
 <span class="nb">shopt</span> -s expand_aliases
 
@@ -2381,20 +2329,17 @@ sudo ifconfig <span class="nv">$ETH0</span>:<span class="nv">$2</span> <span cla
 sudo iptables -t nat -I PREROUTING -d <span class="nv">$IPPREFIX$2</span> -p tcp -j DNAT --to <span class="sb">`</span>getip <span class="nv">$1</span><span class="sb">`</span>
 sudo iptables -t nat -I POSTROUTING -s <span class="sb">`</span>getip <span class="nv">$1</span><span class="sb">`</span>/32 -d <span class="sb">`</span>getip <span class="nv">$1</span><span class="sb">`</span>/32 -p tcp -m tcp -j MASQUERADE
 </code></pre></div>
-</td></tr></table>
 
 <p>为什么最后用MASQUERADE而不用SNAT呢？因为用SNAT容器的应用就不能得到请求的源IP，在实际应用中是无法接受的；这一条iptables规则是我用<code>docker run -p</code>和<code>iptables-save</code>得到的</p>
 <hr />
 <h2 id="tcpdump">对容器网络流量tcpdump<a class="headerlink" href="#tcpdump" title="Permanent link">&para;</a></h2>
 <p>Learned from: https://www.slideshare.net/SreenivasMakam/docker-networking-common-issues-and-troubleshooting-techniques</p>
-<div class="codehilite"><pre><span></span><code><span class="err">docker run -ti --net container:&lt;containerid&gt; nicolaka/netshoot tcpdump -i eth0 -n port 80</span>
+<div class="codehilite"><pre><span></span><code>docker run -ti --net container:&lt;containerid&gt; nicolaka/netshoot tcpdump -i eth0 -n port 80
 </code></pre></div>
-
 
 <p>举个例子，上述启动了nginx容器并分配了内网ip 10.1.1.100，我们来收集80端口的流量，并保存到/tmp/pcapfiles/nginx.pcap文件：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">docker run -ti --net container:f5fc -v /tmp/pcapfiles:/data nicolaka/netshoot tcpdump -i eth0 -n -s0 -w /data/nginx.pcap port 80</span>
+<div class="codehilite"><pre><span></span><code>docker run -ti --net container:f5fc -v /tmp/pcapfiles:/data nicolaka/netshoot tcpdump -i eth0 -n -s0 -w /data/nginx.pcap port 80
 </code></pre></div>
-
 
 <p><a href="http://explainshell.com/explain?cmd=tcpdump%20-i%20eth0%20-n%20-s0%20-w%20/data/nginx.pcap%20port%2080">查看tcpdump参数解释explainshell</a></p>
 <hr />
@@ -2403,9 +2348,8 @@ sudo iptables -t nat -I POSTROUTING -s <span class="sb">`</span>getip <span clas
 <p>参考： https://stackoverflow.com/questions/26852321/docker-add-a-restart-policy-to-a-container-that-was-already-created</p>
 <p>在1.11版本后有了<code>docker update</code>这个命令，可以修改正在运行的容器的参数，如CPU限制、内存限制 和 重启策略</p>
 <p>使目前运行的所有容器都设置为自动重启：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">docker update --restart=always `docker ps -q`</span>
+<div class="codehilite"><pre><span></span><code>docker update --restart=always `docker ps -q`
 </code></pre></div>
-
 
 <p>如果要取消这个自动重启，改为<code>--restart=no</code>即可</p>
 <hr />
@@ -2413,9 +2357,8 @@ sudo iptables -t nat -I POSTROUTING -s <span class="sb">`</span>getip <span clas
 <p>@TAG share</p>
 <p>镜像地址：<a href="https://hub.docker.com/r/dperson/samba/">dperson/samba</a></p>
 <p>快速分享一个目录/data，用户名<code>user</code>密码<code>badpassword</code>：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">docker run -d -p 139:139 -p 445:445 --name samba -v /data:/data dperson/samba -u &quot;user;badpassword&quot; -s &quot;data;/data;yes;no;no;all&quot;</span>
+<div class="codehilite"><pre><span></span><code><span class="nt">docker</span> <span class="nt">run</span> <span class="nt">-d</span> <span class="nt">-p</span> <span class="nt">139</span><span class="p">:</span><span class="nd">139</span> <span class="nt">-p</span> <span class="nt">445</span><span class="p">:</span><span class="nd">445</span> <span class="nt">--name</span> <span class="nt">samba</span> <span class="nt">-v</span> <span class="o">/</span><span class="nt">data</span><span class="o">:/</span><span class="nt">data</span> <span class="nt">dperson</span><span class="o">/</span><span class="nt">samba</span> <span class="nt">-u</span> <span class="s2">&quot;user;badpassword&quot;</span> <span class="nt">-s</span> <span class="s2">&quot;data;/data;yes;no;no;all&quot;</span>
 </code></pre></div>
-
 
 <p>其中-u指定用户名密码；-s参数的格式为：</p>
 <p>给访问者看的分享名称;物理位置;是否列出;未登录可否访问;允许访问的用户(all表示所有用户)</p>
@@ -2514,63 +2457,56 @@ sudo iptables -t nat -I POSTROUTING -s <span class="sb">`</span>getip <span clas
     <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;gcc runner.c -o runner&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-
 <p>用到的xinetd配置：<code>runner.conf</code>，注意保存的时候不能有\r <code>:set ff=unix</code></p>
-<div class="codehilite"><pre><span></span><code><span class="err">service 题目名称</span>
-<span class="err">{</span>
-<span class="err">    socket_type = stream</span>
-<span class="err">    protocol    = tcp</span>
-<span class="err">    wait        = no</span>
-<span class="err">    user        = root</span>
-<span class="err">    bind        = 0.0.0.0</span>
-<span class="err">    server      = /绝对路径/runner</span>
-<span class="err">    type        = UNLISTED</span>
-<span class="err">    port        = 端口号</span>
-<span class="err">    disable = no</span>
-<span class="err">}</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">service</span> 题目名称
+{
+    <span class="nv">socket_type</span> <span class="o">=</span> <span class="nv">stream</span>
+    <span class="nv">protocol</span>    <span class="o">=</span> <span class="nv">tcp</span>
+    <span class="k">wait</span>        <span class="o">=</span> <span class="nv">no</span>
+    <span class="nv">user</span>        <span class="o">=</span> <span class="nv">root</span>
+    <span class="nv">bind</span>        <span class="o">=</span> <span class="mi">0</span>.<span class="mi">0</span>.<span class="mi">0</span>.<span class="mi">0</span>
+    <span class="nv">server</span>      <span class="o">=</span> <span class="o">/</span>绝对路径<span class="o">/</span><span class="nv">runner</span>
+    <span class="nv">type</span>        <span class="o">=</span> <span class="nv">UNLISTED</span>
+    <span class="nv">port</span>        <span class="o">=</span> 端口号
+    <span class="nv">disable</span> <span class="o">=</span> <span class="nv">no</span>
+}
 </code></pre></div>
-
 
 <hr />
 <h2 id="ab">在容器A中使用别名访问容器B<a class="headerlink" href="#ab" title="Permanent link">&para;</a></h2>
 <p>容器A是web应用，需要访问redis的容器B，如果用docker inspect拿到现在容器B的IP写入到配置，一旦docker重启这个容器IP就会发生变化</p>
 <p>更好的方式是使用docker的自定义网络：创建网络，把redis加入网络，把app加入网络</p>
-<div class="codehilite"><pre><span></span><code><span class="err">docker network create useredis</span>
-<span class="err">docker network connect --alias redis useredis redis</span>
-<span class="err">docker network connect --alias app useredis app</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">docker</span> <span class="nv">network</span> <span class="nv">create</span> <span class="nv">useredis</span>
+<span class="nv">docker</span> <span class="nv">network</span> <span class="k">connect</span> <span class="o">--</span><span class="nv">alias</span> <span class="nv">redis</span> <span class="nv">useredis</span> <span class="nv">redis</span>
+<span class="nv">docker</span> <span class="nv">network</span> <span class="k">connect</span> <span class="o">--</span><span class="nv">alias</span> <span class="nv">app</span> <span class="nv">useredis</span> <span class="nv">app</span>
 </code></pre></div>
-
 
 <p>在加入网络的时候指定&ndash;alias即可，网络中的其他容器就能通过这个alias访问到，这样操作后app容器里面就能ping redis了</p>
 <hr />
 <h2 id="docker1802start">修复Docker更新到18.02后部分容器无法start的问题<a class="headerlink" href="#docker1802start" title="Permanent link">&para;</a></h2>
 <p>apt说可以更新，于是就更新了，然而却悲催地发现部分容器无法启动，报错信息：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">docker start &lt;container_name&gt; returns &quot;container &lt;hash&gt; already exists&quot;</span>
+<div class="codehilite"><pre><span></span><code>docker start &lt;container_name&gt; returns &quot;container &lt;hash&gt; already exists&quot;
 </code></pre></div>
-
 
 <p>Google找到了相关issue在<a href="https://github.com/moby/moby/issues/36145">这里</a></p>
 <p>不删容器重建、不回滚Docker的解决方案为：</p>
 <div class="codehilite"><pre><span></span><code><span class="x">sudo docker-containerd-ctr --namespace moby --address /run/docker/containerd/docker-containerd.sock c rm `docker inspect --format &#39;</span><span class="cp">{{</span><span class="nv">.Id</span><span class="cp">}}</span><span class="x">&#39; 无法启动的容器名称`</span>
 </code></pre></div>
 
-
 <p>注意需要输入的是那个很长的容器id，所以先用docker inspect获取其长Id</p>
 <p>如果docker-containerd-ctr 不存在，也许你使用的是Docker for mac，需要这么操作：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">docker run -it --rm -v /:/host alpine /host/usr/local/bin/docker-containerd-ctr  --namespace moby --address /host/run/docker/containerd/docker-containerd.sock c rm 出错的容器id</span>
+<div class="codehilite"><pre><span></span><code>docker run -it --rm -v /:/host alpine /host/usr/local/bin/docker-containerd-ctr  --namespace moby --address /host/run/docker/containerd/docker-containerd.sock c rm 出错的容器id
 </code></pre></div>
-
 
 <hr />
 <h2 id="docker-exec-it">解决docker exec -it进入容器屏幕大小不对的问题<a class="headerlink" href="#docker-exec-it" title="Permanent link">&para;</a></h2>
 <p>发现docker exec -it进入容器的bash后tty的大小不对 只有80x24，参考这个 https://github.com/moby/moby/issues/35407</p>
 <p>解决方案：在进入容器时配置环境变量COLUMNS和LINES为正确值即可，为了便于操作与记忆，写~/.bashrc咯：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">function din(){</span>
-<span class="err">    docker exec -ti --env COLUMNS=`tput cols` --env LINES=`tput lines` $1 /bin/bash</span>
-<span class="err">}</span>
-<span class="err">alias din=din</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">function</span> <span class="nv">din</span><span class="ss">()</span>{
+    <span class="nv">docker</span> <span class="k">exec</span> <span class="o">-</span><span class="nv">ti</span> <span class="o">--</span><span class="nv">env</span> <span class="nv">COLUMNS</span><span class="o">=</span>`<span class="nv">tput</span> <span class="nv">cols</span>` <span class="o">--</span><span class="nv">env</span> <span class="nv">LINES</span><span class="o">=</span>`<span class="nv">tput</span> <span class="nv">lines</span>` <span class="mh">$1</span> <span class="o">/</span><span class="nv">bin</span><span class="o">/</span><span class="nv">bash</span>
+}
+<span class="nv">alias</span> <span class="nv">din</span><span class="o">=</span><span class="nv">din</span>
 </code></pre></div>
-
 
 <p>使用的时候只需要<code>din 容器名称</code>就能进入容器bash啦，这样进入容器vim也能全屏幕显示了</p>
 <hr />
@@ -2589,11 +2525,9 @@ sudo iptables -t nat -I POSTROUTING -s <span class="sb">`</span>getip <span clas
 <span class="n">tar</span> <span class="o">-</span><span class="n">vf</span> <span class="n">golang</span><span class="o">.</span><span class="n">tar</span> <span class="o">-</span><span class="n">cC</span> <span class="s1">&#39;/tmp/golang&#39;</span> <span class="o">.</span> 
 </code></pre></div>
 
-
 <p>然后就可以传输golang.tar，导入方法很简单</p>
 <div class="codehilite"><pre><span></span><code><span class="n">docker</span> <span class="nb">load</span> <span class="o">&lt;</span> <span class="n">golang</span><span class="o">.</span><span class="n">tar</span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="docker-daemon">启动另一个Docker Daemon进程<a class="headerlink" href="#docker-daemon" title="Permanent link">&para;</a></h2>
@@ -2613,7 +2547,6 @@ ip link set dev <span class="cp">${</span><span class="n">BRIDGE_NAME</span><spa
 iptables -t nat -A POSTROUTING -j MASQUERADE -s 172.18.<span class="cp">${</span><span class="n">SUBNET</span><span class="cp">}</span>.0/24 -d 0.0.0.0/0
 </code></pre></div>
 
-
 <p>运行dockerd执行：</p>
 <div class="codehilite"><pre><span></span><code>u=&quot;cy&quot;
 BRIDGE_NAME=br_<span class="cp">${</span><span class="n">u</span><span class="cp">}</span>
@@ -2628,7 +2561,6 @@ DOCKER_ROOT=/home/<span class="cp">${</span><span class="n">u</span><span class=
         -p <span class="cp">${</span><span class="n">DOCKER_ROOT</span><span class="cp">}</span>/docker.pid
 </code></pre></div>
 
-
 <hr />
 <h2 id="dockergitlab-ci">配置使用Docker版本的Gitlab CI<a class="headerlink" href="#dockergitlab-ci" title="Permanent link">&para;</a></h2>
 <p>参考文档：</p>
@@ -2639,9 +2571,8 @@ DOCKER_ROOT=/home/<span class="cp">${</span><span class="n">u</span><span class=
 <p>人家这东西本质上是一个docker容器，但是把主机的docker sock传入到容器中，所以容器内可以创建容器</p>
 <p>我这里的教程着重解决两个问题：使用自定义的镜像，设置DNS</p>
 <h3 id="pullrunner">第一步当然是pull人家的runner镜像咯<a class="headerlink" href="#pullrunner" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="err">docker pull gitlab/gitlab-runner</span>
+<div class="codehilite"><pre><span></span><code>docker pull gitlab/gitlab-runner
 </code></pre></div>
-
 
 <h3 id="citoken">第二步 获取CI连接时需要的token<a class="headerlink" href="#citoken" title="Permanent link">&para;</a></h3>
 <p>在管理员界面 Overview下Runners点开即可看到 </p>
@@ -2649,35 +2580,31 @@ DOCKER_ROOT=/home/<span class="cp">${</span><span class="n">u</span><span class=
 <h3 id="_11">第三步 注册以生成初始的配置信息<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
 <p>参考https://docs.gitlab.com/runner/register/index.html#docker</p>
 <p>假设容器配置文件保存在/dockerfiles/gitlabrunner中，其中docker-image是默认跑任务的镜像</p>
-<div class="codehilite"><pre><span></span><code><span class="err">docker run --rm -t -i -v /dockerfiles/gitlabrunner:/etc/gitlab-runner --dns 10.0.0.1 gitlab/gitlab-runner  register  --non-interactive \</span>
-<span class="err">  --url &quot;https://gitlab.com/&quot; \</span>
-<span class="err">  --registration-token &quot;上一步获得的token&quot; \</span>
-<span class="err">  --executor &quot;docker&quot; \</span>
-<span class="err">  --docker-image myubuntu:latest \</span>
-<span class="err">  --description &quot;docker-runner&quot; \</span>
-<span class="err">  --run-untagged \</span>
-<span class="err">  --locked=&quot;false&quot;</span>
+<div class="codehilite"><pre><span></span><code><span class="n">docker</span> <span class="n">run</span> <span class="o">--</span><span class="n">rm</span> <span class="o">-</span><span class="n">t</span> <span class="o">-</span><span class="n">i</span> <span class="o">-</span><span class="n">v</span> <span class="o">/</span><span class="n">dockerfiles</span><span class="o">/</span><span class="nl">gitlabrunner:</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">gitlab</span><span class="o">-</span><span class="n">runner</span> <span class="o">--</span><span class="n">dns</span> <span class="mf">10.0.0.1</span> <span class="n">gitlab</span><span class="o">/</span><span class="n">gitlab</span><span class="o">-</span><span class="n">runner</span>  <span class="n">register</span>  <span class="o">--</span><span class="n">non</span><span class="o">-</span><span class="n">interactive</span> \
+  <span class="o">--</span><span class="n">url</span> <span class="s">&quot;https://gitlab.com/&quot;</span> \
+  <span class="o">--</span><span class="n">registration</span><span class="o">-</span><span class="n">token</span> <span class="s">&quot;上一步获得的token&quot;</span> \
+  <span class="o">--</span><span class="n">executor</span> <span class="s">&quot;docker&quot;</span> \
+  <span class="o">--</span><span class="n">docker</span><span class="o">-</span><span class="n">image</span> <span class="nl">myubuntu:</span><span class="n">latest</span> \
+  <span class="o">--</span><span class="n">description</span> <span class="s">&quot;docker-runner&quot;</span> \
+  <span class="o">--</span><span class="n">run</span><span class="o">-</span><span class="n">untagged</span> \
+  <span class="o">--</span><span class="n">locked</span><span class="o">=</span><span class="s">&quot;false&quot;</span>
 </code></pre></div>
-
 
 <h3 id="_12">第四步 修改配置文件<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
 <p>参考高级配置 https://docs.gitlab.com/runner/configuration/advanced-configuration.html
 和 https://docs.gitlab.com/runner/executors/docker.html#how-pull-policies-work</p>
-<div class="codehilite"><pre><span></span><code><span class="err">cd /dockerfiles/gitlabrunner #你的配置文件目录</span>
-<span class="err">sudo vim config.yml</span>
+<div class="codehilite"><pre><span></span><code>cd /dockerfiles/gitlabrunner #你的配置文件目录
+sudo vim config.yml
 </code></pre></div>
-
 
 <p>为了跑本地已经存在的镜像（默认为always表示只能跑dockerhub上的），在[runners.docker]中需要添加：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">pull_policy = &quot;never&quot;</span>
+<div class="codehilite"><pre><span></span><code>pull_policy = &quot;never&quot;
 </code></pre></div>
-
 
 <p>或者这里你也可以使用&rdquo;if-not-present&rdquo; 不存在就pull</p>
 <p>另外 如果需要修改容器DNS，也添加进去即可</p>
-<div class="codehilite"><pre><span></span><code><span class="err">dns = [&quot;10.0.0.1&quot;]</span>
+<div class="codehilite"><pre><span></span><code>dns = [&quot;10.0.0.1&quot;]
 </code></pre></div>
-
 
 <h3 id="runner">第五步 启动runner容器<a class="headerlink" href="#runner" title="Permanent link">&para;</a></h3>
 <p>如果需要改dns，这里也别忘记写上</p>
@@ -2688,7 +2615,6 @@ DOCKER_ROOT=/home/<span class="cp">${</span><span class="n">u</span><span class=
   <span class="n">gitlab</span><span class="o">/</span><span class="n">gitlab</span><span class="o">-</span><span class="n">runner</span><span class="p">:</span><span class="n">latest</span>
 </code></pre></div>
 
-
 <h3 id="repo">第六步 创建一个新的repo来测试一下吧<a class="headerlink" href="#repo" title="Permanent link">&para;</a></h3>
 <p>新建<code>.gitlab-ci.yml</code>文件，这里使用自己编译的myubuntu镜像</p>
 <div class="codehilite"><pre><span></span><code><span class="n">image</span><span class="o">:</span> <span class="n">myubuntu</span><span class="o">:</span><span class="n">latest</span>
@@ -2698,28 +2624,24 @@ DOCKER_ROOT=/home/<span class="cp">${</span><span class="n">u</span><span class=
   <span class="o">-</span> <span class="n">curl</span> <span class="n">ip</span><span class="o">.</span><span class="na">cn</span>
 </code></pre></div>
 
-
 <p>然后在gitlab的仓库页面 最新的一次commit message右侧就有CI成功与否状态的图标 点进去看详细日志咯</p>
 <hr />
 <h2 id="socat">为已经存在的容器创建临时端口映射 socat<a class="headerlink" href="#socat" title="Permanent link">&para;</a></h2>
 <p>@TAG 端口转发</p>
 <p>出于学习目的，想快速地建立一下临时的Docker容器端口映射</p>
 <p>用socat咯：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">socat TCP4-LISTEN:9300,fork TCP4:172.17.0.3:9300</span>
+<div class="codehilite"><pre><span></span><code>socat TCP4-LISTEN:9300,fork TCP4:172.17.0.3:9300
 </code></pre></div>
-
 
 <p>如果没有socat，可以：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">docker run -ti --rm --net host bobrik/socat TCP4-LISTEN:9300 TCP4:172.17.0.3:9300</span>
+<div class="codehilite"><pre><span></span><code>docker run -ti --rm --net host bobrik/socat TCP4-LISTEN:9300 TCP4:172.17.0.3:9300
 </code></pre></div>
-
 
 <hr />
 <h2 id="_13">查看所有容器内存占用 并排序<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
 <p><code>docker stats</code>就能看到实时更新的结果，但并没有提供排序功能</p>
-<div class="codehilite"><pre><span></span><code><span class="err">docker stats --no-stream|sort -h -r -k 4,4</span>
+<div class="codehilite"><pre><span></span><code>docker stats --no-stream|sort -h -r -k 4,4
 </code></pre></div>
-
 
 <p>排序列对应关系如下：</p>
 <table>
@@ -2789,29 +2711,25 @@ sudo nsenter --target &quot;$(docker inspect --format &#39;{{.State.Pid}}&#39; <
 sudo nsenter --target &quot;$(docker inspect --format &#39;{{.State.Pid}}&#39; <span class="nv">$CONTAINER_NAME</span>)&quot; --mount --uts --ipc --net --pid -- sh -c &quot;umount /tmpmount&quot;
 </code></pre></div>
 
-
 <hr />
 <h2 id="docker32">Docker使用32位镜像<a class="headerlink" href="#docker32" title="Permanent link">&para;</a></h2>
 <p>例如ubuntu16.04.5 32位镜像 从这里下载i386后缀的<code>ubuntu-base-16.04.5-base-i386.tar.gz</code>：</p>
 <p>http://cdimage.ubuntu.com/ubuntu-base/releases/16.04/release/</p>
 <p>下载了之后直接交给docker导入即可：<a href="https://docs.docker.com/engine/reference/commandline/import/#examples">docker import 文档</a></p>
-<div class="codehilite"><pre><span></span><code><span class="n">cat</span> <span class="n">ubuntu</span><span class="o">-</span><span class="n">base</span><span class="o">-</span><span class="mf">16.04</span><span class="o">.</span><span class="mi">5</span><span class="o">-</span><span class="n">base</span><span class="o">-</span><span class="n">i386</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span><span class="o">|</span><span class="n">docker</span> <span class="kn">import</span> <span class="o">-</span> <span class="n">ubuntu1604_32bit</span>
+<div class="codehilite"><pre><span></span><code><span class="n">cat</span> <span class="n">ubuntu</span><span class="o">-</span><span class="n">base</span><span class="o">-</span><span class="mf">16.04.5</span><span class="o">-</span><span class="n">base</span><span class="o">-</span><span class="n">i386</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span><span class="o">|</span><span class="n">docker</span> <span class="kn">import</span> <span class="o">-</span> <span class="n">ubuntu1604_32bit</span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="varlibdocker">找到/var/lib/docker中容器的数据存储目录<a class="headerlink" href="#varlibdocker" title="Permanent link">&para;</a></h2>
 <p>使用<a href="https://github.com/vincepare/docker-backup">docker-backup</a>:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">curl</span> <span class="o">-</span><span class="n">Lo</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="k">local</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">docker</span><span class="o">-</span><span class="n">backup</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="p">.</span><span class="n">githubusercontent</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">vincepare</span><span class="o">/</span><span class="n">docker</span><span class="o">-</span><span class="n">backup</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">docker</span><span class="o">-</span><span class="n">backup</span><span class="p">.</span><span class="n">sh</span> <span class="o">&amp;&amp;</span> <span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="k">local</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">docker</span><span class="o">-</span><span class="n">backup</span>
+<div class="codehilite"><pre><span></span><code>curl -Lo /usr/local/bin/docker-backup https://raw.githubusercontent.com/vincepare/docker-backup/master/docker-backup.sh &amp;&amp; chmod +x /usr/local/bin/docker-backup
 
-<span class="n">docker</span><span class="o">-</span><span class="n">backup</span> <span class="n">ls</span> <span class="o">-</span><span class="n">w</span> <span class="n">container</span>
+docker-backup ls -w container
 </code></pre></div>
-
 
 <p>举个例子 Apache容器由于/tmp/httpd_lua_shm.1的存在跑不起来，试试直接删除容器内的这个文件</p>
-<div class="codehilite"><pre><span></span><code><span class="err">for i in `d ps -a|grep Exit|grep minutes|awk &#39;{print $1}&#39;`; do rm `docker-backup ls -w $i`/tmp/httpd_lua_shm.1; d start $i ; done</span>
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="nv">i</span> <span class="nv">in</span> `<span class="nv">d</span> <span class="nv">ps</span> <span class="o">-</span><span class="nv">a</span><span class="o">|</span><span class="nv">grep</span> <span class="k">Exit</span><span class="o">|</span><span class="nv">grep</span> <span class="nv">minutes</span><span class="o">|</span><span class="nv">awk</span> <span class="s1">&#39;</span><span class="s">{print $1}</span><span class="s1">&#39;</span>`<span class="c1">; do rm `docker-backup ls -w $i`/tmp/httpd_lua_shm.1; d start $i ; done</span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="dockermacvlan">搬运服务器后网段变化 直接修改Docker底层数据库和配置文件修复macvlan网络<a class="headerlink" href="#dockermacvlan" title="Permanent link">&para;</a></h2>
@@ -2839,10 +2757,10 @@ sudo nsenter --target &quot;$(docker inspect --format &#39;{{.State.Pid}}&#39; <
 <span class="p">}</span>
 
 <span class="n">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">client</span> <span class="p">:</span><span class="o">=</span> <span class="s2">&quot;./local-kv.db&quot;</span> <span class="o">//</span> <span class="o">./</span> <span class="n">appears</span> <span class="n">to</span> <span class="n">be</span> <span class="n">necessary</span>
+    <span class="n">client</span> <span class="o">:=</span> <span class="s2">&quot;./local-kv.db&quot;</span> <span class="o">//</span> <span class="o">./</span> <span class="n">appears</span> <span class="n">to</span> <span class="n">be</span> <span class="n">necessary</span>
 
     <span class="o">//</span> <span class="n">Initialize</span> <span class="n">a</span> <span class="n">new</span> <span class="n">store</span>
-    <span class="n">kv</span><span class="p">,</span> <span class="n">err</span> <span class="p">:</span><span class="o">=</span> <span class="n">libkv</span><span class="o">.</span><span class="n">NewStore</span><span class="p">(</span>
+    <span class="n">kv</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">libkv</span><span class="o">.</span><span class="n">NewStore</span><span class="p">(</span>
         <span class="n">store</span><span class="o">.</span><span class="n">BOLTDB</span><span class="p">,</span> <span class="o">//</span> <span class="ow">or</span> <span class="s2">&quot;boltdb&quot;</span>
         <span class="p">[]</span><span class="n">string</span><span class="p">{</span><span class="n">client</span><span class="p">},</span>
         <span class="o">&amp;</span><span class="n">store</span><span class="o">.</span><span class="n">Config</span><span class="p">{</span>
@@ -2854,34 +2772,30 @@ sudo nsenter --target &quot;$(docker inspect --format &#39;{{.State.Pid}}&#39; <
         <span class="n">log</span><span class="o">.</span><span class="n">Fatalf</span><span class="p">(</span><span class="s2">&quot;Cannot create store: %v&quot;</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span>
     <span class="p">}</span>
 
-    <span class="n">pair</span><span class="p">,</span> <span class="n">err</span> <span class="p">:</span><span class="o">=</span> <span class="n">kv</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="s2">&quot;docker/network&quot;</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">p</span> <span class="p">:</span><span class="o">=</span> <span class="nb">range</span> <span class="n">pair</span> <span class="p">{</span>
+    <span class="n">pair</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">kv</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="s2">&quot;docker/network&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">p</span> <span class="o">:=</span> <span class="nb">range</span> <span class="n">pair</span> <span class="p">{</span>
         <span class="n">println</span><span class="p">(</span><span class="s2">&quot;key:&quot;</span><span class="p">,</span> <span class="n">string</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">Key</span><span class="p">))</span>
-        <span class="n">val</span> <span class="p">:</span><span class="o">=</span> <span class="n">strings</span><span class="o">.</span><span class="n">Replace</span><span class="p">(</span><span class="n">string</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">Value</span><span class="p">),</span> <span class="s2">&quot;10.214.10.&quot;</span><span class="p">,</span> <span class="s2">&quot;10.214.160.&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">val</span> <span class="o">:=</span> <span class="n">strings</span><span class="o">.</span><span class="n">Replace</span><span class="p">(</span><span class="n">string</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">Value</span><span class="p">),</span> <span class="s2">&quot;10.214.10.&quot;</span><span class="p">,</span> <span class="s2">&quot;10.214.160.&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">println</span><span class="p">(</span><span class="s2">&quot;value:&quot;</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
         <span class="n">err</span> <span class="o">=</span> <span class="n">kv</span><span class="o">.</span><span class="n">Put</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">Key</span><span class="p">,</span> <span class="p">[]</span><span class="n">byte</span><span class="p">(</span><span class="n">val</span><span class="p">),</span> <span class="n">nil</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 
-
 <p>其中需要注意golang1.8的strings没有ReplaceAll方法；string转bytes数组用<code>[]byte(...)</code>即可；<code>println</code>不是fmt库的，是往stderr输出的</p>
 <p>除了网络数据库还需要修改容器的.json配置文件：<code>/var/lib/docker/containers/*/*.json</code></p>
 <div class="codehilite"><pre><span></span><code><span class="n">sed</span> <span class="o">-</span><span class="n">i</span> <span class="s1">&#39;s/10.214.10./10.214.160./g&#39;</span> <span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">docker</span><span class="o">/</span><span class="n">containers</span><span class="o">/*/*.</span><span class="n">json</span>
 </code></pre></div>
 
-
 <p>然后就能启动docker了，如果有容器的当前ip已经被其他设备占用，可以通过脱离网络再加入来修改ip</p>
-<div class="codehilite"><pre><span></span><code><span class="err">docker network disconnect macvlan_name container_name</span>
-<span class="err">docker network connect macvlan_name container_name --ip 新的ip</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">docker</span> <span class="nv">network</span> <span class="k">disconnect</span> <span class="nv">macvlan_name</span> <span class="nv">container_name</span>
+<span class="nv">docker</span> <span class="nv">network</span> <span class="k">connect</span> <span class="nv">macvlan_name</span> <span class="nv">container_name</span> <span class="o">--</span><span class="nv">ip</span> 新的<span class="nv">ip</span>
 </code></pre></div>
-
 
 <p>如果新的ip还是ping不了，试试重启容器</p>
 <h2 id="2">获取2个月前退出的容器列表，以空格分隔<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
 <div class="codehilite"><pre><span></span><code><span class="x">docker ps -a --format &#39;</span><span class="cp">{{</span><span class="nv">.Names</span><span class="cp">}}</span><span class="x"> </span><span class="cp">{{</span><span class="nv">.Status</span><span class="cp">}}</span><span class="x">&#39;|grep &quot;2 month&quot;|awk &#39;{print $1}&#39;|tr &#39;\r\n&#39; &#39; &#39;</span>
 </code></pre></div>
-
 
 <h2 id="ping-ipnsenter">容器内没有ping, ip？直接nsenter进去看看<a class="headerlink" href="#ping-ipnsenter" title="Permanent link">&para;</a></h2>
 <div class="codehilite"><pre><span></span><code><span class="x">netin(){</span>
@@ -2889,60 +2803,35 @@ sudo nsenter --target &quot;$(docker inspect --format &#39;{{.State.Pid}}&#39; <
 <span class="x">}</span>
 </code></pre></div>
 
-
 <p>这是进入docker容器的namespace，但只切换网络和/proc，文件系统等还是使用主机的</p>
 <p>进入后bash似乎没变，这时可以ps看看进程列表变了就说明在容器里面了，然后可以愉快地ifconfig和ping了</p>
 <p>也可以使用ip命令指定netns的方式<code>ip netns exec 名称 命令</code></p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4
-5
-6</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 <span class="nv">NAME</span><span class="o">=</span><span class="s2">&quot;container name&quot;</span>
 mkdir -p /var/run/netns
 <span class="nv">ID</span><span class="o">=</span><span class="sb">`</span>docker inspect --format<span class="o">=</span><span class="s1">&#39;{{ .State.Pid }}&#39;</span> <span class="nv">$NAME</span><span class="sb">`</span>
 sudo ln -sf <span class="s2">&quot;/proc/</span><span class="nv">$ID</span><span class="s2">/ns/net&quot;</span> /var/run/netns/<span class="nv">$NAME</span>
 <span class="nb">exec</span> sudo ip netns <span class="nb">exec</span> <span class="nv">$NAME</span> <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>
 </code></pre></div>
-</td></tr></table>
 
 <h2 id="macvlanip_2">为macvlan的容器配置只允许IP段访问<a class="headerlink" href="#macvlanip_2" title="Permanent link">&para;</a></h2>
 <p>将容器暴露在整个内网还是不够安全，不如使用iptables只允许特定IP段访问这个容器的IP</p>
 <p>按上述操作之后，假设容器名称为name，那么我们可以先建立一个alias来快速iptables:</p>
 <p>参考： https://unix.stackexchange.com/questions/11851/iptables-allow-certain-ips-and-block-all-other-connection</p>
-<div class="codehilite"><pre><span></span><code><span class="err">alias i=&quot;sudo ip netns exec name iptables&quot;</span>
-<span class="err">i -P FORWARD DROP # we aren&#39;t a router</span>
-<span class="err">i -A INPUT -m state --state INVALID -j DROP</span>
-<span class="err">i -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT</span>
-<span class="err">i -A INPUT -i lo -j ACCEPT</span>
-<span class="err">i -A INPUT -s 10.0.0.1/24 -j ACCEPT</span>
-<span class="err">i -A INPUT -s 172.19.0.1/24 -j ACCEPT</span>
-<span class="err">i -P INPUT DROP # Drop everything we don&#39;t accept</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">alias</span> <span class="nv">i</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">sudo ip netns exec name iptables</span><span class="s2">&quot;</span>
+<span class="nv">i</span> <span class="o">-</span><span class="nv">P</span> <span class="nv">FORWARD</span> <span class="nv">DROP</span> # <span class="nv">we</span> <span class="nv">aren</span><span class="s1">&#39;</span><span class="s">t a router</span>
+<span class="nv">i</span> <span class="o">-</span><span class="nv">A</span> <span class="nv">INPUT</span> <span class="o">-</span><span class="nv">m</span> <span class="nv">state</span> <span class="o">--</span><span class="nv">state</span> <span class="nv">INVALID</span> <span class="o">-</span><span class="nv">j</span> <span class="nv">DROP</span>
+<span class="nv">i</span> <span class="o">-</span><span class="nv">A</span> <span class="nv">INPUT</span> <span class="o">-</span><span class="nv">m</span> <span class="nv">state</span> <span class="o">--</span><span class="nv">state</span> <span class="nv">RELATED</span>,<span class="nv">ESTABLISHED</span> <span class="o">-</span><span class="nv">j</span> <span class="nv">ACCEPT</span>
+<span class="nv">i</span> <span class="o">-</span><span class="nv">A</span> <span class="nv">INPUT</span> <span class="o">-</span><span class="nv">i</span> <span class="nv">lo</span> <span class="o">-</span><span class="nv">j</span> <span class="nv">ACCEPT</span>
+<span class="nv">i</span> <span class="o">-</span><span class="nv">A</span> <span class="nv">INPUT</span> <span class="o">-</span><span class="nv">s</span> <span class="mi">10</span>.<span class="mi">0</span>.<span class="mi">0</span>.<span class="mi">1</span><span class="o">/</span><span class="mi">24</span> <span class="o">-</span><span class="nv">j</span> <span class="nv">ACCEPT</span>
+<span class="nv">i</span> <span class="o">-</span><span class="nv">A</span> <span class="nv">INPUT</span> <span class="o">-</span><span class="nv">s</span> <span class="mi">172</span>.<span class="mi">19</span>.<span class="mi">0</span>.<span class="mi">1</span><span class="o">/</span><span class="mi">24</span> <span class="o">-</span><span class="nv">j</span> <span class="nv">ACCEPT</span>
+<span class="nv">i</span> <span class="o">-</span><span class="nv">P</span> <span class="nv">INPUT</span> <span class="nv">DROP</span> # <span class="nv">Drop</span> <span class="nv">everything</span> <span class="nv">we</span> <span class="nv">don</span><span class="s1">&#39;</span><span class="s">t accept</span>
 </code></pre></div>
-
 
 <p>效果就是只有内网10.0.0.1-10.0.0.254的ip才能访问这个容器的IP，其他来源都不能ping通这个容器</p>
 <p>下面的bash脚本会自动对容器的所有IP段允许访问，并拒绝其他访问：</p>
 <p>其中的docker inspect命令可以获取容器拥有的所有IP</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 <span class="nb">set</span> -ex
 <span class="nv">DOCKERNAME</span><span class="o">=</span><span class="s2">&quot;xxx&quot;</span>
 <span class="nv">NAME</span><span class="o">=</span><span class="s2">&quot;xx&quot;</span>
@@ -2961,7 +2850,6 @@ i -A INPUT -i lo -j ACCEPT
 docker inspect --format<span class="o">=</span><span class="s1">&#39;{{range .NetworkSettings.Networks}}{{.IPAddress}}{{&quot;\n&quot;}}{{end}}&#39;</span> <span class="si">${</span><span class="nv">DOCKERNAME</span><span class="si">}</span><span class="p">|</span>xargs -i sudo ip netns <span class="nb">exec</span> <span class="si">${</span><span class="nv">NAME</span><span class="si">}</span> iptables -A INPUT -s <span class="s1">&#39;{}/24&#39;</span> -j ACCEPT
 i -P INPUT DROP <span class="c1"># Drop everything we don&#39;t accept</span>
 </code></pre></div>
-</td></tr></table>
 
 <h2 id="varlibdocker_1">从/var/lib/docker提取容器开始时间<a class="headerlink" href="#varlibdocker_1" title="Permanent link">&para;</a></h2>
 <p>读取/var/lib/docker/containers/*/config.v2.json可以读到容器开始时间</p>
@@ -2996,31 +2884,22 @@ i -P INPUT DROP <span class="c1"># Drop everything we don&#39;t accept</span>
 <span class="nf">runsql</span><span class="p">(</span><span class="s s-Atom">sql</span><span class="p">[:-</span><span class="mi">1</span><span class="p">],</span> <span class="o">*</span><span class="s s-Atom">sqlpending</span><span class="p">)</span>
 </code></pre></div>
 
-
 <h2 id="ip_1">固定容器的IP<a class="headerlink" href="#ip_1" title="Permanent link">&para;</a></h2>
 <p>参考： https://github.com/johnnian/Blog/issues/16</p>
 <p>默认的bridge网络不支持指定ip，需要再创建一个网络：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">docker network create --subnet=172.18.0.0/16 b</span>
+<div class="codehilite"><pre><span></span><code>docker network create --subnet=172.18.0.0/16 b
 </code></pre></div>
-
 
 <p>创建容器的时候可以<code>--network b --ip 172.18.0.2</code></p>
 <p>已经存在的容器需要用：</p>
 <div class="codehilite"><pre><span></span><code>docker network connect --ip 172.18.0.2 --alias <span class="cp">${</span><span class="n">name</span><span class="cp">}</span> b <span class="cp">${</span><span class="n">name</span><span class="cp">}</span>
 </code></pre></div>
 
-
 <p>不想改动docker的network还有个临时的办法：</p>
 <h2 id="ip-etchosts">获取容器IP 更新主机/etc/hosts<a class="headerlink" href="#ip-etchosts" title="Permanent link">&para;</a></h2>
 <p>需要先将当前的hosts文件复制为/etc/hosts.base</p>
 <p>其中bridge可能需要改成docker inspect输出的其他network名称</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4
-5
-6
-7</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 <span class="k">if</span> <span class="o">[[</span> <span class="nv">$EUID</span> -ne <span class="m">0</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
    <span class="nb">echo</span> <span class="s2">&quot;This script must be run as root&quot;</span>
    <span class="nb">exit</span> <span class="m">1</span>
@@ -3028,7 +2907,6 @@ i -P INPUT DROP <span class="c1"># Drop everything we don&#39;t accept</span>
 cp /etc/hosts.base /etc/hosts
 <span class="nb">echo</span> <span class="sb">`</span>docker inspect <span class="si">${</span><span class="nv">name</span><span class="si">}</span> --format <span class="s1">&#39;{{.NetworkSettings.Networks.bridge.IPAddress}}&#39;</span><span class="sb">`</span>  <span class="si">${</span><span class="nv">name</span><span class="si">}</span> &gt;&gt; /etc/hosts
 </code></pre></div>
-</td></tr></table>
 
 <p>另外 你还可以启动个dns服务的容器来解析容器hostname:</p>
 <p>https://stackoverflow.com/questions/37242217/access-docker-container-from-host-using-containers-name/45071126#45071126</p>
@@ -3041,7 +2919,6 @@ cp /etc/hosts.base /etc/hosts
 <div class="codehilite"><pre><span></span><code>nsenter --target `docker inspect --format &#39;{{.State.Pid}}&#39; <span class="cp">${</span><span class="n">CONTAINER</span><span class="cp">}</span>`  --net --pid route delete default
 </code></pre></div>
 
-
 <p>好处在于访问网络的请求能迅速报错<code>Network is unreachable</code>，也不需要额外的容器参数配置</p>
 <p>但容器每次重启都需要重新执行</p>
 <h3 id="nginx">复杂方案 创建个内部网络 Nginx转发<a class="headerlink" href="#nginx" title="Permanent link">&para;</a></h3>
@@ -3050,28 +2927,25 @@ cp /etc/hosts.base /etc/hosts
 <p>然后还需要Nginx容器同时加入默认网络和这个网络来进行转发，Nginx容器一开始创建后的启动会报错反复重启（无法解析app），加入网络后即可正常启动</p>
 <div class="codehilite"><pre><span></span><code><span class="n">docker</span> <span class="n">network</span> <span class="k">create</span> <span class="n">$</span><span class="err">{</span><span class="n">CONTAINER</span><span class="err">}</span><span class="n">_nonet</span> <span class="o">--</span><span class="n">internal</span>
 <span class="n">docker</span> <span class="n">run</span> <span class="o">--</span><span class="n">network</span> <span class="n">$</span><span class="err">{</span><span class="n">CONTAINER</span><span class="err">}</span><span class="n">_nonet</span> <span class="o">--</span><span class="n">network</span><span class="o">-</span><span class="n">alias</span> <span class="n">app</span> <span class="p">...</span>
-<span class="n">docker</span> <span class="n">run</span> <span class="o">--</span><span class="k">name</span> <span class="n">$</span><span class="err">{</span><span class="n">CONTAINER</span><span class="err">}</span><span class="n">_nginx</span> <span class="o">-</span><span class="n">d</span> <span class="o">-</span><span class="n">v</span> <span class="n">`pwd`</span><span class="o">/</span><span class="n">nginxconf</span><span class="o">:/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">conf</span><span class="p">.</span><span class="n">d</span> <span class="o">-</span><span class="n">p</span> <span class="mi">20528</span><span class="o">:</span><span class="mi">80</span> <span class="o">--</span><span class="k">restart</span><span class="o">=</span><span class="k">always</span> <span class="n">nginx</span>
+<span class="n">docker</span> <span class="n">run</span> <span class="o">--</span><span class="k">name</span> <span class="n">$</span><span class="err">{</span><span class="n">CONTAINER</span><span class="err">}</span><span class="n">_nginx</span> <span class="o">-</span><span class="n">d</span> <span class="o">-</span><span class="n">v</span> <span class="n n-Quoted">`pwd`</span><span class="o">/</span><span class="n">nginxconf</span><span class="o">:/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">conf</span><span class="p">.</span><span class="n">d</span> <span class="o">-</span><span class="n">p</span> <span class="mi">20528</span><span class="o">:</span><span class="mi">80</span> <span class="o">--</span><span class="k">restart</span><span class="o">=</span><span class="k">always</span> <span class="n">nginx</span>
 <span class="n">docker</span> <span class="n">network</span> <span class="n">connect</span> <span class="n">$</span><span class="err">{</span><span class="n">CONTAINER</span><span class="err">}</span><span class="n">_nonet</span> <span class="n">$</span><span class="err">{</span><span class="n">CONTAINER</span><span class="err">}</span><span class="n">_nginx</span> <span class="o">--</span><span class="n">alias</span> <span class="n">nginx</span>
 </code></pre></div>
 
-
 <p>其中nginxconf文件夹里放一个default.conf:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">server {</span>
-<span class="err">    listen       80;</span>
-<span class="err">    server_name  localhost;</span>
-<span class="err">    location / {</span>
-<span class="err">        proxy_pass http://app:5000;</span>
-<span class="err">        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span>
-<span class="err">    }</span>
+<div class="codehilite"><pre><span></span><code><span class="nt">server</span> <span class="p">{</span>
+    <span class="err">listen</span>       <span class="err">80</span><span class="p">;</span>
+    <span class="err">server_name</span>  <span class="err">localhost</span><span class="p">;</span>
+    <span class="err">location</span> <span class="err">/</span> <span class="err">{</span>
+        <span class="err">proxy_pass</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">app</span><span class="o">:</span><span class="mi">5000</span><span class="p">;</span>
+        <span class="err">proxy_set_header</span> <span class="err">X-Forwarded-For</span> <span class="err">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+    <span class="p">}</span>
 <span class="err">}</span>
 </code></pre></div>
-
 
 <p>既然用了反向代理，应用层也需要配置一下IP相关的修复才能使日志显示访问者ip（而不是Nginx容器的IP），比如Flask 1.0需要：</p>
 <div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">werkzeug.middleware.proxy_fix</span> <span class="kn">import</span> <span class="n">ProxyFix</span>
 <span class="n">app</span><span class="o">.</span><span class="n">wsgi_app</span> <span class="o">=</span> <span class="n">ProxyFix</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">wsgi_app</span><span class="p">)</span>
 </code></pre></div>
-
 
 <p>这个方案有点复杂，但好处在于重启容器不需要额外配置，反正连不上网</p>
 <p>坏处在于访问网络的请求会一直卡住，应用层需要自己考虑超时</p>
@@ -3090,13 +2964,11 @@ cp /etc/hosts.base /etc/hosts
 <span class="n">systemctl</span> <span class="n">show</span> <span class="o">--</span><span class="n">property</span><span class="o">=</span><span class="n">Environment</span> <span class="n">docker</span>
 </code></pre></div>
 
-
 <div class="codehilite"><pre><span></span><code><span class="k">[Service]</span>
 <span class="na">Environment</span><span class="o">=</span><span class="s">&quot;HTTP_PROXY=http://proxy.example.com:80&quot;</span>
 <span class="na">Environment</span><span class="o">=</span><span class="s">&quot;HTTPS_PROXY=https://proxy.example.com:443&quot;</span>
 <span class="na">Environment</span><span class="o">=</span><span class="s">&quot;NO_PROXY=localhost,127.0.0.1,docker-registry.example.com,.corp&quot;</span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="docker-daemon_1">配置docker daemon退出时不自动关闭容器<a class="headerlink" href="#docker-daemon_1" title="Permanent link">&para;</a></h2>

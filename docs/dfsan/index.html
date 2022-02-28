@@ -1171,7 +1171,6 @@
 <span class="c1"># now, we get our binary file: ./bin/exiv2, about 38MB</span>
 </code></pre></div>
 
-
 <h3 id="qa">Q&amp;A<a class="headerlink" href="#qa" title="Permanent link">&para;</a></h3>
 <h4 id="why-docker-image-zjuchenyuanangora">Why docker image <code>zjuchenyuan/angora</code><a class="headerlink" href="#why-docker-image-zjuchenyuanangora" title="Permanent link">&para;</a></h4>
 <p>Just to use already built-in clang-7, and two abi list files</p>
@@ -1184,17 +1183,16 @@
 <span class="o">/</span><span class="n">angora</span><span class="o">/</span><span class="n">tools</span><span class="o">/</span><span class="n">gen_library_abilist</span><span class="o">.</span><span class="n">sh</span>  <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">x86_64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span><span class="o">/</span><span class="n">libexpat</span><span class="o">.</span><span class="n">so</span>  <span class="n">discard</span> <span class="o">&gt;&gt;</span> <span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">mylist</span><span class="o">.</span><span class="n">txt</span>
 </code></pre></div>
 
-
 <h4 id="why-disable-shared">Why <code>--disable-shared</code><a class="headerlink" href="#why-disable-shared" title="Permanent link">&para;</a></h4>
 <p>This is to build a single binary file for easier fuzzing.</p>
 <h4 id="wanna-debug-no-optimization">Wanna debug? No optimization<a class="headerlink" href="#wanna-debug-no-optimization" title="Permanent link">&para;</a></h4>
 <p>Compiling Exiv2 with DFSan, with -O0</p>
-<div class="codehilite"><pre><span></span><code><span class="err"># let&#39;s continue our building process, use -O0 to facilitate debugging</span>
-<span class="err">cd /data/exiv2-trunk</span>
-<span class="err">CFLAGS=&#39;-O0&#39; CXXFLAGS=&#39;-O0&#39; ./configure --disable-shared --with-expat=/data/expat --with-zlib=/data/zlib </span>
-<span class="err">make clean; find . -name &#39;*.o&#39; -delete</span>
-<span class="err">make -j</span>
-<span class="err"># now we get bin/exiv2, about 44MB</span>
+<div class="codehilite"><pre><span></span><code># <span class="nv">let</span><span class="s1">&#39;</span><span class="s">s continue our building process, use -O0 to facilitate debugging</span>
+<span class="nv">cd</span> <span class="o">/</span><span class="nv">data</span><span class="o">/</span><span class="nv">exiv2</span><span class="o">-</span><span class="nv">trunk</span>
+<span class="nv">CFLAGS</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">-O0</span><span class="s1">&#39;</span> <span class="nv">CXXFLAGS</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">-O0</span><span class="s1">&#39;</span> .<span class="o">/</span><span class="nv">configure</span> <span class="o">--</span><span class="nv">disable</span><span class="o">-</span><span class="nv">shared</span> <span class="o">--</span><span class="nv">with</span><span class="o">-</span><span class="nv">expat</span><span class="o">=/</span><span class="nv">data</span><span class="o">/</span><span class="nv">expat</span> <span class="o">--</span><span class="nv">with</span><span class="o">-</span><span class="nv">zlib</span><span class="o">=/</span><span class="nv">data</span><span class="o">/</span><span class="nv">zlib</span> 
+<span class="nv">make</span> <span class="nv">clean</span><span class="c1">; find . -name &#39;*.o&#39; -delete</span>
+<span class="nv">make</span> <span class="o">-</span><span class="nv">j</span>
+# <span class="nv">now</span> <span class="nv">we</span> <span class="nv">get</span> <span class="nv">bin</span><span class="o">/</span><span class="nv">exiv2</span>, <span class="nv">about</span> <span class="mi">44</span><span class="nv">MB</span>
 </code></pre></div>
                 
               

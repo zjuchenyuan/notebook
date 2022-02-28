@@ -1146,85 +1146,75 @@
 <span class="n">sudo</span> <span class="n">VBoxManage</span> <span class="n">extpack</span> <span class="n">install</span> <span class="n">Oracle_VM_VirtualBox_Extension_Pack</span><span class="o">-</span><span class="mf">5.1</span><span class="o">.</span><span class="mi">16</span><span class="o">-</span><span class="mf">113841.</span><span class="n">vbox</span><span class="o">-</span><span class="n">extpack</span>
 </code></pre></div>
 
-
 <h2 id="_3">创建虚拟机，设置虚拟机选项<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="err">mkdir -p /home/virtualbox</span>
-<span class="err">VBoxManage createvm --name ubuntu --ostype &quot;Ubuntu_64&quot; --register --basefolder /home/virtualbox/</span>
-<span class="err">VBoxManage createvdi  --filename ubuntu/ubuntu.vdi --size 102400 # 100GB</span>
-<span class="err">VBoxManage storagectl ubuntu --name storage_controller_1 --add ide</span>
-<span class="err">VBoxManage storageattach ubuntu --storagectl storage_controller_1 \</span>
-<span class="err">    --type hdd --port 0 --device 0  --medium ubuntu/ubuntu.vdi</span>
-<span class="err">VBoxManage storageattach ubuntu --storagectl storage_controller_1 \</span>
-<span class="err">    --type dvddrive --port 1 --device 0 --medium ubuntu-14.04.4-server-amd64.iso</span>
-<span class="err">VBoxManage modifyvm ubuntu --cpus 4 --memory 2048 --acpi on --boot1 dvd --nic1 nat --cableconnected1 on --vrde on --vrdeport 3389</span>
+<div class="codehilite"><pre><span></span><code><span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">virtualbox</span>
+<span class="n">VBoxManage</span> <span class="n">createvm</span> <span class="o">--</span><span class="n">name</span> <span class="n">ubuntu</span> <span class="o">--</span><span class="n">ostype</span> <span class="s">&quot;Ubuntu_64&quot;</span> <span class="o">--</span><span class="n">register</span> <span class="o">--</span><span class="n">basefolder</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">virtualbox</span><span class="o">/</span>
+<span class="n">VBoxManage</span> <span class="n">createvdi</span>  <span class="o">--</span><span class="n">filename</span> <span class="n">ubuntu</span><span class="o">/</span><span class="n">ubuntu</span><span class="p">.</span><span class="n">vdi</span> <span class="o">--</span><span class="n">size</span> <span class="mh">102400</span> <span class="p">#</span> <span class="mh">100</span><span class="n">GB</span>
+<span class="n">VBoxManage</span> <span class="n">storagectl</span> <span class="n">ubuntu</span> <span class="o">--</span><span class="n">name</span> <span class="n">storage_controller_1</span> <span class="o">--</span><span class="n">add</span> <span class="n">ide</span>
+<span class="n">VBoxManage</span> <span class="n">storageattach</span> <span class="n">ubuntu</span> <span class="o">--</span><span class="n">storagectl</span> <span class="n">storage_controller_1</span> \
+    <span class="o">--</span><span class="k">type</span> <span class="n">hdd</span> <span class="o">--</span><span class="n">port</span> <span class="mh">0</span> <span class="o">--</span><span class="n">device</span> <span class="mh">0</span>  <span class="o">--</span><span class="k">medium</span> <span class="n">ubuntu</span><span class="o">/</span><span class="n">ubuntu</span><span class="p">.</span><span class="n">vdi</span>
+<span class="n">VBoxManage</span> <span class="n">storageattach</span> <span class="n">ubuntu</span> <span class="o">--</span><span class="n">storagectl</span> <span class="n">storage_controller_1</span> \
+    <span class="o">--</span><span class="k">type</span> <span class="n">dvddrive</span> <span class="o">--</span><span class="n">port</span> <span class="mh">1</span> <span class="o">--</span><span class="n">device</span> <span class="mh">0</span> <span class="o">--</span><span class="k">medium</span> <span class="n">ubuntu</span><span class="o">-</span><span class="mf">14.04.4</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="n">amd64</span><span class="p">.</span><span class="n">iso</span>
+<span class="n">VBoxManage</span> <span class="n">modifyvm</span> <span class="n">ubuntu</span> <span class="o">--</span><span class="n">cpus</span> <span class="mh">4</span> <span class="o">--</span><span class="n">memory</span> <span class="mh">2048</span> <span class="o">--</span><span class="n">acpi</span> <span class="n">on</span> <span class="o">--</span><span class="n">boot1</span> <span class="n">dvd</span> <span class="o">--</span><span class="n">nic1</span> <span class="n">nat</span> <span class="o">--</span><span class="n">cableconnected1</span> <span class="n">on</span> <span class="o">--</span><span class="n">vrde</span> <span class="n">on</span> <span class="o">--</span><span class="n">vrdeport</span> <span class="mh">3389</span>
 </code></pre></div>
-
 
 <p>以下是我安装CentOS 6.8 32bit minimal的过程</p>
-<div class="codehilite"><pre><span></span><code><span class="err">pushd /root</span>
-<span class="err">curl -O http://mirrors.zju.edu.cn/centos/6.8/isos/i386/CentOS-6.8-i386-minimal.iso</span>
-<span class="err">mkdir /home/virtualbox</span>
-<span class="err">#看看ostype支持哪一些，结果发现有RedHat，就选它咯</span>
-<span class="err">VBoxManage list ostypes</span>
-<span class="err">VBoxManage createvm --name centos --ostype &quot;RedHat&quot; --register --basefolder /home/virtualbox/</span>
-<span class="err">pushd /home/virtualbox</span>
-<span class="err">VBoxManage createvdi  --filename centos/disk.vdi --size 2048 # 2GB</span>
-<span class="err">VBoxManage storagectl centos --name storage_controller_1 --add ide</span>
-<span class="err">VBoxManage storageattach centos --storagectl storage_controller_1 --type hdd --port 0 --device 0  --medium centos/disk.vdi</span>
-<span class="err">VBoxManage storageattach centos --storagectl storage_controller_1 --type dvddrive --port 1 --device 0 --medium /root/CentOS-6.8-i386-minimal.iso</span>
-<span class="err">#配置CPU和内存限制，光驱启动，允许多个客户端连接</span>
-<span class="err">VBoxManage modifyvm centos --cpus 1 --memory 512 --acpi on --boot1 dvd --nic1 nat --cableconnected1 on --vrde on --vrdeport 13389 --vrdemulticon on</span>
+<div class="codehilite"><pre><span></span><code><span class="n">pushd</span> <span class="o">/</span><span class="n">root</span>
+<span class="n">curl</span> <span class="o">-</span><span class="n">O</span> <span class="nl">http:</span><span class="c1">//mirrors.zju.edu.cn/centos/6.8/isos/i386/CentOS-6.8-i386-minimal.iso</span>
+<span class="n">mkdir</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">virtualbox</span>
+<span class="p">#</span><span class="err">看看</span><span class="n">ostype支持哪一些</span><span class="err">，结果发现有</span><span class="n">RedHat</span><span class="err">，就选它咯</span>
+<span class="n">VBoxManage</span> <span class="n">list</span> <span class="n">ostypes</span>
+<span class="n">VBoxManage</span> <span class="n">createvm</span> <span class="o">--</span><span class="n">name</span> <span class="n">centos</span> <span class="o">--</span><span class="n">ostype</span> <span class="s">&quot;RedHat&quot;</span> <span class="o">--</span><span class="n">register</span> <span class="o">--</span><span class="n">basefolder</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">virtualbox</span><span class="o">/</span>
+<span class="n">pushd</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">virtualbox</span>
+<span class="n">VBoxManage</span> <span class="n">createvdi</span>  <span class="o">--</span><span class="n">filename</span> <span class="n">centos</span><span class="o">/</span><span class="n">disk</span><span class="p">.</span><span class="n">vdi</span> <span class="o">--</span><span class="n">size</span> <span class="mh">2048</span> <span class="p">#</span> <span class="mh">2</span><span class="n">GB</span>
+<span class="n">VBoxManage</span> <span class="n">storagectl</span> <span class="n">centos</span> <span class="o">--</span><span class="n">name</span> <span class="n">storage_controller_1</span> <span class="o">--</span><span class="n">add</span> <span class="n">ide</span>
+<span class="n">VBoxManage</span> <span class="n">storageattach</span> <span class="n">centos</span> <span class="o">--</span><span class="n">storagectl</span> <span class="n">storage_controller_1</span> <span class="o">--</span><span class="k">type</span> <span class="n">hdd</span> <span class="o">--</span><span class="n">port</span> <span class="mh">0</span> <span class="o">--</span><span class="n">device</span> <span class="mh">0</span>  <span class="o">--</span><span class="k">medium</span> <span class="n">centos</span><span class="o">/</span><span class="n">disk</span><span class="p">.</span><span class="n">vdi</span>
+<span class="n">VBoxManage</span> <span class="n">storageattach</span> <span class="n">centos</span> <span class="o">--</span><span class="n">storagectl</span> <span class="n">storage_controller_1</span> <span class="o">--</span><span class="k">type</span> <span class="n">dvddrive</span> <span class="o">--</span><span class="n">port</span> <span class="mh">1</span> <span class="o">--</span><span class="n">device</span> <span class="mh">0</span> <span class="o">--</span><span class="k">medium</span> <span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">CentOS</span><span class="o">-</span><span class="mf">6.8</span><span class="o">-</span><span class="n">i386</span><span class="o">-</span><span class="n">minimal</span><span class="p">.</span><span class="n">iso</span>
+<span class="p">#</span><span class="err">配置</span><span class="n">CPU和内存限制</span><span class="err">，光驱启动，允许多个客户端连接</span>
+<span class="n">VBoxManage</span> <span class="n">modifyvm</span> <span class="n">centos</span> <span class="o">--</span><span class="n">cpus</span> <span class="mh">1</span> <span class="o">--</span><span class="n">memory</span> <span class="mh">512</span> <span class="o">--</span><span class="n">acpi</span> <span class="n">on</span> <span class="o">--</span><span class="n">boot1</span> <span class="n">dvd</span> <span class="o">--</span><span class="n">nic1</span> <span class="n">nat</span> <span class="o">--</span><span class="n">cableconnected1</span> <span class="n">on</span> <span class="o">--</span><span class="n">vrde</span> <span class="n">on</span> <span class="o">--</span><span class="n">vrdeport</span> <span class="mh">13389</span> <span class="o">--</span><span class="n">vrdemulticon</span> <span class="n">on</span>
 </code></pre></div>
-
 
 <h2 id="_4">启动虚拟机<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="err">nohup VBoxHeadless -startvm ubuntu --vrde on -e  TCP/Ports=63389 &amp;</span>
+<div class="codehilite"><pre><span></span><code>nohup VBoxHeadless -startvm ubuntu --vrde on -e  TCP/Ports=63389 &amp;
 </code></pre></div>
-
 
 <h2 id="_5">控制虚拟机<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <p>Windows下使用<code>mstsc</code>远程连接即可获得一个图形界面的终端完成系统安装</p>
 <h2 id="_6">删除硬盘<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="err">VBoxManage storageattach centos --storagectl storage_controller_1 --type hdd --port 0 --device 0  --medium none</span>
-<span class="err">VBoxManage closemedium centos/disk.vdi</span>
-<span class="err">rm centos/disk.vdi</span>
+<div class="codehilite"><pre><span></span><code>VBoxManage storageattach centos --storagectl storage_controller_1 --type hdd --port 0 --device 0  --medium none
+VBoxManage closemedium centos/disk.vdi
+rm centos/disk.vdi
 </code></pre></div>
-
 
 <h2 id="_7">运行条件下修改端口映射<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="o">#</span> <span class="err">首先通过</span><span class="n">mstsc物理接触虚拟机</span><span class="err">，确认</span><span class="n">ifconfig已经得到ip</span>
-<span class="o">#</span> <span class="err">否则需要在虚拟机中执行</span> <span class="n">ifconfig</span> <span class="o">-</span><span class="n">a</span> <span class="err">查看网卡，执行</span> <span class="n">dhclient</span> <span class="n">eth0</span> <span class="err">获得</span><span class="n">ip</span>
+<div class="codehilite"><pre><span></span><code># 首先通过mstsc物理接触虚拟机，确认ifconfig已经得到ip
+# 否则需要在虚拟机中执行 ifconfig -a 查看网卡，执行 dhclient eth0 获得ip
 
-<span class="o">#</span> <span class="err">例如我们需要将虚拟机的</span><span class="mi">22</span><span class="err">端口映射出</span><span class="mi">10022</span><span class="err">端口</span>
-<span class="o">#</span> <span class="err">最后一个参数的格式：规则名称</span><span class="p">,</span><span class="n">tcp还是udp</span><span class="p">,</span><span class="err">主机的</span><span class="n">IP</span><span class="p">(</span><span class="err">不填就好</span><span class="p">),</span><span class="err">主机暴露出来的端口</span><span class="p">,</span><span class="err">虚拟机的</span><span class="n">IP</span><span class="p">(</span><span class="err">不填就好</span><span class="p">),</span><span class="err">需要映射的虚拟机端口</span>
-<span class="n">VBoxManage</span> <span class="n">controlvm</span> <span class="err">虚拟机名称</span> <span class="n">natpf1</span> <span class="n">ssh</span><span class="p">,</span><span class="n">tcp</span><span class="p">,,</span><span class="mi">10022</span><span class="p">,,</span><span class="mi">22</span>
+# 例如我们需要将虚拟机的22端口映射出10022端口
+# 最后一个参数的格式：规则名称,tcp还是udp,主机的IP(不填就好),主机暴露出来的端口,虚拟机的IP(不填就好),需要映射的虚拟机端口
+VBoxManage controlvm 虚拟机名称 natpf1 ssh,tcp,,10022,,22
 </code></pre></div>
-
 
 <h2 id="_8">运行条件下关闭远程控制<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
 <p>系统安装好了，SSH开了，SSH的端口映射可以连上去了，就可以关掉远程控制了</p>
-<div class="codehilite"><pre><span></span><code><span class="err">VBoxManage controlvm 虚拟机名称 vrde off</span>
+<div class="codehilite"><pre><span></span><code>VBoxManage controlvm 虚拟机名称 vrde off
 </code></pre></div>
-
 
 <h2 id="_9">屏幕截图<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="err">VBoxManage controlvm &lt;vm name&gt; screenshotpng /tmp/&lt;filename&gt;.png</span>
+<div class="codehilite"><pre><span></span><code>VBoxManage controlvm &lt;vm name&gt; screenshotpng /tmp/&lt;filename&gt;.png
 </code></pre></div>
-
 
 <h2 id="_10">优雅的关机<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="err">vboxmanage controlvm 虚拟机名称 poweroff soft</span>
+<div class="codehilite"><pre><span></span><code>vboxmanage controlvm 虚拟机名称 poweroff soft
 </code></pre></div>
-
 
 <h2 id="vrde">开启vrde远程桌面<a class="headerlink" href="#vrde" title="Permanent link">&para;</a></h2>
 <p>似乎需要先关机才能操作</p>
-<div class="codehilite"><pre><span></span><code><span class="err">VBoxManage modifyvm &quot;VM name&quot; --vrdeextpack default</span>
-<span class="err">VBoxManage modifyvm &quot;VM name&quot; --vrde on</span>
-<span class="err">VBoxManage modifyvm &quot;VM name&quot; --vrdeport 3391</span>
-<span class="err">VBoxManage modifyvm &quot;VM name&quot; --vrdeaddress 0.0.0.0</span>
+<div class="codehilite"><pre><span></span><code>VBoxManage modifyvm &quot;VM name&quot; --vrdeextpack default
+VBoxManage modifyvm &quot;VM name&quot; --vrde on
+VBoxManage modifyvm &quot;VM name&quot; --vrdeport 3391
+VBoxManage modifyvm &quot;VM name&quot; --vrdeaddress 0.0.0.0
 </code></pre></div>
-
 
 <h2 id="vdi">从硬盘+快照vdi文件恢复<a class="headerlink" href="#vdi" title="Permanent link">&para;</a></h2>
 <p>假设备份的时候只复制了硬盘vdi文件和Snapshots的vdi文件，而忘记了备份vbox文件，如何恢复快照关系呢</p>

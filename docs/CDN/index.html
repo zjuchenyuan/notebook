@@ -1316,21 +1316,19 @@
 <p>又拍云能配置边缘规则 进行URL改写，用户在访问xxx.html的时候实际回源xxx/</p>
 <p>而且配置挺简单，只要会写正则即可</p>
 <p>配置规则如下：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">条件判断： 如果请求URI 正则匹配 ^/[^/]*html$</span>
-<span class="err">功能选择： URL改写</span>
-<span class="err">    URI 字符串提取： ^/([^/]*).html$</span>
-<span class="err">    改写规则：/$1/</span>
-<span class="c">break: 打勾</span>
+<div class="codehilite"><pre><span></span><code>条件判断： 如果请求<span class="nv">URI</span> 正则匹配 <span class="o">^/</span>[<span class="o">^/</span>]<span class="o">*</span><span class="nv">html</span>$
+功能选择： <span class="nv">URL</span>改写
+    <span class="nv">URI</span> 字符串提取： <span class="o">^/</span><span class="ss">(</span>[<span class="o">^/</span>]<span class="o">*</span><span class="ss">)</span>.<span class="nv">html</span>$
+    改写规则：<span class="o">/</span><span class="mh">$1</span><span class="o">/</span>
+<span class="k">break</span>: 打勾
 </code></pre></div>
-
 
 <h3 id="upyun-upyun-token">UPYUN 使用边缘规则实现upyun TOKEN反盗链功能<a class="headerlink" href="#upyun-upyun-token" title="Permanent link">&para;</a></h3>
 <p>想只对特定url使用token反盗链，于是就使用边缘规则来实现一下完全兼容反盗链的算法咯</p>
 <p>发现一个坑：又拍云的边缘规则的<code>$SUB</code>函数 其from和to是从1开始计数的，包括from，也包括to</p>
 <p>URI 字符串提取不填，break不选，规则编辑器填以下内容</p>
-<div class="codehilite"><pre><span></span><code><span class="err">$WHEN($MATCH($_URI, &#39;这里填URI匹配正则&#39;),$OR($GT($_TIME, $SUB($_GET__upt, 9,99)),$NOT($_GET__upt), $NOT($EQ($SUB($MD5(&#39;这里填TOKEN&#39;&#39;&amp;&#39;$SUB($_GET__upt, 9,99)&#39;&amp;&#39;$_URI),13,20),$SUB($_GET__upt, 1,8)))))$EXIT(403)</span>
+<div class="codehilite"><pre><span></span><code>$<span class="nv">WHEN</span><span class="ss">(</span>$<span class="nv">MATCH</span><span class="ss">(</span>$<span class="nv">_URI</span>, <span class="s1">&#39;</span><span class="s">这里填URI匹配正则</span><span class="s1">&#39;</span><span class="ss">)</span>,$<span class="nv">OR</span><span class="ss">(</span>$<span class="nv">GT</span><span class="ss">(</span>$<span class="nv">_TIME</span>, $<span class="nv">SUB</span><span class="ss">(</span>$<span class="nv">_GET__upt</span>, <span class="mi">9</span>,<span class="mi">99</span><span class="ss">))</span>,$<span class="nv">NOT</span><span class="ss">(</span>$<span class="nv">_GET__upt</span><span class="ss">)</span>, $<span class="nv">NOT</span><span class="ss">(</span><span class="mh">$E</span><span class="nv">Q</span><span class="ss">(</span>$<span class="nv">SUB</span><span class="ss">(</span>$<span class="nv">MD5</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">这里填TOKEN</span><span class="s1">&#39;&#39;</span><span class="s">&amp;</span><span class="s1">&#39;</span>$<span class="nv">SUB</span><span class="ss">(</span>$<span class="nv">_GET__upt</span>, <span class="mi">9</span>,<span class="mi">99</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">&amp;</span><span class="s1">&#39;</span>$<span class="nv">_URI</span><span class="ss">)</span>,<span class="mi">13</span>,<span class="mi">20</span><span class="ss">)</span>,$<span class="nv">SUB</span><span class="ss">(</span>$<span class="nv">_GET__upt</span>, <span class="mi">1</span>,<span class="mi">8</span><span class="ss">)))))</span><span class="mh">$E</span><span class="nv">XIT</span><span class="ss">(</span><span class="mi">403</span><span class="ss">)</span>
 </code></pre></div>
-
 
 <h3 id="upyun-https">UPYUN https证书更新<a class="headerlink" href="#upyun-https" title="Permanent link">&para;</a></h3>
 <p>使用F12开发人员工具看的接口，用Python实现了一下，从手动一个个添加证书中解放出来</p>
@@ -1354,15 +1352,13 @@
 <span class="nb">echo</span> <span class="s2">&quot;curl https://v0.api.upyun.com/</span><span class="si">${</span><span class="nv">bucket</span><span class="si">}</span><span class="s2"> -F file=@</span><span class="si">${</span><span class="nv">filename</span><span class="si">}</span><span class="s2"> -F policy=\${UPYUN_POLICY} -F signature=\${UPYUN_SIGN}&quot;</span>
 </code></pre></div>
 
-
 <p>我也提供了一个脚本便于你快速调用：</p>
-<div class="codehilite"><pre><span></span><code><span class="n">curl</span> <span class="o">-</span><span class="n">O</span> <span class="n">d</span><span class="p">.</span><span class="n">py3</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="n">up</span><span class="p">.</span><span class="n">sh</span>
-<span class="n">sh</span> <span class="n">up</span><span class="p">.</span><span class="n">sh</span> <span class="k">key</span> <span class="n">bucket</span> <span class="n">filename</span>
+<div class="codehilite"><pre><span></span><code>curl -O d.py3.io/up.sh
+sh up.sh key bucket filename
 
-<span class="o">#</span> <span class="err">触发上传只要继续丢给</span><span class="n">sh就行</span>
-<span class="n">sh</span> <span class="n">up</span><span class="p">.</span><span class="n">sh</span> <span class="k">key</span> <span class="n">bucket</span> <span class="n">filename</span><span class="o">|</span><span class="n">sh</span>
+# 触发上传只要继续丢给sh就行
+sh up.sh key bucket filename|sh
 </code></pre></div>
-
 
 <hr />
 <h3 id="upyun61">UPYUN省钱方案：缓存61秒 变为静态请求<a class="headerlink" href="#upyun61" title="Permanent link">&para;</a></h3>
@@ -1378,36 +1374,33 @@
 <p>但如果用户访问的全部是缓存页面，前端代码需要先判断cookie是否存在，不存在就需要发起getsession请求来获取cookie再进行跨域请求</p>
 <p>这种跨域需要带上Cookie所以是withCredential的</p>
 <p>前端js:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">function queryme(){</span>
-<span class="err">    $.ajax({</span>
-<span class="err">        url:&quot;https://subdomain.www.example.com/uri&quot;,</span>
-<span class="err">        success:function(data){</span>
-<span class="err">            //...</span>
-<span class="err">        },</span>
-<span class="err">        xhrFields:{withCredentials:true}</span>
-<span class="err">    })</span>
+<div class="codehilite"><pre><span></span><code><span class="nt">function</span> <span class="nt">queryme</span><span class="o">()</span><span class="p">{</span>
+    <span class="err">$.ajax({</span>
+        <span class="n">url</span><span class="p">:</span><span class="s2">&quot;https://subdomain.www.example.com/uri&quot;</span><span class="p">,</span>
+        <span class="n">success</span><span class="o">:</span><span class="nf">function</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="err">{</span>
+            <span class="o">//...</span>
+        <span class="p">}</span><span class="o">,</span>
+        <span class="nt">xhrFields</span><span class="o">:</span><span class="p">{</span><span class="n">withCredentials</span><span class="p">:</span><span class="n">true</span><span class="p">}</span>
+    <span class="err">}</span><span class="o">)</span>
 <span class="err">}</span>
-<span class="err">(function(){</span>
-<span class="err">    if(document.cookie.indexOf(&quot;user=&quot;)&gt;=0){</span>
-<span class="err">        queryme();</span>
-<span class="err">    }else{</span>
-<span class="err">        $.get(&quot;/getsession&quot;,null,queryme);</span>
-<span class="err">    }</span>
-<span class="err">})();</span>
+<span class="o">(</span><span class="nt">function</span><span class="o">()</span><span class="p">{</span>
+    <span class="err">if(document.cookie.indexOf(&quot;user=&quot;)&gt;=0){</span>
+        <span class="err">queryme()</span><span class="p">;</span>
+    <span class="p">}</span><span class="nt">else</span><span class="p">{</span>
+        <span class="err">$.get(&quot;/getsession&quot;,null,queryme)</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="err">}</span><span class="o">)();</span>
 </code></pre></div>
-
 
 <p>后端Nginx:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">add_header &#39;Access-Control-Allow-Origin&#39; &#39;https://www.example.com&#39;;</span>
-<span class="err">add_header &#39;Access-Control-Allow-Credentials&#39; &#39;true&#39;;</span>
+<div class="codehilite"><pre><span></span><code><span class="nt">add_header</span> <span class="s1">&#39;Access-Control-Allow-Origin&#39;</span> <span class="s1">&#39;https://www.example.com&#39;</span><span class="o">;</span>
+<span class="nt">add_header</span> <span class="s1">&#39;Access-Control-Allow-Credentials&#39;</span> <span class="s1">&#39;true&#39;</span><span class="o">;</span>
 </code></pre></div>
-
 
 <h2 id="qiniu">Qiniu<a class="headerlink" href="#qiniu" title="Permanent link">&para;</a></h2>
 <h3 id="qshell">使用qshell上传文件夹<a class="headerlink" href="#qshell" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code><span class="n">qshell</span> <span class="n">qupload</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">ThreadCount</span><span class="o">&gt;</span><span class="p">]</span> <span class="o">&lt;</span><span class="n">LocalUploadConfig</span><span class="o">&gt;</span>
 </code></pre></div>
-
 
 <p>需要写一个config文件，具体参见官方文档</p>
 <p><a href="https://developer.qiniu.com/kodo/tools/1302/qshell">https://developer.qiniu.com/kodo/tools/1302/qshell</a></p>
@@ -1425,17 +1418,15 @@
 <span class="p">});</span>
 </code></pre></div>
 
-
 <h3 id="_2">泛域名解析<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <p>参考 <a href="https://sslip.io">sslip.io</a></p>
 <p>假设我们有已经备案的域名<code>example.com</code>，使用<code>xip.example.com</code>作为泛域名解析的域名，也就是说<code>140-205-34-3.xip.example.com</code>就会解析到<code>140.205.34.3</code></p>
 <p>只需要设置4条NS记录即可：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">ns-aws.nono.io</span>
-<span class="err">ns-gce.nono.io</span>
-<span class="err">ns-azure.nono.io</span>
-<span class="err">ns-vultr.nono.io</span>
+<div class="codehilite"><pre><span></span><code>ns-aws.nono.io
+ns-gce.nono.io
+ns-azure.nono.io
+ns-vultr.nono.io
 </code></pre></div>
-
 
 <h3 id="https">申请泛域名的https证书<a class="headerlink" href="#https" title="Permanent link">&para;</a></h3>
 <p>参见： https://py3.io/Nginx/#acmesh</p>

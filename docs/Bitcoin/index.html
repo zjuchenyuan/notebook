@@ -1182,7 +1182,6 @@ function showwatch_okex(){localStorage.setItem("watchtab","showwatch_okexu");ret
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="n">i</span><span class="p">,</span> <span class="n">profit</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;|&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-
 <p>风险： From <a href="https://www.chainnode.com/post/391781">数字币套利简史（下）</a></p>
 <blockquote>
 <p>需要注意的是，资金费率的套利更加适合趋势上涨的行情，而且要留意行情的反转导致费率趋势的扭转，可能会套利失效；还有就是对于像18年的趋势下跌行情，虽然套利逻辑一样，但操作会更加复杂，因为这里面要涉及到永续合约+交割合约的组合对冲，占用币数也会翻倍，也就是说同样的币量套利年化收益率要打5折；所以，好好珍惜这来之不易的好行情吧。</p>
@@ -1219,40 +1218,38 @@ function showwatch_okex(){localStorage.setItem("watchtab","showwatch_okexu");ret
 <h3 id="python-sdk">币安Python SDK没有币本位合约接口<a class="headerlink" href="#python-sdk" title="Permanent link">&para;</a></h3>
 <p>现在代码已经有更新补上了REST API的缺失，但websocket订阅账户变动的代码还是得自己来：</p>
 <p>client.py里stream_get_listen_key附近加上：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">    def futures_stream_get_listen_key(self):</span>
-<span class="err">        res = self._request_futures_api(&quot;post&quot;, &quot;listenKey&quot;, True, data={})</span>
-<span class="err">        return res[&#39;listenKey&#39;]</span>
+<div class="codehilite"><pre><span></span><code>    <span class="nv">def</span> <span class="nv">futures_stream_get_listen_key</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+        <span class="nv">res</span> <span class="o">=</span> <span class="nv">self</span>.<span class="nv">_request_futures_api</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">post</span><span class="s2">&quot;</span>, <span class="s2">&quot;</span><span class="s">listenKey</span><span class="s2">&quot;</span>, <span class="nv">True</span>, <span class="nv">data</span><span class="o">=</span>{}<span class="ss">)</span>
+        <span class="k">return</span> <span class="nv">res</span>[<span class="s1">&#39;</span><span class="s">listenKey</span><span class="s1">&#39;</span>]
 </code></pre></div>
-
 
 <p>调用就这样：</p>
-<div class="codehilite"><pre><span></span><code>    <span class="n">def</span> <span class="n">start_websocket</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">handle_order</span><span class="p">):</span>
-        <span class="n">def</span> <span class="n">process_message</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
-            <span class="k">global</span> <span class="n">conn_key</span>
-            <span class="k">if</span> <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;e&#39;</span><span class="p">]</span> <span class="k">not</span> <span class="k">in</span> <span class="p">[</span><span class="s1">&#39;ACCOUNT_UPDATE&#39;</span><span class="p">]</span> <span class="k">and</span> <span class="k">not</span> <span class="p">(</span><span class="n">msg</span><span class="p">[</span><span class="s1">&#39;e&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;ORDER_TRADE_UPDATE&#39;</span> <span class="k">and</span> <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;o&#39;</span><span class="p">][</span><span class="s1">&#39;X&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;NEW&#39;</span><span class="p">):</span>
-                <span class="n">myprint</span><span class="p">(</span><span class="ss">&quot;message:&quot;</span><span class="p">,</span> <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;e&#39;</span><span class="p">],</span> <span class="n">msg</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;e&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;error&#39;</span><span class="p">:</span>
-                <span class="n">bm</span><span class="p">.</span><span class="n">stop_socket</span><span class="p">(</span><span class="n">conn_key</span><span class="p">)</span>
-                <span class="n">bm</span><span class="p">.</span><span class="k">close</span><span class="p">()</span>
-                <span class="n">reactor</span><span class="p">.</span><span class="n">stop</span><span class="p">()</span>
-                <span class="n">print</span><span class="p">(</span><span class="ss">&quot;socket stopped, exit now!&quot;</span><span class="p">)</span>
-                <span class="n">exit</span><span class="p">()</span>
-            <span class="n">elif</span> <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;e&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;ORDER_TRADE_UPDATE&#39;</span><span class="p">:</span>
-                <span class="n">o</span> <span class="o">=</span> <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;o&#39;</span><span class="p">]</span>
-                <span class="k">if</span> <span class="n">o</span><span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">]</span><span class="o">!=</span><span class="s1">&#39;FILLED&#39;</span><span class="p">:</span>
+<div class="codehilite"><pre><span></span><code>    <span class="nv">def</span> <span class="nv">start_websocket</span><span class="ss">(</span><span class="nv">self</span>, <span class="nv">handle_order</span><span class="ss">)</span>:
+        <span class="nv">def</span> <span class="nv">process_message</span><span class="ss">(</span><span class="nv">msg</span><span class="ss">)</span>:
+            <span class="nv">global</span> <span class="nv">conn_key</span>
+            <span class="k">if</span> <span class="nv">msg</span>[<span class="s1">&#39;</span><span class="s">e</span><span class="s1">&#39;</span>] <span class="nv">not</span> <span class="nv">in</span> [<span class="s1">&#39;</span><span class="s">ACCOUNT_UPDATE</span><span class="s1">&#39;</span>] <span class="nv">and</span> <span class="nv">not</span> <span class="ss">(</span><span class="nv">msg</span>[<span class="s1">&#39;</span><span class="s">e</span><span class="s1">&#39;</span>]<span class="o">==</span><span class="s1">&#39;</span><span class="s">ORDER_TRADE_UPDATE</span><span class="s1">&#39;</span> <span class="nv">and</span> <span class="nv">msg</span>[<span class="s1">&#39;</span><span class="s">o</span><span class="s1">&#39;</span>][<span class="s1">&#39;</span><span class="s">X</span><span class="s1">&#39;</span>]<span class="o">==</span><span class="s1">&#39;</span><span class="s">NEW</span><span class="s1">&#39;</span><span class="ss">)</span>:
+                <span class="nv">myprint</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">message:</span><span class="s2">&quot;</span>, <span class="nv">msg</span>[<span class="s1">&#39;</span><span class="s">e</span><span class="s1">&#39;</span>], <span class="nv">msg</span><span class="ss">)</span>
+            <span class="k">if</span> <span class="nv">msg</span>[<span class="s1">&#39;</span><span class="s">e</span><span class="s1">&#39;</span>] <span class="o">==</span> <span class="s1">&#39;</span><span class="s">error</span><span class="s1">&#39;</span>:
+                <span class="nv">bm</span>.<span class="nv">stop_socket</span><span class="ss">(</span><span class="nv">conn_key</span><span class="ss">)</span>
+                <span class="nv">bm</span>.<span class="nv">close</span><span class="ss">()</span>
+                <span class="nv">reactor</span>.<span class="nv">stop</span><span class="ss">()</span>
+                <span class="nv">print</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">socket stopped, exit now!</span><span class="s2">&quot;</span><span class="ss">)</span>
+                <span class="k">exit</span><span class="ss">()</span>
+            <span class="nv">elif</span> <span class="nv">msg</span>[<span class="s1">&#39;</span><span class="s">e</span><span class="s1">&#39;</span>]<span class="o">==</span><span class="s1">&#39;</span><span class="s">ORDER_TRADE_UPDATE</span><span class="s1">&#39;</span>:
+                <span class="nv">o</span> <span class="o">=</span> <span class="nv">msg</span>[<span class="s1">&#39;</span><span class="s">o</span><span class="s1">&#39;</span>]
+                <span class="k">if</span> <span class="nv">o</span>[<span class="s1">&#39;</span><span class="s">X</span><span class="s1">&#39;</span>]<span class="o">!=</span><span class="s1">&#39;</span><span class="s">FILLED</span><span class="s1">&#39;</span>:
                     <span class="k">return</span>
-                <span class="k">order</span> <span class="o">=</span> <span class="err">{</span><span class="ss">&quot;price&quot;</span><span class="p">:</span><span class="n">o</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">],</span> <span class="ss">&quot;orderId&quot;</span><span class="p">:</span><span class="n">o</span><span class="p">[</span><span class="s1">&#39;i&#39;</span><span class="p">],</span> <span class="ss">&quot;side&quot;</span><span class="p">:</span><span class="n">o</span><span class="p">[</span><span class="ss">&quot;S&quot;</span><span class="p">],</span> <span class="ss">&quot;symbol&quot;</span><span class="p">:</span><span class="n">o</span><span class="p">[</span><span class="ss">&quot;s&quot;</span><span class="p">],</span> <span class="ss">&quot;clientOrderId&quot;</span><span class="p">:</span><span class="n">o</span><span class="p">[</span><span class="ss">&quot;c&quot;</span><span class="p">]</span><span class="err">}</span>
-                <span class="k">return</span> <span class="n">handle_order</span><span class="p">(</span><span class="k">order</span><span class="p">)</span>
+                <span class="nv">order</span> <span class="o">=</span> {<span class="s2">&quot;</span><span class="s">price</span><span class="s2">&quot;</span>:<span class="nv">o</span>[<span class="s1">&#39;</span><span class="s">p</span><span class="s1">&#39;</span>], <span class="s2">&quot;</span><span class="s">orderId</span><span class="s2">&quot;</span>:<span class="nv">o</span>[<span class="s1">&#39;</span><span class="s">i</span><span class="s1">&#39;</span>], <span class="s2">&quot;</span><span class="s">side</span><span class="s2">&quot;</span>:<span class="nv">o</span>[<span class="s2">&quot;</span><span class="s">S</span><span class="s2">&quot;</span>], <span class="s2">&quot;</span><span class="s">symbol</span><span class="s2">&quot;</span>:<span class="nv">o</span>[<span class="s2">&quot;</span><span class="s">s</span><span class="s2">&quot;</span>], <span class="s2">&quot;</span><span class="s">clientOrderId</span><span class="s2">&quot;</span>:<span class="nv">o</span>[<span class="s2">&quot;</span><span class="s">c</span><span class="s2">&quot;</span>]}
+                <span class="k">return</span> <span class="nv">handle_order</span><span class="ss">(</span><span class="nv">order</span><span class="ss">)</span>
 
-        <span class="n">client</span> <span class="o">=</span> <span class="k">self</span><span class="p">.</span><span class="n">client</span>
-        <span class="n">client</span><span class="p">.</span><span class="n">stream_get_listen_key</span> <span class="o">=</span> <span class="n">client</span><span class="p">.</span><span class="n">futures_stream_get_listen_key</span>
-        <span class="n">client</span><span class="p">.</span><span class="n">FUTURES_URL</span> <span class="o">=</span> <span class="n">client</span><span class="p">.</span><span class="n">FUTURES_URL</span><span class="p">.</span><span class="k">replace</span><span class="p">(</span><span class="ss">&quot;fapi&quot;</span><span class="p">,</span> <span class="ss">&quot;dapi&quot;</span><span class="p">)</span>
-        <span class="n">bm</span> <span class="o">=</span> <span class="n">BinanceSocketManager</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
-        <span class="n">bm</span><span class="p">.</span><span class="n">STREAM_URL</span> <span class="o">=</span> <span class="ss">&quot;wss://dstream.binance.com/&quot;</span>
-        <span class="n">conn_key</span> <span class="o">=</span> <span class="n">bm</span><span class="p">.</span><span class="n">start_user_socket</span><span class="p">(</span><span class="n">process_message</span><span class="p">)</span>
-        <span class="n">bm</span><span class="p">.</span><span class="k">start</span><span class="p">()</span>
+        <span class="nv">client</span> <span class="o">=</span> <span class="nv">self</span>.<span class="nv">client</span>
+        <span class="nv">client</span>.<span class="nv">stream_get_listen_key</span> <span class="o">=</span> <span class="nv">client</span>.<span class="nv">futures_stream_get_listen_key</span>
+        <span class="nv">client</span>.<span class="nv">FUTURES_URL</span> <span class="o">=</span> <span class="nv">client</span>.<span class="nv">FUTURES_URL</span>.<span class="nv">replace</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">fapi</span><span class="s2">&quot;</span>, <span class="s2">&quot;</span><span class="s">dapi</span><span class="s2">&quot;</span><span class="ss">)</span>
+        <span class="nv">bm</span> <span class="o">=</span> <span class="nv">BinanceSocketManager</span><span class="ss">(</span><span class="nv">client</span><span class="ss">)</span>
+        <span class="nv">bm</span>.<span class="nv">STREAM_URL</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">wss://dstream.binance.com/</span><span class="s2">&quot;</span>
+        <span class="nv">conn_key</span> <span class="o">=</span> <span class="nv">bm</span>.<span class="nv">start_user_socket</span><span class="ss">(</span><span class="nv">process_message</span><span class="ss">)</span>
+        <span class="nv">bm</span>.<span class="nv">start</span><span class="ss">()</span>
 </code></pre></div>
-
 
 <p>上述代码直接魔改BinanceSocketManager的常数定义来实现对币本位合约API的调用，订阅账户变动消息，只处理ORDER_TRADE_UPDATE中FILLED的订单，调用handle_order函数进行处理</p>
 <h3 id="_6">各种异常处理<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
@@ -1332,7 +1329,6 @@ function show_prefix(prefix){
     document.querySelector("#realtimeprofittbody").querySelectorAll("tr").forEach(i=>i.style.display=(i.querySelector(".headcol").innerText.trim().startsWith(prefix)?"":"none"))
 }
 </script>
-
 <style>
 .md-grid{max-width:69rem;}
 .headcol {
@@ -1393,19 +1389,17 @@ th.headcol {
 <span class="n">MXC_Price</span> = <span class="n">class_MXC_Price</span>()
 </code></pre></div>
 
-
 <hr />
 <h2 id="terra">terra地址转为以太坊地址<a class="headerlink" href="#terra" title="Permanent link">&para;</a></h2>
 <p>依赖库：<code>pip3 install bech32</code></p>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">bech32</span>
 <span class="n">words</span> <span class="o">=</span> <span class="n">bech32</span><span class="o">.</span><span class="n">bech32_decode</span><span class="p">(</span><span class="n">terra_addr</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">ethaddr</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">hex</span><span class="p">(</span><span class="n">i</span><span class="p">)[</span><span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="s2">&quot;0&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bech32</span><span class="o">.</span><span class="n">convertbits</span><span class="p">(</span><span class="n">words</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="bp">False</span><span class="p">)])</span>
+<span class="n">ethaddr</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">hex</span><span class="p">(</span><span class="n">i</span><span class="p">)[</span><span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="s2">&quot;0&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bech32</span><span class="o">.</span><span class="n">convertbits</span><span class="p">(</span><span class="n">words</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="kc">False</span><span class="p">)])</span>
 </code></pre></div>
 
-
 <p><strong>反过来就是</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="err">words = [int(ethaddr[i:i+2], 16) for i in range(0,40,2)]</span>
-<span class="err">terra_addr = bech32.bech32_encode(&quot;terra&quot;, bech32.convertbits(words, 8, 5, False))</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">words</span> <span class="o">=</span> [<span class="nv">int</span><span class="ss">(</span><span class="nv">ethaddr</span>[<span class="nv">i</span>:<span class="nv">i</span><span class="o">+</span><span class="mi">2</span>], <span class="mi">16</span><span class="ss">)</span> <span class="k">for</span> <span class="nv">i</span> <span class="nv">in</span> <span class="nv">range</span><span class="ss">(</span><span class="mi">0</span>,<span class="mi">40</span>,<span class="mi">2</span><span class="ss">)</span>]
+<span class="nv">terra_addr</span> <span class="o">=</span> <span class="nv">bech32</span>.<span class="nv">bech32_encode</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">terra</span><span class="s2">&quot;</span>, <span class="nv">bech32</span>.<span class="nv">convertbits</span><span class="ss">(</span><span class="nv">words</span>, <span class="mi">8</span>, <span class="mi">5</span>, <span class="nv">False</span><span class="ss">))</span>
 </code></pre></div>
                 
               

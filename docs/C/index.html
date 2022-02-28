@@ -1381,45 +1381,43 @@
 <p>当然更安全的是 <code>fgets(buf,9999,stdin);</code> 指定最多读取多少个字节避免栈溢出，但这种方法会得到\n字符</p>
 <p>另外，无论是scanf还是sscanf，赋值给int/double等类型的变量一定要写&amp;符号！</p>
 <p>以下代码演示这种输入方法，对输入的n个数调用qsort排序；输入格式：第一行 N表示数的个数，第二行 N个需要排序的数(N&lt;1000)</p>
-<div class="codehilite"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
-<span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">9999</span><span class="p">];</span>
-<span class="kt">int</span> <span class="n">data</span><span class="p">[</span><span class="mi">1005</span><span class="p">];</span> <span class="c1">//不要在局部变量定义大数组，会炸栈</span>
-<span class="kt">int</span> <span class="nf">cmp</span><span class="p">(</span><span class="k">const</span> <span class="kt">void</span><span class="o">*</span> <span class="n">a</span><span class="p">,</span><span class="k">const</span> <span class="kt">void</span><span class="o">*</span> <span class="n">b</span><span class="p">){</span>
-    <span class="k">return</span> <span class="o">*</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">a</span><span class="o">-*</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">b</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
-    <span class="kt">int</span> <span class="n">N</span><span class="p">,</span><span class="n">i</span><span class="p">;</span>
-    <span class="n">gets</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span>
-    <span class="n">sscanf</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">N</span><span class="p">);</span>
-    <span class="n">gets</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span>
-    <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">N</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">sscanf</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span><span class="s">&quot;%d %[^</span><span class="se">\n</span><span class="s">]&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">buf</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="n">qsort</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">),</span><span class="n">cmp</span><span class="p">);</span>
-    <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">N</span><span class="mi">-1</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d &quot;</span><span class="p">,</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-<span class="p">}</span>
+<div class="codehilite"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+<span class="kt">char</span><span class="w"> </span><span class="n">buf</span><span class="p">[</span><span class="mi">9999</span><span class="p">];</span><span class="w"></span>
+<span class="kt">int</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="mi">1005</span><span class="p">];</span><span class="w"> </span><span class="c1">//不要在局部变量定义大数组，会炸栈</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">cmp</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">a</span><span class="o">-*</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">b</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">N</span><span class="p">,</span><span class="n">i</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">gets</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">sscanf</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">N</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">gets</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">N</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">sscanf</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span><span class="s">&quot;%d %[^</span><span class="se">\n</span><span class="s">]&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">buf</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">qsort</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">),</span><span class="n">cmp</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">N</span><span class="mi">-1</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d &quot;</span><span class="p">,</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span><span class="w"></span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="csstreamsprintf">C++用sstream代替sprintf<a class="headerlink" href="#csstreamsprintf" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;sstream&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="c1"> </span><span class="cp"></span>
-<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
-    <span class="n">stringstream</span> <span class="n">s</span><span class="p">;</span>
-    <span class="n">string</span> <span class="n">result</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span>
-    <span class="n">s</span> <span class="o">&lt;&lt;</span><span class="s">&quot;haha &quot;</span><span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span> 
-    <span class="n">getline</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">result</span><span class="p">);</span> <span class="c1">// the whole line rather than just the first word</span>
-    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">result</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">// print &quot;haha1000&quot;</span>
-    <span class="n">s</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
-<span class="p">}</span> 
+<div class="codehilite"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sstream&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span><span class="c1"> </span><span class="cp"></span>
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span><span class="w"></span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span><span class="w"></span>
+<span class="w">    </span><span class="n">stringstream</span><span class="w"> </span><span class="n">s</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">s</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="s">&quot;haha &quot;</span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"> </span>
+<span class="w">    </span><span class="n">getline</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">result</span><span class="p">);</span><span class="w"> </span><span class="c1">// the whole line rather than just the first word</span>
+<span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span><span class="w"> </span><span class="c1">// print &quot;haha1000&quot;</span>
+<span class="w">    </span><span class="n">s</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="g">解决g++省略拷贝构造函数的问题<a class="headerlink" href="#g" title="Permanent link">&para;</a></h2>
@@ -1428,29 +1426,26 @@
 <div class="codehilite"><pre><span></span><code><span class="o">-</span><span class="n">fno</span><span class="o">-</span><span class="n">elide</span><span class="o">-</span><span class="n">constructors</span>
 </code></pre></div>
 
-
 <hr />
 <h2 id="_2">[数据结构]树的遍历<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>允许不确定个元素的子节点个数，要求给出所有从根节点开始到叶节点的路径</p>
 <p>我是这么写的遍历循环（伪代码），其中p1和p2是指向节点的指针：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">路径=[根节点]</span>
-<span class="err">while(循环条件):</span>
-<span class="err">    while (p2=p1的下一个没有遍历过的子节点)不为空:</span>
-<span class="err">        把p2加入路径</span>
-<span class="err">        p1=p2</span>
-<span class="err">    if p1为叶节点:</span>
-<span class="err">        得到了一条从根节点到一个叶节点的路径</span>
-<span class="err">    路径pop，换言之，删掉最后加入的节点</span>
-<span class="err">    p1=p1的父节点（就是回溯）</span>
+<div class="codehilite"><pre><span></span><code>路径<span class="o">=</span>[根节点]
+<span class="k">while</span><span class="ss">(</span>循环条件<span class="ss">)</span>:
+    <span class="k">while</span> <span class="ss">(</span><span class="nv">p2</span><span class="o">=</span><span class="nv">p1</span>的下一个没有遍历过的子节点<span class="ss">)</span>不为空:
+        把<span class="nv">p2</span>加入路径
+        <span class="nv">p1</span><span class="o">=</span><span class="nv">p2</span>
+    <span class="k">if</span> <span class="nv">p1</span>为叶节点:
+        得到了一条从根节点到一个叶节点的路径
+    路径<span class="nv">pop</span>，换言之，删掉最后加入的节点
+    <span class="nv">p1</span><span class="o">=</span><span class="nv">p1</span>的父节点（就是回溯）
 </code></pre></div>
-
 
 <p>其中关键的<strong>p1的下一个没有遍历过的子节点</strong>的实现是这样子的：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">if 当前孩子的下标&gt;=孩子总数:</span>
-<span class="err">    return NULL</span>
-<span class="err">else return 子节点数组[当前下标++]</span>
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> 当前孩子的下标<span class="o">&gt;=</span>孩子总数:
+    <span class="k">return</span> <span class="nv">NULL</span>
+<span class="k">else</span> <span class="k">return</span> 子节点数组[当前下标<span class="o">++</span>]
 </code></pre></div>
-
 
 <p>卖个关子。。。请思考一下循环条件应该写啥？</p>
 <h3 id="_3">遍历的循环条件<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
@@ -1488,7 +1483,6 @@
 <span class="p">};</span>
 </code></pre></div>
 
-
 <h2 id="constvectorconst_iterator">对一个const的vector使用迭代器要用const_iterator<a class="headerlink" href="#constvectorconst_iterator" title="Permanent link">&para;</a></h2>
 <p>有时候函数参数就规定了必须是const的，如sort的比较函数，而比较的对象又是vector</p>
 <p>方法就是用<code>vector&lt;你的类型&gt;::const_iterator</code></p>
@@ -1500,31 +1494,29 @@
 <h2 id="_6">获取文件大小<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <p>Python里很简单 你可以os.path.getsize(filename) 这个本质上调用的是os.stat；下面的方法是打开文件，用fseek跳转到文件结束</p>
 <p>Learned from: http://blog.csdn.net/chenglibin1988/article/details/8750480</p>
-<div class="codehilite"><pre><span></span><code><span class="err">long int get_file_size(char* filename){</span>
-<span class="err">    /*</span>
-<span class="err">     * 使用fseek和ftell获取文件大小，失败时返回-1 </span>
-<span class="err">     */</span>
-<span class="err">    int filesize;</span>
-<span class="err">    FILE* fp = fopen(filename,&quot;rb&quot;);</span>
-<span class="err">    if( NULL == fp ) return -1;</span>
-<span class="err">    fseek(fp,0,SEEK_END);</span>
-<span class="err">    filesize = ftell(fp);</span>
-<span class="err">    fclose(fp);</span>
-<span class="err">    return filesize;</span>
-<span class="err">}</span>
+<div class="codehilite"><pre><span></span><code><span class="n">long</span> <span class="n">int</span> <span class="n">get_file_size</span><span class="p">(</span><span class="n">char</span><span class="o">*</span> <span class="n">filename</span><span class="p">){</span>
+    <span class="o">/*</span>
+     <span class="o">*</span> <span class="err">使用</span><span class="n">fseek和ftell获取文件大小</span><span class="err">，失败时返回</span><span class="o">-</span><span class="mi">1</span> 
+     <span class="o">*/</span>
+    <span class="n">int</span> <span class="n">filesize</span><span class="p">;</span>
+    <span class="n">FILE</span><span class="o">*</span> <span class="n">fp</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="s">&quot;rb&quot;</span><span class="p">);</span>
+    <span class="n">if</span><span class="p">(</span> <span class="n">NULL</span> <span class="o">==</span> <span class="n">fp</span> <span class="p">)</span> <span class="n">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="n">fseek</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">SEEK_END</span><span class="p">);</span>
+    <span class="n">filesize</span> <span class="o">=</span> <span class="n">ftell</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+    <span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+    <span class="n">return</span> <span class="n">filesize</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="c_1">C程习题解答<a class="headerlink" href="#c_1" title="Permanent link">&para;</a></h2>
 <p>学习一下各种坑爹的题目也是很不错的嘛（其实我就是为了把我的解析发上来。。。</p>
 <h3 id="1">1.结构指针<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
 <h4 id="_7">题目<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><code><span class="err">对于以下结构定义，p-&gt;str++中的++加在____。</span>
-<span class="err">struct {int len; char *str}*p;</span>
-<span class="err">A.指针str上     B.指针p上    C.str指向的内容上   D.语法错误</span>
+<div class="codehilite"><pre><span></span><code><span class="err">对于以下结构定义，</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">str</span><span class="o">++</span><span class="err">中的</span><span class="o">++</span><span class="err">加在</span><span class="n">____</span><span class="err">。</span>
+<span class="n">struct</span> <span class="p">{</span><span class="n">int</span> <span class="n">len</span><span class="p">;</span> <span class="n">char</span> <span class="o">*</span><span class="n">str</span><span class="p">}</span><span class="o">*</span><span class="n">p</span><span class="p">;</span>
+<span class="n">A</span><span class="p">.</span><span class="err">指针</span><span class="n">str上</span>     <span class="n">B</span><span class="p">.</span><span class="err">指针</span><span class="n">p上</span>    <span class="n">C</span><span class="p">.</span><span class="n">str指向的内容上</span>   <span class="n">D</span><span class="p">.</span><span class="err">语法错误</span>
 </code></pre></div>
-
 
 <h4 id="_8">答案<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
 <p>D</p>
@@ -1536,29 +1528,26 @@
 <div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">Error</span><span class="o">]</span><span class="w"> </span><span class="n">expected</span><span class="w"> </span><span class="s1">&#39;;&#39;</span><span class="w"> </span><span class="k">at</span><span class="w"> </span><span class="k">end</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="k">member</span><span class="w"> </span><span class="n">declaration</span><span class="w"></span>
 </code></pre></div>
 
-
 <p>这个错误很显然的嘛，缺少了分号，正确写法：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">struct {int len; char *str;} *p;</span>
+<div class="codehilite"><pre><span></span><code>struct {int len; char *str;} *p;
 </code></pre></div>
-
 
 <h4 id="_11">这就够了吗？<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h4>
 <p>p是一个指针，对指针使用-&gt;运算符之前必须要给指针一个空间(正确的值)，否则就会导致*null而段错误炸掉</p>
 <p>另外 这个struct没有名字，也就意味着无法给他赋值，不能被赋值的指针有什么用呢？</p>
 <p>正确的写法如下：</p>
-<div class="codehilite"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
-    <span class="kt">char</span> <span class="n">string</span><span class="p">[</span><span class="mi">666</span><span class="p">]</span><span class="o">=</span><span class="s">&quot;abcd&quot;</span><span class="p">;</span> <span class="c1">//准备一个字符串</span>
-    <span class="k">struct</span> <span class="nc">name</span> <span class="p">{</span><span class="kt">int</span> <span class="n">len</span><span class="p">;</span> <span class="kt">char</span> <span class="o">*</span><span class="n">str</span><span class="p">;}</span> <span class="n">s</span><span class="p">;</span><span class="c1">//首先要给struct取一个名字name，顺带用这个名字创建一个实例s</span>
-    <span class="n">s</span><span class="p">.</span><span class="n">str</span> <span class="o">=</span> <span class="n">string</span><span class="p">;</span> <span class="c1">//对这个实例的str赋值为string的地址</span>
-    <span class="k">struct</span> <span class="nc">name</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">;</span> <span class="c1">//然后是用struct name来创建一个指向结构的指针p</span>
-    <span class="n">p</span><span class="o">-&gt;</span><span class="n">str</span><span class="o">++</span><span class="p">;</span><span class="c1">//相当于s的str++了，str原来指向&quot;abcd&quot;字符串的&#39;a&#39;，现在指向&#39;b&#39;</span>
-    <span class="n">puts</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">str</span><span class="p">);</span><span class="c1">//输出bcd</span>
-<span class="p">}</span>
+<div class="codehilite"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span><span class="w"></span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">string</span><span class="p">[</span><span class="mi">666</span><span class="p">]</span><span class="o">=</span><span class="s">&quot;abcd&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">//准备一个字符串</span>
+<span class="w">    </span><span class="k">struct</span> <span class="nc">name</span><span class="w"> </span><span class="p">{</span><span class="kt">int</span><span class="w"> </span><span class="n">len</span><span class="p">;</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">str</span><span class="p">;}</span><span class="w"> </span><span class="n">s</span><span class="p">;</span><span class="c1">//首先要给struct取一个名字name，顺带用这个名字创建一个实例s</span>
+<span class="w">    </span><span class="n">s</span><span class="p">.</span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">string</span><span class="p">;</span><span class="w"> </span><span class="c1">//对这个实例的str赋值为string的地址</span>
+<span class="w">    </span><span class="k">struct</span> <span class="nc">name</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">s</span><span class="p">;</span><span class="w"> </span><span class="c1">//然后是用struct name来创建一个指向结构的指针p</span>
+<span class="w">    </span><span class="n">p</span><span class="o">-&gt;</span><span class="n">str</span><span class="o">++</span><span class="p">;</span><span class="c1">//相当于s的str++了，str原来指向&quot;abcd&quot;字符串的&#39;a&#39;，现在指向&#39;b&#39;</span>
+<span class="w">    </span><span class="n">puts</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">str</span><span class="p">);</span><span class="c1">//输出bcd</span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
-
 
 <h4 id="_12">回顾一下<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h4>
 <ol>
@@ -1578,17 +1567,16 @@
 <hr />
 <h3 id="2">2.结构数组<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
 <h4 id="_13">题目<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><code><span class="err">对于以下的变量定义，表达式____是正确的。</span>
-<span class="err">struct node {</span>
-<span class="err">    char s[10];</span>
-<span class="err">    int k;</span>
-<span class="err">} p[4];</span>
-<span class="err">A. p-&gt;k=2</span>
-<span class="err">B. p[0].s=&quot;abc&quot;;</span>
-<span class="err">C. p[0]-&gt;k=2;</span>
-<span class="err">D. p-&gt;s=&#39;a&#39;;</span>
+<div class="codehilite"><pre><span></span><code><span class="err">对于以下的变量定义，表达式</span><span class="n">____是正确的</span><span class="err">。</span>
+<span class="n">struct</span> <span class="n">node</span> <span class="p">{</span>
+    <span class="n">char</span> <span class="n">s</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+    <span class="n">int</span> <span class="n">k</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">p</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+<span class="n">A</span><span class="p">.</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">k</span><span class="o">=</span><span class="mi">2</span>
+<span class="n">B</span><span class="p">.</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">s</span><span class="o">=</span><span class="s">&quot;abc&quot;</span><span class="p">;</span>
+<span class="n">C</span><span class="p">.</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span>
+<span class="n">D</span><span class="p">.</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">s</span><span class="o">=</span><span class="s">&#39;a&#39;</span><span class="p">;</span>
 </code></pre></div>
-
 
 <h4 id="_14">答案<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h4>
 <p>A</p>
@@ -1597,78 +1585,72 @@
 <p>编译一下确实A是可以的</p>
 <p>B选项错在结构体里面的s是一个有内存空间的char数组，<strong>不能把有内存空间的数组名称放到赋值的等号左边</strong> (编译器把数组名称当成常量，编译器这么设计的原因也许是：不然这个内存空间不就弄丢了嘛)</p>
 <p>字符串正确的&rdquo;赋值&rdquo;操作是： </p>
-<div class="codehilite"><pre><span></span><code><span class="err">strcpy(p[0].s,&quot;abc&quot;);</span>
+<div class="codehilite"><pre><span></span><code>strcpy(p[0].s,&quot;abc&quot;);
 </code></pre></div>
-
 
 <p>C选项 p[0]是结构，而不是指针，直接写<code>p[0].k=2</code></p>
 <p>D选项 还是相同的道理 <strong>不能把有内存空间的数组名称放到赋值的等号左边</strong></p>
 <p>正确的写法 <code>p-&gt;s[0]='a'</code>, 也可以写 <code>p[0].s[0]='a'</code></p>
 <h4 id="_16">指针，数组各种玩法<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h4>
 <p>如果要写<code>p[1].s[2]='a'</code>, 等价的写法有：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">(p+1)-&gt;s[2]=&#39;a&#39;;</span>
-<span class="err">*((p+1)-&gt;s + 2)=&#39;a&#39;;</span>
-<span class="err">*((char*)p+1*sizeof(struct node)+2)=&#39;a&#39;;</span>
+<div class="codehilite"><pre><span></span><code><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span><span class="s">&#39;a&#39;</span><span class="p">;</span>
+<span class="o">*</span><span class="p">((</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">s</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span><span class="o">=</span><span class="s">&#39;a&#39;</span><span class="p">;</span>
+<span class="o">*</span><span class="p">((</span><span class="n">char</span><span class="o">*</span><span class="p">)</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="o">*</span><span class="nf">sizeof</span><span class="p">(</span><span class="n">struct</span> <span class="n">node</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span><span class="o">=</span><span class="s">&#39;a&#39;</span><span class="p">;</span>
 </code></pre></div>
-
 
 <p>此代码供你测试：</p>
-<div class="codehilite"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
-    <span class="k">struct</span> <span class="nc">node</span><span class="p">{</span>
-        <span class="kt">char</span> <span class="n">s</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
-        <span class="kt">int</span> <span class="n">k</span><span class="p">;</span>
-    <span class="p">}</span> <span class="n">p</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
-    <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span><span class="sc">&#39;a&#39;</span><span class="p">;</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%c</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
-    <span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span><span class="sc">&#39;b&#39;</span><span class="p">;</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%c</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
-    <span class="o">*</span><span class="p">((</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">s</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span><span class="o">=</span><span class="sc">&#39;c&#39;</span><span class="p">;</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%c</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
-    <span class="o">*</span><span class="p">((</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="o">*</span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="nc">node</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span><span class="o">=</span><span class="sc">&#39;d&#39;</span><span class="p">;</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%c&quot;</span><span class="p">,</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="codehilite"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span><span class="w"></span>
+<span class="w">    </span><span class="k">struct</span> <span class="nc">node</span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kt">char</span><span class="w"> </span><span class="n">s</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span><span class="w"></span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="n">p</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span><span class="w"></span>
+<span class="w">    </span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span><span class="sc">&#39;a&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%c</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span><span class="sc">&#39;b&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%c</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span><span class="w"></span>
+<span class="w">    </span><span class="o">*</span><span class="p">((</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">s</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="o">=</span><span class="sc">&#39;c&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%c</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span><span class="w"></span>
+<span class="w">    </span><span class="o">*</span><span class="p">((</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="o">*</span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="nc">node</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span><span class="o">=</span><span class="sc">&#39;d&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%c&quot;</span><span class="p">,</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
-
 
 <h3 id="_17">数组的数组<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
 <p>题目：</p>
-<div class="codehilite"><pre><span></span><code> <span class="err">以下程序的输出结果是</span><span class="n">_________________</span><span class="err">。</span>
-    <span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
-    <span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
-    <span class="k">typedef</span> <span class="kt">char</span> <span class="p">(</span><span class="o">*</span><span class="n">AP</span><span class="p">)[</span><span class="mi">5</span><span class="p">];</span>
-    <span class="n">AP</span> <span class="nf">defy</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span>
-    <span class="p">{</span>
-       <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
-       <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">3</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-          <span class="n">p</span><span class="p">[</span><span class="n">strlen</span><span class="p">(</span><span class="n">p</span><span class="p">)]</span> <span class="o">=</span> <span class="sc">&#39;A&#39;</span><span class="p">;</span>
-       <span class="k">return</span> <span class="p">(</span><span class="n">AP</span><span class="p">)</span><span class="n">p</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="kt">void</span> <span class="nf">main</span><span class="p">()</span>
-    <span class="p">{</span>
-       <span class="kt">char</span> <span class="n">a</span><span class="p">[]</span><span class="o">=</span><span class="s">&quot;FROG</span><span class="se">\0</span><span class="s">SEAL</span><span class="se">\0</span><span class="s">LION</span><span class="se">\0</span><span class="s">LAMB&quot;</span><span class="p">;</span>
-       <span class="n">puts</span><span class="p">(</span> <span class="n">defy</span><span class="p">(</span><span class="n">a</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">2</span> <span class="p">);</span>
-    <span class="p">}</span>
+<div class="codehilite"><pre><span></span><code><span class="w"> </span><span class="err">以下程序的输出结果是</span><span class="n">_________________</span><span class="err">。</span><span class="w"></span>
+<span class="w">    </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="w">    </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
+<span class="w">    </span><span class="k">typedef</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">AP</span><span class="p">)[</span><span class="mi">5</span><span class="p">];</span><span class="w"></span>
+<span class="w">    </span><span class="n">AP</span><span class="w"> </span><span class="nf">defy</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">       </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"></span>
+<span class="w">       </span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;</span><span class="mi">3</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"></span>
+<span class="w">          </span><span class="n">p</span><span class="p">[</span><span class="n">strlen</span><span class="p">(</span><span class="n">p</span><span class="p">)]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;A&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">       </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">AP</span><span class="p">)</span><span class="n">p</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">       </span><span class="kt">char</span><span class="w"> </span><span class="n">a</span><span class="p">[]</span><span class="o">=</span><span class="s">&quot;FROG</span><span class="se">\0</span><span class="s">SEAL</span><span class="se">\0</span><span class="s">LION</span><span class="se">\0</span><span class="s">LAMB&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">       </span><span class="n">puts</span><span class="p">(</span><span class="w"> </span><span class="n">defy</span><span class="p">(</span><span class="n">a</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">2</span><span class="w"> </span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 </code></pre></div>
-
 
 <p>解答：</p>
 <p>搞清楚指针的类型这个题目就很简单了，另外记住这个公式：</p>
 <div class="codehilite"><pre><span></span><code><span class="n">x</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">i</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 
-
 <p>p[strlen(p)] = &lsquo;A&rsquo;; 就是把\0的地方改成了字符A</p>
 <p>所以我们的a是这样子的：</p>
 <p>从一维数组来看a是 FROGASEALALIONALAMB</p>
 <p>从5字节char的数组的数组来看是 </p>
-<div class="codehilite"><pre><span></span><code><span class="err">    &quot;FROGA&quot;, //虽然这里写的是字符串，但末尾没有\0</span>
-<span class="err">    &quot;SEALA&quot;,</span>
-<span class="err">    &quot;LIONA&quot;,</span>
-<span class="err">    &quot;LAMB\0&quot;</span>
+<div class="codehilite"><pre><span></span><code>    &quot;FROGA&quot;, //虽然这里写的是字符串，但末尾没有\0
+    &quot;SEALA&quot;,
+    &quot;LIONA&quot;,
+    &quot;LAMB\0&quot;
 </code></pre></div>
-
 
 <p>defy(a)[1]就等价于<code>*(defy(a) +1)</code>，就是<code>*( ((AP)a)+1 +1)</code>，就是((AP)a)[2]</p>
 <p>AP这个类型是指针，指向的元素是 5字节大小的数组，</p>

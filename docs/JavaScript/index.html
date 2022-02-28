@@ -1584,7 +1584,6 @@
 <span class="n">window</span><span class="o">.</span><span class="n">localStorage</span><span class="o">.</span><span class="n">clear</span><span class="p">();</span>
 </code></pre></div>
 
-
 <hr />
 <h2 id="phantomjs">使用phantomjs爬取网页<a class="headerlink" href="#phantomjs" title="Permanent link">&para;</a></h2>
 <p>有些时候我们用Python的requests并不能很完美地渲染好网页，例如人家用酷炫的js作图了，我就想得到这张图，这时候用phantomjs就好啦</p>
@@ -1642,23 +1641,21 @@
 <span class="p">});</span>
 </code></pre></div>
 
-
 <p>然后就可以使用bind注册<code>beforeShow</code>，<code>afterShow</code>咯：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">jQuery(function($) {</span>
-<span class="err">  $(&#39;#test&#39;)</span>
-<span class="err">    .bind(&#39;beforeShow&#39;, function() {</span>
-<span class="err">      alert(&#39;beforeShow&#39;);</span>
-<span class="err">    }) </span>
-<span class="err">    .bind(&#39;afterShow&#39;, function() {</span>
-<span class="err">      alert(&#39;afterShow&#39;);</span>
-<span class="err">    })</span>
-<span class="err">    .show(1000, function() {</span>
-<span class="err">      alert(&#39;in show callback&#39;);</span>
-<span class="err">    })</span>
-<span class="err">    .show();</span>
-<span class="err">});</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">jQuery</span><span class="ss">(</span><span class="nv">function</span><span class="ss">(</span>$<span class="ss">)</span> {
+  $<span class="ss">(</span><span class="s1">&#39;</span><span class="s">#test</span><span class="s1">&#39;</span><span class="ss">)</span>
+    .<span class="nv">bind</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">beforeShow</span><span class="s1">&#39;</span>, <span class="nv">function</span><span class="ss">()</span> {
+      <span class="nv">alert</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">beforeShow</span><span class="s1">&#39;</span><span class="ss">)</span><span class="c1">;</span>
+    }<span class="ss">)</span> 
+    .<span class="nv">bind</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">afterShow</span><span class="s1">&#39;</span>, <span class="nv">function</span><span class="ss">()</span> {
+      <span class="nv">alert</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">afterShow</span><span class="s1">&#39;</span><span class="ss">)</span><span class="c1">;</span>
+    }<span class="ss">)</span>
+    .<span class="k">show</span><span class="ss">(</span><span class="mi">1000</span>, <span class="nv">function</span><span class="ss">()</span> {
+      <span class="nv">alert</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">in show callback</span><span class="s1">&#39;</span><span class="ss">)</span><span class="c1">;</span>
+    }<span class="ss">)</span>
+    .<span class="k">show</span><span class="ss">()</span><span class="c1">;</span>
+}<span class="ss">)</span><span class="c1">;</span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="get">读取GET参数<a class="headerlink" href="#get" title="Permanent link">&para;</a></h2>
@@ -1688,13 +1685,11 @@
 <span class="err">}</span><span class="p">();</span><span class="w"></span>
 </code></pre></div>
 
-
 <p>执行后就可以这么使用：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">if (typeof(QueryString.parameter)!=&quot;undefined&quot;) {</span>
-<span class="err">    alert(QueryString.parameter);//do something with the parameter</span>
-<span class="err">}</span>
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="ss">(</span><span class="nv">typeof</span><span class="ss">(</span><span class="nv">QueryString</span>.<span class="nv">parameter</span><span class="ss">)</span><span class="o">!=</span><span class="s2">&quot;</span><span class="s">undefined</span><span class="s2">&quot;</span><span class="ss">)</span> {
+    <span class="nv">alert</span><span class="ss">(</span><span class="nv">QueryString</span>.<span class="nv">parameter</span><span class="ss">)</span><span class="c1">;//do something with the parameter</span>
+}
 </code></pre></div>
-
 
 <hr />
 <h2 id="github-issue">使用 Github Issue 作为博客评论区<a class="headerlink" href="#github-issue" title="Permanent link">&para;</a></h2>
@@ -1716,7 +1711,6 @@ setTimeout( function(){
 <span class="nt">&lt;/script&gt;</span>
 </code></pre></div>
 
-
 <hr />
 <h2 id="checkboxlocalstorage">记住一个checkbox的状态（用localStorage）<a class="headerlink" href="#checkboxlocalstorage" title="Permanent link">&para;</a></h2>
 <p>查询是否勾选用<code>.is(":checked")</code> ， 改变勾选状态用<code>.prop("checked",true)</code></p>
@@ -1734,7 +1728,6 @@ function checkbox_onclick(){
 <span class="nt">&lt;/script&gt;</span>
 </code></pre></div>
 
-
 <hr />
 <h2 id="nodejs">NodeJS<a class="headerlink" href="#nodejs" title="Permanent link">&para;</a></h2>
 <h3 id="dockernpm">用Docker执行npm<a class="headerlink" href="#dockernpm" title="Permanent link">&para;</a></h3>
@@ -1742,7 +1735,6 @@ function checkbox_onclick(){
 <div class="codehilite"><pre><span></span><code><span class="n">PACKAGES</span><span class="o">=</span><span class="s2">&quot;canvas gifencoder&quot;</span>
 <span class="n">docker</span> <span class="n">run</span> <span class="o">--</span><span class="n">rm</span> <span class="o">--</span><span class="n">volume</span><span class="o">=</span><span class="s2">&quot;`pwd`:/app&quot;</span> <span class="o">-</span><span class="n">w</span> <span class="o">/</span><span class="n">app</span> <span class="o">-</span><span class="n">it</span> <span class="n">node</span><span class="o">:</span><span class="mi">10</span> <span class="n">npm</span> <span class="k">install</span> <span class="n">$</span><span class="err">{</span><span class="n">PACKAGES</span><span class="err">}</span>  <span class="o">--</span><span class="n">registry</span><span class="o">=</span><span class="n">https</span><span class="o">://</span><span class="n">registry</span><span class="p">.</span><span class="n">npm</span><span class="p">.</span><span class="n">taobao</span><span class="p">.</span><span class="n">org</span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="instantclick">使用InstantClick踩坑<a class="headerlink" href="#instantclick" title="Permanent link">&para;</a></h2>
@@ -1752,7 +1744,6 @@ function checkbox_onclick(){
 <div class="codehilite"><pre><span></span><code><span class="nt">&lt;script</span> <span class="na">src=</span><span class="s">&quot;instantclick.min.js&quot;</span> <span class="err">data-no-instant</span><span class="nt">&gt;&lt;/script&gt;</span>
 <span class="nt">&lt;script</span> <span class="err">data-no-instant</span><span class="nt">&gt;</span>InstantClick.init(&#39;mousedown&#39;);<span class="nt">&lt;/script&gt;</span>
 </code></pre></div>
-
 
 <h3 id="302">被预加载的页面不能让后端返回302<a class="headerlink" href="#302" title="Permanent link">&para;</a></h3>
 <p>否则会显示跳转之前的URL</p>
@@ -1766,18 +1757,16 @@ function checkbox_onclick(){
 <p>页面加载的请求是js执行的 document.referrer不会被设置为上一页</p>
 <h4 id="documentaddeventlistener">document.addEventListener 重复触发<a class="headerlink" href="#documentaddeventlistener" title="Permanent link">&para;</a></h4>
 <p>例如绑定paste事件 你可能这么写：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">document.addEventListener(&#39;paste&#39;, handlepaste);</span>
+<div class="codehilite"><pre><span></span><code>document.addEventListener(&#39;paste&#39;, handlepaste);
 </code></pre></div>
-
 
 <p>在切换页面后 这个事件会多次绑定 导致多次触发</p>
 <p>我的做法是先判断一个变量是否存在 不存在才设置：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">if(typeof paste_registered == &quot;undefined&quot;){</span>
-<span class="err">    document.addEventListener(&#39;paste&#39;, handlepaste);</span>
-<span class="err">    paste_registered = true;</span>
-<span class="err">}</span>
+<div class="codehilite"><pre><span></span><code><span class="k">if</span><span class="p">(</span><span class="n">typeof</span> <span class="n">paste_registered</span> <span class="o">==</span> <span class="s">&quot;undefined&quot;</span><span class="p">){</span>
+    <span class="n">document</span><span class="p">.</span><span class="n">addEventListener</span><span class="p">(&#39;</span><span class="n">paste</span><span class="p">&#39;,</span> <span class="n">handlepaste</span><span class="p">);</span>
+    <span class="n">paste_registered</span> <span class="o">=</span> <span class="n">true</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div>
-
 
 <p>你也可以把这一部分<strong>不能重复执行</strong>的代码放入<code>&lt;script data-no-instant&gt;</code>中，但如果前一页没有这一块代码（也就是这个代码是当前页面才有的，需要执行一次），进入当前页面是<strong>不会触发</strong>的</p>
 <h4 id="js">返回上一页重复执行页面添加元素的js 导致元素重复出现<a class="headerlink" href="#js" title="Permanent link">&para;</a></h4>
@@ -1808,7 +1797,6 @@ function checkbox_onclick(){
 <span class="p">}</span>
 </code></pre></div>
 
-
 <hr />
 <h2 id="javascriptdom-the-basics-of-dom-manipulation-in-vanilla-javascript">用原生Javascript操作DOM节点 The Basics of DOM Manipulation in Vanilla JavaScript<a class="headerlink" href="#javascriptdom-the-basics-of-dom-manipulation-in-vanilla-javascript" title="Permanent link">&para;</a></h2>
 <p>https://www.sitepoint.com/dom-manipulation-vanilla-javascript-no-jquery/</p>
@@ -1817,39 +1805,35 @@ function checkbox_onclick(){
 <span class="n">myElement</span><span class="o">.</span><span class="n">matches</span><span class="p">(</span><span class="s1">&#39;div.bar&#39;</span><span class="p">)</span> <span class="o">===</span> <span class="bp">true</span>
 </code></pre></div>
 
-
 <p>注意querySelector是立即执行 而getElementsByTagName是取值的时候执行效率更高</p>
 <p>对元素列表遍历应该这么写：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">[].forEach.call(myElements, doSomethingWithEachElement)</span>
+<div class="codehilite"><pre><span></span><code>[].forEach.call(myElements, doSomethingWithEachElement)
 </code></pre></div>
-
 
 <p><code>myElement.children</code>,<code>myElement.firstElementChild</code> 只会有tag，而<code>myElement.childNodes</code>,<code>myElement.firstChild</code>会有文本节点</p>
 <p>如：<code>myElement.firstChild.nodeType === 3 // this would be a text node</code></p>
 <h3 id="class">修改class和属性<a class="headerlink" href="#class" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">myElement</span><span class="p">.</span><span class="n">classList</span><span class="p">.</span><span class="k">add</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">)</span>
-<span class="n">myElement</span><span class="p">.</span><span class="n">classList</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;bar&#39;</span><span class="p">)</span>
-<span class="n">myElement</span><span class="p">.</span><span class="n">classList</span><span class="p">.</span><span class="n">toggle</span><span class="p">(</span><span class="s1">&#39;baz&#39;</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><code><span class="n">myElement</span><span class="p">.</span><span class="n">classList</span><span class="p">.</span><span class="n">add</span><span class="p">(&#39;</span><span class="n">foo</span><span class="p">&#39;)</span>
+<span class="n">myElement</span><span class="p">.</span><span class="n">classList</span><span class="p">.</span><span class="n">remove</span><span class="p">(&#39;</span><span class="n">bar</span><span class="p">&#39;)</span>
+<span class="n">myElement</span><span class="p">.</span><span class="n">classList</span><span class="p">.</span><span class="n">toggle</span><span class="p">(&#39;</span><span class="n">baz</span><span class="p">&#39;)</span>
 
-<span class="o">//</span> <span class="k">Set</span> <span class="n">multiple</span> <span class="n">properties</span> <span class="k">using</span> <span class="k">Object</span><span class="p">.</span><span class="n">assign</span><span class="p">()</span>
-<span class="k">Object</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">myElement</span><span class="p">,</span> <span class="err">{</span>
-  <span class="n">value</span><span class="p">:</span> <span class="s1">&#39;foo&#39;</span><span class="p">,</span>
-  <span class="n">id</span><span class="p">:</span> <span class="s1">&#39;bar&#39;</span>
-<span class="err">}</span><span class="p">)</span>
+<span class="c1">// Set multiple properties using Object.assign()</span>
+<span class="n">Object</span><span class="p">.</span><span class="k">assign</span><span class="p">(</span><span class="n">myElement</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nl">value:</span> <span class="p">&#39;</span><span class="n">foo</span><span class="p">&#39;,</span>
+  <span class="nl">id:</span> <span class="p">&#39;</span><span class="n">bar</span><span class="p">&#39;</span>
+<span class="p">})</span>
 
-<span class="o">//</span> <span class="n">Remove</span> <span class="n">an</span> <span class="n">attribute</span>
-<span class="n">myElement</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="k">null</span>
+<span class="c1">// Remove an attribute</span>
+<span class="n">myElement</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">null</span>
 </code></pre></div>
-
 
 <p>除了直接赋值，还有这些方法<code>.getAttibute(), .setAttribute() and .removeAttribute()</code> 但他们会直接修改HTML 导致重绘 只有没有对应属性的时候如<code>colspan</code>才应该这么干</p>
 <h3 id="css">修改CSS<a class="headerlink" href="#css" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">myElement</span><span class="p">.</span><span class="n">style</span><span class="p">.</span><span class="n">marginLeft</span> <span class="o">=</span> <span class="s1">&#39;2em&#39;</span>
+<div class="codehilite"><pre><span></span><code>myElement.style.marginLeft = &#39;2em&#39;
 
-<span class="o">//</span><span class="err">获得计算出来的</span><span class="n">CSS属性</span>
-<span class="n">getComputedStyle</span><span class="p">(</span><span class="n">myElement</span><span class="p">).</span><span class="n">getPropertyValue</span><span class="p">(</span><span class="s1">&#39;margin-left&#39;</span><span class="p">)</span>
+//获得计算出来的CSS属性
+getComputedStyle(myElement).getPropertyValue(&#39;margin-left&#39;)
 </code></pre></div>
-
 
 <h3 id="dom">修改DOM<a class="headerlink" href="#dom" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code><span class="k">const</span> <span class="n">myNewElement</span> <span class="o">=</span> <span class="n">document</span><span class="o">.</span><span class="n">createElement</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">)</span>
@@ -1869,7 +1853,6 @@ function checkbox_onclick(){
 <span class="n">myElement</span><span class="o">.</span><span class="n">parentNode</span><span class="o">.</span><span class="n">removeChild</span><span class="p">(</span><span class="n">myElement</span><span class="p">)</span>
 </code></pre></div>
 
-
 <p>当需要把多个元素appendChild到一个已经在页面上的元素时，每次append都会重绘 这时候就应该用<code>DocumentFragment</code></p>
 <div class="codehilite"><pre><span></span><code><span class="k">const</span> <span class="n">fragment</span> <span class="o">=</span> <span class="n">document</span><span class="o">.</span><span class="n">createDocumentFragment</span><span class="p">()</span>
 
@@ -1877,7 +1860,6 @@ function checkbox_onclick(){
 <span class="n">fragment</span><span class="o">.</span><span class="n">appendChild</span><span class="p">(</span><span class="n">hr</span><span class="p">)</span>
 <span class="n">myElement</span><span class="o">.</span><span class="n">appendChild</span><span class="p">(</span><span class="n">fragment</span><span class="p">)</span>
 </code></pre></div>
-
 
 <h3 id="_4">监听事件<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>事件event里面有<code>target</code>指向谁触发的事件</p>
@@ -1891,7 +1873,6 @@ function checkbox_onclick(){
 <span class="p">})</span>
 </code></pre></div>
 
-
 <h3 id="_5">阻止默认行为<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <p><code>.preventDefault()</code></p>
 <p><code>.stopPropagation()</code> 子节点click不会再冒泡触发父节点onclick</p>
@@ -1904,7 +1885,6 @@ function checkbox_onclick(){
   <span class="p">}</span>
 <span class="p">})</span>
 </code></pre></div>
-
 
 <h3 id="_6">动画<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
 <p>需要高性能时 不要用setTimeout 而使用<code>requestAnimationFrame</code></p>
@@ -1920,7 +1900,6 @@ function checkbox_onclick(){
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="src">劫持动态图片加载 修改src属性<a class="headerlink" href="#src" title="Permanent link">&para;</a></h2>
@@ -1945,7 +1924,6 @@ function checkbox_onclick(){
   <span class="k">return</span> <span class="n">r</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-
 
 <p>上述代码会将/开头的src和href属性的第一个/替换为window.ROOT</p>
 <h2 id="ajaxfetch">劫持Ajax和fetch<a class="headerlink" href="#ajaxfetch" title="Permanent link">&para;</a></h2>
@@ -1972,7 +1950,6 @@ function checkbox_onclick(){
 <span class="o">$.</span><span class="n">when</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb nb-Type">null</span><span class="p">,</span> <span class="n">async_request</span><span class="p">)</span><span class="o">.</span><span class="n">done</span><span class="p">(</span> <span class="n">function</span><span class="p">(){</span> <span class="n">alert</span><span class="p">(</span><span class="s2">&quot;all done&quot;</span><span class="p">)}</span> <span class="p">)</span>
 </code></pre></div>
 
-
 <h2 id="_7">等待图片加载完成后 缩小过大的图片<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
 <p>首先等待DOM节点就绪，找到所有的img，等待图片加载完成后判断图片高度是否大于窗口高度的80%，如果太长就设置<code>max-width:80vh</code>，可点击展开，再次点击则折叠并跳至图片开始的地方</p>
 <div class="codehilite"><pre><span></span><code><span class="o">!</span><span class="n">function</span><span class="p">(</span><span class="n">a</span><span class="p">){</span><span class="s2">&quot;function&quot;</span><span class="o">==</span><span class="nb">typeof</span> <span class="n">define</span><span class="o">&amp;&amp;</span><span class="n">define</span><span class="o">.</span><span class="n">amd</span><span class="err">?</span><span class="n">define</span><span class="p">([</span><span class="s2">&quot;jquery&quot;</span><span class="p">],</span><span class="n">a</span><span class="p">):</span><span class="s2">&quot;object&quot;</span><span class="o">==</span><span class="nb">typeof</span> <span class="n">exports</span><span class="err">?</span><span class="n">module</span><span class="o">.</span><span class="n">exports</span><span class="o">=</span><span class="n">a</span><span class="p">(</span><span class="n">require</span><span class="p">(</span><span class="s2">&quot;jquery&quot;</span><span class="p">)):</span><span class="n">a</span><span class="p">(</span><span class="n">jQuery</span><span class="p">)}(</span><span class="n">function</span><span class="p">(</span><span class="n">a</span><span class="p">){</span><span class="k">var</span> <span class="n">b</span><span class="o">=</span><span class="s2">&quot;waitForImages&quot;</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="n">function</span><span class="p">(</span><span class="n">a</span><span class="p">){</span><span class="k">return</span> <span class="n">a</span><span class="o">.</span><span class="n">srcset</span><span class="o">&amp;&amp;</span><span class="n">a</span><span class="o">.</span><span class="n">sizes</span><span class="p">}(</span><span class="n">new</span> <span class="n">Image</span><span class="p">);</span><span class="n">a</span><span class="o">.</span><span class="n">waitForImages</span><span class="o">=</span><span class="p">{</span><span class="n">hasImageProperties</span><span class="p">:[</span><span class="s2">&quot;backgroundImage&quot;</span><span class="p">,</span><span class="s2">&quot;listStyleImage&quot;</span><span class="p">,</span><span class="s2">&quot;borderImage&quot;</span><span class="p">,</span><span class="s2">&quot;borderCornerImage&quot;</span><span class="p">,</span><span class="s2">&quot;cursor&quot;</span><span class="p">],</span><span class="n">hasImageAttributes</span><span class="p">:[</span><span class="s2">&quot;srcset&quot;</span><span class="p">]},</span><span class="n">a</span><span class="o">.</span><span class="n">expr</span><span class="o">.</span><span class="n">pseudos</span><span class="p">[</span><span class="s2">&quot;has-src&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">function</span><span class="p">(</span><span class="n">b</span><span class="p">){</span><span class="k">return</span> <span class="n">a</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="k">is</span><span class="p">(</span><span class="s1">&#39;img[src][src!=&quot;&quot;]&#39;</span><span class="p">)},</span><span class="n">a</span><span class="o">.</span><span class="n">expr</span><span class="o">.</span><span class="n">pseudos</span><span class="o">.</span><span class="n">uncached</span><span class="o">=</span><span class="n">function</span><span class="p">(</span><span class="n">b</span><span class="p">){</span><span class="k">return</span><span class="o">!!</span><span class="n">a</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="k">is</span><span class="p">(</span><span class="s2">&quot;:has-src&quot;</span><span class="p">)</span><span class="o">&amp;&amp;!</span><span class="n">b</span><span class="o">.</span><span class="n">complete</span><span class="p">},</span><span class="n">a</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="n">waitForImages</span><span class="o">=</span><span class="n">function</span><span class="p">(){</span><span class="k">var</span> <span class="n">d</span><span class="p">,</span><span class="n">e</span><span class="p">,</span><span class="n">f</span><span class="p">,</span><span class="n">g</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">h</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="o">=</span><span class="n">a</span><span class="o">.</span><span class="n">Deferred</span><span class="p">(),</span><span class="n">j</span><span class="o">=</span><span class="n">this</span><span class="p">,</span><span class="n">k</span><span class="o">=</span><span class="p">[],</span><span class="n">l</span><span class="o">=</span><span class="n">a</span><span class="o">.</span><span class="n">waitForImages</span><span class="o">.</span><span class="n">hasImageProperties</span><span class="o">||</span><span class="p">[],</span><span class="n">m</span><span class="o">=</span><span class="n">a</span><span class="o">.</span><span class="n">waitForImages</span><span class="o">.</span><span class="n">hasImageAttributes</span><span class="o">||</span><span class="p">[],</span><span class="n">n</span><span class="o">=/</span><span class="n">url</span>\<span class="p">(</span>\<span class="n">s</span><span class="o">*</span><span class="p">([</span><span class="s1">&#39;&quot;]?)(.*?)</span><span class="se">\1</span><span class="s1">\s*\)/g;if(a.isPlainObject(arguments[0])?(f=arguments[0].waitForAll,e=arguments[0].each,d=arguments[0].finished):1===arguments.length&amp;&amp;&quot;boolean&quot;===a.type(arguments[0])?f=arguments[0]:(d=arguments[0],e=arguments[1],f=arguments[2]),d=d||a.noop,e=e||a.noop,f=!!f,!a.isFunction(d)||!a.isFunction(e))throw new TypeError(&quot;An invalid callback was supplied.&quot;);return this.each(function(){var b=a(this);f?b.find(&quot;*&quot;).addBack().each(function(){var b=a(this);b.is(&quot;img:has-src&quot;)&amp;&amp;!b.is(&quot;[srcset]&quot;)&amp;&amp;k.push({src:b.attr(&quot;src&quot;),element:b[0]}),a.each(l,function(a,c){var d,e=b.css(c);if(!e)return!0;for(;d=n.exec(e);)k.push({src:d[2],element:b[0]})}),a.each(m,function(a,c){var d=b.attr(c);return!d||void k.push({src:b.attr(&quot;src&quot;),srcset:b.attr(&quot;srcset&quot;),element:b[0]})})}):b.find(&quot;img:has-src&quot;).each(function(){k.push({src:this.src,element:this})})}),g=k.length,h=0,0===g&amp;&amp;(d.call(j),i.resolveWith(j)),a.each(k,function(f,k){var l=new Image,m=&quot;load.&quot;+b+&quot; error.&quot;+b;a(l).one(m,function b(c){var f=[h,g,&quot;load&quot;==c.type];if(h++,e.apply(k.element,f),i.notifyWith(k.element,f),a(this).off(m,b),h==g)return d.call(j[0]),i.resolveWith(j[0]),!1}),c&amp;&amp;k.srcset&amp;&amp;(l.srcset=k.srcset,l.sizes=k.sizes),l.src=k.src}),i.promise()}});</span>
@@ -1991,7 +1968,6 @@ function checkbox_onclick(){
     <span class="p">});</span>  
 <span class="p">})});</span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="css-inline">CSS inline模糊预览图片<a class="headerlink" href="#css-inline" title="Permanent link">&para;</a></h2>
@@ -2021,11 +1997,9 @@ function checkbox_onclick(){
 <span class="o">&lt;/</span><span class="n">svg</span><span class="o">&gt;</span><span class="w"></span>
 </code></pre></div>
 
-
 <p>注意encoder输出的内容还要加上<code>charset</code>，最终效果：</p>
-<div class="codehilite"><pre><span></span><code><span class="c">background-image: url(data:image/svg+xml;charset=utf-8,%3Csvg...);</span>
+<div class="codehilite"><pre><span></span><code><span class="nt">background-image</span><span class="o">:</span> <span class="nt">url</span><span class="o">(</span><span class="nt">data</span><span class="p">:</span><span class="nd">image</span><span class="o">/</span><span class="nt">svg</span><span class="o">+</span><span class="nt">xml</span><span class="o">;</span><span class="nt">charset</span><span class="o">=</span><span class="nt">utf-8</span><span class="o">,%</span><span class="nt">3Csvg</span><span class="o">...);</span>
 </code></pre></div>
-
 
 <h2 id="apost-jquery">a链接改用POST请求 jQuery<a class="headerlink" href="#apost-jquery" title="Permanent link">&para;</a></h2>
 <p>参考OneIndex，用POST方法表示来自文件列表的点击可以显示网页，默认的GET请求则下载文件</p>
@@ -2040,7 +2014,6 @@ function checkbox_onclick(){
     });
 </code></pre></div>
 
-
 <h2 id="blob">创建一个文件下载 Blob<a class="headerlink" href="#blob" title="Permanent link">&para;</a></h2>
 <p>参考OneIndex的<code>downall</code>方法</p>
 <p>Blob文档：https://developer.mozilla.org/zh-CN/docs/Web/API/Blob</p>
@@ -2054,7 +2027,6 @@ function checkbox_onclick(){
      <span class="n">a</span><span class="o">.</span><span class="n">click</span><span class="p">()</span> <span class="o">//</span> <span class="err">模拟点击</span>
      <span class="n">a</span><span class="o">.</span><span class="n">remove</span><span class="p">();</span>
 </code></pre></div>
-
 
 <h2 id="_8">爬取微信小程序 朵朵校友圈<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
 <ol>
@@ -2094,7 +2066,6 @@ function checkbox_onclick(){
 <span class="n">start</span><span class="p">(</span><span class="mi">8888</span><span class="p">);</span>
 </code></pre></div>
 
-
 <h2 id="_9">保持特定元素相对于窗口的位置不变<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
 <p>考虑这样一个场景：一个列表，每一项都可以点击来展开详情div，点击时同时隐藏其他的详情（同一时刻只显示一个）</p>
 <p>发现一个bug：特定情况下（不明原因），用户点击后页面位置发生了变化：前面的一个比较长的div隐藏后，当前的位置跳到了很下面的地方，需要手动翻回去，用户体验极差</p>
@@ -2119,23 +2090,20 @@ function checkbox_onclick(){
 <span class="o">}</span>
 </code></pre></div>
 
-
 <h2 id="tampermonkey">Tampermonkey自动填充用户名密码表单，并通过前端的表单检查<a class="headerlink" href="#tampermonkey" title="Permanent link">&para;</a></h2>
 <p>感谢<a href="https://github.com/CoolSpring8">@CoolSpring</a>的解决方案： https://v2ex.com/t/701749</p>
 <p>现代化的前端做了表单检查，直接对input赋值不能通过检查，需要调用被重载的setter函数：</p>
 <div class="codehilite"><pre><span></span><code><span class="kd">function</span> <span class="nx">mytype</span><span class="p">(</span><span class="nx">input</span><span class="p">,</span> <span class="nx">value</span><span class="p">){</span>
     <span class="kd">var</span> <span class="nx">nativeInputValueSetter</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">getOwnPropertyDescriptor</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">HTMLInputElement</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">).</span><span class="nx">set</span><span class="p">;</span>
     <span class="nx">nativeInputValueSetter</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">input</span><span class="p">,</span> <span class="nx">value</span><span class="p">);</span>
-    <span class="nx">input</span><span class="p">.</span><span class="nx">dispatchEvent</span><span class="p">(</span><span class="k">new</span> <span class="nx">Event</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">bubbles</span><span class="o">:</span> <span class="kc">true</span><span class="p">}));</span>
+    <span class="nx">input</span><span class="p">.</span><span class="nx">dispatchEvent</span><span class="p">(</span><span class="ow">new</span> <span class="nx">Event</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">bubbles</span><span class="o">:</span> <span class="kc">true</span><span class="p">}));</span>
 <span class="p">}</span>
 </code></pre></div>
 
-
 <p>用法：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">    mytype(document.querySelectorAll(&quot;input&quot;)[0], USERNAME);</span>
-<span class="err">    mytype(document.querySelectorAll(&quot;input&quot;)[1], PASSWORD);</span>
+<div class="codehilite"><pre><span></span><code>    mytype(document.querySelectorAll(&quot;input&quot;)[0], USERNAME);
+    mytype(document.querySelectorAll(&quot;input&quot;)[1], PASSWORD);
 </code></pre></div>
-
 
 <h2 id="browserifynpmjs">使用browserify将npm包打包成浏览器能用的js文件<a class="headerlink" href="#browserifynpmjs" title="Permanent link">&para;</a></h2>
 <p>浏览器不支持require，怎么在浏览器里使用一个npm包呢？ <a href="http://browserify.org/">browserify</a></p>
@@ -2157,21 +2125,20 @@ function checkbox_onclick(){
 <span class="n">userEvent</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">querySelectorAll</span><span class="p">(</span><span class="s2">&quot;input&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">USERNAME</span><span class="p">);</span>
 </code></pre></div>
 
-
 <h2 id="ubuntunodejs">Ubuntu安装nodejs<a class="headerlink" href="#ubuntunodejs" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="n">curl</span> <span class="o">-</span><span class="n">fsSL</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">deb</span><span class="p">.</span><span class="n">nodesource</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">setup_16</span><span class="p">.</span><span class="n">x</span> <span class="o">|</span> <span class="n">bash</span> <span class="o">-</span>
-<span class="n">curl</span> <span class="o">-</span><span class="n">sL</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">dl</span><span class="p">.</span><span class="n">yarnpkg</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">debian</span><span class="o">/</span><span class="n">pubkey</span><span class="p">.</span><span class="n">gpg</span> <span class="o">|</span> <span class="n">gpg</span> <span class="c1">--dearmor | tee /usr/share/keyrings/yarnkey.gpg &gt;/dev/null</span>
-<span class="n">echo</span> <span class="ss">&quot;deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main&quot;</span> <span class="o">|</span> <span class="n">tee</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">sources</span><span class="p">.</span><span class="n">list</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">yarn</span><span class="p">.</span><span class="n">list</span>
-<span class="n">apt</span> <span class="k">update</span> <span class="o">&amp;&amp;</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">nodejs</span> <span class="n">yarn</span>
+<div class="codehilite"><pre><span></span><code><span class="n">curl</span> <span class="o">-</span><span class="n">fsSL</span> <span class="nl">https:</span><span class="c1">//deb.nodesource.com/setup_16.x | bash -</span>
+<span class="n">curl</span> <span class="o">-</span><span class="n">sL</span> <span class="nl">https:</span><span class="c1">//dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | tee /usr/share/keyrings/yarnkey.gpg &gt;/dev/null</span>
+<span class="n">echo</span> <span class="s">&quot;deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main&quot;</span> <span class="o">|</span> <span class="n">tee</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">sources</span><span class="p">.</span><span class="n">list</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">yarn</span><span class="p">.</span><span class="n">list</span>
+<span class="n">apt</span> <span class="n">update</span> <span class="o">&amp;&amp;</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">nodejs</span> <span class="n">yarn</span>
 
-<span class="n">yarn</span> <span class="n">config</span> <span class="k">set</span> <span class="n">registry</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">registry</span><span class="p">.</span><span class="n">npm</span><span class="p">.</span><span class="n">taobao</span><span class="p">.</span><span class="n">org</span> <span class="o">-</span><span class="k">g</span>
-<span class="n">yarn</span> <span class="n">config</span> <span class="k">set</span> <span class="n">disturl</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">npm</span><span class="p">.</span><span class="n">taobao</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">dist</span> <span class="o">-</span><span class="k">g</span>
-<span class="n">yarn</span> <span class="n">config</span> <span class="k">set</span> <span class="n">electron_mirror</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">npm</span><span class="p">.</span><span class="n">taobao</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">mirrors</span><span class="o">/</span><span class="n">electron</span><span class="o">/</span> <span class="o">-</span><span class="k">g</span>
-<span class="n">yarn</span> <span class="n">config</span> <span class="k">set</span> <span class="n">sass_binary_site</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">npm</span><span class="p">.</span><span class="n">taobao</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">mirrors</span><span class="o">/</span><span class="n">node</span><span class="o">-</span><span class="n">sass</span><span class="o">/</span> <span class="o">-</span><span class="k">g</span>
-<span class="n">yarn</span> <span class="n">config</span> <span class="k">set</span> <span class="n">phantomjs_cdnurl</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">npm</span><span class="p">.</span><span class="n">taobao</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">mirrors</span><span class="o">/</span><span class="n">phantomjs</span><span class="o">/</span> <span class="o">-</span><span class="k">g</span>
-<span class="n">yarn</span> <span class="n">config</span> <span class="k">set</span> <span class="n">chromedriver_cdnurl</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">cdn</span><span class="p">.</span><span class="n">npm</span><span class="p">.</span><span class="n">taobao</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">dist</span><span class="o">/</span><span class="n">chromedriver</span> <span class="o">-</span><span class="k">g</span>
-<span class="n">yarn</span> <span class="n">config</span> <span class="k">set</span> <span class="n">operadriver_cdnurl</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">cdn</span><span class="p">.</span><span class="n">npm</span><span class="p">.</span><span class="n">taobao</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">dist</span><span class="o">/</span><span class="n">operadriver</span> <span class="o">-</span><span class="k">g</span>
-<span class="n">yarn</span> <span class="n">config</span> <span class="k">set</span> <span class="n">fse_binary_host_mirror</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">npm</span><span class="p">.</span><span class="n">taobao</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">mirrors</span><span class="o">/</span><span class="n">fsevents</span> <span class="o">-</span><span class="k">g</span>
+<span class="n">yarn</span> <span class="n">config</span> <span class="n">set</span> <span class="n">registry</span> <span class="nl">https:</span><span class="c1">//registry.npm.taobao.org -g</span>
+<span class="n">yarn</span> <span class="n">config</span> <span class="n">set</span> <span class="n">disturl</span> <span class="nl">https:</span><span class="c1">//npm.taobao.org/dist -g</span>
+<span class="n">yarn</span> <span class="n">config</span> <span class="n">set</span> <span class="n">electron_mirror</span> <span class="nl">https:</span><span class="c1">//npm.taobao.org/mirrors/electron/ -g</span>
+<span class="n">yarn</span> <span class="n">config</span> <span class="n">set</span> <span class="n">sass_binary_site</span> <span class="nl">https:</span><span class="c1">//npm.taobao.org/mirrors/node-sass/ -g</span>
+<span class="n">yarn</span> <span class="n">config</span> <span class="n">set</span> <span class="n">phantomjs_cdnurl</span> <span class="nl">https:</span><span class="c1">//npm.taobao.org/mirrors/phantomjs/ -g</span>
+<span class="n">yarn</span> <span class="n">config</span> <span class="n">set</span> <span class="n">chromedriver_cdnurl</span> <span class="nl">https:</span><span class="c1">//cdn.npm.taobao.org/dist/chromedriver -g</span>
+<span class="n">yarn</span> <span class="n">config</span> <span class="n">set</span> <span class="n">operadriver_cdnurl</span> <span class="nl">https:</span><span class="c1">//cdn.npm.taobao.org/dist/operadriver -g</span>
+<span class="n">yarn</span> <span class="n">config</span> <span class="n">set</span> <span class="n">fse_binary_host_mirror</span> <span class="nl">https:</span><span class="c1">//npm.taobao.org/mirrors/fsevents -g</span>
 </code></pre></div>
                 
               

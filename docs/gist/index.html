@@ -1093,11 +1093,9 @@
     <span class="nb">print</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </code></pre></div>
 
-
 <p>使用的时候就和print一样使用，可以传入多个参数</p>
-<div class="codehilite"><pre><span></span><code><span class="err">myprint(&quot;aha myprint&quot;, 666)</span>
+<div class="codehilite"><pre><span></span><code>myprint(&quot;aha myprint&quot;, 666)
 </code></pre></div>
-
 
 <h2 id="mysql">连接mysql批量插入、查询<a class="headerlink" href="#mysql" title="Permanent link">&para;</a></h2>
 <p>config.py:</p>
@@ -1107,7 +1105,6 @@
 <span class="n">MYSQL_HOST</span> <span class="o">=</span> <span class="s2">&quot;localhost&quot;</span>
 <span class="n">MYSQL_PORT</span> <span class="o">=</span> <span class="mi">3306</span>
 </code></pre></div>
-
 
 <div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">config</span> <span class="kn">import</span> <span class="n">MYSQL_HOST</span><span class="p">,</span> <span class="n">MYSQL_PORT</span><span class="p">,</span> <span class="n">MYSQL_USER</span><span class="p">,</span> <span class="n">MYSQL_PASSWORD</span><span class="p">,</span> <span class="n">MYSQL_DB</span>
 <span class="kn">import</span> <span class="nn">threading</span><span class="o">,</span> <span class="nn">pymysql</span><span class="o">,</span> <span class="nn">warnings</span><span class="o">,</span> <span class="nn">time</span>
@@ -1187,19 +1184,16 @@
         <span class="k">return</span> <span class="kc">False</span>
 </code></pre></div>
 
-
 <h2 id="_1">大小写不敏感字典<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">requests.structures</span> <span class="kn">import</span> <span class="n">CaseInsensitiveDict</span>
 <span class="n">mydict</span> <span class="o">=</span> <span class="n">CaseInsensitiveDict</span><span class="p">(</span><span class="n">mydict</span><span class="p">)</span>
 </code></pre></div>
-
 
 <h2 id="mpms">mpms多线程下每个线程单独变量<a class="headerlink" href="#mpms" title="Permanent link">&para;</a></h2>
 <p>自己写的类不是线程安全的，所以在多线程下要做到每个线程自己一个变量互不干扰</p>
 <p>mpms下使用EasyLogin完整示例代码模板， 先要使用我fork的版本 加上了len支持：</p>
 <div class="codehilite"><pre><span></span><code>wget https://d.py3.io/mpms.py
 </code></pre></div>
-
 
 <div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">mpms</span> <span class="kn">import</span> <span class="n">MPMS</span>
 <span class="kn">from</span> <span class="nn">EasyLogin</span> <span class="kn">import</span> <span class="n">EasyLogin</span>
@@ -1235,7 +1229,6 @@
     <span class="n">myprint</span><span class="p">(</span><span class="s2">&quot;Done!&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-
 <h2 id="dict_add_list">将值存入字典中的列表 dict_add_list<a class="headerlink" href="#dict_add_list" title="Permanent link">&para;</a></h2>
 <p>判断key是否存在 应该有更好的方法？这个实现还是很naive的</p>
 <div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">dict_add_list</span><span class="p">(</span><span class="n">dictname</span><span class="p">,</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w"> </span><span class="k">value</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
@@ -1252,7 +1245,6 @@
 <span class="w">        </span><span class="n">dictname</span><span class="o">[</span><span class="n">key</span><span class="o">]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
 </code></pre></div>
 
-
 <h2 id="aes">使用AES加密字符串<a class="headerlink" href="#aes" title="Permanent link">&para;</a></h2>
 <p>https://github.com/ricmoo/pyaes</p>
 <p>首先 <code>pip install pyaes -t .</code> 注意每次加密的时候都需要重新初始化aes</p>
@@ -1263,9 +1255,8 @@
 <span class="n">aes</span> <span class="o">=</span> <span class="n">pyaes</span><span class="o">.</span><span class="n">AESModeOfOperationCTR</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;This_key_for_demo_purposes_only!&quot;</span><span class="p">)</span>
 <span class="n">encrypted_text</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">aes</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">plaintext</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)))</span>
 
-<span class="k">print</span><span class="p">(</span><span class="n">encrypted_text</span><span class="p">)</span> <span class="c1"># ipkEJevbnsfbEm4=</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">encrypted_text</span><span class="p">)</span> <span class="c1"># ipkEJevbnsfbEm4=</span>
 </code></pre></div>
-
 
 <p>解密：</p>
 <div class="codehilite"><pre><span></span><code><span class="n">encrypted_text</span> <span class="o">=</span> <span class="s2">&quot;ipkEJevbnsfbEm4=&quot;</span>
@@ -1274,17 +1265,16 @@
 <span class="n">aes</span> <span class="o">=</span> <span class="n">pyaes</span><span class="o">.</span><span class="n">AESModeOfOperationCTR</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;This_key_for_demo_purposes_only!&quot;</span><span class="p">)</span>
 <span class="n">plaintext</span> <span class="o">=</span> <span class="n">aes</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">encrypted_text</span><span class="p">))</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
 
-<span class="k">print</span><span class="p">(</span><span class="n">plaintext</span><span class="p">)</span> <span class="c1"># hello world</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">plaintext</span><span class="p">)</span> <span class="c1"># hello world</span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="python-mn">Python画图 上方颜色，然后M*N个小图<a class="headerlink" href="#python-mn" title="Permanent link">&para;</a></h2>
 <p>TODO: 增加一张示意图</p>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span> 
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">matplotlib.gridspec</span> <span class="kn">as</span> <span class="nn">gridspec</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span> 
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.gridspec</span> <span class="k">as</span> <span class="nn">gridspec</span>
 <span class="kn">import</span> <span class="nn">gzip</span>
 <span class="kn">import</span> <span class="nn">pickle</span>
 <span class="kn">import</span> <span class="nn">os</span>
@@ -1328,10 +1318,10 @@
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
     <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
     <span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">),</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">),</span> <span class="n">sym</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">boxprops</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;linestyle&quot;</span><span class="p">:</span><span class="s2">&quot;None&quot;</span><span class="p">})</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;bottom&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;bottom&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>
     <span class="n">handles</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_legend_handles_labels</span><span class="p">()</span>
@@ -1339,17 +1329,16 @@
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div>
 
-
 <hr />
 <h2 id="zipc">从一系列zip文件中提取C代码<a class="headerlink" href="#zipc" title="Permanent link">&para;</a></h2>
 <div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">zipfile</span> <span class="kn">import</span> <span class="n">ZipFile</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">():</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
     <span class="n">z</span> <span class="o">=</span> <span class="n">ZipFile</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
     <span class="n">files</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">filename</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">z</span><span class="o">.</span><span class="n">filelist</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">filename</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.c&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">i</span><span class="o">.</span><span class="n">filename</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.cpp&quot;</span><span class="p">)]</span>
     <span class="n">files</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">files</span> <span class="k">if</span> <span class="s2">&quot;StdAfx&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">i</span><span class="p">]</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
     <span class="n">contents</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;&quot;</span>
     <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
         <span class="n">c</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
@@ -1358,7 +1347,6 @@
         <span class="n">contents</span> <span class="o">+=</span> <span class="n">c</span>
     <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;../output/&quot;</span><span class="o">+</span><span class="n">i</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;.asm&quot;</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="_2">在一批文本中查找可能的密钥<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
@@ -1374,7 +1362,6 @@
         <span class="k">return</span> <span class="mi">0</span>
     <span class="k">return</span> <span class="n">PasswordStats</span><span class="p">(</span><span class="n">text</span><span class="p">)</span><span class="o">.</span><span class="n">strength</span><span class="p">()</span>
 </code></pre></div>
-
 
 <p>参考：</p>
 <ul>

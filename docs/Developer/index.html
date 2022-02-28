@@ -791,6 +791,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#varlibdockeroverlay2" class="md-nav__link">
+    找到 /var/lib/docker/overlay2 对应的容器
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1306,6 +1313,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#varlibdockeroverlay2" class="md-nav__link">
+    找到 /var/lib/docker/overlay2 对应的容器
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1426,9 +1440,8 @@
 <h2 id="chromeqq">使用chrome缓存找到被删的qq空间的图片<a class="headerlink" href="#chromeqq" title="Permanent link">&para;</a></h2>
 <p>看到有好友秀恩爱，然后就没有权限访问了，但打开过的图片有chrome缓存，于是便尝试从缓存找到图片url</p>
 <p>chrome的缓存可以在这里找到：</p>
-<div class="codehilite"><pre><span></span><code><span class="c">chrome://cache/</span>
+<div class="codehilite"><pre><span></span><code>chrome://cache/
 </code></pre></div>
-
 
 <p>然后随意点开一张qq空间的图片，发现其包含psb（毕竟右键保存的文件名默认就是psb），然后就是搜索咯</p>
 <p>在点进去的缓存页面可以F12执行js，查看缓存图片：</p>
@@ -1622,7 +1635,6 @@
     <span class="p">})()</span>
 </code></pre></div>
 
-
 <p>例如找到http://a3.qpic.cn/psb?/V12C1bLj2DcCgb/f9hTWn5wbxt3dZd5MlUCHX6tA9oqVOudgT2rqARLltk!/a/dI4BAAAAAAAA</p>
 <p>但这样只是一张小图，我们当然希望有大图，比对大图的url发现只要将上述url的/a/替换为/b/即可</p>
 <p>所以总结一下就是打开缓存页面chrome://cache/，查找psb字符串，找到想要的图片，如果是小图就改一下url得到大图</p>
@@ -1645,14 +1657,12 @@
 <p>需要注意的地方有：修改服务器回调通知地址和修改上线的时候，钉钉就会验证服务器是否正常，你可以<code>while true; nc -lp 8888 &lt; tmp.txt; done</code> 死循环提供个正常的http服务</p>
 <p>POST发来的数据里面有临时的url可以发消息，还有senderId是发送者id用来在atDingtalkIds中使用</p>
 <p>收到的POST内容：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">{&quot;conversationId&quot;:&quot;cidoAgtPbnu9MyulIyt0kpNYg==&quot;,&quot;atUsers&quot;:[{&quot;dingtalkId&quot;:&quot;$:LWCP_v1:$Jh2MBlTKQnC/tN4tDTZB3eOIi+xOatMW&quot;}],&quot;chatbotCorpId&quot;:&quot;dingb1d0b0ca51cxxxxxx&quot;,&quot;chatbotUserId&quot;:&quot;$:LWCP_v1:$Jh2MBlTKQnC/tN4tDTZB3eOIi+xOatMW&quot;,&quot;msgId&quot;:&quot;msgWjYj1k8LPNOBBy+jxNKwQw==&quot;,&quot;senderNick&quot;:&quot;发送者姓名&quot;,&quot;isAdmin&quot;:false,&quot;senderStaffId&quot;:&quot;2665036700000000&quot;,&quot;sessionWebhookExpiredTime&quot;:1600622026555,&quot;createAt&quot;:1600616626487,&quot;senderCorpId&quot;:&quot;dingb1d0b0ca51c029b24ac5d6980000000&quot;,&quot;conversationType&quot;:&quot;2&quot;,&quot;senderId&quot;:&quot;$:LWCP_v1:$9gY0EpfG9gA0e4xnPjDHugeGB0JtdCJV&quot;,&quot;conversationTitle&quot;:&quot;群组标题&quot;,&quot;isInAtList&quot;:true,&quot;sessionWebhook&quot;:&quot;https://oapi.dingtalk.com/robot/sendBySession?session=b28f49899ea1cba0d256673d66ffe386&quot;,&quot;text&quot;:{&quot;content&quot;:&quot; 1+1&quot;},&quot;msgtype&quot;:&quot;text&quot;}</span>
+<div class="codehilite"><pre><span></span><code>{&quot;conversationId&quot;:&quot;cidoAgtPbnu9MyulIyt0kpNYg==&quot;,&quot;atUsers&quot;:[{&quot;dingtalkId&quot;:&quot;$:LWCP_v1:$Jh2MBlTKQnC/tN4tDTZB3eOIi+xOatMW&quot;}],&quot;chatbotCorpId&quot;:&quot;dingb1d0b0ca51cxxxxxx&quot;,&quot;chatbotUserId&quot;:&quot;$:LWCP_v1:$Jh2MBlTKQnC/tN4tDTZB3eOIi+xOatMW&quot;,&quot;msgId&quot;:&quot;msgWjYj1k8LPNOBBy+jxNKwQw==&quot;,&quot;senderNick&quot;:&quot;发送者姓名&quot;,&quot;isAdmin&quot;:false,&quot;senderStaffId&quot;:&quot;2665036700000000&quot;,&quot;sessionWebhookExpiredTime&quot;:1600622026555,&quot;createAt&quot;:1600616626487,&quot;senderCorpId&quot;:&quot;dingb1d0b0ca51c029b24ac5d6980000000&quot;,&quot;conversationType&quot;:&quot;2&quot;,&quot;senderId&quot;:&quot;$:LWCP_v1:$9gY0EpfG9gA0e4xnPjDHugeGB0JtdCJV&quot;,&quot;conversationTitle&quot;:&quot;群组标题&quot;,&quot;isInAtList&quot;:true,&quot;sessionWebhook&quot;:&quot;https://oapi.dingtalk.com/robot/sendBySession?session=b28f49899ea1cba0d256673d66ffe386&quot;,&quot;text&quot;:{&quot;content&quot;:&quot; 1+1&quot;},&quot;msgtype&quot;:&quot;text&quot;}
 </code></pre></div>
-
 
 <p>回复发送者一个666：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">curl https://oapi.dingtalk.com/robot/sendBySession?session=b28f49899ea1cba0d256673d66ffe386 -H &quot;Content-Type: application/json&quot; --data &#39;{&quot;msgtype&quot;:&quot;text&quot;, &quot;text&quot;:{&quot;content&quot;:&quot;666&quot;}, &quot;at&quot;:{&quot;atDingtalkIds&quot;:[&quot;$:LWCP_v1:$9gY0EpfG9gA0e4xnPjDHugeGB0JtdCJV&quot;]}}&#39;</span>
+<div class="codehilite"><pre><span></span><code>curl https://oapi.dingtalk.com/robot/sendBySession?session=b28f49899ea1cba0d256673d66ffe386 -H &quot;Content-Type: application/json&quot; --data &#39;{&quot;msgtype&quot;:&quot;text&quot;, &quot;text&quot;:{&quot;content&quot;:&quot;666&quot;}, &quot;at&quot;:{&quot;atDingtalkIds&quot;:[&quot;$:LWCP_v1:$9gY0EpfG9gA0e4xnPjDHugeGB0JtdCJV&quot;]}}&#39;
 </code></pre></div>
-
 
 <hr />
 <h2 id="go">Go语言<a class="headerlink" href="#go" title="Permanent link">&para;</a></h2>
@@ -1662,24 +1672,21 @@
 <span class="k">export</span> <span class="n">PATH</span><span class="o">=$</span><span class="n">PATH</span><span class="p">:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">go</span><span class="o">/</span><span class="n">bin</span>
 </code></pre></div>
 
-
 <h3 id="build">提取build失败缺失的库安装<a class="headerlink" href="#build" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="err">go build |&amp;  grep cannot |cut -d&#39;&quot;&#39; -f2|xargs go get</span>
+<div class="codehilite"><pre><span></span><code><span class="k">go</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="o">|&amp;</span><span class="w">  </span><span class="n">grep</span><span class="w"> </span><span class="n">cannot</span><span class="w"> </span><span class="o">|</span><span class="n">cut</span><span class="w"> </span><span class="o">-</span><span class="n">d</span><span class="s1">&#39;&quot;&#39;</span><span class="w"> </span><span class="o">-</span><span class="n">f2</span><span class="o">|</span><span class="n">xargs</span><span class="w"> </span><span class="k">go</span><span class="w"> </span><span class="k">get</span><span class="w"></span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="idea20202-30">IDEA2020.2 30天后重新试用<a class="headerlink" href="#idea20202-30" title="Permanent link">&para;</a></h2>
 <p>参考： http://scz.617.cn:8/windows/202010261152.txt</p>
 <p>regedit找到HKCU\SOFTWARE\JavaSoft\Prefs\jetbrains\idea，其中会有目录包含evlsprt3\202，删掉这个目录里面的evlsprt和evlsprt2</p>
 <p>然后删除这些目录：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">rd /s /q &quot;%APPDATA%\JetBrains\IntelliJIdea2020.2\eval&quot;</span>
-<span class="err">del &quot;%APPDATA%\JetBrains\PermanentDeviceId&quot;</span>
-<span class="err">del &quot;%APPDATA%\JetBrains\PermanentUserId&quot;</span>
-<span class="err">del &quot;%APPDATA%\JetBrains\bl&quot;</span>
-<span class="err">del &quot;%APPDATA%\JetBrains\crl&quot;</span>
+<div class="codehilite"><pre><span></span><code>rd /s /q &quot;%APPDATA%\JetBrains\IntelliJIdea2020.2\eval&quot;
+del &quot;%APPDATA%\JetBrains\PermanentDeviceId&quot;
+del &quot;%APPDATA%\JetBrains\PermanentUserId&quot;
+del &quot;%APPDATA%\JetBrains\bl&quot;
+del &quot;%APPDATA%\JetBrains\crl&quot;
 </code></pre></div>
-
 
 <p>编辑&rdquo;%APPDATA%\JetBrains\IntelliJIdea2020.2\options\other.xml&rdquo;</p>
 <p>删除包含evlsprt.202或evlsprt2.202的行</p>
@@ -1689,36 +1696,32 @@
 <h3 id="_14">修改键盘布局<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
 <p>查到有教程说<code>sudo raspi-config</code>里可以修改键盘布局，实测发现改了之后只敲了一次@之后又被改回去了，还是得修改输入法：</p>
 <p>参考 https://jingyan.baidu.com/article/3aed632e29dfd87011809169.html</p>
-<div class="codehilite"><pre><span></span><code><span class="err">sudo apt install fcitx</span>
-<span class="err">reboot</span>
+<div class="codehilite"><pre><span></span><code>sudo apt install fcitx
+reboot
 </code></pre></div>
-
 
 <p>右上角有输入法图标 管理键盘 删掉英国 加上英语(美国)即可</p>
 <h3 id="_15">显示分辨率修改<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
 <p>参考 https://www.ncnynl.com/archives/201607/226.html</p>
 <p>树莓派有两种hdmi输出模式，1是CEA电视，2是DMT电脑显示器</p>
 <p>查看当前显示器支持的分辨率们：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">tvservice -m CEA</span>
-<span class="err">tvservice -m DMT</span>
+<div class="codehilite"><pre><span></span><code>tvservice -m CEA
+tvservice -m DMT
 </code></pre></div>
-
 
 <p>实际上显示出来的并不一定完整，还需要自己多测试：例如设置为 640x480   60Hz</p>
-<div class="codehilite"><pre><span></span><code><span class="err">tvservice -e &quot;DMT 4&quot;</span>
+<div class="codehilite"><pre><span></span><code>tvservice -e &quot;DMT 4&quot;
 </code></pre></div>
-
 
 <p>建议在终端里先敲这个命令 当显示不出来的时候可以按↑回车改回一个正常显示，不至于重启</p>
 <p>完整的列表在上述参考链接中有了，可以自己多试试，切换分辨率后记得移动鼠标 不然不会显示</p>
 <p>但是我希望的分辨率 1920x1080 60Hz不在DMT列表中，这就需要自定义分辨率了</p>
 <p>修改<code>/boot/config.txt</code>，添加：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">hdmi_cvt=1920 1080 60 3</span>
-<span class="err">hdmi_group=2</span>
-<span class="err">hdmi_mode=87</span>
-<span class="err">hdmi_drive=2</span>
+<div class="codehilite"><pre><span></span><code>hdmi_cvt=1920 1080 60 3
+hdmi_group=2
+hdmi_mode=87
+hdmi_drive=2
 </code></pre></div>
-
 
 <p>其中hdmi_cvt的解释： https://www.raspberrypi.org/documentation/configuration/config-txt/video.md</p>
 <p>其中最后一个3是sdtv_aspect 长宽比 我这里是16:9 所以填了3</p>
@@ -1728,33 +1731,30 @@
 <p>两个网络都是使用dhcp获取IP，所以可以在dhcp的配置文件里配置metric</p>
 <p>参考： https://raspberrypi.stackexchange.com/a/50951</p>
 <p>编辑<code>/etc/dhcpcd.conf</code></p>
-<div class="codehilite"><pre><span></span><code><span class="n">interface</span> <span class="n">wlan0</span>
-<span class="n">metric</span> <span class="mi">200</span>
+<div class="codehilite"><pre><span></span><code>interface wlan0
+metric 200
 
-<span class="n">interface</span> <span class="n">eth0</span>
-<span class="n">metric</span> <span class="mi">300</span>
+interface eth0
+metric 300
 </code></pre></div>
-
 
 <p>然后编辑dhcp的hook自动执行route命令：</p>
 <p>参考 https://wiki.archlinux.org/index.php/dhcpcd#DHCP_static_route.28s.29</p>
 <p>编辑<code>/etc/dhcpcd.exit-hook</code></p>
-<div class="codehilite"><pre><span></span><code><span class="err">route add -net 10.0.0.0/8 gw &lt;网关ip&gt; dev eth0</span>
+<div class="codehilite"><pre><span></span><code>route add -net 10.0.0.0/8 gw &lt;网关ip&gt; dev eth0
 </code></pre></div>
-
 
 <hr />
 <h2 id="electron">修改Electron应用<a class="headerlink" href="#electron" title="Permanent link">&para;</a></h2>
 <p>想让这个Electron应用浏览器打开自定义的页面，但人家没提供F12（虽然最后发现也没啥用Orz</p>
 <p>参考： <a href="https://www.52pojie.cn/thread-563895-1-1.html">吾爱破解-Electron跨平台程序破解的一般思路</a></p>
-<div class="codehilite"><pre><span></span><code><span class="n">npm</span> <span class="n">install</span> <span class="n">asar</span> <span class="o">-</span><span class="k">g</span>
-<span class="o">#</span> <span class="err">在</span><span class="n">resources目录可以找到app</span><span class="p">.</span><span class="n">asar</span><span class="err">，这样解包：</span>
-<span class="n">asar</span> <span class="n">e</span> <span class="n">app</span><span class="p">.</span><span class="n">asar</span> <span class="n">tmp</span>
+<div class="codehilite"><pre><span></span><code>npm install asar -g
+# 在resources目录可以找到app.asar，这样解包：
+asar e app.asar tmp
 
-<span class="o">#</span> <span class="err">修改后重新打包：</span>
-<span class="n">asar</span> <span class="n">p</span> <span class="n">tmp</span><span class="o">/</span> <span class="n">app</span><span class="p">.</span><span class="n">asar</span>
+# 修改后重新打包：
+asar p tmp/ app.asar
 </code></pre></div>
-
 
 <p>具体的修改挺简单，找到入口的electron.js</p>
 <p>注释掉new BrowserWindow的titleBarStyle: &lsquo;hidden&rsquo;, removeMenu() 修改.loadURL(url)</p>
@@ -1799,7 +1799,6 @@
     <span class="n">ts</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">last</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">],</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%SZ&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-
 <p>然后就能分析例如访问最多的IP: <code>cut -d$'\t' -f2 access.log|sort|uniq -c|sort -hr|head -n 30</code></p>
 <hr />
 <h2 id="shodan-ip">shodan 搜索开放特定端口的ip列表<a class="headerlink" href="#shodan-ip" title="Permanent link">&para;</a></h2>
@@ -1811,6 +1810,13 @@
 <span class="n">x</span><span class="o">=</span><span class="n">shodan</span><span class="o">.</span><span class="n">Shodan</span><span class="p">(</span><span class="s2">&quot;APIKEY&quot;</span><span class="p">)</span>
 <span class="n">data</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;port:3389 country:cn&quot;</span><span class="p">,</span> <span class="n">facets</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ip:10000&#39;</span><span class="p">])</span>
 <span class="n">iplist</span><span class="o">=</span><span class="p">([</span><span class="n">i</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;facets&quot;</span><span class="p">][</span><span class="s2">&quot;ip&quot;</span><span class="p">]])</span>
+</code></pre></div>
+
+<h2 id="varlibdockeroverlay2">找到 /var/lib/docker/overlay2 对应的容器<a class="headerlink" href="#varlibdockeroverlay2" title="Permanent link">&para;</a></h2>
+<p>硬盘空间不够，可能是docker占用了太多空间</p>
+<p>参考 https://fabianlee.org/2021/04/08/docker-determining-container-responsible-for-largest-overlay-directories/</p>
+<div class="codehilite"><pre><span></span><code><span class="n">ncdu</span> <span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">docker</span><span class="o">/</span><span class="n">overlay2</span> <span class="c1">#查看哪些目录占据空间最大</span>
+<span class="n">docker</span> <span class="n">inspect</span> <span class="o">$</span><span class="p">(</span><span class="n">docker</span> <span class="n">ps</span> <span class="o">-</span><span class="n">qa</span><span class="p">)</span> <span class="o">|</span> <span class="n">jq</span> <span class="o">-</span><span class="n">r</span> <span class="s1">&#39;map([.Name, .GraphDriver.Data.MergedDir]) | .[] | &quot;\(.[0])</span><span class="se">\t</span><span class="s1">\(.[1])&quot;&#39;</span> <span class="o">&gt;</span> <span class="n">docker</span><span class="o">-</span><span class="n">mappings</span><span class="o">.</span><span class="n">txt</span>
 </code></pre></div>
                 
               

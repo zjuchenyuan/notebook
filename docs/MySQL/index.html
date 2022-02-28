@@ -1396,9 +1396,8 @@
                 <h2 id="_1">查看表结构<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>desc 表名称;</p>
 <h3 id="sql">查看建表sql语句<a class="headerlink" href="#sql" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="err">show create table 表名称;</span>
+<div class="codehilite"><pre><span></span><code><span class="k">show</span> <span class="nv">create</span> <span class="nv">table</span> 表名称<span class="c1">;</span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="merge">MERGE存储引擎<a class="headerlink" href="#merge" title="Permanent link">&para;</a></h2>
@@ -1414,7 +1413,6 @@
 <span class="p">)</span> <span class="n">ENGINE</span><span class="o">=</span> <span class="n">MRG_MYISAM</span> <span class="p">,</span><span class="k">UNION</span><span class="o">=</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
 </code></pre></div>
 
-
 <p>特点：</p>
 <p>这种表不会创建额外的索引，但查询起来比视图速度更快；</p>
 <p>不能在这种表上建立全文索引</p>
@@ -1426,7 +1424,6 @@
     <span class="n">t1</span><span class="p">.</span><span class="err">其他列</span><span class="o">=</span><span class="n">t2</span><span class="p">.</span><span class="err">其他列</span> <span class="k">and</span>
     <span class="n">t1</span><span class="p">.</span><span class="n">gettime</span><span class="o">&gt;</span><span class="n">t2</span><span class="p">.</span><span class="n">gettime</span><span class="p">;</span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="alter-table">修改表 alter table<a class="headerlink" href="#alter-table" title="Permanent link">&para;</a></h2>
@@ -1440,7 +1437,6 @@
 <span class="k">ADD</span> <span class="k">INDEX</span> <span class="o">`</span><span class="n">a1</span><span class="o">`</span> <span class="p">(</span><span class="o">`</span><span class="k">user</span><span class="o">`</span><span class="p">);</span>
 </code></pre></div>
 
-
 <hr />
 <h2 id="_3">将中文转为拼音 函数<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>代码在<a href="../code/pinyin.sql">code/pinyin.sql</a></p>
@@ -1448,9 +1444,8 @@
 <h2 id="url">从路径URL获取文件名称<a class="headerlink" href="#url" title="Permanent link">&para;</a></h2>
 <p>来源 http://stackoverflow.com/questions/17090237/extracting-filenames-from-a-path-mysql</p>
 <p>使用SUBSTRING_INDEX函数，假设url此行的内容为&rdquo;http://example.com/some/path/to/filename.zip&rdquo;</p>
-<div class="codehilite"><pre><span></span><code><span class="err">select SUBSTRING_INDEX(url, &#39;/&#39;, -1) as filename;</span>
+<div class="codehilite"><pre><span></span><code>select SUBSTRING_INDEX(url, &#39;/&#39;, -1) as filename;
 </code></pre></div>
-
 
 <p>即可得到一列filename，此行数据为&rdquo;filename.zip&rdquo;</p>
 <hr />
@@ -1469,16 +1464,14 @@
 <hr />
 <h2 id="the-table-is-full">内存表The table is full<a class="headerlink" href="#the-table-is-full" title="Permanent link">&para;</a></h2>
 <p>修改MySQL的配置文件/etc/mysql/my.cnf，在[mysqld]下添加/修改两行(下面的值仅供参考,请根据实际情况酌情处理)： </p>
-<div class="codehilite"><pre><span></span><code><span class="err">tmp_table_size = 256M // 临时表大小 </span>
-<span class="err">max_heap_table_size = 256M // 内存表大小 </span>
+<div class="codehilite"><pre><span></span><code>tmp_table_size = 256M // 临时表大小 
+max_heap_table_size = 256M // 内存表大小 
 </code></pre></div>
-
 
 <hr />
 <h2 id="replace">replace函数替换文本<a class="headerlink" href="#replace" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="k">update</span> <span class="n">`content`</span> <span class="k">set</span> <span class="k">value</span><span class="o">=</span><span class="k">replace</span><span class="p">(</span><span class="k">value</span><span class="p">,</span><span class="s2">&quot;original content&quot;</span><span class="p">,</span><span class="s2">&quot;replaced content&quot;</span><span class="p">);</span>
+<div class="codehilite"><pre><span></span><code><span class="k">update</span> <span class="n n-Quoted">`content`</span> <span class="k">set</span> <span class="k">value</span><span class="o">=</span><span class="k">replace</span><span class="p">(</span><span class="k">value</span><span class="p">,</span><span class="s2">&quot;original content&quot;</span><span class="p">,</span><span class="s2">&quot;replaced content&quot;</span><span class="p">);</span>
 </code></pre></div>
-
 
 <p>注意replace不要反引号</p>
 <hr />
@@ -1487,13 +1480,12 @@
 <p>现在需要将数值从这一列中提取出来，并转为int类型</p>
 <div class="codehilite"><pre><span></span><code><span class="k">convert</span> <span class="p">(</span>
     <span class="nf">substr</span><span class="p">(</span>
-        <span class="n">`info`</span><span class="p">,</span>
-        <span class="nf">locate</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">`info`</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span>
+        <span class="n n-Quoted">`info`</span><span class="p">,</span>
+        <span class="nf">locate</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n n-Quoted">`info`</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span>
     <span class="p">),</span>
     <span class="k">unsigned</span> <span class="kt">integer</span>
 <span class="p">)</span>
 </code></pre></div>
-
 
 <p>Google关键词：<code>mysql split string</code>,<code>mysql string to int</code></p>
 <p>参考：</p>
@@ -1505,9 +1497,8 @@
 <p>参考：<a href="https://www.linode.com/docs/databases/mysql/how-to-optimize-mysql-performance-using-mysqltuner">https://www.linode.com/docs/databases/mysql/how-to-optimize-mysql-performance-using-mysqltuner</a></p>
 </blockquote>
 <p>使用MySQLTuner这个工具得到一些建议：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">curl -L http://mysqltuner.pl/ | perl</span>
+<div class="codehilite"><pre><span></span><code>curl -L http://mysqltuner.pl/ | perl
 </code></pre></div>
-
 
 <p>对于其最后给出的参数建议照做即可。</p>
 <p><code>key_buffer</code>参数是最关键的参数，决定了mysql占用的内存大小</p>
@@ -1523,14 +1514,12 @@
 <span class="k">DEFAULT</span> <span class="nb">CHARACTER</span> <span class="k">SET</span><span class="o">=</span><span class="n">utf8mb4</span><span class="p">;</span>
 </code></pre></div>
 
-
 <h4 id="_6">连接代码的改动<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
 <p>在执行 insert 的 sql语句之前，先执行这三条sql:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">SET NAMES utf8mb4;</span>
-<span class="err">SET CHARACTER SET utf8mb4; </span>
-<span class="err">SET character_set_connection=utf8mb4;</span>
+<div class="codehilite"><pre><span></span><code>SET NAMES utf8mb4;
+SET CHARACTER SET utf8mb4; 
+SET character_set_connection=utf8mb4;
 </code></pre></div>
-
 
 <hr />
 <h2 id="too-many-open-files">解决 Too many open files 错误<a class="headerlink" href="#too-many-open-files" title="Permanent link">&para;</a></h2>
@@ -1541,23 +1530,20 @@
 <p>系统环境： ubuntu16.04，用apt install mysql-server安装的mysql</p>
 <p>这个问题的原因是mysql默认的open_files_limit是1024，在mysql打开1024个文件后就无法再打开新文件，需要修改这个limit，如改为1024000</p>
 <p>修改<code>/etc/mysql/mysql.conf.d/mysqld.cnf</code>，在[mysqld_safe]和[mysqld]都加入一行：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">open_files_limit = 1024000</span>
+<div class="codehilite"><pre><span></span><code>open_files_limit = 1024000
 </code></pre></div>
-
 
 <p>在<code>/etc/security/limits.conf</code>中加入：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">* soft nofile 1024000</span>
-<span class="err">* hard nofile 1024000</span>
-<span class="err">* soft nproc 10240</span>
-<span class="err">* hard nproc 10240</span>
+<div class="codehilite"><pre><span></span><code>* soft nofile 1024000
+* hard nofile 1024000
+* soft nproc 10240
+* hard nproc 10240
 </code></pre></div>
-
 
 <p>上述还不够，由于mysql服务被systemd管理，还要修改<code>/lib/systemd/system/mysql.service</code>，在最后加入</p>
-<div class="codehilite"><pre><span></span><code><span class="err">LimitNOFILE = infinity</span>
-<span class="err">LimitMEMLOCK = infinity</span>
+<div class="codehilite"><pre><span></span><code>LimitNOFILE = infinity
+LimitMEMLOCK = infinity
 </code></pre></div>
-
 
 <p>在ubuntu16.04上，这些还不够，还要继续改systemd:
 （参考：https://serverfault.com/questions/791729/ubuntu-16-04-server-mysql-open-file-limit-wont-go-higher-than-65536）</p>
@@ -1568,12 +1554,10 @@
 <span class="n">EOF</span><span class="w"></span>
 </code></pre></div>
 
-
 <p>然后重启mysql：</p>
 <div class="codehilite"><pre><span></span><code><span class="n">systemctl</span> <span class="n">daemon</span><span class="o">-</span><span class="n">reload</span>
 <span class="n">systemctl</span> <span class="n">restart</span> <span class="n">mysql</span><span class="o">.</span><span class="n">service</span>
 </code></pre></div>
-
 
 <p>使用这两种方法都能看到修改是否生效：</p>
 <div class="codehilite"><pre><span></span><code><span class="n">ps</span> <span class="n">aux</span><span class="o">|</span><span class="n">grep</span> <span class="n">mysqld</span> <span class="c1">#找到mysqld的进程ID</span>
@@ -1582,7 +1566,6 @@
 <span class="n">mysql</span> <span class="o">-</span><span class="n">u</span> <span class="n">root</span> <span class="o">-</span><span class="n">p</span>
 <span class="n">show</span> <span class="n">global</span> <span class="n">variables</span> <span class="n">like</span> <span class="s2">&quot;</span><span class="si">%o</span><span class="s2">pen_files_limit%&quot;</span><span class="p">;</span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="ubuntu1604mysqlapt-upgrade">解决ubuntu16.04上mysql被apt upgrade自动关闭的问题<a class="headerlink" href="#ubuntu1604mysqlapt-upgrade" title="Permanent link">&para;</a></h2>
@@ -1594,32 +1577,28 @@
   <span class="n">Upgrade</span> <span class="n">process</span> <span class="n">encountered</span> <span class="n">error</span> <span class="n">and</span> <span class="n">will</span> <span class="n">not</span> <span class="k">continue</span><span class="o">.</span>
 </code></pre></div>
 
-
 <p>然后就查这个报错，发现了这个：https://github.com/chef-cookbooks/mysql/issues/466</p>
 <p>人家的解决方案是：<code>systemctl enable mysql</code>，然而我执行又遇到了systemd的报错：<code>Failed to execute operation: Invalid argument</code></p>
 <p>最终解决方案就是先disable一下</p>
-<div class="codehilite"><pre><span></span><code><span class="err">systemctl disable mysql</span>
-<span class="err">systemctl enable mysql</span>
-<span class="err">apt-get install -f</span>
+<div class="codehilite"><pre><span></span><code>systemctl disable mysql
+systemctl enable mysql
+apt-get install -f
 </code></pre></div>
-
 
 <hr />
 <h2 id="null0">NULL转0<a class="headerlink" href="#null0" title="Permanent link">&para;</a></h2>
 <p>用函数IFNULL，写法就是<code>IFNULL(列名, 0)</code></p>
 <p>举个例子</p>
-<div class="codehilite"><pre><span></span><code><span class="err">select sum(IFNULL(score, 0)) from runs;</span>
+<div class="codehilite"><pre><span></span><code>select sum(IFNULL(score, 0)) from runs;
 </code></pre></div>
-
 
 <hr />
 <h2 id="mysqlslave">给MySQL增加一个slave做主从复制<a class="headerlink" href="#mysqlslave" title="Permanent link">&para;</a></h2>
 <p>master启用binlog配置server-id；master用mysqldump导出数据库；slave导入，开始slave</p>
 <h3 id="master">master创建用户<a class="headerlink" href="#master" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="err">GRANT REPLICATION SLAVE ON *.* TO &#39;slave_user&#39;@&#39;%&#39; IDENTIFIED BY &#39;password&#39;;</span>
-<span class="err">FLUSH PRIVILEGES;</span>
+<div class="codehilite"><pre><span></span><code>GRANT REPLICATION SLAVE ON *.* TO &#39;slave_user&#39;@&#39;%&#39; IDENTIFIED BY &#39;password&#39;;
+FLUSH PRIVILEGES;
 </code></pre></div>
-
 
 <h3 id="masterbinlog">master启用binlog<a class="headerlink" href="#masterbinlog" title="Permanent link">&para;</a></h3>
 <p>/etc/mysql/conf.d/master.cnf</p>
@@ -1630,51 +1609,45 @@
 <span class="na">sync_binlog</span><span class="o">=</span><span class="s">1</span>
 </code></pre></div>
 
-
 <h3 id="_7">搬运数据库<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
 <p>由于binlog是在已经有数据之后才开启的，而mysql不会自己执行全量同步，就只能靠手工搬运sql文件咯</p>
 <p>跨地域复制网速是限制因素，就用7z压缩了</p>
-<div class="codehilite"><pre><span></span><code><span class="err">mysqldump -h 127.0.0.1 -P 3306 -u root -p --opt --single-transaction --comments --hex-blob --dump-date --no-autocommit --all-databases --master-data | 7z a -si dbdump.sql.7z</span>
-<span class="err">7z x -so dbdump.sql.7z | mysql -h 127.0.0.1 -u root -p</span>
+<div class="codehilite"><pre><span></span><code>mysqldump -h 127.0.0.1 -P 3306 -u root -p --opt --single-transaction --comments --hex-blob --dump-date --no-autocommit --all-databases --master-data | 7z a -si dbdump.sql.7z
+7z x -so dbdump.sql.7z | mysql -h 127.0.0.1 -u root -p
 </code></pre></div>
-
 
 <p>你也可以使用ssh和管道操作，就不用创建文件了：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">ssh master_server &quot;mysqldump -h 127.0.0.1 -P 3306 -u root -ppassword --opt --single-transaction --comments --hex-blob --dump-date --no-autocommit --all-databases --master-data |gzip&quot; | zcat | mysql -h 127.0.0.1 -u root -ppassword</span>
+<div class="codehilite"><pre><span></span><code>ssh master_server &quot;mysqldump -h 127.0.0.1 -P 3306 -u root -ppassword --opt --single-transaction --comments --hex-blob --dump-date --no-autocommit --all-databases --master-data |gzip&quot; | zcat | mysql -h 127.0.0.1 -u root -ppassword
 </code></pre></div>
-
 
 <p>其中<code>--master-data</code>很重要，导出的时候就自动带上了master的信息，无需再手工记录</p>
 <p><code>CHANGE MASTER TO MASTER_LOG_FILE='mysql-bin.000002', MASTER_LOG_POS=15410;</code></p>
 <h3 id="slave">配置slave<a class="headerlink" href="#slave" title="Permanent link">&para;</a></h3>
 <p>实际使用中很容易遇到duplicate key的问题，导致slave线程停住，配置直接忽略这个错误 <a href="https://www.ducea.com/2008/02/13/mysql-skip-duplicate-replication-errors/">参考</a></p>
-<div class="codehilite"><pre><span></span><code><span class="err">server-id               = 2</span>
-<span class="err">relay-log               = mysql-relay-bin.log</span>
-<span class="err">log_bin                 = mysql-bin.log</span>
-<span class="err">slave-skip-errors = 1062</span>
+<div class="codehilite"><pre><span></span><code>server-id               = 2
+relay-log               = mysql-relay-bin.log
+log_bin                 = mysql-bin.log
+slave-skip-errors = 1062
 </code></pre></div>
 
-
-<div class="codehilite"><pre><span></span><code><span class="err">CHANGE MASTER TO MASTER_HOST=&#39;12.34.56.789&#39;,MASTER_USER=&#39;slave_user&#39;, MASTER_PASSWORD=&#39;password&#39;;</span>
-<span class="err">START SLAVE;</span>
-<span class="err">SHOW SLAVE STATUS\G</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">CHANGE</span> <span class="nv">MASTER</span> <span class="nv">TO</span> <span class="nv">MASTER_HOST</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">12.34.56.789</span><span class="s1">&#39;</span>,<span class="nv">MASTER_USER</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">slave_user</span><span class="s1">&#39;</span>, <span class="nv">MASTER_PASSWORD</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">password</span><span class="s1">&#39;</span><span class="c1">;</span>
+<span class="nv">START</span> <span class="nv">SLAVE</span><span class="c1">;</span>
+<span class="k">SHOW</span> <span class="nv">SLAVE</span> <span class="nv">STATUS</span>\<span class="nv">G</span>
 </code></pre></div>
-
 
 <h3 id="docker">Docker镜像<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h3>
 <p>https://github.com/bitnami/bitnami-docker-mysql</p>
 <p>但这个镜像也不会帮你自动完成mysqldump，但配置一个slave还是很省心的</p>
 <p>注意权限配置，如果原本数据文件夹不存在，Docker创建的是root用户才能读写，导致容器直接退出，坑的地方在于没有报错信息</p>
-<div class="codehilite"><pre><span></span><code><span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="o">/</span><span class="n">srv</span><span class="o">/</span><span class="n">mysql</span><span class="o">-</span><span class="n">slave</span><span class="o">/</span><span class="k">data</span>
-<span class="n">chown</span> <span class="mi">1001</span> <span class="o">/</span><span class="n">srv</span><span class="o">/</span><span class="n">mysql</span><span class="o">-</span><span class="n">slave</span><span class="o">/</span><span class="k">data</span> <span class="o">-</span><span class="n">R</span>
+<div class="codehilite"><pre><span></span><code>mkdir -p /srv/mysql-slave/data
+chown 1001 /srv/mysql-slave/data -R
 
-<span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">it</span> <span class="o">-</span><span class="n">v</span> <span class="o">/</span><span class="n">srv</span><span class="o">/</span><span class="n">mysql</span><span class="o">-</span><span class="n">slave</span><span class="o">/</span><span class="n">my</span><span class="p">.</span><span class="n">cnf</span><span class="p">:</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">bitnami</span><span class="o">/</span><span class="n">mysql</span><span class="o">/</span><span class="n">conf</span><span class="o">/</span><span class="n">my</span><span class="p">.</span><span class="n">cnf</span><span class="p">:</span><span class="n">ro</span> <span class="o">-</span><span class="n">v</span> <span class="o">/</span><span class="n">srv</span><span class="o">/</span><span class="n">mysql</span><span class="o">-</span><span class="n">slave</span><span class="o">/</span><span class="k">data</span><span class="p">:</span><span class="o">/</span><span class="n">bitnami</span><span class="o">/</span><span class="n">mysql</span><span class="o">/</span><span class="k">data</span> <span class="err">\</span>
-     <span class="c1">--name mysql-slave -e MYSQL_REPLICATION_MODE=slave -e MYSQL_REPLICATION_USER=slave_user -e MYSQL_REPLICATION_PASSWORD=password \</span>
-      <span class="o">-</span><span class="n">e</span> <span class="n">MYSQL_MASTER_HOST</span><span class="o">=</span><span class="mi">12</span><span class="p">.</span><span class="mi">34</span><span class="p">.</span><span class="mi">56</span><span class="p">.</span><span class="mi">789</span> <span class="o">-</span><span class="n">e</span> <span class="n">MYSQL_MASTER_PORT_NUMBER</span><span class="o">=</span><span class="mi">3306</span> <span class="err">\</span>
-      <span class="o">-</span><span class="n">e</span> <span class="n">MYSQL_MASTER_ROOT_USER</span><span class="o">=</span><span class="n">slave_user</span> <span class="o">-</span><span class="n">e</span> <span class="n">MYSQL_MASTER_ROOT_PASSWORD</span><span class="o">=</span><span class="n">password</span> <span class="err">\</span>
-      <span class="n">bitnami</span><span class="o">/</span><span class="n">mysql</span><span class="p">:</span><span class="mi">5</span><span class="p">.</span><span class="mi">7</span>
+docker run -it -v /srv/mysql-slave/my.cnf:/opt/bitnami/mysql/conf/my.cnf:ro -v /srv/mysql-slave/data:/bitnami/mysql/data \
+     --name mysql-slave -e MYSQL_REPLICATION_MODE=slave -e MYSQL_REPLICATION_USER=slave_user -e MYSQL_REPLICATION_PASSWORD=password \
+      -e MYSQL_MASTER_HOST=12.34.56.789 -e MYSQL_MASTER_PORT_NUMBER=3306 \
+      -e MYSQL_MASTER_ROOT_USER=slave_user -e MYSQL_MASTER_ROOT_PASSWORD=password \
+      bitnami/mysql:5.7
 </code></pre></div>
-
 
 <p>其中MYSQL_MASTER_ROOT_USER虽然人家说要root用户，实际上代码里只是用来select 1，所以用slave_user即可，参见<a href="https://github.com/bitnami/bitnami-docker-mysql/issues/87">我提的issue</a></p>
 <p>容器启动后一般会由于master的binlog不完整执行sql失败（表不存在），需要继续操作：</p>
@@ -1682,9 +1655,8 @@
 <p>然后执行sql语句<code>STOP SLAVE;</code> 再执行上述搬运数据库的操作，导入完成后<code>START SLAVE</code></p>
 <p>使用<code>show slave status;</code>查看slave状态</p>
 <p>另外，配合autossh和ssh的端口转发可以避免将mysql端口暴露在外：</p>
-<div class="codehilite"><pre><span></span><code><span class="n">autossh</span> <span class="o">-</span><span class="n">M</span> <span class="mi">0</span> <span class="o">-</span><span class="n">o</span> <span class="n">ServerAliveInterval</span><span class="o">=</span><span class="mi">30</span> <span class="o">-</span><span class="n">o</span> <span class="n">ServerAliveCountMax</span><span class="o">=</span><span class="mi">3</span> <span class="o">-</span><span class="n">L</span> <span class="mf">172.17.0.1</span><span class="o">:</span><span class="mi">3306</span><span class="o">:</span><span class="mf">127.0.0.1</span><span class="o">:</span><span class="mi">3306</span> <span class="n">user</span><span class="mf">@12.34.56.789</span>
+<div class="codehilite"><pre><span></span><code><span class="n">autossh</span><span class="w"> </span><span class="o">-</span><span class="n">M</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">-</span><span class="n">o</span><span class="w"> </span><span class="n">ServerAliveInterval</span><span class="o">=</span><span class="mi">30</span><span class="w"> </span><span class="o">-</span><span class="n">o</span><span class="w"> </span><span class="n">ServerAliveCountMax</span><span class="o">=</span><span class="mi">3</span><span class="w"> </span><span class="o">-</span><span class="n">L</span><span class="w"> </span><span class="mf">172.17.0.1</span><span class="o">:</span><span class="mi">3306</span><span class="o">:</span><span class="mf">127.0.0.1</span><span class="o">:</span><span class="mi">3306</span><span class="w"> </span><span class="n">user</span><span class="mf">@12.34.56.789</span><span class="w"></span>
 </code></pre></div>
-
 
 <p>相应地，slave配置的master地址改为172.17.0.1</p>
 <hr />

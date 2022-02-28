@@ -1009,9 +1009,8 @@
 <h2 id="exp">exp<a class="headerlink" href="#exp" title="Permanent link">&para;</a></h2>
 <p>首先丢个exp，用于检验漏洞存在性：<a href="../code/exp.S2-045.py">exp.S2-045.py</a></p>
 <p>使用方法示例：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">python exp.S2-045.py http://example.com/example.action &quot;id&quot;</span>
+<div class="codehilite"><pre><span></span><code>python exp.S2-045.py http://example.com/example.action &quot;id&quot;
 </code></pre></div>
-
 
 <hr />
 <h2 id="_2">解决过程<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
@@ -1081,7 +1080,6 @@
 <span class="p">}</span>
 </code></pre></div>
 
-
 <p>假设服务器上的<code>java -version</code>告诉我们java的版本是1.7的，手里又没有当前网站的项目文件，需要这样进行编译：</p>
 <p>eclipse新建一个工程，新建类复制以上代码，项目属性的<code>Java Build Path</code>中的<code>Libraries</code>添加tomcat中的<code>servlet-api.jar</code>，<code>Java Complier</code>页面中选择Complier compliance level为1.7</p>
 <p>eclipse自动通过编译后，即可将此SecurityFilter.class文件传至服务器上的应用的WEB-INF/classes目录下。</p>
@@ -1097,7 +1095,6 @@
     <span class="nt">&lt;url-pattern&gt;</span>/*<span class="nt">&lt;/url-pattern&gt;</span>
 <span class="nt">&lt;/filter-mapping&gt;</span>
 </code></pre></div>
-
 
 <p>如图所示</p>
 <p><img alt="S2-045_filter.jpg" src="assets/img/S2-045_filter.jpg!/format/webp" /></p>

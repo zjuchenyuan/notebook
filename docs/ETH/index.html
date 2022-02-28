@@ -1107,26 +1107,25 @@
 <p>MetaMask等钱包的工作原理是从一串seed phrase生成一系列私钥</p>
 <p>使用<a href="https://github.com/ConsenSys/eth-lightwallet">lightwallet</a>这个npm包来生成MetaMask兼容的1000个地址</p>
 <div class="codehilite"><pre><span></span><code><span class="cp"># 需要使用版本2，更新的版本修改了API需要提供salt</span>
-<span class="n">$</span> <span class="n">npm</span> <span class="n">install</span> <span class="n">eth</span><span class="o">-</span><span class="n">lightwallet</span><span class="mf">@2.5.6</span>
+<span class="n">$</span><span class="w"> </span><span class="n">npm</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">eth</span><span class="o">-</span><span class="n">lightwallet</span><span class="mf">@2.5.6</span><span class="w"></span>
 
 <span class="cp"># 修改node_modules\_bitcore-lib@8.14.4@bitcore-lib\index.js添加一个return</span>
 <span class="cp"># bitcore.versionGuard = function(version) {return;</span>
 
-<span class="n">var</span> <span class="n">lightwallet</span> <span class="o">=</span> <span class="n">require</span><span class="p">(</span><span class="s">&quot;eth-lightwallet&quot;</span><span class="p">);</span>
-<span class="n">var</span> <span class="n">secretSeed</span> <span class="o">=</span> <span class="err">从</span><span class="n">metamask复制</span>
-<span class="n">var</span> <span class="n">password</span> <span class="o">=</span> <span class="err">随意设置一个密码，在内存中存储的是使用这个密码加密后的私钥</span>
-<span class="n">var</span> <span class="n">hdPathString</span> <span class="o">=</span> <span class="s">&quot;m/44&#39;/60&#39;/0&#39;/0&quot;</span><span class="p">;</span>
-<span class="n">var</span> <span class="n">ks</span><span class="p">;</span> 
-<span class="n">lightwallet</span><span class="p">.</span><span class="n">keystore</span><span class="p">.</span><span class="n">deriveKeyFromPassword</span><span class="p">(</span><span class="n">password</span><span class="p">,</span> <span class="n">function</span> <span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="n">pwDerivedKey</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">ks</span> <span class="o">=</span> <span class="n">new</span> <span class="n">lightwallet</span><span class="p">.</span><span class="n">keystore</span><span class="p">(</span><span class="n">secretSeed</span><span class="p">,</span> <span class="n">pwDerivedKey</span><span class="p">,</span> <span class="n">hdPathString</span><span class="p">);</span>
-    <span class="c1">//console.log(ks);</span>
-    <span class="n">ks</span><span class="p">.</span><span class="n">generateNewAddress</span><span class="p">(</span><span class="n">pwDerivedKey</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">hdPathString</span><span class="p">);</span>
-    <span class="k">for</span><span class="p">(</span><span class="n">var</span> <span class="n">i</span> <span class="n">of</span> <span class="n">ks</span><span class="p">.</span><span class="n">getAddresses</span><span class="p">(</span><span class="n">hdPathString</span><span class="p">)){</span>
-        <span class="n">console</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">ks</span><span class="p">.</span><span class="n">exportPrivateKey</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">pwDerivedKey</span><span class="p">,</span> <span class="n">hdPathString</span><span class="p">));</span>
-    <span class="p">}</span>
-<span class="p">})</span>
+<span class="n">var</span><span class="w"> </span><span class="n">lightwallet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">require</span><span class="p">(</span><span class="s">&quot;eth-lightwallet&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="n">var</span><span class="w"> </span><span class="n">secretSeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">从</span><span class="n">metamask复制</span><span class="w"></span>
+<span class="n">var</span><span class="w"> </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">随意设置一个密码，在内存中存储的是使用这个密码加密后的私钥</span><span class="w"></span>
+<span class="n">var</span><span class="w"> </span><span class="n">hdPathString</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;m/44&#39;/60&#39;/0&#39;/0&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="n">var</span><span class="w"> </span><span class="n">ks</span><span class="p">;</span><span class="w"> </span>
+<span class="n">lightwallet</span><span class="p">.</span><span class="n">keystore</span><span class="p">.</span><span class="n">deriveKeyFromPassword</span><span class="p">(</span><span class="n">password</span><span class="p">,</span><span class="w"> </span><span class="n">function</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="p">,</span><span class="w"> </span><span class="n">pwDerivedKey</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">ks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="n">lightwallet</span><span class="p">.</span><span class="n">keystore</span><span class="p">(</span><span class="n">secretSeed</span><span class="p">,</span><span class="w"> </span><span class="n">pwDerivedKey</span><span class="p">,</span><span class="w"> </span><span class="n">hdPathString</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="c1">//console.log(ks);</span>
+<span class="w">    </span><span class="n">ks</span><span class="p">.</span><span class="n">generateNewAddress</span><span class="p">(</span><span class="n">pwDerivedKey</span><span class="p">,</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w"> </span><span class="n">hdPathString</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="n">var</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">ks</span><span class="p">.</span><span class="n">getAddresses</span><span class="p">(</span><span class="n">hdPathString</span><span class="p">)){</span><span class="w"></span>
+<span class="w">        </span><span class="n">console</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">ks</span><span class="p">.</span><span class="n">exportPrivateKey</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">pwDerivedKey</span><span class="p">,</span><span class="w"> </span><span class="n">hdPathString</span><span class="p">));</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">})</span><span class="w"></span>
 </code></pre></div>
-
 
 <h2 id="pythonweb3py">Python发起交易(Web3.py)<a class="headerlink" href="#pythonweb3py" title="Permanent link">&para;</a></h2>
 <p>pip3 install web3，需要python3.7 （<a href="https://py3.io/Python/#ubuntu1604python37">在Ubuntu16.04上安装Python 3.7</a>）</p>
@@ -1135,7 +1134,7 @@
 <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;WEB3_INFURA_PROJECT_ID&quot;</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;从infura.io复制&quot;</span>
 <span class="kn">from</span> <span class="nn">web3.auto.infura.ropsten</span> <span class="kn">import</span> <span class="n">w3</span>
 <span class="kn">from</span> <span class="nn">base64</span> <span class="kn">import</span> <span class="n">b16encode</span>
-<span class="k">def</span> <span class="nf">senddata</span><span class="p">(</span><span class="n">privatekey</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">to</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">nonce</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">senddata</span><span class="p">(</span><span class="n">privatekey</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">to</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">nonce</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="n">addr</span> <span class="o">=</span> <span class="n">w3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">account</span><span class="o">.</span><span class="n">privateKeyToAccount</span><span class="p">(</span><span class="n">privatekey</span><span class="p">)</span><span class="o">.</span><span class="n">address</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">to</span><span class="p">:</span>
         <span class="n">to</span> <span class="o">=</span> <span class="n">addr</span>
@@ -1143,13 +1142,12 @@
         <span class="n">to</span> <span class="o">=</span> <span class="s2">&quot;0x&quot;</span><span class="o">+</span><span class="n">to</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">30</span><span class="o">*</span><span class="mi">1024</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;data too big&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">nonce</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">nonce</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">nonce</span><span class="o">=</span><span class="n">w3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">getTransactionCount</span><span class="p">(</span><span class="n">addr</span><span class="p">)</span>
     <span class="n">tx</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">nonce</span><span class="o">=</span><span class="n">nonce</span><span class="p">,</span> <span class="n">gasPrice</span><span class="o">=</span><span class="mi">2000000000</span><span class="p">,</span> <span class="n">gas</span><span class="o">=</span><span class="mi">5940000</span><span class="p">,</span> <span class="n">to</span><span class="o">=</span><span class="n">to</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
     <span class="n">stx</span><span class="o">=</span><span class="n">w3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">account</span><span class="o">.</span><span class="n">sign_transaction</span><span class="p">(</span><span class="n">tx</span><span class="p">,</span> <span class="n">privatekey</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">b16encode</span><span class="p">(</span><span class="n">w3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">sendRawTransaction</span><span class="p">(</span><span class="n">stx</span><span class="o">.</span><span class="n">rawTransaction</span><span class="p">))</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
 </code></pre></div>
-
 
 <h2 id="api">地址交易查询API<a class="headerlink" href="#api" title="Permanent link">&para;</a></h2>
 <p>注意etherscan.io使用了cloudflare，必须设置一个User-Agent才能调用</p>
@@ -1159,15 +1157,13 @@
     <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://api-ropsten.etherscan.io/api?module=account&amp;action=txlist&amp;address=&quot;</span><span class="o">+</span><span class="n">addr</span><span class="o">+</span><span class="s2">&quot;&amp;startblock=0&amp;endblock=99999999&amp;sort=asc&amp;apikey=YourApiKeyToken&quot;</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;User-Agent&quot;</span><span class="p">:</span><span class="s2">&quot;ethquery&quot;</span><span class="p">})</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;result&quot;</span><span class="p">]</span>
 </code></pre></div>
 
-
 <p>返回的数组可能每个交易都重复了两次，需要去重：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">seenhash = []</span>
-<span class="err">for tx in gettx(addr):</span>
-<span class="err">    if len(tx[&quot;input&quot;])&gt;2 and tx[&quot;hash&quot;] not in seenhash:</span>
-<span class="err">        # 处理tx[&quot;input&quot;]</span>
-<span class="err">        seenhash.append(tx[&quot;hash&quot;])</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">seenhash</span> <span class="o">=</span> []
+<span class="k">for</span> <span class="nv">tx</span> <span class="nv">in</span> <span class="nv">gettx</span><span class="ss">(</span><span class="nv">addr</span><span class="ss">)</span>:
+    <span class="k">if</span> <span class="nv">len</span><span class="ss">(</span><span class="nv">tx</span>[<span class="s2">&quot;</span><span class="s">input</span><span class="s2">&quot;</span>]<span class="ss">)</span><span class="o">&gt;</span><span class="mi">2</span> <span class="nv">and</span> <span class="nv">tx</span>[<span class="s2">&quot;</span><span class="s">hash</span><span class="s2">&quot;</span>] <span class="nv">not</span> <span class="nv">in</span> <span class="nv">seenhash</span>:
+        # 处理<span class="nv">tx</span>[<span class="s2">&quot;</span><span class="s">input</span><span class="s2">&quot;</span>]
+        <span class="nv">seenhash</span>.<span class="nv">append</span><span class="ss">(</span><span class="nv">tx</span>[<span class="s2">&quot;</span><span class="s">hash</span><span class="s2">&quot;</span>]<span class="ss">)</span>
 </code></pre></div>
-
 
 <h2 id="block-id">时间戳转block id<a class="headerlink" href="#block-id" title="Permanent link">&para;</a></h2>
 <p>有些时候我们需要知道特定时间点的区块高度，来查询当时的合约数据</p>
@@ -1193,7 +1189,6 @@
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">res</span><span class="w"></span>
 </code></pre></div>
 
-
 <h2 id="_1">根据函数名调用合约<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>标记了view的函数可以直接在etherscan读取合约调用，但有些函数不会涉及写操作，我们也可以自己调用而不用发起链上交易（即使交易也拿不到返回值）</p>
 <p>首先我们需要了解eth_call的data 前4个字节就是函数签名的哈希，哈希算法是keccak_sha3取前4个字节</p>
@@ -1205,7 +1200,6 @@
     <span class="k">return</span> <span class="n">keccak</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">digest_bits</span><span class="o">=</span><span class="mi">256</span><span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">func_str</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()[:</span><span class="mi">8</span><span class="p">]</span>
 </code></pre></div>
 
-
 <p>有了函数哈希后 再拼接函数调用参数就能发起eth_call了，比如我们需要把地址在左边补0补齐到64字节（也就是256bit）</p>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">requests</span>
 <span class="n">sess</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">session</span><span class="p">()</span>
@@ -1216,7 +1210,7 @@
     <span class="k">return</span> <span class="n">addr</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">)</span>
 
 <span class="n">cache</span><span class="o">=</span><span class="p">{}</span>
-<span class="k">def</span> <span class="nf">callfunction</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="n">func_str</span><span class="p">,</span> <span class="n">args_str</span><span class="p">,</span> <span class="n">blockid</span><span class="p">,</span> <span class="n">returnint</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">usecache</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">callfunction</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="n">func_str</span><span class="p">,</span> <span class="n">args_str</span><span class="p">,</span> <span class="n">blockid</span><span class="p">,</span> <span class="n">returnint</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">usecache</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="n">cachekey</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="s2">&quot;callfunction&quot;</span><span class="p">,</span> <span class="n">addr</span><span class="p">,</span> <span class="n">func_str</span><span class="p">,</span> <span class="n">args_str</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">blockid</span><span class="p">)))</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">height</span> <span class="o">=</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">blockid</span><span class="p">))</span>
@@ -1231,7 +1225,7 @@
             <span class="s2">&quot;params&quot;</span><span class="p">:[{</span><span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="s2">&quot;0x&quot;</span><span class="o">+</span><span class="n">function_hash</span><span class="p">(</span><span class="n">func_str</span><span class="p">)</span><span class="o">+</span><span class="n">args_str</span><span class="p">,</span> <span class="s2">&quot;to&quot;</span><span class="p">:</span> <span class="n">addr</span><span class="p">,},</span> <span class="n">height</span><span class="p">]</span>
         <span class="p">}</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">WEB3_ENDPOINT</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
-        <span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
         <span class="n">res</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;result&quot;</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">usecache</span><span class="p">:</span>
             <span class="n">cache</span><span class="p">[</span><span class="n">cachekey</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span>
@@ -1241,13 +1235,11 @@
         <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
 </code></pre></div>
 
-
 <p>其中WEB3_ENDPOINT可以是infura自己注册一个APIKEY后得到的地址</p>
 <p>要获取最新的数据还需要知道当前的区块高度：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">def eth_blockNumber():</span>
-<span class="err">    return int(sess.post(WEB3_ENDPOINT, data=&#39;{&quot;id&quot;:1,&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;eth_blockNumber&quot;,&quot;params&quot;:[]}&#39;).json()[&quot;result&quot;], 16)</span>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">eth_blockNumber</span><span class="p">():</span>
+    <span class="n">return</span> <span class="n">int</span><span class="p">(</span><span class="n">sess</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">WEB3_ENDPOINT</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="s">&#39;{&quot;id&quot;:1,&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;eth_blockNumber&quot;,&quot;params&quot;:[]}&#39;</span><span class="p">).</span><span class="n">json</span><span class="p">()[</span><span class="s">&quot;result&quot;</span><span class="p">],</span> <span class="mi">16</span><span class="p">)</span>
 </code></pre></div>
-
 
 <p>调用很简单：<code>mybalance = callfunction(contract_address, "balanceOfUnderlying(address)", addrtoarg(my_address), eth_blockNumber())</code></p>
 <h3 id="_2">更复杂的参数类型<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
@@ -1255,10 +1247,9 @@
 <p>NFT-Hero里随机数用的blockhashMgr到底是什么合约呢：</p>
 <p>https://github.com/nfthero/SuperHero/blob/c87346f36efb09667ad8f0eeaf8df04a710bbecd/Package.sol#L87</p>
 <p>就想要查询一下members这个字典，其类型是<code>mapping(string =&gt; address) public members</code>，也就意味着可以调用<code>members(string)</code>这个函数进行查询：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">&gt;&gt;&gt; callfunction(&quot;https://http-mainnet-node.huobichain.com/&quot;, &quot;0x42C1aC2AeAEc52E1cc9dC8057b089FA91fa84FC7&quot;, &quot;members(string)&quot;, base64.b16encode(eth_abi.encode_abi([&quot;string&quot;], [&quot;blockhashMgr&quot;])).decode().lower(), &quot;latest&quot;, False)</span>
-<span class="err">&#39;0x0000000000000000000000003e259bfe720093abb26a2c3fe57670259b2ebea2&#39;</span>
+<div class="codehilite"><pre><span></span><code>&gt;&gt;&gt; callfunction(&quot;https://http-mainnet-node.huobichain.com/&quot;, &quot;0x42C1aC2AeAEc52E1cc9dC8057b089FA91fa84FC7&quot;, &quot;members(string)&quot;, base64.b16encode(eth_abi.encode_abi([&quot;string&quot;], [&quot;blockhashMgr&quot;])).decode().lower(), &quot;latest&quot;, False)
+&#39;0x0000000000000000000000003e259bfe720093abb26a2c3fe57670259b2ebea2&#39;
 </code></pre></div>
-
 
 <hr />
 <h2 id="cake">实例：获取Cake持仓价值<a class="headerlink" href="#cake" title="Permanent link">&para;</a></h2>
@@ -1269,68 +1260,65 @@
 <p>币安智能链上有个抄了Uniswap的<a href="https://pancakeswap.finance/pools">pancakeswap</a>, 网页上当前(2021/01/06)显示质押CAKE的年化228%，那当然是尝试一下咯，于是自然有了需求：计算自己持仓CAKE的实时价值，持仓包含质押奖励的部分</p>
 <p>那么实现这个需求就需要解决两个问题：如何获取自己的CAKE奖励数量，如何获取CAKE的价格信息</p>
 <p>第一个问题好解决，按照上面调用合约即可，合约调用需要两个参数，即使不知道函数选择器和函数参数怎么写，也可以让etherscan来帮我们调用<a href="https://bscscan.com/address/0x73feaa1ee314f8c655e354234017be2193c9e24e#readContract">合约</a> 看流量即可</p>
-<div class="codehilite"><pre><span></span><code><span class="err">WEB3_ENDPOINT=&#39;https://bsc-dataseed.binance.org/&#39;</span>
-<span class="err">callfunction(contract_address, &quot;pendingCake(uint256,address)&quot;, &quot;0&quot;*64+addrtoarg(my_address), &quot;latest&quot;, usecache=False)/10**18</span>
+<div class="codehilite"><pre><span></span><code><span class="n">WEB3_ENDPOINT</span><span class="o">=</span><span class="s">&#39;https://bsc-dataseed.binance.org/&#39;</span>
+<span class="n">callfunction</span><span class="p">(</span><span class="n">contract_address</span><span class="p">,</span> <span class="s">&quot;pendingCake(uint256,address)&quot;</span><span class="p">,</span> <span class="s">&quot;0&quot;</span><span class="o">*</span><span class="mi">64</span><span class="o">+</span><span class="n">addrtoarg</span><span class="p">(</span><span class="n">my_address</span><span class="p">),</span> <span class="s">&quot;latest&quot;</span><span class="p">,</span> <span class="n">usecache</span><span class="o">=</span><span class="n">False</span><span class="p">)</span><span class="o">/</span><span class="mi">10</span><span class="o">**</span><span class="mi">18</span>
 </code></pre></div>
-
 
 <p>第二个问题：获取CAKE的价值 可以在<a href="https://pancakeswap.info/token/0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82">pancakeswap.info的token页面</a>看到 当前CAKE的价值显示为$0.64</p>
 <p>通过仔细翻流量+F12看前端js+学GraphQL的写法，发现这个图查询可以一次返回两个内容：</p>
 <p><a href="https://api.bscgraph.org/subgraphs/name/wowswap/graphql">https://api.bscgraph.org/subgraphs/name/wowswap/graphql</a></p>
-<div class="codehilite"><pre><span></span><code><span class="err">{</span>
-<span class="err">  tokens(where: {id: &quot;0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82&quot;}) {</span>
-<span class="err">    id</span>
-<span class="err">    name</span>
-<span class="err">    symbol</span>
-<span class="err">    derivedETH</span>
-<span class="err">    tradeVolume</span>
-<span class="err">    tradeVolumeUSD</span>
-<span class="err">    untrackedVolumeUSD</span>
-<span class="err">    totalLiquidity</span>
-<span class="err">    txCount</span>
-<span class="err">    __typename</span>
-<span class="err">  }</span>
-<span class="err">  bundles(where: {id: 1}) {</span>
-<span class="err">    id</span>
-<span class="err">    ethPrice</span>
-<span class="err">    __typename</span>
-<span class="err">  }</span>
-<span class="err">}</span>
+<div class="codehilite"><pre><span></span><code>{
+  tokens(where: {id: &quot;0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82&quot;}) {
+    id
+    name
+    symbol
+    derivedETH
+    tradeVolume
+    tradeVolumeUSD
+    untrackedVolumeUSD
+    totalLiquidity
+    txCount
+    __typename
+  }
+  bundles(where: {id: 1}) {
+    id
+    ethPrice
+    __typename
+  }
+}
 </code></pre></div>
-
 
 <p>查询到：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">{</span>
-<span class="err">  &quot;data&quot;: {</span>
-<span class="err">    &quot;bundles&quot;: [</span>
-<span class="err">      {</span>
-<span class="err">        &quot;__typename&quot;: &quot;Bundle&quot;,</span>
-<span class="err">        &quot;ethPrice&quot;: &quot;40.4164616943543110107673755202366&quot;,</span>
-<span class="err">        &quot;id&quot;: &quot;1&quot;</span>
-<span class="err">      }</span>
-<span class="err">    ],</span>
-<span class="err">    &quot;tokens&quot;: [</span>
-<span class="err">      {</span>
-<span class="err">        &quot;__typename&quot;: &quot;Token&quot;,</span>
-<span class="err">        &quot;derivedETH&quot;: &quot;0.01577253120396104706816941010842497&quot;,</span>
-<span class="err">        &quot;id&quot;: &quot;0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82&quot;,</span>
-<span class="err">        &quot;name&quot;: &quot;PancakeSwap Token&quot;,</span>
-<span class="err">        &quot;symbol&quot;: &quot;Cake&quot;,</span>
-<span class="err">        &quot;totalLiquidity&quot;: &quot;17457173.064252540875767782&quot;,</span>
-<span class="err">        &quot;tradeVolume&quot;: &quot;529331425.317628506590140745&quot;,</span>
-<span class="err">        &quot;tradeVolumeUSD&quot;: &quot;270335080.4687124727090581348114777&quot;,</span>
-<span class="err">        &quot;txCount&quot;: &quot;659265&quot;,</span>
-<span class="err">        &quot;untrackedVolumeUSD&quot;: &quot;331587403.3835248774831009549837749&quot;</span>
-<span class="err">      }</span>
-<span class="err">    ]</span>
-<span class="err">  }</span>
-<span class="err">}</span>
+<div class="codehilite"><pre><span></span><code>{
+  &quot;data&quot;: {
+    &quot;bundles&quot;: [
+      {
+        &quot;__typename&quot;: &quot;Bundle&quot;,
+        &quot;ethPrice&quot;: &quot;40.4164616943543110107673755202366&quot;,
+        &quot;id&quot;: &quot;1&quot;
+      }
+    ],
+    &quot;tokens&quot;: [
+      {
+        &quot;__typename&quot;: &quot;Token&quot;,
+        &quot;derivedETH&quot;: &quot;0.01577253120396104706816941010842497&quot;,
+        &quot;id&quot;: &quot;0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82&quot;,
+        &quot;name&quot;: &quot;PancakeSwap Token&quot;,
+        &quot;symbol&quot;: &quot;Cake&quot;,
+        &quot;totalLiquidity&quot;: &quot;17457173.064252540875767782&quot;,
+        &quot;tradeVolume&quot;: &quot;529331425.317628506590140745&quot;,
+        &quot;tradeVolumeUSD&quot;: &quot;270335080.4687124727090581348114777&quot;,
+        &quot;txCount&quot;: &quot;659265&quot;,
+        &quot;untrackedVolumeUSD&quot;: &quot;331587403.3835248774831009549837749&quot;
+      }
+    ]
+  }
+}
 </code></pre></div>
-
 
 <p>将其中的<code>ethPrice</code>(实际上是BNB的价格)和<code>derivedETH</code>乘起来就是我们需要的价格了，算出来是<code>$0.6375</code></p>
 <p>通用一点还需要调用合约<code>userInfo(uint256,address)</code>查询自己的持仓，最后合在一起：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">(自己的持仓+pendingpendingCake)*derivedETH*ethPrice</span>
+<div class="codehilite"><pre><span></span><code>(自己的持仓+pendingpendingCake)*derivedETH*ethPrice
 </code></pre></div>
                 
               

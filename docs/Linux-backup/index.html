@@ -1075,7 +1075,6 @@ zip -r -P 压缩密码 -m bakup<span class="nv">$d</span>.zip bakup<span class="
 <span class="c1"># rm -r bakup$d.zip</span>
 </code></pre></div>
 
-
 <hr />
 <h2 id="rsyncscp">用rsync代替scp<a class="headerlink" href="#rsyncscp" title="Permanent link">&para;</a></h2>
 <p>rsync可以断点续传，不如就用rsync代替scp</p>
@@ -1085,9 +1084,8 @@ zip -r -P 压缩密码 -m bakup<span class="nv">$d</span>.zip bakup<span class="
 <hr />
 <h2 id="tar">tar备份整个系统<a class="headerlink" href="#tar" title="Permanent link">&para;</a></h2>
 <p>比如通过远程ssh的方式下载到服务器的整个根目录打包：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">ssh server tar -cvpz --one-file-system / &gt; server_backup.tar.gz</span>
+<div class="codehilite"><pre><span></span><code>ssh server tar -cvpz --one-file-system / &gt; server_backup.tar.gz
 </code></pre></div>
-
 
 <p>其中：</p>
 <ul>
@@ -1101,26 +1099,24 @@ zip -r -P 压缩密码 -m bakup<span class="nv">$d</span>.zip bakup<span class="
 <p>例如将Linux服务器多个硬盘所有文件备份到/nas/hostname下面</p>
 <p>先从github下载这个<a href="https://github.com/laurent22/rsync-time-backup/raw/master/rsync_tmbackup.sh">rsync_tmbackup.sh</a>文件，删掉其中的<code>--one-file-system</code>，放入/nas目录</p>
 <p>将需要忽略的目录写成/nas/rsync_ignore.txt，例如：（注意忽略了/mnt）</p>
-<div class="codehilite"><pre><span></span><code><span class="err">- /boot</span>
-<span class="err">- /dev</span>
-<span class="err">- /lost+found</span>
-<span class="err">- /media</span>
-<span class="err">- /mnt</span>
-<span class="err">- /nas</span>
-<span class="err">- /nfs</span>
-<span class="err">- /proc</span>
-<span class="err">- /snap</span>
-<span class="err">- /sys</span>
-<span class="err">- /tmp</span>
+<div class="codehilite"><pre><span></span><code>- /boot
+- /dev
+- /lost+found
+- /media
+- /mnt
+- /nas
+- /nfs
+- /proc
+- /snap
+- /sys
+- /tmp
 </code></pre></div>
-
 
 <p>然后就执行呗：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">mkdir -p /nas/hostname</span>
-<span class="err">touch /nas/hostname/backup.marker</span>
-<span class="err">/nas/rsync_tmbackup.sh / /nas/hostname/ /nas/rsync_ignore.txt</span>
+<div class="codehilite"><pre><span></span><code>mkdir -p /nas/hostname
+touch /nas/hostname/backup.marker
+/nas/rsync_tmbackup.sh / /nas/hostname/ /nas/rsync_ignore.txt
 </code></pre></div>
-
 
 <p>好处是不用自己构造rsync各种复杂的参数，备份的效果是每次备份都会产生一个文件夹，但上次备份时已经存在的文件只会做硬链接</p>
 <h3 id="rsyncroot">rsync备份到非root用户的目标机器上<a class="headerlink" href="#rsyncroot" title="Permanent link">&para;</a></h3>

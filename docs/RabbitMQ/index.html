@@ -1067,49 +1067,18 @@
 <span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">d</span> <span class="o">--</span><span class="n">hostname</span> <span class="n">rabbit</span> <span class="o">--</span><span class="n">name</span> <span class="n">rmq</span> <span class="o">-</span><span class="n">v</span> <span class="o">/</span><span class="n">docker</span><span class="o">/</span><span class="n">rabbitmq</span><span class="o">/</span><span class="p">:</span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">rabbitmq</span> <span class="o">--</span><span class="n">network</span> <span class="n">macvlan_bridge</span> <span class="o">--</span><span class="n">ip</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.18</span> <span class="o">--</span><span class="n">dns</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.1</span> <span class="o">-</span><span class="n">e</span> <span class="n">RABBITMQ_DEFAULT_USER</span><span class="o">=</span><span class="n">user</span> <span class="o">-</span><span class="n">e</span> <span class="n">RABBITMQ_DEFAULT_PASS</span><span class="o">=</span><span class="n">password</span> <span class="n">rabbitmq</span>
 </code></pre></div>
 
-
 <h2 id="_1">消费者竞争的任务推送执行<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>例如发送参数1,2到消费者执行<code>add(a,b)</code>函数，每个消费者最多接受一个任务</p>
 <h3 id="configpy">config.py 配置信息<a class="headerlink" href="#configpy" title="Permanent link">&para;</a></h3>
 <p>与上述docker启动时配置的一致</p>
-<div class="codehilite"><pre><span></span><code><span class="err">RMQ_HOST = &quot;192.168.1.18&quot;</span>
-<span class="err">RMQ_PORT = 5672</span>
-<span class="err">RMQ_USER = &quot;user&quot;</span>
-<span class="err">RMQ_PASSWORD = &quot;password&quot;</span>
+<div class="codehilite"><pre><span></span><code>RMQ_HOST = &quot;192.168.1.18&quot;
+RMQ_PORT = 5672
+RMQ_USER = &quot;user&quot;
+RMQ_PASSWORD = &quot;password&quot;
 </code></pre></div>
 
-
 <h3 id="taskpy">task.py 发送任务<a class="headerlink" href="#taskpy" title="Permanent link">&para;</a></h3>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="ch">#!/usr/bin/env python</span>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/usr/bin/env python</span>
 <span class="kn">import</span> <span class="nn">pika</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">json</span>
@@ -1140,53 +1109,14 @@
     <span class="n">queue_put</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
     <span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </code></pre></div>
-</td></tr></table>
 
 <h3 id="_2">查看队列状态<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <p>查看队列名称 准备发送的数量 没有ack的数量</p>
-<div class="codehilite"><pre><span></span><code><span class="err">docker exec rmq rabbitmqctl list_queues name messages_ready messages_unacknowledged</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">docker</span> <span class="k">exec</span> <span class="nv">rmq</span> <span class="nv">rabbitmqctl</span> <span class="nv">list_queues</span> <span class="nv">name</span> <span class="nv">messages_ready</span> <span class="nv">messages_unacknowledged</span>
 </code></pre></div>
 
-
 <h3 id="workerpy">worker.py 执行任务<a class="headerlink" href="#workerpy" title="Permanent link">&para;</a></h3>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="ch">#!/usr/bin/env python</span>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/usr/bin/env python</span>
 <span class="kn">import</span> <span class="nn">pika</span>
 <span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">import</span> <span class="nn">json</span>
@@ -1225,7 +1155,6 @@
 
 <span class="n">channel</span><span class="o">.</span><span class="n">start_consuming</span><span class="p">()</span>
 </code></pre></div>
-</td></tr></table>
 
 <p>代码来自官方教程： https://www.rabbitmq.com/tutorials/tutorial-two-python.html</p>
                 

