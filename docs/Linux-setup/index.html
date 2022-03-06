@@ -1288,6 +1288,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    让特定进程走指定网卡
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1898,6 +1905,13 @@
         <li class="md-nav__item">
   <a href="#rsync" class="md-nav__link">
     使用rsync备份全盘
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    让特定进程走指定网卡
   </a>
   
 </li>
@@ -2709,6 +2723,15 @@ date -s <span class="s2">&quot;</span><span class="k">$(</span>curl -i  <span cl
 <li><code>xfr#495</code> 表示当前正在传输第495个文件</li>
 <li><code>ir-chk=1020/3825</code> 已经知道有3825个文件，其中1020个需要检查目标位置的文件是否一致</li>
 </ul>
+<h2 id="_19">让特定进程走指定网卡<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h2>
+<p>想做到类似curl ip.sb &ndash;interface tun1的效果</p>
+<p>如果是有动态链接libc可以用proxychains（golang就不能用）</p>
+<p>简单程序也许能用基于ptrace的<a href="https://github.com/hmgle/graftcp">graftcp</a>（wsl不能用，复杂程序也不能用）</p>
+<p>找到了cgroup的方案，确实有效但仍然wsl不能用：</p>
+<p>参考 https://serverfault.com/questions/669430/how-to-bypass-openvpn-per-application</p>
+<p>底层用的cgroup创建个独立的网络命名空间，修改route默认路由，让进程去这个空间里面执行</p>
+<p>需要修改里面的<code>real_interface</code> 和 <code>real_interface_gateway</code></p>
+<p>函数test_routing也可以直接return，不需要检查</p>
                 
               
               

@@ -1036,3 +1036,23 @@ rsync --info=progress2 -D --numeric-ids --links --hard-links --itemize-changes -
 
 - `xfr#495` 表示当前正在传输第495个文件
 - `ir-chk=1020/3825` 已经知道有3825个文件，其中1020个需要检查目标位置的文件是否一致
+
+## 让特定进程走指定网卡
+
+想做到类似curl ip.sb --interface tun1的效果
+
+如果是有动态链接libc可以用proxychains（golang就不能用）
+
+简单程序也许能用基于ptrace的[graftcp](https://github.com/hmgle/graftcp)（wsl不能用，复杂程序也不能用）
+
+找到了cgroup的方案，确实有效但仍然wsl不能用：
+
+参考 https://serverfault.com/questions/669430/how-to-bypass-openvpn-per-application
+
+底层用的cgroup创建个独立的网络命名空间，修改route默认路由，让进程去这个空间里面执行
+
+需要修改里面的`real_interface` 和 `real_interface_gateway`
+
+函数test_routing也可以直接return，不需要检查
+
+
