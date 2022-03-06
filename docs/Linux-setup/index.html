@@ -2732,6 +2732,11 @@ date -s <span class="s2">&quot;</span><span class="k">$(</span>curl -i  <span cl
 <p>底层用的cgroup创建个独立的网络命名空间，修改route默认路由，让进程去这个空间里面执行</p>
 <p>需要修改里面的<code>real_interface</code> 和 <code>real_interface_gateway</code></p>
 <p>函数test_routing也可以直接return，不需要检查</p>
+<div class="codehilite"><pre><span></span><code>wget https://gist.githubusercontent.com/kriswebdev/a8d291936fe4299fb17d3744497b1170/raw/novpn.sh
+chmod +x novpn.sh
+#记得修改代码
+./novpn.sh curl ip.sb
+</code></pre></div>
                 
               
               

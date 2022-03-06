@@ -1055,4 +1055,9 @@ rsync --info=progress2 -D --numeric-ids --links --hard-links --itemize-changes -
 
 函数test_routing也可以直接return，不需要检查
 
-
+```
+wget https://gist.githubusercontent.com/kriswebdev/a8d291936fe4299fb17d3744497b1170/raw/novpn.sh
+chmod +x novpn.sh
+#记得修改代码
+./novpn.sh curl ip.sb
+```
