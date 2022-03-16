@@ -247,7 +247,7 @@ function tablesort_onclick(e){
     rememerclick[n] = order;
 }
 function registeronclick(){
-    for (var i of Array.prototype.slice.call(document.querySelectorAll("#realtimeprofit > table > thead > tr > th"),1)){
+    for (var i of Array.prototype.slice.call(document.querySelectorAll("#realtimeprofit > table > thead > tr > th"),0)){
         i.onclick = tablesort_onclick;
         i.style["cursor"]="pointer";
     }
@@ -303,6 +303,15 @@ th.headcol {
 }
 .md-typeset table:not([class]) th{
   min-width: 4rem;
+}
+#realtimeprofit > table {
+  overflow: visible;
+}
+
+#realtimeprofit > table > th {
+  position: sticky;
+  top: 2.4rem;
+  z-index: 3;
 }
 </style>
 
