@@ -1266,6 +1266,10 @@ function showwatch_okex(){localStorage.setItem("watchtab","showwatch_okexu");ret
 <script>
 function myparseFloat(text){
     var res = parseFloat(text);
+    if(isNaN(res)) {
+        if(text[0]=="b"||text[0]=="h"||text[0]=="o"||text[0]=="u") return text.slice(1);
+         else return text;
+    }
     if(text.endsWith("亿")) return res*100000000;
     if(text.endsWith("万")) return res*10000;
     return res;

@@ -217,6 +217,10 @@ client.py里stream_get_listen_key附近加上：
 <script>
 function myparseFloat(text){
     var res = parseFloat(text);
+    if(isNaN(res)) {
+        if(text[0]=="b"||text[0]=="h"||text[0]=="o"||text[0]=="u") return text.slice(1);
+    	 else return text;
+    }
     if(text.endsWith("亿")) return res*100000000;
     if(text.endsWith("万")) return res*10000;
     return res;
