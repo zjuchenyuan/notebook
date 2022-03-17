@@ -308,7 +308,7 @@ th.headcol {
   overflow: visible;
 }
 
-#realtimeprofit > table > th {
+#realtimeprofit > table > thead > tr > th {
   position: sticky;
   top: 2.4rem;
   z-index: 3;
