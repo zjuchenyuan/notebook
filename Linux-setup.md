@@ -473,6 +473,8 @@ mkfs.ext4 /dev/sdXX -E lazy_itable_init=0,lazy_journal_init=0 -O sparse_super,la
 cat ~/.mitmproxy/mitmproxy-ca-cert.pem >> /etc/ssl/certs/ca-certificates.crt
 ```
 
+对于nodejs这个可能也没用，直接`export NODE_TLS_REJECT_UNAUTHORIZED=1`
+
 ----
 
 ## 明明还有大量空间却说没有？inode满了！挂载单个文件为btrfs分区
