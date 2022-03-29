@@ -135,7 +135,7 @@ opencv-python==3.4.3.18
 oss2==2.15.0
 packaging==21.0
 pandocfilters==1.4.3
-paramiko==2.7.2
+paramiko==2.10.1
 parsimonious==0.8.1
 parso==0.8.2
 passlib==1.7.4
