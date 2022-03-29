@@ -93,7 +93,7 @@ jsonpointer==1.10
 jsonschema==3.2.0
 jupyter-client==7.0.1
 jupyter-core==4.7.1
-jupyter-server==1.10.2
+jupyter-server==1.15.4
 jupyterlab==3.1.7
 jupyterlab-pygments==0.1.2
 jupyterlab-server==2.7.1
