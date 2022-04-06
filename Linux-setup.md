@@ -465,6 +465,32 @@ mkfs.ext4 /dev/sdXX -E lazy_itable_init=0,lazy_journal_init=0 -O sparse_super,la
 
 ----
 
+## 优化本地ssd性能
+
+参考 https://cloud.google.com/compute/docs/disks/optimizing-pd-performance
+https://cloud.google.com/compute/docs/disks/optimizing-local-ssd-performance
+
+```
+mkfs.ext4 -E lazy_itable_init=0,lazy_journal_init=0,discard /dev/sdX
+mount -o discard,defaults,nobarrier /dev/sdX /mnt
+echo none > /sys/block/sdX/queue/scheduler
+```
+
+### 调整 readahead 值
+
+对于随机读写的应用如数据库，建议使用更小的readahead值
+
+>较高的 readahead 值可增加吞吐量，但是会占用更多内存和 IOPS。较低的 readahead 值可增加 IOPS，但是会牺牲吞吐量。
+>readahead 值为 <desired_readahead_bytes> / 512 字节。
+
+例如预读设置为32KB的话，就应该设置为`32*1024/512=64`
+
+```
+blockdev --setra 64 /dev/sdX
+```
+
+----
+
 ## 添加受信任的CA证书 mitmproxy
 
 @TAG mitm
