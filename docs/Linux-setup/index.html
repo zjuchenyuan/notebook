@@ -1295,6 +1295,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#zfs" class="md-nav__link">
+    配置高性能zfs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zfs_1" class="md-nav__link">
+    zfs快照与恢复
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    硬盘测试
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1916,6 +1937,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#zfs" class="md-nav__link">
+    配置高性能zfs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zfs_1" class="md-nav__link">
+    zfs快照与恢复
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    硬盘测试
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2361,8 +2403,10 @@ sysctl -w net.ipv4.conf.eth0.route_localnet=1
 <hr />
 <h2 id="vmware-lvm">VMWare扩容磁盘 LVM在线扩容<a class="headerlink" href="#vmware-lvm" title="Permanent link">&para;</a></h2>
 <p>@TAG 虚拟机</p>
-<p>参考： https://ma.ttias.be/increase-a-vmware-disk-size-vmdk-formatted-as-linux-lvm-without-rebooting/</p>
-<p>https://ubuntuforums.org/showthread.php?t=2277232</p>
+<p>参考： 
+- https://ma.ttias.be/increase-a-vmware-disk-size-vmdk-formatted-as-linux-lvm-without-rebooting/
+- https://www.cyberciti.biz/faq/howto-add-disk-to-lvm-volume-on-linux-to-increase-size-of-pool/
+- https://ubuntuforums.org/showthread.php?t=2277232</p>
 <p>修复<code>GPT PMBR size mismatch</code>用<code>parted -l</code>输入Fix即可，无需live cd</p>
 <div class="codehilite"><pre><span></span><code><span class="n">root</span><span class="nv">@docker</span><span class="err">:</span><span class="o">/</span><span class="n">d</span><span class="err">#</span><span class="w"> </span><span class="n">parted</span><span class="w"> </span><span class="o">-</span><span class="n">l</span><span class="w"></span>
 <span class="nl">Warning</span><span class="p">:</span><span class="w"> </span><span class="ow">Not</span><span class="w"> </span><span class="ow">all</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="nf">space</span><span class="w"> </span><span class="n">available</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda</span><span class="w"> </span><span class="n">appears</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">used</span><span class="p">,</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">can</span><span class="w"></span>
@@ -2525,6 +2569,7 @@ sysctl -w net.ipv4.conf.eth0.route_localnet=1
 <span class="n">The</span><span class="w"> </span><span class="n">filesystem</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">ubuntu</span><span class="o">-</span><span class="n">vg</span><span class="o">/</span><span class="n">ubuntu</span><span class="o">-</span><span class="n">lv</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="mi">52164608</span><span class="w"> </span><span class="p">(</span><span class="mi">4</span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="n">blocks</span><span class="w"> </span><span class="n">long</span><span class="p">.</span><span class="w"></span>
 </code></pre></div>
 
+<p>resize2fs可以加上<code>-p</code>选项显示进度</p>
 <h3 id="vmware">VMWare新添加一块硬盘扩容根目录<a class="headerlink" href="#vmware" title="Permanent link">&para;</a></h3>
 <p>@TAG 虚拟机</p>
 <p>参考这两篇：</p>
@@ -2737,6 +2782,52 @@ date -s <span class="s2">&quot;</span><span class="k">$(</span>curl -i  <span cl
 chmod +x novpn.sh
 #记得修改代码
 ./novpn.sh curl ip.sb
+</code></pre></div>
+
+<hr />
+<h2 id="zfs">配置高性能zfs<a class="headerlink" href="#zfs" title="Permanent link">&para;</a></h2>
+<p>参考：
+- https://wiki.lustre.org/Optimizing_Performance_of_SSDs_and_Advanced_Format_Drives
+- https://github.com/allada/bsc-archive-snapshot
+- https://itnext.io/how-i-replaced-lvm-with-zfs-filesystem-for-my-home-nas-server-7165f620e07f
+- https://wiki.ubuntu.com/Kernel/Reference/ZFS</p>
+<div class="codehilite"><pre><span></span><code>add-apt-repository ppa:jonathonf/zfs
+apt install -y zfsutils-linux zfs-dkms
+zpool create -o ashift=12 tank /dev/sda
+zfs set recordsize=32K tank
+zfs set sync=disabled tank
+zfs set redundant_metadata=most tank
+zfs set atime=off tank
+zfs set logbias=throughput tank
+zfs set compression=on tank
+
+zfs create tank/project1
+</code></pre></div>
+
+<h2 id="zfs_1">zfs快照与恢复<a class="headerlink" href="#zfs_1" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="n">zfs</span><span class="w"> </span><span class="n">snapshot</span><span class="w"> </span><span class="o">-</span><span class="n">r</span><span class="w"> </span><span class="n">tank</span><span class="o">/</span><span class="n">projects</span><span class="nv">@snap1</span><span class="w"></span>
+<span class="n">zfs</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="o">-</span><span class="n">t</span><span class="w"> </span><span class="n">snapshot</span><span class="w"></span>
+<span class="n">zfs</span><span class="w"> </span><span class="k">rollback</span><span class="w"> </span><span class="n">mypool</span><span class="o">/</span><span class="n">projects</span><span class="nv">@snap1</span><span class="w"></span>
+</code></pre></div>
+
+<p>clone可以实现直接复制CoW, 需要先快照:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">zfs</span><span class="w"> </span><span class="n">snapshot</span><span class="w"> </span><span class="o">-</span><span class="n">r</span><span class="w"> </span><span class="n">tank</span><span class="o">/</span><span class="n">projects</span><span class="nv">@snap1</span><span class="w"></span>
+<span class="n">zfs</span><span class="w"> </span><span class="n">clone</span><span class="w"> </span><span class="n">tank</span><span class="o">/</span><span class="n">projects</span><span class="nv">@snap1</span><span class="w"> </span><span class="n">tank</span><span class="o">/</span><span class="n">projects</span><span class="o">-</span><span class="n">clone</span><span class="w"></span>
+</code></pre></div>
+
+<p>如果硬盘挂了用<code>zpool scrub tank</code></p>
+<h2 id="_20">硬盘测试<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h2>
+<p>smart自检：</p>
+<div class="codehilite"><pre><span></span><code><span class="nv">smartctl</span> <span class="o">-</span><span class="nv">t</span> <span class="nv">short</span> <span class="o">/</span><span class="nv">dev</span><span class="o">/</span><span class="nv">sda</span>
+#<span class="k">wait</span> <span class="mi">2</span> <span class="nv">minutes</span>
+<span class="nv">smartctl</span> <span class="o">-</span><span class="nv">l</span> <span class="nv">selftest</span> <span class="o">/</span><span class="nv">dev</span><span class="o">/</span><span class="nv">sda</span>
+</code></pre></div>
+
+<p>读写性能：</p>
+<div class="codehilite"><pre><span></span><code>hdparam -Tt /dev/sda
+
+apt install -y fio
+fio --randrepeat=1 --ioengine=libaio --direct=1 --gtod_reduce=1 --name=fiotest --filename=testfio --bs=4k --iodepth=64 --size=8G --readwrite=randrw --rwmixread=75 &amp;&amp; rm testfio
 </code></pre></div>
                 
               

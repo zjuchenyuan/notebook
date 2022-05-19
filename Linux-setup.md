@@ -637,9 +637,10 @@ sysctl -w net.ipv4.conf.eth0.route_localnet=1
 
 @TAG 虚拟机
 
-参考： https://ma.ttias.be/increase-a-vmware-disk-size-vmdk-formatted-as-linux-lvm-without-rebooting/
-
-https://ubuntuforums.org/showthread.php?t=2277232
+参考： 
+- https://ma.ttias.be/increase-a-vmware-disk-size-vmdk-formatted-as-linux-lvm-without-rebooting/
+- https://www.cyberciti.biz/faq/howto-add-disk-to-lvm-volume-on-linux-to-increase-size-of-pool/
+- https://ubuntuforums.org/showthread.php?t=2277232
 
 修复`GPT PMBR size mismatch`用`parted -l`输入Fix即可，无需live cd
 
@@ -804,6 +805,8 @@ Filesystem at /dev/ubuntu-vg/ubuntu-lv is mounted on /; on-line resizing require
 old_desc_blocks = 7, new_desc_blocks = 25
 The filesystem on /dev/ubuntu-vg/ubuntu-lv is now 52164608 (4k) blocks long.
 ```
+
+resize2fs可以加上`-p`选项显示进度
 
 ### VMWare新添加一块硬盘扩容根目录
 
@@ -1088,4 +1091,64 @@ wget https://gist.githubusercontent.com/kriswebdev/a8d291936fe4299fb17d3744497b1
 chmod +x novpn.sh
 #记得修改代码
 ./novpn.sh curl ip.sb
+```
+
+------
+
+## 配置高性能zfs
+
+参考：
+- https://wiki.lustre.org/Optimizing_Performance_of_SSDs_and_Advanced_Format_Drives
+- https://github.com/allada/bsc-archive-snapshot
+- https://itnext.io/how-i-replaced-lvm-with-zfs-filesystem-for-my-home-nas-server-7165f620e07f
+- https://wiki.ubuntu.com/Kernel/Reference/ZFS
+
+```
+add-apt-repository ppa:jonathonf/zfs
+apt install -y zfsutils-linux zfs-dkms
+zpool create -o ashift=12 tank /dev/sda
+zfs set recordsize=32K tank
+zfs set sync=disabled tank
+zfs set redundant_metadata=most tank
+zfs set atime=off tank
+zfs set logbias=throughput tank
+zfs set compression=on tank
+
+zfs create tank/project1
+```
+
+## zfs快照与恢复
+
+```
+zfs snapshot -r tank/projects@snap1
+zfs list -t snapshot
+zfs rollback mypool/projects@snap1
+```
+
+clone可以实现直接复制CoW, 需要先快照:
+
+```
+zfs snapshot -r tank/projects@snap1
+zfs clone tank/projects@snap1 tank/projects-clone
+```
+
+如果硬盘挂了用`zpool scrub tank`
+
+## 硬盘测试
+
+smart自检：
+
+```
+smartctl -t short /dev/sda
+#wait 2 minutes
+smartctl -l selftest /dev/sda
+```
+
+读写性能：
+
+```
+hdparam -Tt /dev/sda
+
+apt install -y fio
+fio --randrepeat=1 --ioengine=libaio --direct=1 --gtod_reduce=1 --name=fiotest --filename=testfio --bs=4k --iodepth=64 --size=8G --readwrite=randrw --rwmixread=75 && rm testfio
 ```
