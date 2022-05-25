@@ -159,7 +159,7 @@ pycryptodome==3.9.9
 pycurl==7.43.0.1
 Pygments==2.7.1
 pygobject==3.26.1
-PyJWT==1.5.3
+PyJWT==2.4.0
 pymdown-extensions==8.0.1
 pymediainfo==4.2.1
 pymongo==3.11.0
