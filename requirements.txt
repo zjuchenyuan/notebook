@@ -128,7 +128,7 @@ netaddr==0.8.0
 netifaces==0.10.4
 nltk==3.5
 notebook==6.4.3
-numpy==1.15.1
+numpy==1.22.0
 oauthlib==2.0.6
 olefile==0.45.1
 opencv-python==3.4.3.18
