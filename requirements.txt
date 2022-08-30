@@ -49,7 +49,7 @@ distro-info===0.18ubuntu0.18.04.1
 easyimap==0.7.0
 entrypoints==0.3
 eth-abi==2.1.1
-eth-account==0.5.5
+eth-account==0.5.9
 eth-hash==0.3.1
 eth-keyfile==0.5.1
 eth-keys==0.3.3
