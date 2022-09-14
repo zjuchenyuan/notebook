@@ -884,6 +884,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#pywebioflask-markdown" class="md-nav__link">
+    pywebio+Flask 构建交互式markdown网站
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2206,6 +2213,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#pywebioflask-markdown" class="md-nav__link">
+    pywebio+Flask 构建交互式markdown网站
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3510,6 +3524,60 @@ pip install pycryptodome
 <p>添加信任：参考 https://superuser.com/questions/437330/how-do-you-add-a-certificate-authority-ca-to-ubuntu</p>
 <div class="codehilite"><pre><span></span><code>cp ~/.mitmproxy/mitmproxy-ca-cert.pem /usr/local/share/ca-certificates/mitm.crt
 update-ca-certificates
+</code></pre></div>
+
+<h2 id="pywebioflask-markdown">pywebio+Flask 构建交互式markdown网站<a class="headerlink" href="#pywebioflask-markdown" title="Permanent link">&para;</a></h2>
+<p>比较适合简单线性流程的工作，例如取代python自带的input界面</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">pywebio.input</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pywebio.output</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pywebio.session</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pywebio.platform.flask</span> <span class="kn">import</span> <span class="n">webio_view</span>
+<span class="kn">from</span> <span class="nn">pywebio.platform</span> <span class="kn">import</span> <span class="n">page</span>
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">redirect</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="n">set_localstorage</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">run_js</span><span class="p">(</span><span class="s2">&quot;localStorage.setItem(key, value)&quot;</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">)</span>
+<span class="n">get_localstorage</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">key</span><span class="p">:</span> <span class="n">eval_js</span><span class="p">(</span><span class="s2">&quot;localStorage.getItem(key)&quot;</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
+
+<span class="nd">@page</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Application Title&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+    <span class="n">run_js</span><span class="p">(</span><span class="s2">&quot;history.replaceState(</span><span class="si">{}</span><span class="s2">, &#39;Application Title&#39;, &#39;/index&#39;); document.title=&#39;Application Title&#39;;&quot;</span><span class="p">)</span>
+    <span class="n">clear</span><span class="p">()</span>
+    <span class="n">put_markdown</span><span class="p">(</span><span class="s2">&quot;# Application Title&quot;</span><span class="p">)</span>
+    <span class="n">put_text</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;input something:&quot;</span><span class="p">)</span>
+    <span class="n">put_text</span><span class="p">(</span><span class="s2">&quot;your input: &quot;</span><span class="o">+</span><span class="n">data</span><span class="p">)</span>
+
+<span class="n">app</span><span class="o">.</span><span class="n">add_url_rule</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="n">webio_view</span><span class="p">(</span><span class="n">index</span><span class="p">),</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">,</span> <span class="s1">&#39;OPTIONS&#39;</span><span class="p">])</span>
+<span class="n">app</span><span class="o">.</span><span class="n">add_url_rule</span><span class="p">(</span><span class="s1">&#39;/index&#39;</span><span class="p">,</span> <span class="s1">&#39;index2&#39;</span><span class="p">,</span> <span class="n">webio_view</span><span class="p">(</span><span class="n">index</span><span class="p">),</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">,</span> <span class="s1">&#39;OPTIONS&#39;</span><span class="p">])</span>
+
+<span class="kn">import</span> <span class="nn">webbrowser</span>
+<span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Timer</span>
+<span class="k">def</span> <span class="nf">open_browser</span><span class="p">():</span>
+    <span class="n">webbrowser</span><span class="o">.</span><span class="n">open_new</span><span class="p">(</span><span class="s1">&#39;http://127.0.0.1:1323/&#39;</span><span class="p">)</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">debug</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">if</span> <span class="s2">&quot;win&quot;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="p">:</span>
+        <span class="n">Timer</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">open_browser</span><span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="n">debug</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">&#39;0.0.0.0&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">1323</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="n">debug</span><span class="p">)</span>
+</code></pre></div>
+
+<p>文件上传：例如xlsx</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">openpyxl</span><span class="o">,</span> <span class="nn">time</span>
+
+    <span class="n">f</span> <span class="o">=</span> <span class="n">file_upload</span><span class="p">(</span><span class="s2">&quot;导入号码(需要按照模板填写)&quot;</span><span class="p">,</span> <span class="n">placeholder</span><span class="o">=</span><span class="s1">&#39;选择Excel文件 (xlsx格式)&#39;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">accept</span><span class="o">=</span><span class="s2">&quot;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&quot;</span><span class="p">)</span>
+    <span class="n">wb</span> <span class="o">=</span> <span class="n">openpyxl</span><span class="o">.</span><span class="n">load_workbook</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="s2">&quot;content&quot;</span><span class="p">]),</span> <span class="n">data_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">wb</span><span class="o">.</span><span class="n">active</span><span class="o">.</span><span class="n">rows</span><span class="p">:</span>
+        <span class="n">item</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">r</span><span class="p">]</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</code></pre></div>
+
+<p>输出表格：</p>
+<div class="codehilite"><pre><span></span><code>put_table(data, header=[&quot;Col1&quot;, &quot;Col2&quot;])
 </code></pre></div>
                 
               

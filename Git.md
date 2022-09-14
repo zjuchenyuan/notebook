@@ -568,3 +568,16 @@ diff-lines() {
 ```
 
 用法：`git diff commit^ commit -U0|diff-lines`
+
+----
+
+## git导出tag与commit关系
+
+有些时候需要将commit翻译成对应的tag，可以先这样导出再查询：
+
+```
+git tag|while read i; do echo ${i} `git log -1 --format='%H' ${i}`; done > tags.txt
+```
+
+虽然git tag也有`--format`参数，但没找到可以显示tag对应commit的方法，那就还是老老实实git log呗
+

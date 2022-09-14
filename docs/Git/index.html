@@ -922,6 +922,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#gittagcommit" class="md-nav__link">
+    git导出tag与commit关系
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1494,6 +1501,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#gittagcommit" class="md-nav__link">
+    git导出tag与commit关系
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1907,6 +1921,13 @@ ENABLE_PUSH_CREATE_ORG = true
 </code></pre></div>
 
 <p>用法：<code>git diff commit^ commit -U0|diff-lines</code></p>
+<hr />
+<h2 id="gittagcommit">git导出tag与commit关系<a class="headerlink" href="#gittagcommit" title="Permanent link">&para;</a></h2>
+<p>有些时候需要将commit翻译成对应的tag，可以先这样导出再查询：</p>
+<div class="codehilite"><pre><span></span><code>git tag|while read i; do echo <span class="cp">${</span><span class="n">i</span><span class="cp">}</span> `git log -1 --format=&#39;%H&#39; <span class="cp">${</span><span class="n">i</span><span class="cp">}</span>`; done &gt; tags.txt
+</code></pre></div>
+
+<p>虽然git tag也有<code>--format</code>参数，但没找到可以显示tag对应commit的方法，那就还是老老实实git log呗</p>
                 
               
               

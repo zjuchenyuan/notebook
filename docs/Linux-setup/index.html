@@ -1083,6 +1083,26 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#ssd" class="md-nav__link">
+    优化本地ssd性能
+  </a>
+  
+    <nav class="md-nav" aria-label="优化本地ssd性能">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#readahead" class="md-nav__link">
+    调整 readahead 值
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ca-mitmproxy" class="md-nav__link">
     添加受信任的CA证书 mitmproxy
   </a>
@@ -1725,6 +1745,26 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#ssd" class="md-nav__link">
+    优化本地ssd性能
+  </a>
+  
+    <nav class="md-nav" aria-label="优化本地ssd性能">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#readahead" class="md-nav__link">
+    调整 readahead 值
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ca-mitmproxy" class="md-nav__link">
     添加受信任的CA证书 mitmproxy
   </a>
@@ -2308,6 +2348,25 @@ ntpdate cn.pool.ntp.org
 </code></pre></div>
 
 <p>对应的<a href="http://manpages.ubuntu.com/manpages/precise/en/man8/mkfs.ext4.8.html">man文档</a></p>
+<hr />
+<h2 id="ssd">优化本地ssd性能<a class="headerlink" href="#ssd" title="Permanent link">&para;</a></h2>
+<p>参考 https://cloud.google.com/compute/docs/disks/optimizing-pd-performance
+https://cloud.google.com/compute/docs/disks/optimizing-local-ssd-performance</p>
+<div class="codehilite"><pre><span></span><code>mkfs.ext4 -E lazy_itable_init=0,lazy_journal_init=0,discard /dev/sdX
+mount -o discard,defaults,nobarrier /dev/sdX /mnt
+echo none &gt; /sys/block/sdX/queue/scheduler
+</code></pre></div>
+
+<h3 id="readahead">调整 readahead 值<a class="headerlink" href="#readahead" title="Permanent link">&para;</a></h3>
+<p>对于随机读写的应用如数据库，建议使用更小的readahead值</p>
+<blockquote>
+<p>较高的 readahead 值可增加吞吐量，但是会占用更多内存和 IOPS。较低的 readahead 值可增加 IOPS，但是会牺牲吞吐量。
+readahead 值为 <desired_readahead_bytes> / 512 字节。</p>
+</blockquote>
+<p>例如预读设置为32KB的话，就应该设置为<code>32*1024/512=64</code></p>
+<div class="codehilite"><pre><span></span><code>blockdev --setra 64 /dev/sdX
+</code></pre></div>
+
 <hr />
 <h2 id="ca-mitmproxy">添加受信任的CA证书 mitmproxy<a class="headerlink" href="#ca-mitmproxy" title="Permanent link">&para;</a></h2>
 <p>@TAG mitm</p>

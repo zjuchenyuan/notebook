@@ -1755,3 +1755,66 @@ apt install proxychains4
 cp ~/.mitmproxy/mitmproxy-ca-cert.pem /usr/local/share/ca-certificates/mitm.crt
 update-ca-certificates
 ```
+
+## pywebio+Flask 构建交互式markdown网站
+
+
+比较适合简单线性流程的工作，例如取代python自带的input界面
+
+```
+import sys, os
+from pywebio.input import *
+from pywebio.output import *
+from pywebio.session import *
+from pywebio.platform.flask import webio_view
+from pywebio.platform import page
+from flask import Flask, session, request, redirect
+
+app = Flask(__name__)
+
+set_localstorage = lambda key, value: run_js("localStorage.setItem(key, value)", key=key, value=value)
+get_localstorage = lambda key: eval_js("localStorage.getItem(key)", key=key)
+
+@page.config(title="Application Title")
+def index():
+    run_js("history.replaceState({}, 'Application Title', '/index'); document.title='Application Title';")
+    clear()
+    put_markdown("# Application Title")
+    put_text("")
+    data = input("input something:")
+    put_text("your input: "+data)
+
+app.add_url_rule('/', 'index', webio_view(index), methods=['GET', 'POST', 'OPTIONS'])
+app.add_url_rule('/index', 'index2', webio_view(index), methods=['GET', 'POST', 'OPTIONS'])
+
+import webbrowser
+from threading import Timer
+def open_browser():
+    webbrowser.open_new('http://127.0.0.1:1323/')
+if __name__ == '__main__':
+    debug = True
+    if "win" in sys.platform:
+        Timer(1, open_browser).start()
+        debug = False
+    app.run(host='0.0.0.0', port=1323, debug=debug)
+```
+
+文件上传：例如xlsx
+
+```
+import openpyxl, time
+
+    f = file_upload("导入号码(需要按照模板填写)", placeholder='选择Excel文件 (xlsx格式)', required=True, accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    wb = openpyxl.load_workbook(filename=BytesIO(f["content"]), data_only=True, read_only=True)
+    data = []
+    for r in wb.active.rows:
+        item = [i.value for i in r]
+        data.append(item)
+```
+
+输出表格：
+
+```
+put_table(data, header=["Col1", "Col2"])
+```
+
