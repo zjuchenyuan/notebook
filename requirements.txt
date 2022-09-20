@@ -213,7 +213,7 @@ ufw==0.36
 unattended-upgrades==0.1
 unidiff==0.5.4
 upyun==2.5.5
-urllib3==1.25.10
+urllib3==1.26.5
 urwid==2.1.2
 varint==1.0.2
 virtualenv==15.1.0
