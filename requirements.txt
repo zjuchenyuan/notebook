@@ -86,7 +86,7 @@ itsdangerous==1.1.0
 jedi==0.18.0
 Jinja2==2.11.2
 jmespath==0.10.0
-joblib==0.16.0
+joblib==1.2.0
 json5==0.9.6
 jsonpatch==1.16
 jsonpointer==1.10
