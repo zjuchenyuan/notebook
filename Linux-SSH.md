@@ -124,3 +124,38 @@ RemoteForward 1234 127.0.0.1:3421
 这样等价于`-R 1234:127.0.0.1:3421`，让远程服务器可以通过访问127.0.0.1:1234来访问到客户端的3421
 
 如果需要允许这个转发的1234端口对外提供访问，还需要修改服务器的sshd_config，设置`GatewayPorts yes`
+
+
+## 普通用户启动第二个sshd
+
+参考:
+- https://serverfault.com/questions/344295/is-it-possible-to-run-sshd-as-a-normal-user
+- https://serverfault.com/questions/471327/how-to-change-a-ssh-host-key
+
+以下使用`~/.ssh`文件夹存放Host key
+
+```
+mkdir ~/.ssh -p
+ssh-keygen -q -N "" -t dsa -f ~/.ssh/ssh_host_dsa_key
+ssh-keygen -q -N "" -t rsa -b 4096 -f ~/.ssh/ssh_host_rsa_key
+ssh-keygen -q -N "" -t ecdsa -f ~/.ssh/ssh_host_ecdsa_key
+ssh-keygen -q -N "" -t ed25519 -f ~/.ssh/ssh_host_ed25519_key
+cp /etc/ssh/sshd_config ~/.ssh/
+```
+
+编辑~/.ssh/sshd_config文件，修改这些项目:
+
+- UsePrivilegeSeparation no
+- UsePAM no
+- HostKey ~/.ssh/ssh_host_rsa_key <-需要替换为绝对路径
+- Port 2222
+- PasswordAuthentication no
+
+
+然后启动sshd进程：(如果登录不了加上-d看调试信息）
+
+```
+/usr/sbin/sshd -f ~/.ssh/sshd_config
+```
+
+登录的时候需要使用ssh key登录，因为sshd并不能读取/etc/shadow
