@@ -881,6 +881,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#sshd_1" class="md-nav__link">
+    普通用户启动第二个sshd
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1064,6 +1071,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#sshd_1" class="md-nav__link">
+    普通用户启动第二个sshd
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1159,6 +1173,32 @@ UsePAM yes
 
 <p>这样等价于<code>-R 1234:127.0.0.1:3421</code>，让远程服务器可以通过访问127.0.0.1:1234来访问到客户端的3421</p>
 <p>如果需要允许这个转发的1234端口对外提供访问，还需要修改服务器的sshd_config，设置<code>GatewayPorts yes</code></p>
+<h2 id="sshd_1">普通用户启动第二个sshd<a class="headerlink" href="#sshd_1" title="Permanent link">&para;</a></h2>
+<p>参考:
+- https://serverfault.com/questions/344295/is-it-possible-to-run-sshd-as-a-normal-user
+- https://serverfault.com/questions/471327/how-to-change-a-ssh-host-key</p>
+<p>以下使用<code>~/.ssh</code>文件夹存放Host key</p>
+<div class="codehilite"><pre><span></span><code>mkdir ~/.ssh -p
+ssh-keygen -q -N &quot;&quot; -t dsa -f ~/.ssh/ssh_host_dsa_key
+ssh-keygen -q -N &quot;&quot; -t rsa -b 4096 -f ~/.ssh/ssh_host_rsa_key
+ssh-keygen -q -N &quot;&quot; -t ecdsa -f ~/.ssh/ssh_host_ecdsa_key
+ssh-keygen -q -N &quot;&quot; -t ed25519 -f ~/.ssh/ssh_host_ed25519_key
+cp /etc/ssh/sshd_config ~/.ssh/
+</code></pre></div>
+
+<p>编辑~/.ssh/sshd_config文件，修改这些项目:</p>
+<ul>
+<li>UsePrivilegeSeparation no</li>
+<li>UsePAM no</li>
+<li>HostKey ~/.ssh/ssh_host_rsa_key &lt;-需要替换为绝对路径</li>
+<li>Port 2222</li>
+<li>PasswordAuthentication no</li>
+</ul>
+<p>然后启动sshd进程：(如果登录不了加上-d看调试信息）</p>
+<div class="codehilite"><pre><span></span><code>/usr/sbin/sshd -f ~/.ssh/sshd_config
+</code></pre></div>
+
+<p>登录的时候需要使用ssh key登录，因为sshd并不能读取/etc/shadow</p>
                 
               
               
