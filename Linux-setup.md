@@ -1152,3 +1152,14 @@ hdparam -Tt /dev/sda
 apt install -y fio
 fio --randrepeat=1 --ioengine=libaio --direct=1 --gtod_reduce=1 --name=fiotest --filename=testfio --bs=4k --iodepth=64 --size=8G --readwrite=randrw --rwmixread=75 && rm testfio
 ```
+
+--------
+
+## 验证/etc/fstab正确性
+
+参考 https://serverfault.com/questions/174181/how-do-you-validate-fstab-without-rebooting
+
+```
+mount -fav
+findmnt --verify --verbose
+```

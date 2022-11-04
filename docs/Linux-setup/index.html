@@ -1336,6 +1336,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#etcfstab" class="md-nav__link">
+    验证/etc/fstab正确性
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1994,6 +2001,13 @@
         <li class="md-nav__item">
   <a href="#_20" class="md-nav__link">
     硬盘测试
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etcfstab" class="md-nav__link">
+    验证/etc/fstab正确性
   </a>
   
 </li>
@@ -2887,6 +2901,13 @@ zfs create tank/project1
 
 apt install -y fio
 fio --randrepeat=1 --ioengine=libaio --direct=1 --gtod_reduce=1 --name=fiotest --filename=testfio --bs=4k --iodepth=64 --size=8G --readwrite=randrw --rwmixread=75 &amp;&amp; rm testfio
+</code></pre></div>
+
+<hr />
+<h2 id="etcfstab">验证/etc/fstab正确性<a class="headerlink" href="#etcfstab" title="Permanent link">&para;</a></h2>
+<p>参考 https://serverfault.com/questions/174181/how-do-you-validate-fstab-without-rebooting</p>
+<div class="codehilite"><pre><span></span><code>mount -fav
+findmnt --verify --verbose
 </code></pre></div>
                 
               
