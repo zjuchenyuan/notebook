@@ -282,3 +282,33 @@ callfunction(contract_address, "pendingCake(uint256,address)", "0"*64+addrtoarg(
 ```
 (自己的持仓+pendingpendingCake)*derivedETH*ethPrice
 ```
+
+-----
+
+## erigon 导出所有合约地址
+
+这样来导出codehash表：
+
+/tank/erigon/build/bin/mdbx_dump -s PlainCodeHash /tank/eth/chaindata/ |gzip > plaincodehash.txt.gz
+
+然后这样处理得到根据codehash去重后的地址列表：
+
+```
+import gzip
+oldaddr=None
+codehash=None
+seen=set()
+for line in gzip.open("plaincodehash.txt.gz", "rt"):
+    if len(line)==58:
+        addr = line[1:41]
+        if addr!=oldaddr:
+            if oldaddr and codehash not in seen:
+                seen.add(codehash)
+                print(oldaddr)
+            oldaddr=addr
+    elif len(line)==66:
+        codehash = line[1:65]
+if codehash not in seen:
+    print(oldaddr)
+```
+
