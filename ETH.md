@@ -289,7 +289,9 @@ callfunction(contract_address, "pendingCake(uint256,address)", "0"*64+addrtoarg(
 
 这样来导出codehash表：
 
-/tank/erigon/build/bin/mdbx_dump -s PlainCodeHash /tank/eth/chaindata/ |gzip > plaincodehash.txt.gz
+```
+/tank/erigon/build/bin/mdbx_dump -s PlainCodeHash /tank/eth/chaindata/ | gzip > plaincodehash.txt.gz
+```
 
 然后这样处理得到根据codehash去重后的地址列表：
 

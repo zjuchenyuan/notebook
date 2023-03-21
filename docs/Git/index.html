@@ -9,11 +9,17 @@
         <meta name="description" content="我的技术笔记本~">
       
       
-      
         <meta name="author" content="chenyuan">
       
-      <link rel="shortcut icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.0.1">
+      
+      
+        <link rel="prev" href="../ETH/">
+      
+      
+        <link rel="next" href="../Jekyll/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.3">
     
     
       
@@ -21,26 +27,30 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.38780c08.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.c4a75a56.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.3f72e892.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.a0c5b2b5.min.css">
+      
+      
+
+    
+    
+    
+      
         
-      
-    
-    
-    
-      
         
-        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-        <link rel="stylesheet" href="/assets/css/fonts.css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
-        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="/assets/css/fonts.css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
     
-    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
+
+    
     
     
   </head>
@@ -51,9 +61,10 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
-      
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
   
+    
+    
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
@@ -69,48 +80,60 @@
       
     </div>
     
-      <header class="md-header" data-md-component="header">
-  <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href=".." title="notebook" class="md-header-nav__button md-logo" aria-label="notebook">
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="notebook" class="md-header__button md-logo" aria-label="notebook" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
 
     </a>
-    <label class="md-header-nav__button md-icon" for="__drawer">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
     </label>
-    <div class="md-header-nav__title" data-md-component="header-title">
-      
-        <div class="md-header-nav__ellipsis">
-          <span class="md-header-nav__topic md-ellipsis">
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
             notebook
           </span>
-          <span class="md-header-nav__topic md-ellipsis">
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
             
               Git
             
           </span>
         </div>
-      
+      </div>
     </div>
     
-      <label class="md-header-nav__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
       </label>
-      
-<div class="md-search" data-md-component="search" role="dialog">
+      <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
       </label>
-      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
-      </button>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
@@ -118,7 +141,7 @@
           <div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list"></ol>
+          <ol class="md-search-result__list" role="presentation"></ol>
         </div>
       </div>
     </div>
@@ -126,12 +149,11 @@
 </div>
     
     
-      <div class="md-header-nav__source">
-        
-<a href="https://github.com/zjuchenyuan/notebook/" title="Go to repository" class="md-source">
+      <div class="md-header__source">
+        <a href="https://github.com/zjuchenyuan/notebook/" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub
@@ -140,37 +162,43 @@
       </div>
     
   </nav>
+  
 </header>
     
     <div class="md-container" data-md-component="container">
       
       
         
+          
+        
       
       <main class="md-main" data-md-component="main">
         <div class="md-main__inner md-grid">
           
             
-              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
-                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="notebook" class="md-nav__button md-logo" aria-label="notebook">
+    <a href=".." title="notebook" class="md-nav__button md-logo" aria-label="notebook" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
 
     </a>
     notebook
   </label>
   
     <div class="md-nav__source">
-      
-<a href="https://github.com/zjuchenyuan/notebook/" title="Go to repository" class="md-source">
+      <a href="https://github.com/zjuchenyuan/notebook/" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub
@@ -184,370 +212,454 @@
       
       
 
-
-  <li class="md-nav__item">
-    <a href=".." title="Home" class="md-nav__link">
-      Home
-    </a>
-  </li>
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
 
     
       
       
       
 
-
-  <li class="md-nav__item md-nav__item--nested">
+  
+  
+  
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
-    
-    <label class="md-nav__link" for="nav-2">
-      Python
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="Python" data-md-level="1">
-      <label class="md-nav__title" for="nav-2">
-        <span class="md-nav__icon md-icon"></span>
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Python
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Python
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Python/" class="md-nav__link">
         Python
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
+      </a>
+    </li>
+  
 
-
-  <li class="md-nav__item">
-    <a href="../Python/" title="Python" class="md-nav__link">
-      Python
-    </a>
-  </li>
-
-        
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gist/" class="md-nav__link">
+        Gist Python一些常用代码片段
+      </a>
+    </li>
+  
+
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PythonCourse/" class="md-nav__link">
+        Course Python程序设计
+      </a>
+    </li>
+  
+
+            
           
-
-
-  <li class="md-nav__item">
-    <a href="../gist/" title="Gist Python一些常用代码片段" class="md-nav__link">
-      Gist Python一些常用代码片段
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../PythonCourse/" title="Course Python程序设计" class="md-nav__link">
-      Course Python程序设计
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
+        </ul>
+      </nav>
+    </li>
+  
 
     
       
       
       
 
-
-  <li class="md-nav__item md-nav__item--nested">
+  
+  
+  
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Programming Languages
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Programming Languages
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BASH/" class="md-nav__link">
+        BASH
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BAT/" class="md-nav__link">
+        BAT批处理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../C/" class="md-nav__link">
+        C语言
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
     
-    <label class="md-nav__link" for="nav-3">
-      Programming Languages
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="Programming Languages" data-md-level="1">
-      <label class="md-nav__title" for="nav-3">
-        <span class="md-nav__icon md-icon"></span>
-        Programming Languages
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+          Java
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Java
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
           
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../BASH/" title="BASH" class="md-nav__link">
-      BASH
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../BAT/" title="BAT批处理" class="md-nav__link">
-      BAT批处理
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../C/" title="C语言" class="md-nav__link">
-      C语言
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item md-nav__item--nested">
-    
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4">
-    
-    <label class="md-nav__link" for="nav-3-4">
-      Java
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="Java" data-md-level="2">
-      <label class="md-nav__title" for="nav-3-4">
-        <span class="md-nav__icon md-icon"></span>
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Java/" class="md-nav__link">
         Java
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
+      </a>
+    </li>
+  
+
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../S2-045/" class="md-nav__link">
+        S2-045
+      </a>
+    </li>
+  
+
+            
           
+        </ul>
+      </nav>
+    </li>
+  
+
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../JavaScript/" class="md-nav__link">
+        JavaScript
+      </a>
+    </li>
+  
 
-
-  <li class="md-nav__item">
-    <a href="../Java/" title="Java" class="md-nav__link">
-      Java
-    </a>
-  </li>
-
-        
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PHP/" class="md-nav__link">
+        PHP
+      </a>
+    </li>
+  
+
+            
           
-          
-
-
-  <li class="md-nav__item">
-    <a href="../S2-045/" title="S2-045" class="md-nav__link">
-      S2-045
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../JavaScript/" title="JavaScript" class="md-nav__link">
-      JavaScript
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../PHP/" title="PHP" class="md-nav__link">
-      PHP
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
+        </ul>
+      </nav>
+    </li>
+  
 
     
       
       
       
 
-
-  <li class="md-nav__item md-nav__item--nested">
+  
+  
+  
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          Web
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Web
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CDN/" class="md-nav__link">
+        CDN
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cURL/" class="md-nav__link">
+        cURL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
     
-    <label class="md-nav__link" for="nav-4">
-      Web
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="Web" data-md-level="1">
-      <label class="md-nav__title" for="nav-4">
-        <span class="md-nav__icon md-icon"></span>
-        Web
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+          Favorites
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          Favorites
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
           
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../CDN/" title="CDN" class="md-nav__link">
-      CDN
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../cURL/" title="cURL" class="md-nav__link">
-      cURL
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item md-nav__item--nested">
-    
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-3" type="checkbox" id="nav-4-3">
-    
-    <label class="md-nav__link" for="nav-4-3">
-      Favorites
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="Favorites" data-md-level="2">
-      <label class="md-nav__title" for="nav-4-3">
-        <span class="md-nav__icon md-icon"></span>
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Favorites/" class="md-nav__link">
         Favorites
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
+      </a>
+    </li>
+  
+
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GithubProjectRecommendation/" class="md-nav__link">
+        Github Project Recommendation
+      </a>
+    </li>
+  
+
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Links/" class="md-nav__link">
+        更多链接
+      </a>
+    </li>
+  
+
+            
           
+        </ul>
+      </nav>
+    </li>
+  
 
-
-  <li class="md-nav__item">
-    <a href="../Favorites/" title="Favorites" class="md-nav__link">
-      Favorites
-    </a>
-  </li>
-
-        
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Flask/" class="md-nav__link">
+        Flask
+      </a>
+    </li>
+  
+
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../MySQL/" class="md-nav__link">
+        MySQL
+      </a>
+    </li>
+  
+
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Nginx/" class="md-nav__link">
+        Nginx
+      </a>
+    </li>
+  
 
-
-  <li class="md-nav__item">
-    <a href="../GithubProjectRecommendation/" title="Github Project Recommendation" class="md-nav__link">
-      Github Project Recommendation
-    </a>
-  </li>
-
-        
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../RabbitMQ/" class="md-nav__link">
+        RabbitMQ
+      </a>
+    </li>
+  
+
+            
           
-          
-
-
-  <li class="md-nav__item">
-    <a href="../Links/" title="更多链接" class="md-nav__link">
-      更多链接
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../Flask/" title="Flask" class="md-nav__link">
-      Flask
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../MySQL/" title="MySQL" class="md-nav__link">
-      MySQL
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../Nginx/" title="Nginx" class="md-nav__link">
-      Nginx
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../RabbitMQ/" title="RabbitMQ" class="md-nav__link">
-      RabbitMQ
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
+        </ul>
+      </nav>
+    </li>
+  
 
     
       
@@ -555,85 +667,102 @@
       
 
   
-
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" checked>
+  
+  
     
-    <label class="md-nav__link" for="nav-5">
-      Development
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="Development" data-md-level="1">
-      <label class="md-nav__title" for="nav-5">
-        <span class="md-nav__icon md-icon"></span>
-        Development
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          Development
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
           
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../Developer/" title="Developer" class="md-nav__link">
-      Developer
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../Docker/" title="Docker" class="md-nav__link">
-      Docker
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../ETH/" title="ETH" class="md-nav__link">
-      ETH
-    </a>
-  </li>
-
-        
-          
-          
-          
-
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Developer/" class="md-nav__link">
+        Developer
+      </a>
+    </li>
   
 
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker/" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
 
-  <li class="md-nav__item md-nav__item--active">
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ETH/" class="md-nav__link">
+        ETH
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
     
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
       
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Git
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Git
-        <span class="md-nav__icon md-icon"></span>
-      </label>
-    
-    <a href="./" title="Git" class="md-nav__link md-nav__link--active">
-      Git
-    </a>
-    
+      </a>
       
+        
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
   
   
     
@@ -643,7 +772,7 @@
       <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
-    <ul class="md-nav__list" data-md-scrollfix>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
@@ -932,273 +1061,338 @@
     </ul>
   
 </nav>
-    
-  </li>
+      
+    </li>
+  
 
-        
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Jekyll/" class="md-nav__link">
+        Jekyll
+      </a>
+    </li>
+  
+
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PaperReading/" class="md-nav__link">
+        Paper Reading
+      </a>
+    </li>
+  
+
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../WindowsSoftware/" class="md-nav__link">
+        WindowsSoftware
+      </a>
+    </li>
+  
 
-
-  <li class="md-nav__item">
-    <a href="../Jekyll/" title="Jekyll" class="md-nav__link">
-      Jekyll
-    </a>
-  </li>
-
-        
+            
           
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../PaperReading/" title="Paper Reading" class="md-nav__link">
-      Paper Reading
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../WindowsSoftware/" title="WindowsSoftware" class="md-nav__link">
-      WindowsSoftware
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
+        </ul>
+      </nav>
+    </li>
+  
 
     
       
       
       
 
-
-  <li class="md-nav__item md-nav__item--nested">
+  
+  
+  
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
-    
-    <label class="md-nav__link" for="nav-6">
-      Fuzzing
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="Fuzzing" data-md-level="1">
-      <label class="md-nav__title" for="nav-6">
-        <span class="md-nav__icon md-icon"></span>
-        Fuzzing
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          Fuzzing
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Fuzzing
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dfsan/" class="md-nav__link">
+        DFSan
+      </a>
+    </li>
+  
+
+            
           
-          
-
-
-  <li class="md-nav__item">
-    <a href="../dfsan/" title="DFSan" class="md-nav__link">
-      DFSan
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
+        </ul>
+      </nav>
+    </li>
+  
 
     
       
       
       
 
-
-  <li class="md-nav__item md-nav__item--nested">
+  
+  
+  
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
-    
-    <label class="md-nav__link" for="nav-7">
-      Fun
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="Fun" data-md-level="1">
-      <label class="md-nav__title" for="nav-7">
-        <span class="md-nav__icon md-icon"></span>
-        Fun
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          Fun
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Fun
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Bitcoin/" class="md-nav__link">
+        Bitcoin
+      </a>
+    </li>
+  
+
+            
           
-          
-
-
-  <li class="md-nav__item">
-    <a href="../Bitcoin/" title="Bitcoin" class="md-nav__link">
-      Bitcoin
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
+        </ul>
+      </nav>
+    </li>
+  
 
     
       
       
       
 
-
-  <li class="md-nav__item md-nav__item--nested">
+  
+  
+  
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
-    
-    <label class="md-nav__link" for="nav-8">
-      Linux
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="Linux" data-md-level="1">
-      <label class="md-nav__title" for="nav-8">
-        <span class="md-nav__icon md-icon"></span>
-        Linux
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+          Linux
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Linux
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux-backup/" class="md-nav__link">
+        Linux-backup
+      </a>
+    </li>
+  
+
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux-setup/" class="md-nav__link">
+        Linux-setup
+      </a>
+    </li>
+  
+
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux-SSH/" class="md-nav__link">
+        Linux-SSH
+      </a>
+    </li>
+  
 
-
-  <li class="md-nav__item">
-    <a href="../Linux-backup/" title="Linux-backup" class="md-nav__link">
-      Linux-backup
-    </a>
-  </li>
-
-        
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux-cli/" class="md-nav__link">
+        Linux-cli
+      </a>
+    </li>
+  
+
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux-VirtualBox/" class="md-nav__link">
+        Linux-VirtualBox
+      </a>
+    </li>
+  
+
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Ubuntu/" class="md-nav__link">
+        Ubuntu
+      </a>
+    </li>
+  
 
-
-  <li class="md-nav__item">
-    <a href="../Linux-setup/" title="Linux-setup" class="md-nav__link">
-      Linux-setup
-    </a>
-  </li>
-
-        
+            
           
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../Linux-SSH/" title="Linux-SSH" class="md-nav__link">
-      Linux-SSH
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../Linux-cli/" title="Linux-cli" class="md-nav__link">
-      Linux-cli
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../Linux-VirtualBox/" title="Linux-VirtualBox" class="md-nav__link">
-      Linux-VirtualBox
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../Ubuntu/" title="Ubuntu" class="md-nav__link">
-      Ubuntu
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
+        </ul>
+      </nav>
+    </li>
+  
 
     
       
       
       
 
-
-  <li class="md-nav__item md-nav__item--nested">
+  
+  
+  
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9">
-    
-    <label class="md-nav__link" for="nav-9">
-      My Projects
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="My Projects" data-md-level="1">
-      <label class="md-nav__title" for="nav-9">
-        <span class="md-nav__icon md-icon"></span>
-        My Projects
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+          My Projects
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          My Projects
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../zjugrshelper/" class="md-nav__link">
+        ZJU grs helper
+      </a>
+    </li>
+  
+
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ccfbadge/" class="md-nav__link">
+        CCF Badge
+      </a>
+    </li>
+  
+
+            
           
-
-
-  <li class="md-nav__item">
-    <a href="../zjugrshelper/" title="ZJU grs helper" class="md-nav__link">
-      ZJU grs helper
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../ccfbadge/" title="CCF Badge" class="md-nav__link">
-      CCF Badge
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
+        </ul>
+      </nav>
+    </li>
+  
 
     
   </ul>
@@ -1208,11 +1402,14 @@
               </div>
             
             
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
   
   
     
@@ -1222,7 +1419,7 @@
       <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
-    <ul class="md-nav__list" data-md-scrollfix>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
@@ -1516,27 +1713,28 @@
               </div>
             
           
-          <div class="md-content">
-            <article class="md-content__inner md-typeset">
-              
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
                 
-                  <a href="https://github.com/zjuchenyuan/notebook/edit/master/Git.md" title="Edit this page" class="md-content__button md-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
-                  </a>
-                
-                
-                <h1 id="git">Git<a class="headerlink" href="#git" title="Permanent link">&para;</a></h1>
+                  
+
+  
+  
+
+
+<h1 id="git">Git<a class="headerlink" href="#git" title="Permanent link">&para;</a></h1>
 <p>参考 <strong>沉浸式学 Git</strong> http://igit.linuxtoy.org/</p>
 <p>参考 Learn Git Branching <a href="https://learngitbranching.js.org/?locale=zh_CN">learngitbranching.js.org</a></p>
 <hr />
 <h2 id="_1">立即使用<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>在网页上先创建了仓库，设置好.gitignore</p>
-<div class="codehilite"><pre><span></span><code>git clone  github提供的地址<span class="o">(</span>用ssh的<span class="o">)</span>
+<div class="codehilite"><pre><span></span><code>git<span class="w"> </span>clone<span class="w">  </span>github提供的地址<span class="o">(</span>用ssh的<span class="o">)</span>
 <span class="c1"># 现在创建了你的仓库文件夹，将需要上传的文件放进去</span>
-<span class="nb">cd</span> 你的仓库名称
-git add .
-git commit -a -m <span class="s2">&quot;这次改了些啥？&quot;</span>
-git push
+<span class="nb">cd</span><span class="w"> </span>你的仓库名称
+git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-a<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;这次改了些啥？&quot;</span>
+git<span class="w"> </span>push
 </code></pre></div>
 
 <p>更多的配置：</p>
@@ -1548,8 +1746,8 @@ git config --global pull.rebase true
 <h2 id="git-clone">加速git clone<a class="headerlink" href="#git-clone" title="Permanent link">&para;</a></h2>
 <p>方法1：配置一个代理(如privoxy)，并使用https地址</p>
 <p>方法2：使用<code>--depth 1</code>参数表示不要复制历史</p>
-<div class="codehilite"><pre><span></span><code><span class="k">export</span> <span class="n">https_proxy</span><span class="o">=</span><span class="s2">&quot;http://127.0.0.1:8118&quot;</span>
-<span class="n">git</span> <span class="n">clone</span> <span class="o">--</span><span class="n">depth</span> <span class="mi">1</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">zjuchenyuan</span><span class="o">/</span><span class="n">notebook</span>
+<div class="codehilite"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="n">https_proxy</span><span class="o">=</span><span class="s2">&quot;http://127.0.0.1:8118&quot;</span>
+<span class="n">git</span><span class="w"> </span><span class="n">clone</span><span class="w"> </span><span class="o">--</span><span class="n">depth</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">zjuchenyuan</span><span class="o">/</span><span class="n">notebook</span>
 </code></pre></div>
 
 <hr />
@@ -1569,26 +1767,26 @@ git config --global user.name &quot;你的用户名&quot;
 </code></pre></div>
 
 <p>如果当前仓库是https的，改为git方式：</p>
-<div class="codehilite"><pre><span></span><code><span class="n">git</span><span class="w"> </span><span class="n">remote</span><span class="w"> </span><span class="k">set</span><span class="o">-</span><span class="n">url</span><span class="w"> </span><span class="n">origin</span><span class="w"> </span><span class="n">git</span><span class="nv">@github</span><span class="p">.</span><span class="nl">com</span><span class="p">:</span><span class="n">用户名</span><span class="o">/</span><span class="n">仓库名称</span><span class="p">.</span><span class="n">git</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="n">git</span><span class="w"> </span><span class="n">remote</span><span class="w"> </span><span class="k">set</span><span class="o">-</span><span class="n">url</span><span class="w"> </span><span class="n">origin</span><span class="w"> </span><span class="n">git</span><span class="nv">@github</span><span class="p">.</span><span class="nl">com</span><span class="p">:</span><span class="n">用户名</span><span class="o">/</span><span class="n">仓库名称</span><span class="p">.</span><span class="n">git</span>
 </code></pre></div>
 
 <hr />
 <h2 id="bash">bash别名设置<a class="headerlink" href="#bash" title="Permanent link">&para;</a></h2>
 <p>通过修改~/.bashrc来设置别名，让git的日常使用更简单：</p>
-<div class="codehilite"><pre><span></span><code><span class="n">func_g</span><span class="p">()</span><span class="err">{</span><span class="w"></span>
-<span class="w">  </span><span class="n">git</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
-<span class="w">  </span><span class="n">git</span><span class="w"> </span><span class="k">commit</span><span class="w"> </span><span class="o">-</span><span class="n">a</span><span class="w"> </span><span class="o">-</span><span class="n">m</span><span class="w"> </span><span class="ss">&quot;$1&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">git</span><span class="w"> </span><span class="n">push</span><span class="w"></span>
-<span class="err">}</span><span class="w"></span>
-<span class="k">alias</span><span class="w"> </span><span class="n">g</span><span class="o">=</span><span class="n">func_g</span><span class="w"></span>
-<span class="k">alias</span><span class="w"> </span><span class="n">gs</span><span class="o">=</span><span class="s1">&#39;git status &#39;</span><span class="w"></span>
-<span class="k">alias</span><span class="w"> </span><span class="n">ga</span><span class="o">=</span><span class="s1">&#39;git add &#39;</span><span class="w"></span>
-<span class="k">alias</span><span class="w"> </span><span class="n">gb</span><span class="o">=</span><span class="s1">&#39;git branch &#39;</span><span class="w"></span>
-<span class="k">alias</span><span class="w"> </span><span class="n">gc</span><span class="o">=</span><span class="s1">&#39;git commit&#39;</span><span class="w"></span>
-<span class="k">alias</span><span class="w"> </span><span class="n">gd</span><span class="o">=</span><span class="s1">&#39;git diff&#39;</span><span class="w"></span>
-<span class="k">alias</span><span class="w"> </span><span class="k">go</span><span class="o">=</span><span class="s1">&#39;git checkout &#39;</span><span class="w"></span>
-<span class="k">alias</span><span class="w"> </span><span class="n">gp</span><span class="o">=</span><span class="s1">&#39;git push&#39;</span><span class="w"></span>
-<span class="k">alias</span><span class="w"> </span><span class="n">gl</span><span class="o">=</span><span class="ss">&quot;git log --all --pretty=format:&#39;%h %ad | %s%d [%an]&#39; --graph --date=short&quot;</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="n">func_g</span><span class="p">()</span><span class="err">{</span>
+<span class="w">  </span><span class="n">git</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="p">.</span>
+<span class="w">  </span><span class="n">git</span><span class="w"> </span><span class="k">commit</span><span class="w"> </span><span class="o">-</span><span class="n">a</span><span class="w"> </span><span class="o">-</span><span class="n">m</span><span class="w"> </span><span class="ss">&quot;$1&quot;</span>
+<span class="w">  </span><span class="n">git</span><span class="w"> </span><span class="n">push</span>
+<span class="err">}</span>
+<span class="k">alias</span><span class="w"> </span><span class="n">g</span><span class="o">=</span><span class="n">func_g</span>
+<span class="k">alias</span><span class="w"> </span><span class="n">gs</span><span class="o">=</span><span class="s1">&#39;git status &#39;</span>
+<span class="k">alias</span><span class="w"> </span><span class="n">ga</span><span class="o">=</span><span class="s1">&#39;git add &#39;</span>
+<span class="k">alias</span><span class="w"> </span><span class="n">gb</span><span class="o">=</span><span class="s1">&#39;git branch &#39;</span>
+<span class="k">alias</span><span class="w"> </span><span class="n">gc</span><span class="o">=</span><span class="s1">&#39;git commit&#39;</span>
+<span class="k">alias</span><span class="w"> </span><span class="n">gd</span><span class="o">=</span><span class="s1">&#39;git diff&#39;</span>
+<span class="k">alias</span><span class="w"> </span><span class="k">go</span><span class="o">=</span><span class="s1">&#39;git checkout &#39;</span>
+<span class="k">alias</span><span class="w"> </span><span class="n">gp</span><span class="o">=</span><span class="s1">&#39;git push&#39;</span>
+<span class="k">alias</span><span class="w"> </span><span class="n">gl</span><span class="o">=</span><span class="ss">&quot;git log --all --pretty=format:&#39;%h %ad | %s%d [%an]&#39; --graph --date=short&quot;</span>
 </code></pre></div>
 
 <p><img alt="gl的效果" src="https://raw.githubusercontent.com/zjuchenyuan/notebook/master/download/img/gl.jpg" /></p>
@@ -1602,14 +1800,14 @@ curl -O https://raw.githubusercontent.com/git/git/master/contrib/completion/git-
 </code></pre></div>
 
 <p>在<code>~/.bashrc</code>末尾添加：</p>
-<div class="codehilite"><pre><span></span><code><span class="n">source</span> <span class="o">~/</span><span class="n">git</span><span class="o">-</span><span class="n">completion</span><span class="o">.</span><span class="n">bash</span>
+<div class="codehilite"><pre><span></span><code><span class="n">source</span><span class="w"> </span><span class="o">~/</span><span class="n">git</span><span class="o">-</span><span class="n">completion</span><span class="o">.</span><span class="n">bash</span>
 <span class="n">green</span><span class="o">=</span><span class="s2">&quot;\[</span><span class="se">\033</span><span class="s2">[0;32m\]&quot;</span>
 <span class="n">blue</span><span class="o">=</span><span class="s2">&quot;\[</span><span class="se">\033</span><span class="s2">[0;34m\]&quot;</span>
 <span class="n">purple</span><span class="o">=</span><span class="s2">&quot;\[</span><span class="se">\033</span><span class="s2">[0;35m\]&quot;</span>
 <span class="n">reset</span><span class="o">=</span><span class="s2">&quot;\[</span><span class="se">\033</span><span class="s2">[0m\]&quot;</span>
-<span class="n">source</span> <span class="o">~/</span><span class="n">git</span><span class="o">-</span><span class="n">prompt</span><span class="o">.</span><span class="n">sh</span>
-<span class="k">export</span> <span class="n">GIT_PS1_SHOWDIRTYSTATE</span><span class="o">=</span><span class="mi">1</span>
-<span class="k">export</span> <span class="n">PS1</span><span class="o">=</span><span class="s2">&quot;$purple\u$green\$(__git_ps1) \w</span><span class="se">\a</span><span class="s2"> $ $reset&quot;</span>
+<span class="n">source</span><span class="w"> </span><span class="o">~/</span><span class="n">git</span><span class="o">-</span><span class="n">prompt</span><span class="o">.</span><span class="n">sh</span>
+<span class="k">export</span><span class="w"> </span><span class="n">GIT_PS1_SHOWDIRTYSTATE</span><span class="o">=</span><span class="mi">1</span>
+<span class="k">export</span><span class="w"> </span><span class="n">PS1</span><span class="o">=</span><span class="s2">&quot;$purple\u$green\$(__git_ps1) \w</span><span class="se">\a</span><span class="s2"> $ $reset&quot;</span>
 </code></pre></div>
 
 <p>效果如图，如果出现了未提交的修改，会自动显示出*表示dirty：</p>
@@ -1655,8 +1853,8 @@ git branch -d recover # 合并完成后就可以删了
 <h3 id="aliba">忽略*.a文件但不想忽略lib.a<a class="headerlink" href="#aliba" title="Permanent link">&para;</a></h3>
 <p>文档查看：<code>git gitignore --help</code></p>
 <p>!表示负向选择，在.gitignore中添加：</p>
-<div class="codehilite"><pre><span></span><code><span class="o">*</span><span class="p">.</span><span class="n">a</span><span class="w"></span>
-<span class="sx">!lib.a</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="o">*</span><span class="p">.</span><span class="n">a</span>
+<span class="sx">!lib.a</span>
 </code></pre></div>
 
 <h3 id="commit">commit补上忘掉的文件<a class="headerlink" href="#commit" title="Permanent link">&para;</a></h3>
@@ -1715,16 +1913,16 @@ git config --global gpg.program gpg2
 </code></pre></div>
 
 <p>如下输出中，我们需要的是3AA5C34371567BD2这一串 就是sec那一行的4096R/后面的东西</p>
-<div class="codehilite"><pre><span></span><code>$ gpg2 --list-secret-keys --keyid-format LONG
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>gpg2<span class="w"> </span>--list-secret-keys<span class="w"> </span>--keyid-format<span class="w"> </span>LONG
 /Users/hubot/.gnupg/secring.gpg
 ------------------------------------
-sec   4096R/3AA5C34371567BD2 <span class="m">2016</span>-03-10 <span class="o">[</span>expires: <span class="m">2017</span>-03-10<span class="o">]</span>
-uid                          Hubot 
-ssb   4096R/42B317FD4BA89E7A <span class="m">2016</span>-03-10
+sec<span class="w">   </span>4096R/3AA5C34371567BD2<span class="w"> </span><span class="m">2016</span>-03-10<span class="w"> </span><span class="o">[</span>expires:<span class="w"> </span><span class="m">2017</span>-03-10<span class="o">]</span>
+uid<span class="w">                          </span>Hubot<span class="w"> </span>
+ssb<span class="w">   </span>4096R/42B317FD4BA89E7A<span class="w"> </span><span class="m">2016</span>-03-10
 </code></pre></div>
 
 <p>然后得到公钥：</p>
-<div class="codehilite"><pre><span></span><code><span class="n">gpg2</span> <span class="o">--</span><span class="n">armor</span> <span class="o">--</span><span class="k">export</span> <span class="mi">3</span><span class="n">AA5C34371567BD2</span>
+<div class="codehilite"><pre><span></span><code><span class="n">gpg2</span><span class="w"> </span><span class="o">--</span><span class="n">armor</span><span class="w"> </span><span class="o">--</span><span class="k">export</span><span class="w"> </span><span class="mi">3</span><span class="n">AA5C34371567BD2</span>
 </code></pre></div>
 
 <p>复制屏幕上输出的一大串，打开下面的网页 粘贴提交</p>
@@ -1736,7 +1934,7 @@ git config --global commit.gpgsign true
 </code></pre></div>
 
 <p>执行 建议将这一行写入~/.bashrc：</p>
-<div class="codehilite"><pre><span></span><code><span class="k">export</span> <span class="n">GPG_TTY</span><span class="o">=$</span><span class="p">(</span><span class="n">tty</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="n">GPG_TTY</span><span class="o">=$</span><span class="p">(</span><span class="n">tty</span><span class="p">)</span>
 </code></pre></div>
 
 <p>然后就是正常的git add .，git commit -m &ldquo;message&rdquo;咯</p>
@@ -1818,12 +2016,12 @@ ghclone user/repo
 <p>场景： GitLab服务器宕机了，现在需要同步自己本地的修改到服务器上</p>
 <p>参考： https://datagrok.org/git/git-serve/</p>
 <div class="codehilite"><pre><span></span><code><span class="c1"># 自己机器上（有更多commit的）</span>
-<span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="n">global</span> <span class="n">alias</span><span class="o">.</span><span class="n">quickserve</span> <span class="s2">&quot;daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/&quot;</span>
-<span class="n">git</span> <span class="n">quickserve</span>
+<span class="n">git</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="o">--</span><span class="n">global</span><span class="w"> </span><span class="n">alias</span><span class="o">.</span><span class="n">quickserve</span><span class="w"> </span><span class="s2">&quot;daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/&quot;</span>
+<span class="n">git</span><span class="w"> </span><span class="n">quickserve</span>
 
 <span class="c1"># 服务器上（需要pull得到commit的）</span>
-<span class="n">git</span> <span class="k">remote</span> <span class="n">add</span> <span class="n">temp</span> <span class="n">git</span><span class="p">:</span><span class="o">//</span><span class="mf">192.168</span><span class="o">.</span><span class="mf">1.123</span><span class="o">/</span>
-<span class="n">git</span> <span class="n">pull</span> <span class="n">temp</span> <span class="k">master</span>
+<span class="n">git</span><span class="w"> </span><span class="k">remote</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="n">git</span><span class="p">:</span><span class="o">//</span><span class="mf">192.168</span><span class="o">.</span><span class="mf">1.123</span><span class="o">/</span>
+<span class="n">git</span><span class="w"> </span><span class="n">pull</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="k">master</span>
 </code></pre></div>
 
 <p>同步完成后就可以Ctrl+C关闭git服务了</p>
@@ -1836,32 +2034,32 @@ git pull的分支名称master也不能省略</p>
 <h2 id="githubstar">备份GitHub上自己star过的仓库<a class="headerlink" href="#githubstar" title="Permanent link">&para;</a></h2>
 <p>自从GitHub被微软收购后，似乎就崩得更频繁了，为了在这种情况下仍然能读代码，不妨跑一下定时脚本，自动pull指定仓库push到其他git服务上（如自行部署gitea）。</p>
 <p>获取自己star过的所有仓库：（依赖<code>apt install -y jq</code>）</p>
-<div class="codehilite"><pre><span></span><code><span class="k">for</span> i <span class="k">in</span> <span class="sb">`</span>seq <span class="m">28</span><span class="sb">`</span><span class="p">;</span> <span class="k">do</span> curl <span class="s2">&quot;https://api.github.com/users/zjuchenyuan/starred?page=</span><span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="s2">&quot;</span> &gt;<span class="si">${</span><span class="nv">i</span><span class="si">}</span>.tmp<span class="p">;</span> <span class="k">done</span>
-cat *.tmp <span class="p">|</span>jq <span class="s1">&#39;.[].full_name&#39;</span> -r &gt; mystars.txt
+<div class="codehilite"><pre><span></span><code><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="sb">`</span>seq<span class="w"> </span><span class="m">28</span><span class="sb">`</span><span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>curl<span class="w"> </span><span class="s2">&quot;https://api.github.com/users/zjuchenyuan/starred?page=</span><span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>&gt;<span class="si">${</span><span class="nv">i</span><span class="si">}</span>.tmp<span class="p">;</span><span class="w"> </span><span class="k">done</span>
+cat<span class="w"> </span>*.tmp<span class="w"> </span><span class="p">|</span>jq<span class="w"> </span><span class="s1">&#39;.[].full_name&#39;</span><span class="w"> </span>-r<span class="w"> </span>&gt;<span class="w"> </span>mystars.txt
 </code></pre></div>
 
 <p>sync.sh: </p>
 <p>从github clone或fetch对应的仓库，然后push到自己的git服务上，这里使用bare避免checkout导致的更多空间占用</p>
 <p>TODO: 注意到仍然是双份的空间占用（同步和gitea都存了），需要看看能不能直接从gitea的git存储发起fetch更新</p>
 <div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
-<span class="nv">u</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span> <span class="si">${</span><span class="nv">1</span><span class="si">}</span><span class="p">|</span>cut -d/ -f1<span class="sb">`</span>
-<span class="nv">n</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span> <span class="si">${</span><span class="nv">1</span><span class="si">}</span><span class="p">|</span>cut -d/ -f2<span class="sb">`</span>
-<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$u</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="o">||</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$n</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-    <span class="nb">echo</span> Usage: <span class="nv">$0</span> user/reponame
-    <span class="nb">exit</span> <span class="m">1</span>
+<span class="nv">u</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv">1</span><span class="si">}</span><span class="p">|</span>cut<span class="w"> </span>-d/<span class="w"> </span>-f1<span class="sb">`</span>
+<span class="nv">n</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv">1</span><span class="si">}</span><span class="p">|</span>cut<span class="w"> </span>-d/<span class="w"> </span>-f2<span class="sb">`</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-z<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$u</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-z<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$n</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span>Usage:<span class="w"> </span><span class="nv">$0</span><span class="w"> </span>user/reponame
+<span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
 <span class="k">fi</span>
-<span class="k">if</span> <span class="o">[</span> -d <span class="s2">&quot;</span><span class="si">${</span><span class="nv">u</span><span class="si">}</span><span class="s2">_</span><span class="si">${</span><span class="nv">n</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-    <span class="nb">cd</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">u</span><span class="si">}</span><span class="s2">_</span><span class="si">${</span><span class="nv">n</span><span class="si">}</span><span class="s2">&quot;</span>
-    git fetch --all
-    git push --all sync
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-d<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">u</span><span class="si">}</span><span class="s2">_</span><span class="si">${</span><span class="nv">n</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">u</span><span class="si">}</span><span class="s2">_</span><span class="si">${</span><span class="nv">n</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="w">    </span>git<span class="w"> </span>fetch<span class="w"> </span>--all
+<span class="w">    </span>git<span class="w"> </span>push<span class="w"> </span>--all<span class="w"> </span>sync
 <span class="k">else</span>
-    git clone https://github.com/<span class="si">${</span><span class="nv">u</span><span class="si">}</span>/<span class="si">${</span><span class="nv">n</span><span class="si">}</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">u</span><span class="si">}</span><span class="s2">_</span><span class="si">${</span><span class="nv">n</span><span class="si">}</span><span class="s2">&quot;</span> --bare
-    <span class="nb">cd</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">u</span><span class="si">}</span><span class="s2">_</span><span class="si">${</span><span class="nv">n</span><span class="si">}</span><span class="s2">&quot;</span>
-    git fetch --all
-    git remote add sync git@你的git服务地址:你的用户名/<span class="si">${</span><span class="nv">u</span><span class="si">}</span>_<span class="si">${</span><span class="nv">n</span><span class="si">}</span>.git
-    git push --all sync
+<span class="w">    </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/<span class="si">${</span><span class="nv">u</span><span class="si">}</span>/<span class="si">${</span><span class="nv">n</span><span class="si">}</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">u</span><span class="si">}</span><span class="s2">_</span><span class="si">${</span><span class="nv">n</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>--bare
+<span class="w">    </span><span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">u</span><span class="si">}</span><span class="s2">_</span><span class="si">${</span><span class="nv">n</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="w">    </span>git<span class="w"> </span>fetch<span class="w"> </span>--all
+<span class="w">    </span>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>sync<span class="w"> </span>git@你的git服务地址:你的用户名/<span class="si">${</span><span class="nv">u</span><span class="si">}</span>_<span class="si">${</span><span class="nv">n</span><span class="si">}</span>.git
+<span class="w">    </span>git<span class="w"> </span>push<span class="w"> </span>--all<span class="w"> </span>sync
 <span class="k">fi</span>
-<span class="nb">cd</span> ..
+<span class="nb">cd</span><span class="w"> </span>..
 </code></pre></div>
 
 <h2 id="git-clonepushsshyes">git clone和push避免输入ssh询问的yes<a class="headerlink" href="#git-clonepushsshyes" title="Permanent link">&para;</a></h2>
@@ -1899,24 +2097,24 @@ ENABLE_PUSH_CREATE_ORG = true
 <hr />
 <h2 id="git-diff">git diff显示修改后行号<a class="headerlink" href="#git-diff" title="Permanent link">&para;</a></h2>
 <p>参考： <a href="https://stackoverflow.com/questions/8259851/using-git-diff-how-can-i-get-added-and-modified-lines-numbers">https://stackoverflow.com/questions/8259851/using-git-diff-how-can-i-get-added-and-modified-lines-numbers</a></p>
-<div class="codehilite"><pre><span></span><code>diff-lines() {
-    local path=
-    local line=
-    while read; do
-        esc=$&#39;\033&#39;
-        if [[ <span class="nv">$REPLY</span> =~ ---\ (a/)?.* ]]; then
-            continue
-        elif [[ <span class="nv">$REPLY</span> =~ \+\+\+\ (b/)?([^[:blank:]<span class="nv">$esc</span>]+).* ]]; then
-            path=<span class="cp">${</span><span class="n">BASH_REMATCH</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="cp">}</span>
-        elif [[ <span class="nv">$REPLY</span> =~ @@\ -[0-9]+(,[0-9]+)?\ \+([0-9]+)(,[0-9]+)?\ @@.* ]]; then
-            line=<span class="cp">${</span><span class="n">BASH_REMATCH</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="cp">}</span>
-        elif [[ <span class="nv">$REPLY</span> =~ ^(<span class="nv">$esc</span>\[[0-9;]+m)*([\ +-]) ]]; then
-            echo &quot;<span class="nv">$path</span>:<span class="nv">$line</span>:<span class="nv">$REPLY</span>&quot;
-            if [[ <span class="cp">${</span><span class="n">BASH_REMATCH</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="cp">}</span> != - ]]; then
-                ((line++))
-            fi
-        fi
-    done
+<div class="codehilite"><pre><span></span><code>diff-lines()<span class="w"> </span>{
+<span class="w">    </span>local<span class="w"> </span>path=
+<span class="w">    </span>local<span class="w"> </span>line=
+<span class="w">    </span>while<span class="w"> </span>read;<span class="w"> </span>do
+<span class="w">        </span>esc=$&#39;\033&#39;
+<span class="w">        </span>if<span class="w"> </span>[[<span class="w"> </span><span class="nv">$REPLY</span><span class="w"> </span>=~<span class="w"> </span>---\<span class="w"> </span>(a/)?.*<span class="w"> </span>]];<span class="w"> </span>then
+<span class="w">            </span>continue
+<span class="w">        </span>elif<span class="w"> </span>[[<span class="w"> </span><span class="nv">$REPLY</span><span class="w"> </span>=~<span class="w"> </span>\+\+\+\<span class="w"> </span>(b/)?([^[:blank:]<span class="nv">$esc</span>]+).*<span class="w"> </span>]];<span class="w"> </span>then
+<span class="w">            </span>path=<span class="cp">${</span><span class="n">BASH_REMATCH</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="cp">}</span>
+<span class="w">        </span>elif<span class="w"> </span>[[<span class="w"> </span><span class="nv">$REPLY</span><span class="w"> </span>=~<span class="w"> </span>@@\<span class="w"> </span>-[0-9]+(,[0-9]+)?\<span class="w"> </span>\+([0-9]+)(,[0-9]+)?\<span class="w"> </span>@@.*<span class="w"> </span>]];<span class="w"> </span>then
+<span class="w">            </span>line=<span class="cp">${</span><span class="n">BASH_REMATCH</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="cp">}</span>
+<span class="w">        </span>elif<span class="w"> </span>[[<span class="w"> </span><span class="nv">$REPLY</span><span class="w"> </span>=~<span class="w"> </span>^(<span class="nv">$esc</span>\[[0-9;]+m)*([\<span class="w"> </span>+-])<span class="w"> </span>]];<span class="w"> </span>then
+<span class="w">            </span>echo<span class="w"> </span>&quot;<span class="nv">$path</span>:<span class="nv">$line</span>:<span class="nv">$REPLY</span>&quot;
+<span class="w">            </span>if<span class="w"> </span>[[<span class="w"> </span><span class="cp">${</span><span class="n">BASH_REMATCH</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="cp">}</span><span class="w"> </span>!=<span class="w"> </span>-<span class="w"> </span>]];<span class="w"> </span>then
+<span class="w">                </span>((line++))
+<span class="w">            </span>fi
+<span class="w">        </span>fi
+<span class="w">    </span>done
 }
 </code></pre></div>
 
@@ -1924,92 +2122,55 @@ ENABLE_PUSH_CREATE_ORG = true
 <hr />
 <h2 id="gittagcommit">git导出tag与commit关系<a class="headerlink" href="#gittagcommit" title="Permanent link">&para;</a></h2>
 <p>有些时候需要将commit翻译成对应的tag，可以先这样导出再查询：</p>
-<div class="codehilite"><pre><span></span><code>git tag|while read i; do echo <span class="cp">${</span><span class="n">i</span><span class="cp">}</span> `git log -1 --format=&#39;%H&#39; <span class="cp">${</span><span class="n">i</span><span class="cp">}</span>`; done &gt; tags.txt
+<div class="codehilite"><pre><span></span><code>git<span class="w"> </span>tag|while<span class="w"> </span>read<span class="w"> </span>i;<span class="w"> </span>do<span class="w"> </span>echo<span class="w"> </span><span class="cp">${</span><span class="n">i</span><span class="cp">}</span><span class="w"> </span>`git<span class="w"> </span>log<span class="w"> </span>-1<span class="w"> </span>--format=&#39;%H&#39;<span class="w"> </span><span class="cp">${</span><span class="n">i</span><span class="cp">}</span>`;<span class="w"> </span>done<span class="w"> </span>&gt;<span class="w"> </span>tags.txt
 </code></pre></div>
 
 <p>虽然git tag也有<code>--format</code>参数，但没找到可以显示tag对应commit的方法，那就还是老老实实git log呗</p>
-                
-              
-              
-                
 
 
-              
-            </article>
-          </div>
+
+
+
+                
+              </article>
+            </div>
+          
+          
         </div>
+        
       </main>
       
-        
-<footer class="md-footer">
-  
-    <div class="md-footer-nav">
-      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
-        
-          <a href="../ETH/" title="ETH" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
-            <div class="md-footer-nav__button md-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-            </div>
-            <div class="md-footer-nav__title">
-              <div class="md-ellipsis">
-                <span class="md-footer-nav__direction">
-                  Previous
-                </span>
-                ETH
-              </div>
-            </div>
-          </a>
-        
-        
-          <a href="../Jekyll/" title="Jekyll" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
-            <div class="md-footer-nav__title">
-              <div class="md-ellipsis">
-                <span class="md-footer-nav__direction">
-                  Next
-                </span>
-                Jekyll
-              </div>
-            </div>
-            <div class="md-footer-nav__button md-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
-            </div>
-          </a>
-        
-      </nav>
-    </div>
+        <footer class="md-footer">
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
-      <div class="md-footer-copyright">
-        
-          <div class="md-footer-copyright__highlight">
-            <a href=https://beian.miit.gov.cn/>浙ICP备15043819号-2</a>&nbsp;&nbsp;<a target=_blank href=http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33010602007826><img src="/assets/images/beian.png" height=14px>浙公网安备 33010602007826号</p></a>
-          </div>
-        
-        Made with
-        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-          Material for MkDocs
-        </a>
-      </div>
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <a href=https://beian.miit.gov.cn/>浙ICP备15043819号-2</a>&nbsp;&nbsp;<a target=_blank href=http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33010602007826><img src="/assets/images/beian.png" height=14px>浙公网安备 33010602007826号</p></a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
       
     </div>
   </div>
 </footer>
       
     </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
     
-      <script src="../assets/javascripts/vendor.77e55a48.min.js"></script>
-      <script src="../assets/javascripts/bundle.aa3f9871.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
-      
-      <script>
-        app = initialize({
-          base: "..",
-          features: [],
-          search: Object.assign({
-            worker: "../assets/javascripts/worker/search.4ac00218.min.js"
-          }, typeof search !== "undefined" && search)
-        })
-      </script>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.efa0ade1.min.js"></script>
       
         <script src="../assets/js/instantclick.min.js"></script>
       
