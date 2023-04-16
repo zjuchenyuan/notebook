@@ -3567,6 +3567,9 @@ pip install lazy_import
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ts</span><span class="p">))</span><span class="o">==</span><span class="mi">13</span><span class="p">:</span>
         <span class="n">ts</span> <span class="o">=</span> <span class="n">ts</span><span class="o">//</span><span class="mi">1000</span>
     <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">dutc</span><span class="p">(</span><span class="n">ts</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcfromtimestamp</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">)</span>
 </code></pre></div>
 
 <hr />

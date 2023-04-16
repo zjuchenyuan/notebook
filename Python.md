@@ -1550,6 +1550,9 @@ def d(ts):
     if len(str(ts))==13:
         ts = ts//1000
     return datetime.fromtimestamp(ts).strftime("%Y-%m-%d %H:%M:%S")
+
+def dutc(ts):
+    return datetime.utcfromtimestamp(ts).strftime("%Y-%m-%d %H:%M:%S")
 ```
 
 ----
