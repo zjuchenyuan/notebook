@@ -323,3 +323,35 @@ def text_entropy(text):
 - https://pypi.org/project/password-strength/
 - https://github.com/first20hours/google-10000-english/
 
+
+------
+
+## HTTP Server自动git pull
+
+用在github hook自动重启应用
+
+```
+import http.server as BaseHTTPServer
+import os, time
+TARGET=["/app"]
+lasttime = 0
+class APIHandler(BaseHTTPServer.BaseHTTPRequestHandler):
+    def do_POST(self):
+        global lasttime
+        if time.time() - lasttime > 60:
+            lasttime = time.time()
+            for path in TARGET:
+                os.chdir(path)
+                os.system("git pull && docker restart app")
+            data = b"ok"
+        else:
+            data = b"419"
+        self.wfile.write(("HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: %d\r\n\r\n"%len(data)).encode("ascii"))
+        self.wfile.write(data)
+
+if __name__ == "__main__":
+    port = 2228
+    httpd = BaseHTTPServer.HTTPServer(('0.0.0.0', port), APIHandler)
+    httpd.serve_forever()
+```
+
