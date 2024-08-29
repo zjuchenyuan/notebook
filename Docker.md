@@ -1347,3 +1347,26 @@ Environment="NO_PROXY=localhost,127.0.0.1,docker-registry.example.com,.corp"
 # systemctl reload docker
 ```
 
+## 使用mitmproxy观察docker pull流量
+
+```
+wget https://downloads.mitmproxy.org/10.4.2/mitmproxy-10.4.2-linux-x86_64.tar.gz
+tar xvf mitmproxy-10.4.2-linux-x86_64.tar.gz
+./mitmweb -p 8441 --no-web-open-browser --web-port 18441 --web-host 0.0.0.0 --set block_global=false
+cp ~/.mitmproxy/mitmproxy-ca-cert.cer /usr/share/ca-certificates/extra
+echo "extra/mitmproxy-ca-cert.cer" >> /etc/ca-certificates.conf
+update-ca-certificates
+vi /etc/systemd/system/docker.service.d/http-proxy.conf
+systemctl daemon-reload
+systemctl restart docker
+```
+
+`http-proxy.conf` 文件内容
+
+```
+[Service]
+Environment="HTTP_PROXY=http://127.0.0.1:8441"
+Environment="HTTPS_PROXY=http://127.0.0.1:8441"
+```
+
+然后打开 `http://IP:18441` ， 执行 docker pull 命令即可
